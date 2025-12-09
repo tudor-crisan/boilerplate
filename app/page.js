@@ -1,5 +1,10 @@
 
+import ButtonLogin from "@/components/ButtonLogin";
+
 export default function Home() {
+  const isLoggedIn = true;
+  const name = "Tudor";
+
   return (
     <main>
       <h1>
@@ -8,6 +13,7 @@ export default function Home() {
       <div>
         Create a feedback board in minutes, prioritize features, and build produts your customers will love.
       </div>
+      <ButtonLogin isLoggedIn={isLoggedIn} name={name} />
     </main>
   );
 }
