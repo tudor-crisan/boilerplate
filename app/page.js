@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <main>
-      <h1>
+      <h1 style={{ fontSize: '48px', fontWeight: '800', lineHeight: '1' }}>
         Collect customer feedback to build better products
       </h1>
       <div>
