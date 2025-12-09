@@ -1,0 +1,25 @@
+Headline:
+Act on power-users feedback only
+
+Paragraph:
+Save costs, by not shipping what churners want
+
+---
+
+Headline: 
+Feedback from your longterm customers only
+
+How? We pull your stripe customer data, and give a rank to your comitted users, so you can act on trusted insight only
+
+Paragraph:
+Integrates \w stripe, so you know who's voting
+
+Button:
+Collect Valuable Feedback
+
+Link:
+👀 See demo first
+
+Lets face it, not all feedback should be acted on, and some features your loyal customers desperately want, while you might be building based on tyre-kickers feedback
+
+That's bad! And dangerous for roadmap
