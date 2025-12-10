@@ -9,5 +9,9 @@ export default function ButtonLogin({ isLoggedIn }) {
     );
   }
 
-  return <Link href="/login">Login</Link>;
+  return (
+    <Link href="/login" className="btn btn-outline">
+      Login
+    </Link>
+  );
 }
