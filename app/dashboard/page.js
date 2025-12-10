@@ -3,7 +3,7 @@ export default function Dashboard() {
   return (
     <main>
       <h1>
-        Private dashboard
+        Dashboard
       </h1>
     </main>
   );

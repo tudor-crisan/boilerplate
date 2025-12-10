@@ -8,7 +8,6 @@ export default function Home() {
       <SectionHero>
         <ButtonLogin
           isLoggedIn={true}
-          name={"Tudor"}
         />
       </SectionHero>
     </main>
