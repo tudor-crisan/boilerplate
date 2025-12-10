@@ -3,6 +3,13 @@
     "title": "LoyalBoards - Collect customer feedback to build better products",
     "description": "Create a feedback board in minutes, prioritize features, and build produts your customers will love."
   },
+  "ProductHunt": {
+    "taglines": [
+      "Filter-out feedback from loyal stripe customers only",
+      "Prioritize features based on loyal customers only",
+      "Build only what loyal user want (with Stripe integration)"
+    ]
+  },
   "SectionTop": {
     "appName": "LoyalBoards"
   },
@@ -13,6 +20,12 @@
   "SectionPricing": {
     "headline": "A pricing that adapts to your needs",
     "price": "$19",
-    "period": "/month"
+    "period": "/month",
+    "features": [
+      "Unlimited feedback boards",
+      "Unlimited users",
+      "Stripe integration",
+      "Priority support"
+    ]
   }
 }

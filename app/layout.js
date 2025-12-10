@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme={styling.theme}>
       <head>
-        <link rel="icon" type="image/png" sizes="32x32" href="/icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/icon.svg" />
       </head>
       <body>
         {children}

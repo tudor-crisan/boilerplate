@@ -4,16 +4,18 @@ import styling from "@/config/styling.json";
 
 export default function SectionHero() {
   return (
-    <section className={`${styling.section.wrapper} ${styling.section.spacing} text-center`}>
-      <h1 className={`${styling.SectionHero.headline} mb-6`}>
+    <section className={`${styling.section.wrapper} ${styling.section.spacing} text-center space-y-6`}>
+      <h1 className={`${styling.SectionHero.headline}`}>
         {copywriting.SectionHero.headline}
       </h1>
-      <p className={`${styling.SectionHero.paragraph} mb-10`}>
+      <p className={`${styling.SectionHero.paragraph}`}>
         {copywriting.SectionHero.paragraph}
       </p>
-      <ButtonLogin
-        isLoggedIn={true}
-      />
+      <div>
+        <ButtonLogin
+          isLoggedIn={true}
+        />
+      </div>
     </section>
   );
 }

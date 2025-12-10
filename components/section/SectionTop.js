@@ -10,7 +10,7 @@ export default function SectionTop() {
     <section className="bg-base-200">
       <div className={`${styling.section.wrapper} ${styling.SectionTop.positioning} px-4 py-2`}>
         <div className="flex items-center gap-1">
-          <Image src="/icon.png" alt={copywriting.SectionTop.appName} width="32" height="32" />
+          <Image src="/icon.svg" alt={copywriting.SectionTop.appName} width="32" height="32" />
           <span className="font-bold">{copywriting.SectionTop.appName}</span>
         </div>
         <div className="space-x-4 max-md:hidden">
