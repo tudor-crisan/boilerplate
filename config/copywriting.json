@@ -10,7 +10,7 @@
       "Build only what loyal user want (with Stripe integration)"
     ]
   },
-  "SectionTop": {
+  "SectionHeader": {
     "appName": "LoyalBoards",
     "menus": [
       {

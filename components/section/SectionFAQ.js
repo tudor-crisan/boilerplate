@@ -14,8 +14,12 @@ export default function SectionFAQ() {
       {copywriting.SectionFAQ.questions.map((faq, index) => (
         <div className="collapse collapse-arrow bg-base-200 border border-base-300 my-2" key={index}>
           <input type="radio" name="faq-accordion" defaultChecked={!index} />
-          <div className="collapse-title font-semibold text-primary">{faq.question}</div>
-          <div className="collapse-content text-sm">{faq.answer}</div>
+          <div className="collapse-title font-semibold text-primary">
+            {faq.question}
+          </div>
+          <div className="collapse-content text-sm">
+            {faq.answer}
+          </div>
         </div>
       ))}
     </section>

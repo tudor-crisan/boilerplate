@@ -10,7 +10,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme={styling.theme} className={fonts[styling.font].className}>
+    <html
+      lang="en"
+      data-theme={styling.theme}
+      className={`${fonts[styling.font].className} scroll-smooth`}
+    >
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/icon.svg" />
       </head>
