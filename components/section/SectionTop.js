@@ -13,7 +13,7 @@ export default function SectionTop() {
         <div className="font-bold">
           {appName}
         </div>
-        <div className="space-x-4">
+        <div className="space-x-4 max-md:hidden">
           {topMenus.map((menu, index) => (
             <Link href={menu.path} key={index} className="link link-hover">
               {menu.label}
