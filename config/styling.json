@@ -4,14 +4,11 @@
   "section": {
     "wrapper": "max-w-2xl mx-auto",
     "spacing": "py-32 px-8",
-    "label": "text-sm uppercase font-medium text-center text-primary",
-    "headline": "text-3xl lg:text-4xl font-extrabold"
-  },
-  "SectionTop": {
-    "positioning": "flex justify-between items-center"
+    "label": "text-sm uppercase font-bold text-center text-primary",
+    "headline": "md:text-3xl text-2xl font-extrabold leading-none"
   },
   "SectionHero": {
-    "headline": "text-4xl lg:text-5xl font-extrabold leading-none capitalize",
-    "paragraph": "opacity-90"
+    "headline": "md:text-4xl text-3xl font-extrabold leading-none capitalize",
+    "paragraph": "opacity-90 max-md:px-4 px-20"
   }
 }

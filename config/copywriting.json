@@ -11,7 +11,17 @@
     ]
   },
   "SectionTop": {
-    "appName": "LoyalBoards"
+    "appName": "LoyalBoards",
+    "menus": [
+      {
+        "label": "Pricing",
+        "path": "#pricing"
+      },
+      {
+        "label": "FAQ",
+        "path": "#faq"
+      }
+    ]
   },
   "SectionHero": {
     "headline": "Collect customer feedback to build better products",
@@ -31,6 +41,20 @@
   },
   "SectionFAQ": {
     "label": "FAQ",
-    "headline": "Frequently Asked Questions"
+    "headline": "Frequently Asked Questions",
+    "questions": [
+      {
+        "question": "How does the Stripe integration work?",
+        "answer": "LoyalBoards connects to your Stripe account to identify your loyal customers based on their subscription history. This allows you to filter and prioritize feedback from those who are most invested in your product."
+      },
+      {
+        "question": "Can I customize the feedback board?",
+        "answer": "Yes, you can customize the appearance and settings of your feedback board to match your brand and meet your specific needs."
+      },
+      {
+        "question": "Is there a free trial available?",
+        "answer": "Yes, we offer a 14-day free trial so you can explore all the features of LoyalBoards before committing to a subscription."
+      }
+    ]
   }
 }
