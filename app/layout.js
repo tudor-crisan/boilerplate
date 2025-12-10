@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/icon.svg" />
       </head>
-      <body>
+      <body className="select-none">
         {children}
       </body>
     </html>

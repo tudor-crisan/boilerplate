@@ -4,7 +4,7 @@ import ButtonLogin from "@/components/button/ButtonLogin";
 
 export default function SectionPricing() {
   return (
-    <section className="bg-base-200">
+    <section className="bg-base-200" id="pricing">
       <div className={`${styling.section.wrapper} ${styling.section.spacing}`}>
         <p className={`${styling.SectionPricing.label} mb-2`}>
           Pricing
