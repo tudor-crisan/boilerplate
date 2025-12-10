@@ -1,15 +1,8 @@
 
-import SectionHero from "@/components/section/SectionHero";
-import ButtonLogin from "@/components/button/ButtonLogin";
+import PageHome from "@/components/page/PageHome";
 
 export default function Home() {
   return (
-    <main>
-      <SectionHero>
-        <ButtonLogin
-          isLoggedIn={true}
-        />
-      </SectionHero>
-    </main>
+    <PageHome />
   );
 }

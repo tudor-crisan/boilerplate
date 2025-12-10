@@ -1,4 +1,5 @@
 import copywriting from "@/config/copywriting.json";
+import ButtonLogin from "@/components/button/ButtonLogin";
 
 export default function SectionHero({ children }) {
   const { headline, paragraph } = copywriting.SectionHero;
@@ -12,7 +13,9 @@ export default function SectionHero({ children }) {
         <p className="opacity-90 mb-10">
           {paragraph}
         </p>
-        <div>{children}</div>
+        <ButtonLogin
+          isLoggedIn={true}
+        />
       </section>
     </main>
   );
