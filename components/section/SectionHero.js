@@ -5,7 +5,7 @@ export default function SectionHero({ children }) {
   const { headline, paragraph } = copywriting.SectionHero;
 
   return (
-    <section className="text-center py-32 px-8">
+    <section className="text-center py-32 px-8 max-w-3xl mx-auto">
       <h1 className="text-4xl font-extrabold leading-none capitalize mb-6">
         {headline}
       </h1>

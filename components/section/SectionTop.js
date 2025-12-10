@@ -8,19 +8,21 @@ export default function SectionTop() {
   const { topMenus } = menus;
 
   return (
-    <section className="bg-base-200 flex justify-between items-center px-4 py-2">
-      <div className="font-bold">
-        {appName}
-      </div>
-      <div className="space-x-4">
-        {topMenus.map((menu, index) => (
-          <Link href={menu.path} key={index} className="link link-hover">
-            {menu.label}
-          </Link>
-        ))}
-      </div>
-      <div>
-        <ButtonLogin isLoggedIn={false} />
+    <section className="bg-base-200">
+      <div className="flex justify-between items-center px-4 py-2 max-w-3xl mx-auto">
+        <div className="font-bold">
+          {appName}
+        </div>
+        <div className="space-x-4">
+          {topMenus.map((menu, index) => (
+            <Link href={menu.path} key={index} className="link link-hover">
+              {menu.label}
+            </Link>
+          ))}
+        </div>
+        <div>
+          <ButtonLogin isLoggedIn={false} />
+        </div>
       </div>
     </section>
   );
