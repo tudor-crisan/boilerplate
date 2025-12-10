@@ -43,7 +43,10 @@ export default function SectionPricing() {
             ))}
           </ul>
           <div>
-            <ButtonLogin isLoggedIn={true} />
+            <ButtonLogin
+              isLoggedIn={true}
+              extraStyle="w-full"
+            />
           </div>
         </div>
       </div>

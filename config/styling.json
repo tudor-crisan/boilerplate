@@ -1,5 +1,6 @@
 {
   "theme": "dracula",
+  "font": "sen",
   "section": {
     "wrapper": "max-w-2xl mx-auto",
     "spacing": "py-32 px-8"

@@ -1,6 +1,7 @@
 import "./globals.css";
 import styling from "@/config/styling.json";
 import copywriting from "@/config/copywriting.json";
+import fonts from "@/libs/fonts.js";
 
 export const metadata = {
   title: copywriting.Metadata.title,
@@ -9,7 +10,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" data-theme={styling.theme}>
+    <html lang="en" data-theme={styling.theme} className={fonts[styling.font].className}>
       <head>
         <link rel="icon" type="image/png" sizes="32x32" href="/icon.svg" />
       </head>
