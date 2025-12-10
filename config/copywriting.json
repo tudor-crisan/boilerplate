@@ -1,4 +1,7 @@
 {
+  "SectionTop": {
+    "appName": "LoyalBoards"
+  },
   "SectionHero": {
     "headline": "Collect customer feedback to build better products",
     "paragraph": "Create a feedback board in minutes, prioritize features, and build produts your customers will love."

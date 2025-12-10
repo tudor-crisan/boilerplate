@@ -1,0 +1,12 @@
+{
+  "topMenus": [
+    {
+      "label": "Pricing",
+      "path": "#pricing"
+    },
+    {
+      "label": "FAQ",
+      "path": "#faq"
+    }
+  ]
+}
