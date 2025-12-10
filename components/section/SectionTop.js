@@ -2,19 +2,17 @@ import copywriting from "@/config/copywriting.json";
 import menus from "@/config/menus.json";
 import ButtonLogin from "../button/ButtonLogin";
 import Link from "next/link";
+import styling from "@/config/styling.json";
 
 export default function SectionTop() {
-  const { appName } = copywriting.SectionTop;
-  const { topMenus } = menus;
-
   return (
     <section className="bg-base-200">
-      <div className="flex justify-between items-center px-4 py-2 max-w-3xl mx-auto">
+      <div className={`${styling.section.wrapper} ${styling.section.alignment} px-4 py-2`}>
         <div className="font-bold">
-          {appName}
+          {copywriting.SectionTop.appName}
         </div>
         <div className="space-x-4 max-md:hidden">
-          {topMenus.map((menu, index) => (
+          {menus.topMenus.map((menu, index) => (
             <Link href={menu.path} key={index} className="link link-hover">
               {menu.label}
             </Link>

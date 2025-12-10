@@ -1,5 +1,15 @@
 {
-  "defaultTheme": "dracula",
-  "themes": ["light", "dark", "cupcake", "dracula"],
-  "@plugin-daisyui": "themes: light --default, dark --prefersdark, cupcake, dracula;"
+  "headline": {
+    "styling": "text-4xl lg:text-5xl font-extrabold leading-none capitalize"
+  },
+  "section": {
+    "wrapper": "max-w-3xl mx-auto",
+    "spacing": "py-32 px-8",
+    "alignment": "flex justify-between items-center"
+  },
+  "theme": {
+    "default": "dracula",
+    "list": ["light", "dark", "cupcake", "dracula"],
+    "daisyui": "themes: light --default, dark --prefersdark, cupcake, dracula;"
+  }
 }
