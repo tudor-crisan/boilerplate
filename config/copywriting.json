@@ -18,6 +18,7 @@
     "paragraph": "Create a feedback board in minutes, prioritize features, and build produts your customers will love."
   },
   "SectionPricing": {
+    "label": "Pricing",
     "headline": "A pricing that adapts to your needs",
     "price": "$19",
     "period": "/month",
@@ -27,5 +28,9 @@
       "Stripe integration",
       "Priority support"
     ]
+  },
+  "SectionFAQ": {
+    "label": "FAQ",
+    "headline": "Frequently Asked Questions"
   }
 }

@@ -6,10 +6,10 @@ export default function SectionPricing() {
   return (
     <section className="bg-base-200" id="pricing">
       <div className={`${styling.section.wrapper} ${styling.section.spacing}`}>
-        <p className={`${styling.SectionPricing.label} mb-2`}>
-          Pricing
+        <p className={`${styling.section.label} mb-2`}>
+          {copywriting.SectionPricing.label}
         </p>
-        <h2 className={`${styling.SectionPricing.headline} mb-12 text-center`}>
+        <h2 className={`${styling.section.headline} mb-12 text-center`}>
           {copywriting.SectionPricing.headline}
         </h2>
         <div className="p-8 bg-base-100 max-w-96 rounded-3xl mx-auto space-y-6">
