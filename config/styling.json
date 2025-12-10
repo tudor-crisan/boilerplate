@@ -1,15 +1,16 @@
 {
-  "headline": {
-    "styling": "text-4xl lg:text-5xl font-extrabold leading-none capitalize"
-  },
+  "theme": "aqua",
   "section": {
-    "wrapper": "max-w-3xl mx-auto",
+    "wrapper": "max-w-2xl mx-auto",
     "spacing": "py-32 px-8",
-    "alignment": "flex justify-between items-center"
+    "positioning": "flex justify-between items-center"
   },
-  "theme": {
-    "default": "dracula",
-    "list": ["light", "dark", "cupcake", "dracula"],
-    "daisyui": "themes: light --default, dark --prefersdark, cupcake, dracula;"
+  "hero": {
+    "headline": "text-4xl lg:text-5xl font-extrabold leading-none capitalize",
+    "paragraph": "opacity-90"
+  },
+  "pricing": {
+    "headline": "text-3xl lg:text-4xl font-extrabold",
+    "label": "text-sm uppercase font-medium text-center text-primary"
   }
 }

@@ -7,7 +7,7 @@ import styling from "@/config/styling.json";
 export default function SectionTop() {
   return (
     <section className="bg-base-200">
-      <div className={`${styling.section.wrapper} ${styling.section.alignment} px-4 py-2`}>
+      <div className={`${styling.section.wrapper} ${styling.section.positioning} px-4 py-2`}>
         <div className="font-bold">
           {copywriting.SectionTop.appName}
         </div>
