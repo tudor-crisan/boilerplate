@@ -12,6 +12,9 @@
     "svgStyle": "size-6",
     "strokeWidth": 2
   },
+  "homepage": {
+    "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
+  },
   "section": {
     "wrapper": "max-w-2xl mx-auto",
     "spacing": "py-32 px-8",
