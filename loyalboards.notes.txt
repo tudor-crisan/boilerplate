@@ -1,10 +1,20 @@
+
+---
+
+#1
+
 Headline:
 Act on power-users feedback only
 
 Paragraph:
 Save costs, by not shipping what churners want
 
+Problem:
+Spending weeks going in the wrong direction is no fun, that's why we've build LoyalBoards
+
 ---
+
+#2
 
 Headline: 
 Feedback from your longterm customers only
@@ -20,6 +30,5 @@ Collect Valuable Feedback
 Link:
 👀 See demo first
 
-Lets face it, not all feedback should be acted on, and some features your loyal customers desperately want, while you might be building based on tyre-kickers feedback
+Lets face it, not all feedback should be acted on, and some features your loyal customers desperately want!
 
-That's bad! And dangerous for roadmap
