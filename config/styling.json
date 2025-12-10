@@ -1,9 +1,11 @@
 {
-  "theme": "aqua",
+  "theme": "dracula",
+  "top": {
+    "positioning": "flex justify-between items-center"
+  },
   "section": {
     "wrapper": "max-w-2xl mx-auto",
-    "spacing": "py-32 px-8",
-    "positioning": "flex justify-between items-center"
+    "spacing": "py-32 px-8"
   },
   "hero": {
     "headline": "text-4xl lg:text-5xl font-extrabold leading-none capitalize",
