@@ -8,13 +8,9 @@
       "M9 18h6",
       "M10 22h4"
     ],
-    "props": {
-      "wrapper": 7,
-      "icon": 5,
-      "width": 2,
-      "rounded": "md",
-      "text": "base-100"
-    }
+    "wrapperStyle": "size-8 p-1 rounded-md bg-primary text-base-100",
+    "svgStyle": "size-6",
+    "strokeWidth": 2
   },
   "section": {
     "wrapper": "max-w-2xl mx-auto",
@@ -26,6 +22,22 @@
     "headline": "md:text-4xl text-3xl font-extrabold leading-none capitalize text-center sm:text-left",
     "paragraph": "opacity-90 px-4 sm:px-0 text-center sm:text-left",
     "button": "w-full text-center sm:text-left",
-    "hasDemoImage": true
+    "image": {
+      "showImage": false,
+      "path": "/images/demo.jpg",
+      "alt": "Demo Image",
+      "width": 640,
+      "height": 640,
+      "style": "rounded-2xl shadow-md"
+    },
+    "video": {
+      "showVideo": false,
+      "path": "/videos/demo.mp4",
+      "alt": "Demo Video",
+      "width": 840,
+      "height": 540,
+      "wrapper": "w-64",
+      "style": "rounded-2xl shadow-md"
+    }
   }
 }
