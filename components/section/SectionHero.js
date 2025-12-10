@@ -5,10 +5,10 @@ import styling from "@/config/styling.json";
 export default function SectionHero() {
   return (
     <section className={`${styling.section.wrapper} ${styling.section.spacing} text-center`}>
-      <h1 className={`${styling.hero.headline} mb-6`}>
+      <h1 className={`${styling.SectionHero.headline} mb-6`}>
         {copywriting.SectionHero.headline}
       </h1>
-      <p className={`${styling.hero.paragraph} mb-10`}>
+      <p className={`${styling.SectionHero.paragraph} mb-10`}>
         {copywriting.SectionHero.paragraph}
       </p>
       <ButtonLogin

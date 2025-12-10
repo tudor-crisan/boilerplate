@@ -1,18 +1,18 @@
 {
   "theme": "dracula",
-  "top": {
-    "positioning": "flex justify-between items-center"
-  },
   "section": {
     "wrapper": "max-w-2xl mx-auto",
     "spacing": "py-32 px-8"
   },
-  "hero": {
+  "SectionTop": {
+    "positioning": "flex justify-between items-center"
+  },
+  "SectionHero": {
     "headline": "text-4xl lg:text-5xl font-extrabold leading-none capitalize",
     "paragraph": "opacity-90"
   },
-  "pricing": {
-    "headline": "text-3xl lg:text-4xl font-extrabold",
-    "label": "text-sm uppercase font-medium text-center text-primary"
+  "SectionPricing": {
+    "label": "text-sm uppercase font-medium text-center text-primary",
+    "headline": "text-3xl lg:text-4xl font-extrabold"
   }
 }
