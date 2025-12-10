@@ -8,11 +8,13 @@ export default function SectionTop() {
   const { topMenus } = menus;
 
   return (
-    <section className="bg-base-200">
-      <div>{appName}</div>
-      <div>
+    <section className="bg-base-200 flex justify-between items-center px-4 py-2">
+      <div className="font-bold">
+        {appName}
+      </div>
+      <div className="space-x-4">
         {topMenus.map((menu, index) => (
-          <Link href={menu.path} key={index}>
+          <Link href={menu.path} key={index} className="link link-hover">
             {menu.label}
           </Link>
         ))}
