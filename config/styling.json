@@ -8,7 +8,9 @@
     "headline": "md:text-3xl text-2xl font-extrabold leading-none"
   },
   "SectionHero": {
-    "headline": "md:text-4xl text-3xl font-extrabold leading-none capitalize",
-    "paragraph": "opacity-90 max-md:px-4 px-20"
+    "headline": "md:text-4xl text-3xl font-extrabold leading-none capitalize text-center sm:text-left",
+    "paragraph": "opacity-90 px-4 sm:px-0 text-center sm:text-left",
+    "button": "w-full text-center sm:text-left",
+    "hasDemoImage": true
   }
 }
