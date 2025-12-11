@@ -2,8 +2,9 @@ import "./globals.css";
 import styling from "@/config/styling.json";
 import copywriting from "@/config/copywriting.json";
 import FontWrapper from "@/components/base/FontWrapper";
-import ShuffleThemes from "@/components/shuffle/ShuffleThemes";
+import ShuffleLogos from "@/components/shuffle/ShuffleLogos";
 import ShuffleFonts from "@/components/shuffle/ShuffleFonts";
+import ShuffleThemes from "@/components/shuffle/ShuffleThemes";
 
 export const metadata = {
   title: copywriting.Metadata.title,
@@ -29,8 +30,9 @@ export default function RootLayout({ children }) {
         <FontWrapper>
           {children}
         </FontWrapper>
-        <ShuffleThemes />
+        <ShuffleLogos />
         <ShuffleFonts />
+        <ShuffleThemes />
       </body>
     </html>
   );

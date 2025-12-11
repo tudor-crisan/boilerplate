@@ -9,7 +9,7 @@ export default function FontWrapper({ children }) {
   const [fontClass, setFontClass] = useState(defaultFont);
 
   const shuffleFont = () => {
-    if (settings.shuffle.fonts.isEnabled) {
+    if (settings.shuffle.font.isEnabled) {
       const shuffleFont = localStorage.getItem("shuffle-font") || "";
       if (shuffleFont && fonts[shuffleFont]) {
         setFontClass(fonts[shuffleFont].className);

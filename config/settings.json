@@ -1,14 +1,14 @@
 {
   "shuffle": {
-    "fonts": {
+    "font": {
       "isEnabled": false,
       "timeInterval": 3000
     },
-    "logos": {
+    "logo": {
       "isEnabled": false,
-      "timeInterval": 3000
+      "timeInterval": 1000
     },
-    "themes": {
+    "theme": {
       "isEnabled": false,
       "timeInterval": 3000
     }

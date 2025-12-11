@@ -6,7 +6,7 @@ import settings from "@/config/settings";
 
 export default function ShuffleThemes() {
   useEffect(() => {
-    if (!settings.shuffle.themes.isEnabled) return;
+    if (!settings.shuffle.theme.isEnabled) return;
 
     let i = 0;
     const htmlElement = document.documentElement; // safer + faster
@@ -26,7 +26,7 @@ export default function ShuffleThemes() {
         return;
       }
       setTheme();
-    }, settings.shuffle.themes.timeInterval);
+    }, settings.shuffle.theme.timeInterval);
 
     return () => clearInterval(themeInterval);
   }, []);

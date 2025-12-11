@@ -6,7 +6,7 @@ import settings from "@/config/settings";
 
 export default function ShuffleFonts() {
   useEffect(() => {
-    if (!settings.shuffle.fonts.isEnabled) return;
+    if (!settings.shuffle.font.isEnabled) return;
 
     let i = 0;
     const fontKeys = Object.keys(fonts);
@@ -27,7 +27,7 @@ export default function ShuffleFonts() {
         return;
       }
       setFont();
-    }, settings.shuffle.fonts.timeInterval);
+    }, settings.shuffle.font.timeInterval);
 
     return () => clearInterval(fontInterval);
   }, []);
