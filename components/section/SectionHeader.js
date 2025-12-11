@@ -28,9 +28,9 @@ export default function SectionHeader() {
             </Link>
           ))}
         </div>
-        {/* <div>
+        <div>
           <ButtonLogin isLoggedIn={false} />
-        </div> */}
+        </div>
       </div>
     </section>
   );

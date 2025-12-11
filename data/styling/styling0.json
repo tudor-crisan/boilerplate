@@ -1,6 +1,6 @@
 {
   "theme": "lofi",
-  "font": "poppins",
+  "font": "sen",
   "roundness": ["rounded-md", "rounded-2xl"],
   "shadows": ["shadow-md", "shadow-lg"],
   "borders": ["border border-primary"],
@@ -57,12 +57,12 @@
       "style": ""
     },
     "video": {
-      "showVideo": true,
-      "path": "/videos/video4.mp4",
-      "alt": "Demo Video",
-      "width": 840,
-      "height": 540,
-      "wrapper": "w-full sm:w-80",
+      "showVideo": false,
+      "path": "",
+      "alt": "",
+      "width": 0,
+      "height": 0,
+      "wrapper": "",
       "style": ""
     }
   },

@@ -12,12 +12,14 @@ export default function SectionHero() {
     <section className={`${styling.general.wrapper} ${styling.general.spacing}`}>
       <div className="flex flex-col sm:flex-row sm:items-start space-y-12">
         <div className="space-y-6">
-          <h1 className={`${styling.SectionHero.headline} ${styling.SectionHero.positioning}`}>
-            {copywriting.SectionHero.headline}
-          </h1>
-          <p className={`${styling.SectionHero.paragraph} ${styling.SectionHero.positioning}`}>
-            {copywriting.SectionHero.paragraph}
-          </p>
+          <div className="space-y-3">
+            <h1 className={`${styling.SectionHero.headline} ${styling.SectionHero.positioning}`}>
+              {copywriting.SectionHero.headline}
+            </h1>
+            <p className={`${styling.SectionHero.paragraph} ${styling.SectionHero.positioning}`}>
+              {copywriting.SectionHero.paragraph}
+            </p>
+          </div>
           <div className={`${styling.SectionHero.positioning} w-full`}>
             <ButtonLogin
               isLoggedIn={true}
