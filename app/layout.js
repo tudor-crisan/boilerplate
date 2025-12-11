@@ -20,12 +20,12 @@ export default function RootLayout({ children }) {
       <head>
         <link
           rel="icon"
-          type="image/png"
+          type={styling.favicon.type}
           sizes={styling.favicon.sizes}
-          href={styling.favicon.path}
+          href={styling.favicon.href}
         />
       </head>
-      <body className="select-none">
+      <body className={styling.general.body}>
         <FontWrapper>
           {children}
         </FontWrapper>
