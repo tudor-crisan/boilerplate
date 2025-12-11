@@ -1,5 +1,11 @@
 {
+  "copywriting": "copywriting0",
+  "styling": "styling0",
   "shuffle": {
+    "copywriting": {
+      "isEnabled": false,
+      "timeInterval": 3000
+    },
     "font": {
       "isEnabled": false,
       "timeInterval": 3000

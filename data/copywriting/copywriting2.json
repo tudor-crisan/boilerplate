@@ -1,0 +1,60 @@
+{
+  "Metadata": {
+    "title": "Schedule social media content across all platforms effortlessly",
+    "description": "Plan your content calendar weeks ahead, auto-post to multiple networks, and grow your audience consistently."
+  },
+  "ProductHunt": {
+    "taglines": [
+      "AI suggests best posting times based on your audience data",
+      "Auto-schedule posts when your followers are most active",
+      "Maximize engagement with data-driven posting schedules"
+    ]
+  },
+  "SectionHeader": {
+    "name": "ContentCalendar",
+    "menus": [
+      {
+        "label": "Pricing",
+        "path": "#pricing"
+      },
+      {
+        "label": "FAQ",
+        "path": "#faq"
+      }
+    ]
+  },
+  "SectionHero": {
+    "headline": "Schedule social media content across all platforms effortlessly",
+    "paragraph": "Plan your content calendar weeks ahead, auto-post to multiple networks, and grow your audience consistently."
+  },
+  "SectionPricing": {
+    "label": "Pricing",
+    "headline": "A pricing that adapts to your needs",
+    "price": "$39",
+    "period": "/month",
+    "features": [
+      "Connect 10 social accounts",
+      "Unlimited scheduled posts",
+      "Analytics dashboard",
+      "AI-powered optimal timing"
+    ]
+  },
+  "SectionFAQ": {
+    "label": "FAQ",
+    "headline": "Frequently Asked Questions",
+    "questions": [
+      {
+        "question": "Which social platforms are supported?",
+        "answer": "ContentCalendar supports all major platforms including Facebook, Instagram, Twitter, LinkedIn, TikTok, and Pinterest. You can manage all your accounts from one unified dashboard."
+      },
+      {
+        "question": "How accurate is the AI timing recommendation?",
+        "answer": "Our AI analyzes your historical engagement data and audience behavior patterns to recommend posting times. Most users see a 30-40% increase in engagement when following our suggestions."
+      },
+      {
+        "question": "Can multiple team members collaborate?",
+        "answer": "Absolutely! You can invite team members, assign roles, and set approval workflows to ensure content quality before it goes live."
+      }
+    ]
+  }
+}

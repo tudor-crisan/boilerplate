@@ -1,5 +1,5 @@
 import styling from "@/config/styling.json";
-import copywriting from "@/config/copywriting.json";
+import copywriting from "@/libs/copywriting";
 import ButtonLogin from "@/components/button/ButtonLogin";
 
 export default function SectionPricing() {

@@ -1,0 +1,23 @@
+
+import copywriting0 from "@/data/copywriting/copywriting0.json";
+import copywriting1 from "@/data/copywriting/copywriting1.json";
+import copywriting2 from "@/data/copywriting/copywriting2.json";
+import copywriting3 from "@/data/copywriting/copywriting3.json";
+import copywriting4 from "@/data/copywriting/copywriting4.json";
+import copywriting5 from "@/data/copywriting/copywriting5.json";
+import copywriting6 from "@/data/copywriting/copywriting6.json";
+import settings from "@/config/settings.json";
+
+const copywritings = {
+  copywriting0,
+  copywriting1,
+  copywriting2,
+  copywriting3,
+  copywriting4,
+  copywriting5,
+  copywriting6
+}
+
+const currentCopywriting = settings.copywriting;
+
+export default copywritings[currentCopywriting];

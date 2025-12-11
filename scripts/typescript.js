@@ -1,5 +1,5 @@
 import { LandingPageConfigSchema } from '../types/copywriting.schema';
-import copywriting from '../config/copywriting.json';
+import copywriting from '@/libs/copywriting';
 
 try {
   LandingPageConfigSchema.parse(copywriting);

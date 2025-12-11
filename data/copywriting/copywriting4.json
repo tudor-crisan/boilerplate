@@ -1,0 +1,60 @@
+{
+  "Metadata": {
+    "title": "Record meetings and get AI-generated summaries instantly",
+    "description": "Join any video call, capture everything discussed, and receive action items and key decisions automatically extracted."
+  },
+  "ProductHunt": {
+    "taglines": [
+      "AI identifies action items and assigns them to attendees",
+      "Automatically extract tasks and decisions from meetings",
+      "Turn meeting conversations into actionable to-do lists with AI"
+    ]
+  },
+  "SectionHeader": {
+    "name": "MeetingMind",
+    "menus": [
+      {
+        "label": "Pricing",
+        "path": "#pricing"
+      },
+      {
+        "label": "FAQ",
+        "path": "#faq"
+      }
+    ]
+  },
+  "SectionHero": {
+    "headline": "Record meetings and get AI-generated summaries instantly",
+    "paragraph": "Join any video call, capture everything discussed, and receive action items and key decisions automatically extracted."
+  },
+  "SectionPricing": {
+    "label": "Pricing",
+    "headline": "A pricing that adapts to your needs",
+    "price": "$25",
+    "period": "/month",
+    "features": [
+      "Unlimited meeting recordings",
+      "AI-powered transcription",
+      "Automatic action item detection",
+      "Integration with Zoom, Teams, Google Meet"
+    ]
+  },
+  "SectionFAQ": {
+    "label": "FAQ",
+    "headline": "Frequently Asked Questions",
+    "questions": [
+      {
+        "question": "How accurate is the transcription?",
+        "answer": "MeetingMind uses advanced speech recognition with 95%+ accuracy for clear audio. It supports multiple languages and accents, and you can always edit transcripts manually if needed."
+      },
+      {
+        "question": "Is my meeting data secure?",
+        "answer": "Yes, all recordings and transcripts are encrypted end-to-end. We comply with GDPR and SOC 2 standards, and you have full control over who can access your meeting data."
+      },
+      {
+        "question": "Can I share summaries with my team?",
+        "answer": "Absolutely! You can share summaries via email, export to your project management tools, or create a searchable knowledge base of all past meetings."
+      }
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import copywriting from "@/config/copywriting.json";
+import copywriting from "@/libs/copywriting";
 import ButtonLogin from "@/components/button/ButtonLogin";
 import ImageHero from "@/components/base/ImageHero";
 import VideoHero from "@/components/base/VideoHero";

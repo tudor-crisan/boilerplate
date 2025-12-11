@@ -1,4 +1,4 @@
-import copywriting from "@/config/copywriting.json";
+import copywriting from "@/libs/copywriting";
 import ButtonLogin from "@/components/button/ButtonLogin";
 import Link from "next/link";
 import LogoIcon from "@/components/base/LogoIcon";

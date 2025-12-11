@@ -1,4 +1,4 @@
-import copywriting from "@/config/copywriting.json";
+import copywriting from "@/libs/copywriting";
 import styling from "@/config/styling.json";
 
 export default function SectionFAQ() {
