@@ -1,3 +1,4 @@
+"use client";
 import styling from "@/config/styling.json";
 import { useCopywriting } from "@/components/base/CopywritingContext";
 import ButtonLogin from "@/components/button/ButtonLogin";

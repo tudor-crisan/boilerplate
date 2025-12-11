@@ -1,3 +1,4 @@
+"use client";
 import { useCopywriting } from "@/components/base/CopywritingContext";
 import ButtonLogin from "@/components/button/ButtonLogin";
 import ImageHero from "@/components/base/ImageHero";

@@ -1,3 +1,4 @@
+"use client";
 import { useCopywriting } from "@/components/base/CopywritingContext";
 import styling from "@/config/styling.json";
 
