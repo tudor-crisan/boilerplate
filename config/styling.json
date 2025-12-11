@@ -1,37 +1,50 @@
 {
   "theme": "dracula",
-  "font": "sen",
+  "font": "inter",
+  "roundness": ["rounded-md", "rounded-2xl"],
+  "shadows": ["shadow-md", "shadow-lg"],
+  "borders": ["border border-primary"],
+  "links": ["link link-hover"],
   "logo": {
     "showLogo": true,
+    "showText": true,
     "paths": [
       "M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5",
       "M9 18h6",
       "M10 22h4"
     ],
-    "wrapperStyle": "size-8 p-1 rounded-md bg-primary text-base-100",
+    "wrapperStyle": "size-8 p-1 bg-primary text-base-100",
     "svgStyle": "size-6",
-    "strokeWidth": 2
+    "stroke": {
+      "width": 2,
+      "linecap": "round",
+      "linejoin": "round"
+    }
+  },
+  "favicon": {
+    "path": "/images/favicon.png",
+    "sizes": "32x32"
   },
   "homepage": {
     "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
   },
-  "section": {
-    "wrapper": "max-w-2xl mx-auto",
+  "general": {
+    "wrapper": "max-w-3xl mx-auto",
     "spacing": "py-32 px-8",
     "label": "text-sm uppercase font-bold text-center text-primary",
     "headline": "md:text-3xl text-2xl font-extrabold leading-none"
   },
   "SectionHero": {
-    "headline": "md:text-4xl text-3xl font-extrabold leading-none capitalize text-center sm:text-left",
-    "paragraph": "opacity-90 px-4 sm:px-0 text-center sm:text-left",
-    "button": "w-full text-center sm:text-left",
+    "headline": "md:text-4xl text-3xl font-extrabold leading-none capitalize",
+    "paragraph": "opacity-90 px-4 sm:px-0",
+    "positioning": "text-center sm:text-left",
     "image": {
-      "showImage": false,
+      "showImage": true,
       "path": "/images/demo.jpg",
       "alt": "Demo Image",
       "width": 640,
       "height": 640,
-      "style": "rounded-2xl shadow-md"
+      "style": ""
     },
     "video": {
       "showVideo": false,
@@ -40,7 +53,10 @@
       "width": 840,
       "height": 540,
       "wrapper": "w-full sm:w-64",
-      "style": "rounded-2xl shadow-md"
+      "style": ""
     }
+  },
+  "SectionFAQ": {
+    "positioning": "flex flex-col space-y-6"
   }
 }

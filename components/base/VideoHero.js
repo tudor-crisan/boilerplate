@@ -2,19 +2,17 @@ import styling from "@/config/styling.json";
 import { Suspense } from 'react'
 
 export default async function VideoHero() {
-  const { path, alt, width, height, wrapper, style } = styling.SectionHero.video
   return (
     <Suspense fallback={<p>&nbsp;</p>}>
-      <div className={wrapper}>
+      <div className={styling.SectionHero.video.wrapper}>
         <video
           controls
-          autoPlay
-          aria-label={alt}
-          width={width}
-          height={height}
-          className={style}
+          aria-label={styling.SectionHero.video.alt}
+          width={styling.SectionHero.video.width}
+          height={styling.SectionHero.video.height}
+          className={`${styling.roundness[1]} ${styling.shadows[1]} ${styling.SectionHero.video.style}`}
         >
-          <source src={path} type="video/mp4" />
+          <source src={styling.SectionHero.video.path} type="video/mp4" />
         </video>
       </div>
 

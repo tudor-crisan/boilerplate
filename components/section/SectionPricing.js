@@ -5,14 +5,14 @@ import ButtonLogin from "@/components/button/ButtonLogin";
 export default function SectionPricing() {
   return (
     <section className="bg-base-200" id="pricing">
-      <div className={`${styling.section.wrapper} ${styling.section.spacing}`}>
-        <p className={`${styling.section.label} mb-2`}>
+      <div className={`${styling.general.wrapper} ${styling.general.spacing}`}>
+        <p className={`${styling.general.label} mb-2`}>
           {copywriting.SectionPricing.label}
         </p>
-        <h2 className={`${styling.section.headline} mb-12 text-center`}>
+        <h2 className={`${styling.general.headline} mb-12 text-center`}>
           {copywriting.SectionPricing.headline}
         </h2>
-        <div className="p-8 bg-base-100 max-w-96 rounded-3xl mx-auto space-y-6">
+        <div className={`${styling.roundness[1]} ${styling.shadows[1]} p-8 bg-base-100 max-w-96 mx-auto space-y-6`}>
           <div className="flex items-baseline mb-4">
             <div className="text-4xl font-black">
               {copywriting.SectionPricing.price}

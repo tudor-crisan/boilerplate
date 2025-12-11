@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       className={`${fonts[styling.font].className} scroll-smooth`}
     >
       <head>
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png" />
+        <link rel="icon" type="image/png" sizes={styling.favicon.sizes} href={styling.favicon.path} />
       </head>
       <body className="select-none">
         {children}
