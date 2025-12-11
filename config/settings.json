@@ -6,7 +6,7 @@
     },
     "logo": {
       "isEnabled": false,
-      "timeInterval": 1000
+      "timeInterval": 3000
     },
     "theme": {
       "isEnabled": false,

@@ -11,7 +11,7 @@ function svgLogos() {
   const result = {};
 
   for (const [name, svg] of Object.entries(icons)) {
-    const entry = { path: [], circle: [] };
+    const entry = { path: [], circle: [], rect: [] };
 
     // --- Extract <path> d attributes ---
     const pathMatches = [...svg.matchAll(/<path\b[^>]*>/g)];
@@ -29,6 +29,20 @@ function svgLogos() {
       const r = tag.match(/r="([^"]*)"/)?.[1] ?? null;
 
       entry.circle.push([cx, cy, r]);
+    }
+
+    // --- Extract <rect> attributes ---
+    const rectMatches = [...svg.matchAll(/<rect\b[^>]*>/g)];
+    for (const match of rectMatches) {
+      const tag = match[0];
+
+      const x = tag.match(/x="([^"]*)"/)?.[1] ?? null;
+      const y = tag.match(/y="([^"]*)"/)?.[1] ?? null;
+      const width = tag.match(/width="([^"]*)"/)?.[1] ?? null;
+      const height = tag.match(/height="([^"]*)"/)?.[1] ?? null;
+      const rx = tag.match(/rx="([^"]*)"/)?.[1] ?? null;
+
+      entry.rect.push([x, y, width, height, rx]);
     }
 
     result[name] = entry;
