@@ -57,12 +57,12 @@
       "style": ""
     },
     "video": {
-      "showVideo": false,
-      "path": "",
-      "alt": "",
-      "width": 0,
-      "height": 0,
-      "wrapper": "",
+      "showVideo": true,
+      "path": "/videos/video4.mp4",
+      "alt": "Demo Video",
+      "width": 840,
+      "height": 540,
+      "wrapper": "w-full sm:w-80",
       "style": ""
     }
   },
