@@ -1,8 +1,8 @@
 "use client";
-import { useStyling } from "@/components/base/StylingContext";
+import { useStyling } from "@/components/context/ContextStyling";
 import { Suspense } from 'react'
 
-export default function VideoHero() {
+export default function HeroVideo() {
   const { styling } = useStyling();
   return (
     <Suspense fallback={<p>&nbsp;</p>}>

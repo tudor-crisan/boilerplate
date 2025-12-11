@@ -1,5 +1,5 @@
 "use client";
-import { useStyling } from "@/components/base/StylingContext";
+import { useStyling } from "@/components/context/ContextStyling";
 import SectionHero from "@/components/section/SectionHero";
 import SectionHeader from "@/components/section/SectionHeader";
 import SectionPricing from "@/components/section/SectionPricing";

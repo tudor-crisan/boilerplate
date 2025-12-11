@@ -1,7 +1,7 @@
 "use client";
-import { useStyling } from "@/components/base/StylingContext"
+import { useStyling } from "@/components/context/ContextStyling"
 
-export default function BodyWrapper({ children }) {
+export default function WrapperBody({ children }) {
   const { styling } = useStyling();
   return (
     <body className={styling.general.body}>

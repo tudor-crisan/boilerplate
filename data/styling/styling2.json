@@ -35,6 +35,7 @@
     "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
   },
   "general": {
+    "language": "en",
     "html": "scroll-smooth",
     "body": "select-none",
     "wrapper": "max-w-3xl mx-auto",
@@ -48,19 +49,20 @@
     "positioning": "text-center sm:text-left",
     "image": {
       "showImage": true,
-      "path": "/images/demo.jpg",
+      "path": "/images/image2.png",
       "alt": "Demo Image",
       "width": 640,
       "height": 640,
+      "wrapper": "w-full sm:w-64",
       "style": ""
     },
     "video": {
       "showVideo": false,
-      "path": "/videos/demo.mp4",
-      "alt": "Demo Video",
-      "width": 840,
-      "height": 540,
-      "wrapper": "w-full sm:w-64",
+      "path": "",
+      "alt": "",
+      "width": 0,
+      "height": 0,
+      "wrapper": "",
       "style": ""
     }
   },

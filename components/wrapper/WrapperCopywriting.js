@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import copywritings from "@/libs/copywritings.js";
 import settings from "@/config/settings.json";
-import { CopywritingContext } from "@/components/base/CopywritingContext";
+import { ContextCopywriting } from "@/components/context/ContextCopywriting";
 
-export default function CopywritingWrapper({ children }) {
+export default function WrapperCopywriting({ children }) {
   const defaultCopywriting = copywritings[settings.copywriting];
   const [copywriting, setCopywriting] = useState(defaultCopywriting);
 
@@ -24,8 +24,8 @@ export default function CopywritingWrapper({ children }) {
   }, []);
 
   return (
-    <CopywritingContext.Provider value={{ copywriting }}>
+    <ContextCopywriting.Provider value={{ copywriting }}>
       {children}
-    </CopywritingContext.Provider>
+    </ContextCopywriting.Provider>
   );
 }

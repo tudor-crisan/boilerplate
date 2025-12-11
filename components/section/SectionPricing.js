@@ -1,6 +1,6 @@
 "use client";
-import { useStyling } from "@/components/base/StylingContext";
-import { useCopywriting } from "@/components/base/CopywritingContext";
+import { useStyling } from "@/components/context/ContextStyling";
+import { useCopywriting } from "@/components/context/ContextCopywriting";
 import ButtonLogin from "@/components/button/ButtonLogin";
 
 export default function SectionPricing() {

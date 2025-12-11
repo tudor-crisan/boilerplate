@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useStyling } from "@/components/base/StylingContext";
+import { useStyling } from "@/components/context/ContextStyling";
 
 export default function ButtonLogin({ isLoggedIn, extraStyle = '' }) {
   const { styling } = useStyling();

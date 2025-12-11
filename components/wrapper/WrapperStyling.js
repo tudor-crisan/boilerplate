@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import stylings from "@/libs/styling";
 import settings from "@/config/settings.json";
-import { StylingContext } from "@/components/base/StylingContext";
+import { ContextStyling } from "@/components/context/ContextStyling";
 
-export default function StylingWrapper({ children }) {
+export default function WrapperStyling({ children }) {
   const defaultStyling = stylings[settings.styling];
   const [styling, setStyling] = useState(defaultStyling);
 
@@ -24,8 +24,8 @@ export default function StylingWrapper({ children }) {
   }, []);
 
   return (
-    <StylingContext.Provider value={{ styling }}>
+    <ContextStyling.Provider value={{ styling }}>
       {children}
-    </StylingContext.Provider>
+    </ContextStyling.Provider>
   );
 }

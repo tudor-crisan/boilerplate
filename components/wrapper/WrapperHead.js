@@ -1,5 +1,5 @@
 "use client";
-export default function HeadWrapper({ children }) {
+export default function WrapperHead({ children }) {
   return (
     <head>
       {children}

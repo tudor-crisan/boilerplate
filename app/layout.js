@@ -1,41 +1,39 @@
 import "./globals.css";
-
-import HtmlWrapper from "@/components/base/HtmlWrapper";
-import HeadWrapper from "@/components/base/HeadWrapper";
-import BodyWrapper from "@/components/base/BodyWrapper";
-import StylingWrapper from "@/components/base/StylingWrapper";
-import CopywritingWrapper from "@/components/base/CopywritingWrapper";
-import FontWrapper from "@/components/base/FontWrapper";
+import WrapperHtml from "@/components/wrapper/WrapperHtml";
+import WrapperHead from "@/components/wrapper/WrapperHead";
+import WrapperBody from "@/components/wrapper/WrapperBody";
+import WrapperStyling from "@/components/wrapper/WrapperStyling";
+import WrapperCopywriting from "@/components/wrapper/WrapperCopywriting";
+import WrapperFont from "@/components/wrapper/WrapperFont";
 import ShuffleLogos from "@/components/shuffle/ShuffleLogos";
 import ShuffleFonts from "@/components/shuffle/ShuffleFonts";
 import ShuffleThemes from "@/components/shuffle/ShuffleThemes";
 import ShuffleCopywritings from "@/components/shuffle/ShuffleCopywritings";
-import FavIcon from "@/components/base/FavIcon";
+import IconFavicon from "@/components/icon/IconFavicon";
 import ShuffleStylings from "@/components/shuffle/ShuffleStylings";
 import { getMetadata } from "@/libs/seo";
 
 export const metadata = getMetadata();
-
 export default function RootLayout({ children }) {
   return (
-    <StylingWrapper>
-      <HtmlWrapper>
-        <HeadWrapper>
-          <FavIcon />
-        </HeadWrapper>
-        <BodyWrapper>
-          <CopywritingWrapper>
-            <FontWrapper>
+    <WrapperStyling>
+      <WrapperHtml>
+        <WrapperHead>
+          <IconFavicon />
+        </WrapperHead>
+        <WrapperBody>
+          <WrapperCopywriting>
+            <WrapperFont>
               {children}
-            </FontWrapper>
-          </CopywritingWrapper>
+            </WrapperFont>
+          </WrapperCopywriting>
           <ShuffleLogos />
           <ShuffleFonts />
           <ShuffleThemes />
           <ShuffleCopywritings />
           <ShuffleStylings />
-        </BodyWrapper>
-      </HtmlWrapper>
-    </StylingWrapper >
+        </WrapperBody>
+      </WrapperHtml>
+    </WrapperStyling >
   );
 }

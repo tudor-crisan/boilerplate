@@ -1,7 +1,7 @@
 "use client";
-import { useStyling } from "@/components/base/StylingContext";
+import { useStyling } from "@/components/context/ContextStyling";
 
-export default function FavIcon() {
+export default function IconFavicon() {
   const { styling } = useStyling();
   return (
     <link

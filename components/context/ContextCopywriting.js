@@ -1,8 +1,8 @@
 "use client";
 import { createContext, useContext } from "react";
 
-export const CopywritingContext = createContext(null);
+export const ContextCopywriting = createContext(null);
 
 export function useCopywriting() {
-  return useContext(CopywritingContext);
+  return useContext(ContextCopywriting);
 }

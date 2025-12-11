@@ -1,9 +1,9 @@
 "use client";
-import { useCopywriting } from "@/components/base/CopywritingContext";
+import { useCopywriting } from "@/components/context/ContextCopywriting";
 import ButtonLogin from "@/components/button/ButtonLogin";
-import ImageHero from "@/components/base/ImageHero";
-import VideoHero from "@/components/base/VideoHero";
-import { useStyling } from "@/components/base/StylingContext";
+import HeroImage from "@/components/hero/HeroImage";
+import HeroVideo from "@/components/hero/HeroVideo";
+import { useStyling } from "@/components/context/ContextStyling";
 
 export default function SectionHero() {
   const { styling } = useStyling();
@@ -27,10 +27,10 @@ export default function SectionHero() {
 
         <div className="max-w-sm mx-auto pl-0 sm:pl-6">
           {styling.SectionHero.image.showImage && (
-            <ImageHero />
+            <HeroImage />
           )}
           {styling.SectionHero.video.showVideo && (
-            <VideoHero />
+            <HeroVideo />
           )}
         </div>
 
