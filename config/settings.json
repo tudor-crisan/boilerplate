@@ -1,9 +1,15 @@
 {
   "shuffle": {
-    "fonts": false,
-    "logos": false,
+    "fonts": {
+      "isEnabled": false,
+      "timeInterval": 3000
+    },
+    "logos": {
+      "isEnabled": false,
+      "timeInterval": 3000
+    },
     "themes": {
-      "startShuffle": false,
+      "isEnabled": false,
       "timeInterval": 3000
     }
   }

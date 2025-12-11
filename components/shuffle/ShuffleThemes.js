@@ -4,9 +4,9 @@ import { useEffect } from "react";
 import themes from "@/libs/themes";
 import settings from "@/config/settings";
 
-export default function ThemeShuffler() {
+export default function ShuffleThemes() {
   useEffect(() => {
-    if (!settings.shuffle.themes.startShuffle) return;
+    if (!settings.shuffle.themes.isEnabled) return;
 
     let i = 0;
     const htmlElement = document.documentElement; // safer + faster
