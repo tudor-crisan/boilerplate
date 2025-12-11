@@ -1,7 +1,9 @@
-import styling from "@/config/styling.json";
+"use client";
+import { useStyling } from "@/components/base/StylingContext";
 import { Suspense } from 'react'
 
-export default async function VideoHero() {
+export default function VideoHero() {
+  const { styling } = useStyling();
   return (
     <Suspense fallback={<p>&nbsp;</p>}>
       <div className={styling.SectionHero.video.wrapper}>
@@ -15,7 +17,6 @@ export default async function VideoHero() {
           <source src={styling.SectionHero.video.path} type="video/mp4" />
         </video>
       </div>
-
     </Suspense>
   )
 }

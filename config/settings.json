@@ -1,8 +1,13 @@
 {
   "copywriting": "copywriting0",
   "styling": "styling0",
+  "language": "en",
   "shuffle": {
     "copywriting": {
+      "isEnabled": false,
+      "timeInterval": 3000
+    },
+    "styling": {
       "isEnabled": false,
       "timeInterval": 3000
     },

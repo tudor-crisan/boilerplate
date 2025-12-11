@@ -1,9 +1,10 @@
 "use client";
 import { useCopywriting } from "@/components/base/CopywritingContext";
-import styling from "@/config/styling.json";
+import { useStyling } from "@/components/base/StylingContext";
 
 export default function SectionFAQ() {
   const { copywriting } = useCopywriting();
+  const { styling } = useStyling();
   return (
     <section className={`${styling.general.wrapper} ${styling.general.spacing}`} id="faq">
       <div className={`${styling.SectionFAQ.positioning} justify-center`}>

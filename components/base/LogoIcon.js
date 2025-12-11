@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import styling from "@/config/styling.json";
+import { useStyling } from "@/components/base/StylingContext";
 import settings from "@/config/settings.json";
 import logos from "@/libs/logos";
 
 export default function LogoIcon() {
+  const { styling } = useStyling();
   const defaultSettings = styling.logo.svg;
   const [logoSettings, setLogoSettings] = useState(defaultSettings);
 

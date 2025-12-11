@@ -1,9 +1,10 @@
 "use client";
-import styling from "@/config/styling.json";
+import { useStyling } from "@/components/base/StylingContext";
 import { useCopywriting } from "@/components/base/CopywritingContext";
 import ButtonLogin from "@/components/button/ButtonLogin";
 
 export default function SectionPricing() {
+  const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
     <section className="bg-base-200" id="pricing">

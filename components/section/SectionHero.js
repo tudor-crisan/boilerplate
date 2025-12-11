@@ -3,9 +3,10 @@ import { useCopywriting } from "@/components/base/CopywritingContext";
 import ButtonLogin from "@/components/button/ButtonLogin";
 import ImageHero from "@/components/base/ImageHero";
 import VideoHero from "@/components/base/VideoHero";
-import styling from "@/config/styling.json";
+import { useStyling } from "@/components/base/StylingContext";
 
 export default function SectionHero() {
+  const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
     <section className={`${styling.general.wrapper} ${styling.general.spacing}`}>

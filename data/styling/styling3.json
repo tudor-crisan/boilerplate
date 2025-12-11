@@ -1,6 +1,6 @@
 {
-  "theme": "lofi",
-  "font": "poppins",
+  "theme": "garden",
+  "font": "sora",
   "roundness": ["rounded-md", "rounded-2xl"],
   "shadows": ["shadow-md", "shadow-lg"],
   "borders": ["border border-primary"],
@@ -38,7 +38,7 @@
     "html": "scroll-smooth",
     "body": "select-none",
     "wrapper": "max-w-3xl mx-auto",
-    "spacing": "py-32 px-8",
+    "spacing": "py-16 px-8",
     "label": "text-sm uppercase font-bold text-center text-primary",
     "headline": "md:text-3xl text-2xl font-extrabold leading-none"
   },
@@ -55,7 +55,7 @@
       "style": ""
     },
     "video": {
-      "showVideo": false,
+      "showVideo": true,
       "path": "/videos/demo.mp4",
       "alt": "Demo Video",
       "width": 840,

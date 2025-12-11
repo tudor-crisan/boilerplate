@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import fonts from "@/libs/fonts.js";
-import styling from "@/config/styling.json";
+import { useStyling } from "@/components/base/StylingContext";
 import settings from "@/config/settings.json";
 
 export default function FontWrapper({ children }) {
+  const { styling } = useStyling();
   const defaultFont = fonts[styling.font].className;
   const [fontClass, setFontClass] = useState(defaultFont);
 

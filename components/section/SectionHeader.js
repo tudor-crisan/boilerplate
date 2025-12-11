@@ -3,9 +3,10 @@ import { useCopywriting } from "@/components/base/CopywritingContext";
 import ButtonLogin from "@/components/button/ButtonLogin";
 import Link from "next/link";
 import LogoIcon from "@/components/base/LogoIcon";
-import styling from "@/config/styling.json";
+import { useStyling } from "@/components/base/StylingContext";
 
 export default function SectionHeader() {
+  const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
     <section className="bg-base-200">

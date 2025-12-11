@@ -1,7 +1,9 @@
-import styling from "@/config/styling.json";
+"use client";
+import { useStyling } from "@/components/base/StylingContext";
 import Image from "next/image";
 
 export default function ImageHero() {
+  const { styling } = useStyling();
   return (
     <Image
       src={styling.SectionHero.image.path}

@@ -1,4 +1,5 @@
-import styling from "@/config/styling.json";
+"use client";
+import { useStyling } from "@/components/base/StylingContext";
 import SectionHero from "@/components/section/SectionHero";
 import SectionHeader from "@/components/section/SectionHeader";
 import SectionPricing from "@/components/section/SectionPricing";
@@ -12,6 +13,7 @@ const COMPONENT_MAP = {
 };
 
 export default function PageHome() {
+  const { styling } = useStyling();
   return (
     <main>
       {styling.homepage.sections.map((key, index) => {
