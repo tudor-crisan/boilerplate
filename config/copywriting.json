@@ -1,6 +1,6 @@
 {
   "Metadata": {
-    "title": "LoyalBoards - Collect customer feedback to build better products",
+    "title": "Collect customer feedback to build better products",
     "description": "Create a feedback board in minutes, prioritize features, and build produts your customers will love."
   },
   "ProductHunt": {
@@ -11,7 +11,7 @@
     ]
   },
   "SectionHeader": {
-    "appName": "LoyalBoards",
+    "name": "LoyalBoards",
     "menus": [
       {
         "label": "Pricing",

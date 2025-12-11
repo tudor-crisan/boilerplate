@@ -14,7 +14,7 @@ export default function SectionHeader() {
           )}
           {styling.logo.showText && (
             <span className="font-bold">
-              {copywriting.SectionHeader.appName}
+              {copywriting.SectionHeader.name}
             </span>
           )}
         </div>
