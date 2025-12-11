@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 import fonts from "@/libs/fonts";
 import settings from "@/config/settings.json";

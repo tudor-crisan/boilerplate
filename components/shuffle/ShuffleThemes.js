@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 import themes from "@/libs/themes";
 import settings from "@/config/settings.json";
