@@ -1,31 +1,31 @@
 "use client";
 import { useEffect, useState } from "react";
-import fonts from "@/libs/fonts.js";
-import styling from "@/config/styling.json";
-import settings from "@/config/settings.json";
+import copywritings from "@/libs/copywritings.js";
+import settings from "@/data/settings.json";
+import { CopywritingContext } from "@/components/base/CopywritingContext";
 
 export default function CopywritingWrapper({ children }) {
-  const defaultFont = fonts[styling.font].className;
-  const [fontClass, setFontClass] = useState(defaultFont);
+  const defaultCopywriting = copywritings[settings.copywriting];
+  const [copywriting, setCopywriting] = useState(defaultCopywriting);
 
-  const shuffleFont = () => {
-    if (settings.shuffle.font.isEnabled) {
-      const shuffleFont = localStorage.getItem("shuffle-font") || "";
-      if (shuffleFont && fonts[shuffleFont]) {
-        setFontClass(fonts[shuffleFont].className);
+  const shuffleCopywriting = () => {
+    if (settings.shuffle.copywriting.isEnabled) {
+      const shuffleCopywriting = localStorage.getItem("shuffle-copywriting") || "";
+      if (shuffleCopywriting && copywritings[shuffleCopywriting]) {
+        setCopywriting(copywritings[shuffleCopywriting]);
         return;
       }
     }
   }
 
   useEffect(() => {
-    window.addEventListener("shuffle-font", shuffleFont);
-    return () => window.removeEventListener("shuffle-font", shuffleFont);
+    window.addEventListener("shuffle-copywriting", shuffleCopywriting);
+    return () => window.removeEventListener("shuffle-copywriting", shuffleCopywriting);
   }, []);
 
   return (
-    <div className={fontClass}>
+    <CopywritingContext.Provider value={{ copywriting }}>
       {children}
-    </div>
+    </CopywritingContext.Provider>
   );
 }

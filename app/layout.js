@@ -1,10 +1,12 @@
 import "./globals.css";
 import styling from "@/config/styling.json";
-import copywriting from "@/libs/copywriting";
+import { useCopywriting } from "@/components/base/CopywritingContext";
 import FontWrapper from "@/components/base/FontWrapper";
 import ShuffleLogos from "@/components/shuffle/ShuffleLogos";
 import ShuffleFonts from "@/components/shuffle/ShuffleFonts";
 import ShuffleThemes from "@/components/shuffle/ShuffleThemes";
+
+const { copywriting } = useCopywriting();
 
 export const metadata = {
   title: copywriting.Metadata.title,

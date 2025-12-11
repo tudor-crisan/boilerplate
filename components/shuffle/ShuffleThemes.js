@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import themes from "@/libs/themes";
-import settings from "@/config/settings";
+import settings from "@/data/settings";
 
 export default function ShuffleThemes() {
   useEffect(() => {

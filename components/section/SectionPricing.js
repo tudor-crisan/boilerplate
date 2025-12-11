@@ -1,8 +1,9 @@
 import styling from "@/config/styling.json";
-import copywriting from "@/libs/copywriting";
+import { useCopywriting } from "@/components/base/CopywritingContext";
 import ButtonLogin from "@/components/button/ButtonLogin";
 
 export default function SectionPricing() {
+  const { copywriting } = useCopywriting();
   return (
     <section className="bg-base-200" id="pricing">
       <div className={`${styling.general.wrapper} ${styling.general.spacing}`}>

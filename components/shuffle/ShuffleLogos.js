@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import logos from "@/libs/logos";
-import settings from "@/config/settings";
+import settings from "@/data/settings";
 
 export default function ShuffleLogo() {
   useEffect(() => {

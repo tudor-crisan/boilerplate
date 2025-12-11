@@ -1,10 +1,11 @@
-import copywriting from "@/libs/copywriting";
+import { useCopywriting } from "@/components/base/CopywritingContext";
 import ButtonLogin from "@/components/button/ButtonLogin";
 import Link from "next/link";
 import LogoIcon from "@/components/base/LogoIcon";
 import styling from "@/config/styling.json";
 
 export default function SectionHeader() {
+  const { copywriting } = useCopywriting();
   return (
     <section className="bg-base-200">
       <div className={`${styling.general.wrapper} flex justify-between items-center px-4 py-2`}>

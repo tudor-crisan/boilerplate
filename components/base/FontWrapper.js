@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import fonts from "@/libs/fonts.js";
 import styling from "@/config/styling.json";
-import settings from "@/config/settings.json";
+import settings from "@/data/settings.json";
 
 export default function FontWrapper({ children }) {
   const defaultFont = fonts[styling.font].className;
