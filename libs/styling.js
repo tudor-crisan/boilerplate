@@ -14,4 +14,3 @@ const stylings = {
 
 export const styling = stylings[settings.styling];
 export default stylings;
-

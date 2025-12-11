@@ -29,7 +29,7 @@
   "favicon": {
     "type": "image/png",
     "sizes": "32x32",
-    "href": "/images/favicon.png"
+    "href": "/favicon.png"
   },
   "homepage": {
     "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]

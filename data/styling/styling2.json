@@ -29,7 +29,7 @@
   "favicon": {
     "type": "image/png",
     "sizes": "32x32",
-    "href": "/images/favicon.png"
+    "href": "/favicon.png"
   },
   "homepage": {
     "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
@@ -49,7 +49,7 @@
     "positioning": "text-center sm:text-left",
     "image": {
       "showImage": true,
-      "path": "/images/image2.png",
+      "path": "/images/demo1.jpg",
       "alt": "Demo Image",
       "width": 640,
       "height": 640,
