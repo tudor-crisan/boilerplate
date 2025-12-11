@@ -2,6 +2,7 @@ import "./globals.css";
 import styling from "@/config/styling.json";
 import copywriting from "@/config/copywriting.json";
 import fonts from "@/libs/fonts.js";
+import ThemeShuffler from "@/components/dynamic/ThemeShuffler";
 
 export const metadata = {
   title: copywriting.Metadata.title,
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="select-none">
         {children}
+        <ThemeShuffler />
       </body>
     </html>
   );

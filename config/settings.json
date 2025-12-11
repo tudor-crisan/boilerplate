@@ -1,0 +1,10 @@
+{
+  "shuffle": {
+    "fonts": false,
+    "logos": false,
+    "themes": {
+      "startShuffle": false,
+      "timeInterval": 3000
+    }
+  }
+}

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "copywriting": "npx tsx scripts/copywriting.validation.js"
+    "typescript": "npx tsx libs/typescript.js"
   },
   "dependencies": {
     "next": "16.0.8",
