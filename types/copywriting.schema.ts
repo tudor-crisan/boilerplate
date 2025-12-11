@@ -142,7 +142,7 @@ export const SectionFAQSchema = z.object({
  * Main Landing Page Config Schema.
  * Combines all section schemas.
  */
-export const LandingPageConfigSchema = z.object({
+export const CopywritingSchema = z.object({
   Metadata: MetadataSchema,
   ProductHunt: ProductHuntSchema,
   SectionHeader: SectionHeaderSchema,
@@ -152,7 +152,7 @@ export const LandingPageConfigSchema = z.object({
 });
 
 // Export inferred Types for usage in TypeScript code
-export type LandingPageConfig = z.infer<typeof LandingPageConfigSchema>;
+export type Copywriting = z.infer<typeof CopywritingSchema>;
 export type Metadata = z.infer<typeof MetadataSchema>;
 export type ProductHunt = z.infer<typeof ProductHuntSchema>;
 export type SectionHeader = z.infer<typeof SectionHeaderSchema>;
