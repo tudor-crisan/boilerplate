@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import fonts from "@/libs/fonts";
-import settings from "@/data/settings";
+import settings from "@/config/settings.json";
 
 export default function ShuffleFonts() {
   useEffect(() => {

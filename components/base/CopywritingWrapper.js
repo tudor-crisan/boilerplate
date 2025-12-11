@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import copywritings from "@/libs/copywritings.js";
-import settings from "@/data/settings.json";
+import settings from "@/config/settings.json";
 import { CopywritingContext } from "@/components/base/CopywritingContext";
 
 export default function CopywritingWrapper({ children }) {

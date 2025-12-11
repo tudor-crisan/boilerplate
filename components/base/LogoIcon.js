@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import styling from "@/config/styling.json";
-import settings from "@/data/settings.json";
+import settings from "@/config/settings.json";
 import logos from "@/libs/logos";
 
 export default function LogoIcon() {
