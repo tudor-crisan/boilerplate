@@ -5,7 +5,7 @@ export default function LogoIcon() {
     <div className={`${styling.logo.wrapperStyle} ${styling.roundness[0]} ${styling.shadows[0]} inline-flex items-center justify-center`}>
       <svg
         className={styling.logo.svgStyle}
-        viewBox="0 0 24 24"
+        viewBox={styling.logo.viewBox}
         fill="none"
         stroke="currentColor"
         strokeWidth={styling.logo.stroke.width}

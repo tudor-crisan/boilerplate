@@ -1,6 +1,6 @@
 {
-  "theme": "dracula",
-  "font": "inter",
+  "theme": "lofi",
+  "font": "poppins",
   "roundness": ["rounded-md", "rounded-2xl"],
   "shadows": ["shadow-md", "shadow-lg"],
   "borders": ["border border-primary"],
@@ -13,6 +13,7 @@
       "M9 18h6",
       "M10 22h4"
     ],
+    "viewBox": "0 0 24 24",
     "wrapperStyle": "size-8 p-1 bg-primary text-base-100",
     "svgStyle": "size-6",
     "stroke": {
