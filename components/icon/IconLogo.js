@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useStyling } from "@/components/context/ContextStyling";
 import settings from "@/config/settings.json";
-import logos from "@/libs/logos";
+import logos from "@/lists/logos";
 
 export default function IconLogo() {
   const { styling } = useStyling();

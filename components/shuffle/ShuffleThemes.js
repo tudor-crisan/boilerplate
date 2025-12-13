@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import themes from "@/libs/themes";
+import themes from "@/lists/themes";
 import settings from "@/config/settings.json";
 
 export default function ShuffleThemes() {

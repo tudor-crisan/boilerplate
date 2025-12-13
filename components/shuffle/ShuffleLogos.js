@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import logos from "@/libs/logos";
+import logos from "@/lists/logos";
 import settings from "@/config/settings.json";
 
 export default function ShuffleLogo() {

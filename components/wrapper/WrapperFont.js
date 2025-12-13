@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import fonts from "@/libs/fonts.js";
+import fonts from "@/lists/fonts.js";
 import { useStyling } from "@/components/context/ContextStyling";
 import settings from "@/config/settings.json";
 
