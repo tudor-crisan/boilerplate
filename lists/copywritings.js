@@ -1,11 +1,11 @@
 
-import copywriting0 from "@/data/copywriting/copywriting0.json";
-import copywriting1 from "@/data/copywriting/copywriting1.json";
-import copywriting2 from "@/data/copywriting/copywriting2.json";
-import copywriting3 from "@/data/copywriting/copywriting3.json";
-import copywriting4 from "@/data/copywriting/copywriting4.json";
-import copywriting5 from "@/data/copywriting/copywriting5.json";
-import copywriting6 from "@/data/copywriting/copywriting6.json";
+import copywriting0 from "../data/copywriting/copywriting0.json";
+import copywriting1 from "../data/copywriting/copywriting1.json";
+import copywriting2 from "../data/copywriting/copywriting2.json";
+import copywriting3 from "../data/copywriting/copywriting3.json";
+import copywriting4 from "../data/copywriting/copywriting4.json";
+import copywriting5 from "../data/copywriting/copywriting5.json";
+import copywriting6 from "../data/copywriting/copywriting6.json";
 
 export default {
   copywriting0,
