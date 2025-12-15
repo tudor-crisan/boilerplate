@@ -1,23 +1,25 @@
 
+const timeInterval = 3000;
+
 export default {
   "copywriting": {
     "isEnabled": false,
-    "timeInterval": 3000
+    "timeInterval": timeInterval
   },
   "styling": {
     "isEnabled": false,
-    "timeInterval": 3000
+    "timeInterval": timeInterval
   },
   "font": {
     "isEnabled": false,
-    "timeInterval": 3000
+    "timeInterval": timeInterval
   },
   "logo": {
     "isEnabled": false,
-    "timeInterval": 3000
+    "timeInterval": timeInterval
   },
   "theme": {
     "isEnabled": false,
-    "timeInterval": 3000
+    "timeInterval": timeInterval
   }
 }
