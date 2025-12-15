@@ -48,3 +48,26 @@ import styling3 from "../data/styling/styling3.json";
     console.log(`\n❌ Data is invalid! - styling${index}`)
   }
 });
+
+/***************************************************************/
+
+import { VisualSchema } from '../types/visual.schema';
+import visual0 from "../data/visual/visual0.json";
+import visual1 from "../data/visual/visual1.json";
+import visual2 from "../data/visual/visual2.json";
+import visual3 from "../data/visual/visual3.json";
+
+[
+  visual0,
+  visual1,
+  visual2,
+  visual3
+].forEach((visual, index) => {
+  try {
+    VisualSchema.parse(visual);
+    console.log(`\n✅ Data is valid - visual${index}`);
+  } catch (error) {
+    console.error(error);
+    console.log(`\n❌ Data is invalid! - visual${index}`)
+  }
+});

@@ -24,7 +24,7 @@ export const MenuItemSchema = z.object({
  * - menus: max 7 items.
  */
 export const SectionHeaderSchema = z.object({
-  name: z
+  appName: z
     .string()
     .max(30, "App name must be 30 characters or less.")
     .describe("The name of the application displayed in the header."),
