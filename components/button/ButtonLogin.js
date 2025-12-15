@@ -13,7 +13,7 @@ export default function ButtonLogin({ isLoggedIn, extraStyle = '' }) {
   }
 
   return (
-    <Link href="/login" className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-outline ${extraStyle}`}>
+    <Link href="/api/auth/signin" className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-outline ${extraStyle}`}>
       Login
     </Link>
   );
