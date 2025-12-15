@@ -1,11 +1,11 @@
 "use client";
 import { useEffect } from "react";
 import fonts from "@/lists/fonts";
-import settings from "@/config/settings.json";
+import shuffle from "@/libs/shuffle";
 
 export default function ShuffleFonts() {
   useEffect(() => {
-    if (!settings.shuffle.font.isEnabled) return;
+    if (!shuffle.font.isEnabled) return;
 
     let i = 0;
     const fontKeys = Object.keys(fonts);
@@ -26,7 +26,7 @@ export default function ShuffleFonts() {
         return;
       }
       setFont();
-    }, settings.shuffle.font.timeInterval);
+    }, shuffle.font.timeInterval);
 
     return () => clearInterval(fontInterval);
   }, []);

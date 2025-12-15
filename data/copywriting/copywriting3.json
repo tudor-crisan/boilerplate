@@ -1,17 +1,6 @@
 {
-  "Metadata": {
-    "title": "Track business expenses and generate invoices in seconds",
-    "description": "Snap photos of receipts, categorize expenses automatically, and create professional invoices for your clients instantly."
-  },
-  "ProductHunt": {
-    "taglines": [
-      "AI extracts all receipt data from photos automatically",
-      "Scan receipts and auto-fill expense reports instantly",
-      "Turn receipt photos into categorized expenses with AI"
-    ]
-  },
   "SectionHeader": {
-    "name": "InvoiceSnap",
+    "appName": "InvoiceSnap",
     "menus": [
       {
         "label": "Pricing",

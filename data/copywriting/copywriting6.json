@@ -1,17 +1,6 @@
 {
-  "Metadata": {
-    "title": "Sync inventory across all sales channels in real-time",
-    "description": "Connect your Shopify, Amazon, and eBay stores, prevent overselling, and manage stock levels from one central dashboard."
-  },
-  "ProductHunt": {
-    "taglines": [
-      "AI predicts when you'll run out of stock before it happens",
-      "Get low-stock alerts based on sales velocity predictions",
-      "Reorder inventory automatically with AI demand forecasting"
-    ]
-  },
   "SectionHeader": {
-    "name": "StockSync",
+    "appName": "StockSync",
     "menus": [
       {
         "label": "Pricing",

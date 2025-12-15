@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useStyling } from "@/components/context/ContextStyling";
-import settings from "@/config/settings.json";
+import shuffle from "@/libs/shuffle";
 import logos from "@/lists/logos";
 
 export default function IconLogo() {
@@ -10,7 +10,7 @@ export default function IconLogo() {
   const [logoSettings, setLogoSettings] = useState(defaultSettings);
 
   const shuffleLogo = () => {
-    if (settings.shuffle.logo.isEnabled) {
+    if (shuffle.logo.isEnabled) {
       const shuffleLogo = localStorage.getItem("shuffle-logo") || "";
       if (shuffleLogo && logos[shuffleLogo]) {
         setLogoSettings(logos[shuffleLogo]);

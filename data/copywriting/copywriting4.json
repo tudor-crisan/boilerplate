@@ -1,17 +1,6 @@
 {
-  "Metadata": {
-    "title": "Record meetings and get AI-generated summaries instantly",
-    "description": "Join any video call, capture everything discussed, and receive action items and key decisions automatically extracted."
-  },
-  "ProductHunt": {
-    "taglines": [
-      "AI identifies action items and assigns them to attendees",
-      "Automatically extract tasks and decisions from meetings",
-      "Turn meeting conversations into actionable to-do lists with AI"
-    ]
-  },
   "SectionHeader": {
-    "name": "MeetingMind",
+    "appName": "MeetingMind",
     "menus": [
       {
         "label": "Pricing",

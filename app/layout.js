@@ -5,6 +5,7 @@ import WrapperBody from "@/components/wrapper/WrapperBody";
 import WrapperStyling from "@/components/wrapper/WrapperStyling";
 import WrapperCopywriting from "@/components/wrapper/WrapperCopywriting";
 import WrapperFont from "@/components/wrapper/WrapperFont";
+import WrapperShuffle from "@/components/wrapper/WrapperShuffle";
 import ShuffleLogos from "@/components/shuffle/ShuffleLogos";
 import ShuffleFonts from "@/components/shuffle/ShuffleFonts";
 import ShuffleThemes from "@/components/shuffle/ShuffleThemes";
@@ -27,11 +28,13 @@ export default function RootLayout({ children }) {
               {children}
             </WrapperFont>
           </WrapperCopywriting>
-          <ShuffleLogos />
-          <ShuffleFonts />
-          <ShuffleThemes />
-          <ShuffleCopywritings />
-          <ShuffleStylings />
+          <WrapperShuffle>
+            <ShuffleLogos />
+            <ShuffleFonts />
+            <ShuffleThemes />
+            <ShuffleCopywritings />
+            <ShuffleStylings />
+          </WrapperShuffle>
         </WrapperBody>
       </WrapperHtml>
     </WrapperStyling >

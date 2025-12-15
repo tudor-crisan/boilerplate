@@ -1,38 +1,6 @@
 import { z } from "zod";
 
 /**
- * Zod Schema for Metadata.
- * Validation rules:
- * - title: min 10, max 60 characters.
- * - description: min 50, max 160 characters.
- */
-export const MetadataSchema = z.object({
-  title: z
-    .string()
-    .min(10, "Title must be at least 10 characters long for SEO.")
-    .max(60, "Title must be at most 60 characters long for SEO.")
-    .describe("The primary title of the page."),
-  description: z
-    .string()
-    .min(50, "Description must be at least 50 characters.")
-    .max(160, "Description must be at most 160 characters for SEO meta tags.")
-    .describe("A short description of the page content."),
-});
-
-/**
- * Zod Schema for Product Hunt content.
- * Validation rules:
- * - taglines: non-empty array, max 5 items.
- */
-export const ProductHuntSchema = z.object({
-  taglines: z
-    .array(z.string().min(1, "Tagline cannot be empty."))
-    .min(1, "At least one tagline is required.")
-    .max(5, "Maximum of 5 taglines allowed.")
-    .describe("A list of catchy taglines to display."),
-});
-
-/**
  * Zod Schema for Menu Item.
  * Validation rules:
  * - label: max 20 characters.
@@ -143,8 +111,6 @@ export const SectionFAQSchema = z.object({
  * Combines all section schemas.
  */
 export const CopywritingSchema = z.object({
-  Metadata: MetadataSchema,
-  ProductHunt: ProductHuntSchema,
   SectionHeader: SectionHeaderSchema,
   SectionHero: SectionHeroSchema,
   SectionPricing: SectionPricingSchema,
@@ -153,8 +119,6 @@ export const CopywritingSchema = z.object({
 
 // Export inferred Types for usage in TypeScript code
 export type Copywriting = z.infer<typeof CopywritingSchema>;
-export type Metadata = z.infer<typeof MetadataSchema>;
-export type ProductHunt = z.infer<typeof ProductHuntSchema>;
 export type SectionHeader = z.infer<typeof SectionHeaderSchema>;
 export type SectionHero = z.infer<typeof SectionHeroSchema>;
 export type SectionPricing = z.infer<typeof SectionPricingSchema>;

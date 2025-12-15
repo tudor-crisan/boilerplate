@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import copywritings from "@/libs/copywritings.js";
-import settings from "@/config/settings.json";
+import { defaultCopywriting } from "@/libs/defaults";
+import copywritings from "@/lists/copywritings.js";
+import shuffle from "@/libs/shuffle";
 import { ContextCopywriting } from "@/components/context/ContextCopywriting";
 
 export default function WrapperCopywriting({ children }) {
-  const defaultCopywriting = copywritings[settings.copywriting];
   const [copywriting, setCopywriting] = useState(defaultCopywriting);
 
   const shuffleCopywriting = () => {
-    if (settings.shuffle.copywriting.isEnabled) {
+    if (shuffle.copywriting.isEnabled) {
       const shuffleCopywriting = localStorage.getItem("shuffle-copywriting") || "";
       if (shuffleCopywriting && copywritings[shuffleCopywriting]) {
         setCopywriting(copywritings[shuffleCopywriting]);

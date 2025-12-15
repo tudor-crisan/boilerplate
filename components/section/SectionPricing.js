@@ -9,11 +9,11 @@ export default function SectionPricing() {
   const { copywriting } = useCopywriting();
   return (
     <section className="bg-base-200" id="pricing">
-      <div className={`${styling.general.wrapper} ${styling.general.spacing}`}>
+      <div className={`${styling.general.container} ${styling.general.spacing}`}>
         <p className={`${styling.general.label} mb-2`}>
           {copywriting.SectionPricing.label}
         </p>
-        <h2 className={`${styling.general.headline} mb-12 text-center`}>
+        <h2 className={`${styling.general.title} mb-12 text-center`}>
           {copywriting.SectionPricing.headline}
         </h2>
         <div className={`${styling.roundness[1]} ${styling.shadows[1]} p-8 bg-base-100 max-w-96 mx-auto space-y-6`}>

@@ -1,6 +1,6 @@
-import { copywriting } from "@/libs/copywritings";
+import { defaultCopywriting } from "@/libs/defaults";
 
 export const getMetadata = () => ({
-  title: copywriting.Metadata.title,
-  description: copywriting.Metadata.description
+  title: defaultCopywriting.SectionHero.headline,
+  description: defaultCopywriting.SectionHero.paragraph
 });

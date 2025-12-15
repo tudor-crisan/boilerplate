@@ -1,11 +1,11 @@
 "use client";
 import { useEffect } from "react";
 import logos from "@/lists/logos";
-import settings from "@/config/settings.json";
+import shuffle from "@/libs/shuffle";
 
 export default function ShuffleLogo() {
   useEffect(() => {
-    if (!settings.shuffle.logo.isEnabled) return;
+    if (!shuffle.logo.isEnabled) return;
 
     let i = 0;
     const logoKeys = Object.keys(logos);
@@ -26,7 +26,7 @@ export default function ShuffleLogo() {
         return;
       }
       setLogo();
-    }, settings.shuffle.logo.timeInterval);
+    }, shuffle.logo.timeInterval);
 
     return () => clearInterval(logoInterval);
   }, []);

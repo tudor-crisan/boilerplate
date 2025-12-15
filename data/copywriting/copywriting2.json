@@ -1,17 +1,6 @@
 {
-  "Metadata": {
-    "title": "Schedule social media across all platforms",
-    "description": "Plan your content calendar weeks ahead, auto-post to multiple networks, and grow your audience consistently."
-  },
-  "ProductHunt": {
-    "taglines": [
-      "AI suggests best posting times based on your audience data",
-      "Auto-schedule posts when your followers are most active",
-      "Maximize engagement with data-driven posting schedules"
-    ]
-  },
   "SectionHeader": {
-    "name": "ContentCalendar",
+    "appName": "ContentCalendar",
     "menus": [
       {
         "label": "Pricing",

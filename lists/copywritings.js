@@ -1,4 +1,4 @@
-import settings from "@/config/settings.json";
+
 import copywriting0 from "@/data/copywriting/copywriting0.json";
 import copywriting1 from "@/data/copywriting/copywriting1.json";
 import copywriting2 from "@/data/copywriting/copywriting2.json";
@@ -7,7 +7,7 @@ import copywriting4 from "@/data/copywriting/copywriting4.json";
 import copywriting5 from "@/data/copywriting/copywriting5.json";
 import copywriting6 from "@/data/copywriting/copywriting6.json";
 
-const copywritings = {
+export default {
   copywriting0,
   copywriting1,
   copywriting2,
@@ -16,6 +16,3 @@ const copywritings = {
   copywriting5,
   copywriting6
 }
-
-export const copywriting = copywritings[settings.copywriting];
-export default copywritings;

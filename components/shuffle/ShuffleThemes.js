@@ -1,11 +1,11 @@
 "use client";
 import { useEffect } from "react";
 import themes from "@/lists/themes";
-import settings from "@/config/settings.json";
+import shuffle from "@/libs/shuffle";
 
 export default function ShuffleThemes() {
   useEffect(() => {
-    if (!settings.shuffle.theme.isEnabled) return;
+    if (!shuffle.theme.isEnabled) return;
 
     let i = 0;
     const htmlElement = document.documentElement; // safer + faster
@@ -25,7 +25,7 @@ export default function ShuffleThemes() {
         return;
       }
       setTheme();
-    }, settings.shuffle.theme.timeInterval);
+    }, shuffle.theme.timeInterval);
 
     return () => clearInterval(themeInterval);
   }, []);

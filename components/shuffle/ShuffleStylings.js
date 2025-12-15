@@ -1,11 +1,11 @@
 "use client";
 import { useEffect } from "react";
-import stylings from "@/libs/styling";
-import settings from "@/config/settings.json";
+import stylings from "@/lists/stylings";
+import shuffle from "@/libs/shuffle";
 
 export default function ShuffleStylings() {
   useEffect(() => {
-    if (!settings.shuffle.styling.isEnabled) return;
+    if (!shuffle.styling.isEnabled) return;
 
     let i = 0;
     const stylingKeys = Object.keys(stylings);
@@ -26,7 +26,7 @@ export default function ShuffleStylings() {
         return;
       }
       setStyling();
-    }, settings.shuffle.styling.timeInterval);
+    }, shuffle.styling.timeInterval);
 
     return () => clearInterval(stylingInterval);
   }, []);

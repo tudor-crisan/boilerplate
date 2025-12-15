@@ -9,18 +9,18 @@ export default function SectionHero() {
   const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
-    <section className={`${styling.general.wrapper} ${styling.general.spacing}`}>
+    <section className={`${styling.general.container} ${styling.general.spacing}`}>
       <div className="flex flex-col sm:flex-row sm:items-start space-y-12">
         <div className="space-y-6">
           <div className="space-y-3">
-            <h1 className={`${styling.SectionHero.headline} ${styling.SectionHero.positioning}`}>
+            <h1 className={`${styling.SectionHero.headline} ${styling.SectionHero.textalign}`}>
               {copywriting.SectionHero.headline}
             </h1>
-            <p className={`${styling.SectionHero.paragraph} ${styling.SectionHero.positioning}`}>
+            <p className={`${styling.SectionHero.paragraph} ${styling.SectionHero.textalign}`}>
               {copywriting.SectionHero.paragraph}
             </p>
           </div>
-          <div className={`${styling.SectionHero.positioning} w-full`}>
+          <div className={`${styling.SectionHero.textalign} w-full`}>
             <ButtonLogin
               isLoggedIn={true}
             />
@@ -28,10 +28,10 @@ export default function SectionHero() {
         </div>
 
         <div className="max-w-sm mx-auto pl-0 sm:pl-6">
-          {styling.SectionHero.image.showImage && (
+          {styling.SectionHero.HeroImage.show && (
             <HeroImage />
           )}
-          {styling.SectionHero.video.showVideo && (
+          {styling.SectionHero.HeroVideo.show && (
             <HeroVideo />
           )}
         </div>

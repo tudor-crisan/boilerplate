@@ -5,13 +5,13 @@ import Image from "next/image";
 export default function HeroImage() {
   const { styling } = useStyling();
   return (
-    <div className={styling.SectionHero.image.wrapper}>
+    <div className={styling.SectionHero.HeroImage.container}>
       <Image
-        src={styling.SectionHero.image.path}
-        alt={styling.SectionHero.image.alt}
-        className={`${styling.roundness[1]} ${styling.shadows[1]} ${styling.SectionHero.image.style}`}
-        width={styling.SectionHero.image.width}
-        height={styling.SectionHero.image.height}
+        src={styling.SectionHero.HeroImage.image.src}
+        alt={styling.SectionHero.HeroImage.image.alt}
+        className={`${styling.roundness[1]} ${styling.shadows[1]} ${styling.SectionHero.HeroImage.classname}`}
+        width={styling.SectionHero.HeroImage.image.width}
+        height={styling.SectionHero.HeroImage.image.height}
       />
     </div>
   )

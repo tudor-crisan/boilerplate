@@ -1,17 +1,6 @@
 {
-  "Metadata": {
-    "title": "Improve email deliverability and land in the inbox",
-    "description": "Warm up new email accounts gradually, monitor sender reputation, and ensure your cold emails reach prospects' inboxes."
-  },
-  "ProductHunt": {
-    "taglines": [
-      "Automatically warm up domains with real engagement patterns",
-      "Build sender reputation with AI-generated natural conversations",
-      "Reach the inbox with intelligent email warmup sequences"
-    ]
-  },
   "SectionHeader": {
-    "name": "EmailWarmup",
+    "appName": "EmailWarmup",
     "menus": [
       {
         "label": "Pricing",

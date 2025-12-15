@@ -1,15 +1,4 @@
 {
-  "Metadata": {
-    "title": "Streamline team workflows with visual task management",
-    "description": "Create project boards instantly, assign tasks efficiently, and keep your team aligned on what matters most."
-  },
-  "ProductHunt": {
-    "taglines": [
-      "Automatically assign tasks based on team capacity and skills",
-      "Smart workload distribution across your entire team",
-      "Balance workloads with AI-powered task assignment"
-    ]
-  },
   "SectionHeader": {
     "name": "TaskFlow",
     "menus": [

@@ -1,8 +1,8 @@
 {
   "theme": "garden",
   "font": "sora",
-  "roundness": ["rounded-md", "rounded-2xl"],
-  "shadows": ["shadow-md", "shadow-lg"],
+  "roundness": ["rounded-xs", "rounded-md"],
+  "shadows": ["shadow-none", "shadow-sm"],
   "borders": ["border border-primary"],
   "links": ["link link-hover"],
   "logo": {
@@ -38,32 +38,39 @@
     "language": "en",
     "html": "scroll-smooth",
     "body": "select-none",
-    "wrapper": "max-w-4xl mx-auto",
+    "container": "max-w-4xl mx-auto",
     "spacing": "py-16 px-8",
     "label": "text-sm uppercase font-bold text-center text-primary",
-    "headline": "md:text-3xl text-2xl font-extrabold leading-none"
+    "title": "md:text-3xl text-2xl font-extrabold leading-none"
   },
   "SectionHero": {
     "headline": "md:text-4xl text-3xl font-extrabold leading-none capitalize",
     "paragraph": "opacity-90 px-4 sm:px-0",
-    "positioning": "text-center sm:text-left",
-    "image": {
-      "showImage": false,
-      "path": "",
-      "alt": "",
-      "width": 0,
-      "height": 0,
-      "wrapper": "",
-      "style": ""
+    "textalign": "text-center sm:text-left",
+    "HeroImage": {
+      "show": false,
+      "container": "",
+      "image": {
+        "src": "",
+        "alt": "",
+        "width": 0,
+        "height": 0,
+        "classname": ""
+      }
     },
-    "video": {
-      "showVideo": true,
-      "path": "/videos/video3.mp4",
-      "alt": "Demo Video",
-      "width": 840,
-      "height": 540,
-      "wrapper": "w-full sm:w-96",
-      "style": ""
+    "HeroVideo": {
+      "show": true,
+      "container": "w-full sm:w-96",
+      "video": {
+        "arialabel": "Demo Video",
+        "width": 840,
+        "height": 540,
+        "classname": ""
+      },
+      "source": {
+        "src": "/videos/video3.mp4",
+        "type": "video/mp4"
+      }
     }
   },
   "SectionFAQ": {

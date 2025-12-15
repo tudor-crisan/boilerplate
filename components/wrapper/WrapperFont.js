@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import fonts from "@/lists/fonts.js";
 import { useStyling } from "@/components/context/ContextStyling";
-import settings from "@/config/settings.json";
+import shuffle from "@/libs/shuffle";
 
 export default function WrapperFont({ children }) {
   const { styling } = useStyling();
@@ -10,7 +10,7 @@ export default function WrapperFont({ children }) {
   const [fontClass, setFontClass] = useState(defaultFont);
 
   const shuffleFont = () => {
-    if (settings.shuffle.font.isEnabled) {
+    if (shuffle.font.isEnabled) {
       const shuffleFont = localStorage.getItem("shuffle-font") || "";
       if (shuffleFont && fonts[shuffleFont]) {
         setFontClass(fonts[shuffleFont].className);

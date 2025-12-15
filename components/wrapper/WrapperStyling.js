@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
-import stylings from "@/libs/styling";
-import settings from "@/config/settings.json";
+import { defaultStyling } from "@/libs/defaults";
+import stylings from "@/lists/stylings";
+import shuffle from "@/libs/shuffle";
 import { ContextStyling } from "@/components/context/ContextStyling";
 
 export default function WrapperStyling({ children }) {
-  const defaultStyling = stylings[settings.styling];
   const [styling, setStyling] = useState(defaultStyling);
 
   const shuffleStyling = () => {
-    if (settings.shuffle.styling.isEnabled) {
+    if (shuffle.styling.isEnabled) {
       const shuffleStyling = localStorage.getItem("shuffle-styling") || "";
       if (shuffleStyling && stylings[shuffleStyling]) {
         setStyling(stylings[shuffleStyling]);

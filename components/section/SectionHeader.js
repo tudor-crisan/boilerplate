@@ -10,14 +10,14 @@ export default function SectionHeader() {
   const { copywriting } = useCopywriting();
   return (
     <section className="bg-base-200">
-      <div className={`${styling.general.wrapper} flex justify-between items-center px-4 py-2`}>
+      <div className={`${styling.general.container} flex justify-between items-center px-4 py-2`}>
         <div className="flex items-center gap-2">
           {styling.logo.showLogo && (
             <IconLogo />
           )}
           {styling.logo.showText && (
             <span className="font-bold">
-              {copywriting.SectionHeader.name}
+              {copywriting.SectionHeader.appName}
             </span>
           )}
         </div>

@@ -38,32 +38,39 @@
     "language": "en",
     "html": "scroll-smooth",
     "body": "select-none",
-    "wrapper": "max-w-3xl mx-auto",
+    "container": "max-w-3xl mx-auto",
     "spacing": "py-32 px-8",
     "label": "text-sm uppercase font-bold text-center text-primary",
-    "headline": "md:text-3xl text-2xl font-extrabold leading-none"
+    "title": "md:text-3xl text-2xl font-extrabold leading-none"
   },
   "SectionHero": {
     "headline": "md:text-4xl text-3xl font-extrabold leading-none capitalize",
     "paragraph": "opacity-90 px-4 sm:px-0",
-    "positioning": "text-center sm:text-left",
-    "image": {
-      "showImage": false,
-      "path": "",
-      "alt": "",
-      "width": 0,
-      "height": 0,
-      "wrapper": "",
-      "style": ""
+    "textalign": "text-center sm:text-left",
+    "HeroImage": {
+      "show": false,
+      "container": "",
+      "image": {
+        "src": "",
+        "alt": "",
+        "width": 0,
+        "height": 0,
+        "classname": ""
+      }
     },
-    "video": {
-      "showVideo": false,
-      "path": "",
-      "alt": "",
-      "width": 0,
-      "height": 0,
-      "wrapper": "",
-      "style": ""
+    "HeroVideo": {
+      "show": false,
+      "container": "",
+      "video": {
+        "arialabel": "",
+        "width": 0,
+        "height": 0,
+        "classname": ""
+      },
+      "source": {
+        "src": "",
+        "type": ""
+      }
     }
   },
   "SectionFAQ": {

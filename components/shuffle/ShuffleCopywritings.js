@@ -1,11 +1,11 @@
 "use client";
 import { useEffect } from "react";
-import copywritings from "@/libs/copywritings";
-import settings from "@/config/settings.json";
+import copywritings from "@/lists/copywritings";
+import shuffle from "@/libs/shuffle";
 
 export default function ShuffleCopywritings() {
   useEffect(() => {
-    if (!settings.shuffle.copywriting.isEnabled) return;
+    if (!shuffle.copywriting.isEnabled) return;
 
     let i = 0;
     const copywritingKeys = Object.keys(copywritings);
@@ -26,7 +26,7 @@ export default function ShuffleCopywritings() {
         return;
       }
       setCopywriting();
-    }, settings.shuffle.copywriting.timeInterval);
+    }, shuffle.copywriting.timeInterval);
 
     return () => clearInterval(copywritingInterval);
   }, []);
