@@ -15,7 +15,7 @@
   "favicon": {
     "type": "image/png",
     "sizes": "32x32",
-    "href": "/assets/favicon.png"
+    "href": "/assets/favicons/placeholder0.png"
   },
   "homepage": {
     "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
