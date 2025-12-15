@@ -2,7 +2,7 @@
 import { useStyling } from "@/components/context/ContextStyling";
 import { useCopywriting } from "@/components/context/ContextCopywriting";
 import ButtonLogin from "@/components/button/ButtonLogin";
-import IconCheck from "@/components/icon/IconCheck";
+import SvgCheck from "@/components/svg/SvgCheck";
 
 export default function SectionPricing() {
   const { styling } = useStyling();
@@ -28,7 +28,7 @@ export default function SectionPricing() {
           <ul className="space-y-1">
             {copywriting.SectionPricing.features.map((feature, index) => (
               <li key={index} className="flex items-center text-sm gap-1">
-                <IconCheck />
+                <SvgCheck />
                 <p>
                   {feature}
                 </p>

@@ -1,5 +1,5 @@
 
-export default function IconCheck({ size = 'size-4', color = 'text-primary' }) {
+export default function SvgCheck({ size = 'size-4', color = 'text-primary' }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
