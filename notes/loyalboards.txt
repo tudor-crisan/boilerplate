@@ -57,3 +57,15 @@ Discover what loyal fans want by collecting mini-feedbacks
 PIVOT:
 - make it around youtube videos feedback boards, not necesarily, courses, although that can be too
 - have it in sync with the videos from the channel
+
+---
+
+json modifier admin
+- tree structure, going deep
+- different json with name, description, info, rules
+- typeof, string, number, boolean, for the inputs/progress bar/switch/ai text
+- push/pop/rearange/find/filter etc for array, a simple crud
+- object expand with key/values, modify existing ones
+- upload for image/video filepaths
+- multioptions, for tailwind classes, list of logos
+- enums for themes, fonts
