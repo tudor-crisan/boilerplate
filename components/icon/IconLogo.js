@@ -25,15 +25,15 @@ export default function IconLogo() {
   }, []);
 
   return (
-    <div className={`${styling.logo.wrapperStyle} ${styling.roundness[0]} ${styling.shadows[0]} inline-flex items-center justify-center`}>
+    <div className={`${styling.roundness[0]} ${styling.shadows[0]} ${styling.logo.container} inline-flex items-center justify-center`}>
       <svg
-        className={styling.logo.svgStyle}
-        viewBox={styling.logo.viewBox}
-        fill="none"
-        stroke="currentColor"
-        strokeWidth={styling.logo.stroke.width}
-        strokeLinecap={styling.logo.stroke.linecap}
-        strokeLinejoin={styling.logo.stroke.linejoin}
+        className={styling.logo.svg.classname}
+        viewBox={styling.logo.svg.viewbox}
+        fill={styling.logo.svg.fill}
+        stroke={styling.logo.svg.stroke}
+        strokeWidth={styling.logo.svg.strokewidth}
+        strokeLinecap={styling.logo.svg.strokelinecap}
+        strokeLinejoin={styling.logo.svg.strokelinejoin}
       >
         {logoSettings.path.map((d, dIndex) => (
           <path key={dIndex} d={d} />

@@ -12,10 +12,10 @@ export default function SectionHeader() {
     <section className="bg-base-200">
       <div className={`${styling.general.container} flex justify-between items-center px-4 py-2`}>
         <div className="flex items-center gap-2">
-          {styling.logo.showLogo && (
+          {styling.show.logo && (
             <IconLogo />
           )}
-          {styling.logo.showText && (
+          {styling.show.appName && (
             <span className="font-bold">
               {copywriting.SectionHeader.appName}
             </span>

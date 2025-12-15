@@ -1,6 +1,6 @@
 {
   "SectionHeader": {
-    "name": "TaskFlow",
+    "appName": "TaskFlow",
     "menus": [
       {
         "label": "Pricing",
