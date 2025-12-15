@@ -4,9 +4,11 @@ import ButtonLogin from "@/components/button/ButtonLogin";
 import HeroImage from "@/components/hero/HeroImage";
 import HeroVideo from "@/components/hero/HeroVideo";
 import { useStyling } from "@/components/context/ContextStyling";
+import { useVisual } from "@/components/context/ContextVisual";
 
 export default function SectionHero() {
   const { styling } = useStyling();
+  const { visual } = useVisual();
   const { copywriting } = useCopywriting();
   return (
     <section className={`${styling.general.container} ${styling.general.spacing}`}>
@@ -28,10 +30,10 @@ export default function SectionHero() {
         </div>
 
         <div className="max-w-sm mx-auto pl-0 sm:pl-6">
-          {styling.SectionHero.HeroImage.show && (
+          {visual.HeroImage.show && (
             <HeroImage />
           )}
-          {styling.SectionHero.HeroVideo.show && (
+          {visual.HeroVideo.show && (
             <HeroVideo />
           )}
         </div>

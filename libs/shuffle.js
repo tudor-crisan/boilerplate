@@ -1,5 +1,5 @@
 
-const timeInterval = 3000;
+const timeInterval = 1000;
 
 export default {
   "copywriting": {
@@ -7,6 +7,10 @@ export default {
     "timeInterval": timeInterval
   },
   "styling": {
+    "isEnabled": false,
+    "timeInterval": timeInterval
+  },
+  "visual": {
     "isEnabled": false,
     "timeInterval": timeInterval
   },

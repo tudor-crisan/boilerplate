@@ -1,20 +1,22 @@
 "use client";
 import { useStyling } from "@/components/context/ContextStyling";
+import { useVisual } from "@/components/context/ContextVisual";
 import { Suspense } from 'react'
 
 export default function HeroVideo() {
   const { styling } = useStyling();
+  const { visual } = useVisual();
   return (
     <Suspense fallback={<p>&nbsp;</p>}>
-      <div className={styling.SectionHero.HeroVideo.container}>
+      <div className={visual.HeroVideo.container}>
         <video
           controls
-          aria-label={styling.SectionHero.HeroVideo.video.arialabel}
-          width={styling.SectionHero.HeroVideo.video.width}
-          height={styling.SectionHero.HeroVideo.video.height}
-          className={`${styling.roundness[1]} ${styling.shadows[1]} ${styling.SectionHero.HeroVideo.video.classname}`}
+          aria-label={visual.HeroVideo.video.arialabel}
+          width={visual.HeroVideo.video.width}
+          height={visual.HeroVideo.video.height}
+          className={`${styling.roundness[1]} ${styling.shadows[1]} ${visual.HeroVideo.video.classname}`}
         >
-          <source src={styling.SectionHero.HeroVideo.source.src} type={styling.SectionHero.HeroVideo.source.type} />
+          <source src={visual.HeroVideo.source.src} type={visual.HeroVideo.source.type} />
         </video>
       </div>
     </Suspense>

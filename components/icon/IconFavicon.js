@@ -1,14 +1,14 @@
 "use client";
-import { useStyling } from "@/components/context/ContextStyling";
+import { useVisual } from "@/components/context/ContextVisual";
 
 export default function IconFavicon() {
-  const { styling } = useStyling();
+  const { visual } = useVisual();
   return (
     <link
       rel="icon"
-      type={styling.favicon.type}
-      sizes={styling.favicon.sizes}
-      href={styling.favicon.href}
+      type={visual.favicon.type}
+      sizes={visual.favicon.sizes}
+      href={visual.favicon.href}
     />
   )
 }

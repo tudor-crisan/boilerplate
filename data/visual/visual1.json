@@ -1,0 +1,48 @@
+{
+  "logo": {
+    "shape": "play",
+    "container": "size-8 bg-primary text-base-100",
+    "svg": {
+      "classname": "size-4",
+      "viewbox": "0 0 24 24",
+      "fill": "none",
+      "stroke": "currentColor",
+      "strokewidth": 2,
+      "strokelinecap": "round",
+      "strokelinejoin": "round"
+    }
+  },
+  "favicon": {
+    "type": "image/png",
+    "sizes": "32x32",
+    "href": "/assets/favicon.png"
+  },
+  "homepage": {
+    "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
+  },
+  "HeroImage": {
+    "show": false,
+    "container": "",
+    "image": {
+      "src": "",
+      "alt": "",
+      "width": 0,
+      "height": 0,
+      "classname": ""
+    }
+  },
+  "HeroVideo": {
+    "show": false,
+    "container": "",
+    "video": {
+      "arialabel": "",
+      "width": 0,
+      "height": 0,
+      "classname": ""
+    },
+    "source": {
+      "src": "",
+      "type": ""
+    }
+  }
+}

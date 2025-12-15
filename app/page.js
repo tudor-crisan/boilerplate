@@ -1,5 +1,5 @@
 "use client";
-import { useStyling } from "@/components/context/ContextStyling";
+import { useVisual } from "@/components/context/ContextVisual";
 import SectionHero from "@/components/section/SectionHero";
 import SectionHeader from "@/components/section/SectionHeader";
 import SectionPricing from "@/components/section/SectionPricing";
@@ -13,10 +13,10 @@ const COMPONENT_MAP = {
 };
 
 export default function PageHome() {
-  const { styling } = useStyling();
+  const { visual } = useVisual();
   return (
     <main>
-      {styling.homepage.sections.map((key, index) => {
+      {visual.homepage.sections.map((key, index) => {
         const Component = COMPONENT_MAP[key];
         return Component ? <Component key={index} /> : null;
       })}

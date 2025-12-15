@@ -1,13 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useStyling } from "@/components/context/ContextStyling";
+import { useVisual } from "@/components/context/ContextVisual";
 import shuffle from "@/libs/shuffle";
 import logos from "@/lists/logos";
 
 export default function IconLogo() {
   const { styling } = useStyling();
-  const defaultSettings = styling.logo.svg;
-  const [logoSettings, setLogoSettings] = useState(defaultSettings);
+  const { visual } = useVisual();
+  const defaultShape = logos[visual.logo.shape];
+  const [logoSettings, setLogoSettings] = useState(defaultShape);
 
   const shuffleLogo = () => {
     if (shuffle.logo.isEnabled) {
@@ -25,15 +27,15 @@ export default function IconLogo() {
   }, []);
 
   return (
-    <div className={`${styling.roundness[0]} ${styling.shadows[0]} ${styling.logo.container} inline-flex items-center justify-center`}>
+    <div className={`${styling.roundness[0]} ${styling.shadows[0]} ${visual.logo.container} inline-flex items-center justify-center`}>
       <svg
-        className={styling.logo.svg.classname}
-        viewBox={styling.logo.svg.viewbox}
-        fill={styling.logo.svg.fill}
-        stroke={styling.logo.svg.stroke}
-        strokeWidth={styling.logo.svg.strokewidth}
-        strokeLinecap={styling.logo.svg.strokelinecap}
-        strokeLinejoin={styling.logo.svg.strokelinejoin}
+        className={visual.logo.svg.classname}
+        viewBox={visual.logo.svg.viewbox}
+        fill={visual.logo.svg.fill}
+        stroke={visual.logo.svg.stroke}
+        strokeWidth={visual.logo.svg.strokewidth}
+        strokeLinecap={visual.logo.svg.strokelinecap}
+        strokeLinejoin={visual.logo.svg.strokelinejoin}
       >
         {logoSettings.path.map((d, dIndex) => (
           <path key={dIndex} d={d} />

@@ -1,0 +1,48 @@
+{
+  "logo": {
+    "shape": "balloon",
+    "container": "size-8 bg-primary text-base-100",
+    "svg": {
+      "classname": "size-4",
+      "viewbox": "0 0 24 24",
+      "fill": "none",
+      "stroke": "currentColor",
+      "strokewidth": 2,
+      "strokelinecap": "round",
+      "strokelinejoin": "round"
+    }
+  },
+  "favicon": {
+    "type": "image/png",
+    "sizes": "32x32",
+    "href": "/assets/favicon.png"
+  },
+  "homepage": {
+    "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
+  },
+  "HeroImage": {
+    "show": false,
+    "container": "",
+    "image": {
+      "src": "",
+      "alt": "",
+      "width": 0,
+      "height": 0,
+      "classname": ""
+    }
+  },
+  "HeroVideo": {
+    "show": true,
+    "container": "w-full sm:w-96",
+    "video": {
+      "arialabel": "InvoiceSnap Video",
+      "width": 840,
+      "height": 540,
+      "classname": ""
+    },
+    "source": {
+      "src": "/apps/invoicesnap/invoicesnap-herovideo.mp4",
+      "type": "video/mp4"
+    }
+  }
+}

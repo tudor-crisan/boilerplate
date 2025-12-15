@@ -1,17 +1,19 @@
 "use client";
 import { useStyling } from "@/components/context/ContextStyling";
+import { useVisual } from "@/components/context/ContextVisual";
 import Image from "next/image";
 
 export default function HeroImage() {
   const { styling } = useStyling();
+  const { visual } = useVisual();
   return (
-    <div className={styling.SectionHero.HeroImage.container}>
+    <div className={visual.HeroImage.container}>
       <Image
-        src={styling.SectionHero.HeroImage.image.src}
-        alt={styling.SectionHero.HeroImage.image.alt}
-        className={`${styling.roundness[1]} ${styling.shadows[1]} ${styling.SectionHero.HeroImage.classname}`}
-        width={styling.SectionHero.HeroImage.image.width}
-        height={styling.SectionHero.HeroImage.image.height}
+        src={visual.HeroImage.image.src}
+        alt={visual.HeroImage.image.alt}
+        className={`${styling.roundness[1]} ${styling.shadows[1]} ${visual.HeroImage.classname}`}
+        width={visual.HeroImage.image.width}
+        height={visual.HeroImage.image.height}
       />
     </div>
   )
