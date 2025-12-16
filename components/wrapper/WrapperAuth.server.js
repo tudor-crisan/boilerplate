@@ -1,4 +1,5 @@
 import { auth } from "@/libs/auth";
+import { getEmailHandle } from "@/libs/utils";
 import WrapperAuthClient from "./WrapperAuth.client";
 
 export default async function WrapperAuth({ children }) {
@@ -9,7 +10,7 @@ export default async function WrapperAuth({ children }) {
 
   if (authSession.isLoggedIn) {
     authSession.email = sessionAuth.user.email;
-    authSession.name = sessionAuth.user.name || authSession.email;
+    authSession.name = sessionAuth.user.name || getEmailHandle(sessionAuth.user.email, "friend");
     authSession.initials = authSession.name.slice(0, 2).toUpperCase();
   }
 

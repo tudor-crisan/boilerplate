@@ -9,7 +9,7 @@ export default function SectionPricing() {
   const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
-    <section className="bg-base-200" id="pricing">
+    <section id="pricing" className="bg-base-200">
       <div className={`${styling.general.container} ${styling.general.spacing}`}>
         <p className={`${styling.general.label} mb-2`}>
           {copywriting.SectionPricing.label}

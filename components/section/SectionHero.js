@@ -11,7 +11,7 @@ export default function SectionHero() {
   const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
-    <section className={`${styling.general.container} ${styling.general.spacing}`}>
+    <section id="hero" className={`${styling.general.container} ${styling.general.spacing}`}>
       <div className="flex flex-col sm:flex-row sm:items-start space-y-12">
         <div className="space-y-6">
           <div className="space-y-3">

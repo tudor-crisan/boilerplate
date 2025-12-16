@@ -11,7 +11,7 @@ export default function SectionHeader() {
   const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
-    <section className="bg-base-200">
+    <section id="header" className="bg-base-200">
       <div className={`${styling.general.container} flex justify-between items-center px-4 py-2`}>
         <div className="flex items-center gap-2">
           {visual.show.SectionHeader.logo && (
