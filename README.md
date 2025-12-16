@@ -70,6 +70,10 @@ lists/apps.js
 components/shuffle
 components/wrapper/WrapperShuffle.js
 
+arange the app/globals.css
+-change "themes: all" to "themes: <theme>"
+-remove the commented line
+
 keep only what's used in "apps.js"
 lists/copywritings.js
 lists/stylings.js
