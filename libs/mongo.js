@@ -1,15 +1,7 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 
-if (!process.env.MONGO_URI) {
+if (!process.env.MONGO_URI || !process.env.MONGO_DB || !process.env.MONGO_QUERY) {
   throw new Error('Invalid/Missing environment variable: "MONGO_URI"');
-}
-
-if (!process.env.MONGO_DB) {
-  throw new Error('Invalid/Missing environment variable: "MONGO_DB"');
-}
-
-if (!process.env.MONGO_QUERY) {
-  throw new Error('Invalid/Missing environment variable: "MONGO_QUERY"');
 }
 
 const uri = process.env.MONGO_URI + process.env.MONGO_DB + process.env.MONGO_QUERY;

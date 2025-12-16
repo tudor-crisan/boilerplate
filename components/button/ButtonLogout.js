@@ -1,7 +1,7 @@
-"use client";
-import Link from "next/link";
+"use client";;
 import { useStyling } from "@/context/ContextStyling";
 import { useAuth } from "@/context/ContextAuth";
+import { signOut } from "next-auth/react";
 
 export default function ButtonLogout() {
   const { styling } = useStyling();
@@ -9,16 +9,14 @@ export default function ButtonLogout() {
 
   if (isLoggedIn) {
     return (
-      <Link
-        href="/api/auth/signout"
-        className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-primary`}
+      <button
+        className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-base`}
+        onClick={() => signOut()}
       >
         Logout
-      </Link>
+      </button>
     );
   }
 
-  return (
-    <p>Not logged in</p>
-  );
+  return null;
 }
