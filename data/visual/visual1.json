@@ -1,4 +1,19 @@
 {
+  "show": {
+    "SectionHeader": {
+      "logo": true,
+      "appName": true,
+      "menu": true,
+      "button": true
+    },
+    "SectionHero": {
+      "headline": true,
+      "paragraph": true,
+      "button": true,
+      "image": false,
+      "video": false
+    }
+  },
   "logo": {
     "shape": "play",
     "container": "size-8 bg-primary text-base-100",

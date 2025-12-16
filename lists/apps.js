@@ -1,6 +1,6 @@
 export default {
   "loyalboards": {
-    "copywriting": "copywriting0",
+    "copywriting": "copywriting1",
     "styling": "styling0",
     "visual": "visual0"
   },

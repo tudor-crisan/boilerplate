@@ -3,6 +3,7 @@ import WrapperHtml from "@/components/wrapper/WrapperHtml";
 import WrapperHead from "@/components/wrapper/WrapperHead";
 import WrapperBody from "@/components/wrapper/WrapperBody";
 import WrapperStyling from "@/components/wrapper/WrapperStyling";
+import WrapperAuth from "@/components/wrapper/WrapperAuth.server";
 import WrapperCopywriting from "@/components/wrapper/WrapperCopywriting";
 import WrapperVisual from "@/components/wrapper/WrapperVisual";
 import WrapperFont from "@/components/wrapper/WrapperFont";
@@ -26,11 +27,13 @@ export default function RootLayout({ children }) {
             <IconFavicon />
           </WrapperHead>
           <WrapperBody>
-            <WrapperCopywriting>
-              <WrapperFont>
-                {children}
-              </WrapperFont>
-            </WrapperCopywriting>
+            <WrapperAuth>
+              <WrapperCopywriting>
+                <WrapperFont>
+                  {children}
+                </WrapperFont>
+              </WrapperCopywriting>
+            </WrapperAuth>
             <WrapperShuffle>
               <ShuffleLogos />
               <ShuffleFonts />

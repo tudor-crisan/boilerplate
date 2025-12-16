@@ -1,7 +1,8 @@
 "use client";
 import { useStyling } from "@/components/context/ContextStyling";
 import { useCopywriting } from "@/components/context/ContextCopywriting";
-import ButtonLogin from "@/components/button/ButtonLogin";
+import PricingCard from "@/components/pricing/PricingCard";
+import PricingButton from "@/components/pricing/PricingButton";
 import SvgCheck from "@/components/svg/SvgCheck";
 
 export default function SectionPricing() {
@@ -16,7 +17,7 @@ export default function SectionPricing() {
         <h2 className={`${styling.general.title} mb-12 text-center`}>
           {copywriting.SectionPricing.headline}
         </h2>
-        <div className={`${styling.roundness[1]} ${styling.shadows[1]} p-8 bg-base-100 max-w-96 mx-auto space-y-6`}>
+        <PricingCard>
           <div className="flex items-baseline mb-4">
             <div className="text-4xl font-black">
               {copywriting.SectionPricing.price}
@@ -36,12 +37,9 @@ export default function SectionPricing() {
             ))}
           </ul>
           <div>
-            <ButtonLogin
-              isLoggedIn={true}
-              extraStyle="w-full"
-            />
+            <PricingButton className="w-full" />
           </div>
-        </div>
+        </PricingCard>
       </div>
     </section>
   )
