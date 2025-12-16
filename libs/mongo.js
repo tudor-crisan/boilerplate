@@ -4,7 +4,7 @@ if (!process.env.MONGO_URI) {
   throw new Error('Invalid/Missing environment variable: "MONGO_URI"');
 }
 
-const uri = process.env.MONGO_URI + process.env.MONGO_DB;
+const uri = process.env.MONGO_URI + process.env.MONGO_DB + process.env.MONGO_QUERY;
 const options = {
   serverApi: {
     version: ServerApiVersion.v1,

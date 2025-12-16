@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## New app
 
-## Getting Started
-
-First, run the development server:
+Creating and setting-up a new app from the boilerplate
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Create a new database "appName-dev" and "-prod"
+- Create new app in lists/app.js (create files needed)
+- Adjust the copywriting / styling / visuals
+- Adjust the sections / headline / paragraph / cta
+- Choose logo / screenshot favicon
+- Choose hero image or hero video
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy on vercel
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Copy all folders / files
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+Except for
+- .next
+- node_modules
+```
 
-## Learn More
+Change .env / package.json:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+Change the .env variables
+- NEXT_PUBLIC_APP="appName" (eg. loyalboards)
+- MONGO_DB="appName-prod" (eg. LoyalBoards-rprod)
+- RESEND_EMAIL_FROM="appName@" (eg. LoyalBoards@email.tudorcrisan.dev)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Change the package.json
+-"name":"appName" (eg. loyalboards)
+-"version": from "0.0.1" to "0.0.2" (for example)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Remove from package.json
+- scripts: lint, typescript
+- dependencies: zod
+- devDependencies: eslint, eslint-config-next
+```
 
-## Deploy on Vercel
+Remove all unused files:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+keep only the "appName" from lists/apps.js (rest delete)
+lists/apps.js
+components/shuffle
+components/wrapper/WrapperShuffle.js
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+keep only what's used in "apps.js"
+lists/copywritings.js
+lists/stylings.js
+lists/visuals.js
+lists/fonts.js
+lists/logos.js
+lists/themes.js
+
+keep only what's in apps.js (rest files delete)
+data/copywriting
+data/styling
+data/visual
+
+keep only what's in public/apps/"appName" (rest delete all)
+notes/
+public/assets/
+scripts/
+sensitive/
+types/
+README.md
+.env.example
+```
+
+Test locally:
+
+```bash
+- have the .env.local variables
+- run "npm install" then "npm run dev"
+- test in browser at localhost:3000
+```
+
+Git / Vercel deploy
+
+```bash
+* Initialize a new git repository
+* Add all files / commit / push private
+* Vercel - new project, click import
+* Set-up the environment variables
+* Domain - register a $1-2 domain (.my)
+* Basic DNS - set-up the email forwarding (alias tudor.crisan)
+* Advanced DNS - set-up the CNAME / A records (from vercel)
+```

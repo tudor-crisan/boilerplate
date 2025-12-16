@@ -32,7 +32,6 @@ export default function SectionHero() {
             )}
           </div>
         </div>
-
         <div className="max-w-sm mx-auto pl-0 sm:pl-6">
           {visual.show.SectionHero.image && (
             <HeroImage />
@@ -41,7 +40,6 @@ export default function SectionHero() {
             <HeroVideo />
           )}
         </div>
-
       </div>
     </section>
   );
