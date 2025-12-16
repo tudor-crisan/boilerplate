@@ -1,5 +1,5 @@
 "use client";
-import { useVisual } from "@/components/context/ContextVisual";
+import { useVisual } from "@/context/ContextVisual";
 
 export default function IconFavicon() {
   const { visual } = useVisual();

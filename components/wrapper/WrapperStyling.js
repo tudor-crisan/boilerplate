@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { defaultStyling } from "@/libs/defaults";
 import stylings from "@/lists/stylings";
 import shuffle from "@/libs/shuffle";
-import { ContextStyling } from "@/components/context/ContextStyling";
+import { ContextStyling } from "@/context/ContextStyling";
 
 export default function WrapperStyling({ children }) {
   const [styling, setStyling] = useState(defaultStyling);

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { defaultCopywriting } from "@/libs/defaults";
 import copywritings from "@/lists/copywritings.js";
 import shuffle from "@/libs/shuffle";
-import { ContextCopywriting } from "@/components/context/ContextCopywriting";
+import { ContextCopywriting } from "@/context/ContextCopywriting";
 
 export default function WrapperCopywriting({ children }) {
   const [copywriting, setCopywriting] = useState(defaultCopywriting);

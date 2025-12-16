@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useStyling } from "@/components/context/ContextStyling";
-import { useVisual } from "@/components/context/ContextVisual";
+import { useStyling } from "@/context/ContextStyling";
+import { useVisual } from "@/context/ContextVisual";
 import shuffle from "@/libs/shuffle";
 import logos from "@/lists/logos";
 

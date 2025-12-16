@@ -1,6 +1,6 @@
 "use client";
-import { useCopywriting } from "@/components/context/ContextCopywriting";
-import { useStyling } from "@/components/context/ContextStyling";
+import { useCopywriting } from "@/context/ContextCopywriting";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function SectionFAQ() {
   const { copywriting } = useCopywriting();

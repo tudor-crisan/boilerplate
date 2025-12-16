@@ -1,6 +1,6 @@
 "use client";
-import { useStyling } from "@/components/context/ContextStyling";
-import { useVisual } from "@/components/context/ContextVisual";
+import { useStyling } from "@/context/ContextStyling";
+import { useVisual } from "@/context/ContextVisual";
 import Image from "next/image";
 
 export default function HeroImage() {

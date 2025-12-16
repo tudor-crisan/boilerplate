@@ -1,4 +1,4 @@
-import { useStyling } from "@/components/context/ContextStyling";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function PricingCard({ children }) {
   const { styling } = useStyling();

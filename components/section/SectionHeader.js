@@ -1,10 +1,10 @@
 "use client";
-import { useCopywriting } from "@/components/context/ContextCopywriting";
+import { useCopywriting } from "@/context/ContextCopywriting";
 import HeaderButton from "@/components/header/HeaderButton";
 import Link from "next/link";
 import IconLogo from "@/components/icon/IconLogo";
-import { useVisual } from "@/components/context/ContextVisual";
-import { useStyling } from "@/components/context/ContextStyling";
+import { useVisual } from "@/context/ContextVisual";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function SectionHeader() {
   const { visual } = useVisual();

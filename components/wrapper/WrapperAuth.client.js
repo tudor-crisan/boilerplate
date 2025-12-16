@@ -1,6 +1,6 @@
 "use client";
 
-import { ContextAuth } from "@/components/context/ContextAuth";
+import { ContextAuth } from "@/context/ContextAuth";
 
 export default function WrapperAuthClient({ authSession, children }) {
   return (

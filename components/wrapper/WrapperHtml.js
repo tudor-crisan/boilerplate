@@ -1,5 +1,5 @@
 "use client"
-import { useStyling } from "@/components/context/ContextStyling"
+import { useStyling } from "@/context/ContextStyling"
 
 export default function WrapperHtml({ children }) {
   const { styling } = useStyling();

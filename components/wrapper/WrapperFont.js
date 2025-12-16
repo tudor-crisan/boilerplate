@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import fonts from "@/lists/fonts.js";
-import { useStyling } from "@/components/context/ContextStyling";
+import { useStyling } from "@/context/ContextStyling";
 import shuffle from "@/libs/shuffle";
 
 export default function WrapperFont({ children }) {

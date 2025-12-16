@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { defaultVisual } from "@/libs/defaults";
 import visuals from "@/lists/visuals";
 import shuffle from "@/libs/shuffle";
-import { ContextVisual } from "@/components/context/ContextVisual";
+import { ContextVisual } from "@/context/ContextVisual";
 
 export default function WrapperVisual({ children }) {
   const [visual, setVisual] = useState(defaultVisual);

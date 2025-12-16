@@ -1,5 +1,5 @@
 "use client";
-import { useVisual } from "@/components/context/ContextVisual";
+import { useVisual } from "@/context/ContextVisual";
 import SectionHero from "@/components/section/SectionHero";
 import SectionHeader from "@/components/section/SectionHeader";
 import SectionPricing from "@/components/section/SectionPricing";

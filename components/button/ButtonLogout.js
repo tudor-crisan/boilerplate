@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useStyling } from "@/components/context/ContextStyling";
-import { useAuth } from "@/components/context/ContextAuth";
+import { useStyling } from "@/context/ContextStyling";
+import { useAuth } from "@/context/ContextAuth";
 
 export default function ButtonLogout() {
   const { styling } = useStyling();

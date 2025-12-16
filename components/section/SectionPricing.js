@@ -1,6 +1,6 @@
 "use client";
-import { useStyling } from "@/components/context/ContextStyling";
-import { useCopywriting } from "@/components/context/ContextCopywriting";
+import { useStyling } from "@/context/ContextStyling";
+import { useCopywriting } from "@/context/ContextCopywriting";
 import PricingCard from "@/components/pricing/PricingCard";
 import PricingButton from "@/components/pricing/PricingButton";
 import SvgCheck from "@/components/svg/SvgCheck";

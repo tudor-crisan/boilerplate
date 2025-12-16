@@ -1,10 +1,10 @@
 "use client";
-import { useCopywriting } from "@/components/context/ContextCopywriting";
+import { useCopywriting } from "@/context/ContextCopywriting";
 import HeroImage from "@/components/hero/HeroImage";
 import HeroVideo from "@/components/hero/HeroVideo";
 import HeroButton from "@/components/hero/HeroButton";
-import { useStyling } from "@/components/context/ContextStyling";
-import { useVisual } from "@/components/context/ContextVisual";
+import { useStyling } from "@/context/ContextStyling";
+import { useVisual } from "@/context/ContextVisual";
 
 export default function SectionHero() {
   const { visual } = useVisual();
