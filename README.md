@@ -1,14 +1,22 @@
-## New app
+## New app set-up
 
 Creating and setting-up a new app from the boilerplate
 
 ```bash
-- Create a new database "appName-dev" and "-prod"
 - Create new app in lists/app.js (create files needed)
 - Adjust the copywriting / styling / visuals
 - Adjust the sections / headline / paragraph / cta
 - Choose logo / screenshot favicon
 - Choose hero image or hero video
+```
+
+Creating and setting-up 3rd party
+
+```bash
+- Create a new database "appName-dev" and "-prod"
+- Create a new AUTH_SECRET in env - with "npx auth secret"
+- Create a new OAuth at https://console.cloud.google.com/auth/overview
+- Save AUTH_SECRET | GOOGLE_CLIENT_ID | GOOGLE_CLIENT_SECRET inside docs-v3.rtf
 ```
 
 ## Deploy on vercel
@@ -88,4 +96,14 @@ Git / Vercel deploy
 * Domain - register a $1-2 domain (.my)
 * Basic DNS - set-up the email forwarding (alias tudor.crisan)
 * Advanced DNS - set-up the CNAME / A records (from vercel)
+```
+
+## Deploy 3rd party
+
+Publish app in Google OAuth
+
+```bash
+- Go to https://console.cloud.google.com/auth/audience?project=<appName>
+- Select "Audience" on the left
+- Click "Publish app"
 ```
