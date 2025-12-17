@@ -2,13 +2,3 @@
 @plugin "daisyui" {
   themes: all;
 }
-
-/* Hide Next.js dev indicators */
-/* nextjs-portal,
-#__next-build-watcher,
-[data-nextjs-toast] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-} */
