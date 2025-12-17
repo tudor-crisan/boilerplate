@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import { frontendMock } from "@/libs/utils";
 
 export default function FormNewBoard() {
   const [name, setName] = useState("");
@@ -94,6 +95,7 @@ export default function FormNewBoard() {
         </button>
       </div>
       <Toaster />
+      <p>{frontendMock("Board")}</p>
     </form>
   )
 }

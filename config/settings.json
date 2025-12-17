@@ -1,0 +1,15 @@
+{
+  "mocks": {
+    "Board": {
+      "isEnabled": false,
+      "givesError": true,
+      "givesSuccess": false,
+      "responses": {
+        "message": "Board save successfully",
+        "data": { "board": { "name": "NEW BOARD" } },
+        "error": "Not authorized",
+        "errors": { "name": "This is required" }
+      }
+    }
+  }
+}

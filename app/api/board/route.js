@@ -3,48 +3,38 @@ import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
 import Board from "@/models/Board";
-// import { mockSuccessBoard, mockErrorBoard } from "@/libs/mocks";
+import { responseMock, responseSuccess, responseError } from "@/libs/utils";
+import settings from "@/config/settings.json";
 
 export async function POST(req) {
-  // return mockErrorBoard();
+  if (settings.mocks.Board.isEnabled) {
+    return responseMock("Board");
+  };
 
   try {
     const session = await auth();
 
     if (!session) {
-      return NextResponse.json(
-        { error: "Not authorized" },
-        { status: 401 }
-      )
+      return responseError("Not authorized");
     }
 
     const body = await req.json();
 
     if (!body.name) {
-      return NextResponse.json(
-        { error: "Board name is required" },
-        { status: 400 }
-      );
+      return responseError("Board name is required", { name: "This field is required" });
     }
 
     await connectMongo();
 
     const user = await User.findById(session.user.id);
-
-    const board = await Board.create({
-      userId: user._id,
-      name: body.name
-    });
+    const board = await Board.create({ userId: user._id, name: body.name });
 
     user.boards.push(board._id);
     await user.save();
 
-    return NextResponse.json(
-      { message: "Board created succesfully", data: { board } },
-      { status: 200 }
-    );
+    return responseSuccess("Board created succesfully", { board })
 
   } catch (e) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    return responseError(e.message, {}, 500);
   }
 }
