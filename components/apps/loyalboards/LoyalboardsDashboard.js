@@ -7,8 +7,13 @@ export default async function LoyalboardsDashboard() {
   const { boards } = await getUser("boards");
   return (
     <div className="space-y-6">
-      <FormCreate type="Board" />
-      <ListDisplay type="Board" list={boards} />
+      <FormCreate
+        type="Board"
+      />
+      <ListDisplay
+        type="Board"
+        list={boards.reverse()}
+      />
     </div>
   );
 }
