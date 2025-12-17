@@ -1,18 +1,32 @@
 "use client";
 import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 export default function FormNewBoard() {
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (message) {
-      toast(message, { icon: '👏' });
+      toast.success(message);
+      setMessage("");
     }
   }, [message]);
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      setError("");
+    }
+  }, [error]);
+
+  const resetErrors = (input) => {
+    setErrors({ ...errors, [input]: "" })
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,15 +37,12 @@ export default function FormNewBoard() {
     }
 
     try {
-      const response = await fetch("/api/board", {
-        method: "POST",
-        body: JSON.stringify({ name }),
-        headers: {
-          "Content-type": "application/json"
-        }
-      })
+      const res = await axios.post("/api/board", { name });
+      setMessage(res.data?.message || "");
+      setName("");
 
-      const data = await response.json();
+      return;
+
       if (data.error) {
         setError(data.error);
         return;
@@ -43,9 +54,9 @@ export default function FormNewBoard() {
         return
       }
 
-    } catch (e) {
-      setError(e.message);
-      console.error(e);
+    } catch (res) {
+      setError(res.response.data?.error || "");
+      setErrors(res.response.data?.errors || {});
     } finally {
       setIsLoading(false);
     }
@@ -66,14 +77,14 @@ export default function FormNewBoard() {
         <input
           required
           type="text"
-          className={`input ${error && 'input-error'}`}
+          className={`input ${errors["name"] && 'input-error'}`}
           placeholder="Enter board name"
           value={name}
-          onFocus={() => setError("")}
+          onFocus={() => resetErrors("name")}
           onChange={(e) => setName(e.target.value)}
         />
-        {error && (
-          <p className="label text-red-600">{error}</p>
+        {errors["name"] && (
+          <p className="label text-red-600">{errors["name"]}</p>
         )}
       </fieldset>
       <div className="flex">

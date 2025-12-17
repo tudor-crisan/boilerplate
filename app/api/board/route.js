@@ -3,8 +3,11 @@ import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
 import Board from "@/models/Board";
+// import { mockSuccessBoard, mockErrorBoard } from "@/libs/mocks";
 
 export async function POST(req) {
+  // return mockSuccessBoard();
+
   try {
     const session = await auth();
 
@@ -37,7 +40,7 @@ export async function POST(req) {
     await user.save();
 
     return NextResponse.json(
-      { message: "Board created succesfully", board },
+      { message: "Board created succesfully", data: { board } },
       { status: 200 }
     );
 
