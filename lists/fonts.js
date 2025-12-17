@@ -46,7 +46,7 @@ const cabin = Cabin({ weight: ["400", "500", "600", "700"], subsets: ["latin"] }
 const tajawal = Tajawal({ weight: ["300", "400", "500", "700", "800"], subsets: ["latin"] });
 const sen = Sen({ weight: ["400", "600", "700", "800"], subsets: ["latin"] });
 
-export default {
+const fonts = {
   quicksand,
   baloo,
   poppins,
@@ -70,4 +70,6 @@ export default {
   cabin,
   tajawal,
   sen
-};
+}
+
+export default fonts;

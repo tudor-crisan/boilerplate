@@ -1,5 +1,5 @@
 
-export default [
+const domains = [
   [".xyz", "$1.28"],
   [".cyou", "$1.39"],
   [".shop", "$0.48"],
@@ -42,3 +42,5 @@ export default [
   [".wiki", "$2.98"],
   [".pro", "$3.48"],
 ]
+
+export default domains;

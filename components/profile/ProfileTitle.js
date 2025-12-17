@@ -11,7 +11,7 @@ export default function ProfileTitle() {
           Dashboard
         </h1>
         <p>
-          Welcome back <span className="font-bold">"{name}"</span> with intials <span className="font-bold">"{initials}"</span>. You're logged in from <span className="font-bold">"{email}"</span>
+          Welcome back <span className="font-bold">&quot;{name}&quot;</span> with intials <span className="font-bold">&quot;{initials}&quot;</span>. You&apos;re logged in from <span className="font-bold">&quot;{email}&quot;</span>
         </p>
       </div>
     );

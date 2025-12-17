@@ -1,5 +1,5 @@
 
-export default [
+const classnames = [
   "grayscale",
   "invert",
   "brightness-125", // 1.25
@@ -10,3 +10,5 @@ export default [
   "hue-rotate-90", // 90deg
   "sepia"
 ]
+
+export default classnames;

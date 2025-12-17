@@ -130,4 +130,4 @@ export default function FormCreate({ type }) {
       <p>{frontendMock(type)}</p>
     </form>
   )
-} 
+}

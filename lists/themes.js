@@ -1,4 +1,4 @@
-export default [
+const themes = [
   "light",
   "dark",
   "cupcake",
@@ -34,4 +34,6 @@ export default [
   "caramellatte",
   "abyss",
   "silk"
-];
+]
+
+export default themes;

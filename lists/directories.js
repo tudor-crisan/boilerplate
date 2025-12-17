@@ -1,4 +1,4 @@
-export default [
+const directories = [
   "https://peerpush.net/",
   "https://www.hot100.ai/",
   "https://launched.lovable.app/",
@@ -32,3 +32,5 @@ export default [
   "https://producthunt.com",
   "https://foundrlist.com",
 ]
+
+export default directories;

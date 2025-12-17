@@ -1,7 +1,7 @@
 
 const timeInterval = 1000;
 
-export default {
+const shuffle = {
   "copywriting": {
     "isEnabled": false,
     "timeInterval": timeInterval
@@ -27,3 +27,5 @@ export default {
     "timeInterval": timeInterval
   }
 }
+
+export default shuffle;

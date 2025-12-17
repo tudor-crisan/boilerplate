@@ -7,7 +7,7 @@ import copywriting4 from "../data/copywriting/copywriting4.json";
 import copywriting5 from "../data/copywriting/copywriting5.json";
 import copywriting6 from "../data/copywriting/copywriting6.json";
 
-export default {
+const copywritings = {
   copywriting0,
   copywriting1,
   copywriting2,
@@ -16,3 +16,5 @@ export default {
   copywriting5,
   copywriting6
 }
+
+export default copywritings;

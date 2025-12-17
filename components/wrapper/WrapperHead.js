@@ -1,8 +1,10 @@
 "use client";
+import Head from "next/head";
+
 export default function WrapperHead({ children }) {
   return (
-    <head>
+    <Head>
       {children}
-    </head>
+    </Head>
   )
 }

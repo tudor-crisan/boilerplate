@@ -1,4 +1,4 @@
-export default {
+const apps = {
   "loyalboards": {
     "copywriting": "copywriting0",
     "styling": "styling0",
@@ -42,3 +42,5 @@ export default {
     "setting": "setting0"
   }
 }
+
+export default apps;
