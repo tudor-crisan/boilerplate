@@ -4,8 +4,10 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { frontendMock } from "@/libs/utils.client";
+import { useRouter } from "next/navigation";
 
 export default function FormCreate({ type }) {
+  const router = useRouter();
   const { formConfig, inputsConfig } = settings.forms[type];
 
   const defaultInputs = Object.entries(inputsConfig).reduce((acc, entry) => ({
@@ -69,6 +71,7 @@ export default function FormCreate({ type }) {
       if (data.message) {
         setMessage(data.message);
         resetInputs();
+        router.refresh();
         return
       }
 
