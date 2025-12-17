@@ -1,12 +1,6 @@
 import { z } from "zod";
 
-/**
- * Zod Schema for Show toggle configuration.
- */
-export const ShowSchema = z.object({
-  logo: z.boolean().describe("Whether to show the logo."),
-  appName: z.boolean().describe("Whether to show the app name."),
-});
+
 
 /**
  * Zod Schema for General configuration.
@@ -42,22 +36,32 @@ export const SectionFAQSchema = z.object({
 /**
  * Main Styling Config Schema.
  */
+/**
+ * Zod Schema for SectionHeader.
+ */
+export const SectionHeaderSchema = z.object({
+  spacing: z.string().describe("CSS classes for header spacing."),
+});
+
+/**
+ * Main Styling Config Schema.
+ */
 export const StylingSchema = z.object({
   theme: z.string().describe("DaisyUI theme name."),
   font: z.string().describe("Font family name."),
-  show: ShowSchema,
   roundness: z.array(z.string()).describe("Roundness utility classes."),
   shadows: z.array(z.string()).describe("Shadow utility classes."),
   borders: z.array(z.string()).describe("Border utility classes."),
   links: z.array(z.string()).describe("Link utility classes."),
   general: GeneralSchema,
+  SectionHeader: SectionHeaderSchema,
   SectionHero: SectionHeroSchema,
   SectionFAQ: SectionFAQSchema,
 });
 
 // Export inferred Types for usage in TypeScript code
 export type Styling = z.infer<typeof StylingSchema>;
-export type Show = z.infer<typeof ShowSchema>;
+
 export type General = z.infer<typeof GeneralSchema>;
 export type SectionHero = z.infer<typeof SectionHeroSchema>;
 export type SectionFAQ = z.infer<typeof SectionFAQSchema>;

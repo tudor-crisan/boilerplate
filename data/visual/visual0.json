@@ -37,6 +37,7 @@
     "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
   },
   "HeroImage": {
+    "show": false,
     "container": "",
     "image": {
       "src": "",
@@ -47,6 +48,7 @@
     }
   },
   "HeroVideo": {
+    "show": false,
     "container": "",
     "video": {
       "arialabel": "",

@@ -82,7 +82,31 @@ export const HeroVideoSchema = z.object({
 /**
  * Main Visual Config Schema.
  */
+/**
+ * Zod Schema for Show toggle configuration.
+ */
+export const ShowSchema = z.object({
+    SectionHeader: z.object({
+        top: z.boolean(),
+        logo: z.boolean(),
+        appName: z.boolean(),
+        menu: z.boolean(),
+        button: z.boolean(),
+    }).describe("Toggle visibility for SectionHeader components."),
+    SectionHero: z.object({
+        headline: z.boolean(),
+        paragraph: z.boolean(),
+        button: z.boolean(),
+        image: z.boolean(),
+        video: z.boolean(),
+    }).describe("Toggle visibility for SectionHero components."),
+});
+
+/**
+ * Main Visual Config Schema.
+ */
 export const VisualSchema = z.object({
+    show: ShowSchema,
     logo: LogoSchema,
     favicon: FaviconSchema,
     homepage: HomepageSchema,

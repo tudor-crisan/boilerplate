@@ -40,3 +40,18 @@ Object.values(visuals).forEach((visual, index) => {
     console.log(`\n❌ Data is invalid! - visual${index}`)
   }
 });
+
+/***************************************************************/
+
+import { SettingSchema } from '../types/setting.schema';
+import settings from "../lists/settings.js";
+
+Object.values(settings).forEach((setting, index) => {
+  try {
+    SettingSchema.parse(setting);
+    console.log(`\n✅ Data is valid - setting${index}`);
+  } catch (error) {
+    console.error(error);
+    console.log(`\n❌ Data is invalid! - setting${index}`)
+  }
+});
