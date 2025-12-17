@@ -1,25 +1,8 @@
 "use client";
-import { useVisual } from "@/context/ContextVisual";
-import SectionHero from "@/components/section/SectionHero";
-import SectionHeader from "@/components/section/SectionHeader";
-import SectionPricing from "@/components/section/SectionPricing";
-import SectionFAQ from "@/components/section/SectionFAQ";
-
-const COMPONENT_MAP = {
-  "SectionHeader": SectionHeader,
-  "SectionHero": SectionHero,
-  "SectionPricing": SectionPricing,
-  "SectionFAQ": SectionFAQ
-};
+import PagesHome from "@/components/pages/PagesHome";
 
 export default function PageHome() {
-  const { visual } = useVisual();
   return (
-    <main>
-      {visual.homepage.sections.map((key, index) => {
-        const Component = COMPONENT_MAP[key];
-        return Component ? <Component key={index} /> : null;
-      })}
-    </main>
-  );
+    <PagesHome />
+  )
 }

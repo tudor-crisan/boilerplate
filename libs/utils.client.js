@@ -1,10 +1,10 @@
 import { defaultSetting as settings } from "@/libs/defaults";
 
-export function frontendMock(target = "") {
-  if (!target || !settings.forms[target]?.mockConfig) return "";
-  const { isEnabled, isError, isSuccess } = settings.forms[target].mockConfig;
+export function frontendMock(type = "") {
+  if (!type || !settings.forms[type]?.mockConfig) return "";
+  const { isEnabled, isError, isSuccess } = settings.forms[type].mockConfig;
   if (!isEnabled) return "";
-  if (isError) return `Mock is enabled for "${target}" to respond with errors ❌`;
-  if (isSuccess) return `Mock is enabled for "${target}" to respond with success ✅`;
+  if (isError) return `Mock is enabled for "${type}" to respond with errors ❌`;
+  if (isSuccess) return `Mock is enabled for "${type}" to respond with success ✅`;
   return "";
 }

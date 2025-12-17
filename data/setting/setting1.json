@@ -1,10 +1,15 @@
 {
+  "pages": {
+    "dashboard": {
+      "component": "LoyalboardsDashboard"
+    }
+  },
   "forms": {
     "Board": {
       "formConfig": {
         "title": "Create a new feedback board",
         "button": "Create Board",
-        "apiUrl": "/api/board",
+        "apiUrl": "/api/loyalboards/board",
         "className": "p-8 rounded-3xl"
       },
       "inputsConfig": {
