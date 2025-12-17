@@ -1,6 +1,7 @@
 {
   "show": {
     "SectionHeader": {
+      "top": true,
       "logo": true,
       "appName": true,
       "menu": true,

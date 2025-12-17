@@ -83,11 +83,11 @@ export default function FormCreate({ type }) {
 
   return (
     <form
-      className={`space-y-4 bg-base-100 p-4 ${formConfig.className}`}
+      className={`space-y-4 bg-base-100 px-4 py-8 rounded-xl ${formConfig.className}`}
       onSubmit={handleSubmit}
     >
       {formConfig.title && (
-        <p className="font-bold text-lg mb-2">
+        <p className="font-bold text-lg mb-2 leading-tight">
           {formConfig.title}
         </p>
       )}

@@ -5,7 +5,7 @@
         "title": "Create a new feedback board",
         "button": "Create Board",
         "apiUrl": "/api/board",
-        "className": "p-8 rounded-3xl"
+        "className": "sm:p-8 sm:rounded-3xl"
       },
       "inputsConfig": {
         "name": {
