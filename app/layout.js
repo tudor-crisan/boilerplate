@@ -8,6 +8,7 @@ import WrapperCopywriting from "@/components/wrapper/WrapperCopywriting";
 import WrapperVisual from "@/components/wrapper/WrapperVisual";
 import WrapperFont from "@/components/wrapper/WrapperFont";
 import WrapperShuffle from "@/components/wrapper/WrapperShuffle";
+import BaseToaster from "@/components/base/BaseToaster";
 import ShuffleLogos from "@/components/shuffle/ShuffleLogos";
 import ShuffleFonts from "@/components/shuffle/ShuffleFonts";
 import ShuffleThemes from "@/components/shuffle/ShuffleThemes";
@@ -15,9 +16,7 @@ import ShuffleCopywritings from "@/components/shuffle/ShuffleCopywritings";
 import ShuffleStylings from "@/components/shuffle/ShuffleStylings";
 import ShuffleVisuals from "@/components/shuffle/ShuffleVisuals";
 import IconFavicon from "@/components/icon/IconFavicon";
-import { getMetadata } from "@/libs/seo";
 
-export const metadata = getMetadata();
 export default function RootLayout({ children }) {
   return (
     <WrapperStyling>
@@ -42,6 +41,7 @@ export default function RootLayout({ children }) {
               <ShuffleStylings />
               <ShuffleVisuals />
             </WrapperShuffle>
+            <BaseToaster />
           </WrapperBody>
         </WrapperHtml>
       </WrapperVisual>

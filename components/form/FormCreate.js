@@ -1,10 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import axios from "axios";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { frontendMock } from "@/libs/utils.client";
 import { useRouter } from "next/navigation";
+import { setDataError, setDataSuccess } from "@/libs/api";
 
 export default function FormCreate({ type }) {
   const router = useRouter();
@@ -25,6 +26,15 @@ export default function FormCreate({ type }) {
 
   const [isLoading, setIsLoading] = useState(false);
   const [inputErrors, setInputErrors] = useState({});
+
+  const resetError = (key = "", value = "") => {
+    setInputErrors({ ...inputErrors, [key]: value })
+  }
+
+  const resetInputs = () => {
+    setInputs({ ...defaultInputs })
+  }
+
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
@@ -42,12 +52,15 @@ export default function FormCreate({ type }) {
     }
   }, [error]);
 
-  const resetInputs = () => {
-    setInputs({ ...defaultInputs })
+  const errorCallback = (error = "", inputErrors = {}) => {
+    setError(error);
+    setInputErrors(inputErrors);
   }
 
-  const resetError = (key = "", value = "") => {
-    setInputErrors({ ...inputErrors, [key]: value })
+  const successCallback = (message) => {
+    setMessage(message);
+    resetInputs();
+    router.refresh();
   }
 
   const handleSubmit = async (event) => {
@@ -61,24 +74,18 @@ export default function FormCreate({ type }) {
     setIsLoading(true);
 
     try {
-      const { data } = await axios.post(formConfig.apiUrl, { ...inputs });
+      const response = await axios.post(formConfig.apiUrl, { ...inputs });
 
-      if (data.error) {
-        setError(data.error);
+      if (setDataError(response, errorCallback)) {
         return;
       }
 
-      if (data.message) {
-        setMessage(data.message);
-        resetInputs();
-        router.refresh();
-        return
+      if (setDataSuccess(response, successCallback)) {
+        return;
       }
-
     } catch (err) {
-      const { data } = err.response;
-      setError(data?.error || "");
-      setInputErrors(data?.inputErrors || {});
+      setDataError(err.response, errorCallback);
+
     } finally {
       setIsLoading(false);
     }
@@ -129,7 +136,6 @@ export default function FormCreate({ type }) {
           {formConfig.button || "Create"}
         </button>
       </div>
-      <Toaster />
       <p>{frontendMock(type)}</p>
     </form>
   )
