@@ -13,7 +13,7 @@ export default function ButtonLogin({ className = "", loggedInText = "Go to dash
     return (
       <Link
         href={dashboardUrl}
-        className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-primary btn-sm sm:btn-md ${className}`}
+        className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-primary ${className}`}
       >
         {loggedInText}
       </Link>
@@ -22,7 +22,7 @@ export default function ButtonLogin({ className = "", loggedInText = "Go to dash
 
   return (
     <button
-      className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-outline btn-sm sm:btn-md ${className}`}
+      className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-outline ${className}`}
       onClick={() => {
         signIn(undefined, { callbackUrl: dashboardUrl })
       }}

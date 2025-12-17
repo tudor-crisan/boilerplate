@@ -1,6 +1,6 @@
 "use client";
 import { useVisual } from "@/context/ContextVisual";
-import components from "@/lists/components";
+import sections from "@/lists/sections";
 import { getMetadata } from "@/libs/seo";
 
 export const metadata = getMetadata();
@@ -9,7 +9,7 @@ export default function PageHome() {
   return (
     <main>
       {visual.homepage.sections.map((key, index) => {
-        const Component = components.sections[key];
+        const Component = sections[key];
         return Component ? <Component key={index} /> : null;
       })}
     </main>

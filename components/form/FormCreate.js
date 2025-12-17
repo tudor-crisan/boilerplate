@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { frontendMock } from "@/libs/utils.client";
 import { useRouter } from "next/navigation";
 import { setDataError, setDataSuccess } from "@/libs/api";
+import MockForms from "@/components/mock/MockForms";
 
 export default function FormCreate({ type }) {
   const router = useRouter();
@@ -84,7 +84,7 @@ export default function FormCreate({ type }) {
         return;
       }
     } catch (err) {
-      setDataError(err.response, errorCallback);
+      setDataError(err?.response, errorCallback);
 
     } finally {
       setIsLoading(false);
@@ -136,11 +136,7 @@ export default function FormCreate({ type }) {
           {formConfig.button || "Create"}
         </button>
       </div>
-      <div role="alert" className="alert">
-        <span>
-          {formsMock(type)}
-        </span>
-      </div>
+      <MockForms type={type} />
     </form>
   )
 }

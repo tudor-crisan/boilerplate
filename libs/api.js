@@ -1,6 +1,9 @@
 
 export const setDataError = (response = null, errorCallback = null) => {
-  if (!response) return;
+  if (!response) {
+    errorCallback("No internet connection");
+    return;
+  };
 
   const { data, status, statusText } = response;
   if ([400, 401, 402, 403, 404, 500].includes(status)) {

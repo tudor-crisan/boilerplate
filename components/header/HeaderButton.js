@@ -4,6 +4,7 @@ export default function HeaderButton() {
   return (
     <div>
       <ButtonLogin
+        className="btn-sm sm:btn-md"
         loggedInText="Dashboard"
         loggedOutText="Login"
       />
