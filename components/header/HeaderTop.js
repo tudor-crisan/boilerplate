@@ -5,7 +5,7 @@ import { useVisual } from "@/context/ContextVisual";
 
 export default function HeaderTop() {
   const { copywriting } = useCopywriting();
-    const { visual } = useVisual();
+  const { visual } = useVisual();
 
   return (
     <div className="flex items-center gap-2">
@@ -13,7 +13,7 @@ export default function HeaderTop() {
         <IconLogo />
       )}
       {visual.show.SectionHeader.appName && (
-        <span className="font-bold">
+        <span className="font-bold text-md md:text-lg">
           {copywriting.SectionHeader.appName}
         </span>
       )}

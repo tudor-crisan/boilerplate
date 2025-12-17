@@ -1,12 +1,12 @@
 import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
-import DashboardSectionTop from "@/components/dashboard/DashboardSectionTop";
+import DashboardSectionHeader from "@/components/dashboard/DashboardSectionHeader";
 import DashboardSectionMain from "@/components/dashboard/DashboardSectionMain";
 import FormNewBoard from "@/components/form/FormNewBoard";
 
 export default function Dashboard() {
   return (
     <DashboardWrapper>
-      <DashboardSectionTop />
+      <DashboardSectionHeader />
       <DashboardSectionMain>
         <FormNewBoard />
       </DashboardSectionMain>

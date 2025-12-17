@@ -10,9 +10,12 @@
     "html": "scroll-smooth",
     "body": "select-none",
     "container": "max-w-3xl mx-auto",
-    "spacing": "py-32 px-8",
+    "spacing": "py-32 px-4 sm:px-8",
     "label": "text-sm uppercase font-bold text-center text-primary",
     "title": "md:text-3xl text-2xl font-extrabold leading-none"
+  },
+  "SectionHeader": {
+    "spacing": "flex justify-between items-center px-3 sm:px-5 py-3"
   },
   "SectionHero": {
     "headline": "md:text-4xl text-3xl font-extrabold leading-none capitalize",
