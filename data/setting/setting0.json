@@ -1,0 +1,55 @@
+{
+  "forms": {
+    "Board": {
+      "formConfig": {
+        "title": "Create a new feedback board",
+        "button": "Create Board",
+        "apiUrl": "/api/board",
+        "className": "p-8 rounded-3xl"
+      },
+      "inputsConfig": {
+        "name": {
+          "type": "text",
+          "required": true,
+          "value": "",
+          "label": "Board name",
+          "placeholder": "Enter board name"
+        }
+      },
+      "backend": {
+        "responses": {
+          "notAuthorized": {
+            "message": "Not authorized",
+            "status": 401
+          },
+          "nameRequired": {
+            "message": "Board name is required",
+            "inputErrors": { "name": "This field is required" },
+            "status": 403
+          },
+          "createSuccesfully": {
+            "message": "Board created succesfully",
+            "status": 200
+          }
+        }
+      },
+      "mockConfig": {
+        "isEnabled": false,
+        "isError": true,
+        "isSuccess": true,
+        "responses": {
+          "error": {
+            "error": "Not authorized",
+            "inputErrors": { "name": "This is required" },
+            "status": 401
+          },
+          "success": {
+            "message": "Board created succesfully",
+            "data": { "board": { "name": "NEW BOARD" } },
+            "status": 200
+          }
+        }
+      }
+    }
+  }
+}
