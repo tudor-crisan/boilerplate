@@ -6,7 +6,7 @@ import Board from "@/models/Board";
 // import { mockSuccessBoard, mockErrorBoard } from "@/libs/mocks";
 
 export async function POST(req) {
-  // return mockSuccessBoard();
+  // return mockErrorBoard();
 
   try {
     const session = await auth();

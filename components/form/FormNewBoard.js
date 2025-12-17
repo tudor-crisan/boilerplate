@@ -37,11 +37,7 @@ export default function FormNewBoard() {
     }
 
     try {
-      const res = await axios.post("/api/board", { name });
-      setMessage(res.data?.message || "");
-      setName("");
-
-      return;
+      const { data } = await axios.post("/api/board", { name });
 
       if (data.error) {
         setError(data.error);
