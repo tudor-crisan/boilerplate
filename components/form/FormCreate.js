@@ -136,7 +136,11 @@ export default function FormCreate({ type }) {
           {formConfig.button || "Create"}
         </button>
       </div>
-      <p>{frontendMock(type)}</p>
+      <div role="alert" className="alert">
+        <span>
+          {formsMock(type)}
+        </span>
+      </div>
     </form>
   )
 }

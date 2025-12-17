@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
 
-export default function BaseToaster() {
+export default function GeneralToaster() {
   return <Toaster />
 }

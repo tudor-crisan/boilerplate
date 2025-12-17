@@ -3,7 +3,9 @@ import DashboardSectionHeader from "@/components/dashboard/DashboardSectionHeade
 import DashboardSectionMain from "@/components/dashboard/DashboardSectionMain";
 import components from "@/lists/components";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { getMetadata } from "@/libs/seo";
 
+export const metadata = getMetadata();
 export default function PagesDashboard() {
   const component = settings.pages.dashboard.component
   const Component = components.dashboards[component];
