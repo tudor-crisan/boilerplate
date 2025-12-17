@@ -7,10 +7,12 @@ export function getEmailHandle(email, fallback = "") {
 }
 
 export function frontendMock(target = "") {
+  if (!target || !settings.mocks[target]) return "";
   const { isEnabled, givesError, givesSuccess } = settings.mocks[target];
   if (!isEnabled) return "";
   if (givesError) return `Mock is enabled for "${target}" to respond with errors ❌`;
   if (givesSuccess) return `Mock is enabled for "${target}" to respond with success ✅`;
+  return "";
 }
 
 ///////////// server-side //////////////////

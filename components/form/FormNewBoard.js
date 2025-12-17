@@ -3,9 +3,25 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { frontendMock } from "@/libs/utils";
+import settings from "@/config/settings.json";
+
+const formConfig = settings.forms.Board.formConfig;
+const inputsConfig = settings.forms.Board.inputsConfig
 
 export default function FormNewBoard() {
-  const [name, setName] = useState("");
+  const defaultInputs = Object.entries(inputsConfig).reduce((acc, entry) => ({
+    ...acc, [entry[0]]: entry[1].value
+  }), {})
+
+  const [inputs, setInputs] = useState({ ...defaultInputs });
+
+  const setInput = (key, value) => {
+    setInputs({
+      ...inputs,
+      [key]: value
+    })
+  }
+
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [error, setError] = useState("");
@@ -25,20 +41,25 @@ export default function FormNewBoard() {
     }
   }, [error]);
 
-  const resetErrors = (input) => {
-    setErrors({ ...errors, [input]: "" })
+  const resetInputs = () => {
+    setInputs({ ...defaultInputs })
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const resetError = (key = "", value = "") => {
+    setErrors({ ...errors, [key]: value })
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     if (isLoading) {
       return;
     }
 
+    setIsLoading(true);
+
     try {
-      const { data } = await axios.post("/api/board", { name });
+      const { data } = await axios.post(formConfig.apiUrl, { ...inputs });
 
       if (data.error) {
         setError(data.error);
@@ -47,13 +68,14 @@ export default function FormNewBoard() {
 
       if (data.message) {
         setMessage(data.message);
-        setName("");
+        resetInputs();
         return
       }
 
-    } catch (res) {
-      setError(res.response.data?.error || "");
-      setErrors(res.response.data?.errors || {});
+    } catch (err) {
+      const { data } = err.response;
+      setError(data?.error || "");
+      setErrors(data?.errors || {});
     } finally {
       setIsLoading(false);
     }
@@ -64,26 +86,36 @@ export default function FormNewBoard() {
       className="space-y-4 bg-base-100 p-8 rounded-3xl"
       onSubmit={handleSubmit}
     >
-      <p className="font-bold text-lg mb-2">
-        Create a new feedback board
-      </p>
-      <fieldset className="fieldset">
-        <legend className="fieldset-legend">
-          Board name
-        </legend>
-        <input
-          required
-          type="text"
-          className={`input ${errors["name"] && 'input-error'}`}
-          placeholder="Enter board name"
-          value={name}
-          onFocus={() => resetErrors("name")}
-          onChange={(e) => setName(e.target.value)}
-        />
-        {errors["name"] && (
-          <p className="label text-red-600">{errors["name"]}</p>
-        )}
-      </fieldset>
+      {formConfig.title && (
+        <p className="font-bold text-lg mb-2">
+          {formConfig.title}
+        </p>
+      )}
+      {Object.entries(inputsConfig).map(([target, config]) => (
+        <fieldset
+          key={target}
+          className="fieldset"
+        >
+          {config.label && (
+            <legend className="fieldset-legend">
+              {config.label}
+            </legend>
+          )}
+          <input
+            required={config.required || false}
+            type={config.type || "text"}
+            className={`input ${errors[target] && 'input-error'}`}
+            placeholder={config.placeholder}
+            value={inputs[target]}
+            onFocus={() => resetError(target)}
+            onChange={(e) => setInput(target, e.target.value)}
+            disabled={isLoading}
+          />
+          {errors[target] && (
+            <p className="label text-red-600">{errors[target]}</p>
+          )}
+        </fieldset>
+      ))}
       <div className="flex">
         <button
           type="submit"
@@ -91,11 +123,11 @@ export default function FormNewBoard() {
           className="btn btn-primary"
         >
           {isLoading && <span className="loading loading-spinner loading-xs"></span>}
-          {isLoading ? 'Creating Board' : 'Create Board'}
+          {formConfig.button || "Create"}
         </button>
       </div>
       <Toaster />
-      <p>{frontendMock("Board")}</p>
+      <p>{frontendMock(formConfig.type)}</p>
     </form>
   )
 }
