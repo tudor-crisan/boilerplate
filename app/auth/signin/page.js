@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useStyling } from "@/context/ContextStyling";

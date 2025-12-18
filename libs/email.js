@@ -1,5 +1,6 @@
-import { defaultStyling, defaultCopywriting } from "@/libs/defaults";
+import { defaultStyling, defaultCopywriting, defaultVisual } from "@/libs/defaults";
 import themeColors from "@/lists/themeColors";
+import logos from "@/lists/logos";
 
 // Style mapping helpers
 const getRoundness = (idx) => {
@@ -66,8 +67,33 @@ export function getEmailBranding() {
   };
 }
 
+const getLogoHtml = (branding, host) => {
+  const { themeColor } = branding;
+  const favicon = defaultVisual.favicon;
+
+  if (!favicon || !favicon.href) return "";
+
+  // Construction of absolute URL for the image
+  // Check if we are on localhost to use http, otherwise https
+  const protocol = host.includes("localhost") ? "http" : "https";
+  const imageUrl = `${protocol}://${host}${favicon.href}`;
+
+  return `
+    <div style="display: inline-block; vertical-align: middle; margin-right: 12px; line-height: 0;">
+      <img 
+        src="${imageUrl}" 
+        width="32" 
+        height="32" 
+        alt="Logo" 
+        style="display: block; width: 32px; height: 32px; border-radius: ${getRoundness(0)};"
+      />
+    </div>
+  `;
+};
+
 export function MagicLinkEmail({ host, url }) {
-  const { themeColor, base100, base200, content, appName, font, cardRoundness, btnRoundness, cardShadow, cardBorder } = getEmailBranding();
+  const branding = getEmailBranding();
+  const { themeColor, base100, base200, content, appName, font, cardRoundness, btnRoundness, cardShadow, cardBorder } = branding;
 
   const subject = `Sign in to ${appName}`;
   const text = `Sign in to ${appName}\n${url}\n\nIf you did not request this email you can safely ignore it.`;
@@ -75,8 +101,9 @@ export function MagicLinkEmail({ host, url }) {
   const html = `
     <div style="background-color: ${base200}; padding: 60px 20px; font-family: ${font}; min-height: 100vh;">
       <div style="max-width: 440px; margin: 0 auto; background-color: ${base100}; padding: 48px 32px; border-radius: ${cardRoundness}; box-shadow: ${cardShadow}; border: ${cardBorder};">
-        <div style="text-align: center; margin-bottom: 40px;">
-          <h1 style="font-size: 28px; font-weight: 800; margin: 0; color: ${themeColor}; letter-spacing: -0.025em;">${appName}</h1>
+        <div style="text-align: center; margin-bottom: 40px; white-space: nowrap;">
+          ${getLogoHtml(branding)}
+          <h1 style="display: inline-block; font-size: 28px; font-weight: 800; margin: 0; color: ${themeColor}; letter-spacing: -0.025em; vertical-align: middle;">${appName}</h1>
         </div>
         <div style="text-align: center; margin-bottom: 40px;">
           <h2 style="font-size: 22px; font-weight: 700; margin: 0 0 16px 0; color: ${content};">Sign in to ${host}</h2>

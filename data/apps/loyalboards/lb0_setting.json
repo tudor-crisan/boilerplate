@@ -23,6 +23,10 @@
       "title": "Dashboard - LoyalBoards",
       "description": "Create feedback boards your customers will love."
     },
+    "auth": {
+      "title": "Authenticate - LoyalBoards",
+      "description": "Create feedback boards your customers will love."
+    },
     "modules": {
       "board": {
         "title": "Board - LoyalBoards",
