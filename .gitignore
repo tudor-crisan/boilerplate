@@ -34,8 +34,7 @@ yarn-error.log*
 .env.local
 .env.development
 .env.production
-.env.loyalboards
-.env.taskflow
+env
 
 # vercel
 .vercel

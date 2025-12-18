@@ -1,15 +1,15 @@
 const apps = {
   "loyalboards": {
-    "copywriting": "copywriting0",
-    "styling": "styling0",
-    "visual": "visual0",
-    "setting": "setting0"
+    "copywriting": "lb0_copywriting",
+    "styling": "lb0_styling",
+    "visual": "lb0_visual",
+    "setting": "lb0_setting"
   },
   "taskflow": {
-    "copywriting": "copywriting1",
-    "styling": "styling1",
-    "visual": "visual1",
-    "setting": "setting1"
+    "copywriting": "tf0_copywriting",
+    "styling": "tf0_styling",
+    "visual": "tf0_visual",
+    "setting": "tf0_setting"
   },
   "contentcalendar": {
     "copywriting": "copywriting2",

@@ -1,0 +1,49 @@
+{
+  "SectionHeader": {
+    "appName": "TaskFlow",
+    "menus": [
+      {
+        "label": "Pricing",
+        "path": "#pricing"
+      },
+      {
+        "label": "FAQ",
+        "path": "#faq"
+      }
+    ]
+  },
+  "SectionHero": {
+    "headline": "Streamline team workflows with visual task management",
+    "paragraph": "Create project boards instantly, assign tasks efficiently, and keep your team aligned on what matters most."
+  },
+  "SectionPricing": {
+    "label": "Pricing",
+    "headline": "A pricing that adapts to your needs",
+    "price": "$29",
+    "period": "/month",
+    "features": [
+      "Unlimited projects",
+      "Up to 25 team members",
+      "Smart task assignment",
+      "Real-time collaboration"
+    ]
+  },
+  "SectionFAQ": {
+    "label": "FAQ",
+    "headline": "Frequently Asked Questions",
+    "questions": [
+      {
+        "question": "How does smart task assignment work?",
+        "answer": "TaskFlow analyzes your team members' current workload, skills, and past performance to suggest optimal task assignments. You can accept suggestions or manually assign tasks as needed."
+      },
+      {
+        "question": "Can I integrate with other tools?",
+        "answer": "Yes, TaskFlow integrates with popular tools like Slack, Google Calendar, and GitHub to keep your workflow connected and synchronized."
+      },
+      {
+        "question": "Is there a mobile app?",
+        "answer": "Yes, we offer native iOS and Android apps so your team can stay productive on the go with full access to all features."
+      }
+    ]
+  }
+}

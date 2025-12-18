@@ -1,0 +1,9 @@
+{
+  "pages": {
+    "dashboard": {
+      "component": "TaskFlowDashboard"
+    },
+    "paths": []
+  },
+  "forms": {}
+}

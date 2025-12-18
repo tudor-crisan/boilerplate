@@ -1,0 +1,64 @@
+{
+  "show": {
+    "SectionHeader": {
+      "top": true,
+      "logo": true,
+      "appName": true,
+      "menu": true,
+      "button": true
+    },
+    "SectionHero": {
+      "headline": true,
+      "paragraph": true,
+      "button": true,
+      "image": false,
+      "video": false
+    }
+  },
+  "logo": {
+    "shape": "star",
+    "container": "size-8 bg-primary text-base-100",
+    "svg": {
+      "classname": "size-4",
+      "viewbox": "0 0 24 24",
+      "fill": "none",
+      "stroke": "currentColor",
+      "strokewidth": 2,
+      "strokelinecap": "round",
+      "strokelinejoin": "round"
+    }
+  },
+  "favicon": {
+    "type": "image/png",
+    "sizes": "32x32",
+    "href": "/apps/loyalboards/loyalboards-favicon.png"
+  },
+  "homepage": {
+    "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
+  },
+  "HeroImage": {
+    "show": false,
+    "container": "",
+    "image": {
+      "src": "",
+      "alt": "",
+      "width": 0,
+      "height": 0,
+      "classname": ""
+    }
+  },
+  "HeroVideo": {
+    "show": false,
+    "container": "",
+    "video": {
+      "arialabel": "",
+      "width": 0,
+      "height": 0,
+      "classname": ""
+    },
+    "source": {
+      "src": "",
+      "type": ""
+    }
+  }
+}
