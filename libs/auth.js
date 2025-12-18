@@ -7,6 +7,7 @@ import clientPromise from "@/libs/mongo";
 const config = {
   providers: [
     Resend({
+      id: "email",
       apiKey: process.env.RESEND_API_KEY,
       from: process.env.RESEND_EMAIL_FROM,
       name: "email"
