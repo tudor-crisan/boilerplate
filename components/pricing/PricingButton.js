@@ -1,7 +1,7 @@
 import ButtonLogin from "@/components/button/ButtonLogin";
 
-export default function PricingButton({ className }) {
+export default function PricingButton() {
   return (
-    <ButtonLogin className={className} />
+    <ButtonLogin className="w-full" />
   )
 }

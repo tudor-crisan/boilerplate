@@ -1,11 +1,10 @@
 "use client";
-
 import { useSearchParams } from "next/navigation";
 import { useStyling } from "@/context/ContextStyling";
-import Link from "next/link";
 import { Suspense } from "react";
+import Link from "next/link";
 import SvgError from "@/components/svg/SvgError";
-import LinkBack from "@/components/links/LinkBack";
+import ButtonBack from "@/components/button/ButtonBack";
 
 function ErrorContent() {
   const { styling } = useStyling();
@@ -25,7 +24,7 @@ function ErrorContent() {
     <div className={`min-h-screen flex items-center justify-center ${styling.general.spacing}`}>
       <div className={`card w-full max-w-md px-4 bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
         <div className="card-body py-8 items-center text-center">
-          <div className="text-error mb-4">
+          <div className="text-primary mb-4">
             <SvgError className="size-16" />
           </div>
           <h2 className="card-title text-2xl font-bold mb-2">Authentication Error</h2>
@@ -34,7 +33,9 @@ function ErrorContent() {
             <Link href="/auth/signin" className={`btn btn-primary w-full ${styling.roundness[0]}`}>
               Try Again
             </Link>
-            <LinkBack className="mt-2" />
+            <div className="mx-auto mt-2">
+              <ButtonBack url="/" className="btn-ghost" />
+            </div>
           </div>
         </div>
       </div>

@@ -36,9 +36,7 @@ export default function SectionPricing() {
               </li>
             ))}
           </ul>
-          <div>
-            <PricingButton className="w-full" />
-          </div>
+          <PricingButton />
         </PricingCard>
       </div>
     </section>

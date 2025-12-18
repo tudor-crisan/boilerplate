@@ -1,7 +1,7 @@
 "use client";
 import { useStyling } from "@/context/ContextStyling";
 import SvgEmail from "@/components/svg/SvgEmail";
-import LinkBack from "@/components/links/LinkBack";
+import ButtonBack from "@/components/button/ButtonBack";
 
 export default function VerifyRequestPage() {
   const { styling } = useStyling();
@@ -17,7 +17,9 @@ export default function VerifyRequestPage() {
           <p className="text-base-content/70">
             A sign-in link has been sent to your email address.
           </p>
-          <LinkBack className="mt-6" />
+          <div className="mx-auto mt-6">
+            <ButtonBack url="/" className="btn-ghost" />
+          </div>
         </div>
       </div>
     </div>

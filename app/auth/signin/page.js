@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 import { useStyling } from "@/context/ContextStyling";
 import HeaderTop from "@/components/header/HeaderTop";
 import SvgGoogle from "@/components/svg/SvgGoogle";
-import LinkBack from "@/components/links/LinkBack";
+import ButtonBack from "@/components/button/ButtonBack";
 
 export default function SignInPage() {
   const { styling } = useStyling();
@@ -33,7 +33,7 @@ export default function SignInPage() {
       <div className={`card w-full max-w-sm bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
         <div className="card-body">
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
-            <HeaderTop />
+            <HeaderTop url="/" />
           </div>
           <form onSubmit={handleEmailSignIn} className="form-control gap-4">
             <div className="mb-2">
@@ -65,7 +65,9 @@ export default function SignInPage() {
             <SvgGoogle />
             Sign in with Google
           </button>
-          <LinkBack className="mt-6" />
+          <div className="mx-auto mt-6">
+            <ButtonBack url="/" className="btn-ghost" />
+          </div>
         </div>
       </div>
     </div>

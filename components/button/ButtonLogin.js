@@ -22,7 +22,7 @@ export default function ButtonLogin({ className = "", loggedInText = "Go to dash
 
   return (
     <button
-      className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-outline ${className}`}
+      className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-primary ${className}`}
       onClick={() => {
         signIn(undefined, { callbackUrl: dashboardUrl })
       }}
