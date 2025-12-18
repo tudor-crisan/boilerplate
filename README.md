@@ -50,10 +50,6 @@ Arange folder / files and deploy
 Create a new github repo / deploy
 -Open in that folder git bash - git init / code .
 
-Change the package.json
--"name":"appName" (eg. loyalboards)
--"version": from "0.0.1" to "0.0.2" (for example)
-
 Remove all unused files: (for speed)
 - delete fonts that are not used from - lists/fonts.js
 - keep only what's in public/apps/"appName" (rest delete all)
