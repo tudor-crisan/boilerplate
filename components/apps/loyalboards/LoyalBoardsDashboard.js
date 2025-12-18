@@ -1,9 +1,9 @@
 
 import FormCreate from "@/components/form/FormCreate";
 import ListDisplay from "@/components/list/ListDisplay";
-import { getUser } from "@/libs/apps/feedbackboards/db";
+import { getUser } from "@/libs/apps/boards/db";
 
-export default async function FeedbackBoardsDashboard() {
+export default async function LoyalBoardsDashboard() {
   const { boards } = await getUser("boards");
   return (
     <div className="space-y-6">

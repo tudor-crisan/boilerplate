@@ -1,5 +1,5 @@
 
-import { getBoardPublic } from "@/libs/apps/feedbackboards/db";
+import { getBoardPublic } from "@/libs/apps/boards/db";
 import { redirect } from "next/navigation";
 
 export default async function PublicFeedbackBoard({ params }) {

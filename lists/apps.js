@@ -1,5 +1,5 @@
 const apps = {
-  "feedbackboards": {
+  "loyalboards": {
     "copywriting": "copywriting0",
     "styling": "styling0",
     "visual": "visual0",

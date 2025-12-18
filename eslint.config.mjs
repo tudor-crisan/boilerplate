@@ -11,6 +11,11 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      '@next/next/no-head-element': 'off',
+    },
+  }
 ]);
 
 export default eslintConfig;

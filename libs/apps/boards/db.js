@@ -1,8 +1,8 @@
 
 import { auth } from "@/libs/auth";
-import connectMongo from "@/libs/apps/feedbackboards/mongoose";
-import User from "@/models/apps/feedbackboards/User";
-import Board from "@/models/apps/feedbackboards/Board";
+import connectMongo from "@/libs/apps/boards/mongoose";
+import User from "@/models/apps/boards/User";
+import Board from "@/models/apps/boards/Board";
 
 export async function getUser(populate = "") {
   const session = await auth();

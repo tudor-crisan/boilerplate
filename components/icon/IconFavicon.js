@@ -3,6 +3,7 @@ import { useVisual } from "@/context/ContextVisual";
 
 export default function IconFavicon() {
   const { visual } = useVisual();
+  console.log(visual.favicon.href)
   return (
     <link
       rel="icon"

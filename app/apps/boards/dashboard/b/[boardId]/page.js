@@ -1,5 +1,5 @@
 
-import { getBoardPrivate } from "@/libs/apps/feedbackboards/db";
+import { getBoardPrivate } from "@/libs/apps/boards/db";
 import { redirect } from "next/navigation";
 
 export default async function PrivateFeedbackBoard({ params }) {
