@@ -1,6 +1,6 @@
 
 import BoardDisplay from "@/components/modules/board/BoardDisplay";
-import { getBoardPublic } from "@/libs/apps/boards/db";
+import { getBoardPublic } from "@/libs/modules/boards/db";
 import { redirect } from "next/navigation";
 
 export default async function PublicFeedbackBoard({ params }) {

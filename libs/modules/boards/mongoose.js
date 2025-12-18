@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import User from "@/models/apps/boards/User";
-import Board from "@/models/apps/boards/Board";
+import User from "@/models/modules/boards/User";
+import Board from "@/models/modules/boards/Board";
 
 if (!process.env.MONGO_URI || !process.env.MONGO_DB || !process.env.MONGO_QUERY) {
   throw new Error('Invalid/Missing environment variable: "MONGO_URI"');

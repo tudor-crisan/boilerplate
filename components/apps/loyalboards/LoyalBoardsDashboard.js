@@ -1,7 +1,7 @@
 
 import FormCreate from "@/components/form/FormCreate";
 import ListDisplay from "@/components/list/ListDisplay";
-import { getUser } from "@/libs/apps/boards/db";
+import { getUser } from "@/libs/modules/boards/db";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 export default async function LoyalBoardsDashboard() {

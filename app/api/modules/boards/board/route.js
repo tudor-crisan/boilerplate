@@ -1,9 +1,9 @@
 import { auth } from "@/libs/auth";
-import connectMongo from "@/libs/apps/boards/mongoose";
+import connectMongo from "@/libs/modules/boards/mongoose";
 import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
-import User from "@/models/apps/boards/User";
-import Board from "@/models/apps/boards/Board";
+import User from "@/models/modules/boards/User";
+import Board from "@/models/modules/boards/Board";
 
 const TYPE = "Board";
 

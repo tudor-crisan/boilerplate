@@ -1,6 +1,6 @@
 
 import BoardDisplay from "@/components/modules/board/BoardDisplay";
-import { getBoardPrivate } from "@/libs/apps/boards/db";
+import { getBoardPrivate } from "@/libs/modules/boards/db";
 import { redirect } from "next/navigation";
 
 export default async function PrivateFeedbackBoard({ params }) {
