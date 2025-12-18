@@ -21,7 +21,7 @@ function ErrorContent() {
   const message = errorMessages[error] || errorMessages.Default;
 
   return (
-    <div className={`min-h-screen flex items-center justify-center ${styling.general.spacing}`}>
+    <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
       <div className={`card w-full max-w-md px-4 bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
         <div className="card-body py-8 items-center text-center">
           <div className="text-primary mb-4">

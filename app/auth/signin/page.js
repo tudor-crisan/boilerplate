@@ -29,7 +29,7 @@ export default function SignInPage() {
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center ${styling.general.spacing}`}>
+    <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
       <div className={`card w-full max-w-sm bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
         <div className="card-body">
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">

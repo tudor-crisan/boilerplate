@@ -3,6 +3,7 @@ import Resend from "next-auth/providers/resend"
 import Google from "next-auth/providers/google"
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/libs/mongo";
+import { MagicLinkEmail } from "@/libs/email";
 
 const config = {
   providers: [
@@ -13,6 +14,8 @@ const config = {
       name: "email",
       async sendVerificationRequest({ identifier: email, url, provider }) {
         const { host } = new URL(url);
+        const { subject, html, text } = MagicLinkEmail({ host, url });
+
         const res = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
@@ -22,24 +25,9 @@ const config = {
           body: JSON.stringify({
             from: provider.from,
             to: email,
-            subject: `Sign in to ${host}`,
-            html: `
-              <div style="background-color: #f9fafb; padding: 40px 0; font-family: sans-serif;">
-                <div style="max-width: 400px; margin: 0 auto; background-color: #ffffff; padding: 32px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
-                  <div style="text-align: center; margin-bottom: 32px;">
-                    <h1 style="font-size: 24px; font-weight: bold; margin: 0;">LoyalBoards</h1>
-                  </div>
-                  <div style="text-align: center; margin-bottom: 32px;">
-                    <h2 style="font-size: 20px; font-weight: 600; margin: 0 0 16px 0;">Sign in to ${host}</h2>
-                    <a href="${url}" style="display: inline-block; background-color: #000000; color: #ffffff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 500;">Sign in</a>
-                  </div>
-                  <p style="font-size: 14px; color: #6b7280; text-align: center; margin: 0;">
-                    If you did not request this email you can safely ignore it.
-                  </p>
-                </div>
-              </div>
-            `,
-            text: `Sign in to ${host}\n${url}\n\nIf you did not request this email you can safely ignore it.`,
+            subject,
+            html,
+            text,
           }),
         });
 
