@@ -48,12 +48,12 @@ Change .env / package.json:
 
 ```bash
 Change the .env variables
-- NEXT_PUBLIC_APP="appName" (eg. loyalboards)
-- MONGO_DB="appName-prod" (eg. LoyalBoards-rprod)
-- RESEND_EMAIL_FROM="appName@" (eg. LoyalBoards@email.tudorcrisan.dev)
+- NEXT_PUBLIC_APP="appName" (eg. feedbackboards)
+- MONGO_DB="appName-prod" (eg. FeedbackBoards-rprod)
+- RESEND_EMAIL_FROM="appName@" (eg. FeedbackBoards@email.tudorcrisan.dev)
 
 Change the package.json
--"name":"appName" (eg. loyalboards)
+-"name":"appName" (eg. feedbackboards)
 -"version": from "0.0.1" to "0.0.2" (for example)
 
 Remove from package.json

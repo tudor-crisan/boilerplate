@@ -1,7 +1,9 @@
-import LoyalboardsDashboard from "@/components/apps/loyalboards/LoyalboardsDashboard";
+import FeedbackBoardsDashboard from "@/components/apps/feedbackboards/FeedbackBoardsDashboard";
+import TaskFlowDashboard from "@/components/apps/taskflow/TaskFlowDashboard";
 
 const dashboards = {
-    LoyalboardsDashboard
+    FeedbackBoardsDashboard,
+    TaskFlowDashboard
 };
 
 export default dashboards;

@@ -8,7 +8,6 @@ const sections = {
   SectionHero,
   SectionPricing,
   SectionFAQ
-
 };
 
 export default sections;

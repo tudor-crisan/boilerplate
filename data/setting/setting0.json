@@ -1,15 +1,25 @@
 {
   "pages": {
     "dashboard": {
-      "component": "LoyalboardsDashboard"
-    }
+      "component": "FeedbackBoardsDashboard"
+    },
+    "paths": [
+      {
+        "source": "/b/:boardId",
+        "destination": "/apps/feedbackboards/b/:boardId"
+      },
+      {
+        "source": "/dashboard/b/:boardId",
+        "destination": "/apps/feedbackboards/dashboard/b/:boardId"
+      }
+    ]
   },
   "forms": {
     "Board": {
       "formConfig": {
         "title": "Create a new feedback board",
         "button": "Create Board",
-        "apiUrl": "/api/loyalboards/board",
+        "apiUrl": "/api/apps/feedbackboards/board",
         "className": "sm:p-8 sm:rounded-3xl"
       },
       "inputsConfig": {
