@@ -5,7 +5,7 @@ import { useStyling } from "@/context/ContextStyling";
 import Link from "next/link";
 import { Suspense } from "react";
 import SvgError from "@/components/svg/SvgError";
-import SvgBack from "@/components/svg/SvgBack";
+import LinkBack from "@/components/links/LinkBack";
 
 function ErrorContent() {
   const { styling } = useStyling();
@@ -24,22 +24,17 @@ function ErrorContent() {
   return (
     <div className={`min-h-screen flex items-center justify-center ${styling.general.spacing}`}>
       <div className={`card w-full max-w-md px-4 bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
-        <div className="card-body items-center text-center">
+        <div className="card-body py-8 items-center text-center">
           <div className="text-error mb-4">
-            <SvgError />
+            <SvgError className="size-16" />
           </div>
           <h2 className="card-title text-2xl font-bold mb-2">Authentication Error</h2>
           <p className="mb-6">{message}</p>
-          <div className="card-actions w-full flex flex-col gap-2">
+          <div className="card-actions w-full flex flex-col">
             <Link href="/auth/signin" className={`btn btn-primary w-full ${styling.roundness[0]}`}>
               Try Again
             </Link>
-            <div className="mt-6 text-center mx-auto">
-              <Link href="/" className="link link-hover text-sm flex gap-2">
-                <SvgBack />
-                Back to Home
-              </Link>
-            </div>
+            <LinkBack className="mt-2" />
           </div>
         </div>
       </div>

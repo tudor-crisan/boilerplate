@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useStyling } from "@/context/ContextStyling";
-import Link from "next/link";
 import HeaderTop from "@/components/header/HeaderTop";
-import SvgBack from "@/components/svg/SvgBack";
 import SvgGoogle from "@/components/svg/SvgGoogle";
+import LinkBack from "@/components/links/LinkBack";
 
 export default function SignInPage() {
   const { styling } = useStyling();
@@ -32,7 +31,6 @@ export default function SignInPage() {
   return (
     <div className={`min-h-screen flex items-center justify-center ${styling.general.spacing}`}>
       <div className={`card w-full max-w-sm bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
-
         <div className="card-body">
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
             <HeaderTop />
@@ -59,9 +57,7 @@ export default function SignInPage() {
               {isLoading ? <span className="loading loading-spinner"></span> : "Sign in with Email"}
             </button>
           </form>
-
           <div className="divider">OR</div>
-
           <button
             onClick={handleGoogleSignIn}
             className={`btn btn-outline w-full flex gap-2 ${styling.roundness[0]}`}
@@ -69,13 +65,7 @@ export default function SignInPage() {
             <SvgGoogle />
             Sign in with Google
           </button>
-
-          <div className="mt-6 text-center mx-auto">
-            <Link href="/" className="link link-hover text-sm flex gap-2">
-              <SvgBack />
-              Back to Home
-            </Link>
-          </div>
+          <LinkBack className="mt-6" />
         </div>
       </div>
     </div>
