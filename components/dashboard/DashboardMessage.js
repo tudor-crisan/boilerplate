@@ -1,7 +1,7 @@
 "use client";
 import { useAuth } from "@/context/ContextAuth";
 
-export default function ProfileTitle() {
+export default function DashboardMessage() {
   const { isLoggedIn, email, name, initials } = useAuth();
 
   if (isLoggedIn) {

@@ -1,19 +1,33 @@
 
-import BoardDisplay from "@/components/modules/board/BoardDisplay";
+import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
+import DashboardMain from "@/components/dashboard/DashboardMain";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import ButtonBack from "@/components/button/ButtonBack";
 import { getBoardPrivate } from "@/libs/modules/boards/db";
 import { redirect } from "next/navigation";
+import { getMetadata } from "@/libs/seo";
 
+export const metadata = getMetadata("modules.board");
 export default async function PrivateFeedbackBoard({ params }) {
   const { boardId } = await params;
   const board = await getBoardPrivate(boardId);
+  const backUrl = "/dashboard";
 
   if (!board) {
-    redirect("/dashboard");
+    redirect(backUrl);
   }
 
   return (
-    <BoardDisplay>
-      {board.name} (private)
-    </BoardDisplay>
+    <DashboardWrapper>
+      <DashboardHeader>
+        <ButtonBack url={backUrl} />
+      </DashboardHeader>
+      <DashboardMain>
+        <h1 className="font-extrabold text-xl">
+          {board.name} (private)
+        </h1>
+      </DashboardMain>
+    </DashboardWrapper>
+
   )
 }

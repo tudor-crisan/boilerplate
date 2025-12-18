@@ -11,9 +11,11 @@ Preparing the SLC (simple-lovable-complete)
 - Write the FAQ to handle all objections about the product
 - Prepare the launch tweet, hacker new, product hunt taglines
 - Prepare the story behind how this product was borned
+- Fix typos, spelling, and other positioning / messaging / pricing
+- Fix using chatgpt or other LLM for inspiration
 ```
 
-## New app set-up
+## New app tech-stack
 
 Creating and setting-up a new app from the boilerplate
 
@@ -80,7 +82,7 @@ Publish app in Google OAuth
 - Click "Publish app"
 ```
 
-## Publish to TudorCrisan.dev (+socials)
+## Publish and launch
 
 Go to the tudorcrisan.dev repository and add it there
 

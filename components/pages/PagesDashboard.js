@@ -1,21 +1,28 @@
 import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
-import DashboardSectionHeader from "@/components/dashboard/DashboardSectionHeader";
-import DashboardSectionMain from "@/components/dashboard/DashboardSectionMain";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import DashboardMain from "@/components/dashboard/DashboardMain";
+import HeaderTop from "@/components/header/HeaderTop";
+import ButtonLogout from "@/components/button/ButtonLogout";
+import DashboardMessage from "@/components/dashboard/DashboardMessage";
 import dashboards from "@/lists/dashboards";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { getMetadata } from "@/libs/seo";
 
-export const metadata = getMetadata();
-export default function PagesDashboard() {
+export default function PagesDashboard({ children }) {
   const component = settings.pages.dashboard.component
   const Component = dashboards[component];
 
   return (
     <DashboardWrapper>
-      <DashboardSectionHeader />
-      <DashboardSectionMain>
-        {Component ? <Component /> : null}
-      </DashboardSectionMain>
+      <DashboardHeader>
+        <HeaderTop url="/" />
+        <ButtonLogout />
+      </DashboardHeader>
+      <DashboardMain>
+        <DashboardMessage />
+        <div className="my-6">
+          {children || <Component /> || null}
+        </div>
+      </DashboardMain>
     </DashboardWrapper>
   )
 }

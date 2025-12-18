@@ -1,9 +1,7 @@
 "use client";
 import { useVisual } from "@/context/ContextVisual";
 import sections from "@/lists/sections";
-import { getMetadata } from "@/libs/seo";
 
-export const metadata = getMetadata();
 export default function PageHome() {
   const { visual } = useVisual();
   return (
