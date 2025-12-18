@@ -31,6 +31,9 @@ Creating and setting-up 3rd party
 - Create a new database "appName-dev" and "-prod" with collection "users"
 - Create a new AUTH_SECRET in env - with "npx auth secret"
 - Create a new OAuth at https://console.cloud.google.com/auth/overview
+- ORIGINS - http://localhost:3000 - https://localhost:3000
+- REDIRECT URIs - http://localhost:3000/api/auth/callback/google - https://localhost:3000/api/auth/callback/google
+- SAME FOR DOMAIN - as the above, but put the actual domain there
 - Save AUTH_SECRET | GOOGLE_CLIENT_ID | GOOGLE_CLIENT_SECRET inside docs-v3.rtf
 ```
 
