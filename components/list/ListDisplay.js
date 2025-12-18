@@ -1,17 +1,29 @@
+import Link from "next/link";
 
-export default function ListDisplay({ list, type = "Board" }) {
+export default function ListDisplay({ list, type = "Board", link = null }) {
+  const itemClass = 'block bg-base-100 p-6 rounded-3xl';
+  const linkClass = 'hover:bg-neutral hover:text-neutral-content duration-200';
+  const pluralize = list.length > 1 ? 's' : '';
   return (
     <div>
       <h1 className="font-extrabold text-xl mb-4">
-        {list.length} {type}{list.length > 1 ? 's' : ''}
+        {list.length} {type}{pluralize}
       </h1>
       <ul className="space-y-4">
         {list.map(item => (
-          <li
-            key={item._id}
-            className="bg-base-100 p-6 rounded-3xl"
-          >
-            {item.name}
+          <li key={item._id}>
+            {link ? (
+              <Link
+                href={link(item)}
+                className={`${itemClass} ${linkClass}`}
+              >
+                {item.name}
+              </Link>
+            ) : (
+              <div className={itemClass}>
+                {item.name}
+              </div>
+            )}
           </li>
         ))}
       </ul>

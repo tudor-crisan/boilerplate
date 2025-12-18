@@ -20,7 +20,8 @@ const nextConfig = {
 
     if (!settingKey) return [];
 
-    return settings[settingKey]?.pages?.paths ?? [];
+    const paths = settings[settingKey]?.pages?.paths
+    return paths ? Object.values(paths) : [];
   },
 };
 

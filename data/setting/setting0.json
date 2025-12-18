@@ -3,16 +3,16 @@
     "dashboard": {
       "component": "LoyalBoardsDashboard"
     },
-    "paths": [
-      {
+    "paths": {
+      "boardPublic": {
         "source": "/b/:boardId",
         "destination": "/apps/boards/b/:boardId"
       },
-      {
+      "boardPrivate": {
         "source": "/dashboard/b/:boardId",
         "destination": "/apps/boards/dashboard/b/:boardId"
       }
-    ]
+    }
   },
   "forms": {
     "Board": {
