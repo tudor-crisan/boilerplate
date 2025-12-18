@@ -34,7 +34,7 @@ Creating and setting-up 3rd party
 - Save AUTH_SECRET | GOOGLE_CLIENT_ID | GOOGLE_CLIENT_SECRET inside docs-v3.rtf
 ```
 
-## Deploy on github / vercel / namecheap
+## Deploy staging
 
 Copy all folders / files in new folder
 
@@ -62,7 +62,6 @@ Remove all unused files: (for speed)
 Deploy on github and vercel
 - Git add all files / commit / publish private branch
 - Open vercel new project, and copy-paste the variables
-- MONGO_DB="appName-prod" (eg. LoyalBoards-prod)
 
 Namecheap domain registration
 - Add Domain - after the build is complete
@@ -71,11 +70,12 @@ Namecheap domain registration
 - Mail Settings - "No Email Service"
 ```
 
-## Deploy 3rd party - Google OAuth
+## Deploy production
 
 Publish app in Google OAuth
 
 ```bash
+- Modify the "Environment Variables" on Vercel - MONGO_DB="appName-prod" (eg. LoyalBoards-prod)
 - Go to https://console.cloud.google.com/auth/audience?project=<appName>
 - Select "Audience" on the left
 - Click "Publish app"
