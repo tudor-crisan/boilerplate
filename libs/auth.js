@@ -16,7 +16,11 @@ const config = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     })
   ],
-  adapter: MongoDBAdapter(clientPromise)
+  adapter: MongoDBAdapter(clientPromise),
+  pages: {
+    signIn: "/auth/signin",
+    error: "/auth/error",
+  }
 };
 
 export const { handlers, signIn, signOut, auth } = NextAuth(config);
