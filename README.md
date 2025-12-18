@@ -34,9 +34,9 @@ Creating and setting-up 3rd party
 - Save AUTH_SECRET | GOOGLE_CLIENT_ID | GOOGLE_CLIENT_SECRET inside docs-v3.rtf
 ```
 
-## Deploy on vercel
+## Deploy on github / vercel / namecheap
 
-Copy all folders / files
+Copy all folders / files in new folder
 
 ```bash
 Except for
@@ -44,80 +44,34 @@ Except for
 - node_modules
 ```
 
-Change .env / package.json:
+Arange folder / files and deploy
 
 ```bash
-Change the .env variables
-- NEXT_PUBLIC_APP="appName" (eg. loyalboards)
-- MONGO_DB="appName-prod" (eg. LoyalBoards-rprod)
-- RESEND_EMAIL_FROM="appName@" (eg. LoyalBoards@email.tudorcrisan.dev)
+Create a new github repo / deploy
+-Open in that folder git bash - git init / code .
 
 Change the package.json
 -"name":"appName" (eg. loyalboards)
 -"version": from "0.0.1" to "0.0.2" (for example)
 
-Remove from package.json
-- scripts: lint, typescript
-- dependencies: zod
-- devDependencies: eslint, eslint-config-next
+Remove all unused files: (for speed)
+- delete fonts that are not used from - lists/fonts.js
+- keep only what's in public/apps/"appName" (rest delete all)
+- delete the env/.env.<appName> variables, keep only the one of the app
+
+Deploy on github and vercel
+- Git add all files / commit / publish private branch
+- Open vercel new project, and copy-paste the variables
+- MONGO_DB="appName-prod" (eg. LoyalBoards-prod)
+
+Namecheap domain registration
+- Add Domain - after the build is complete
+- Domain - register a $1-2 domain (.my)
+- Advanced DNS - set-up the CNAME / A records (from vercel)
+- Mail Settings - "No Email Service"
 ```
 
-Remove all unused files:
-
-```bash
-keep only the "appName" from lists/apps.js (rest delete)
-lists/apps.js
-components/shuffle
-components/wrapper/WrapperShuffle.js
-
-arange the app/globals.css
--change "themes: all" to "themes: <theme>"
--remove the commented line
-
-keep only what's used in "apps.js"
-lists/copywritings.js
-lists/stylings.js
-lists/visuals.js
-lists/fonts.js
-lists/logos.js
-lists/themes.js
-
-keep only what's in apps.js (rest files delete)
-data/copywriting
-data/styling
-data/visual
-
-keep only what's in public/apps/"appName" (rest delete all)
-notes/
-public/assets/
-scripts/
-sensitive/
-types/
-README.md
-.env.example
-```
-
-Test locally:
-
-```bash
-- have the .env.local variables
-- run "npm install" then "npm run dev"
-- test in browser at localhost:3000
-```
-
-Git / Vercel deploy
-
-```bash
-* Initialize a new git repository
-* Add all files / commit / push private
-* Vercel - new project, click import
-* Set-up the environment variables
-* Domain - register a $1-2 domain (.my)
-* Basic DNS - set-up the email forwarding (alias tudor.crisan)
-* Advanced DNS - set-up the CNAME / A records (from vercel)
-```
-
-## Deploy 3rd party
+## Deploy 3rd party - Google OAuth
 
 Publish app in Google OAuth
 
@@ -127,7 +81,7 @@ Publish app in Google OAuth
 - Click "Publish app"
 ```
 
-## Publish to TudorCrisan.dev
+## Publish to TudorCrisan.dev (+socials)
 
 Go to the tudorcrisan.dev repository and add it there
 
@@ -141,6 +95,6 @@ Publish on twitter / reddit / ph / directories
 ```bash
 - Prepare the launch from the notes writen on notes/<appName>.txt
 - Polish there the launch details - get it ready to publish
-- Upload the publishing extension for different directories
+- Upload data to the "publishing chrome extension", that uploads to different directories
 - Keep track in notes/<appName>.txt of where it's launched and when
 ```
