@@ -78,8 +78,8 @@ Publish app in Google OAuth
 ```bash
 - Modify the "Environment Variables" on Vercel - MONGO_DB="appName-prod" (eg. LoyalBoards-prod)
 - Go to https://console.cloud.google.com/auth/audience?project=<appName>
-- Select "Audience" on the left
-- Click "Publish app"
+- Select "Audience" on the left - Click "Publish app"
+- Resend: "Add domain" add the email.domain.com to send from it, change in .env
 ```
 
 ## Publish and launch
