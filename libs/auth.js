@@ -16,7 +16,7 @@ const providersConfig = {
     ...(settings.auth.hasThemeEmails && {
       async sendVerificationRequest({ identifier: email, url, provider }) {
         const { host } = new URL(url);
-        const { subject, html, text } = MagicLinkEmail({ host, url });
+        const { subject, html, text } = await MagicLinkEmail({ host, url });
 
         sendResendEmail({
           apiKey: provider.apiKey,
