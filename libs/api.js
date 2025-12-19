@@ -30,3 +30,30 @@ export const setDataSuccess = (response = null, successCallback = null) => {
   }
   return false;
 }
+
+export const sendResendEmail = async (params) => {
+  const { apiPath = "emails", method = "POST", apiKey = "", from, email, subject, html, text } = params;
+  try {
+    const res = await fetch("https://api.resend.com/" + apiPath, {
+      method,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: from,
+        to: email,
+        subject,
+        html,
+        text,
+      }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(JSON.stringify(error));
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+}

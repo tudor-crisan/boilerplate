@@ -5,6 +5,7 @@ import { useStyling } from "@/context/ContextStyling";
 import HeaderTop from "@/components/header/HeaderTop";
 import SvgGoogle from "@/components/svg/SvgGoogle";
 import ButtonBack from "@/components/button/ButtonBack";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function SignInPage() {
   const { styling } = useStyling();
@@ -34,36 +35,45 @@ export default function SignInPage() {
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
             <HeaderTop url="/" />
           </div>
-          <form onSubmit={handleEmailSignIn} className="form-control gap-4">
-            <div className="mb-2">
-              <label className="label">
-                <span className="label-text">Email Address</span>
-              </label>
-              <input
-                type="email"
-                placeholder="email@example.com"
-                className={`input input-bordered w-full ${styling.roundness[0]}`}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
+          {!settings.auth.providers.length && (
+            <p className="text-center">No sign-in methods available at this time</p>
+          )}
+          {settings.auth.providers.includes("resend") && <>
+            <form onSubmit={handleEmailSignIn} className="form-control gap-4">
+              <div className="mb-2">
+                <label className="label">
+                  <span className="label-text">Email Address</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="email@example.com"
+                  className={`input input-bordered w-full ${styling.roundness[0]}`}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                className={`btn btn-primary w-full ${styling.roundness[0]}`}
+                disabled={isLoading}
+              >
+                {isLoading ? <span className="loading loading-spinner"></span> : "Sign in with Email"}
+              </button>
+            </form>
+            {settings.auth.providers.length > 1 && (
+              <div className="divider">OR</div>
+            )}
+          </>}
+          {settings.auth.providers.includes("google") && (
             <button
-              type="submit"
-              className={`btn btn-primary w-full ${styling.roundness[0]}`}
-              disabled={isLoading}
+              onClick={handleGoogleSignIn}
+              className={`btn btn-outline w-full flex gap-2 ${styling.roundness[0]}`}
             >
-              {isLoading ? <span className="loading loading-spinner"></span> : "Sign in with Email"}
+              <SvgGoogle />
+              Sign in with Google
             </button>
-          </form>
-          <div className="divider">OR</div>
-          <button
-            onClick={handleGoogleSignIn}
-            className={`btn btn-outline w-full flex gap-2 ${styling.roundness[0]}`}
-          >
-            <SvgGoogle />
-            Sign in with Google
-          </button>
+          )}
           <div className="mx-auto mt-6">
             <ButtonBack url="/" className="btn-ghost" />
           </div>

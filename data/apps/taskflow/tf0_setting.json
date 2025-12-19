@@ -1,4 +1,9 @@
 {
+  "auth": {
+    "providers": ["resend", "google"],
+    "hasThemePages": true,
+    "hasThemeEmails": true
+  },
   "pages": {
     "dashboard": {
       "component": "TaskFlowDashboard"

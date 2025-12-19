@@ -100,6 +100,8 @@ const getLogoHtml = (host) => {
   `;
 };
 
+/////////////////
+
 export function MagicLinkEmail({ host, url }) {
   const branding = getEmailBranding();
   const { themeColor, base100, base200, content, appName, font, dividerColor, cardRoundness, btnRoundness, cardShadow, cardBorder } = branding;
@@ -125,8 +127,8 @@ export function MagicLinkEmail({ host, url }) {
           ${googleFontImport}
         </style>
       </head>
-      <body style="margin: 0; padding: 0;">
-        <div style="background-color: ${base200}; padding: 60px 20px; font-family: ${font}; min-height: 100vh;">
+      <body style="margin: 0; padding: 0; background-color: ${base200};">
+        <div style="background-color: ${base200}; padding: 60px 20px; font-family: ${font};">
           <div style="max-width: 440px; margin: 0 auto; background-color: ${base100}; padding: 48px 32px; border-radius: ${cardRoundness}; box-shadow: ${cardShadow}; border: ${cardBorder};">
             <div style="text-align: center; margin-bottom: 40px; white-space: nowrap;">
               ${getLogoHtml(host)}
