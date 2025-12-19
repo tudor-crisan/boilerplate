@@ -16,6 +16,10 @@
       "boardPrivate": {
         "source": "/dashboard/b/:boardId",
         "destination": "/modules/boards/dashboard/b/:boardId"
+      },
+      "previewEmail": {
+        "source": "/preview/email",
+        "destination": "/modules/preview/email"
       }
     }
   },

@@ -6,7 +6,6 @@ import styling1 from "../data/modules/styling/styling1.json";
 import styling2 from "../data/modules/styling/styling2.json";
 import styling3 from "../data/modules/styling/styling3.json";
 
-
 const stylings = {
   lb0_styling,
   tf0_styling,

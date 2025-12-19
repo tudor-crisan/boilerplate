@@ -24,6 +24,6 @@
     "textalign": "text-center sm:text-left"
   },
   "SectionFAQ": {
-    "positioning": "flex flex-col space-y-6"
+    "spacing": "flex flex-col space-y-6"
   }
 }

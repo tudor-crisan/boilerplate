@@ -7,7 +7,7 @@ export default function SectionFAQ() {
   const { styling } = useStyling();
   return (
     <section id="faq" className={`${styling.general.container} ${styling.general.spacing}`}>
-      <div className={`${styling.SectionFAQ.positioning} justify-center`}>
+      <div className={`${styling.SectionFAQ.spacing} justify-center`}>
         <div className="flex-1 space-y-2">
           <p className={`${styling.general.label}`}>
             {copywriting.SectionFAQ.label}
