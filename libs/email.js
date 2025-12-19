@@ -1,8 +1,8 @@
 import { defaultStyling, defaultCopywriting, defaultVisual } from "@/libs/defaults";
 import themeColors from "@/lists/themeColors";
-import logos from "@/lists/logos";
+import { oklchToHex } from "@/libs/utils.client";
+import { fontMap } from "@/lists/fonts";
 
-// Style mapping helpers
 const getRoundness = (idx) => {
   const val = defaultStyling.roundness?.[idx] || "";
   if (val.includes("rounded-none")) return "0";
@@ -41,17 +41,26 @@ const getBorder = (idx, themeColor) => {
   return `${width} solid ${color}`;
 };
 
-export function getEmailBranding() {
+const getEmailBranding = () => {
   const theme = defaultStyling.theme || "light";
   const colors = themeColors[theme] || themeColors.light;
 
-  const themeColor = colors.primary;
-  const base100 = colors.base100;
-  const base200 = colors.base200;
-  const content = colors.content;
+  // Convert OKLCH strings to HEX
+  const themeColor = oklchToHex(colors["--color-primary"]);
+  const base100 = oklchToHex(colors["--color-base-100"]);
+  const base200 = oklchToHex(colors["--color-base-200"]);
+  const content = oklchToHex(colors["--color-base-content"]);
 
   const appName = defaultCopywriting.SectionHeader.appName || "App";
-  const font = defaultStyling.font ? `${defaultStyling.font}, sans-serif` : "sans-serif";
+
+  // Use font map to get correct Google Font family
+  const fontKey = defaultStyling.font || "inter";
+  const fontName = fontMap[fontKey] || "Inter";
+  const font = `${fontName}, sans-serif`;
+
+  // Determine divider color based on theme (dark vs light)
+  const isDark = ["dracula", "dark", "night", "synthwave", "halloween", "forest", "luxury", "abyss", "dim", "business", "sunset", "coffee", "aqua", "black", "luxury", "abyss"].includes(theme);
+  const dividerColor = isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)";
 
   return {
     themeColor,
@@ -60,6 +69,7 @@ export function getEmailBranding() {
     content,
     appName,
     font,
+    dividerColor,
     cardRoundness: getRoundness(1),
     btnRoundness: getRoundness(0),
     cardShadow: getShadow(1),
@@ -67,8 +77,7 @@ export function getEmailBranding() {
   };
 }
 
-const getLogoHtml = (branding, host) => {
-  const { themeColor } = branding;
+const getLogoHtml = (host) => {
   const favicon = defaultVisual.favicon;
 
   if (!favicon || !favicon.href) return "";
@@ -93,30 +102,50 @@ const getLogoHtml = (branding, host) => {
 
 export function MagicLinkEmail({ host, url }) {
   const branding = getEmailBranding();
-  const { themeColor, base100, base200, content, appName, font, cardRoundness, btnRoundness, cardShadow, cardBorder } = branding;
+  const { themeColor, base100, base200, content, appName, font, dividerColor, cardRoundness, btnRoundness, cardShadow, cardBorder } = branding;
 
   const subject = `Sign in to ${appName}`;
   const text = `Sign in to ${appName}\n${url}\n\nIf you did not request this email you can safely ignore it.`;
 
+  // Extract font name for Google Fonts from the mapping (it's already the correct string)
+  const primaryFont = font.split(',')[0].trim();
+
+  // URL Encode font family for import
+  const fontImportName = primaryFont.replace(/\s+/g, '+');
+
+  const googleFontImport = (primaryFont && primaryFont !== "Sans-serif")
+    ? `@import url('https://fonts.googleapis.com/css2?family=${fontImportName}:wght@400;600;700;800&display=swap');`
+    : "";
+
   const html = `
-    <div style="background-color: ${base200}; padding: 60px 20px; font-family: ${font}; min-height: 100vh;">
-      <div style="max-width: 440px; margin: 0 auto; background-color: ${base100}; padding: 48px 32px; border-radius: ${cardRoundness}; box-shadow: ${cardShadow}; border: ${cardBorder};">
-        <div style="text-align: center; margin-bottom: 40px; white-space: nowrap;">
-          ${getLogoHtml(branding)}
-          <h1 style="display: inline-block; font-size: 28px; font-weight: 800; margin: 0; color: ${themeColor}; letter-spacing: -0.025em; vertical-align: middle;">${appName}</h1>
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          ${googleFontImport}
+        </style>
+      </head>
+      <body style="margin: 0; padding: 0;">
+        <div style="background-color: ${base200}; padding: 60px 20px; font-family: ${font}; min-height: 100vh;">
+          <div style="max-width: 440px; margin: 0 auto; background-color: ${base100}; padding: 48px 32px; border-radius: ${cardRoundness}; box-shadow: ${cardShadow}; border: ${cardBorder};">
+            <div style="text-align: center; margin-bottom: 40px; white-space: nowrap;">
+              ${getLogoHtml(host)}
+              <h1 style="display: inline-block; font-size: 28px; font-weight: 800; margin: 0; color: ${themeColor}; letter-spacing: -0.025em; vertical-align: middle;">${appName}</h1>
+            </div>
+            <div style="text-align: center; margin-bottom: 40px;">
+              <h2 style="font-size: 22px; font-weight: 700; margin: 0 0 16px 0; color: ${content};">Sign in to ${host}</h2>
+              <p style="font-size: 16px; color: ${content}; opacity: 0.8; margin-bottom: 32px; line-height: 1.5;">Click the button below to securely sign in to your account.</p>
+              <a href="${url}" style="display: inline-block; background-color: ${themeColor}; color: #ffffff; padding: 14px 40px; border-radius: ${btnRoundness}; text-decoration: none; font-weight: 600; font-size: 16px;">Sign in</a>
+            </div>
+            <div style="border-top: 1px solid ${dividerColor}; padding-top: 32px; margin-top: 32px;">
+              <p style="font-size: 14px; color: ${content}; opacity: 0.7; text-align: center; margin: 0; line-height: 1.4;">
+                If you did not request this email, you can safely ignore it.
+              </p>
+            </div>
+          </div>
         </div>
-        <div style="text-align: center; margin-bottom: 40px;">
-          <h2 style="font-size: 22px; font-weight: 700; margin: 0 0 16px 0; color: ${content};">Sign in to ${host}</h2>
-          <p style="font-size: 16px; color: ${content}; opacity: 0.8; margin-bottom: 32px; line-height: 1.5;">Click the button below to securely sign in to your account.</p>
-          <a href="${url}" style="display: inline-block; background-color: ${themeColor}; color: #ffffff; padding: 14px 40px; border-radius: ${btnRoundness}; text-decoration: none; font-weight: 600; font-size: 16px;">Sign in</a>
-        </div>
-        <div style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 32px; margin-top: 32px;">
-          <p style="font-size: 14px; color: ${content}; opacity: 0.7; text-align: center; margin: 0; line-height: 1.4;">
-            If you did not request this email, you can safely ignore it.
-          </p>
-        </div>
-      </div>
-    </div>
+      </body>
+    </html>
   `;
 
   return { subject, html, text };

@@ -6,10 +6,12 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import { useRouter } from "next/navigation";
 import { setDataError, setDataSuccess } from "@/libs/api";
 import MockForms from "@/components/mock/MockForms";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function FormCreate({ type }) {
   const router = useRouter();
   const { formConfig, inputsConfig } = settings.forms[type];
+  const { styling } = useStyling();
 
   const defaultInputs = Object.entries(inputsConfig).reduce((acc, entry) => ({
     ...acc, [entry[0]]: entry[1].value
@@ -93,7 +95,7 @@ export default function FormCreate({ type }) {
 
   return (
     <form
-      className={`space-y-4 bg-base-100 px-4 py-8 rounded-xl ${formConfig.className}`}
+      className={`${styling.roundness[1]} ${styling.borders[0]} space-y-4 bg-base-100 px-4 py-8`}
       onSubmit={handleSubmit}
     >
       {formConfig.title && (
@@ -114,7 +116,7 @@ export default function FormCreate({ type }) {
           <input
             required={config.required || false}
             type={config.type || "text"}
-            className={`input ${inputErrors[target] && 'input-error'}`}
+            className={`${styling.roundness[0]} ${styling.shadows[0]} input ${inputErrors[target] && 'input-error'}`}
             placeholder={config.placeholder}
             value={inputs[target]}
             onFocus={() => resetError(target)}
@@ -130,7 +132,7 @@ export default function FormCreate({ type }) {
         <button
           type="submit"
           disabled={isLoading}
-          className="btn btn-primary"
+          className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-primary`}
         >
           {isLoading && <span className="loading loading-spinner loading-xs"></span>}
           {formConfig.button || "Create"}

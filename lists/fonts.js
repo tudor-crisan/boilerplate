@@ -46,6 +46,32 @@ const cabin = Cabin({ weight: ["400", "500", "600", "700"], subsets: ["latin"] }
 const tajawal = Tajawal({ weight: ["300", "400", "500", "700", "800"], subsets: ["latin"] });
 const sen = Sen({ weight: ["400", "600", "700", "800"], subsets: ["latin"] });
 
+export const fontMap = {
+  quicksand: "Quicksand",
+  baloo: "Baloo 2",
+  poppins: "Poppins",
+  nunito: "Nunito",
+  fredoka: "Fredoka",
+  kanit: "Kanit",
+  rubik: "Rubik",
+  montserrat: "Montserrat",
+  mulish: "Mulish",
+  sora: "Sora",
+  manrope: "Manrope",
+  urbanist: "Urbanist",
+  varelaRound: "Varela Round",
+  readexPro: "Readex Pro",
+  asap: "Asap",
+  exo2: "Exo 2",
+  dmSans: "DM Sans",
+  beVietnam: "Be Vietnam Pro",
+  lato: "Lato",
+  inter: "Inter",
+  cabin: "Cabin",
+  tajawal: "Tajawal",
+  sen: "Sen",
+};
+
 const fonts = {
   quicksand,
   baloo,

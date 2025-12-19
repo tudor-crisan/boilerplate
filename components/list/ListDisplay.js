@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { defaultStyling as styling } from "@/libs/defaults";
 
 export default function ListDisplay({ list, type = "Board", link = null }) {
-  const itemClass = 'block bg-base-100 p-6 rounded-3xl';
+  const itemClass = `${styling.roundness[1]} ${styling.borders[0]} block bg-base-100 p-6`;
   const linkClass = 'hover:bg-neutral hover:text-neutral-content duration-200';
   const pluralize = list.length > 1 ? 's' : '';
   return (

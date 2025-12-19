@@ -39,8 +39,7 @@
       "formConfig": {
         "title": "Create a new feedback board",
         "button": "Create Board",
-        "apiUrl": "/api/modules/boards/board",
-        "className": "sm:p-8 sm:rounded-3xl"
+        "apiUrl": "/api/modules/boards/board"
       },
       "inputsConfig": {
         "name": {
