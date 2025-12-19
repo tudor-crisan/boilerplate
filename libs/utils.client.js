@@ -1,4 +1,10 @@
 
+export function baseUrl() {
+  return process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://" + process.env.NEXT_PUBLIC_DOMAIN
+}
+
 export function oklchToHex(oklchStr) {
   if (!oklchStr || !oklchStr.startsWith("oklch(")) return "#000000";
 

@@ -7,26 +7,36 @@ import SvgGoogle from "@/components/svg/SvgGoogle";
 import ButtonBack from "@/components/button/ButtonBack";
 import { defaultSetting as settings } from "@/libs/defaults";
 
+const CALLBACK_URL = "/dashboard"
+
 export default function SignInPage() {
   const { styling } = useStyling();
   const [email, setEmail] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingEmail, setIsLoadingEmail] = useState(false);
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
 
   const handleEmailSignIn = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoadingEmail(true);
     try {
-      await signIn("email", { email, callbackUrl: "/dashboard" });
+      await signIn("email", { email, callbackUrl: CALLBACK_URL });
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
+      setIsLoadingEmail(false);
     }
   };
 
-  const handleGoogleSignIn = () => {
-    signIn("google", { callbackUrl: "/dashboard" });
+  const handleGoogleSignIn = async () => {
+    setIsLoadingGoogle(true);
+    try {
+      await signIn("google", { callbackUrl: CALLBACK_URL });
+    } catch (error) {
+      console.error(error);
+      setIsLoadingGoogle(false);
+    }
   };
+
+
 
   return (
     <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
@@ -45,20 +55,22 @@ export default function SignInPage() {
                   <span className="label-text">Email Address</span>
                 </label>
                 <input
+                  required
                   type="email"
                   placeholder="email@example.com"
                   className={`input input-bordered w-full ${styling.roundness[0]}`}
                   value={email}
+                  disabled={isLoadingEmail || isLoadingGoogle}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
                 />
               </div>
               <button
                 type="submit"
                 className={`btn btn-primary w-full ${styling.roundness[0]}`}
-                disabled={isLoading}
+                disabled={isLoadingEmail || isLoadingGoogle}
               >
-                {isLoading ? <span className="loading loading-spinner"></span> : "Sign in with Email"}
+                {isLoadingEmail && <span className="loading loading-spinner"></span>}
+                Sign in with Email
               </button>
             </form>
             {settings.auth.providers.length > 1 && (
@@ -69,13 +81,18 @@ export default function SignInPage() {
             <button
               onClick={handleGoogleSignIn}
               className={`btn btn-outline w-full flex gap-2 ${styling.roundness[0]}`}
+              disabled={isLoadingEmail || isLoadingGoogle}
             >
-              <SvgGoogle />
+              {isLoadingGoogle ? <span className="loading loading-spinner"></span> : <SvgGoogle />}
               Sign in with Google
             </button>
           )}
           <div className="mx-auto mt-6">
-            <ButtonBack url="/" className="btn-ghost" />
+            <ButtonBack
+              url="/"
+              disabled={isLoadingEmail || isLoadingGoogle}
+              className="btn-ghost"
+            />
           </div>
         </div>
       </div>
