@@ -31,7 +31,7 @@
   "favicon": {
     "type": "image/png",
     "sizes": "32x32",
-    "href": "/apps/loyalboards/loyalboards-favicon.png"
+    "href": "/apps/loyalboards/logo_favicon.png"
   },
   "homepage": {
     "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
