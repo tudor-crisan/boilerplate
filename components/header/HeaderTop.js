@@ -17,7 +17,7 @@ export default function HeaderTop({ url = "" }) {
         <IconLogo />
       )}
       {visual.show.SectionHeader.appName && (
-        <span className="font-bold text-md md:text-lg">
+        <span className="font-bold text-md sm:text-lg">
           {copywriting.SectionHeader.appName}
         </span>
       )}
