@@ -2,6 +2,7 @@
 import axios from "axios";
 import Button from "@/components/button/Button";
 import useApiRequest from "@/hooks/useApiRequest";
+import SvgPay from "@/components/svg/SvgPay";
 
 const SUCCESS_URL_REDIRECT = "/success";
 const CANCEL_URL_REDIRECT = "/dashboard";
@@ -33,6 +34,7 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
       variant={variant}
       isLoading={loading}
       onClick={handleSubscribe}
+      startIcon={<SvgPay />}
       {...props}
     >
       {children}

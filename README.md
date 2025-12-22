@@ -86,6 +86,7 @@ Additional (when having traction):
 - "Create new stripe" for the domain, with branding and everything, put it in .env
 - Resend: "Add domain" add the email.domain.com to send from it, change in .env
 - Tracking: "Add datafa.st" for advanced tracking of the apps
+- Stripe - Billing - Customer portal - "Activate test link"
 ```
 
 ## Publish and launch

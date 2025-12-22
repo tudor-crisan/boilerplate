@@ -32,7 +32,7 @@ export async function POST(req) {
 
     const body = await req.json();
 
-    if (!body.successUrl || !body.cancelUrl) {
+    if (!body.returnUrl) {
       return responseError(urlsRequired.message, {}, urlsRequired.status);
     }
 
@@ -50,22 +50,14 @@ export async function POST(req) {
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-    const stripeCheckoutSession = await stripe.checkout.sessions.create({
-      mode: "subscription",
-      line_items: [
-        {
-          price: process.env.STRIPE_PRICE_ID,
-          quantity: 1,
-        },
-      ],
-      success_url: body.successUrl,
-      cancel_url: body.cancelUrl,
-      customer_email: user.email,
-      client_reference_id: user._id.toString(),
+    const stripeCustomerPortal = await stripe.billingPortal.sessions.create({
+      customer: user.customerId,
+      return_url: body.returnUrl,
     });
 
-    return responseSuccess(checkoutCreated.message, { url: stripeCheckoutSession.url }, checkoutCreated.status);
+    return responseSuccess(portalCreated.message, { url: stripeCustomerPortal.url }, portalCreated.status);
   } catch (e) {
+    console.log('e', e)
     return responseError(serverError.message, {}, serverError.status);
   }
 }

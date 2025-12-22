@@ -82,11 +82,15 @@
       "backend": {
         "responses": {
           "urlsRequired": {
-            "message": "Success and cancel URLs are required",
+            "message": "Redirect URLs are required",
             "status": 400
           },
           "checkoutCreated": {
-            "message": "Checkout session created directly",
+            "message": "Next, enter your payment details",
+            "status": 200
+          },
+          "portalCreated": {
+            "message": "You are being redirected to billing",
             "status": 200
           }
         }

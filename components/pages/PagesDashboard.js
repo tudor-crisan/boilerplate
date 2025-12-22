@@ -9,6 +9,7 @@ import dashboards from "@/lists/dashboards";
 import ButtonCheckout from "@/components/button/ButtonCheckout";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { getUser } from "@/libs/modules/boards/db";
+import ButtonPortal from "@/components/button/ButtonPortal";
 
 export default async function PagesDashboard({ children }) {
   const component = settings.pages.dashboard.component
@@ -21,7 +22,7 @@ export default async function PagesDashboard({ children }) {
       <DashboardHeader>
         <HeaderTop url="/" />
         <div className="flex gap-2">
-          {!hasAccess && <ButtonCheckout />}
+          {!hasAccess ? <ButtonCheckout /> : <ButtonPortal />}
           <ButtonLogout />
         </div>
       </DashboardHeader>
