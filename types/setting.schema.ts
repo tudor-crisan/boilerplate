@@ -7,7 +7,7 @@ export const FormConfigSchema = z.object({
     title: z.string().describe("Title of the form."),
     button: z.string().describe("Button text."),
     apiUrl: z.string().describe("API endpoint URL."),
-    className: z.string().describe("CSS classes for the form container."),
+    className: z.string().optional().describe("CSS classes for the form container."),
 });
 
 /**
@@ -16,9 +16,15 @@ export const FormConfigSchema = z.object({
 export const InputConfigSchema = z.object({
     type: z.string().describe("Input type (e.g., text, email)."),
     required: z.boolean().describe("Whether the field is required."),
-    value: z.string().describe("Default value."),
+    value: z.any().describe("Default value."),
     label: z.string().describe("Label text."),
-    placeholder: z.string().describe("Placeholder text."),
+    placeholder: z.string().optional().describe("Placeholder text."),
+    className: z.string().optional().describe("CSS class for input"),
+    options: z.array(z.object({
+        label: z.string(),
+        value: z.string()
+    })).optional(),
+    rows: z.number().optional()
 });
 
 /**
@@ -62,16 +68,44 @@ export const MockConfigSchema = z.object({
  * Zod Schema for a specific Form (e.g. Board).
  */
 export const FormSchema = z.object({
-    formConfig: FormConfigSchema,
-    inputsConfig: z.record(z.string(), InputConfigSchema).describe("Map of input field configurations."),
-    backend: BackendConfigSchema,
-    mockConfig: MockConfigSchema,
+    formConfig: FormConfigSchema.optional(),
+    inputsConfig: z.record(z.string(), InputConfigSchema).optional().describe("Map of input field configurations."),
+    backend: BackendConfigSchema.optional(),
+    mockConfig: MockConfigSchema.optional(),
 });
+
+export const AuthSchema = z.object({
+    providers: z.array(z.string()),
+    hasThemePages: z.boolean(),
+    hasThemeEmails: z.boolean(),
+});
+
+export const PagePathSchema = z.object({
+    source: z.string(),
+    destination: z.string(),
+});
+
+export const PagesSchema = z.object({
+    dashboard: z.object({
+        component: z.string(),
+    }),
+    paths: z.record(z.string(), PagePathSchema),
+});
+
+export const MetadataItemSchema = z.object({
+    title: z.string(),
+    description: z.string(),
+});
+
+export const MetadataSchema = z.record(z.string(), z.union([MetadataItemSchema, z.record(z.string(), MetadataItemSchema)]));
 
 /**
  * Main Setting Config Schema.
  */
 export const SettingSchema = z.object({
+    auth: AuthSchema.optional(),
+    pages: PagesSchema.optional(),
+    metadata: MetadataSchema.optional(),
     forms: z.record(z.string(), FormSchema).describe("Map of form configurations."),
 });
 

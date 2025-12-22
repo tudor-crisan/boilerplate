@@ -1,6 +1,9 @@
 {
   "auth": {
-    "providers": ["resend", "google"],
+    "providers": [
+      "resend",
+      "google"
+    ],
     "hasThemePages": true,
     "hasThemeEmails": true
   },
@@ -8,7 +11,7 @@
     "dashboard": {
       "component": "TaskFlowDashboard"
     },
-    "paths": []
+    "paths": {}
   },
   "forms": {}
 }

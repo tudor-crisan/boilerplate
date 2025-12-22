@@ -1,9 +1,9 @@
 "use client";
-import { useState } from "react";
 import axios from "axios";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { useRouter } from "next/navigation";
 import useApiRequest from "@/hooks/useApiRequest";
+import useForm from "@/hooks/useForm";
 import MockForms from "@/components/mock/MockForms";
 import Button from "@/components/button/Button";
 import Select from "@/components/select/Select";
@@ -19,26 +19,18 @@ export default function FormCreate({ type }) {
 
   const defaultInputs = Object.entries(inputsConfig).reduce((acc, entry) => ({
     ...acc, [entry[0]]: entry[1].value
-  }), {})
+  }), {});
 
-  const [inputs, setInputs] = useState({ ...defaultInputs });
+  const {
+    inputs,
+    inputErrors,
+    setInputErrors,
+    handleChange,
+    resetInputs,
+    clearError
+  } = useForm(defaultInputs);
 
-  const setInput = (key, value) => {
-    setInputs({
-      ...inputs,
-      [key]: value
-    })
-  }
-
-  const { loading, inputErrors, setInputErrors, request } = useApiRequest();
-
-  const resetError = (key = "", value = "") => {
-    setInputErrors(prev => ({ ...prev, [key]: value }))
-  }
-
-  const resetInputs = () => {
-    setInputs({ ...defaultInputs })
-  }
+  const { loading, request } = useApiRequest();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,6 +40,11 @@ export default function FormCreate({ type }) {
         onSuccess: () => {
           resetInputs();
           router.refresh();
+        },
+        onError: (_, validationErrors) => {
+          if (validationErrors) {
+            setInputErrors(validationErrors);
+          }
         }
       }
     );
@@ -82,7 +79,7 @@ export default function FormCreate({ type }) {
               value={inputs[target]}
               options={config.options || []}
               placeholder={config.placeholder}
-              onChange={(e) => setInput(target, e.target.value)}
+              onChange={(e) => handleChange(target, e.target.value)}
               disabled={loading}
             />
           ) : config.type === "textarea" ? (
@@ -92,8 +89,8 @@ export default function FormCreate({ type }) {
               error={inputErrors[target]}
               placeholder={config.placeholder}
               value={inputs[target]}
-              onFocus={() => resetError(target)}
-              onChange={(e) => setInput(target, e.target.value)}
+              onFocus={() => clearError(target)}
+              onChange={(e) => handleChange(target, e.target.value)}
               disabled={loading}
               rows={config.rows || 3}
             />
@@ -105,8 +102,8 @@ export default function FormCreate({ type }) {
               error={inputErrors[target]}
               placeholder={config.placeholder}
               value={inputs[target]}
-              onFocus={() => resetError(target)}
-              onChange={(e) => setInput(target, e.target.value)}
+              onFocus={() => clearError(target)}
+              onChange={(e) => handleChange(target, e.target.value)}
               disabled={loading}
             />
           )}

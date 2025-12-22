@@ -1,10 +1,20 @@
 {
   "theme": "garden",
   "font": "sora",
-  "roundness": ["rounded-xs", "rounded-md"],
-  "shadows": ["shadow-none", "shadow-sm"],
-  "borders": ["border border-primary"],
-  "links": ["link link-hover"],
+  "roundness": [
+    "rounded-xs",
+    "rounded-md"
+  ],
+  "shadows": [
+    "shadow-none",
+    "shadow-sm"
+  ],
+  "borders": [
+    "border border-primary"
+  ],
+  "links": [
+    "link link-hover"
+  ],
   "general": {
     "language": "en",
     "html": "scroll-smooth",
@@ -23,6 +33,6 @@
     "textalign": "text-center sm:text-left"
   },
   "SectionFAQ": {
-    "positioning": "flex flex-col space-y-6"
+    "spacing": "flex flex-col space-y-6"
   }
 }

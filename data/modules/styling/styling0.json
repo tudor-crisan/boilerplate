@@ -1,10 +1,20 @@
 {
   "theme": "lofi",
   "font": "sen",
-  "roundness": ["rounded-md", "rounded-2xl"],
-  "shadows": ["shadow-md", "shadow-lg"],
-  "borders": ["border border-primary"],
-  "links": ["link link-hover"],
+  "roundness": [
+    "rounded-md",
+    "rounded-2xl"
+  ],
+  "shadows": [
+    "shadow-md",
+    "shadow-lg"
+  ],
+  "borders": [
+    "border border-primary"
+  ],
+  "links": [
+    "link link-hover"
+  ],
   "general": {
     "language": "en",
     "html": "scroll-smooth",
@@ -23,6 +33,6 @@
     "textalign": "text-center sm:text-left"
   },
   "SectionFAQ": {
-    "positioning": "flex flex-col space-y-6"
+    "spacing": "flex flex-col space-y-6"
   }
 }

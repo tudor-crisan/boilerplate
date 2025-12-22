@@ -3,7 +3,7 @@
     "dashboard": {
       "component": "TaskFlowDashboard"
     },
-    "paths": []
+    "paths": {}
   },
   "forms": {}
 }
