@@ -24,10 +24,10 @@ export default function FormCreate({ type }) {
   const {
     inputs,
     inputErrors,
+    resetInputs,
     setInputErrors,
     handleChange,
-    resetInputs,
-    clearError
+    handleFocus,
   } = useForm(defaultInputs);
 
   const { loading, request } = useApiRequest();
@@ -79,6 +79,7 @@ export default function FormCreate({ type }) {
               value={inputs[target]}
               options={config.options || []}
               placeholder={config.placeholder}
+              onFocus={() => handleFocus(target)}
               onChange={(e) => handleChange(target, e.target.value)}
               disabled={loading}
             />
@@ -89,7 +90,7 @@ export default function FormCreate({ type }) {
               error={inputErrors[target]}
               placeholder={config.placeholder}
               value={inputs[target]}
-              onFocus={() => clearError(target)}
+              onFocus={() => handleFocus(target)}
               onChange={(e) => handleChange(target, e.target.value)}
               disabled={loading}
               rows={config.rows || 3}
@@ -102,7 +103,7 @@ export default function FormCreate({ type }) {
               error={inputErrors[target]}
               placeholder={config.placeholder}
               value={inputs[target]}
-              onFocus={() => clearError(target)}
+              onFocus={() => handleFocus(target)}
               onChange={(e) => handleChange(target, e.target.value)}
               disabled={loading}
             />

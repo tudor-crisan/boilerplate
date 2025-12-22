@@ -31,7 +31,7 @@ export default async function PrivateFeedbackBoard({ params }) {
       <DashboardMain>
         <div className="space-y-4">
           <GeneralTitle>
-            {board.name} (private)
+            {board.name}
           </GeneralTitle>
           <InputCopy value={`${baseUrl()}/b/${boardId}`} />
           <ButtonDelete

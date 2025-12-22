@@ -5,13 +5,7 @@ export default function useForm(initialInputs = {}) {
   const [inputs, setInputs] = useState(initialInputs);
   const [inputErrors, setInputErrors] = useState({});
 
-  const handleChange = (key, value) => {
-    setInputs((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-
-    // Clear error for this field when user types
+  const clearError = (key) => {
     if (inputErrors[key]) {
       setInputErrors((prev) => {
         const newErrors = { ...prev };
@@ -21,20 +15,30 @@ export default function useForm(initialInputs = {}) {
     }
   };
 
+  const handleChange = (key, value) => {
+    setInputs((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+
+    clearError(key);
+  };
+
+  const handleFocus = (key) => {
+    clearError(key);
+  };
+
   const resetInputs = (newInputs = initialInputs) => {
     setInputs(newInputs);
     setInputErrors({});
   };
 
-  const setErrors = (errors) => {
-    setInputErrors(errors);
-  };
-
   return {
     inputs,
     inputErrors,
-    setInputErrors: setErrors,
+    setInputErrors,
     handleChange,
-    resetInputs,
+    handleFocus,
+    resetInputs
   };
 }

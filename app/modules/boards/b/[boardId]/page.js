@@ -16,7 +16,7 @@ export default async function PublicFeedbackBoard({ params }) {
   return (
     <GeneralMain className="bg-base-200">
       <GeneralTitle>
-        {board.name} (public)
+        {board.name}
       </GeneralTitle>
     </GeneralMain>
   )
