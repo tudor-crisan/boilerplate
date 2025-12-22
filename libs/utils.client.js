@@ -1,4 +1,8 @@
 
+export function isMobile() {
+  return window.matchMedia("(max-width: 768px)").matches;
+}
+
 export function pluralize(word = '', count = 0) {
   return word + (count > 1 ? 's' : '')
 }

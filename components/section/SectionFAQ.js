@@ -1,6 +1,7 @@
 "use client";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
+import Input from "@/components/input/Input";
 
 export default function SectionFAQ() {
   const { copywriting } = useCopywriting();
@@ -19,7 +20,7 @@ export default function SectionFAQ() {
         <div className="flex-1">
           {copywriting.SectionFAQ.questions.map((faq, index) => (
             <div key={index} className={`${styling.roundness[1]} ${styling.borders[0]} collapse collapse-arrow bg-base-200 my-2`}>
-              <input type="radio" name="faq-accordion" defaultChecked={!index} />
+              <Input type="radio" name="faq-accordion" defaultChecked={!index} />
               <div className="collapse-title font-semibold text-primary">
                 {faq.question}
               </div>

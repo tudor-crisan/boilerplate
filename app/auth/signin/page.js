@@ -5,6 +5,7 @@ import { useStyling } from "@/context/ContextStyling";
 import HeaderTop from "@/components/header/HeaderTop";
 import SvgGoogle from "@/components/svg/SvgGoogle";
 import Button from "@/components/button/Button";
+import Input from "@/components/input/Input";
 import ButtonBack from "@/components/button/ButtonBack";
 import { defaultSetting as settings } from "@/libs/defaults";
 
@@ -55,11 +56,11 @@ export default function SignInPage() {
                 <label className="label">
                   <span className="label-text">Email Address</span>
                 </label>
-                <input
+                <Input
                   required
                   type="email"
                   placeholder="email@example.com"
-                  className={`input input-bordered w-full ${styling.roundness[0]}`}
+                  className={`input-bordered w-full`}
                   value={email}
                   disabled={loadingEmail || loadingGoogle}
                   onChange={(e) => setEmail(e.target.value)}

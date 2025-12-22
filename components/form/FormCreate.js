@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import useApiRequest from "@/hooks/useApiRequest";
 import MockForms from "@/components/mock/MockForms";
 import Button from "@/components/button/Button";
+import Input from "@/components/input/Input";
 import { useStyling } from "@/context/ContextStyling";
 import GeneralTitle from "../general/GeneralTitle";
 
@@ -70,10 +71,11 @@ export default function FormCreate({ type }) {
               {config.label}
             </label>
           )}
-          <input
+          <Input
             required={config.required || false}
             type={config.type || "text"}
-            className={`${styling.roundness[0]} ${styling.shadows[0]} input ${inputErrors[target] && 'input-error'}`}
+            className={`${styling.shadows[0]}`}
+            error={inputErrors[target]}
             placeholder={config.placeholder}
             value={inputs[target]}
             onFocus={() => resetError(target)}
