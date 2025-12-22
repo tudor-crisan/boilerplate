@@ -32,6 +32,7 @@ export async function POST(req) {
       user.customerId = data.object.customer;
 
       await user.save();
+
     } else if (type === "customer.subscription.deleted") {
       // ❌ Revoke access to the product (subscription cancelled or non-payment)
 
