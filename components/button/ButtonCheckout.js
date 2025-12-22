@@ -1,8 +1,10 @@
 "use client";
-
 import axios from "axios";
 import Button from "@/components/button/Button";
 import useApiRequest from "@/hooks/useApiRequest";
+
+const SUCCESS_URL_REDIRECT = "/success";
+const CANCEL_URL_REDIRECT = "/dashboard";
 
 const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "Subscribe", ...props }) => {
   const { loading, request } = useApiRequest();
@@ -10,8 +12,8 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
   const handleSubscribe = async () => {
     await request(
       () => axios.post("/api/billing/create-checkout", {
-        successUrl: window.location.href + "/success",
-        cancelUrl: window.location.href,
+        successUrl: window.location.origin + SUCCESS_URL_REDIRECT,
+        cancelUrl: window.location.origin + CANCEL_URL_REDIRECT,
       }),
       {
         onSuccess: (message, data) => {

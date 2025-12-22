@@ -20,6 +20,10 @@
       "previewEmail": {
         "source": "/preview/email",
         "destination": "/modules/preview/email"
+      },
+      "billingSuccess": {
+        "source": "/success",
+        "destination": "/modules/billing/success"
       }
     }
   },
