@@ -6,7 +6,25 @@ export function getEmailHandle(email = "", fallback = "") {
 }
 
 export function getNameInitials(name = "") {
-  return name.slice(0, 2).toUpperCase();
+  name = name.toString();
+  const parts = name.trim().split(" ").filter(Boolean);
+
+  if (parts.length === 0) return "";
+
+  if (parts.length === 1) {
+    const part = parts[0];
+    // If name contains numbers (e.g. c214435), return just the first letter
+    if (/\d/.test(part)) {
+      return part.slice(0, 1).toUpperCase();
+    }
+    // Otherwise return first two letters (e.g. Tudor -> TU)
+    return part.slice(0, 2).toUpperCase();
+  }
+
+  // If multiple names (e.g. Tudor Crisan), return first letter of first and last name
+  const first = parts[0][0];
+  const last = parts[parts.length - 1][0];
+  return (first + last).toUpperCase();
 }
 
 export function isMobile() {
