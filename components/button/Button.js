@@ -1,4 +1,4 @@
-  "use client";
+"use client";
 import Link from "next/link";
 import { useStyling } from "@/context/ContextStyling";
 import IconLoading from "@/components/icon/IconLoading";
@@ -18,7 +18,7 @@ export default function Button({
 }) {
   const { styling } = useStyling();
 
-  const baseClasses = `btn ${variant} ${size} ${styling.roundness[0]} ${styling.shadows[0]} ${className}`;
+  const baseClasses = `${styling.roundness[0]} ${styling.shadows[0]} btn ${variant} ${size} ${className}`;
   const isDisabled = disabled || isLoading;
 
   if (href) {

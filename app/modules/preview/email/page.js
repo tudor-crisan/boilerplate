@@ -2,6 +2,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import emailTemplates from '@/lists/emailTemplates';
+import Select from '@/components/select/Select';
 
 const { MagicLinkTemplate } = emailTemplates;
 
@@ -41,15 +42,12 @@ export default function EmailPreviewPage() {
     <div className="min-h-screen flex flex-col h-screen">
       <div className="bg-base-100 p-4 flex flex-col items-center gap-1">
         <label className="font-bold text-lg">Email Preview</label>
-        <select
-          className="select select-bordered select-sm w-full max-w-xs"
+        <Select
+          className="select-sm w-full max-w-xs"
           value={selectedTemplate}
           onChange={(e) => setSelectedTemplate(e.target.value)}
-        >
-          {Object.keys(TEMPLATES).map(name => (
-            <option key={name} value={name}>{name}</option>
-          ))}
-        </select>
+          options={Object.keys(TEMPLATES)}
+        />
       </div>
       <div className="flex-1 bg-base-100 px-0 py-2 sm:px-8 sm:py-4 overflow-hidden relative">
         <iframe

@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import useApiRequest from "@/hooks/useApiRequest";
 import MockForms from "@/components/mock/MockForms";
 import Button from "@/components/button/Button";
+import Select from "@/components/select/Select";
+import Textarea from "@/components/textarea/Textarea";
 import Input from "@/components/input/Input";
 import { useStyling } from "@/context/ContextStyling";
 import GeneralTitle from "../general/GeneralTitle";
@@ -71,17 +73,44 @@ export default function FormCreate({ type }) {
               {config.label}
             </label>
           )}
-          <Input
-            required={config.required || false}
-            type={config.type || "text"}
-            className={`${styling.shadows[0]}`}
-            error={inputErrors[target]}
-            placeholder={config.placeholder}
-            value={inputs[target]}
-            onFocus={() => resetError(target)}
-            onChange={(e) => setInput(target, e.target.value)}
-            disabled={loading}
-          />
+
+          {config.type === "select" ? (
+            <Select
+              required={config.required || false}
+              className={`${styling.shadows[0]}`}
+              error={inputErrors[target]}
+              value={inputs[target]}
+              options={config.options || []}
+              placeholder={config.placeholder}
+              onChange={(e) => setInput(target, e.target.value)}
+              disabled={loading}
+            />
+          ) : config.type === "textarea" ? (
+            <Textarea
+              required={config.required || false}
+              className={`${styling.shadows[0]}`}
+              error={inputErrors[target]}
+              placeholder={config.placeholder}
+              value={inputs[target]}
+              onFocus={() => resetError(target)}
+              onChange={(e) => setInput(target, e.target.value)}
+              disabled={loading}
+              rows={config.rows || 3}
+            />
+          ) : (
+            <Input
+              required={config.required || false}
+              type={config.type || "text"}
+              className={`${styling.shadows[0]}`}
+              error={inputErrors[target]}
+              placeholder={config.placeholder}
+              value={inputs[target]}
+              onFocus={() => resetError(target)}
+              onChange={(e) => setInput(target, e.target.value)}
+              disabled={loading}
+            />
+          )}
+
           {inputErrors[target] && (
             <p className="label text-red-600">{inputErrors[target]}</p>
           )}
