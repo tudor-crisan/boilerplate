@@ -1,16 +1,16 @@
-import Link from "next/link";
+import Button from "@/components/button/Button";
 import SvgBack from "@/components/svg/SvgBack";
-import { defaultStyling as styling } from "@/libs/defaults";
 
 export default function ButtonBack({ url = "/", className = "", disabled = false }) {
   return (
-    <Link
+    <Button
       href={url}
       disabled={disabled}
-      className={`${styling.roundness[0]} btn-sm sm:btn-md btn ${className}`}
+      className={className}
+      startIcon={<SvgBack />}
+      variant="btn" // Default plain btn class not primary
     >
-      <SvgBack />
       Back
-    </Link>
+    </Button>
   )
 }

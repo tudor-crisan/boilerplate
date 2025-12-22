@@ -39,10 +39,9 @@ function ErrorContent() {
             >
               Try Again
             </Link>
-            <div className="mx-auto mt-2">
+            <div className="mx-auto mt-6">
               <ButtonBack
-                url="/"
-                className="btn-md! btn-ghost"
+                className="btn-ghost btn-md! shadow-none!"
               />
             </div>
           </div>

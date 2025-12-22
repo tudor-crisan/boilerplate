@@ -1,33 +1,33 @@
 "use client";
-import Link from "next/link";
-import { useStyling } from "@/context/ContextStyling";
 import { useAuth } from "@/context/ContextAuth";
 import { signIn } from "next-auth/react";
+import Button from "@/components/button/Button";
 
 export default function ButtonLogin({ className = "", loggedInText = "Go to dashboard", loggedOutText = "Get started" }) {
-  const { styling } = useStyling();
   const { isLoggedIn } = useAuth();
   const dashboardUrl = "/dashboard";
 
   if (isLoggedIn) {
     return (
-      <Link
+      <Button
         href={dashboardUrl}
-        className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-primary ${className}`}
+        className={className}
+        variant="btn-primary"
       >
         {loggedInText}
-      </Link>
+      </Button>
     );
   }
 
   return (
-    <button
-      className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-primary ${className}`}
+    <Button
+      className={className}
+      variant="btn-primary"
       onClick={() => {
         signIn(undefined, { callbackUrl: dashboardUrl })
       }}
     >
       {loggedOutText}
-    </button>
+    </Button>
   )
 }

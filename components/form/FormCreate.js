@@ -5,9 +5,9 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import { useRouter } from "next/navigation";
 import useApiRequest from "@/hooks/useApiRequest";
 import MockForms from "@/components/mock/MockForms";
+import Button from "@/components/button/Button";
 import { useStyling } from "@/context/ContextStyling";
 import GeneralTitle from "../general/GeneralTitle";
-import IconLoading from "../icon/IconLoading";
 
 export default function FormCreate({ type }) {
   const router = useRouter();
@@ -86,14 +86,13 @@ export default function FormCreate({ type }) {
         </div>
       ))}
       <div className="flex">
-        <button
+        <Button
           type="submit"
-          disabled={loading}
-          className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-primary`}
+          isLoading={loading}
+          variant="btn-primary"
         >
-          {loading && <IconLoading />}
           {formConfig.button || "Create"}
-        </button>
+        </Button>
       </div>
       <MockForms type={type} />
     </form>

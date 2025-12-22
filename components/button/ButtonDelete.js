@@ -3,8 +3,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import useApiRequest from "@/hooks/useApiRequest";
 import SvgTrash from "@/components/svg/SvgTrash";
-import { useStyling } from "@/context/ContextStyling";
-import IconLoading from "../icon/IconLoading";
+import Button from "@/components/button/Button";
 
 export default function ButtonDelete({
   url = "/api/...",
@@ -14,7 +13,6 @@ export default function ButtonDelete({
   withRedirect = true,
   redirectUrl = "/dashboard"
 }) {
-  const { styling } = useStyling();
   const router = useRouter();
   const { loading, request } = useApiRequest();
 
@@ -35,13 +33,13 @@ export default function ButtonDelete({
   };
 
   return (
-    <button
-      disabled={loading}
-      className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-error`}
+    <Button
+      isLoading={loading}
+      variant="btn-error"
       onClick={() => handleDelete()}
+      startIcon={<SvgTrash />}
     >
-      {loading ? <IconLoading /> : <SvgTrash />}
       {buttonText}
-    </button>
+    </Button>
   )
 }

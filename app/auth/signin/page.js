@@ -4,8 +4,8 @@ import { signIn } from "next-auth/react";
 import { useStyling } from "@/context/ContextStyling";
 import HeaderTop from "@/components/header/HeaderTop";
 import SvgGoogle from "@/components/svg/SvgGoogle";
+import Button from "@/components/button/Button";
 import ButtonBack from "@/components/button/ButtonBack";
-import IconLoading from "@/components/icon/IconLoading";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 const CALLBACK_URL = "/dashboard"
@@ -65,34 +65,36 @@ export default function SignInPage() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <button
+              <Button
                 type="submit"
-                className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-primary w-full`}
+                variant="btn-primary w-full"
+                className="btn-md!"
+                isLoading={loadingEmail}
                 disabled={loadingEmail || loadingGoogle}
               >
-                {loadingEmail && <IconLoading />}
                 Sign in with Email
-              </button>
+              </Button>
             </form>
             {settings.auth.providers.length > 1 && (
               <div className="divider">OR</div>
             )}
           </>}
           {settings.auth.providers.includes("google") && (
-            <button
+            <Button
               onClick={handleGoogleSignIn}
-              className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-outline w-full`}
+              variant="btn-outline w-full"
+              className="btn-md!"
+              isLoading={loadingGoogle}
               disabled={loadingEmail || loadingGoogle}
+              startIcon={<SvgGoogle />}
             >
-              {loadingGoogle ? <IconLoading /> : <SvgGoogle />}
               Sign in with Google
-            </button>
+            </Button>
           )}
           <div className="mx-auto mt-6">
             <ButtonBack
-              url="/"
+              className="btn-ghost btn-md! shadow-none!"
               disabled={loadingEmail || loadingGoogle}
-              className="btn-md! btn-ghost"
             />
           </div>
         </div>
