@@ -1,4 +1,14 @@
 
+
+export function getEmailHandle(email = "", fallback = "") {
+  const match = email.match(/^([^@+]+)/);
+  return match ? match[1] : fallback;
+}
+
+export function getNameInitials(name = "") {
+  return name.slice(0, 2).toUpperCase();
+}
+
 export function isMobile() {
   return window.matchMedia("(max-width: 768px)").matches;
 }

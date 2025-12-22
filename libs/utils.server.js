@@ -1,11 +1,6 @@
 import { NextResponse } from "next/server";
 import { defaultSetting as settings } from "@/libs/defaults";
 
-export function getEmailHandle(email, fallback = "") {
-  const match = email.match(/^([^@+]+)/);
-  return match ? match[1] : fallback;
-}
-
 export function responseSuccess(message = "", data = {}, status = 200) {
   return NextResponse.json({ message, data }, { status });
 }

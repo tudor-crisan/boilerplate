@@ -6,18 +6,19 @@ import ButtonLogout from "@/components/button/ButtonLogout";
 import DashboardMessage from "@/components/dashboard/DashboardMessage";
 import dashboards from "@/lists/dashboards";
 import { defaultSetting as settings } from "@/libs/defaults";
-import ButtonCheckout from "../button/ButtonCheckout";
+import ButtonCheckout from "@/components/button/ButtonCheckout";
 
 export default function PagesDashboard({ children }) {
   const component = settings.pages.dashboard.component
   const Component = dashboards[component];
+  const { hasAccess } = useAuth();
 
   return (
     <DashboardWrapper>
       <DashboardHeader>
         <HeaderTop url="/" />
         <div className="flex gap-2">
-          <ButtonCheckout />
+          {!hasAccess && <ButtonCheckout />}
           <ButtonLogout />
         </div>
       </DashboardHeader>

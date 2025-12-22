@@ -1,6 +1,6 @@
 import { auth } from "@/libs/auth";
-import { getEmailHandle } from "@/libs/utils.server";
-import WrapperAuthClient from "./WrapperAuth.client";
+import { getEmailHandle, getNameInitials } from "@/libs/utils.server";
+import WrapperAuthClient from "@/components/wrapper/WrapperAuth.client";
 
 export default async function WrapperAuth({ children }) {
   const sessionAuth = await auth();
@@ -10,10 +10,12 @@ export default async function WrapperAuth({ children }) {
 
   if (authSession.isLoggedIn) {
     const name = sessionAuth.user.name || getEmailHandle(sessionAuth.user.email, "friend");
+
     Object.assign(authSession, {
+      "hasAccess": sessionAuth.user.hasAccess,
       "email": sessionAuth.user.email,
       "name": name,
-      "initials": name.slice(0, 2).toUpperCase(),
+      "initials": getNameInitials(name),
     });
 
   }

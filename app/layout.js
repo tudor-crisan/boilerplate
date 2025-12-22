@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@/app/globals.css";
 import WrapperHtml from "@/components/wrapper/WrapperHtml";
 import WrapperHead from "@/components/wrapper/WrapperHead";
 import WrapperBody from "@/components/wrapper/WrapperBody";
