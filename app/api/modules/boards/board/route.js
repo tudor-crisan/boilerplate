@@ -11,6 +11,7 @@ const {
   notAuthorized,
   sessionLost,
   serverError,
+  noAccess,
 } = settings.forms.general.backend.responses;
 
 const {
@@ -47,6 +48,11 @@ export async function POST(req) {
     }
 
     const user = await User.findById(userId);
+
+    if (!user.hasAccess) {
+      return responseError(noAccess.message, {}, noAccess.status);
+    }
+
     const board = await Board.create({ userId: user._id, name: body.name });
 
     user.boards.push(board._id);
@@ -82,12 +88,18 @@ export async function DELETE(req) {
       return responseError(sessionLost.message, {}, sessionLost.status);
     }
 
+    const user = await User.findById(userId);
+
+    if (!user.hasAccess) {
+      return responseError(noAccess.message, {}, noAccess.status);
+    }
+
     await Board.deleteOne({
       _id: boardId,
       userId: userId
     })
 
-    const user = await User.findById(session.user.id);
+
     user.boards = user.boards.filter((id) => id.toString() !== boardId);
 
     await user.save();

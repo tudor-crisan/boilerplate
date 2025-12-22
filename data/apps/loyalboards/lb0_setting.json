@@ -55,6 +55,10 @@
             "message": "Not authorized",
             "status": 401
           },
+          "noAccess": {
+            "message": "Please subscribe first",
+            "status": 403
+          },
           "sessionLost": {
             "message": "Session lost, log-in again",
             "status": 401
