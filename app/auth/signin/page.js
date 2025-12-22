@@ -93,7 +93,7 @@ export default function SignInPage() {
               Sign in with Google
             </Button>
           )}
-          <div className="mx-auto mt-6">
+          <div className="mx-auto mt-4">
             <ButtonBack
               className="btn-ghost btn-md! shadow-none!"
               disabled={disabled}

@@ -20,7 +20,7 @@ export default function VerifyRequestPage() {
           <p className="text-base-content/70">
             A sign-in link has been sent to your email address.
           </p>
-          <div className="mx-auto mt-6">
+          <div className="mx-auto mt-4">
             <ButtonBack
               className="btn-ghost btn-md! shadow-none!"
             />

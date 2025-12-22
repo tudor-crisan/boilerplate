@@ -2,7 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import { useStyling } from "@/context/ContextStyling";
 import { Suspense } from "react";
-import Link from "next/link";
+import Button from "@/components/button/Button";
 import SvgError from "@/components/svg/SvgError";
 import ButtonBack from "@/components/button/ButtonBack";
 import Title from "@/components/common/Title";
@@ -36,13 +36,13 @@ function ErrorContent() {
             {message}
           </Paragraph>
           <div className="card-actions w-full flex flex-col">
-            <Link
+            <Button
               href="/auth/signin"
-              className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-primary w-full`}
+              className="w-full"
             >
               Try Again
-            </Link>
-            <div className="mx-auto mt-6">
+            </Button>
+            <div className="mx-auto mt-2">
               <ButtonBack
                 className="btn-ghost btn-md! shadow-none!"
               />
