@@ -1,5 +1,5 @@
 import { auth } from "@/libs/auth";
-import { getEmailHandle, getNameInitials } from "@/libs/utils.server";
+import { getEmailHandle, getNameInitials } from "@/libs/utils.client";
 import WrapperAuthClient from "@/components/wrapper/WrapperAuth.client";
 
 export default async function WrapperAuth({ children }) {

@@ -6,6 +6,10 @@ import Board from "@/models/modules/boards/Board";
 
 export async function getUser(populate = "") {
   const session = await auth();
+  if (!session?.user?.id) {
+    return null;
+  }
+
   await connectMongo();
 
   const userId = session.user.id;

@@ -5,7 +5,13 @@ import { getUser } from "@/libs/modules/boards/db";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 export default async function LoyalBoardsDashboard() {
-  const { boards } = await getUser("boards");
+  const user = await getUser("boards");
+
+  if (!user) {
+    return <div className="p-4 text-red-500">Error: Unable to load user data.</div>;
+  }
+
+  const { boards = [] } = user;
   const { source } = settings.pages.paths.boardPrivate;
 
   const type = "Board";

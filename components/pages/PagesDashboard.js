@@ -1,3 +1,4 @@
+
 import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardMain from "@/components/dashboard/DashboardMain";
@@ -5,13 +6,15 @@ import HeaderTop from "@/components/header/HeaderTop";
 import ButtonLogout from "@/components/button/ButtonLogout";
 import DashboardMessage from "@/components/dashboard/DashboardMessage";
 import dashboards from "@/lists/dashboards";
-import { defaultSetting as settings } from "@/libs/defaults";
 import ButtonCheckout from "@/components/button/ButtonCheckout";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { getUser } from "@/libs/modules/boards/db";
 
-export default function PagesDashboard({ children }) {
+export default async function PagesDashboard({ children }) {
   const component = settings.pages.dashboard.component
   const Component = dashboards[component];
-  const { hasAccess } = useAuth();
+  const user = await getUser();
+  const { hasAccess } = user || {};
 
   return (
     <DashboardWrapper>

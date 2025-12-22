@@ -1,5 +1,5 @@
-import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
+import { auth } from "@/libs/auth";
 import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
 import User from "@/models/User";
