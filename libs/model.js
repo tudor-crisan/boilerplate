@@ -19,6 +19,9 @@ export const userSchemaConfig = {
   },
   customerId: {
     type: String
+  },
+  planId: {
+    type: String
   }
 }
 

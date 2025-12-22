@@ -18,6 +18,7 @@ export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [loadingEmail, setLoadingEmail] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
+  const disabled = loadingEmail || loadingGoogle;
 
   const handleEmailSignIn = async (e) => {
     e.preventDefault();
@@ -39,8 +40,6 @@ export default function SignInPage() {
       setLoadingGoogle(false);
     }
   };
-
-
 
   return (
     <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
@@ -64,7 +63,7 @@ export default function SignInPage() {
                   placeholder="email@example.com"
                   className={`input-bordered w-full`}
                   value={email}
-                  disabled={loadingEmail || loadingGoogle}
+                  disabled={disabled}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -73,7 +72,7 @@ export default function SignInPage() {
                 variant="btn-primary w-full"
                 className="btn-md!"
                 isLoading={loadingEmail}
-                disabled={loadingEmail || loadingGoogle}
+                disabled={disabled}
               >
                 Sign in with Email
               </Button>
@@ -88,7 +87,7 @@ export default function SignInPage() {
               variant="btn-outline w-full"
               className="btn-md!"
               isLoading={loadingGoogle}
-              disabled={loadingEmail || loadingGoogle}
+              disabled={disabled}
               startIcon={<SvgGoogle />}
             >
               Sign in with Google
@@ -97,7 +96,7 @@ export default function SignInPage() {
           <div className="mx-auto mt-6">
             <ButtonBack
               className="btn-ghost btn-md! shadow-none!"
-              disabled={loadingEmail || loadingGoogle}
+              disabled={disabled}
             />
           </div>
         </div>

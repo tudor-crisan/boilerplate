@@ -79,7 +79,13 @@ Publish app in Google OAuth
 - Modify the "Environment Variables" on Vercel - MONGO_DB="appName-prod" (eg. LoyalBoards-prod)
 - Go to https://console.cloud.google.com/auth/audience?project=<appName>
 - Select "Audience" on the left - Click "Publish app"
+- Modify API key from sandbox to live for stripe (set-up the products / prices also)
+- Add the "<Analytics />" from vercel to track events
+
+Additional (when having traction):
+- "Create new stripe" for the domain, with branding and everything, put it in .env
 - Resend: "Add domain" add the email.domain.com to send from it, change in .env
+- Tracking: "Add datafa.st" for advanced tracking of the apps
 ```
 
 ## Publish and launch
