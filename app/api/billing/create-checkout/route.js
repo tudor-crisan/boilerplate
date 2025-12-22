@@ -43,7 +43,12 @@ export async function POST(req) {
       return responseError(sessionLost.message, {}, sessionLost.status);
     }
 
-    const stripe = new Stripe(process.env.STRIPE_API_KEY);
+    if (!process.env.STRIPE_SECRET_KEY) {
+      console.error("STRIPE_SECRET_KEY is missing from environment variables");
+      return responseError(serverError.message, {}, serverError.status);
+    }
+
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
     const stripeCheckoutSession = await stripe.checkout.sessions.create({
       mode: "subscription",
