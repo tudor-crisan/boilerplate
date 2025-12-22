@@ -104,8 +104,8 @@
         }
       },
       "mockConfig": {
-        "isEnabled": true,
-        "isError": false,
+        "isEnabled": false,
+        "isError": true,
         "isSuccess": true,
         "responses": {
           "error": {

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
 import { setDataError, setDataSuccess } from "@/libs/api";
+import toast from "react-hot-toast";
 
 export default function useApiRequest() {
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,11 @@ export default function useApiRequest() {
     }
   }, [error]);
 
-  const request = async (requestFn, { onSuccess = () => { }, onError = () => { }, keepLoadingOnSuccess = false } = {}) => {
+  const request = async (requestFn, {
+    onSuccess = () => { },
+    onError = () => { },
+    keepLoadingOnSuccess = false } = {}
+  ) => {
     if (loading) return;
 
     setLoading(true);
