@@ -8,6 +8,7 @@ import { setDataError, setDataSuccess } from "@/libs/api";
 import MockForms from "@/components/mock/MockForms";
 import { useStyling } from "@/context/ContextStyling";
 import GeneralTitle from "../general/GeneralTitle";
+import IconLoading from "../icon/IconLoading";
 
 export default function FormCreate({ type }) {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function FormCreate({ type }) {
     })
   }
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [inputErrors, setInputErrors] = useState({});
 
   const resetError = (key = "", value = "") => {
@@ -69,12 +70,12 @@ export default function FormCreate({ type }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (isLoading) {
+    if (loading) {
       return;
     }
 
     setInputErrors({});
-    setIsLoading(true);
+    setLoading(true);
 
     try {
       const response = await axios.post(formConfig.apiUrl, { ...inputs });
@@ -90,7 +91,7 @@ export default function FormCreate({ type }) {
       setDataError(err?.response, errorCallback);
 
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   }
 
@@ -122,7 +123,7 @@ export default function FormCreate({ type }) {
             value={inputs[target]}
             onFocus={() => resetError(target)}
             onChange={(e) => setInput(target, e.target.value)}
-            disabled={isLoading}
+            disabled={loading}
           />
           {inputErrors[target] && (
             <p className="label text-red-600">{inputErrors[target]}</p>
@@ -132,10 +133,10 @@ export default function FormCreate({ type }) {
       <div className="flex">
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={loading}
           className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-primary`}
         >
-          {isLoading && <span className="loading loading-spinner loading-xs"></span>}
+          {loading && <IconLoading />}
           {formConfig.button || "Create"}
         </button>
       </div>

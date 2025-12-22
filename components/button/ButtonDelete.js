@@ -6,6 +6,7 @@ import { setDataError, setDataSuccess } from "@/libs/api";
 import { toast } from "react-hot-toast";
 import SvgTrash from "@/components/svg/SvgTrash";
 import { useStyling } from "@/context/ContextStyling";
+import IconLoading from "../icon/IconLoading";
 
 export default function ButtonDelete({
   url = "/api/...",
@@ -17,7 +18,7 @@ export default function ButtonDelete({
 }) {
   const { styling } = useStyling();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
@@ -49,11 +50,11 @@ export default function ButtonDelete({
       return;
     }
 
-    if (isLoading) {
+    if (loading) {
       return;
     }
 
-    setIsLoading(true);
+    setLoading(true);
 
     try {
       const response = await axios.delete(url);
@@ -70,18 +71,18 @@ export default function ButtonDelete({
 
     } finally {
       if (!withRedirect) {
-        setIsLoading(false);
+        setLoading(false);
       }
     }
   };
 
   return (
     <button
-      disabled={isLoading}
-      className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-outline btn-error`}
+      disabled={loading}
+      className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-error`}
       onClick={() => handleDelete()}
     >
-      {isLoading ? <span className="loading loading-spinner loading-xs"></span> : <SvgTrash />}
+      {loading ? <IconLoading /> : <SvgTrash />}
       {buttonText}
     </button>
   )
