@@ -6,7 +6,6 @@ import visual1 from "../data/modules/visual/visual1.json";
 import visual2 from "../data/modules/visual/visual2.json";
 import visual3 from "../data/modules/visual/visual3.json";
 
-
 const visuals = {
   lb0_visual,
   tf0_visual,

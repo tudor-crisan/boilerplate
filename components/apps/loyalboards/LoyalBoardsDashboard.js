@@ -3,12 +3,13 @@ import FormCreate from "@/components/form/FormCreate";
 import ListDisplay from "@/components/list/ListDisplay";
 import { getUser } from "@/libs/modules/boards/db";
 import { defaultSetting as settings } from "@/libs/defaults";
+import Paragraph from "@/components/common/Paragraph";
 
 export default async function LoyalBoardsDashboard() {
   const user = await getUser("boards");
 
   if (!user) {
-    return <div className="p-4 text-red-500">Error: Unable to load user data.</div>;
+    return <Paragraph className="text-red-500">Error: Unable to load your boards.</Paragraph>;
   }
 
   const { boards = [] } = user;
