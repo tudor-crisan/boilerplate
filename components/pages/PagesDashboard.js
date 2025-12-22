@@ -6,6 +6,7 @@ import ButtonLogout from "@/components/button/ButtonLogout";
 import DashboardMessage from "@/components/dashboard/DashboardMessage";
 import dashboards from "@/lists/dashboards";
 import { defaultSetting as settings } from "@/libs/defaults";
+import ButtonCheckout from "../button/ButtonCheckout";
 
 export default function PagesDashboard({ children }) {
   const component = settings.pages.dashboard.component
@@ -15,7 +16,10 @@ export default function PagesDashboard({ children }) {
     <DashboardWrapper>
       <DashboardHeader>
         <HeaderTop url="/" />
-        <ButtonLogout />
+        <div className="flex gap-2">
+          <ButtonCheckout />
+          <ButtonLogout />
+        </div>
       </DashboardHeader>
       <DashboardMain>
         <DashboardMessage />

@@ -15,6 +15,7 @@ const {
 
 const {
   urlsRequired,
+  checkoutCreated,
 } = settings.forms[TYPE].backend.responses;
 
 export async function POST(req) {
@@ -58,9 +59,9 @@ export async function POST(req) {
       client_reference_id: user._id.toString(),
     });
 
-    return responseSuccess(null, { url: stripeCheckoutSession.url });
-
+    return responseSuccess(checkoutCreated.message, { url: stripeCheckoutSession.url }, checkoutCreated.status);
   } catch (e) {
+    console.log('e', e);
     return responseError(serverError.message, {}, serverError.status);
   }
 }

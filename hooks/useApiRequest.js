@@ -45,9 +45,9 @@ export default function useApiRequest() {
         setLoading(false);
       };
 
-      const successCallback = (msg) => {
+      const successCallback = (msg, data) => {
         setMessage(msg);
-        onSuccess(msg);
+        onSuccess(msg, data);
         if (!keepLoadingOnSuccess) {
           setLoading(false);
         }

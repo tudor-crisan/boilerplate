@@ -30,7 +30,7 @@ export const setDataSuccess = (response = null, successCallback = null) => {
   if ([200].includes(status)) {
     const message = data.message || statusText || requestSuccessful;
     if (successCallback) {
-      successCallback(message);
+      successCallback(message, data.data);
     }
     return true;
   }
