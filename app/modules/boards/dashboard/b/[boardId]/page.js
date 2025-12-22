@@ -8,12 +8,16 @@ import { getBoardPrivate } from "@/libs/modules/boards/db";
 import { redirect } from "next/navigation";
 import { baseUrl } from "@/libs/utils.client";
 import { getMetadata } from "@/libs/seo";
+import ButtonDelete from "@/components/button/ButtonDelete";
+import GeneralTitle from "@/components/general/GeneralTitle";
 
 export const metadata = getMetadata("modules.board");
 export default async function PrivateFeedbackBoard({ params }) {
-  const { boardId } = await params;
-  const board = await getBoardPrivate(boardId);
   const backUrl = "/dashboard";
+  const { boardId } = await params;
+
+  const board = await getBoardPrivate(boardId);
+  const deleteUrl = `/api/modules/boards/board?boardId=${boardId}`;
 
   if (!board) {
     redirect(backUrl);
@@ -26,10 +30,14 @@ export default async function PrivateFeedbackBoard({ params }) {
       </DashboardHeader>
       <DashboardMain>
         <div className="space-y-4">
-          <h1 className="font-extrabold text-xl">
+          <GeneralTitle>
             {board.name} (private)
-          </h1>
+          </GeneralTitle>
           <InputCopy value={`${baseUrl()}/b/${boardId}`} />
+          <ButtonDelete
+            url={deleteUrl}
+            buttonText="Delete Board"
+          />
         </div>
       </DashboardMain>
     </DashboardWrapper>

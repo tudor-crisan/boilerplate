@@ -13,7 +13,7 @@ export default function ButtonLogout() {
     return (
       <button
         disabled={isLoading}
-        className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-base btn-sm sm:btn-md`}
+        className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-base`}
         onClick={() => {
           setIsLoading(true);
           signOut();

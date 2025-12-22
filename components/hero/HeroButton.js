@@ -2,6 +2,6 @@ import ButtonLogin from "@/components/button/ButtonLogin";
 
 export default function HeroButton() {
   return (
-    <ButtonLogin />
+    <ButtonLogin className="btn-md!" />
   )
 }

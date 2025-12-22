@@ -1,3 +1,9 @@
+import { defaultSetting as settings } from "@/libs/defaults";
+
+const {
+  serverError,
+  requestSuccessful,
+} = settings.forms.general.backend.responses;
 
 export const setDataError = (response = null, errorCallback = null) => {
   if (!response) {
@@ -7,7 +13,7 @@ export const setDataError = (response = null, errorCallback = null) => {
 
   const { data, status, statusText } = response;
   if ([400, 401, 402, 403, 404, 500].includes(status)) {
-    const error = data?.error || statusText || "Something went wrong";
+    const error = data?.error || statusText || serverError;
     const inputErrors = data?.inputErrors || {};
     if (errorCallback) {
       errorCallback(error, inputErrors);
@@ -22,7 +28,7 @@ export const setDataSuccess = (response = null, successCallback = null) => {
 
   const { data, status, statusText } = response;
   if ([200].includes(status)) {
-    const message = data.message || statusText || "Request was successful";
+    const message = data.message || statusText || requestSuccessful;
     if (successCallback) {
       successCallback(message);
     }

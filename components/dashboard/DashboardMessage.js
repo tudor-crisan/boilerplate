@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "@/context/ContextAuth";
+import GeneralTitle from "@/components/general/GeneralTitle";
 
 export default function DashboardMessage() {
   const { isLoggedIn, email, name, initials } = useAuth();
@@ -7,9 +8,9 @@ export default function DashboardMessage() {
   if (isLoggedIn) {
     return (
       <div>
-        <h1 className="font-extrabold text-2xl mb-1">
+        <GeneralTitle>
           Dashboard
-        </h1>
+        </GeneralTitle>
         <p>
           Welcome back <span className="font-bold">&quot;{name}&quot;</span> with intials <span className="font-bold">&quot;{initials}&quot;</span>. You&apos;re logged in from <span className="font-bold">&quot;{email}&quot;</span>
         </p>

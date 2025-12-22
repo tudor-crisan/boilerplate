@@ -13,7 +13,7 @@ export default function ButtonCopy({ copyText = "" }) {
 
   return (
     <button
-      className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-sm btn-neutral btn-square`}
+      className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-neutral btn-square`}
       onClick={copyLink}
     >
       <SvgCopy />

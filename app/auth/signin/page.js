@@ -66,7 +66,7 @@ export default function SignInPage() {
               </div>
               <button
                 type="submit"
-                className={`btn btn-primary w-full ${styling.roundness[0]}`}
+                className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-primary w-full`}
                 disabled={isLoadingEmail || isLoadingGoogle}
               >
                 {isLoadingEmail && <span className="loading loading-spinner"></span>}
@@ -80,7 +80,7 @@ export default function SignInPage() {
           {settings.auth.providers.includes("google") && (
             <button
               onClick={handleGoogleSignIn}
-              className={`btn btn-outline w-full flex gap-2 ${styling.roundness[0]}`}
+              className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-outline w-full`}
               disabled={isLoadingEmail || isLoadingGoogle}
             >
               {isLoadingGoogle ? <span className="loading loading-spinner"></span> : <SvgGoogle />}
@@ -91,7 +91,7 @@ export default function SignInPage() {
             <ButtonBack
               url="/"
               disabled={isLoadingEmail || isLoadingGoogle}
-              className="btn-ghost"
+              className="btn-md! btn-ghost"
             />
           </div>
         </div>

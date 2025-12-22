@@ -7,7 +7,7 @@ export default function ButtonBack({ url = "/", className = "", disabled = false
     <Link
       href={url}
       disabled={disabled}
-      className={`${styling.roundness[0]} btn ${className}`}
+      className={`${styling.roundness[0]} btn-sm sm:btn-md btn ${className}`}
     >
       <SvgBack />
       Back

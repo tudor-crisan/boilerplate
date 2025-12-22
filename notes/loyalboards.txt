@@ -69,3 +69,16 @@ json modifier admin
 - upload for image/video filepaths
 - multioptions, for tailwind classes, list of logos
 - enums for themes, fonts
+
+---
+
+Headline:
+Feedback Boards For Everybody
+
+Paragraph:
+Get a link to share with your audience / friends / family in minutes.
+
+Use AI to generate suggestions, have others vote!
+
+POC:
+(AI generated feedback board name / posts / votes -- have status, for "In progress" / "Delivered" / "Launching soon" etc

@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { setDataError, setDataSuccess } from "@/libs/api";
 import MockForms from "@/components/mock/MockForms";
 import { useStyling } from "@/context/ContextStyling";
+import GeneralTitle from "../general/GeneralTitle";
 
 export default function FormCreate({ type }) {
   const router = useRouter();
@@ -99,19 +100,19 @@ export default function FormCreate({ type }) {
       onSubmit={handleSubmit}
     >
       {formConfig.title && (
-        <p className="font-bold text-lg mb-2 leading-tight">
+        <GeneralTitle>
           {formConfig.title}
-        </p>
+        </GeneralTitle>
       )}
       {Object.entries(inputsConfig).map(([target, config]) => (
-        <fieldset
+        <div
           key={target}
-          className="fieldset"
+          className="flex flex-col space-y-2"
         >
           {config.label && (
-            <legend className="fieldset-legend">
+            <label className="font-bold">
               {config.label}
-            </legend>
+            </label>
           )}
           <input
             required={config.required || false}
@@ -126,13 +127,13 @@ export default function FormCreate({ type }) {
           {inputErrors[target] && (
             <p className="label text-red-600">{inputErrors[target]}</p>
           )}
-        </fieldset>
+        </div>
       ))}
       <div className="flex">
         <button
           type="submit"
           disabled={isLoading}
-          className={`${styling.roundness[0]} ${styling.shadows[0]} btn btn-primary`}
+          className={`${styling.roundness[0]} ${styling.shadows[0]} btn-sm sm:btn-md btn btn-primary`}
         >
           {isLoading && <span className="loading loading-spinner loading-xs"></span>}
           {formConfig.button || "Create"}

@@ -4,7 +4,7 @@ export default function HeaderButton() {
   return (
     <div>
       <ButtonLogin
-        className="btn-outline btn-sm sm:btn-md"
+        className="btn-outline"
         loggedInText="Dashboard"
         loggedOutText="Login"
       />

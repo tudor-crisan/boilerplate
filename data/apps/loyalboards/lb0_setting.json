@@ -44,6 +44,28 @@
     }
   },
   "forms": {
+    "general": {
+      "backend": {
+        "responses": {
+          "notAuthorized": {
+            "message": "Not authorized",
+            "status": 401
+          },
+          "sessionLost": {
+            "message": "Session lost, log-in again",
+            "status": 401
+          },
+          "serverError": {
+            "message": "Something went wrong",
+            "status": 500
+          },
+          "requestSuccessful": {
+            "message": "Request was successful",
+            "status": 200
+          }
+        }
+      }
+    },
     "Board": {
       "formConfig": {
         "title": "Create a new feedback board",
@@ -61,17 +83,22 @@
       },
       "backend": {
         "responses": {
-          "notAuthorized": {
-            "message": "Not authorized",
-            "status": 401
-          },
           "nameRequired": {
             "message": "Board name is required",
             "inputErrors": { "name": "This field is required" },
-            "status": 403
+            "status": 400
+          },
+          "boardIdRequired": {
+            "message": "Board ID is required",
+            "inputErrors": {},
+            "status": 400
           },
           "createSuccesfully": {
             "message": "Board created succesfully",
+            "status": 200
+          },
+          "deleteSuccesfully": {
+            "message": "Board was succesfully deleted",
             "status": 200
           }
         }
