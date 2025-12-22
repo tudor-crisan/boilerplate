@@ -86,7 +86,7 @@
             "status": 400
           },
           "checkoutCreated": {
-            "message": "Next, enter your payment details",
+            "message": "You are being redirected to payment",
             "status": 200
           },
           "portalCreated": {
