@@ -66,6 +66,20 @@
         }
       }
     },
+    "Billing": {
+      "backend": {
+        "responses": {
+          "urlsRequired": {
+            "message": "Success and cancel URLs are required",
+            "status": 400
+          },
+          "checkoutCreated": {
+            "message": "Checkout session created directly",
+            "status": 200
+          }
+        }
+      }
+    },
     "Board": {
       "formConfig": {
         "title": "Create a new feedback board",
@@ -85,7 +99,9 @@
         "responses": {
           "nameRequired": {
             "message": "Board name is required",
-            "inputErrors": { "name": "This field is required" },
+            "inputErrors": {
+              "name": "This field is required"
+            },
             "status": 400
           },
           "boardIdRequired": {
@@ -110,12 +126,13 @@
         "responses": {
           "error": {
             "error": "Not authorized",
-            "inputErrors": { "name": "This is required" },
+            "inputErrors": {
+              "name": "This is required"
+            },
             "status": 401
           },
           "success": {
             "message": "Board created succesfully",
-            "data": { "board": { "name": "NEW BOARD" } },
             "status": 200
           }
         }

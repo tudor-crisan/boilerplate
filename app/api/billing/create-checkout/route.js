@@ -1,24 +1,46 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
+import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
+import { defaultSetting as settings } from "@/libs/defaults";
 import User from "@/models/User";
 import Stripe from "stripe";
 
+const TYPE = "Billing";
+
+const {
+  notAuthorized,
+  sessionLost,
+  serverError,
+} = settings.forms.general.backend.responses;
+
+const {
+  urlsRequired,
+} = settings.forms[TYPE].backend.responses;
+
 export async function POST(req) {
+  if (isResponseMock(TYPE)) {
+    return responseMock(TYPE);
+  };
+
   try {
+    const session = await auth();
+
+    if (!session) {
+      return responseError(notAuthorized.message, {}, notAuthorized.status);
+    }
+
     const body = await req.json();
 
     if (!body.successUrl || !body.cancelUrl) {
-      return NextResponse.json(
-        { error: "Success and cancel URLs are required" },
-        { status: 400 }
-      );
+      return responseError(urlsRequired.message, {}, urlsRequired.status);
     }
-
-    const session = await auth();
 
     await connectMongo();
     const user = await User.findById(session.user.id);
+
+    if (!user) {
+      return responseError(sessionLost.message, {}, sessionLost.status);
+    }
 
     const stripe = new Stripe(process.env.STRIPE_API_KEY);
 
@@ -36,8 +58,9 @@ export async function POST(req) {
       client_reference_id: user._id.toString(),
     });
 
-    return NextResponse.json({ url: stripeCheckoutSession.url });
+    return responseSuccess(null, { url: stripeCheckoutSession.url });
+
   } catch (e) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    return responseError(serverError.message, {}, serverError.status);
   }
 }
