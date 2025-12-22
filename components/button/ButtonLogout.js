@@ -6,7 +6,7 @@ import { signOut } from "next-auth/react";
 import IconLoading from "../icon/IconLoading";
 
 export default function ButtonLogout() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { styling } = useStyling();
   const { isLoggedIn } = useAuth();
 

@@ -1,10 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
+import { useState } from "react";
 import axios from "axios";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { useRouter } from "next/navigation";
-import { setDataError, setDataSuccess } from "@/libs/api";
+import useApiRequest from "@/hooks/useApiRequest";
 import MockForms from "@/components/mock/MockForms";
 import { useStyling } from "@/context/ContextStyling";
 import GeneralTitle from "../general/GeneralTitle";
@@ -28,71 +27,27 @@ export default function FormCreate({ type }) {
     })
   }
 
-  const [loading, setLoading] = useState(false);
-  const [inputErrors, setInputErrors] = useState({});
+  const { loading, inputErrors, setInputErrors, request } = useApiRequest();
 
   const resetError = (key = "", value = "") => {
-    setInputErrors({ ...inputErrors, [key]: value })
+    setInputErrors(prev => ({ ...prev, [key]: value }))
   }
 
   const resetInputs = () => {
     setInputs({ ...defaultInputs })
   }
 
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    if (message) {
-      toast.success(message);
-      setMessage("");
-    }
-  }, [message]);
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      setError("");
-    }
-  }, [error]);
-
-  const errorCallback = (error = "", inputErrors = {}) => {
-    setError(error);
-    setInputErrors(inputErrors);
-  }
-
-  const successCallback = (message) => {
-    setMessage(message);
-    resetInputs();
-    router.refresh();
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (loading) {
-      return;
-    }
-
-    setInputErrors({});
-    setLoading(true);
-
-    try {
-      const response = await axios.post(formConfig.apiUrl, { ...inputs });
-
-      if (setDataError(response, errorCallback)) {
-        return;
+    await request(
+      () => axios.post(formConfig.apiUrl, { ...inputs }),
+      {
+        onSuccess: () => {
+          resetInputs();
+          router.refresh();
+        }
       }
-
-      if (setDataSuccess(response, successCallback)) {
-        return;
-      }
-    } catch (err) {
-      setDataError(err?.response, errorCallback);
-
-    } finally {
-      setLoading(false);
-    }
+    );
   }
 
   return (
