@@ -15,7 +15,7 @@ const {
 
 const {
   urlsRequired,
-  checkoutCreated,
+  portalCreated,
 } = settings.forms[TYPE].backend.responses;
 
 export async function POST(req) {
