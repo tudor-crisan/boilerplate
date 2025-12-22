@@ -1,5 +1,5 @@
 
-export default function GeneralMain({ className = "", children }) {
+export default function Main({ className = "", children }) {
   return (
     <main className={`${className} min-h-screen`}>
       {children}

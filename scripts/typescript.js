@@ -1,4 +1,4 @@
-import { CopywritingSchema } from '../types/copywriting.schema';
+import { CopywritingSchema } from "../types/copywriting.schema";
 import copywritings from "../lists/copywritings.js";
 
 Object.values(copywritings).forEach((copywriting, index) => {
@@ -12,7 +12,7 @@ Object.values(copywritings).forEach((copywriting, index) => {
 
 /***************************************************************/
 
-import { StylingSchema } from '../types/styling.schema';
+import { StylingSchema } from "../types/styling.schema";
 import stylings from "../lists/stylings.js";
 
 Object.values(stylings).forEach((styling, index) => {
@@ -26,7 +26,7 @@ Object.values(stylings).forEach((styling, index) => {
 
 /***************************************************************/
 
-import { VisualSchema } from '../types/visual.schema';
+import { VisualSchema } from "../types/visual.schema";
 import visuals from "../lists/visuals.js";
 
 Object.values(visuals).forEach((visual, index) => {
@@ -40,7 +40,7 @@ Object.values(visuals).forEach((visual, index) => {
 
 /***************************************************************/
 
-import { SettingSchema } from '../types/setting.schema';
+import { SettingSchema } from "../types/setting.schema";
 import settings from "../lists/settings.js";
 
 Object.values(settings).forEach((setting, index) => {

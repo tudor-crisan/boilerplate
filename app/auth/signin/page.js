@@ -8,6 +8,8 @@ import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
 import ButtonBack from "@/components/button/ButtonBack";
 import { defaultSetting as settings } from "@/libs/defaults";
+import Label from "@/components/common/Label";
+import Form from "@/components/common/Form";
 
 const CALLBACK_URL = "/dashboard"
 
@@ -51,11 +53,11 @@ export default function SignInPage() {
             <p className="text-center">No sign-in methods available at this time</p>
           )}
           {settings.auth.providers.includes("resend") && <>
-            <form onSubmit={handleEmailSignIn} className="form-control gap-4">
+            <Form onSubmit={handleEmailSignIn} className="gap-4">
               <div className="mb-2">
-                <label className="label">
-                  <span className="label-text">Email Address</span>
-                </label>
+                <Label>
+                  <span>Email Address</span>
+                </Label>
                 <Input
                   required
                   type="email"
@@ -75,7 +77,7 @@ export default function SignInPage() {
               >
                 Sign in with Email
               </Button>
-            </form>
+            </Form>
             {settings.auth.providers.length > 1 && (
               <div className="divider">OR</div>
             )}

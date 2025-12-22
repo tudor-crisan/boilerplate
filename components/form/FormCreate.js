@@ -10,7 +10,8 @@ import Select from "@/components/select/Select";
 import Textarea from "@/components/textarea/Textarea";
 import Input from "@/components/input/Input";
 import { useStyling } from "@/context/ContextStyling";
-import GeneralTitle from "../general/GeneralTitle";
+import Title from "@/components/common/Title";
+import Label from "@/components/common/Label";
 
 export default function FormCreate({ type }) {
   const router = useRouter();
@@ -56,9 +57,9 @@ export default function FormCreate({ type }) {
       onSubmit={handleSubmit}
     >
       {formConfig.title && (
-        <GeneralTitle>
+        <Title>
           {formConfig.title}
-        </GeneralTitle>
+        </Title>
       )}
       {Object.entries(inputsConfig).map(([target, config]) => (
         <div
@@ -66,9 +67,9 @@ export default function FormCreate({ type }) {
           className="flex flex-col space-y-2"
         >
           {config.label && (
-            <label className="font-bold">
+            <Label>
               {config.label}
-            </label>
+            </Label>
           )}
 
           {config.type === "select" ? (

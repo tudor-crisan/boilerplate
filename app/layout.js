@@ -8,7 +8,7 @@ import WrapperCopywriting from "@/components/wrapper/WrapperCopywriting";
 import WrapperVisual from "@/components/wrapper/WrapperVisual";
 import WrapperFont from "@/components/wrapper/WrapperFont";
 import WrapperShuffle from "@/components/wrapper/WrapperShuffle";
-import GeneralToaster from "@/components/general/GeneralToaster";
+import Toaster from "@/components/common/Toaster";
 import ShuffleLogos from "@/components/shuffle/ShuffleLogos";
 import ShuffleFonts from "@/components/shuffle/ShuffleFonts";
 import ShuffleThemes from "@/components/shuffle/ShuffleThemes";
@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
               <ShuffleStylings />
               <ShuffleVisuals />
             </WrapperShuffle>
-            <GeneralToaster />
+            <Toaster />
           </WrapperBody>
         </WrapperHtml>
       </WrapperVisual>

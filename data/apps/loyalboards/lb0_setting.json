@@ -105,8 +105,8 @@
       },
       "mockConfig": {
         "isEnabled": false,
-        "isError": false,
-        "isSuccess": true,
+        "isError": true,
+        "isSuccess": false,
         "responses": {
           "error": {
             "error": "Not authorized",

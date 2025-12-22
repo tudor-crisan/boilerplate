@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { defaultStyling as styling } from "@/libs/defaults";
-import GeneralTitle from "../general/GeneralTitle";
+import Title from "@/components/common/Title";
 import { pluralize } from "@/libs/utils.client";
-import SvgView from "../svg/SvgView";
+import SvgView from "@/components/svg/SvgView";
 
 function ListItem({ item, hasLink }) {
   return hasLink ? (
@@ -20,9 +20,9 @@ export default function ListDisplay({ list, type = "Board", link = null }) {
 
   return (
     <div>
-      <GeneralTitle className="mb-4">
+      <Title className="mb-4">
         {list.length} {pluralize(type, list.length)}
-      </GeneralTitle>
+      </Title>
       <ul className="space-y-4">
         {list.map(item => (
           <li key={item._id}>

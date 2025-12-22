@@ -1,9 +1,9 @@
-import GeneralMain from "@/components/general/GeneralMain";
+import Main from "@/components/common/Main";
 
 export default function DashboardWrapper({ children }) {
   return (
-    <GeneralMain className="bg-base-200">
+    <Main className="bg-base-200">
       {children}
-    </GeneralMain>
+    </Main>
   )
 }

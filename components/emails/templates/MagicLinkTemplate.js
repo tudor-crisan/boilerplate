@@ -39,7 +39,7 @@ export default function MagicLinkTemplate({ host, url }) {
               )}
               <h1 style={{
                 display: 'inline-block',
-                fontSize: '28px',
+                fontSize: '22px',
                 fontWeight: 800,
                 margin: 0,
                 color: themeColor,
@@ -52,7 +52,7 @@ export default function MagicLinkTemplate({ host, url }) {
             </div>
 
             <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <h2 style={{ fontSize: '22px', fontWeight: 700, margin: '0 0 16px 0', color: content, fontFamily: font }}>
+              <h2 style={{ fontSize: '16px', fontWeight: 700, margin: '0 0 16px 0', color: content, fontFamily: font }}>
                 Sign in to {host}
               </h2>
               <p style={{ fontSize: '16px', color: content, opacity: 0.8, marginBottom: '32px', lineHeight: 1.5, fontFamily: font }}>

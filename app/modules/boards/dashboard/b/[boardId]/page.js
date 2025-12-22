@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 import { baseUrl } from "@/libs/utils.client";
 import { getMetadata } from "@/libs/seo";
 import ButtonDelete from "@/components/button/ButtonDelete";
-import GeneralTitle from "@/components/general/GeneralTitle";
+import Title from "@/components/common/Title";
 
 export const metadata = getMetadata("modules.board");
 export default async function PrivateFeedbackBoard({ params }) {
@@ -30,9 +30,9 @@ export default async function PrivateFeedbackBoard({ params }) {
       </DashboardHeader>
       <DashboardMain>
         <div className="space-y-4">
-          <GeneralTitle>
+          <Title>
             {board.name}
-          </GeneralTitle>
+          </Title>
           <InputCopy value={`${baseUrl()}/b/${boardId}`} />
           <ButtonDelete
             url={deleteUrl}

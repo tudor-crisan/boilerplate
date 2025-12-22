@@ -2,7 +2,7 @@
 import { useStyling } from "@/context/ContextStyling";
 import SvgEmail from "@/components/svg/SvgEmail";
 import ButtonBack from "@/components/button/ButtonBack";
-import GeneralTitle from "@/components/general/GeneralTitle";
+import Title from "@/components/common/Title";
 
 export default function VerifyRequestPage() {
   const { styling } = useStyling();
@@ -14,9 +14,9 @@ export default function VerifyRequestPage() {
           <div className="text-primary mx-auto my-4">
             <SvgEmail className="size-12" />
           </div>
-          <GeneralTitle>
+          <Title>
             Check your email
-          </GeneralTitle>
+          </Title>
           <p className="text-base-content/70">
             A sign-in link has been sent to your email address.
           </p>

@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import emailTemplates from '@/lists/emailTemplates';
 import Select from '@/components/select/Select';
+import Label from "@/components/common/Label";
 
 const { MagicLinkTemplate } = emailTemplates;
 
@@ -41,7 +42,9 @@ export default function EmailPreviewPage() {
   return (
     <div className="min-h-screen flex flex-col h-screen">
       <div className="bg-base-100 p-4 flex flex-col items-center gap-1">
-        <label className="font-bold text-lg">Email Preview</label>
+        <Label>
+          Email Preview
+        </Label>
         <Select
           className="select-sm w-full max-w-xs"
           value={selectedTemplate}
