@@ -5,13 +5,17 @@ import WrapperAuthClient from "./WrapperAuth.client";
 export default async function WrapperAuth({ children }) {
   const sessionAuth = await auth();
   const authSession = {
-    isLoggedIn: !!sessionAuth?.user
+    "isLoggedIn": !!sessionAuth?.user
   }
 
   if (authSession.isLoggedIn) {
-    authSession.email = sessionAuth.user.email;
-    authSession.name = sessionAuth.user.name || getEmailHandle(sessionAuth.user.email, "friend");
-    authSession.initials = authSession.name.slice(0, 2).toUpperCase();
+    const name = sessionAuth.user.name || getEmailHandle(sessionAuth.user.email, "friend");
+    Object.assign(authSession, {
+      "email": sessionAuth.user.email,
+      "name": name,
+      "initials": name.slice(0, 2).toUpperCase(),
+    });
+
   }
 
   return (
