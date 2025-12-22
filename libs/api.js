@@ -3,11 +3,12 @@ import { defaultSetting as settings } from "@/libs/defaults";
 const {
   serverError,
   requestSuccessful,
+  noInternetConnection,
 } = settings.forms.general.backend.responses;
 
 export const setDataError = (response = null, errorCallback = null) => {
-  if (!response) {
-    errorCallback("No internet connection");
+  if (response?.code === "ERR_NETWORK") {
+    errorCallback(noInternetConnection.message, {}, noInternetConnection.status);
     return;
   };
 
@@ -16,7 +17,7 @@ export const setDataError = (response = null, errorCallback = null) => {
     const error = data?.error || statusText || serverError;
     const inputErrors = data?.inputErrors || {};
     if (errorCallback) {
-      errorCallback(error, inputErrors);
+      errorCallback(error, inputErrors, status);
     }
     return true;
   }
@@ -30,17 +31,26 @@ export const setDataSuccess = (response = null, successCallback = null) => {
   if ([200].includes(status)) {
     const message = data.message || statusText || requestSuccessful;
     if (successCallback) {
-      successCallback(message, data.data);
+      successCallback(message, data.data, status);
     }
     return true;
   }
   return false;
 }
 
-export const sendResendEmail = async (params) => {
-  const { apiPath = "emails", method = "POST", apiKey = "", from, email, subject, html, text } = params;
+export const sendEmail = async ({
+  apiUrl = "https://api.resend.com/",
+  apiPath = "emails",
+  method = "POST",
+  apiKey = "",
+  from,
+  email,
+  subject,
+  html,
+  text
+}) => {
   try {
-    const res = await fetch("https://api.resend.com/" + apiPath, {
+    const res = await fetch(apiUrl + apiPath, {
       method,
       headers: {
         Authorization: `Bearer ${apiKey}`,

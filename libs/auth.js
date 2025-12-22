@@ -5,7 +5,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/libs/mongo";
 import { MagicLinkEmail } from "@/libs/email";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { sendResendEmail } from "@/libs/api";
+import { sendEmail } from "@/libs/api";
 
 const providersConfig = {
   resend: () => Resend({
@@ -18,7 +18,7 @@ const providersConfig = {
         const { host } = new URL(url);
         const { subject, html, text } = await MagicLinkEmail({ host, url });
 
-        sendResendEmail({
+        sendEmail({
           apiKey: provider.apiKey,
           from: provider.from,
           email, subject, html, text

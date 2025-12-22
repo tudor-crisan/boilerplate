@@ -16,12 +16,13 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
         cancelUrl: window.location.origin + CANCEL_URL_REDIRECT,
       }),
       {
+        keepLoadingOnSuccess: true,
         onSuccess: (message, data) => {
           const checkoutUrl = data?.url;
           if (checkoutUrl) {
             window.location.href = checkoutUrl;
           }
-        },
+        }
       }
     );
   };
