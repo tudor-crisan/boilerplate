@@ -9,10 +9,10 @@ export default function ListDisplay({ list, type = "Board", link = null }) {
 
   return (
     <div>
-      <GeneralTitle>
+      <GeneralTitle className="mb-4">
         {list.length} {pluralize(type, list.length)}
       </GeneralTitle>
-      <ul className="space-y-4 mt-4">
+      <ul className="space-y-4">
         {list.map(item => (
           <li key={item._id}>
             {link ? (
