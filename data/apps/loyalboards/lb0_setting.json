@@ -76,9 +76,41 @@
         "name": {
           "type": "text",
           "required": true,
+          "className": "w-full",
           "value": "",
           "label": "Board name",
           "placeholder": "Enter board name"
+        },
+        "role": {
+          "type": "select",
+          "required": true,
+          "className": "w-full",
+          "value": "developer",
+          "label": "Role",
+          "placeholder": "Select your role",
+          "options": [
+            {
+              "label": "Developer",
+              "value": "developer"
+            },
+            {
+              "label": "Designer",
+              "value": "designer"
+            },
+            {
+              "label": "Manager",
+              "value": "manager"
+            }
+          ]
+        },
+        "bio": {
+          "type": "textarea",
+          "required": false,
+          "className": "w-full",
+          "value": "",
+          "label": "Bio",
+          "placeholder": "Tell us about yourself",
+          "rows": 4
         }
       },
       "backend": {

@@ -77,7 +77,7 @@ export default function FormCreate({ type }) {
           {config.type === "select" ? (
             <Select
               required={config.required || false}
-              className={`${styling.shadows[0]}`}
+              className={config.className || ""}
               error={inputErrors[target]}
               value={inputs[target]}
               options={config.options || []}
@@ -88,7 +88,7 @@ export default function FormCreate({ type }) {
           ) : config.type === "textarea" ? (
             <Textarea
               required={config.required || false}
-              className={`${styling.shadows[0]}`}
+              className={config.className || ""}
               error={inputErrors[target]}
               placeholder={config.placeholder}
               value={inputs[target]}
@@ -100,8 +100,8 @@ export default function FormCreate({ type }) {
           ) : (
             <Input
               required={config.required || false}
+              className={config.className || ""}
               type={config.type || "text"}
-              className={`${styling.shadows[0]}`}
               error={inputErrors[target]}
               placeholder={config.placeholder}
               value={inputs[target]}

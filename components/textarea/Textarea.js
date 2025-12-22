@@ -6,7 +6,7 @@ export default function Textarea({ className = "", error, ...props }) {
 
   // Helper for error state
   const errorClass = error ? "textarea-error" : "";
-  const standardClass = `${styling.roundness[0]} ${styling.shadows[0]} textarea w-full`;
+  const standardClass = `${styling.roundness[0]} ${styling.shadows[0]} textarea`;
 
   return (
     <textarea
