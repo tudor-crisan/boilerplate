@@ -1,0 +1,66 @@
+import { auth } from "@/libs/auth";
+import connectMongo from "@/libs/modules/boards/mongoose";
+import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
+import { defaultSetting as settings } from "@/libs/defaults";
+import Post from "@/models/modules/boards/Post";
+
+const TYPE = "Post";
+
+const {
+  serverError,
+} = settings.forms.general.backend.responses;
+
+const {
+  titleRequired,
+  descriptionRequired,
+  boardIdRequired,
+  createSuccesfully,
+} = settings.forms[TYPE].backend.responses;
+
+export async function POST(req) {
+  if (isResponseMock(TYPE)) {
+    return responseMock(TYPE);
+  };
+
+  try {
+    const { searchParams } = req.nextUrl;
+    const boardId = searchParams.get("boardId");
+
+    if (!boardId) {
+      return responseError(boardIdRequired.message, {}, boardIdRequired.status);
+    }
+
+    const body = await req.json();
+
+    if (!body.title) {
+      return responseError(titleRequired.message, {}, titleRequired.status);
+    }
+
+    if (!body.description) {
+      return responseError(descriptionRequired.message, {}, descriptionRequired.status);
+    }
+
+    await connectMongo();
+
+    const session = await auth();
+    const userId = session?.user?.id;
+
+    const postData = {
+      title: body.title,
+      description: body.description,
+      boardId: boardId,
+    };
+
+    if (userId) {
+      postData.userId = userId;
+    }
+
+    const post = await Post.create(postData);
+
+    return responseSuccess(createSuccesfully.message, { post }, createSuccesfully.status)
+
+  } catch (e) {
+    console.error("Post creation error: " + e?.message);
+    return responseError(serverError.message, {}, serverError.status);
+  }
+}

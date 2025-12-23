@@ -1,6 +1,9 @@
 {
   "auth": {
-    "providers": ["resend", "google"],
+    "providers": [
+      "resend",
+      "google"
+    ],
     "hasThemePages": true,
     "hasThemeEmails": true
   },
@@ -91,6 +94,28 @@
           },
           "portalCreated": {
             "message": "You are being redirected to billing",
+            "status": 200
+          }
+        }
+      }
+    },
+    "Post": {
+      "backend": {
+        "responses": {
+          "titleRequired": {
+            "message": "Title is required",
+            "status": 400
+          },
+          "descriptionRequired": {
+            "message": "Description is required",
+            "status": 400
+          },
+          "boardIdRequired": {
+            "message": "Board ID is required",
+            "status": 400
+          },
+          "createSuccesfully": {
+            "message": "Post created successfully",
             "status": 200
           }
         }
