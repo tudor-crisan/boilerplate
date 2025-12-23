@@ -9,23 +9,21 @@ export default function SectionFooter() {
   const { visual } = useVisual();
 
   return (
-    <section id="footer">
-      <WrapperFooter>
+    <WrapperFooter>
 
-        {visual.show.SectionFooter.brand && (
-          <FooterBrand />
-        )}
+      {visual.show.SectionFooter.brand && (
+        <FooterBrand />
+      )}
 
-        {visual.show.SectionFooter.menus && (
-          <FooterMenu />
-        )}
+      {visual.show.SectionFooter.menus && (
+        <FooterMenu />
+      )}
 
-        {visual.show.SectionFooter.socials && (
-          <FooterSocial />
-        )}
+      {visual.show.SectionFooter.socials && (
+        <FooterSocial />
+      )}
 
-      </WrapperFooter>
-    </section>
+    </WrapperFooter>
   );
 }
 
