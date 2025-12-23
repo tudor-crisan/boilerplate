@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useStyling } from "@/context/ContextStyling";
 import HeaderTop from "@/components/header/HeaderTop";
@@ -10,11 +10,14 @@ import ButtonBack from "@/components/button/ButtonBack";
 import { defaultSetting as settings } from "@/libs/defaults";
 import Label from "@/components/common/Label";
 import Form from "@/components/common/Form";
+import { useAuthError } from "@/hooks/useAuthError";
+import SvgError from "@/components/svg/SvgError";
 
 const CALLBACK_URL = "/dashboard"
 
-export default function SignInPage() {
+function SignInContent() {
   const { styling } = useStyling();
+  const { message } = useAuthError();
   const [email, setEmail] = useState("");
   const [loadingEmail, setLoadingEmail] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
@@ -48,6 +51,14 @@ export default function SignInPage() {
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
             <HeaderTop url="/" />
           </div>
+
+          {message && (
+            <div className="alert alert-error mb-4 flex flex-row items-center gap-2 p-3 text-sm rounded-lg bg-error/10 text-red-500">
+              <SvgError className="w-5 h-5 shrink-0" />
+              <span>{message}</span>
+            </div>
+          )}
+
           {!settings.auth.providers.length && (
             <p className="text-center">No sign-in methods available at this time</p>
           )}
@@ -102,5 +113,13 @@ export default function SignInPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <SignInContent />
+    </Suspense>
   );
 }

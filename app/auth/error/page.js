@@ -1,5 +1,5 @@
 "use client";
-import { useSearchParams } from "next/navigation";
+import { useAuthError } from "@/hooks/useAuthError";
 import { useStyling } from "@/context/ContextStyling";
 import { Suspense } from "react";
 import Button from "@/components/button/Button";
@@ -10,24 +10,13 @@ import Paragraph from "@/components/common/Paragraph";
 
 function ErrorContent() {
   const { styling } = useStyling();
-  const searchParams = useSearchParams();
-  const error = searchParams.get("error");
-
-  const errorMessages = {
-    Configuration: "There is a problem with the server configuration. Check if your options are correct.",
-    AccessDenied: "Access denied. You do not have permission to sign in.",
-    Verification: "The sign in link is no longer valid. It may have been used already or it may have expired.",
-    Default: "An unexpected authentication error occurred.",
-    OAuthAccountNotLinked: "Google authentication not available for this account. Please sign-in with email address"
-  };
-
-  const message = errorMessages[error] || errorMessages.Default;
+  const { message } = useAuthError();
 
   return (
     <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
       <div className={`card w-full max-w-md px-4 bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
         <div className="card-body py-8 items-center text-center">
-          <div className="text-primary mb-4">
+          <div className="text-red-500 mb-4">
             <SvgError className="size-16" />
           </div>
           <Title>
