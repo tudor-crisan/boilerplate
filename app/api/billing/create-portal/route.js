@@ -57,7 +57,7 @@ export async function POST(req) {
 
     return responseSuccess(portalCreated.message, { url: stripeCustomerPortal.url }, portalCreated.status);
   } catch (e) {
-    console.log('e', e)
+    console.error("Stripe portal creation error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);
   }
 }

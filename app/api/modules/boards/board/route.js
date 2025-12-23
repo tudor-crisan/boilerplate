@@ -61,6 +61,7 @@ export async function POST(req) {
     return responseSuccess(createSuccesfully.message, { board }, createSuccesfully.status)
 
   } catch (e) {
+    console.error("Board creation error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);
   }
 }
@@ -107,6 +108,7 @@ export async function DELETE(req) {
     return responseSuccess(deleteSuccesfully.message, {}, deleteSuccesfully.status)
 
   } catch (e) {
+    console.error("Board deletion error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);
   }
 }

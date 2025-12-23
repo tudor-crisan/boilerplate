@@ -66,6 +66,7 @@ export async function POST(req) {
 
     return responseSuccess(checkoutCreated.message, { url: stripeCheckoutSession.url }, checkoutCreated.status);
   } catch (e) {
+    console.error("Stripe checkout creation error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);
   }
 }
