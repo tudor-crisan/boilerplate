@@ -5,11 +5,13 @@ import { getUser } from "@/libs/modules/boards/db";
 import { defaultSetting as settings } from "@/libs/defaults";
 import Error from "@/components/common/Error";
 
+const ERROR_MESSAGE = "Error: Unable to load the boards. Please contact support";
+
 export default async function LoyalBoardsDashboard() {
   const user = await getUser("boards");
 
   if (!user) {
-    return <Error message="Error: Unable to load your boards." />;
+    return <Error message={ERROR_MESSAGE} />;
   }
 
   const { boards = [] } = user;
