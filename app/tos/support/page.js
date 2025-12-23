@@ -2,43 +2,49 @@
 "use client";
 import useSettings from "@/hooks/useSettings";
 import TosWrapper from "@/components/tos/TosWrapper";
+import Paragraph from "@/components/common/Paragraph";
+import Title from "@/components/common/Title";
+import TosContent from "@/components/tos/TosContent";
+import { useStyling } from "@/context/ContextStyling";
+import Link from "next/link";
 
 export default function TosSupport() {
+  const { styling } = useStyling();
   const settings = useSettings();
 
   return (
     <TosWrapper>
-      <h1 className="md:text-3xl text-2xl font-extrabold leading-none mb-6">Support</h1>
-      <div className="space-y-4 leading-relaxed opacity-90 text-base-content">
-        <p className="text-lg">
+      <Title className="text-2xl sm:text-2xl">Support</Title>
+      <TosContent>
+        <Paragraph>
           Need help? We are here for you. Please reach out to us using the contact details below.
-        </p>
+        </Paragraph>
 
-        <div className="mt-8 bg-base-200 p-8 rounded-2xl shadow-sm border border-base-300">
-          <div className="grid md:grid-cols-2 gap-8">
+        <div className={`${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]} mt-8 bg-base-200 p-6 sm:p-8`}>
+          <div className="grid sm:grid-cols-2 gap-8">
             <div>
-              <h2 className="text-xl font-bold mb-4">Contact Information</h2>
-              <div className="space-y-4">
+              <Title>Contact Information</Title>
+              <div className="space-y-4 mt-4">
                 <div>
                   <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Email</span>
-                  <a href={`mailto:${settings.business.email}`} className="link link-hover link-primary text-lg">
+                  <Link href={`mailto:${settings.business.email}`} className="link link-hover">
                     {settings.business.email}
-                  </a>
+                  </Link>
                 </div>
                 {settings.business.phone && (
                   <div>
                     <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Phone</span>
-                    <a href={`tel:${settings.business.phone}`} className="text-lg hover:text-primary transition-colors">
+                    <Link href={`tel:${settings.business.phone}`} className="link link-hover">
                       {settings.business.phone_display}
-                    </a>
+                    </Link>
                   </div>
                 )}
               </div>
             </div>
 
             <div>
-              <h2 className="text-xl font-bold mb-4">Business Details</h2>
-              <div className="space-y-4">
+              <Title>Business Details</Title>
+              <div className="space-y-4 mt-4">
                 <div>
                   <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Entity Name</span>
                   <p className="text-lg">{settings.business.entity_name}</p>
@@ -53,15 +59,15 @@ export default function TosSupport() {
                 </div>
                 <div>
                   <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Main Website</span>
-                  <a href={settings.business.website} target="_blank" rel="noopener noreferrer" className="link link-hover link-primary">
+                  <Link href={settings.business.website} className="link link-hover">
                     {settings.business.website_display}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </TosContent>
     </TosWrapper>
   )
 }

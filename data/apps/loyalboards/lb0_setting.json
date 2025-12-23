@@ -1,8 +1,8 @@
 {
   "business": {
     "last_updated": "12/23/2025",
-    "name": "Tudor Crisan",
-    "entity_name": "Tudor Crisan",
+    "name": "TudorCrisan.dev",
+    "entity_name": "TudorCrisan.dev",
     "email": "support@email.tudorcrisan.dev",
     "phone": "+40757754718",
     "phone_display": "+40 757 754 718",
@@ -11,7 +11,17 @@
     "country": "Romania",
     "website": "https://TudorCrisan.dev",
     "website_display": "TudorCrisan.dev",
-    "logo": "/apps/tudorcrisan.dev/logo-favicon.png"
+    "logo": "/apps/tudorcrisan.dev/logo-favicon.png",
+    "socials": [
+      {
+        "name": "Twitter",
+        "url": "https://x.com/tudorcrisan_dev"
+      },
+      {
+        "name": "YouTube",
+        "url": "https://www.youtube.com/@loyalboards"
+      }
+    ]
   },
   "auth": {
     "providers": ["resend", "google"],

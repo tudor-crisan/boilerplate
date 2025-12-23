@@ -1,6 +1,6 @@
 {
   "name": "boilerplate",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,6 +17,7 @@
     "@auth/mongodb-adapter": "^3.11.1",
     "axios": "^1.13.2",
     "bad-words": "^4.0.0",
+    "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
     "mongodb": "^6.0.0",
     "mongoose": "^9.0.1",
@@ -27,6 +28,7 @@
     "react-hot-toast": "^2.6.0",
     "resend": "^6.6.0",
     "stripe": "^20.1.0",
+    "tailwind-merge": "^3.4.0",
     "zod": "^4.1.13"
   },
   "devDependencies": {
