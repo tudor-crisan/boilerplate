@@ -15,7 +15,7 @@ function ListItem({ item, hasLink }) {
   );
 }
 export default function ListDisplay({ list, type = "Board", link = null }) {
-  const itemClass = `${styling.roundness[1]} ${styling.shadows[0]} block bg-base-100 p-4 sm:p-6`;
+  const itemClass = `${styling.roundness[1]} ${styling.borders[0]} block bg-base-100 p-4 sm:p-6`;
   const linkClass = 'hover:bg-neutral hover:text-neutral-content duration-200';
 
   return (
