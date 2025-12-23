@@ -115,6 +115,10 @@ Stripe
 - Select "Webhook endpoint" - Destination name = "Domain" | https://domain/app/api/billing/webhook > Click on "Create destination"
 - Signing secret - copy that one for the live .env variables on env/env-prod/.env.prod.appName and on Vercel
 - Search for "Customer portal" and click on the "Activate link" - Go to "Cancellations" and click "Edit reasons" and select all - Click save
+- Search for "Bradning" and customize the colors, icons, texts, domain, TOS etc.
+- Search for "Settings > Business > Customer Emails" and send "successfull payments" and "refunds"
+- Visit "Billing settings" link and select all emails on "Customer emails" and "Use your own custom link "https://domain/dashboard as we as "Subscription management"
+- On the left - "Balances" > "Manage payouts" - input the schedule (a day per month for better accounting) - and Bank Accounts where money is sent
 
 Additional (when having traction):
 - "Create new stripe" for the domain, with branding and everything
@@ -135,6 +139,7 @@ Testing
 - Make sure all endpoints and everything is working
 
 Logs
+- Go to "Mongo Compass" - check all data is being store correctly
 - Go to "Vercel Logs" - check the warnings / errors for debug
 - Go to "Stripe Developers" - check all the events / logs emitted
 - Go to "Resend Emails" - check all email send / received
