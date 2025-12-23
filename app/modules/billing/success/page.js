@@ -14,7 +14,7 @@ export default async function SuccessPage() {
         <HeaderButton />
       </DashboardHeader>
       <DashboardMain>
-        <Title>Thanks you for your purchase ❤️</Title>
+        <Title>Thank you for your purchase ❤️</Title>
       </DashboardMain>
     </DashboardWrapper>
   );
