@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-
-
 /**
  * Zod Schema for General configuration.
  */
@@ -30,7 +28,10 @@ export const SectionHeroSchema = z.object({
  * Zod Schema for SectionFAQ.
  */
 export const SectionFAQSchema = z.object({
-  positioning: z.string().optional().describe("CSS classes for FAQ positioning."),
+  positioning: z
+    .string()
+    .optional()
+    .describe("CSS classes for FAQ positioning."),
   spacing: z.string().describe("CSS classes for FAQ spacing."),
 });
 
