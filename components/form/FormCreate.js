@@ -111,7 +111,7 @@ export default function FormCreate({ type }) {
           )}
 
           {inputErrors[target] && (
-            <p className="label text-red-600">{inputErrors[target]}</p>
+            <p className="label text-red-500">{inputErrors[target]}</p>
           )}
         </div>
       ))}
