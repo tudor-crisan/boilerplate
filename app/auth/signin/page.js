@@ -1,5 +1,5 @@
 "use client";
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useStyling } from "@/context/ContextStyling";
 import HeaderTop from "@/components/header/HeaderTop";
@@ -11,17 +11,28 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import Label from "@/components/common/Label";
 import Form from "@/components/common/Form";
 import { useAuthError } from "@/hooks/useAuthError";
-import SvgError from "@/components/svg/SvgError";
+import Error from "@/components/common/Error";
 
 const CALLBACK_URL = "/dashboard"
 
 function SignInContent() {
   const { styling } = useStyling();
   const { message } = useAuthError();
+  const [errorMessage, setErrorMessage] = useState(null);
   const [email, setEmail] = useState("");
   const [loadingEmail, setLoadingEmail] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const disabled = loadingEmail || loadingGoogle;
+
+  useEffect(() => {
+    setErrorMessage(message);
+  }, [message]);
+
+  const clearError = () => {
+    if (errorMessage) {
+      setErrorMessage(null);
+    }
+  };
 
   const handleEmailSignIn = async (e) => {
     e.preventDefault();
@@ -45,19 +56,18 @@ function SignInContent() {
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
+    <div
+      className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}
+      onFocusCapture={clearError}
+      onClickCapture={clearError}
+    >
       <div className={`card w-full max-w-sm bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
         <div className="card-body">
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
             <HeaderTop url="/" />
           </div>
 
-          {message && (
-            <div className="alert alert-error mb-4 flex flex-row items-center gap-2 p-3 text-sm rounded-lg bg-error/10 text-red-500">
-              <SvgError className="w-5 h-5 shrink-0" />
-              <span>{message}</span>
-            </div>
-          )}
+          <Error message={errorMessage} />
 
           {!settings.auth.providers.length && (
             <p className="text-center">No sign-in methods available at this time</p>

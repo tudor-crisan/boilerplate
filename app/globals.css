@@ -2,3 +2,7 @@
 @plugin "daisyui" {
   themes: all;
 }
+
+@theme {
+  --color-error: #ef4444;
+}
