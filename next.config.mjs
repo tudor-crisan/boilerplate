@@ -4,7 +4,7 @@ import settings from "./lists/settings.node.js";
 
 // Load env file based on app name
 if (process.env.NODE_ENV === "development") {
-  dotenv.config({ path: `env/.env.${process.env.APP}` });
+  dotenv.config({ path: `env/env-dev/.env.dev.${process.env.APP}` });
 }
 
 /** @type {import('next').NextConfig} */
