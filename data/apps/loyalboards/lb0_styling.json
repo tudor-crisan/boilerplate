@@ -1,5 +1,5 @@
 {
-  "theme": "lofi",
+  "theme": "dracula",
   "font": "sen",
   "roundness": ["rounded-md", "rounded-2xl"],
   "shadows": ["shadow-md", "shadow-lg"],

@@ -5,7 +5,8 @@ const errorMessages = {
   AccessDenied: "Access denied. You do not have permission to sign in.",
   Verification: "The sign in link is no longer valid. It may have been used already or it may have expired.",
   Default: "An unexpected authentication error occurred.",
-  OAuthAccountNotLinked: "Google authentication not available for this account. Please sign-in with email address"
+  OAuthAccountNotLinked: "Google authentication not available for this account. Please sign-in with email address",
+  RateLimit: "Too many requests. Please try again later."
 };
 
 export const useAuthError = () => {

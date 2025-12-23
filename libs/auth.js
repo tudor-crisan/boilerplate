@@ -6,8 +6,6 @@ import clientPromise from "@/libs/mongo";
 import { MagicLinkEmail } from "@/libs/email";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { sendEmail } from "@/libs/api";
-import { headers } from "next/headers";
-import { checkRateLimit } from "@/libs/rateLimit";
 
 const providersConfig = {
   resend: () => Resend({
@@ -17,14 +15,6 @@ const providersConfig = {
     name: "email",
     ...(settings.auth.hasThemeEmails && {
       async sendVerificationRequest({ identifier: email, url, provider }) {
-        const headersList = headers();
-        const ip = headersList.get("x-forwarded-for") || "0.0.0.0";
-        const { allowed, message } = await checkRateLimit(ip, "auth-magic-link", 5, 300);
-
-        if (!allowed) {
-          throw new Error(message || "Too many requests");
-        }
-
         const { host } = new URL(url);
         const { subject, html, text } = await MagicLinkEmail({ host, url });
 

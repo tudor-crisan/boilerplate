@@ -30,6 +30,7 @@ Creating and setting-up a new app from the boilerplate
 - Choose logo / screenshot favicon
 - Choose hero image or hero video
 - Prepare the 3rd party env variables
+- Test everything, do "rm -fR .next" in case it breaks
 ```
 
 Creating and setting-up 3rd party

@@ -1,4 +1,17 @@
 {
+  "business": {
+    "name": "Tudor Crisan",
+    "entity_name": "Tudor Crisan",
+    "email": "support@email.tudorcrisan.dev",
+    "phone": "+40757754718",
+    "phone_display": "+40 757 754 718",
+    "address_line1": "CRISAN 10, CLUJ",
+    "address_line2": "CLUJ-NAPOCA, 400177",
+    "country": "Romania",
+    "website": "https://TudorCrisan.dev",
+    "website_display": "TudorCrisan.dev",
+    "logo": "/apps/tudorcrisan.dev/logo-favicon.png"
+  },
   "auth": {
     "providers": [
       "resend",
