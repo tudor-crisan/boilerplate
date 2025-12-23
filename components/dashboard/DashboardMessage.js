@@ -8,7 +8,7 @@ export default function DashboardMessage() {
 
   if (isLoggedIn) {
     return (
-      <div>
+      <div className="space-y-2">
         <Title>
           Dashboard
         </Title>
