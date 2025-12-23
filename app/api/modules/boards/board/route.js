@@ -4,6 +4,7 @@ import { isResponseMock, responseMock, responseSuccess, responseError } from "@/
 import { defaultSetting as settings } from "@/libs/defaults";
 import User from "@/models/modules/boards/User";
 import Board from "@/models/modules/boards/Board";
+import { checkRateLimit } from "@/libs/rateLimit";
 
 const TYPE = "Board";
 
@@ -25,6 +26,13 @@ export async function POST(req) {
   if (isResponseMock(TYPE)) {
     return responseMock(TYPE);
   };
+
+  const ip = req.headers.get("x-forwarded-for") || "0.0.0.0";
+  const { allowed, message } = await checkRateLimit(ip, "board-create", 10, 60);
+
+  if (!allowed) {
+    return responseError(message, {}, 429);
+  }
 
   try {
     const session = await auth();
@@ -67,6 +75,13 @@ export async function POST(req) {
 }
 
 export async function DELETE(req) {
+  const ip = req.headers.get("x-forwarded-for") || "0.0.0.0";
+  const { allowed, message } = await checkRateLimit(ip, "board-delete", 10, 60);
+
+  if (!allowed) {
+    return responseError(message, {}, 429);
+  }
+
   try {
     const session = await auth();
 

@@ -5,6 +5,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 
 import Post from "@/models/modules/boards/Post";
 import { Filter } from "bad-words";
+import { checkRateLimit } from "@/libs/rateLimit";
 
 const TYPE = "Post";
 
@@ -23,6 +24,13 @@ export async function POST(req) {
   if (isResponseMock(TYPE)) {
     return responseMock(TYPE);
   };
+
+  const ip = req.headers.get("x-forwarded-for") || "0.0.0.0";
+  const { allowed, message } = await checkRateLimit(ip, "post-create", 10, 60);
+
+  if (!allowed) {
+    return responseError(message, {}, 429);
+  }
 
   try {
     const { searchParams } = req.nextUrl;
