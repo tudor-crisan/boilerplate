@@ -112,7 +112,7 @@ Stripe
 - Click on the product - "Copy price id" - Put it on the env/env-prod variables
 - Put the STRIPE_API_KEY - STRIPE_SECRET_KEY from docs-v3.rtf here on vercel
 - Go to "Developers" > "Webhook" > "Create" > "Your account" > "checkout.session.completed" and "customer.subscription.deleted"
-- Select "Webhook endpoint" - Destination name = "Domain" | https://domain/app/api/billing/webhook > Click on "Create destination"
+- Select "Webhook endpoint" - Destination name = "Domain" | https://domain/api/billing/webhook > Click on "Create destination"
 - Signing secret - copy that one for the live .env variables on env/env-prod/.env.prod.appName and on Vercel
 - Search for "Customer portal" and click on the "Activate link" - Go to "Cancellations" and click "Edit reasons" and select all - Click save
 - Search for "Bradning" and customize the colors, icons, texts, domain, TOS etc.
