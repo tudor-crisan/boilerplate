@@ -4,7 +4,7 @@ import { isResponseMock, responseMock, responseSuccess, responseError } from "@/
 import { defaultSetting as settings } from "@/libs/defaults";
 
 import Post from "@/models/modules/boards/Post";
-import Filter from "bad-words";
+import { Filter } from "bad-words";
 
 const TYPE = "Post";
 
