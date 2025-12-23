@@ -2,7 +2,9 @@ import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/modules/boards/mongoose";
 import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
+
 import Post from "@/models/modules/boards/Post";
+import Filter from "bad-words";
 
 const TYPE = "Post";
 
@@ -40,14 +42,18 @@ export async function POST(req) {
       return responseError(descriptionRequired.message, {}, descriptionRequired.status);
     }
 
+    const filter = new Filter();
+    const cleanTitle = filter.clean(body.title);
+    const cleanDescription = filter.clean(body.description);
+
     await connectMongo();
 
     const session = await auth();
     const userId = session?.user?.id;
 
     const postData = {
-      title: body.title,
-      description: body.description,
+      title: cleanTitle,
+      description: cleanDescription,
       boardId: boardId,
     };
 
