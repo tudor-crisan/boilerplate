@@ -53,7 +53,7 @@ export default function FormCreate({ type }) {
 
   return (
     <form
-      className={`${styling.roundness[1]} ${styling.borders[0]} space-y-4 bg-base-100 px-4 py-8`}
+      className={`${styling.roundness[1]} ${styling.shadows[0]} space-y-4 bg-base-100 px-4 py-8`}
       onSubmit={handleSubmit}
     >
       {formConfig.title && (
