@@ -11,6 +11,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import Label from "@/components/common/Label";
 import Form from "@/components/common/Form";
 import { useAuthError } from "@/hooks/useAuthError";
+import { useError } from "@/hooks/useError";
 import Error from "@/components/common/Error";
 
 const CALLBACK_URL = "/dashboard"
@@ -18,21 +19,11 @@ const CALLBACK_URL = "/dashboard"
 function SignInContent() {
   const { styling } = useStyling();
   const { message } = useAuthError();
-  const [errorMessage, setErrorMessage] = useState(null);
+  const { error: errorMessage, clearError } = useError(message);
   const [email, setEmail] = useState("");
   const [loadingEmail, setLoadingEmail] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const disabled = loadingEmail || loadingGoogle;
-
-  useEffect(() => {
-    setErrorMessage(message);
-  }, [message]);
-
-  const clearError = () => {
-    if (errorMessage) {
-      setErrorMessage(null);
-    }
-  };
 
   const handleEmailSignIn = async (e) => {
     e.preventDefault();
