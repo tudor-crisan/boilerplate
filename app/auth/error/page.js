@@ -17,7 +17,8 @@ function ErrorContent() {
     Configuration: "There is a problem with the server configuration. Check if your options are correct.",
     AccessDenied: "Access denied. You do not have permission to sign in.",
     Verification: "The sign in link is no longer valid. It may have been used already or it may have expired.",
-    Default: "An unexpected authentication error occurred."
+    Default: "An unexpected authentication error occurred.",
+    OAuthAccountNotLinked: "Google authentication not available for this account. Please sign-in with email address"
   };
 
   const message = errorMessages[error] || errorMessages.Default;
