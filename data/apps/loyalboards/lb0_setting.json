@@ -1,5 +1,6 @@
 {
   "business": {
+    "last_updated": "12/23/2025",
     "name": "Tudor Crisan",
     "entity_name": "Tudor Crisan",
     "email": "support@email.tudorcrisan.dev",
@@ -13,10 +14,7 @@
     "logo": "/apps/tudorcrisan.dev/logo-favicon.png"
   },
   "auth": {
-    "providers": [
-      "resend",
-      "google"
-    ],
+    "providers": ["resend", "google"],
     "hasThemePages": true,
     "hasThemeEmails": true
   },

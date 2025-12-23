@@ -10,7 +10,7 @@ import Paragraph from "@/components/common/Paragraph";
 
 function ErrorContent() {
   const { styling } = useStyling();
-  const { message } = useAuthError();
+  const { message, error } = useAuthError();
 
   return (
     <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
@@ -26,12 +26,15 @@ function ErrorContent() {
             {message}
           </Paragraph>
           <div className="card-actions w-full flex flex-col">
-            <Button
-              href="/auth/signin"
-              className="w-full"
-            >
-              Try Again
-            </Button>
+            {error !== 'RateLimit' && (
+              <Button
+                href="/auth/signin"
+                className="w-full"
+              >
+                Try Again
+              </Button>
+            )}
+
             <div className="mx-auto mt-2">
               <ButtonBack
                 className="btn-ghost btn-md! shadow-none!"
