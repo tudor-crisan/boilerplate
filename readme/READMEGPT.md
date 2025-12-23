@@ -205,10 +205,33 @@
 
 - Save live webhook signing secret
 - Enable customer portal and cancellation reasons
+- Branding:
+  - Customize colors, icons, texts, domain, TOS
+- Customer Emails:
+  - Send "successful payments" and "refunds"
+- Billing Settings:
+  - Select all customer emails
+  - Set custom link: `https://domain/dashboard`
+  - Enable subscription management
+- Payouts:
+  - Set schedule (monthly)
+  - Add bank accounts
 
 ### Vercel
 
 - Redeploy latest build with updated env variables
+- Testing:
+  - Login (Email + OAuth)
+  - DB: Set `hasAccess: true` for user
+  - Verify endpoints
+
+### Logs
+
+- **Mongo Compass:** Check data storage
+- **Vercel Logs:** Check warnings/errors
+- **Stripe:** Check events/logs
+- **Resend:** Check email statuses
+- **Google OAuth:** Check sign-in logs
 
 ---
 

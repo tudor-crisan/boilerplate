@@ -180,6 +180,17 @@ git push origin main
 2. Configure cancellation reasons (enable all)
 3. Save settings
 
+**Branding & Settings**
+1. Search "Branding": Customize colors, icons, texts, domain, TOS
+2. Settings > Business > Customer Emails: Enable "successful payments" and "refunds"
+3. Billing Settings: 
+   - Select all "Customer emails"
+   - toggle "Use your own custom link" -> `https://domain/dashboard`
+   - Enable "Subscription management"
+4. Balances > Manage payouts:
+   - Set schedule (monthly for accounting)
+   - Add Bank Accounts
+
 ### Analytics & Monitoring
 
 **Essential Setup**
@@ -205,29 +216,28 @@ git push origin main
 **Functional Testing**
 - [ ] Email authentication flow
 - [ ] Google OAuth login
-- [ ] Payment processing
-- [ ] Webhook delivery
-- [ ] Database operations
-- [ ] Manual access grant (set `hasAccess: true`)
+- [ ] Check DB: manually set `hasAccess: true` for user
+- [ ] Verify all endpoints are functional
+- [ ] Payment processing & Webhooks
 
 ### Log Monitoring
 
-**Vercel Logs**
-- Check for warnings and errors
-- Review function execution times
+**Database - Mongo Compass**
+- Verify data storage and structure integrity
 
-**Stripe Dashboard**
-- Verify webhook deliveries
-- Check payment events
-- Monitor failed transactions
+**Vercel Logs**
+- Check for warnings/errors
+- Debug if necessary
+
+**Stripe Developers**
+- Verify events emitted
+- Check logs for failures
 
 **Resend**
-- Confirm email delivery
-- Check bounce/spam rates
+- Check "Emails" tab for sent/delivered statuses
 
 **Google OAuth**
-- Review sign-in logs
-- Monitor failed attempts
+- Monitor sign-in logs
 
 ---
 
