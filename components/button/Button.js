@@ -25,19 +25,39 @@ export default function Button({
   const isDisabled = disabled || isButtonLoading;
 
   const handleClick = async (e) => {
-    // If specific onClick is provided
-    if (onClick) {
-      const result = onClick(e);
+    // Check if modifiers are pressed to skip internal handling (allow default browser behavior like new tab)
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || (e.button && e.button !== 0)) {
+      return;
+    }
 
-      // Check if it's a promise (async function)
-      if (result instanceof Promise) {
+    // Execute passed onClick first to see if it prevents default
+    let promiseResult = null;
+    if (onClick) {
+      promiseResult = onClick(e);
+    }
+
+    // If navigation prevented, we shouldn't act like it's navigating
+    const isNavigation = href && !e.defaultPrevented;
+
+    // If it's a navigation link on current tab, set loading
+    if (isNavigation) {
+      setInternalLoading(true);
+    }
+
+    // Handle promise from custom onClick
+    if (promiseResult instanceof Promise) {
+      // If NOT navigating, we need to set loading for async task
+      if (!isNavigation) {
         setInternalLoading(true);
-        try {
-          await result;
-        } catch (error) {
-          console.error("Button click error:", error);
-        } finally {
-          // If component is still mounted (check implied by React state update behavior)
+      }
+
+      try {
+        await promiseResult;
+      } catch (error) {
+        console.error("Button click error:", error);
+      } finally {
+        // Only unset loading if we are NOT on a strictly loading path (href navigation)
+        if (!isNavigation) {
           setInternalLoading(false);
         }
       }
