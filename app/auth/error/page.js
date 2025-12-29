@@ -7,10 +7,13 @@ import SvgError from "@/components/svg/SvgError";
 import ButtonBack from "@/components/button/ButtonBack";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
+import { redirect } from "next/navigation";
+import { useState } from "react";
 
 function ErrorContent() {
   const { styling } = useStyling();
   const { message, error } = useAuthError();
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
@@ -28,8 +31,12 @@ function ErrorContent() {
           <div className="card-actions w-full flex flex-col">
             {error !== 'RateLimit' && (
               <Button
-                href="/auth/signin"
+                isLoading={loading}
                 className="w-full"
+                onClick={() => {
+                  setLoading(true);
+                  redirect("/auth/signin")
+                }}
               >
                 Try Again
               </Button>
