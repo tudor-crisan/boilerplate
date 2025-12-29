@@ -14,36 +14,41 @@ import { useAuthError } from "@/hooks/useAuthError";
 import { useError } from "@/hooks/useError";
 import Error from "@/components/common/Error";
 
-const CALLBACK_URL = "/dashboard"
+const CALLBACK_URL = typeof window !== "undefined" ? `${window.location.origin}/dashboard` : "/dashboard";
 
 function SignInContent() {
   const { styling } = useStyling();
   const { message } = useAuthError();
-  const { error: errorMessage, clearError } = useError(message);
+  const { error: errorMessage, clearError, setError } = useError(message);
   const [email, setEmail] = useState("");
   const [loadingEmail, setLoadingEmail] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const disabled = loadingEmail || loadingGoogle;
 
-  const handleEmailSignIn = async (e) => {
-    e.preventDefault();
-    setLoadingEmail(true);
+  const handleSignIn = async (provider, options, setLoading) => {
+    setLoading(true);
     try {
-      await signIn("email", { email, callbackUrl: CALLBACK_URL });
+      const res = await signIn(provider, { ...options, callbackUrl: CALLBACK_URL, redirect: false });
+
+      if (res?.error) {
+        setError(res.error);
+        setLoading(false);
+      } else if (res?.url) {
+        window.location.href = res.url;
+      }
     } catch (error) {
       console.error(error);
-      setLoadingEmail(false);
+      setLoading(false);
     }
   };
 
+  const handleEmailSignIn = async (e) => {
+    e.preventDefault();
+    await handleSignIn("email", { email }, setLoadingEmail);
+  };
+
   const handleGoogleSignIn = async () => {
-    setLoadingGoogle(true);
-    try {
-      await signIn("google", { callbackUrl: CALLBACK_URL });
-    } catch (error) {
-      console.error(error);
-      setLoadingGoogle(false);
-    }
+    await handleSignIn("google", {}, setLoadingGoogle);
   };
 
   return (

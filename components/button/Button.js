@@ -13,6 +13,7 @@ export default function Button({
   href = null,
   startIcon = null,
   endIcon = null,
+  noAutoLoading = false,
   children,
   onClick,
   ...props
@@ -40,14 +41,14 @@ export default function Button({
     const isNavigation = href && !e.defaultPrevented;
 
     // If it's a navigation link on current tab, set loading
-    if (isNavigation) {
+    if (isNavigation && !noAutoLoading) {
       setInternalLoading(true);
     }
 
     // Handle promise from custom onClick
     if (promiseResult instanceof Promise) {
       // If NOT navigating, we need to set loading for async task
-      if (!isNavigation) {
+      if (!isNavigation && !noAutoLoading) {
         setInternalLoading(true);
       }
 
@@ -57,7 +58,7 @@ export default function Button({
         console.error("Button click error:", error);
       } finally {
         // Only unset loading if we are NOT on a strictly loading path (href navigation)
-        if (!isNavigation) {
+        if (!isNavigation && !noAutoLoading) {
           setInternalLoading(false);
         }
       }
