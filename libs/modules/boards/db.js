@@ -1,6 +1,6 @@
 
 import { auth } from "@/libs/auth";
-import connectMongo from "@/libs/modules/boards/mongoose";
+import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
 import Board from "@/models/modules/boards/Board";
 

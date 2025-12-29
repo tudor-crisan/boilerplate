@@ -13,7 +13,7 @@ export const setDataError = (response = null, errorCallback = null) => {
   };
 
   const { data, status, statusText } = response;
-  if ([400, 401, 402, 403, 404, 500].includes(status)) {
+  if ([400, 401, 402, 403, 404, 429, 500].includes(status)) {
     const error = data?.error || statusText || serverError;
     const inputErrors = data?.inputErrors || {};
     if (errorCallback) {
