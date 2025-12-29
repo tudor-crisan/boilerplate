@@ -12,7 +12,7 @@ export async function POST(req) {
     const response = await checkReqRateLimit(req, "auth-magic-link");
     if (response) {
       const data = await response.json();
-      return NextResponse.json({ url: `${url.origin}/auth/error?error=RateLimit`, error: data.error }, { status: 429 });
+      return NextResponse.json({ url: `${url.origin}/auth/error?error=${encodeURIComponent(data.error)}` }, { status: 429 });
     }
   }
 
@@ -20,7 +20,7 @@ export async function POST(req) {
     const response = await checkReqRateLimit(req, "auth-google-signin");
     if (response) {
       const data = await response.json();
-      return NextResponse.json({ url: `${url.origin}/auth/error?error=RateLimit`, error: data.error }, { status: 429 });
+      return NextResponse.json({ url: `${url.origin}/auth/error?error=${encodeURIComponent(data.error)}` }, { status: 429 });
     }
   }
 
