@@ -1,16 +1,6 @@
 {
   "SectionHeader": {
-    "appName": "TaskFlow",
-    "menus": [
-      {
-        "label": "Pricing",
-        "path": "#pricing"
-      },
-      {
-        "label": "FAQ",
-        "path": "#faq"
-      }
-    ]
+    "appName": "TaskFlow"
   },
   "SectionHero": {
     "headline": "Streamline team workflows with visual task management",

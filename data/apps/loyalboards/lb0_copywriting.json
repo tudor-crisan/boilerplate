@@ -1,16 +1,6 @@
 {
   "SectionHeader": {
-    "appName": "LoyalBoards",
-    "menus": [
-      {
-        "label": "Pricing",
-        "path": "#pricing"
-      },
-      {
-        "label": "FAQ",
-        "path": "#faq"
-      }
-    ]
+    "appName": "LoyalBoards"
   },
   "SectionHero": {
     "headline": "Collect customer feedback to build better products",
@@ -45,37 +35,5 @@
         "answer": "Yes, we offer a 14-day free trial so you can explore all the features of LoyalBoards before committing to a subscription."
       }
     ]
-  },
-  "SectionFooter": {
-    "brand": {
-      "rights": "All rights reserved."
-    },
-    "menus": [
-      {
-        "title": "Legal",
-        "links": [
-          {
-            "label": "Terms of Service",
-            "href": "/tos/terms"
-          },
-          {
-            "label": "Privacy Policy",
-            "href": "/tos/privacy"
-          }
-        ]
-      },
-      {
-        "title": "Support",
-        "links": [
-          {
-            "label": "Contact Support",
-            "href": "/tos/support"
-          }
-        ]
-      }
-    ],
-    "socials": {
-      "label": "Socials"
-    }
   }
 }

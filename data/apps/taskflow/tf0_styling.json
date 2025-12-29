@@ -5,7 +5,6 @@
   "shadows": ["shadow-md", "shadow-lg"],
   "borders": ["border border-primary"],
   "links": ["link link-hover"],
-
   "general": {
     "language": "en",
     "html": "scroll-smooth",
