@@ -30,7 +30,7 @@
   },
   "rateLimits": {
     "post-create": {
-      "limit": 10,
+      "limit": 5,
       "window": 60
     },
     "board-create": {

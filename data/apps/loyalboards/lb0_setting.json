@@ -64,10 +64,16 @@
         "responses": {
           "titleRequired": {
             "message": "Title is required",
+            "inputErrors": {
+              "title": "This is required"
+            },
             "status": 400
           },
           "descriptionRequired": {
             "message": "Description is required",
+            "inputErrors": {
+              "description": "This is required"
+            },
             "status": 400
           },
           "boardIdRequired": {

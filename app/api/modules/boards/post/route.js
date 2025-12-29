@@ -39,11 +39,11 @@ export async function POST(req) {
     const body = await req.json();
 
     if (!body.title) {
-      return responseError(titleRequired.message, {}, titleRequired.status);
+      return responseError(titleRequired.message, titleRequired.inputErrors, titleRequired.status);
     }
 
     if (!body.description) {
-      return responseError(descriptionRequired.message, {}, descriptionRequired.status);
+      return responseError(descriptionRequired.message, descriptionRequired.inputErrors, descriptionRequired.status);
     }
 
     const filter = new Filter();

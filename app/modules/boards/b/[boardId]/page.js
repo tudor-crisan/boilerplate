@@ -29,8 +29,8 @@ export default async function PublicFeedbackBoard({ params }) {
       <Title>
         {board.name}
       </Title>
-      <div className="flex flex-col sm:flex-row sm:items-start gap-4">
-        <div className="w-full sm:w-96 shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-start gap-4 pb-12">
+        <div className="w-full sm:w-96 shrink-0 sm:sticky top-6">
           <FormCreate
             type="Post"
             queryParams={{ boardId }}

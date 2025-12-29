@@ -6,7 +6,7 @@ import Paragraph from "@/components/common/Paragraph";
 const SingleItem = ({ item, styling }) => {
   return (
     <li className={`${styling.roundness[1]} ${styling.borders[0]} ${styling.shadows[0]} bg-base-100 p-6 flex justify-between items-start`}>
-      <div>
+      <div className="space-y-1">
         <Title>{item.title}</Title>
         <Paragraph className="max-h-32">
           {item.description}
