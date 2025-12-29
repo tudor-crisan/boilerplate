@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import User from "@/models/modules/boards/User";
+import User from "@/models/User";
 import Board from "@/models/modules/boards/Board";
 
 if (!process.env.MONGO_URI || !process.env.MONGO_DB || !process.env.MONGO_QUERY) {

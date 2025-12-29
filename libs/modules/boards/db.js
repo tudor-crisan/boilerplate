@@ -1,7 +1,7 @@
 
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/modules/boards/mongoose";
-import User from "@/models/modules/boards/User";
+import User from "@/models/User";
 import Board from "@/models/modules/boards/Board";
 
 export async function getUser(populate = "") {
@@ -13,14 +13,18 @@ export async function getUser(populate = "") {
   await connectMongo();
 
   const userId = session.user.id;
-  let request = User.findById(userId);
-
-  if (populate) {
-    request.populate(populate);
-  }
 
   try {
-    return await request;
+    let user = await User.findById(userId).lean();
+
+    if (!user) return null;
+
+    if (populate && populate.includes("boards")) {
+      const boards = await Board.find({ userId: userId }).sort({ createdAt: -1 });
+      user.boards = boards;
+    }
+
+    return user;
   } catch (e) {
     return null;
   }

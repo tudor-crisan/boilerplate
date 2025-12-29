@@ -2,7 +2,7 @@ import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/modules/boards/mongoose";
 import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
-import User from "@/models/modules/boards/User";
+import User from "@/models/User";
 import Board from "@/models/modules/boards/Board";
 import { checkRateLimit } from "@/libs/rateLimit";
 
@@ -63,9 +63,6 @@ export async function POST(req) {
 
     const board = await Board.create({ userId: user._id, name: body.name });
 
-    user.boards.push(board._id);
-    await user.save();
-
     return responseSuccess(createSuccesfully.message, { board }, createSuccesfully.status)
 
   } catch (e) {
@@ -114,11 +111,6 @@ export async function DELETE(req) {
       _id: boardId,
       userId: userId
     })
-
-
-    user.boards = user.boards.filter((id) => id.toString() !== boardId);
-
-    await user.save();
 
     return responseSuccess(deleteSuccesfully.message, {}, deleteSuccesfully.status)
 
