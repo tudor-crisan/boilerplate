@@ -21,9 +21,11 @@ export default function Button({
   const { styling } = useStyling();
   const [internalLoading, setInternalLoading] = useState(false);
 
-  const baseClasses = `${styling.roundness[0]} ${styling.shadows[0]} btn ${variant} ${size} ${className}`;
   const isButtonLoading = isLoading || internalLoading;
   const isDisabled = disabled || isButtonLoading;
+
+  const baseClasses = `${styling.roundness[0]} ${styling.shadows[0]} btn ${variant} ${size} ${className} ${isButtonLoading ? "cursor-wait" : ""
+    }`;
 
   const handleClick = async (e) => {
     // Check if modifiers are pressed to skip internal handling (allow default browser behavior like new tab)

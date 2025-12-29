@@ -21,3 +21,9 @@ export function responseMock(target = "") {
 export function isResponseMock(target = "") {
   return settings.forms[target]?.mockConfig?.isEnabled || false;
 }
+
+// Helper to serialize Mongoose objects (convert ObjectIds, Dates to strings/numbers compatible with JSON)
+export const cleanObject = (obj) => {
+  if (!obj) return null;
+  return JSON.parse(JSON.stringify(obj));
+};

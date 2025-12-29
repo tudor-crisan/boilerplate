@@ -3,6 +3,8 @@ import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
 import Board from "@/models/modules/boards/Board";
+import Post from "@/models/modules/boards/Post";
+import { cleanObject } from "@/libs/utils.server";
 
 export async function getUser(populate = "") {
   const session = await auth();
@@ -20,11 +22,11 @@ export async function getUser(populate = "") {
     if (!user) return null;
 
     if (populate && populate.includes("boards")) {
-      const boards = await Board.find({ userId: userId }).sort({ createdAt: -1 });
+      const boards = await Board.find({ userId: userId }).sort({ createdAt: -1 }).lean();
       user.boards = boards;
     }
 
-    return user;
+    return cleanObject(user);
   } catch (e) {
     return null;
   }
@@ -35,10 +37,11 @@ export const getBoardPrivate = cache(async (boardId) => {
   await connectMongo();
 
   try {
-    return await Board.findOne({
+    const board = await Board.findOne({
       _id: boardId,
       userId: session?.user?.id
-    });
+    }).lean();
+    return cleanObject(board);
   } catch (e) {
     return null;
   }
@@ -48,8 +51,22 @@ export const getBoardPublic = cache(async (boardId) => {
   await connectMongo();
 
   try {
-    return await Board.findById(boardId);
+    const board = await Board.findById(boardId).lean();
+    return cleanObject(board);
   } catch (e) {
     return null;
   }
 });
+
+export const getPosts = cache(async (boardId) => {
+  await connectMongo();
+
+  try {
+    const posts = await Post.find({ boardId }).sort({ createdAt: -1 }).lean();
+    return cleanObject(posts);
+  } catch (e) {
+    return [];
+  }
+});
+
+

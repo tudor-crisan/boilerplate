@@ -18,13 +18,20 @@ export default async function LoyalBoardsDashboard() {
   const { source } = settings.pages.paths.boardPrivate;
 
   const type = "Board";
-  const list = [...boards].reverse();
-  const link = (item) => source.replace(":boardId", item._id);
+
+  const list = [...boards].map((board) => ({
+    ...board, href: source.replace(":boardId", board._id),
+  }));
 
   return (
     <div className="space-y-6">
-      <FormCreate type={type} />
-      <ListDisplay type={type} list={list} link={link} />
+      <FormCreate
+        type={type}
+      />
+      <ListDisplay
+        type={type}
+        list={list}
+      />
     </div>
   );
 }
