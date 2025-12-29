@@ -12,32 +12,32 @@ const apps = {
     "setting": "tf0_setting"
   },
   "contentcalendar": {
-    "copywriting": "copywriting2",
-    "styling": "styling2",
-    "visual": "visual2",
+    "copywriting": "copywriting1",
+    "styling": "styling0",
+    "visual": "visual0",
     "setting": "setting0"
   },
   "invoicesnap": {
-    "copywriting": "copywriting3",
-    "styling": "styling3",
-    "visual": "visual3",
+    "copywriting": "copywriting2",
+    "styling": "styling0",
+    "visual": "visual0",
     "setting": "setting0"
   },
   "meetingmind": {
-    "copywriting": "copywriting4",
+    "copywriting": "copywriting3",
     "styling": "styling0",
     "visual": "visual0",
     "setting": "setting0"
   },
   "emailwarmup": {
-    "copywriting": "copywriting5",
+    "copywriting": "copywriting4",
     "styling": "styling0",
     "visual": "visual0",
     "setting": "setting0"
   },
   "stocksync": {
-    "copywriting": "copywriting6",
-    "styling": "styling1",
+    "copywriting": "copywriting5",
+    "styling": "styling0",
     "visual": "visual0",
     "setting": "setting0"
   }

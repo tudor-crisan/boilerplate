@@ -7,7 +7,6 @@ import copywriting2 from "../data/modules/copywriting/copywriting2.json";
 import copywriting3 from "../data/modules/copywriting/copywriting3.json";
 import copywriting4 from "../data/modules/copywriting/copywriting4.json";
 import copywriting5 from "../data/modules/copywriting/copywriting5.json";
-import copywriting6 from "../data/modules/copywriting/copywriting6.json";
 
 const copywritings = {
   lb0_copywriting,
@@ -17,8 +16,7 @@ const copywritings = {
   copywriting2,
   copywriting3,
   copywriting4,
-  copywriting5,
-  copywriting6,
+  copywriting5
 }
 
 export default copywritings;

@@ -2,16 +2,17 @@
 import Image from "next/image";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { useCopywriting } from "@/context/ContextCopywriting";
+import { useStyling } from "@/context/ContextStyling";
 import Link from "next/link";
 
 export default function FooterBrand() {
+  const { styling } = useStyling();
   const { copywriting } = useCopywriting();
-
   const currentYear = new Date().getFullYear();
 
   return (
     <div className="flex flex-col gap-1 max-w-xs">
-      <Link href={settings.business.website} className="link link-hover">
+      <Link href={settings.business.website} className={styling.links[0]}>
         <div className="flex items-center gap-1 sm:gap-2 font-bold text-lg sm:text-xl">
           {settings.business.logo && (
             <Image

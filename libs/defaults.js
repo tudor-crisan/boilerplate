@@ -8,6 +8,6 @@ import { deepMerge } from "@/libs/utils.client";
 const { copywriting, styling, visual, setting } = apps[process.env.NEXT_PUBLIC_APP];
 
 export const defaultCopywriting = deepMerge(copywritings.copywriting0, copywritings[copywriting]);
-export const defaultStyling = stylings[styling];
-export const defaultVisual = visuals[visual];
+export const defaultStyling = deepMerge(stylings.styling0, stylings[styling]);
+export const defaultVisual = deepMerge(visuals.visual0, visuals[visual]);
 export const defaultSetting = deepMerge(settings.setting0, settings[setting]);

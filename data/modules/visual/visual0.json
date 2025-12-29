@@ -13,6 +13,11 @@
       "button": true,
       "image": false,
       "video": false
+    },
+    "SectionFooter": {
+      "brand": true,
+      "menus": true,
+      "socials": true
     }
   },
   "logo": {
@@ -34,7 +39,13 @@
     "href": "/apps/assets/favicons/placeholder0.png"
   },
   "homepage": {
-    "sections": ["SectionHeader", "SectionHero", "SectionPricing", "SectionFAQ"]
+    "sections": [
+      "SectionHeader",
+      "SectionHero",
+      "SectionPricing",
+      "SectionFAQ",
+      "SectionFooter"
+    ]
   },
   "HeroImage": {
     "show": false,

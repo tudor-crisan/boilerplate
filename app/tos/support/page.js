@@ -11,7 +11,6 @@ import Link from "next/link";
 export default function TosSupport() {
   const { styling } = useStyling();
 
-
   return (
     <TosWrapper>
       <Title className="text-2xl sm:text-2xl">Support</Title>
@@ -27,14 +26,14 @@ export default function TosSupport() {
               <div className="space-y-4 mt-4">
                 <div>
                   <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Email</span>
-                  <Link href={`mailto:${settings.business.email}`} className="link link-hover">
+                  <Link href={`mailto:${settings.business.email}`} className={styling.links[0]}>
                     {settings.business.email}
                   </Link>
                 </div>
                 {settings.business.phone && (
                   <div>
                     <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Phone</span>
-                    <Link href={`tel:${settings.business.phone}`} className="link link-hover">
+                    <Link href={`tel:${settings.business.phone}`} className={styling.links[0]}>
                       {settings.business.phone_display}
                     </Link>
                   </div>
@@ -59,7 +58,7 @@ export default function TosSupport() {
                 </div>
                 <div>
                   <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Main Website</span>
-                  <Link href={settings.business.website} className="link link-hover">
+                  <Link href={settings.business.website} className={styling.links[0]}>
                     {settings.business.website_display}
                   </Link>
                 </div>
