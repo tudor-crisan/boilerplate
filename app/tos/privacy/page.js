@@ -1,6 +1,6 @@
 
 "use client";
-import useSettings from "@/hooks/useSettings";
+import { defaultSetting as settings } from "@/libs/defaults";
 import TosWrapper from "@/components/tos/TosWrapper";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
@@ -8,7 +8,7 @@ import TosContent from "@/components/tos/TosContent";
 import Button from "@/components/button/Button";
 
 export default function TosPrivacy() {
-  const settings = useSettings();
+
 
   return (
     <TosWrapper>

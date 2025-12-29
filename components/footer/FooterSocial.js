@@ -1,10 +1,10 @@
 "use client";
-import useSettings from "@/hooks/useSettings";
+import { defaultSetting as settings } from "@/libs/defaults";
 import { useCopywriting } from "@/context/ContextCopywriting";
 
 export default function FooterSocial() {
   const { copywriting } = useCopywriting();
-  const settings = useSettings();
+
 
   if (!settings.business.socials || settings.business.socials.length === 0) {
     return null;
