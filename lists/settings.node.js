@@ -12,7 +12,6 @@ const settings = {
   lb0_setting: loadJSON("../data/apps/loyalboards/lb0_setting.json"),
   tf0_setting: loadJSON("../data/apps/taskflow/tf0_setting.json"),
   setting0: loadJSON("../data/modules/setting/setting0.json"),
-  setting1: loadJSON("../data/modules/setting/setting1.json"),
 };
 
 export default settings;

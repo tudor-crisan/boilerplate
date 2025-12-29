@@ -1,4 +1,63 @@
 {
+  "business": {
+    "last_updated": "12/23/2025",
+    "name": "TudorCrisan.dev",
+    "entity_name": "TudorCrisan.dev",
+    "email": "support@email.tudorcrisan.dev",
+    "phone": "+40757754718",
+    "phone_display": "+40 757 754 718",
+    "address_line1": "CRISAN 10, CLUJ",
+    "address_line2": "CLUJ-NAPOCA, 400177",
+    "country": "Romania",
+    "website": "https://TudorCrisan.dev",
+    "website_display": "TudorCrisan.dev",
+    "logo": "/apps/tudorcrisan.dev/logo-favicon.png",
+    "socials": [
+      {
+        "name": "Twitter",
+        "url": "https://x.com/tudorcrisan_dev"
+      },
+      {
+        "name": "YouTube",
+        "url": "https://www.youtube.com/@tudorcrisan_dev"
+      }
+    ]
+  },
+  "auth": {
+    "providers": ["resend", "google"],
+    "hasThemePages": true,
+    "hasThemeEmails": true
+  },
+  "rateLimits": {
+    "post-create": {
+      "limit": 10,
+      "window": 60
+    },
+    "board-create": {
+      "limit": 10,
+      "window": 60
+    },
+    "board-delete": {
+      "limit": 10,
+      "window": 60
+    },
+    "billing-create-checkout": {
+      "limit": 10,
+      "window": 60
+    },
+    "billing-create-portal": {
+      "limit": 10,
+      "window": 60
+    },
+    "auth-magic-link": {
+      "limit": 5,
+      "window": 300
+    },
+    "auth-google-signin": {
+      "limit": 10,
+      "window": 60
+    }
+  },
   "pages": {
     "dashboard": {
       "component": "LoyalBoardsDashboard"
@@ -11,58 +70,98 @@
       "boardPrivate": {
         "source": "/dashboard/b/:boardId",
         "destination": "/modules/boards/dashboard/b/:boardId"
+      },
+      "previewEmail": {
+        "source": "/preview/email",
+        "destination": "/modules/preview/email"
+      },
+      "billingSuccess": {
+        "source": "/success",
+        "destination": "/modules/billing/success"
       }
     }
   },
   "forms": {
-    "Board": {
-      "formConfig": {
-        "title": "Create a new feedback board",
-        "button": "Create Board",
-        "apiUrl": "/api/modules/boards/board",
-        "className": "sm:p-8 sm:rounded-3xl"
-      },
-      "inputsConfig": {
-        "name": {
-          "type": "text",
-          "required": true,
-          "value": "",
-          "label": "Board name",
-          "placeholder": "Enter board name"
-        }
-      },
+    "general": {
       "backend": {
         "responses": {
           "notAuthorized": {
             "message": "Not authorized",
             "status": 401
           },
-          "nameRequired": {
-            "message": "Board name is required",
-            "inputErrors": { "name": "This field is required" },
+          "noAccess": {
+            "message": "Please subscribe first",
             "status": 403
           },
-          "createSuccesfully": {
-            "message": "Board created succesfully",
+          "sessionLost": {
+            "message": "Session lost, log-in again",
+            "status": 401
+          },
+          "noInternetConnection": {
+            "message": "No internet connection",
+            "status": 408
+          },
+          "serverError": {
+            "message": "Something went wrong",
+            "status": 500
+          },
+          "requestSuccessful": {
+            "message": "Request was successful",
             "status": 200
           }
         }
-      },
-      "mockConfig": {
-        "isEnabled": false,
-        "isError": true,
-        "isSuccess": true,
+      }
+    },
+    "Billing": {
+      "backend": {
         "responses": {
-          "error": {
-            "error": "Not authorized",
-            "inputErrors": { "name": "This is required" },
-            "status": 401
+          "urlsRequired": {
+            "message": "Redirect URLs are required",
+            "status": 400
           },
-          "success": {
-            "message": "Board created succesfully",
-            "data": { "board": { "name": "NEW BOARD" } },
+          "checkoutCreated": {
+            "message": "You are being redirected to payment",
+            "status": 200
+          },
+          "portalCreated": {
+            "message": "You are being redirected to billing",
             "status": 200
           }
+        }
+      }
+    },
+    "MockData": {
+      "inputsConfig": {
+        "role": {
+          "type": "select",
+          "required": true,
+          "className": "w-full",
+          "value": "developer",
+          "label": "Role",
+          "placeholder": "Select your role",
+          "options": [
+            {
+              "label": "Developer",
+              "value": "developer"
+            },
+            {
+              "label": "Designer",
+              "value": "designer"
+            },
+            {
+              "label": "Manager",
+              "value": "manager"
+            }
+          ]
+        },
+        "bio": {
+          "type": "textarea",
+          "required": false,
+          "className": "w-full",
+          "value": "",
+          "label": "Bio",
+          "placeholder": "Tell us about yourself",
+          "rows": 4
         }
       }
     }
