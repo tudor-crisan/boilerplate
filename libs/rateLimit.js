@@ -1,5 +1,7 @@
 import RateLimit from "@/models/RateLimit";
 import connectMongo from "@/libs/mongoose";
+import { responseError } from "@/libs/utils.server";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 /**
  * Check rate limit for an IP and route.
@@ -61,4 +63,24 @@ export async function checkRateLimit(ip, route, limit = 5, windowSeconds = 60) {
     // Fail open (allow) if DB error to avoid outage
     return { allowed: true };
   }
+}
+
+/**
+ * Check rate limit for a Next.js request object.
+ * Returns null if allowed, or a response object if blocked.
+ * @param {Request} req - Next.js request object
+ * @param {string} type - Rate limit type key in settings (e.g. "post-create")
+ * @returns {Promise<Response|null>}
+ */
+export async function checkReqRateLimit(req, type) {
+  const ip = req.headers.get("x-forwarded-for") || "0.0.0.0";
+  const config = settings.rateLimits?.[type] || { limit: 10, window: 60 };
+
+  const { allowed, message } = await checkRateLimit(ip, type, config.limit, config.window);
+
+  if (!allowed) {
+    return responseError(message, {}, 429);
+  }
+
+  return null;
 }

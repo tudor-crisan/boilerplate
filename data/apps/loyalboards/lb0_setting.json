@@ -235,5 +235,35 @@
         }
       }
     }
+  },
+  "rateLimits": {
+    "post-create": {
+      "limit": 10,
+      "window": 60
+    },
+    "board-create": {
+      "limit": 10,
+      "window": 60
+    },
+    "board-delete": {
+      "limit": 10,
+      "window": 60
+    },
+    "billing-create-checkout": {
+      "limit": 10,
+      "window": 60
+    },
+    "billing-create-portal": {
+      "limit": 10,
+      "window": 60
+    },
+    "auth-magic-link": {
+      "limit": 0,
+      "window": 300
+    },
+    "auth-google-signin": {
+      "limit": 10,
+      "window": 60
+    }
   }
 }

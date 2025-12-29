@@ -4,7 +4,7 @@ import { isResponseMock, responseMock, responseSuccess, responseError } from "@/
 import { defaultSetting as settings } from "@/libs/defaults";
 import User from "@/models/User";
 import Stripe from "stripe";
-import { checkRateLimit } from "@/libs/rateLimit";
+import { checkReqRateLimit } from "@/libs/rateLimit";
 
 const TYPE = "Billing";
 
@@ -24,12 +24,8 @@ export async function POST(req) {
     return responseMock(TYPE);
   };
 
-  const ip = req.headers.get("x-forwarded-for") || "0.0.0.0";
-  const { allowed, message } = await checkRateLimit(ip, "billing-create-portal", 10, 60);
-
-  if (!allowed) {
-    return responseError(message, {}, 429);
-  }
+  const error = await checkReqRateLimit(req, "billing-create-portal");
+  if (error) return error;
 
   try {
     const session = await auth();
