@@ -6,10 +6,12 @@ import { useStyling } from "@/context/ContextStyling";
 export default function SectionFAQ() {
   const { copywriting } = useCopywriting();
   const { styling } = useStyling();
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndices, setOpenIndices] = useState([0]);
 
   const handleToggle = (index) => {
-    setOpenIndex(openIndex === index ? -1 : index);
+    setOpenIndices((prev) =>
+      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+    );
   };
 
   return (
@@ -27,7 +29,7 @@ export default function SectionFAQ() {
           {copywriting.SectionFAQ.questions.map((faq, index) => (
             <div
               key={index}
-              className={`${styling.roundness[1]} ${styling.borders[0]} collapse collapse-arrow bg-base-200 my-2 ${openIndex === index ? "collapse-open" : ""}`}
+              className={`${styling.roundness[1]} ${styling.borders[0]} collapse collapse-arrow bg-base-200 my-2 ${openIndices.includes(index) ? "collapse-open" : ""}`}
               onClick={() => handleToggle(index)}
             >
               <div className="collapse-title font-semibold text-primary cursor-pointer">
