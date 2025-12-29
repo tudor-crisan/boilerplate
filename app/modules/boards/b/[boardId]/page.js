@@ -30,10 +30,12 @@ export default async function PublicFeedbackBoard({ params }) {
         {board.name}
       </Title>
       <div className="flex flex-col sm:flex-row sm:items-start gap-4">
-        <FormCreate
-          type="Post"
-          queryParams={{ boardId }}
-        />
+        <div className="w-full sm:w-96 shrink-0">
+          <FormCreate
+            type="Post"
+            queryParams={{ boardId }}
+          />
+        </div>
         <ItemDisplay
           items={posts}
         />
