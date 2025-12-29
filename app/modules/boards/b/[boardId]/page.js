@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getMetadata } from "@/libs/seo";
 import Title from "@/components/common/Title";
 import Main from "@/components/common/Main";
+import FormCreate from "@/components/form/FormCreate";
 
 export const metadata = getMetadata("modules.board");
 export default async function PublicFeedbackBoard({ params }) {
@@ -14,10 +15,14 @@ export default async function PublicFeedbackBoard({ params }) {
   }
 
   return (
-    <Main className="bg-base-200">
+    <Main className="bg-base-200 space-y-8 p-4">
       <Title>
         {board.name}
       </Title>
+      <FormCreate
+        type="Post"
+        queryParams={{ boardId }}
+      />
     </Main>
   )
 }

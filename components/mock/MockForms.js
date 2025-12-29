@@ -15,11 +15,7 @@ function textMockForms(type = "") {
     return `Mock is enabled for "${type}" to respond with errors ❌`;
   }
 
-  if (isSuccess) {
-    return `Mock is enabled for "${type}" to respond with success ✅`;
-  }
-
-  return "";
+  return `Mock is enabled for "${type}" to respond with success ✅`;
 }
 
 export default function MockForms({ type }) {

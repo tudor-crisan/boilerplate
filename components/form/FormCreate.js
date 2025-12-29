@@ -13,7 +13,7 @@ import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
 import Label from "@/components/common/Label";
 
-export default function FormCreate({ type }) {
+export default function FormCreate({ type, queryParams = {} }) {
   const router = useRouter();
   const { formConfig, inputsConfig } = settings.forms[type];
   const { styling } = useStyling();
@@ -35,8 +35,12 @@ export default function FormCreate({ type }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const url = Object.keys(queryParams).length > 0
+      ? `${formConfig.apiUrl}?${new URLSearchParams(queryParams)}`
+      : formConfig.apiUrl;
+
     await request(
-      () => axios.post(formConfig.apiUrl, { ...inputs }),
+      () => axios.post(url, { ...inputs }),
       {
         onSuccess: () => {
           resetInputs();
@@ -53,7 +57,7 @@ export default function FormCreate({ type }) {
 
   return (
     <form
-      className={`${styling.roundness[1]} ${styling.borders[0]} space-y-4 bg-base-100 px-4 py-8`}
+      className={`${styling.roundness[1]} ${styling.borders[0]} space-y-4 bg-base-100 px-4 py-8 ${formConfig.className}`}
       onSubmit={handleSubmit}
     >
       {formConfig.title && (

@@ -36,6 +36,30 @@
   },
   "forms": {
     "Post": {
+      "formConfig": {
+        "title": "Suggest a feature",
+        "button": "Add Post",
+        "apiUrl": "/api/modules/boards/post"
+      },
+      "inputsConfig": {
+        "title": {
+          "type": "text",
+          "required": false,
+          "value": "",
+          "label": "Short, descriptive title",
+          "placeholder": "Green buttons plz",
+          "maxlength": 100
+        },
+        "description": {
+          "type": "textarea",
+          "required": false,
+          "value": "",
+          "label": "Description",
+          "placeholder": "The login button color should be green to match our brand colors.",
+          "rows": 4,
+          "maxlength": 1000
+        }
+      },
       "backend": {
         "responses": {
           "titleRequired": {
@@ -55,19 +79,37 @@
             "status": 200
           }
         }
+      },
+      "mockConfig": {
+        "isEnabled": false,
+        "isError": true,
+        "responses": {
+          "error": {
+            "error": "Not authorized",
+            "inputErrors": {
+              "title": "This is required",
+              "description": "This is required"
+            },
+            "status": 401
+          },
+          "success": {
+            "message": "Post created succesfully",
+            "data": {},
+            "status": 200
+          }
+        }
       }
     },
     "Board": {
       "formConfig": {
         "title": "Create a new feedback board",
         "button": "Create Board",
-        "apiUrl": "/api/modules/boards/board",
-        "className": "sm:p-8 sm:rounded-3xl"
+        "apiUrl": "/api/modules/boards/board"
       },
       "inputsConfig": {
         "name": {
           "type": "text",
-          "required": true,
+          "required": false,
           "value": "",
           "label": "Board name",
           "placeholder": "Enter board name"
@@ -100,7 +142,6 @@
       "mockConfig": {
         "isEnabled": false,
         "isError": true,
-        "isSuccess": true,
         "responses": {
           "error": {
             "error": "Not authorized",

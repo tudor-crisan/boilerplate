@@ -75,7 +75,6 @@ export const MockResponseSchema = z.object({
 export const MockConfigSchema = z.object({
   isEnabled: z.boolean().describe("Whether mock mode is enabled."),
   isError: z.boolean().describe("Whether to simulate an error."),
-  isSuccess: z.boolean().describe("Whether to simulate success."),
   responses: z
     .record(z.string(), MockResponseSchema)
     .describe("Map of mock responses."),
