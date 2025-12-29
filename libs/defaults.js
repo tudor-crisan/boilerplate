@@ -7,7 +7,24 @@ import { deepMerge } from "@/libs/utils.client";
 
 const { copywriting, styling, visual, setting } = apps[process.env.NEXT_PUBLIC_APP];
 
-export const defaultCopywriting = deepMerge(copywritings.copywriting0, copywritings[copywriting]);
-export const defaultStyling = deepMerge(stylings.styling0, stylings[styling]);
-export const defaultVisual = deepMerge(visuals.visual0, visuals[visual]);
-export const defaultSetting = deepMerge(settings.setting0, settings[setting]);
+const getMergedConfig = (configType, configValue, list) => {
+  let baseKey = `${configType}0`;
+  let overrideKey = null;
+
+  if (typeof configValue === "string") {
+    overrideKey = configValue;
+  } else if (typeof configValue === "object") {
+    baseKey = configValue.default || baseKey;
+    overrideKey = configValue.override;
+  }
+
+  const base = list[baseKey] || {};
+  const override = overrideKey ? list[overrideKey] : {};
+
+  return deepMerge(base, override);
+};
+
+export const defaultCopywriting = getMergedConfig("copywriting", copywriting, copywritings);
+export const defaultStyling = getMergedConfig("styling", styling, stylings);
+export const defaultVisual = getMergedConfig("visual", visual, visuals);
+export const defaultSetting = getMergedConfig("setting", setting, settings);

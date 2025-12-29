@@ -1,41 +1,59 @@
 const apps = {
   "loyalboards": {
-    "copywriting": "lb0_copywriting",
-    "styling": "lb0_styling",
-    "visual": "lb0_visual",
-    "setting": "lb0_setting"
+    "copywriting": {
+      "default": "copywriting0",
+      "override": "lb0_copywriting"
+    },
+    "styling": {
+      "default": "styling0",
+      "override": "lb0_styling"
+    },
+    "visual": {
+      "default": "visual0",
+      "override": "lb0_visual"
+    },
+    "setting": {
+      "default": "setting0",
+      "override": "lb0_setting"
+    }
   },
   "taskflow": {
-    "copywriting": "tf0_copywriting",
-    "styling": "tf0_styling",
-    "visual": "tf0_visual",
-    "setting": "tf0_setting"
+    "copywriting": {
+      "default": "copywriting0",
+      "override": "tf0_copywriting"
+    },
+    "styling": {
+      "default": "styling0",
+      "override": "tf0_styling"
+    },
+    "visual": {
+      "default": "visual0",
+      "override": "tf0_visual"
+    },
+    "setting": {
+      "default": "setting0",
+      "override": "tf0_setting"
+    }
   },
   "contentcalendar": {
-    "copywriting": "copywriting1",
-    "styling": "styling0",
-    "visual": "visual0",
-    "setting": "setting0"
-  },
-  "invoicesnap": {
     "copywriting": "copywriting2",
     "styling": "styling0",
     "visual": "visual0",
     "setting": "setting0"
   },
-  "meetingmind": {
+  "invoicesnap": {
     "copywriting": "copywriting3",
     "styling": "styling0",
     "visual": "visual0",
     "setting": "setting0"
   },
-  "emailwarmup": {
+  "meetingmind": {
     "copywriting": "copywriting4",
     "styling": "styling0",
     "visual": "visual0",
     "setting": "setting0"
   },
-  "stocksync": {
+  "emailwarmup": {
     "copywriting": "copywriting5",
     "styling": "styling0",
     "visual": "visual0",
