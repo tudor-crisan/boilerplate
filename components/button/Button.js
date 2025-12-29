@@ -24,7 +24,7 @@ export default function Button({
   const isButtonLoading = isLoading || internalLoading;
   const isDisabled = disabled || isButtonLoading;
 
-  const baseClasses = `${styling.roundness[0]} ${styling.shadows[0]} btn ${variant} ${size} ${className} ${isButtonLoading ? "cursor-wait" : ""
+  const baseClasses = `${styling.roundness[0]} ${styling.shadows[0]} btn ${variant} ${size} ${className} ${isButtonLoading ? "!cursor-wait !pointer-events-auto" : ""
     }`;
 
   const handleClick = async (e) => {
