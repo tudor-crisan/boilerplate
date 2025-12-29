@@ -50,7 +50,7 @@
       "window": 60
     },
     "auth-magic-link": {
-      "limit": 1,
+      "limit": 0,
       "window": 300
     },
     "auth-google-signin": {

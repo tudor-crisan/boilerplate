@@ -14,7 +14,7 @@ import { useAuthError } from "@/hooks/useAuthError";
 import { useError } from "@/hooks/useError";
 import Error from "@/components/common/Error";
 
-const CALLBACK_URL = typeof window !== "undefined" ? `${window.location.origin}/dashboard` : "/dashboard";
+const CALLBACK_URL = "/dashboard";
 
 function SignInContent() {
   const { styling } = useStyling();
