@@ -11,7 +11,15 @@ import { getMetadata } from "@/libs/seo";
 import ButtonDelete from "@/components/button/ButtonDelete";
 import Title from "@/components/common/Title";
 
-export const metadata = getMetadata("modules.board");
+export async function generateMetadata({ params }) {
+  const { boardId } = await params;
+  const board = await getBoardPrivate(boardId);
+
+  return getMetadata("modules.board", {
+    boardName: board?.name || "Board",
+  });
+}
+
 export default async function PrivateFeedbackBoard({ params }) {
   const backUrl = "/dashboard";
   const { boardId } = await params;

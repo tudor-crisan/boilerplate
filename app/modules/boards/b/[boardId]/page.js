@@ -5,7 +5,14 @@ import Title from "@/components/common/Title";
 import Main from "@/components/common/Main";
 import FormCreate from "@/components/form/FormCreate";
 
-export const metadata = getMetadata("modules.board");
+export async function generateMetadata({ params }) {
+  const { boardId } = await params;
+  const board = await getBoardPublic(boardId);
+
+  return getMetadata("modules.board", {
+    boardName: board?.name || "Board",
+  });
+}
 export default async function PublicFeedbackBoard({ params }) {
   const { boardId } = await params;
   const board = await getBoardPublic(boardId);

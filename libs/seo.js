@@ -6,16 +6,24 @@ const getByPath = (obj = {}, path) => {
     .reduce((acc, key) => acc?.[key], obj);
 };
 
-export const getMetadata = (target = "") => {
+export const getMetadata = (target = "", variables = {}) => {
   const metadata = getByPath(settings?.metadata, target);
 
   if (!metadata) {
     return {}
   };
 
+  let title = metadata?.title;
+  let description = metadata?.description;
+
+  Object.keys(variables).forEach((key) => {
+    title = title?.replace(new RegExp(`{${key}}`, "g"), variables[key]);
+    description = description?.replace(new RegExp(`{${key}}`, "g"), variables[key]);
+  });
+
   return {
-    title: metadata?.title,
-    description: metadata?.description,
+    title,
+    description,
   };
 };
 

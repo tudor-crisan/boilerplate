@@ -29,7 +29,7 @@
     },
     "modules": {
       "board": {
-        "title": "Board - LoyalBoards",
+        "title": "{boardName} - LoyalBoards",
         "description": "Create feedback boards your customers will love."
       }
     }

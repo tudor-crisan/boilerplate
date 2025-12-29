@@ -1,4 +1,4 @@
-
+import { cache } from "react";
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
@@ -30,7 +30,7 @@ export async function getUser(populate = "") {
   }
 }
 
-export async function getBoardPrivate(boardId) {
+export const getBoardPrivate = cache(async (boardId) => {
   const session = await auth();
   await connectMongo();
 
@@ -42,9 +42,9 @@ export async function getBoardPrivate(boardId) {
   } catch (e) {
     return null;
   }
-}
+});
 
-export async function getBoardPublic(boardId) {
+export const getBoardPublic = cache(async (boardId) => {
   await connectMongo();
 
   try {
@@ -52,4 +52,4 @@ export async function getBoardPublic(boardId) {
   } catch (e) {
     return null;
   }
-}
+});
