@@ -36,6 +36,16 @@ export const SectionFAQSchema = z.object({
 });
 
 /**
+ * Zod Schema for SectionFooter.
+ */
+export const SectionFooterSchema = z.object({
+  section: z.string().describe("CSS classes for footer section background/text."),
+  container: z.string().describe("CSS classes for footer container."),
+  spacing: z.string().describe("CSS classes for footer spacing."),
+  textalign: z.string().describe("CSS classes for footer text alignment."),
+});
+
+/**
  * Main Styling Config Schema.
  */
 /**
@@ -55,10 +65,11 @@ export const StylingSchema = z.object({
   shadows: z.array(z.string()).describe("Shadow utility classes."),
   borders: z.array(z.string()).describe("Border utility classes."),
   links: z.array(z.string()).describe("Link utility classes."),
-  general: GeneralSchema,
-  SectionHeader: SectionHeaderSchema,
-  SectionHero: SectionHeroSchema,
-  SectionFAQ: SectionFAQSchema,
+  general: GeneralSchema.partial(),
+  SectionHeader: SectionHeaderSchema.partial(),
+  SectionHero: SectionHeroSchema.partial(),
+  SectionFAQ: SectionFAQSchema.partial(),
+  SectionFooter: SectionFooterSchema.partial(),
 });
 
 // Export inferred Types for usage in TypeScript code

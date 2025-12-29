@@ -110,12 +110,12 @@ export const ShowSchema = z.object({
  * Main Visual Config Schema.
  */
 export const VisualSchema = z.object({
-  show: ShowSchema,
-  logo: LogoSchema,
-  favicon: FaviconSchema,
-  homepage: HomepageSchema,
-  HeroImage: HeroImageSchema,
-  HeroVideo: HeroVideoSchema,
+  show: ShowSchema.partial(),
+  logo: LogoSchema.partial(),
+  favicon: FaviconSchema.partial(),
+  homepage: HomepageSchema.partial(),
+  HeroImage: HeroImageSchema.partial(),
+  HeroVideo: HeroVideoSchema.partial(),
 });
 
 // Export inferred Types for usage in TypeScript code

@@ -110,11 +110,45 @@ export const SectionFAQSchema = z.object({
  * Main Landing Page Config Schema.
  * Combines all section schemas.
  */
+/**
+ * Zod Schema for Footer Menu Link.
+ */
+export const FooterLinkSchema = z.object({
+  label: z.string().describe("Link label."),
+  href: z.string().describe("Link URL."),
+});
+
+/**
+ * Zod Schema for Footer Menu Column.
+ */
+export const FooterMenuSchema = z.object({
+  title: z.string().describe("Menu column title."),
+  links: z.array(FooterLinkSchema).describe("List of links in the column."),
+});
+
+/**
+ * Zod Schema for Footer Section.
+ */
+export const SectionFooterSchema = z.object({
+  brand: z
+    .object({
+      rights: z.string().describe("Copyright text."),
+    })
+    .optional(),
+  menus: z.array(FooterMenuSchema).describe("Footer navigation menus."),
+  socials: z
+    .object({
+      label: z.string().describe("Label for social links section."),
+    })
+    .optional(),
+});
+
 export const CopywritingSchema = z.object({
-  SectionHeader: SectionHeaderSchema,
-  SectionHero: SectionHeroSchema,
-  SectionPricing: SectionPricingSchema,
-  SectionFAQ: SectionFAQSchema,
+  SectionHeader: SectionHeaderSchema.partial(),
+  SectionHero: SectionHeroSchema.partial(),
+  SectionPricing: SectionPricingSchema.partial(),
+  SectionFAQ: SectionFAQSchema.partial(),
+  SectionFooter: SectionFooterSchema.partial(),
 });
 
 // Export inferred Types for usage in TypeScript code

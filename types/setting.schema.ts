@@ -106,10 +106,12 @@ export const PagePathSchema = z.object({
 });
 
 export const PagesSchema = z.object({
-  dashboard: z.object({
-    component: z.string(),
-  }),
-  paths: z.record(z.string(), PagePathSchema),
+  dashboard: z
+    .object({
+      component: z.string(),
+    })
+    .optional(),
+  paths: z.record(z.string(), PagePathSchema).optional(),
 });
 
 export const MetadataItemSchema = z.object({
