@@ -29,13 +29,15 @@ export default async function PublicFeedbackBoard({ params }) {
       <Title>
         {board.name}
       </Title>
-      <FormCreate
-        type="Post"
-        queryParams={{ boardId }}
-      />
-      <ItemDisplay
-        items={posts}
-      />
+      <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+        <FormCreate
+          type="Post"
+          queryParams={{ boardId }}
+        />
+        <ItemDisplay
+          items={posts}
+        />
+      </div>
     </Main>
   )
 }

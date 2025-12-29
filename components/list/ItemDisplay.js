@@ -1,14 +1,16 @@
 "use client";
 import { useStyling } from "@/context/ContextStyling";
+import Title from "@/components/common/Title";
+import Paragraph from "@/components/common/Paragraph";
 
 const SingleItem = ({ item, styling }) => {
   return (
-    <li className={`bg-base-100 p-6 flex justify-between items-start ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
+    <li className={`${styling.roundness[1]} ${styling.borders[0]} ${styling.shadows[0]} bg-base-100 p-6 flex justify-between items-start`}>
       <div>
-        <div className="font-bold mb-1 text-lg">{item.title}</div>
-        <div className="opacity-80 leading-relaxed max-h-32 overflow-y-auto">
+        <Title>{item.title}</Title>
+        <Paragraph className="max-h-32">
           {item.description}
-        </div>
+        </Paragraph>
       </div>
     </li>
   );

@@ -57,7 +57,7 @@ export default function FormCreate({ type, queryParams = {} }) {
 
   return (
     <form
-      className={`${styling.roundness[1]} ${styling.borders[0]} space-y-4 bg-base-100 px-4 py-8 ${formConfig.className}`}
+      className={`${styling.roundness[1]} ${styling.borders[0]} ${styling.shadows[0]} space-y-4 bg-base-100 px-4 py-8 ${formConfig.className}`}
       onSubmit={handleSubmit}
     >
       {formConfig.title && (
@@ -99,6 +99,7 @@ export default function FormCreate({ type, queryParams = {} }) {
               onChange={(e) => handleChange(target, e.target.value)}
               disabled={loading}
               rows={config.rows || 3}
+              maxLength={config.maxlength}
             />
           ) : (
             <Input
@@ -111,6 +112,7 @@ export default function FormCreate({ type, queryParams = {} }) {
               onFocus={() => handleFocus(target)}
               onChange={(e) => handleChange(target, e.target.value)}
               disabled={loading}
+              maxLength={config.maxlength}
             />
           )}
 
