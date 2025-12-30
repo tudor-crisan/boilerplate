@@ -2,6 +2,7 @@
 import { useState, Suspense, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { useStyling } from "@/context/ContextStyling";
 import HeaderTop from "@/components/header/HeaderTop";
 import SvgGoogle from "@/components/svg/SvgGoogle";
@@ -27,10 +28,11 @@ function SignInContent() {
   const [email, setEmail] = useState("");
   const [loadingEmail, setLoadingEmail] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const disabled = loadingEmail || loadingGoogle;
+  const disabled = loadingEmail || loadingGoogle || isLoggedIn;
 
   useEffect(() => {
     if (isLoggedIn) {
+      toast.success("You're already logged in. Redirecting...");
       router.push(CALLBACK_URL);
     }
   }, [isLoggedIn, router]);
