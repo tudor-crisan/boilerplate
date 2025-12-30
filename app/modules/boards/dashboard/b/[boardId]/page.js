@@ -68,7 +68,7 @@ export default async function PrivateFeedbackBoard({ params }) {
               />
             </div>
           </Sidebar>
-          <div className="space-y-4">
+          <div className="space-y-4 w-full">
             <Title>Posts ({board?.posts?.length || 0})</Title>
             <ItemDisplay
               items={postsWithAction}
