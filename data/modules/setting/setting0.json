@@ -24,7 +24,10 @@
     ]
   },
   "auth": {
-    "providers": ["resend", "google"],
+    "providers": [
+      "resend",
+      "google"
+    ],
     "hasThemePages": true,
     "hasThemeEmails": true
   },
@@ -44,32 +47,9 @@
     "billing-create-portal": {
       "limit": 10,
       "window": 60
-    },
-    "post-create": {
-      "limit": 5,
-      "window": 60
-    },
-    "post-delete": {
-      "limit": 10,
-      "window": 60
-    },
-    "board-create": {
-      "limit": 10,
-      "window": 60
-    },
-    "board-delete": {
-      "limit": 10,
-      "window": 60
-    },
-    "vote-toggle": {
-      "limit": 20,
-      "window": 60
     }
   },
   "pages": {
-    "dashboard": {
-      "component": "LoyalBoardsDashboard"
-    },
     "paths": {
       "previewEmail": {
         "source": "/preview/email",

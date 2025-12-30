@@ -1,4 +1,5 @@
 "use client";
+import { useAuth } from "@/context/ContextAuth";
 import { useAuthError } from "@/hooks/useAuthError";
 import { useStyling } from "@/context/ContextStyling";
 import { Suspense } from "react";
@@ -8,9 +9,13 @@ import ButtonBack from "@/components/button/ButtonBack";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 
+const CALLBACK_URL = "/dashboard";
+const SIGNIN_URL = "/auth/signin";
+
 function ErrorContent() {
   const { styling } = useStyling();
   const { message, error } = useAuthError();
+  const { isLoggedIn } = useAuth();
 
   return (
     <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
@@ -28,10 +33,10 @@ function ErrorContent() {
           <div className="card-actions w-full flex flex-col">
             {error !== 'RateLimit' && (
               <Button
-                href="/auth/signin"
+                href={isLoggedIn ? CALLBACK_URL : SIGNIN_URL}
                 className="w-full"
               >
-                Try Again
+                {isLoggedIn ? "Go to dashboard" : "Try Again"}
               </Button>
             )}
 

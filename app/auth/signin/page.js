@@ -1,6 +1,7 @@
 "use client";
 import { useState, Suspense, useEffect } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useStyling } from "@/context/ContextStyling";
 import HeaderTop from "@/components/header/HeaderTop";
 import SvgGoogle from "@/components/svg/SvgGoogle";
@@ -13,17 +14,26 @@ import Form from "@/components/common/Form";
 import { useAuthError } from "@/hooks/useAuthError";
 import { useError } from "@/hooks/useError";
 import Error from "@/components/common/Error";
+import { useAuth } from "@/context/ContextAuth";
 
 const CALLBACK_URL = "/dashboard";
 
 function SignInContent() {
   const { styling } = useStyling();
   const { message } = useAuthError();
+  const { isLoggedIn } = useAuth();
   const { error: errorMessage, clearError, setError } = useError(message);
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [loadingEmail, setLoadingEmail] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const disabled = loadingEmail || loadingGoogle;
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push(CALLBACK_URL);
+    }
+  }, [isLoggedIn, router]);
 
   const handleSignIn = async (provider, options, setLoading) => {
     setLoading(true);
