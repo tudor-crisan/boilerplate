@@ -8,7 +8,7 @@ import useApiRequest from "@/hooks/useApiRequest";
 import { useStyling } from "@/context/ContextStyling";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
-const BoardButtonVote = ({ postId, initialVotesCounter }) => {
+const BoardUpvoteButton = ({ postId, initialVotesCounter }) => {
   const { styling } = useStyling();
   const localStorageKeyName = `${process.env.NEXT_PUBLIC_APP}-hasVoted-${postId}`;
 
@@ -54,7 +54,7 @@ const BoardButtonVote = ({ postId, initialVotesCounter }) => {
   return (
     <Button
       variant={hasVoted ? "btn-primary" : "btn-ghost"}
-      className={`group ${styling.roundness[0]}! text-lg gap-2 ${hasVoted
+      className={`${styling.roundness[0]}! group text-lg gap-2 ${hasVoted
         ? "border-transparent"
         : "bg-base-100 text-base-content border-base-200 hover:border-base-content/25"
         }`}
@@ -69,4 +69,4 @@ const BoardButtonVote = ({ postId, initialVotesCounter }) => {
   );
 };
 
-export default BoardButtonVote;
+export default BoardUpvoteButton;

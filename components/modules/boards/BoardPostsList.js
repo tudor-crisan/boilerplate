@@ -1,7 +1,7 @@
 "use client";
 
 import ItemDisplay from "@/components/list/ItemDisplay";
-import BoardButtonVote from "@/components/modules/boards/BoardButtonVote";
+import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
 
 const BoardPostsList = ({ posts }) => {
   return (
