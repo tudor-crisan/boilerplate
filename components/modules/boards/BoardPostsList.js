@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import ItemDisplay from "@/components/list/ItemDisplay";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
+import toast from "react-hot-toast";
 
 const BoardPostsList = ({ posts, boardId }) => {
   const [postsState, setPostsState] = useState(posts);
@@ -39,6 +40,7 @@ const BoardPostsList = ({ posts, boardId }) => {
 
         if (data.type === "vote" && data.boardId === boardId) {
           handleVote(data.postId, data.votesCounter);
+          toast.success("Board updated!");
         }
       } catch (error) {
         console.error("SSE parse error", error);
