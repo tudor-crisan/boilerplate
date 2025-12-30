@@ -1,3 +1,9 @@
+import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs))
+}
 
 export function getEmailHandle(email = "", fallback = "") {
   const match = email.match(/^([^@+]+)/);
@@ -99,4 +105,3 @@ export function oklchToHex(oklchStr) {
 
   return `#${toHex(r)}${toHex(g)}${toHex(bl)}`;
 }
-

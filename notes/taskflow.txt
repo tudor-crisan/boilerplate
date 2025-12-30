@@ -1,9 +1,0 @@
-
-Headline:
-Build for users who get things done
-
-Paragraph:
-Focus on feedback from people who actually finish tasks—not those who quit halfway.
-
-Problem:
-Weeks lost building the wrong features is frustrating. That’s why we built Taskflow—to help teams prioritize what truly moves work forward.

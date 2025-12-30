@@ -1,4 +1,4 @@
-import { cn } from "@/libs/cn"
+import { cn } from "@/libs/utils.client"
 
 export default function Title({ className, children }) {
   return (
