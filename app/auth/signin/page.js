@@ -77,7 +77,7 @@ function SignInContent() {
       <div className={`card w-full max-w-sm bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
         <div className="card-body">
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
-            <HeaderTop url="/" />
+            <HeaderTop url={disabled ? "" : "/"} />
           </div>
 
           <Error message={errorMessage} />
