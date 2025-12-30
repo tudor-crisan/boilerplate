@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { getMetadata } from "@/libs/seo";
 import Title from "@/components/common/Title";
 import Main from "@/components/common/Main";
+import Columns from "@/components/common/Columns";
+import Sidebar from "@/components/common/Sidebar";
 import FormCreate from "@/components/form/FormCreate";
 import ItemDisplay from "@/components/list/ItemDisplay";
 
@@ -28,17 +30,17 @@ export default async function PublicFeedbackBoard({ params }) {
       <Title>
         {board.name}
       </Title>
-      <div className="flex flex-col sm:flex-row sm:items-start gap-4 pb-12">
-        <div className="w-full sm:w-96 shrink-0 sm:sticky top-6">
+      <Columns>
+        <Sidebar>
           <FormCreate
             type="Post"
             queryParams={{ boardId }}
           />
-        </div>
+        </Sidebar>
         <ItemDisplay
           items={board.posts}
         />
-      </div>
+      </Columns>
     </Main>
   )
 }
