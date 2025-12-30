@@ -45,7 +45,7 @@ export const getBoardPrivate = cache(async (boardId, populate = "") => {
     if (!board) return null;
 
     if (populate && populate.includes("posts")) {
-      const posts = await Post.find({ boardId: board._id }).sort({ createdAt: -1 }).lean();
+      const posts = await Post.find({ boardId: board._id }).sort({ votesCounter: -1 }).lean();
       board.posts = posts;
     }
 
@@ -64,7 +64,7 @@ export const getBoardPublic = cache(async (boardId, populate = "") => {
     if (!board) return null;
 
     if (populate && populate.includes("posts")) {
-      const posts = await Post.find({ boardId: board._id }).sort({ createdAt: -1 }).lean();
+      const posts = await Post.find({ boardId: board._id }).sort({ votesCounter: -1 }).lean();
       board.posts = posts;
     }
 
@@ -73,16 +73,3 @@ export const getBoardPublic = cache(async (boardId, populate = "") => {
     return null;
   }
 });
-
-export const getPosts = cache(async (boardId) => {
-  await connectMongo();
-
-  try {
-    const posts = await Post.find({ boardId }).sort({ createdAt: -1 }).lean();
-    return cleanObject(posts);
-  } catch (e) {
-    return [];
-  }
-});
-
-

@@ -6,7 +6,7 @@ import Main from "@/components/common/Main";
 import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import FormCreate from "@/components/form/FormCreate";
-import ItemDisplay from "@/components/list/ItemDisplay";
+import BoardPostsList from "@/components/modules/boards/BoardPostsList";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;
@@ -37,9 +37,7 @@ export default async function PublicFeedbackBoard({ params }) {
             queryParams={{ boardId }}
           />
         </Sidebar>
-        <ItemDisplay
-          items={board.posts}
-        />
+        <BoardPostsList posts={board.posts} />
       </Columns>
     </Main>
   )
