@@ -52,3 +52,33 @@ export const getMergedConfig = (configType, configValue, list) => {
 
   return deepMerge(base, override);
 };
+
+/**
+ * Get merged configuration with support for modules.
+ * Merges: Default -> Modules -> App Override
+ * @param {string} configType - The prefix for the default key (e.g., 'setting')
+ * @param {string|object} configValue - The configuration value
+ * @param {object} list - The list of available configurations
+ * @returns {object} - The merged configuration
+ */
+export const getMergedConfigWithModules = (configType, configValue, list) => {
+  const baseKey = typeof configValue === 'object' ? (configValue.default || `${configType}0`) : `${configType}0`;
+  const appSettingKey = typeof configValue === 'object' ? configValue.override : configValue;
+
+  let mergedConfig = list[baseKey] || {};
+  const appConfig = list[appSettingKey] || {};
+
+  // Check for modules in both app config (priority) and base config
+  const modules = appConfig.modules || mergedConfig.modules || [];
+
+  if (Array.isArray(modules)) {
+    modules.forEach(moduleName => {
+      const moduleConfig = list[moduleName];
+      if (moduleConfig) {
+        mergedConfig = deepMerge(mergedConfig, moduleConfig);
+      }
+    });
+  }
+
+  return deepMerge(mergedConfig, appConfig);
+};

@@ -1,4 +1,4 @@
-import { defaultStyling, defaultCopywriting, defaultVisual } from "@/libs/defaults";
+import { defaultSetting, defaultStyling, defaultVisual } from "@/libs/defaults";
 import themeColors from "@/lists/themeColors";
 import { oklchToHex } from "@/libs/utils.client";
 import { fontMap } from "@/lists/fonts";
@@ -51,7 +51,7 @@ export const getEmailBranding = () => {
   const base200 = oklchToHex(colors["--color-base-200"]);
   const content = oklchToHex(colors["--color-base-content"]);
 
-  const appName = defaultCopywriting.SectionHeader.appName || "App";
+  const appName = defaultSetting.appName || "App";
 
   // Use font map to get correct Google Font family
   const fontKey = defaultStyling.font || "inter";

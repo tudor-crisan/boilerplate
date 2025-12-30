@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import apps from "./lists/apps.js";
 import settings from "./lists/settings.node.js";
-import { getMergedConfig } from "./libs/merge.js";
+import { getMergedConfigWithModules } from "./libs/merge.js";
 
 // Load env file based on app name
 if (process.env.NODE_ENV === "development") {
@@ -21,7 +21,7 @@ const nextConfig = {
 
     if (!setting) return [];
 
-    const appSettings = getMergedConfig("setting", setting, settings);
+    const appSettings = getMergedConfigWithModules("setting", setting, settings);
     const paths = appSettings?.pages?.paths;
 
     return paths ? Object.values(paths) : [];

@@ -9,6 +9,16 @@ const getByPath = (obj = {}, path) => {
 export const getMetadata = (target = "", variables = {}) => {
   const metadata = getByPath(settings?.metadata, target);
 
+  if (settings?.appName) {
+    variables.appName = settings.appName;
+  }
+
+  if (settings?.seo) {
+    variables.seoTitle = settings.seo.title;
+    variables.seoDescription = settings.seo.description;
+    variables.seoTagline = settings.seo.tagline;
+  }
+
   if (!metadata) {
     return {}
   };

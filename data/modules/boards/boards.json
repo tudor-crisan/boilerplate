@@ -1,0 +1,185 @@
+{
+  "paths": {
+    "boardPublic": {
+      "source": "/b/:boardId",
+      "destination": "/modules/boards/b/:boardId"
+    },
+    "boardPrivate": {
+      "source": "/dashboard/b/:boardId",
+      "destination": "/modules/boards/dashboard/b/:boardId"
+    }
+  },
+  "metadata": {
+    "modules": {
+      "board": {
+        "title": "{boardName} - {appName}",
+        "description": "{seoTagline}"
+      }
+    }
+  },
+  "forms": {
+    "Post": {
+      "formConfig": {
+        "title": "Suggest a feature",
+        "button": "Add Post",
+        "apiUrl": "/api/modules/boards/post"
+      },
+      "inputsConfig": {
+        "title": {
+          "type": "text",
+          "required": false,
+          "value": "",
+          "label": "Short, descriptive title",
+          "placeholder": "Green buttons plz",
+          "maxlength": 100
+        },
+        "description": {
+          "type": "textarea",
+          "required": false,
+          "value": "",
+          "label": "Description",
+          "placeholder": "The login button color should be green to match our brand colors.",
+          "rows": 4,
+          "maxlength": 1000
+        }
+      },
+      "backend": {
+        "responses": {
+          "titleRequired": {
+            "message": "Title is required",
+            "inputErrors": {
+              "title": "This is required"
+            },
+            "status": 400
+          },
+          "descriptionRequired": {
+            "message": "Description is required",
+            "inputErrors": {
+              "description": "This is required"
+            },
+            "status": 400
+          },
+          "boardIdRequired": {
+            "message": "Board ID is required",
+            "status": 400
+          },
+          "createSuccesfully": {
+            "message": "Post created successfully",
+            "status": 200
+          },
+          "postIdRequired": {
+            "message": "Post ID is required",
+            "status": 400
+          },
+          "postNotFound": {
+            "message": "Post not found",
+            "status": 404
+          },
+          "deleteSuccesfully": {
+            "message": "Post deleted successfully",
+            "status": 200
+          }
+        }
+      },
+      "mockConfig": {
+        "isEnabled": false,
+        "isError": true,
+        "responses": {
+          "error": {
+            "error": "Not authorized",
+            "inputErrors": {
+              "title": "This is required",
+              "description": "This is required"
+            },
+            "status": 401
+          },
+          "success": {
+            "message": "Post created succesfully",
+            "data": {},
+            "status": 200
+          }
+        }
+      }
+    },
+    "Board": {
+      "formConfig": {
+        "title": "Create a new feedback board",
+        "button": "Create Board",
+        "apiUrl": "/api/modules/boards/board"
+      },
+      "inputsConfig": {
+        "name": {
+          "type": "text",
+          "required": false,
+          "value": "",
+          "label": "Board name",
+          "placeholder": "Enter board name"
+        }
+      },
+      "backend": {
+        "responses": {
+          "nameRequired": {
+            "message": "Board name is required",
+            "inputErrors": {
+              "name": "This field is required"
+            },
+            "status": 403
+          },
+          "boardIdRequired": {
+            "message": "Board ID is required",
+            "inputErrors": {},
+            "status": 400
+          },
+          "createSuccesfully": {
+            "message": "Board created succesfully",
+            "status": 200
+          },
+          "deleteSuccesfully": {
+            "message": "Board was succesfully deleted",
+            "status": 200
+          }
+        }
+      },
+      "mockConfig": {
+        "isEnabled": false,
+        "isError": true,
+        "responses": {
+          "error": {
+            "error": "Not authorized",
+            "inputErrors": {
+              "name": "This is required"
+            },
+            "status": 401
+          },
+          "success": {
+            "message": "Board created succesfully",
+            "data": {},
+            "status": 200
+          }
+        }
+      }
+    },
+    "Vote": {
+      "backend": {
+        "responses": {
+          "voteRecorded": {
+            "message": "Vote recorded",
+            "status": 200
+          },
+          "voteRemoved": {
+            "message": "Vote removed",
+            "status": 200
+          },
+          "postNotFound": {
+            "message": "Post not found",
+            "status": 404
+          },
+          "postIdRequired": {
+            "message": "Post ID is required",
+            "status": 400
+          }
+        }
+      }
+    }
+  }
+}

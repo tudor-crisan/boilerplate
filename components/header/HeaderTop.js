@@ -1,11 +1,10 @@
 "use client";
 import IconLogo from "@/components/icon/IconLogo";
-import { useCopywriting } from "@/context/ContextCopywriting";
 import { useVisual } from "@/context/ContextVisual";
 import { redirect } from "next/navigation";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function HeaderTop({ url = "" }) {
-  const { copywriting } = useCopywriting();
   const { visual } = useVisual();
 
   return (
@@ -18,7 +17,7 @@ export default function HeaderTop({ url = "" }) {
       )}
       {visual.show.SectionHeader.appName && (
         <span className="font-bold text-md sm:text-lg">
-          {copywriting.SectionHeader.appName}
+          {settings.appName}
         </span>
       )}
     </div>

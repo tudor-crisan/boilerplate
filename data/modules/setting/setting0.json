@@ -24,14 +24,27 @@
     ]
   },
   "auth": {
-    "providers": [
-      "resend",
-      "google"
-    ],
+    "providers": ["resend", "google"],
     "hasThemePages": true,
     "hasThemeEmails": true
   },
   "rateLimits": {
+    "auth-magic-link": {
+      "limit": 5,
+      "window": 300
+    },
+    "auth-google-signin": {
+      "limit": 10,
+      "window": 60
+    },
+    "billing-create-checkout": {
+      "limit": 10,
+      "window": 60
+    },
+    "billing-create-portal": {
+      "limit": 10,
+      "window": 60
+    },
     "post-create": {
       "limit": 5,
       "window": 60
@@ -48,20 +61,8 @@
       "limit": 10,
       "window": 60
     },
-    "billing-create-checkout": {
-      "limit": 10,
-      "window": 60
-    },
-    "billing-create-portal": {
-      "limit": 10,
-      "window": 60
-    },
-    "auth-magic-link": {
-      "limit": 5,
-      "window": 300
-    },
-    "auth-google-signin": {
-      "limit": 10,
+    "vote-toggle": {
+      "limit": 20,
       "window": 60
     }
   },
@@ -78,6 +79,20 @@
         "source": "/success",
         "destination": "/modules/billing/success"
       }
+    }
+  },
+  "metadata": {
+    "home": {
+      "title": "{seoTitle}",
+      "description": "{seoDescription}"
+    },
+    "dashboard": {
+      "title": "Dashboard - {appName}",
+      "description": "{seoTagline}"
+    },
+    "auth": {
+      "title": "Authenticate - {appName}",
+      "description": "{seoTagline}"
     }
   },
   "forms": {
