@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import axios from "axios";
 import ItemDisplay from "@/components/list/ItemDisplay";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
+import { getPosts } from "@/libs/modules/boards/actions";
 
 const BoardPostsList = ({ posts, boardId }) => {
   const [postsState, setPostsState] = useState(posts);
@@ -12,10 +12,10 @@ const BoardPostsList = ({ posts, boardId }) => {
   useEffect(() => {
     const interval = setInterval(async () => {
       try {
-        const res = await axios.get(`/api/modules/boards/post?boardId=${boardId}`);
+        const posts = await getPosts(boardId);
 
-        if (res.data?.data?.posts) {
-          setPostsState(res.data.data.posts);
+        if (posts) {
+          setPostsState(posts);
         }
       } catch (error) {
         console.error("Polling error:", error);

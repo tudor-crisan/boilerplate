@@ -73,3 +73,17 @@ export const getBoardPublic = cache(async (boardId, populate = "") => {
     return null;
   }
 });
+
+export const getPosts = async (boardId) => {
+  await connectMongo();
+
+  try {
+    const posts = await Post.find({ boardId })
+      .sort({ votesCounter: -1, createdAt: -1 })
+      .lean();
+
+    return cleanObject(posts);
+  } catch (e) {
+    return [];
+  }
+};
