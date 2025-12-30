@@ -13,7 +13,7 @@ const SingleItem = ({ item, styling, itemAction }) => {
         </Paragraph>
       </div>
       {(itemAction || item.action) && (
-        <div className="ml-4">
+        <div className="ml-6">
           {typeof itemAction === "function" ? itemAction(item) : item.action}
         </div>
       )}

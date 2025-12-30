@@ -43,7 +43,7 @@ export default async function PrivateFeedbackBoard({ params }) {
         buttonText="Delete"
         withConfirm={true}
         confirmMessage="Are you sure you want to delete this post?"
-        redirectUrl={`/modules/boards/dashboard/b/${boardId}`}
+        refreshOnSuccess={true}
       />
     )
   }));

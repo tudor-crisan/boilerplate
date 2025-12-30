@@ -11,7 +11,8 @@ export default function ButtonDelete({
   withConfirm = true,
   confirmMessage = "Are you sure you want to delete?",
   withRedirect = true,
-  redirectUrl = "/dashboard"
+  redirectUrl = "/dashboard",
+  refreshOnSuccess = false,
 }) {
   const router = useRouter();
   const { loading, request } = useApiRequest();
@@ -25,7 +26,11 @@ export default function ButtonDelete({
       () => axios.delete(url),
       {
         onSuccess: () => {
-          router.push(redirectUrl);
+          if (refreshOnSuccess) {
+            router.refresh();
+          } else {
+            router.push(redirectUrl);
+          }
         },
         keepLoadingOnSuccess: withRedirect
       }
