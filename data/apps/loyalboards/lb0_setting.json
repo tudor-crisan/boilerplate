@@ -83,6 +83,18 @@
           "createSuccesfully": {
             "message": "Post created successfully",
             "status": 200
+          },
+          "postIdRequired": {
+            "message": "Post ID is required",
+            "status": 400
+          },
+          "postNotFound": {
+            "message": "Post not found",
+            "status": 404
+          },
+          "deleteSuccesfully": {
+            "message": "Post deleted successfully",
+            "status": 200
           }
         }
       },

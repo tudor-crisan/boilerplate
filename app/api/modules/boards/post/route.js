@@ -4,6 +4,7 @@ import { isResponseMock, responseMock, responseSuccess, responseError } from "@/
 import { defaultSetting as settings } from "@/libs/defaults";
 import User from "@/models/User";
 import Post from "@/models/modules/boards/Post";
+import Board from "@/models/modules/boards/Board";
 import { Filter } from "bad-words";
 import { checkReqRateLimit } from "@/libs/rateLimit";
 
@@ -20,6 +21,8 @@ const {
   titleRequired,
   descriptionRequired,
   boardIdRequired,
+  postIdRequired,
+  postNotFound,
   createSuccesfully,
   deleteSuccesfully,
 } = settings.forms[TYPE].backend.responses;
@@ -94,7 +97,7 @@ export async function DELETE(req) {
     const postId = searchParams.get("postId");
 
     if (!postId) {
-      return responseError("Post ID is required", {}, 400);
+      return responseError(postIdRequired.message, {}, postIdRequired.status);
     }
 
     await connectMongo();
@@ -114,11 +117,17 @@ export async function DELETE(req) {
     const post = await Post.findById(postId);
 
     if (!post) {
-      return responseError("Post not found", {}, 404);
+      return responseError(postNotFound.message, {}, postNotFound.status);
+    }
+
+    const board = await Board.findById(post.boardId);
+
+    if (!board) {
+      return responseError(notAuthorized.message, {}, notAuthorized.status);
     }
 
     // check if the person deleting the post is the owner of the board
-    if (!user.boards.includes(post.boardId.toString())) {
+    if (board.userId.toString() !== user._id.toString()) {
       return responseError(notAuthorized.message, {}, notAuthorized.status);
     }
 
