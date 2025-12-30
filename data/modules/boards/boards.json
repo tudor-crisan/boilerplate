@@ -1,12 +1,14 @@
 {
-  "paths": {
-    "boardPublic": {
-      "source": "/b/:boardId",
-      "destination": "/modules/boards/b/:boardId"
-    },
-    "boardPrivate": {
-      "source": "/dashboard/b/:boardId",
-      "destination": "/modules/boards/dashboard/b/:boardId"
+  "pages": {
+    "paths": {
+      "boardPublic": {
+        "source": "/b/:boardId",
+        "destination": "/modules/boards/b/:boardId"
+      },
+      "boardPrivate": {
+        "source": "/dashboard/b/:boardId",
+        "destination": "/modules/boards/dashboard/b/:boardId"
+      }
     }
   },
   "metadata": {
