@@ -4,6 +4,7 @@ import { isResponseMock, responseMock, responseSuccess, responseError } from "@/
 import { defaultSetting as settings } from "@/libs/defaults";
 import Post from "@/models/modules/boards/Post";
 import { checkReqRateLimit } from "@/libs/rateLimit";
+import boardEvents from "@/libs/modules/boards/events";
 
 const TYPE = "Vote";
 
@@ -45,6 +46,13 @@ export async function POST(req) {
     post.votesCounter += 1;
     await post.save();
 
+    // Emit vote event
+    boardEvents.emit("vote", {
+      postId: post._id,
+      votesCounter: post.votesCounter,
+      boardId: post.boardId
+    });
+
     return responseSuccess(voteRecorded.message, {}, voteRecorded.status)
 
   } catch (e) {
@@ -75,6 +83,13 @@ export async function DELETE(req) {
 
     post.votesCounter -= 1;
     await post.save();
+
+    // Emit vote event
+    boardEvents.emit("vote", {
+      postId: post._id,
+      votesCounter: post.votesCounter,
+      boardId: post.boardId
+    });
 
     return responseSuccess(voteRemoved.message, {}, voteRemoved.status);
   } catch (e) {

@@ -3,28 +3,9 @@
 import { useState, useEffect } from "react";
 import ItemDisplay from "@/components/list/ItemDisplay";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
-import { getPosts } from "@/libs/modules/boards/actions";
 
 const BoardPostsList = ({ posts, boardId }) => {
   const [postsState, setPostsState] = useState(posts);
-
-  // Poll for updates every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      try {
-        const posts = await getPosts(boardId);
-
-        if (posts) {
-          setPostsState(posts);
-        }
-      } catch (error) {
-        console.error("Polling error:", error);
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [boardId]);
-
 
   const handleVote = (postId, newVoteCount) => {
     setPostsState((prevPosts) => {
@@ -47,6 +28,32 @@ const BoardPostsList = ({ posts, boardId }) => {
       });
     });
   };
+
+  // Real-time updates with SSE
+  useEffect(() => {
+    const eventSource = new EventSource("/api/modules/boards/stream");
+
+    eventSource.onmessage = (event) => {
+      try {
+        const data = JSON.parse(event.data);
+
+        if (data.type === "vote" && data.boardId === boardId) {
+          handleVote(data.postId, data.votesCounter);
+        }
+      } catch (error) {
+        console.error("SSE parse error", error);
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      console.error("EventSource failed:", error);
+      eventSource.close();
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, [boardId]);
 
   return (
     <ItemDisplay
