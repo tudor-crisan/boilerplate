@@ -37,7 +37,10 @@ export default async function PublicFeedbackBoard({ params }) {
             queryParams={{ boardId }}
           />
         </Sidebar>
-        <BoardPostsList posts={board.posts} />
+        <BoardPostsList
+          posts={board.posts}
+          boardId={boardId}
+        />
       </Columns>
     </Main>
   )

@@ -1,6 +1,5 @@
 "use client";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@/components/button/Button";
 import SvgVote from "@/components/svg/SvgVote";
@@ -8,12 +7,16 @@ import useApiRequest from "@/hooks/useApiRequest";
 import { useStyling } from "@/context/ContextStyling";
 import useLocalStorage from "@/hooks/useLocalStorage";
 
-const BoardUpvoteButton = ({ postId, initialVotesCounter }) => {
+const BoardUpvoteButton = ({ postId, initialVotesCounter, onVote }) => {
   const { styling } = useStyling();
   const localStorageKeyName = `${process.env.NEXT_PUBLIC_APP}-hasVoted-${postId}`;
 
   const [hasVoted, setHasVoted] = useLocalStorage(localStorageKeyName, false);
   const [votesCounter, setVotesCounter] = useState(initialVotesCounter);
+
+  useEffect(() => {
+    setVotesCounter(initialVotesCounter);
+  }, [initialVotesCounter]);
 
   const { request, loading } = useApiRequest();
 
@@ -28,11 +31,15 @@ const BoardUpvoteButton = ({ postId, initialVotesCounter }) => {
 
     // Optimistic Update
     if (wasVoted) {
+      const newVal = votesCounter - 1;
       setHasVoted(false);
-      setVotesCounter((prev) => prev - 1);
+      setVotesCounter(newVal);
+      if (onVote) onVote(newVal);
     } else {
+      const newVal = votesCounter + 1;
       setHasVoted(true);
-      setVotesCounter((prev) => prev + 1);
+      setVotesCounter(newVal);
+      if (onVote) onVote(newVal);
     }
 
     await request(
@@ -46,6 +53,7 @@ const BoardUpvoteButton = ({ postId, initialVotesCounter }) => {
           // Revert state on error (hook handles local storage revert)
           setHasVoted(wasVoted);
           setVotesCounter(previousVotes);
+          if (onVote) onVote(previousVotes);
         },
       }
     );

@@ -139,3 +139,25 @@ export async function DELETE(req) {
     return responseError(serverError.message, {}, serverError.status);
   }
 }
+
+export async function GET(req) {
+  try {
+    const { searchParams } = req.nextUrl;
+    const boardId = searchParams.get("boardId");
+
+    if (!boardId) {
+      return responseError(boardIdRequired.message, {}, boardIdRequired.status);
+    }
+
+    await connectMongo();
+
+    const posts = await Post.find({ boardId })
+      .sort({ votesCounter: -1, createdAt: -1 });
+
+    return responseSuccess("Posts fetched successfully", { posts }, 200);
+
+  } catch (e) {
+    console.error("Get posts error: " + e?.message);
+    return responseError(serverError.message, {}, serverError.status);
+  }
+}
