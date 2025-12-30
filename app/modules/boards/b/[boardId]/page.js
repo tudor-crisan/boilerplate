@@ -1,4 +1,4 @@
-import { getBoardPublic, getPosts } from "@/libs/modules/boards/db";
+import { getBoardPublic } from "@/libs/modules/boards/db";
 import { redirect } from "next/navigation";
 import { getMetadata } from "@/libs/seo";
 import Title from "@/components/common/Title";
@@ -17,8 +17,7 @@ export async function generateMetadata({ params }) {
 
 export default async function PublicFeedbackBoard({ params }) {
   const { boardId } = await params;
-  const board = await getBoardPublic(boardId);
-  const posts = await getPosts(boardId);
+  const board = await getBoardPublic(boardId, "posts");
 
   if (!board) {
     redirect("/");
@@ -37,7 +36,7 @@ export default async function PublicFeedbackBoard({ params }) {
           />
         </div>
         <ItemDisplay
-          items={posts}
+          items={board.posts}
         />
       </div>
     </Main>

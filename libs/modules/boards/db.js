@@ -32,7 +32,7 @@ export async function getUser(populate = "") {
   }
 }
 
-export const getBoardPrivate = cache(async (boardId) => {
+export const getBoardPrivate = cache(async (boardId, populate = "") => {
   const session = await auth();
   await connectMongo();
 
@@ -41,17 +41,33 @@ export const getBoardPrivate = cache(async (boardId) => {
       _id: boardId,
       userId: session?.user?.id
     }).lean();
+
+    if (!board) return null;
+
+    if (populate && populate.includes("posts")) {
+      const posts = await Post.find({ boardId: board._id }).sort({ createdAt: -1 }).lean();
+      board.posts = posts;
+    }
+
     return cleanObject(board);
   } catch (e) {
     return null;
   }
 });
 
-export const getBoardPublic = cache(async (boardId) => {
+export const getBoardPublic = cache(async (boardId, populate = "") => {
   await connectMongo();
 
   try {
     const board = await Board.findById(boardId).lean();
+
+    if (!board) return null;
+
+    if (populate && populate.includes("posts")) {
+      const posts = await Post.find({ boardId: board._id }).sort({ createdAt: -1 }).lean();
+      board.posts = posts;
+    }
+
     return cleanObject(board);
   } catch (e) {
     return null;
