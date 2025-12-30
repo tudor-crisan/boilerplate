@@ -1,24 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import Button from "@/components/button/Button";
 import SvgVote from "@/components/svg/SvgVote";
 import useApiRequest from "@/hooks/useApiRequest";
 import { useStyling } from "@/context/ContextStyling";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const BoardButtonVote = ({ postId, initialVotesCounter }) => {
   const { styling } = useStyling();
   const localStorageKeyName = `${process.env.NEXT_PUBLIC_APP}-hasVoted-${postId}`;
 
-  const [hasVoted, setHasVoted] = useState(false);
+  const [hasVoted, setHasVoted] = useLocalStorage(localStorageKeyName, false);
   const [votesCounter, setVotesCounter] = useState(initialVotesCounter);
 
   const { request, loading } = useApiRequest();
-
-  useEffect(() => {
-    setHasVoted(localStorage.getItem(localStorageKeyName) === "true");
-  }, [localStorageKeyName]);
 
   const handleVote = async (e) => {
     e.stopPropagation();
@@ -33,11 +30,9 @@ const BoardButtonVote = ({ postId, initialVotesCounter }) => {
     if (wasVoted) {
       setHasVoted(false);
       setVotesCounter((prev) => prev - 1);
-      localStorage.removeItem(localStorageKeyName);
     } else {
       setHasVoted(true);
       setVotesCounter((prev) => prev + 1);
-      localStorage.setItem(localStorageKeyName, "true");
     }
 
     await request(
@@ -48,14 +43,9 @@ const BoardButtonVote = ({ postId, initialVotesCounter }) => {
       },
       {
         onError: () => {
-          // Revert state on error
+          // Revert state on error (hook handles local storage revert)
           setHasVoted(wasVoted);
           setVotesCounter(previousVotes);
-          if (wasVoted) {
-            localStorage.setItem(localStorageKeyName, "true");
-          } else {
-            localStorage.removeItem(localStorageKeyName);
-          }
         },
       }
     );
