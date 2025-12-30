@@ -33,7 +33,12 @@ function SignInContent() {
   useEffect(() => {
     if (isLoggedIn) {
       toast.success("You're already logged in. Redirecting...");
-      router.push(CALLBACK_URL);
+
+      const timer = setTimeout(() => {
+        router.push(CALLBACK_URL);
+      }, 1000);
+
+      return () => clearTimeout(timer);
     }
   }, [isLoggedIn, router]);
 
