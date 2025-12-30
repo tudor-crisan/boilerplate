@@ -5,7 +5,6 @@ import { useStyling } from "@/context/ContextStyling";
 import { Suspense } from "react";
 import Button from "@/components/button/Button";
 import SvgError from "@/components/svg/SvgError";
-import SvgCheck from "@/components/svg/SvgCheck";
 import ButtonBack from "@/components/button/ButtonBack";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";

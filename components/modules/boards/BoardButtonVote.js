@@ -2,87 +2,80 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from "react-hot-toast";
+import Button from "@/components/button/Button";
+import SvgVote from "@/components/svg/SvgVote";
+import useApiRequest from "@/hooks/useApiRequest";
+import { useStyling } from "@/context/ContextStyling";
 
 const BoardButtonVote = ({ postId, initialVotesCounter }) => {
+  const { styling } = useStyling();
   const localStorageKeyName = `${process.env.NEXT_PUBLIC_APP}-hasVoted-${postId}`;
 
   const [hasVoted, setHasVoted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [votesCounter, setVotesCounter] = useState(initialVotesCounter);
+
+  const { request, loading } = useApiRequest();
 
   useEffect(() => {
     setHasVoted(localStorage.getItem(localStorageKeyName) === "true");
   }, [localStorageKeyName]);
 
   const handleVote = async (e) => {
-    e.stopPropagation(); // Prevent triggering parent click events (like navigation)
+    e.stopPropagation();
 
-    if (isLoading) return;
+    if (loading) return;
 
-    setIsLoading(true);
+    // Snapshot for revert
+    const wasVoted = hasVoted;
+    const previousVotes = votesCounter;
 
-    try {
-      if (hasVoted) {
-        setHasVoted(false);
-        setVotesCounter(votesCounter - 1);
-
-        await axios.delete(`/api/modules/boards/vote?postId=${postId}`);
-        localStorage.removeItem(localStorageKeyName);
-      } else {
-        setHasVoted(true);
-        setVotesCounter(votesCounter + 1);
-
-        await axios.post(`/api/modules/boards/vote?postId=${postId}`);
-        localStorage.setItem(localStorageKeyName, "true");
-      }
-    } catch (error) {
-      const errorMessage =
-        error.response?.data?.error ||
-        error.message ||
-        "Something went wrong";
-      toast.error(errorMessage);
-
-      // Revert state on error
-      if (hasVoted) {
-        setHasVoted(false);
-        setVotesCounter(votesCounter - 1);
-        localStorage.removeItem(localStorageKeyName);
-      } else {
-        setHasVoted(true);
-        setVotesCounter(votesCounter + 1);
-        localStorage.setItem(localStorageKeyName, "true");
-      }
-    } finally {
-      setIsLoading(false);
+    // Optimistic Update
+    if (wasVoted) {
+      setHasVoted(false);
+      setVotesCounter((prev) => prev - 1);
+      localStorage.removeItem(localStorageKeyName);
+    } else {
+      setHasVoted(true);
+      setVotesCounter((prev) => prev + 1);
+      localStorage.setItem(localStorageKeyName, "true");
     }
+
+    await request(
+      () => {
+        return wasVoted
+          ? axios.delete(`/api/modules/boards/vote?postId=${postId}`)
+          : axios.post(`/api/modules/boards/vote?postId=${postId}`);
+      },
+      {
+        onError: () => {
+          // Revert state on error
+          setHasVoted(wasVoted);
+          setVotesCounter(previousVotes);
+          if (wasVoted) {
+            localStorage.setItem(localStorageKeyName, "true");
+          } else {
+            localStorage.removeItem(localStorageKeyName);
+          }
+        },
+      }
+    );
   };
 
   return (
-    <button
-      className={`group border px-4 py-2 rounded-xl text-lg duration-200 flex items-center gap-2 ${hasVoted
-        ? "bg-primary text-primary-content border-transparent"
-        : "bg-base-100 text-base-content hover:border-base-content/25"
+    <Button
+      variant={hasVoted ? "btn-primary" : "btn-ghost"}
+      className={`group ${styling.roundness[0]}! text-lg gap-2 ${hasVoted
+        ? "border-transparent"
+        : "bg-base-100 text-base-content border-base-200 hover:border-base-content/25"
         }`}
       onClick={handleVote}
+      isLoading={loading}
+      startIcon={<SvgVote />}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="size-5 group-hover:-translate-y-0.5 duration-200"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="m4.5 15.75 7.5-7.5 7.5 7.5"
-        />
-      </svg>
-
-      <div className="text-sm font-medium">{votesCounter}</div>
-    </button>
+      <span className="text-sm font-medium">
+        {votesCounter}
+      </span>
+    </Button>
   );
 };
 
