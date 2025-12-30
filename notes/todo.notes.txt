@@ -5,4 +5,5 @@
 - have the same message for boards as well, somewhere inside the <ListDisplay>
 - don't show the "Board updated" when the event is from the same browser
 - remove the initials at least from `Welcome back "Cristina" with intials "CR". You're logged in from "c6678982@gmail.com"`
-- move the redirect "/dashboard" into the boards.json module to easily re-use
+- move the redirect "/dashboard" paths into the boards.json module to easily re-use (and update components)
+- add the metadata for terms, privacy and support as well in the settings
