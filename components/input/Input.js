@@ -11,7 +11,7 @@ export default function Input({ className = "", error, showCharacterCount, ...pr
   let defaultClasses = "";
   if (!isCheckable) {
     // Apply standard input class and global roundness
-    defaultClasses = `${styling.roundness[0]} ${styling.shadows[0]} input `;
+    defaultClasses = `${styling.components.element} input `;
   }
 
   // Helper for error state

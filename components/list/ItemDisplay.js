@@ -15,11 +15,11 @@ const SingleItem = ({ item, styling, itemAction }) => {
         layout: { type: "spring", stiffness: 300, damping: 30 },
         opacity: { duration: 0.2 }
       }}
-      className={`${styling.roundness[1]} ${styling.borders[0]} ${styling.shadows[0]} bg-base-100 ${styling.paddings.card} flex justify-between items-start`}
+      className={`${styling.components.card} ${styling.paddings.card} flex justify-between items-start`}
     >
       <div className="space-y-1 min-w-0">
-        <Title className="break-words">{item.title}</Title>
-        <Paragraph className="max-h-32 break-words">
+        <Title className="wrap-break-word">{item.title}</Title>
+        <Paragraph className="max-h-32 wrap-break-word">
           {item.description}
         </Paragraph>
       </div>
