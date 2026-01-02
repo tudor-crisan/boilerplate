@@ -11,7 +11,7 @@
     "country": "Romania",
     "website": "https://TudorCrisan.dev",
     "website_display": "TudorCrisan.dev",
-    "logo": "/apps/tudorcrisan.dev/logo-favicon.png",
+    "logo": "/apps/tudorcrisan.dev/favicon.jpg",
     "socials": [
       {
         "name": "Twitter",
@@ -24,10 +24,7 @@
     ]
   },
   "auth": {
-    "providers": [
-      "resend",
-      "google"
-    ],
+    "providers": ["resend", "google"],
     "hasThemePages": true,
     "hasThemeEmails": true
   },

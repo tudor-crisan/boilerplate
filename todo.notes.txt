@@ -6,3 +6,4 @@
 - remove the initials at least from `Welcome back "Cristina" with intials "CR". You're logged in from "c6678982@gmail.com"`
 - create a webhook for resend received emails to forward them to main email address
 - make it either $10/month or pay $60 one-time, no monthly subcriptions (change the SectionPricing and make it with modal for subscribe in dashboard)
+- make a video screenrecording demo of the app how it works, behind the scenes and everything
