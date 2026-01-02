@@ -19,7 +19,7 @@ function ListItem({ item, hasLink, isLoading }) {
 }
 export default function ListDisplay({ list, type = "Board" }) {
   const [loadingItem, setLoadingItem] = useState(null);
-  const itemClass = `${styling.components.card} block ${styling.paddings.card}`;
+  const itemClass = `${styling.components.card} block ${styling.general.padding}`;
   const linkClass = 'hover:bg-neutral hover:text-neutral-content duration-200';
 
   return (

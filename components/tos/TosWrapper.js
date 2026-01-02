@@ -8,7 +8,7 @@ export default function TosWrapper({ children }) {
   return (
     <Main className="bg-base-100">
       <TosHeader />
-      <div className={`max-w-3xl mx-auto ${styling.general.spacing}`}>
+      <div className={`${styling.general.container} ${styling.general.padding}`}>
         {children}
       </div>
     </Main>

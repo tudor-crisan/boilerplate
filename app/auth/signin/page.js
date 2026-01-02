@@ -70,12 +70,12 @@ function SignInContent() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}
+      className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.padding}`}
       onFocusCapture={clearError}
       onClickCapture={clearError}
     >
       <div className={`card w-full max-w-sm ${styling.components.card}`}>
-        <div className={`card-body ${styling.paddings.card}`}>
+        <div className={`card-body ${styling.general.padding}`}>
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
             <HeaderTop url={disabled ? "" : "/"} />
           </div>

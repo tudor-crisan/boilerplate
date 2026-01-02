@@ -4,13 +4,14 @@ import { useCopywriting } from "@/context/ContextCopywriting";
 import PricingCard from "@/components/pricing/PricingCard";
 import PricingButton from "@/components/pricing/PricingButton";
 import SvgCheck from "@/components/svg/SvgCheck";
+import { cn } from "@/libs/utils.client";
 
 export default function SectionPricing() {
   const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
     <section id="pricing" className="bg-base-200">
-      <div className={`${styling.general.container} ${styling.general.section}`}>
+      <div className={cn(`${styling.general.container} ${styling.general.padding}`, 'py-32!')}>
         <p className={`${styling.general.label} mb-2`}>
           {copywriting.SectionPricing.label}
         </p>

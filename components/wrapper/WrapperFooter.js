@@ -6,7 +6,7 @@ export default function WrapperFooter({ children }) {
 
   return (
     <footer id="footer" className={styling.SectionFooter.section}>
-      <div className={`${styling.SectionFooter.container} ${styling.SectionFooter.spacing} ${styling.SectionFooter.textalign}`}>
+      <div className={`${styling.SectionFooter.container} ${styling.SectionFooter.spacing} ${styling.SectionFooter.textalign} ${styling.general.container}`}>
         {children}
       </div>
     </footer>

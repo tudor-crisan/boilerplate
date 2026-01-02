@@ -13,7 +13,7 @@ export default function Tooltip({ children, text, isVisible }) {
           <div className={`${styling.components.element} bg-neutral text-neutral-content sm:text-sm text-xs p-2.5 whitespace-nowrap font-medium leading-none`}>
             {text}
           </div>
-          <div className={`${styling.shadows[0]} w-2 h-2 bg-neutral rotate-45 -mt-1`}></div>
+          <div className="size-2 bg-neutral rotate-45 -mt-1"></div>
         </div>
       )}
       {children}

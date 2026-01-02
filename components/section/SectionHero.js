@@ -5,13 +5,14 @@ import HeroVideo from "@/components/hero/HeroVideo";
 import HeroButton from "@/components/hero/HeroButton";
 import { useStyling } from "@/context/ContextStyling";
 import { useVisual } from "@/context/ContextVisual";
+import { cn } from "@/libs/utils.client";
 
 export default function SectionHero() {
   const { visual } = useVisual();
   const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
-    <section id="hero" className={`${styling.general.container} ${styling.general.section} bg-base-100`}>
+    <section id="hero" className={cn(`${styling.general.container} ${styling.general.padding} bg-base-100`, 'py-32!')}>
       <div className="flex flex-col sm:flex-row sm:items-start space-y-12">
         <div className="space-y-6">
           <div className="space-y-3">

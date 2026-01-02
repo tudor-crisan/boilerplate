@@ -19,9 +19,9 @@ function ErrorContent() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
+    <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.padding}`}>
       <div className={`card w-full max-w-md ${styling.components.card}`}>
-        <div className={`card-body items-center text-center ${styling.paddings.card}`}>
+        <div className={`card-body items-center text-center ${styling.general.padding}`}>
           {!isLoggedIn && (
             <div className="text-error mb-4">
               <SvgError className="size-16" />

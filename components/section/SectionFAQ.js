@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
+import { cn } from "@/libs/utils.client";
 
 export default function SectionFAQ() {
   const { copywriting } = useCopywriting();
@@ -15,7 +16,7 @@ export default function SectionFAQ() {
   };
 
   return (
-    <section id="faq" className={`${styling.general.container} ${styling.general.section} bg-base-100`}>
+    <section id="faq" className={cn(`${styling.general.container} ${styling.general.padding} bg-base-100`, 'py-32!')}>
       <div className={`${styling.SectionFAQ.spacing} justify-center`}>
         <div className="flex-1 space-y-2">
           <p className={`${styling.general.label}`}>

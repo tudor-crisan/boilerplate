@@ -1,35 +1,23 @@
 {
   "theme": "lofi",
   "font": "sen",
-  "roundness": [
-    "rounded-md",
-    "rounded-2xl"
-  ],
-  "shadows": [
-    "shadow-md",
-    "shadow-lg"
-  ],
-  "borders": [
-    "border border-primary"
-  ],
-  "paddings": {
-    "card": "py-6 px-4 sm:py-8 sm:px-6"
-  },
+
+  "roundness": ["rounded-md", "rounded-2xl"],
+  "shadows": ["shadow-md", "shadow-lg"],
+  "borders": ["border border-primary"],
+
   "components": {
     "card": "rounded-2xl shadow-md border border-primary bg-base-100",
     "card_featured": "rounded-2xl shadow-lg bg-base-100",
     "element": "rounded-md shadow-md"
   },
-  "links": [
-    "link link-hover"
-  ],
+  "links": ["link link-hover"],
   "general": {
     "language": "en",
     "html": "scroll-smooth",
     "body": "select-none",
     "container": "max-w-3xl mx-auto",
-    "section": "py-32 px-4 sm:px-8",
-    "spacing": "py-12 px-4 sm:px-8",
+    "padding": "py-6 px-4 sm:py-8 sm:px-6",
     "label": "text-sm uppercase font-bold text-center text-primary",
     "title": "text-2xl sm:text-3xl font-extrabold leading-none"
   },
@@ -46,7 +34,7 @@
   },
   "SectionFooter": {
     "section": "bg-base-200 text-base-content",
-    "container": "max-w-3xl mx-auto items-center sm:items-start py-12 px-4 sm:px-8",
+    "container": "items-center sm:items-start py-12 px-4 sm:px-8",
     "spacing": "flex flex-col sm:flex-row justify-between gap-10 sm:gap-16",
     "textalign": "text-center sm:text-left"
   }

@@ -27,7 +27,7 @@ export default async function PublicFeedbackBoard({ params }) {
   }
 
   return (
-    <Main className={`bg-base-200 ${defaultStyling.general.spacing}`}>
+    <Main className={`bg-base-200 ${defaultstyling.general.padding}`}>
       <div className="max-w-5xl space-y-4 mx-auto w-full">
         <Title>
           {board.name}
