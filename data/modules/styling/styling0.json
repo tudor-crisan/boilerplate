@@ -9,7 +9,8 @@
     "input": "input rounded-md shadow-md",
     "textarea": "textarea rounded-md shadow-md",
     "select": "select rounded-md shadow-md",
-    "input_copy": "rounded-md shadow-md bg-base-100 flex items-center w-full"
+    "input_copy": "rounded-md shadow-md bg-base-100 flex items-center w-full",
+    "header": "px-3 sm:px-5 py-3"
   },
   "flex": {
     "center": "flex items-center justify-center",
@@ -17,7 +18,8 @@
     "inline_center": "inline-flex items-center justify-center",
     "between": "flex items-center justify-between",
     "col": "flex flex-col",
-    "col_center": "flex flex-col items-center justify-center"
+    "col_center": "flex flex-col items-center justify-center",
+    "responsive": "flex flex-col sm:flex-row justify-between"
   },
   "general": {
     "language": "en",
@@ -35,5 +37,8 @@
     "headline": "text-3xl sm:text-4xl font-extrabold leading-none capitalize",
     "paragraph": "opacity-90 px-4 sm:px-0",
     "textalign": "text-center sm:text-left"
+  },
+  "SectionFooter": {
+    "className": "text-center sm:text-left gap-10 sm:gap-16"
   }
 }
