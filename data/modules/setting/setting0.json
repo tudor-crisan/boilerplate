@@ -24,7 +24,10 @@
     ]
   },
   "auth": {
-    "providers": ["resend", "google"],
+    "providers": [
+      "resend",
+      "google"
+    ],
     "hasThemePages": true,
     "hasThemeEmails": true
   },
@@ -70,6 +73,18 @@
     "auth": {
       "title": "Authenticate - {appName}",
       "description": "{seoTagline}"
+    },
+    "terms": {
+      "title": "Terms of Service - {appName}",
+      "description": "Read our Terms of Service."
+    },
+    "privacy": {
+      "title": "Privacy Policy - {appName}",
+      "description": "Read our Privacy Policy."
+    },
+    "support": {
+      "title": "Support - {appName}",
+      "description": "Contact our support team."
     }
   },
   "forms": {

@@ -12,10 +12,12 @@
     "price": "$19",
     "period": "/month",
     "features": [
+      "Instant setup",
       "Unlimited feedback boards",
       "Unlimited users",
-      "Stripe integration",
-      "Priority support"
+      "Vote-based prioritization",
+      "Content moderation",
+      "Easy board sharing"
     ]
   },
   "SectionFAQ": {
@@ -23,16 +25,24 @@
     "headline": "Frequently Asked Questions",
     "questions": [
       {
-        "question": "How does the Stripe integration work?",
-        "answer": "LoyalBoards connects to your Stripe account to identify your loyal customers based on their subscription history. This allows you to filter and prioritize feedback from those who are most invested in your product."
+        "question": "Can I create multiple boards?",
+        "answer": "Yes, you can create and manage as many feedback boards as you need from a single dashboard."
       },
       {
-        "question": "Can I customize the feedback board?",
-        "answer": "Yes, you can customize the appearance and settings of your feedback board to match your brand and meet your specific needs."
+        "question": "Do users need to sign up to vote?",
+        "answer": "No, we've made it easy for your users to engage. They can upvote and post feedback instantly without creating an account."
       },
       {
-        "question": "Is there a free trial available?",
-        "answer": "Yes, we offer a 14-day free trial so you can explore all the features of LoyalBoards before committing to a subscription."
+        "question": "How do I share my board?",
+        "answer": "Each board comes with a unique public link that you can share with your users via email, social media, or your website."
+      },
+      {
+        "question": "How is feedback prioritized?",
+        "answer": "Feedback is automatically ranked by vote count, so the most important requests and issues are always visible at the top."
+      },
+      {
+        "question": "Can I moderate content?",
+        "answer": "Yes, you have full administrative control to delete any duplicate, irrelevant, or inappropriate posts directly from your dashboard."
       }
     ]
   }

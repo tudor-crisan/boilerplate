@@ -31,5 +31,10 @@ export default function Input({ className = "", error, showCharacterCount, ...pr
     );
   }
 
-  return content;
+  return (
+    <input
+      className={`${defaultClasses} ${errorClass} ${className}`.trim()}
+      {...props}
+    />
+  );
 }
