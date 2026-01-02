@@ -1,0 +1,9 @@
+import { cn } from "@/libs/utils.client"
+
+export default function TextSmall({ className, children }) {
+  return (
+    <span className={cn("text-xs text-base-content/60 font-medium", className)}>
+      {children}
+    </span>
+  )
+}

@@ -17,18 +17,14 @@ export default function Input({ className = "", error, showCharacterCount, ...pr
   // Helper for error state
   const errorClass = error ? "input-error" : "";
 
-  const content = (
-    <input
-      className={`${defaultClasses} ${errorClass} ${className} w-full`.trim()}
-      {...props}
-    />
-  );
-
   if (showCharacterCount && props.maxLength) {
     return (
-      <div className="w-full">
-        {content}
-        <div className="text-[10px] text-base-content/40 text-right mt-1 font-medium">
+      <div className="relative w-full">
+        <input
+          className={`${defaultClasses} ${errorClass} ${className} w-full pr-12`.trim()}
+          {...props}
+        />
+        <div className="absolute right-3 bottom-2 text-[10px] text-base-content/40 font-medium pointer-events-none">
           {props.value?.length || 0} / {props.maxLength}
         </div>
       </div>
