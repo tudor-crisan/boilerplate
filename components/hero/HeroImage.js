@@ -11,7 +11,7 @@ export default function HeroImage() {
       <Image
         src={visual.HeroImage.image.src}
         alt={visual.HeroImage.image.alt}
-        className={`${styling.roundness[1]} ${styling.shadows[1]} ${visual.HeroImage.classname}`}
+        className={`${styling.components.card_featured} ${visual.HeroImage.classname}`}
         width={visual.HeroImage.image.width}
         height={visual.HeroImage.image.height}
       />

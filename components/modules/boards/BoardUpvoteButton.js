@@ -62,7 +62,7 @@ const BoardUpvoteButton = ({ postId, initialVotesCounter, onVote }) => {
   return (
     <Button
       variant={hasVoted ? "btn-primary" : "btn-ghost"}
-      className={`${styling.roundness[0]}! group text-lg gap-2 ${hasVoted
+      className={`${styling.components.element} group text-lg gap-2 ${hasVoted
         ? "border-transparent"
         : "bg-base-100 text-base-content border-base-200 hover:border-base-content/25"
         }`}

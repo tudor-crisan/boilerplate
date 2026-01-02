@@ -18,7 +18,7 @@ export default function Support() {
           Need help? We are here for you. Please reach out to us using the contact details below.
         </Paragraph>
 
-        <div className={`${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]} mt-8 bg-base-200 ${styling.paddings.card}`}>
+        <div className={`${styling.components.card} mt-8 bg-base-200 ${styling.paddings.card}`}>
           <div className="grid sm:grid-cols-2 gap-8">
             <div>
               <Title>Contact Information</Title>

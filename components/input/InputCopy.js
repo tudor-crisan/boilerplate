@@ -17,7 +17,7 @@ export default function InputCopy({
   const openTooltip = useTooltip();
 
   return (
-    <div className={`${styling.roundness[0]} ${styling.shadows[0]} bg-base-100 text-sm px-4 py-2 flex items-center w-full`}>
+    <div className={`${styling.components.element} bg-base-100 text-sm px-4 py-2 flex items-center w-full`}>
       <p className="truncate mr-auto">
         {value}
       </p>
