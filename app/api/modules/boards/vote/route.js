@@ -46,11 +46,13 @@ export async function POST(req) {
     post.votesCounter += 1;
     await post.save();
 
+    const clientId = req.headers.get("x-client-id");
     // Emit vote event
     boardEvents.emit("vote", {
       postId: post._id,
       votesCounter: post.votesCounter,
-      boardId: post.boardId
+      boardId: post.boardId,
+      clientId
     });
 
     return responseSuccess(voteRecorded.message, {}, voteRecorded.status)

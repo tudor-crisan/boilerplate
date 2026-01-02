@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import { clientApi } from "@/libs/api";
 import Button from "@/components/button/Button";
 import useApiRequest from "@/hooks/useApiRequest";
 import SvgUser from "@/components/svg/SvgUser";
@@ -11,7 +11,7 @@ const ButtonPortal = ({ className = "", variant = "btn-primary", children = "Bil
 
   const handleBilling = async () => {
     await request(
-      () => axios.post("/api/billing/create-portal", {
+      () => clientApi.post("/api/billing/create-portal", {
         returnUrl: window.location.origin + RETURN_URL_REDIRECT,
       }),
       {

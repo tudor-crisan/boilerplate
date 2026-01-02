@@ -1,4 +1,17 @@
+import axios from "axios";
+import { getClientId } from "@/libs/utils.client";
 import { defaultSetting as settings } from "@/libs/defaults";
+
+export const clientApi = axios.create();
+
+clientApi.interceptors.request.use((config) => {
+  const clientId = getClientId();
+  if (clientId) {
+    config.headers["x-client-id"] = clientId;
+  }
+  return config;
+});
+
 
 const {
   serverError,

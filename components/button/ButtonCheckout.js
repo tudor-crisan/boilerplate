@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import { clientApi } from "@/libs/api";
 import Button from "@/components/button/Button";
 import useApiRequest from "@/hooks/useApiRequest";
 import SvgPay from "@/components/svg/SvgPay";
@@ -12,7 +12,7 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
 
   const handleSubscribe = async () => {
     await request(
-      () => axios.post("/api/billing/create-checkout", {
+      () => clientApi.post("/api/billing/create-checkout", {
         successUrl: window.location.origin + SUCCESS_URL_REDIRECT,
         cancelUrl: window.location.origin + CANCEL_URL_REDIRECT,
       }),

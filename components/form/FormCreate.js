@@ -1,5 +1,5 @@
 "use client";
-import axios from "axios";
+import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { useRouter } from "next/navigation";
 import useApiRequest from "@/hooks/useApiRequest";
@@ -12,7 +12,6 @@ import Input from "@/components/input/Input";
 import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
 import Label from "@/components/common/Label";
-import { getClientId } from "@/libs/utils.client";
 
 export default function FormCreate({ type, queryParams = {} }) {
   const router = useRouter();
@@ -41,11 +40,7 @@ export default function FormCreate({ type, queryParams = {} }) {
       : formConfig.apiUrl;
 
     await request(
-      () => axios.post(url, { ...inputs }, {
-        headers: {
-          "x-client-id": getClientId(),
-        },
-      }),
+      () => clientApi.post(url, { ...inputs }),
       {
         onSuccess: () => {
           resetInputs();

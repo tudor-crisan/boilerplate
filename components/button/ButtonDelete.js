@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { clientApi } from "@/libs/api";
 import useApiRequest from "@/hooks/useApiRequest";
 import SvgTrash from "@/components/svg/SvgTrash";
 import Button from "@/components/button/Button";
@@ -23,7 +23,7 @@ export default function ButtonDelete({
     }
 
     await request(
-      () => axios.delete(url),
+      () => clientApi.delete(url),
       {
         onSuccess: () => {
           if (refreshOnSuccess) {

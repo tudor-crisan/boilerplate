@@ -60,7 +60,7 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
 
         if (data.type === "vote") {
           handleVote(data.postId, data.votesCounter);
-          if (showVoteToast) {
+          if (showVoteToast && data.clientId !== getClientId()) {
             toast.success("Board updated!");
           }
         }

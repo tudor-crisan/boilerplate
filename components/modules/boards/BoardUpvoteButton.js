@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { clientApi } from "@/libs/api";
 import Button from "@/components/button/Button";
 import SvgVote from "@/components/svg/SvgVote";
 import useApiRequest from "@/hooks/useApiRequest";
@@ -45,8 +45,8 @@ const BoardUpvoteButton = ({ postId, initialVotesCounter, onVote }) => {
     await request(
       () => {
         return wasVoted
-          ? axios.delete(`/api/modules/boards/vote?postId=${postId}`)
-          : axios.post(`/api/modules/boards/vote?postId=${postId}`);
+          ? clientApi.delete(`/api/modules/boards/vote?postId=${postId}`)
+          : clientApi.post(`/api/modules/boards/vote?postId=${postId}`, {});
       },
       {
         onError: () => {
