@@ -13,10 +13,10 @@ export default function Textarea({ className = "", error, showCharacterCount, ..
     return (
       <div className="relative w-full">
         <textarea
-          className={`${standardClass} ${errorClass} ${className} w-full pb-6`.trim()}
+          className={`${standardClass} ${errorClass} ${className} w-full pb-12`.trim()}
           {...props}
         />
-        <div className="absolute right-3 bottom-1.5 text-[10px] text-base-content/40 font-medium pointer-events-none">
+        <div className="absolute p-1 right-2 bottom-px text-xs bg-base-100 text-base-content/40 font-medium pointer-events-none">
           {props.value?.length || 0} / {props.maxLength}
         </div>
       </div>
