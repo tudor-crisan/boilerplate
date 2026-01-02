@@ -1,15 +1,4 @@
 {
   "theme": "lofi",
-  "font": "sen",
-  "roundness": [
-    "rounded-md",
-    "rounded-2xl"
-  ],
-  "shadows": [
-    "shadow-md",
-    "shadow-lg"
-  ],
-  "borders": [
-    "border border-primary"
-  ]
+  "font": "sen"
 }
