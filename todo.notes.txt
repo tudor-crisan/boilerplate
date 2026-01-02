@@ -1,4 +1,4 @@
-- problem with cutting of long title / text to the right too much
+- fix the paddings / margins and add them to the lb0_styling to be re-used
 - move the redirect "/dashboard" paths into the boards.json module to easily re-use (and update components)
 - have redirect - when logged-in on /auth/error or /auth/verify-request to a path to have the "Go to dashboard" button and the message
 - have a way to edit the board link slug, and use slugs when possible (with checks for existing board names)

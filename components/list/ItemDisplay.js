@@ -15,7 +15,7 @@ const SingleItem = ({ item, styling, itemAction }) => {
         layout: { type: "spring", stiffness: 300, damping: 30 },
         opacity: { duration: 0.2 }
       }}
-      className={`${styling.roundness[1]} ${styling.borders[0]} ${styling.shadows[0]} bg-base-100 p-6 flex justify-between items-start`}
+      className={`${styling.roundness[1]} ${styling.borders[0]} ${styling.shadows[0]} bg-base-100 px-4 py-6 flex justify-between items-start`}
     >
       <div className="space-y-1 min-w-0">
         <Title className="break-words">{item.title}</Title>
