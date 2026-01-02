@@ -2,7 +2,7 @@
 
 import ItemDisplay from "@/components/list/ItemDisplay";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
-import useBoardPosts from "@/hooks/useBoardPosts";
+import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 
 const BoardPostsList = ({ posts, boardId }) => {
   const { posts: postsState, handleVote } = useBoardPosts(boardId, posts, { showVoteToast: true });

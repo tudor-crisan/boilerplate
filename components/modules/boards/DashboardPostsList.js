@@ -2,16 +2,15 @@
 import ItemDisplay from "@/components/list/ItemDisplay";
 import ButtonDelete from "@/components/button/ButtonDelete";
 import Title from "@/components/common/Title";
-import useBoardPosts from "@/hooks/useBoardPosts";
+import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 
 const DashboardPostsList = ({ posts, boardId }) => {
-  const { posts: postsState, handleVote } = useBoardPosts(boardId, posts);
+  const { posts: postsState } = useBoardPosts(boardId, posts);
 
   return (
     <div className="space-y-4 w-full">
       <Title>Posts ({postsState?.length || 0})</Title>
       <ItemDisplay
-
         items={postsState}
         itemAction={(item) => (
           <ButtonDelete
