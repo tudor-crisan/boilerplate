@@ -7,6 +7,7 @@ import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import FormCreate from "@/components/form/FormCreate";
 import BoardPostsList from "@/components/modules/boards/BoardPostsList";
+import { defaultStyling } from "@/libs/defaults";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;
@@ -26,23 +27,25 @@ export default async function PublicFeedbackBoard({ params }) {
   }
 
   return (
-    <Main className="bg-base-200 space-y-4 p-6">
-      <Title>
-        {board.name}
-      </Title>
-      <Columns>
-        <Sidebar>
-          <FormCreate
-            type="Post"
-            queryParams={{ boardId }}
-            skipRefresh={true}
+    <Main className={`bg-base-200 ${defaultStyling.general.spacing}`}>
+      <div className="max-w-5xl space-y-4 mx-auto w-full">
+        <Title>
+          {board.name}
+        </Title>
+        <Columns>
+          <Sidebar>
+            <FormCreate
+              type="Post"
+              queryParams={{ boardId }}
+              skipRefresh={true}
+            />
+          </Sidebar>
+          <BoardPostsList
+            posts={board.posts}
+            boardId={boardId}
           />
-        </Sidebar>
-        <BoardPostsList
-          posts={board.posts}
-          boardId={boardId}
-        />
-      </Columns>
+        </Columns>
+      </div>
     </Main>
   )
 }

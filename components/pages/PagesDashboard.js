@@ -19,14 +19,14 @@ export default async function PagesDashboard({ children }) {
 
   return (
     <DashboardWrapper>
-      <DashboardHeader>
+      <DashboardHeader size="3">
         <HeaderTop url="/" />
         <div className="flex gap-2">
           {!hasAccess ? <ButtonCheckout /> : <ButtonPortal />}
           <ButtonLogout />
         </div>
       </DashboardHeader>
-      <DashboardMain>
+      <DashboardMain size="3">
         <DashboardMessage />
         <div className="my-6">
           {children || <Component /> || null}
