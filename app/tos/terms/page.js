@@ -5,10 +5,11 @@ import TosWrapper from "@/components/tos/TosWrapper";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import TosContent from "@/components/tos/TosContent";
-import Button from "@/components/button/Button";
+import { useStyling } from "@/context/ContextStyling";
+import Link from "next/link";
 
 export default function TosTerms() {
-
+  const { styling } = useStyling();
 
   return (
     <TosWrapper>
@@ -32,10 +33,10 @@ export default function TosTerms() {
           If you have any questions about these Terms, please contact us at:
         </p>
         <p>
-          <strong>Email:</strong>
-          <Button href={`mailto:${settings.business.email}`} variant="btn-ghost shadow-none!">
+          <strong>Email:&nbsp;</strong>
+          <Link href={`mailto:${settings.business.email}`} className={styling.links[0]}>
             {settings.business.email}
-          </Button>
+          </Link>
         </p>
         <p>
           <strong>Address:</strong><br />

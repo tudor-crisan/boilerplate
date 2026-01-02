@@ -14,6 +14,8 @@ import ItemDisplay from "@/components/list/ItemDisplay";
 
 import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
+import Label from "@/components/common/Label";
+import FormGroup from "@/components/common/FormGroup";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;
@@ -61,7 +63,15 @@ export default async function PrivateFeedbackBoard({ params }) {
               <Title>
                 {board.name}
               </Title>
-              <InputCopy value={`${baseUrl()}/b/${boardId}`} />
+              <FormGroup>
+                <Label>Public link</Label>
+                <InputCopy
+                  value={`${baseUrl()}/b/${boardId}`}
+                  openUrl={`${baseUrl()}/b/${boardId}`}
+                  tooltipCopy="Copy link"
+                  tooltipOpen="Go to board"
+                />
+              </FormGroup>
               <ButtonDelete
                 url={deleteUrl}
                 buttonText="Delete Board"

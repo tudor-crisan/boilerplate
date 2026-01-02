@@ -25,7 +25,7 @@ export default function TosSupport() {
               <Title>Contact Information</Title>
               <div className="space-y-4 mt-4">
                 <div>
-                  <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Email</span>
+                  <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Email&nbsp;</span>
                   <Link href={`mailto:${settings.business.email}`} className={styling.links[0]}>
                     {settings.business.email}
                   </Link>

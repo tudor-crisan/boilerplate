@@ -5,11 +5,11 @@ import TosWrapper from "@/components/tos/TosWrapper";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import TosContent from "@/components/tos/TosContent";
-import Button from "@/components/button/Button";
+import { useStyling } from "@/context/ContextStyling";
+import Link from "next/link";
 
 export default function TosPrivacy() {
-
-
+  const { styling } = useStyling();
   return (
     <TosWrapper>
       <Title className="text-2xl sm:text-2xl">Privacy Policy</Title>
@@ -26,10 +26,10 @@ export default function TosPrivacy() {
         <Title>2. Contact Details</Title>
         <p>
           Full name of legal entity: {settings.business.entity_name}<br />
-          Email address:
-          <Button href={`mailto:${settings.business.email}`} variant="btn-ghost shadow-none!">
+          Email address:&nbsp;
+          <Link href={`mailto:${settings.business.email}`} className={styling.links[0]}>
             {settings.business.email}
-          </Button>
+          </Link>
           <br />
           Postal address: {settings.business.address_line1}, {settings.business.address_line2}, {settings.business.country}
         </p>

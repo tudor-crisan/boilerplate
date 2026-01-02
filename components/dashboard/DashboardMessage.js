@@ -13,7 +13,7 @@ export default function DashboardMessage() {
           Dashboard
         </Title>
         <Paragraph>
-          Welcome back <span className="font-bold">&quot;{name}&quot;</span> with intials <span className="font-bold">&quot;{initials}&quot;</span>. You&apos;re logged in from <span className="font-bold">&quot;{email}&quot;</span>
+          Welcome back <span className="font-bold">&quot;{name}&quot;</span> with initials <span className="font-bold">&quot;{initials}&quot;</span>. You&apos;re logged in from <span className="font-bold">&quot;{email}&quot;</span>
         </Paragraph>
       </div>
     );
