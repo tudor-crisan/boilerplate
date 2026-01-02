@@ -1,12 +1,8 @@
-- add the metadata for terms, privacy and support as well in the settings
-- check what the app does (loyalboards) and modify the "Hero,Pricing,FAQ" sections in lb0_copywriting to reflect the app truthfully
 - move the redirect "/dashboard" paths into the boards.json module to easily re-use (and update components)
 - have redirect - when logged-in on /auth/error or /auth/verify-request to a path to have the "Go to dashboard" button and the message
-
-- emit event - when deleting on private board to also delete on public board
-- add emit events in other places of the app to make sure they are in sync
 - have a way to edit the board link slug, and use slugs when possible (with checks for existing board names)
 - have a settings panel to change the theme, style of the page, such as shadows, borders, roundness (from lb0_settings)
 - have a top menu for changing the billing, logout, my profile, initials, name and others for users
 - remove the initials at least from `Welcome back "Cristina" with intials "CR". You're logged in from "c6678982@gmail.com"`
 - create a webhook for resend received emails to forward them to main email address
+- make it either $10/month or pay $60 one-time, no monthly subcriptions (change the SectionPricing and make it with modal for subscribe in dashboard)
