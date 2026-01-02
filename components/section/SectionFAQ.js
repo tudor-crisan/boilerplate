@@ -29,7 +29,7 @@ export default function SectionFAQ() {
           {copywriting.SectionFAQ.questions.map((faq, index) => (
             <div
               key={index}
-              className={`${styling.roundness[1]} ${styling.borders[0]} collapse collapse-arrow bg-base-200 my-2 ${openIndices.includes(index) ? "collapse-open" : ""}`}
+              className={`${styling.components.card} collapse collapse-arrow bg-base-200 my-2 ${openIndices.includes(index) ? "collapse-open" : ""}`}
               onClick={() => handleToggle(index)}
             >
               <div className="collapse-title font-semibold text-primary cursor-pointer">
