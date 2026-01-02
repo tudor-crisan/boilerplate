@@ -20,16 +20,18 @@ const BoardPostsList = ({ posts, boardId }) => {
   }
 
   return (
-    <ItemDisplay
-      items={postsState}
-      itemAction={(item) => (
-        <BoardButtonVote
-          postId={item._id}
-          initialVotesCounter={item.votesCounter || 0}
-          onVote={(newCount) => handleVote(item._id, newCount)}
-        />
-      )}
-    />
+    <div className="w-full min-w-0">
+      <ItemDisplay
+        items={postsState}
+        itemAction={(item) => (
+          <BoardButtonVote
+            postId={item._id}
+            initialVotesCounter={item.votesCounter || 0}
+            onVote={(newCount) => handleVote(item._id, newCount)}
+          />
+        )}
+      />
+    </div>
   );
 };
 
