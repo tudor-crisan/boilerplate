@@ -13,11 +13,10 @@
     "period": "/month",
     "features": [
       "Instant setup",
-      "Unlimited feedback boards",
-      "Unlimited users",
-      "Vote-based prioritization",
+      "Easy board sharing",
       "Content moderation",
-      "Easy board sharing"
+      "Vote-based prioritization",
+      "Unlimited feedback boards"
     ]
   },
   "SectionFAQ": {
