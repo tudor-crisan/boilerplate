@@ -140,7 +140,8 @@ export async function DELETE(req) {
 
     await Post.deleteOne({ _id: postId });
 
-    boardEvents.emit("post-delete", { boardId: post.boardId, postId });
+    const clientId = req.headers.get("x-client-id");
+    boardEvents.emit("post-delete", { boardId: post.boardId, postId, clientId });
 
     return responseSuccess(deleteSuccesfully.message, {}, deleteSuccesfully.status);
 

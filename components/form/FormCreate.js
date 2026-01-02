@@ -13,7 +13,7 @@ import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
 import Label from "@/components/common/Label";
 
-export default function FormCreate({ type, queryParams = {} }) {
+export default function FormCreate({ type, queryParams = {}, skipRefresh = false }) {
   const router = useRouter();
   const { formConfig, inputsConfig } = settings.forms[type];
   const { styling } = useStyling();
@@ -44,7 +44,9 @@ export default function FormCreate({ type, queryParams = {} }) {
       {
         onSuccess: () => {
           resetInputs();
-          router.refresh();
+          if (!skipRefresh) {
+            router.refresh();
+          }
         },
         onError: (_, validationErrors) => {
           if (validationErrors) {

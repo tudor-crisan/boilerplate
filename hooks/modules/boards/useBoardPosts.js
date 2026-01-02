@@ -70,8 +70,7 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
             // Avoid duplicates
             if (prevPosts.some(p => p._id === data.post._id)) return prevPosts;
 
-            const newPosts = [data.post, ...prevPosts];
-            return sortPosts(newPosts);
+            return [...prevPosts, data.post];
           });
 
           if (data.clientId !== getClientId()) {
@@ -81,7 +80,9 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
 
         if (data.type === "post-delete") {
           setPosts((prevPosts) => prevPosts.filter(p => p._id !== data.postId));
-          toast.success("Post removed!");
+          if (data.clientId !== getClientId()) {
+            toast.success("Post removed!");
+          }
         }
       } catch (error) {
         console.error("SSE parse error", error);

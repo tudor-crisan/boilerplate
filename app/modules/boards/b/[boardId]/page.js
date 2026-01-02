@@ -35,6 +35,7 @@ export default async function PublicFeedbackBoard({ params }) {
           <FormCreate
             type="Post"
             queryParams={{ boardId }}
+            skipRefresh={true}
           />
         </Sidebar>
         <BoardPostsList
