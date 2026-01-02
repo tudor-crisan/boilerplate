@@ -70,12 +70,12 @@ function SignInContent() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.padding}`}
+      className={`min-h-screen ${styling.flex.center} bg-base-200 ${styling.general.box}`}
       onFocusCapture={clearError}
       onClickCapture={clearError}
     >
       <div className={`card w-full max-w-sm ${styling.components.card}`}>
-        <div className={`card-body ${styling.general.padding}`}>
+        <div className={`card-body ${styling.general.box}`}>
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
             <HeaderTop url={disabled ? "" : "/"} />
           </div>
@@ -140,9 +140,10 @@ function SignInContent() {
 }
 
 export default function SignInPage() {
+  const { styling } = useStyling();
   return (
     <Suspense fallback={(
-      <div className="min-h-screen flex items-center justify-center">
+      <div className={`min-h-screen ${styling.flex.center}`}>
         Loading...
       </div>
     )}>

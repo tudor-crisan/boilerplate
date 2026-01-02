@@ -26,7 +26,7 @@ export default function Privacy() {
         <p>
           Full name of legal entity: {settings.business.entity_name}<br />
           Email address:&nbsp;
-          <Link href={`mailto:${settings.business.email}`} className={styling.links[0]}>
+          <Link href={`mailto:${settings.business.email}`} className={styling.components.link}>
             {settings.business.email}
           </Link>
           <br />

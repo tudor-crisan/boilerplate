@@ -1,4 +1,4 @@
-import { getEmailBranding, getLogoUrl, getRoundness } from '@/components/emails/email-theme';
+import { getEmailBranding, getLogoUrl } from '@/components/emails/email-theme';
 import { GenericLayout, EmailBody, EmailContainer, EmailButton } from '@/components/emails/EmailLayout';
 
 export default function MagicLinkTemplate({ host, url }) {
@@ -33,7 +33,7 @@ export default function MagicLinkTemplate({ host, url }) {
                     width="32"
                     height="32"
                     alt="Logo"
-                    style={{ display: 'block', width: '32px', height: '32px', borderRadius: getRoundness(0) }}
+                    style={{ display: 'block', width: '32px', height: '32px', borderRadius: btnRoundness }}
                   />
                 </div>
               )}

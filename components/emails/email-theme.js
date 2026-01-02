@@ -3,40 +3,37 @@ import themeColors from "@/lists/themeColors";
 import { oklchToHex } from "@/libs/utils.client";
 import { fontMap } from "@/lists/fonts";
 
-export const getRoundness = (idx) => {
-  const val = defaultStyling.roundness?.[idx] || "";
-  if (val.includes("rounded-none")) return "0";
-  if (val.includes("rounded-sm")) return "2px";
-  if (val.includes("rounded-md")) return "6px";
-  if (val.includes("rounded-lg")) return "8px";
-  if (val.includes("rounded-xl")) return "12px";
-  if (val.includes("rounded-2xl")) return "16px";
-  if (val.includes("rounded-3xl")) return "24px";
-  if (val.includes("rounded-full")) return "9999px";
+export const extractRoundness = (classNames = "") => {
+  if (classNames.includes("rounded-none")) return "0";
+  if (classNames.includes("rounded-sm")) return "2px";
+  if (classNames.includes("rounded-md")) return "6px";
+  if (classNames.includes("rounded-lg")) return "8px";
+  if (classNames.includes("rounded-xl")) return "12px";
+  if (classNames.includes("rounded-2xl")) return "16px";
+  if (classNames.includes("rounded-3xl")) return "24px";
+  if (classNames.includes("rounded-full")) return "9999px";
   return "4px"; // default rounded
 };
 
-export const getShadow = (idx) => {
-  const val = defaultStyling.shadows?.[idx] || "";
-  if (val.includes("shadow-sm")) return "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
-  if (val.includes("shadow-md")) return "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)";
-  if (val.includes("shadow-lg")) return "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)";
-  if (val.includes("shadow-xl")) return "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
-  if (val.includes("shadow-2xl")) return "0 25px 50px -12px rgba(0, 0, 0, 0.25)";
-  if (val.includes("shadow-none")) return "none";
+export const extractShadow = (classNames = "") => {
+  if (classNames.includes("shadow-sm")) return "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+  if (classNames.includes("shadow-md")) return "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)";
+  if (classNames.includes("shadow-lg")) return "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)";
+  if (classNames.includes("shadow-xl")) return "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)";
+  if (classNames.includes("shadow-2xl")) return "0 25px 50px -12px rgba(0, 0, 0, 0.25)";
+  if (classNames.includes("shadow-none")) return "none";
   return "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)"; // default shadow
 };
 
-export const getBorder = (idx, themeColor) => {
-  const val = defaultStyling.borders?.[idx] || "";
-  if (!val || val.includes("border-none")) return "none";
+export const extractBorder = (classNames = "", themeColor) => {
+  if (!classNames || classNames.includes("border-none") || !classNames.includes("border")) return "none";
   let width = "1px";
-  if (val.includes("border-2")) width = "2px";
-  if (val.includes("border-4")) width = "4px";
-  if (val.includes("border-8")) width = "8px";
+  if (classNames.includes("border-2")) width = "2px";
+  if (classNames.includes("border-4")) width = "4px";
+  if (classNames.includes("border-8")) width = "8px";
 
   let color = "#e5e7eb"; // gray-200
-  if (val.includes("border-primary")) color = themeColor;
+  if (classNames.includes("border-primary")) color = themeColor;
 
   return `${width} solid ${color}`;
 };
@@ -62,6 +59,9 @@ export const getEmailBranding = () => {
   const isDark = ["dracula", "dark", "night", "synthwave", "halloween", "forest", "luxury", "abyss", "dim", "business", "sunset", "coffee", "aqua", "black", "luxury", "abyss"].includes(theme);
   const dividerColor = isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)";
 
+  const cardClasses = defaultStyling.components?.card || "";
+  const elementClasses = defaultStyling.components?.element || "";
+
   return {
     themeColor,
     base100,
@@ -70,10 +70,10 @@ export const getEmailBranding = () => {
     appName,
     font,
     dividerColor,
-    cardRoundness: getRoundness(1),
-    btnRoundness: getRoundness(0),
-    cardShadow: getShadow(1),
-    cardBorder: getBorder(0, themeColor)
+    cardRoundness: extractRoundness(cardClasses),
+    btnRoundness: extractRoundness(elementClasses),
+    cardShadow: extractShadow(cardClasses),
+    cardBorder: extractBorder(cardClasses, themeColor)
   };
 };
 

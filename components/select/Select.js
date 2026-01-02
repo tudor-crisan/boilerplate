@@ -6,7 +6,7 @@ export default function Select({ className = "", error, children, options, place
 
   // Helper for error state
   const errorClass = error ? "select-error" : "";
-  const standardClass = `${styling.components.element} select`;
+  const standardClass = `${styling.components.select} ${styling.general.element} `;
 
   return (
     <select

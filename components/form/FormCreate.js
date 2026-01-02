@@ -59,7 +59,7 @@ export default function FormCreate({ type, queryParams = {}, skipRefresh = false
 
   return (
     <form
-      className={`${styling.components.card} space-y-4 ${styling.general.padding} ${formConfig.className || ''}`}
+      className={`${styling.components.card} space-y-4 ${styling.general.box} ${formConfig.className || ''}`}
       onSubmit={handleSubmit}
     >
       {formConfig.title && (

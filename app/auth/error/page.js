@@ -19,9 +19,9 @@ function ErrorContent() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.padding}`}>
+    <div className={`min-h-screen ${styling.flex.center} bg-base-200 ${styling.general.box}`}>
       <div className={`card w-full max-w-md ${styling.components.card}`}>
-        <div className={`card-body items-center text-center ${styling.general.padding}`}>
+        <div className={`card-body items-center text-center ${styling.general.box}`}>
           {!isLoggedIn && (
             <div className="text-error mb-4">
               <SvgError className="size-16" />
@@ -33,7 +33,7 @@ function ErrorContent() {
           <Paragraph className="mb-6">
             {isLoggedIn ? "You are currently logged in. Go to your dashboard to manage your account." : message}
           </Paragraph>
-          <div className="card-actions w-full flex flex-col">
+          <div className={`card-actions w-full ${styling.flex.col}`}>
             {error !== 'RateLimit' && (
               <Button
                 href={isLoggedIn ? CALLBACK_URL : SIGNIN_URL}
@@ -57,8 +57,9 @@ function ErrorContent() {
 }
 
 export default function AuthErrorPage() {
+  const { styling } = useStyling();
   return (
-    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+    <Suspense fallback={<div className={`min-h-screen ${styling.flex.center}`}>Loading...</div>}>
       <ErrorContent />
     </Suspense>
   );

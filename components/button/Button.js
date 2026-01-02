@@ -24,7 +24,10 @@ export default function Button({
   const isButtonLoading = isLoading || internalLoading;
   const isDisabled = disabled || isButtonLoading;
 
-  const baseClasses = `${styling.components.element} btn ${variant} ${size} ${className} ${isButtonLoading ? "!cursor-wait !pointer-events-auto" : ""
+  const isIcon = variant.includes("btn-square") || variant.includes("btn-circle");
+  const sizingClass = isIcon ? "" : styling.general.element;
+
+  const baseClasses = `${styling.components.element} btn ${variant} ${size} ${sizingClass} ${className} ${isButtonLoading ? "!cursor-wait !pointer-events-auto" : ""
     }`;
 
   const handleClick = async (e) => {

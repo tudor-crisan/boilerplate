@@ -9,7 +9,7 @@ import IconLoading from "@/components/icon/IconLoading";
 
 function ListItem({ item, hasLink, isLoading }) {
   return hasLink ? (
-    <div className="flex justify-between items-center">
+    <div className={styling.flex.between}>
       {item.name}
       {isLoading ? <IconLoading /> : <SvgView size="size-4 sm:size-5" />}
     </div>
@@ -19,7 +19,7 @@ function ListItem({ item, hasLink, isLoading }) {
 }
 export default function ListDisplay({ list, type = "Board" }) {
   const [loadingItem, setLoadingItem] = useState(null);
-  const itemClass = `${styling.components.card} block ${styling.general.padding}`;
+  const itemClass = `${styling.components.card} block ${styling.general.box}`;
   const linkClass = 'hover:bg-neutral hover:text-neutral-content duration-200';
 
   return (

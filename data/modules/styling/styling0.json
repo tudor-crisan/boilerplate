@@ -1,41 +1,39 @@
 {
   "theme": "lofi",
   "font": "sen",
-
-  "roundness": ["rounded-md", "rounded-2xl"],
-  "shadows": ["shadow-md", "shadow-lg"],
-  "borders": ["border border-primary"],
-
   "components": {
     "card": "rounded-2xl shadow-md border border-primary bg-base-100",
     "card_featured": "rounded-2xl shadow-lg bg-base-100",
-    "element": "rounded-md shadow-md"
+    "element": "rounded-md shadow-md",
+    "link": "link link-hover",
+    "input": "input rounded-md shadow-md",
+    "textarea": "textarea rounded-md shadow-md",
+    "select": "select rounded-md shadow-md",
+    "input_copy": "rounded-md shadow-md bg-base-100 flex items-center w-full"
   },
-  "links": ["link link-hover"],
+  "flex": {
+    "center": "flex items-center justify-center",
+    "items_center": "flex items-center",
+    "inline_center": "inline-flex items-center justify-center",
+    "between": "flex items-center justify-between",
+    "col": "flex flex-col",
+    "col_center": "flex flex-col items-center justify-center"
+  },
   "general": {
     "language": "en",
     "html": "scroll-smooth",
     "body": "select-none",
     "container": "max-w-3xl mx-auto",
-    "padding": "py-6 px-4 sm:py-8 sm:px-6",
+    "element": "px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-base",
+    "box": "py-6 px-4 sm:py-8 sm:px-6"
+  },
+  "section": {
     "label": "text-sm uppercase font-bold text-center text-primary",
     "title": "text-2xl sm:text-3xl font-extrabold leading-none"
-  },
-  "SectionHeader": {
-    "spacing": "flex justify-between items-center px-3 sm:px-5 py-3"
   },
   "SectionHero": {
     "headline": "text-3xl sm:text-4xl font-extrabold leading-none capitalize",
     "paragraph": "opacity-90 px-4 sm:px-0",
-    "textalign": "text-center sm:text-left"
-  },
-  "SectionFAQ": {
-    "spacing": "flex flex-col space-y-6"
-  },
-  "SectionFooter": {
-    "section": "bg-base-200 text-base-content",
-    "container": "items-center sm:items-start py-12 px-4 sm:px-8",
-    "spacing": "flex flex-col sm:flex-row justify-between gap-10 sm:gap-16",
     "textalign": "text-center sm:text-left"
   }
 }

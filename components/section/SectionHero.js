@@ -12,7 +12,7 @@ export default function SectionHero() {
   const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   return (
-    <section id="hero" className={cn(`${styling.general.container} ${styling.general.padding} bg-base-100`, 'py-32!')}>
+    <section id="hero" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, 'py-32!')}>
       <div className="flex flex-col sm:flex-row sm:items-start space-y-12">
         <div className="space-y-6">
           <div className="space-y-3">

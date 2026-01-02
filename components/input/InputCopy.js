@@ -17,11 +17,11 @@ export default function InputCopy({
   const openTooltip = useTooltip();
 
   return (
-    <div className={`${styling.components.element} bg-base-100 text-sm px-4 py-2 flex items-center w-full`}>
+    <div className={`${styling.components.input_copy} ${styling.general.element} `}>
       <p className="truncate mr-auto">
         {value}
       </p>
-      <div className="flex items-center gap-2 shrink-0 ml-4">
+      <div className={`${styling.flex.items_center} gap-2 shrink-0 ml-4`}>
         <Tooltip text={tooltipCopy} isVisible={copyTooltip.isVisible}>
           <ButtonCopy
             copyText={value}

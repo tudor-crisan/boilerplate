@@ -18,21 +18,21 @@ export default function Support() {
           Need help? We are here for you. Please reach out to us using the contact details below.
         </Paragraph>
 
-        <div className={`${styling.components.card} mt-8 bg-base-200 ${styling.general.padding}`}>
+        <div className={`${styling.components.card} mt-8 bg-base-200 ${styling.general.box}`}>
           <div className="grid sm:grid-cols-2 gap-8">
             <div>
               <Title>Contact Information</Title>
               <div className="space-y-4 mt-4">
                 <div>
                   <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Email&nbsp;</span>
-                  <Link href={`mailto:${settings.business.email}`} className={styling.links[0]}>
+                  <Link href={`mailto:${settings.business.email}`} className={styling.components.link}>
                     {settings.business.email}
                   </Link>
                 </div>
                 {settings.business.phone && (
                   <div>
                     <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Phone</span>
-                    <Link href={`tel:${settings.business.phone}`} className={styling.links[0]}>
+                    <Link href={`tel:${settings.business.phone}`} className={styling.components.link}>
                       {settings.business.phone_display}
                     </Link>
                   </div>
@@ -57,7 +57,7 @@ export default function Support() {
                 </div>
                 <div>
                   <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Main Website</span>
-                  <Link href={settings.business.website} className={styling.links[0]}>
+                  <Link href={settings.business.website} className={styling.components.link}>
                     {settings.business.website_display}
                   </Link>
                 </div>

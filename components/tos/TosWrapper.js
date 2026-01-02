@@ -8,7 +8,7 @@ export default function TosWrapper({ children }) {
   return (
     <Main className="bg-base-100">
       <TosHeader />
-      <div className={`${styling.general.container} ${styling.general.padding}`}>
+      <div className={`${styling.general.container} ${styling.general.box}`}>
         {children}
       </div>
     </Main>

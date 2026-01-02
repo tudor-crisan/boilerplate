@@ -11,9 +11,9 @@ export default function VerifyRequestPage() {
   const { isLoggedIn } = useAuth();
 
   return (
-    <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.padding}`}>
+    <div className={`min-h-screen ${styling.flex.center} bg-base-200 ${styling.general.box}`}>
       <div className={`card w-full max-w-sm ${styling.components.card}`}>
-        <div className={`card-body items-center text-center ${styling.general.padding}`}>
+        <div className={`card-body items-center text-center ${styling.general.box}`}>
           {!isLoggedIn && (
             <div className="text-primary mx-auto my-4">
               <SvgEmail className="size-12" />

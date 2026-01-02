@@ -11,9 +11,9 @@ export default function FooterBrand() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="flex flex-col gap-1 max-w-xs">
-      <Link href={settings.business.website} className={styling.links[0]}>
-        <div className="flex items-center gap-1 sm:gap-2 font-bold text-lg sm:text-xl">
+    <div className={`${styling.flex.col} gap-1 max-w-xs`}>
+      <Link href={settings.business.website} className={styling.components.link}>
+        <div className={`${styling.flex.items_center} gap-1 sm:gap-2 font-bold text-lg sm:text-xl`}>
           {settings.business.logo && (
             <Image
               src={settings.business.logo}

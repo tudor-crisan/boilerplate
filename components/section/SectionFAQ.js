@@ -16,13 +16,13 @@ export default function SectionFAQ() {
   };
 
   return (
-    <section id="faq" className={cn(`${styling.general.container} ${styling.general.padding} bg-base-100`, 'py-32!')}>
-      <div className={`${styling.SectionFAQ.spacing} justify-center`}>
+    <section id="faq" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, 'py-32!')}>
+      <div className={`${styling.flex.col} space-y-6 justify-center`}>
         <div className="flex-1 space-y-2">
-          <p className={`${styling.general.label}`}>
+          <p className={`${styling.section.label}`}>
             {copywriting.SectionFAQ.label}
           </p>
-          <h2 className={`${styling.general.title} text-center`}>
+          <h2 className={`${styling.section.title} text-center`}>
             {copywriting.SectionFAQ.headline}
           </h2>
         </div>

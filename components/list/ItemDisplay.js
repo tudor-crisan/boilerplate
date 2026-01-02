@@ -15,7 +15,7 @@ const SingleItem = ({ item, styling, itemAction }) => {
         layout: { type: "spring", stiffness: 300, damping: 30 },
         opacity: { duration: 0.2 }
       }}
-      className={`${styling.components.card} ${styling.general.padding} flex justify-between items-start`}
+      className={`${styling.components.card} ${styling.general.box} flex justify-between items-start`}
     >
       <div className="space-y-1 min-w-0">
         <Title className="wrap-break-word">{item.title}</Title>

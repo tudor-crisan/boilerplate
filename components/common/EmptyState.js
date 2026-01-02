@@ -7,7 +7,7 @@ export default function EmptyState({ title, description, icon }) {
   const { styling } = useStyling();
 
   return (
-    <div className={`${styling.components.card} ${styling.general.padding} flex flex-col items-center justify-center text-center space-y-4`}>
+    <div className={`${styling.components.card} ${styling.general.box} ${styling.flex.col_center} text-center space-y-4`}>
       {icon && (
         <div className="text-base-content/20">
           {icon}

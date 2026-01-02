@@ -7,7 +7,7 @@ export default function DashboardMain({ children, className = "" }) {
   const { styling } = useStyling();
 
   return (
-    <section className={`${styling.general.container} mx-auto ${styling.general.padding} ${className}`}>
+    <section className={`${styling.general.container} mx-auto ${styling.general.box} ${className}`}>
       {children}
     </section>
   )
