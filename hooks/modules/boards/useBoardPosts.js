@@ -27,11 +27,11 @@ const sortPosts = (posts) => {
  * @param {boolean} options.showVoteToast - Whether to show a toast message when someone votes
  */
 export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } = {}) => {
-  const [posts, setPosts] = useState(initialPosts);
+  const [posts, setPosts] = useState(sortPosts(initialPosts));
 
   // Sync state if initialProps change
   useEffect(() => {
-    setPosts(initialPosts);
+    setPosts(sortPosts(initialPosts));
   }, [initialPosts]);
 
   const handleVote = useCallback((postId, newVoteCount) => {
@@ -70,7 +70,7 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
             // Avoid duplicates
             if (prevPosts.some(p => p._id === data.post._id)) return prevPosts;
 
-            return [...prevPosts, data.post];
+            return sortPosts([...prevPosts, data.post]);
           });
 
           if (data.clientId !== getClientId()) {

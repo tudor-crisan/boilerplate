@@ -45,7 +45,7 @@ export const getBoardPrivate = cache(async (boardId, populate = "") => {
     if (!board) return null;
 
     if (populate && populate.includes("posts")) {
-      const posts = await Post.find({ boardId: board._id }).sort({ votesCounter: -1 }).lean();
+      const posts = await Post.find({ boardId: board._id }).sort({ votesCounter: -1, createdAt: -1 }).lean();
       board.posts = posts;
     }
 
@@ -64,7 +64,7 @@ export const getBoardPublic = cache(async (boardId, populate = "") => {
     if (!board) return null;
 
     if (populate && populate.includes("posts")) {
-      const posts = await Post.find({ boardId: board._id }).sort({ votesCounter: -1 }).lean();
+      const posts = await Post.find({ boardId: board._id }).sort({ votesCounter: -1, createdAt: -1 }).lean();
       board.posts = posts;
     }
 
