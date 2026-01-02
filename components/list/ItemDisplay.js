@@ -17,9 +17,9 @@ const SingleItem = ({ item, styling, itemAction }) => {
       }}
       className={`${styling.roundness[1]} ${styling.borders[0]} ${styling.shadows[0]} bg-base-100 p-6 flex justify-between items-start`}
     >
-      <div className="space-y-1">
-        <Title>{item.title}</Title>
-        <Paragraph className="max-h-32">
+      <div className="space-y-1 min-w-0">
+        <Title className="break-words">{item.title}</Title>
+        <Paragraph className="max-h-32 break-words">
           {item.description}
         </Paragraph>
       </div>

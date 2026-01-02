@@ -12,7 +12,7 @@ const DashboardPostsList = ({ posts, boardId }) => {
   const { posts: postsState } = useBoardPosts(boardId, posts);
 
   return (
-    <div className="space-y-4 w-full">
+    <div className="space-y-4 w-full min-w-0">
       <Title>Posts ({postsState?.length || 0})</Title>
       {postsState?.length > 0 ? (
         <ItemDisplay
