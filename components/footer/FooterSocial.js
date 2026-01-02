@@ -14,8 +14,10 @@ export default function FooterSocial() {
 
   return (
     <div className={`${styling.flex.col} gap-2`}>
-      <h3 className="font-bold text-base-content/90">{copywriting.SectionFooter.socials.label}</h3>
-      <div className={`${styling.flex.col} items-center sm:items-start gap-1 text-sm text-base-content/70`}>
+      <h3 className="font-bold text-base-content/90">
+        {copywriting.SectionFooter.socials.label}
+      </h3>
+      <div className={`${styling.flex.col} ${styling.SectionFooter.positioning} gap-1 text-sm text-base-content/70`}>
         {settings.business.socials.map((social) => (
           <a
             key={social.name}

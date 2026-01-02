@@ -16,7 +16,7 @@ export default function Textarea({ className = "", error, showCharacterCount, ..
           className={`${standardClass} ${errorClass} ${className} w-full pb-12`.trim()}
           {...props}
         />
-        <div className="absolute p-1 right-2 bottom-px text-xs bg-base-100 text-base-content/40 font-medium pointer-events-none">
+        <div className="absolute p-1 right-2 bottom-px text-xs text-base-content/40 font-medium pointer-events-none">
           {props.value?.length || 0} / {props.maxLength}
         </div>
       </div>

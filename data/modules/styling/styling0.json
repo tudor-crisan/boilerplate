@@ -39,6 +39,7 @@
     "textalign": "text-center sm:text-left"
   },
   "SectionFooter": {
-    "className": "text-center sm:text-left gap-10 sm:gap-16"
+    "className": "text-center sm:text-left gap-10 sm:gap-16",
+    "positioning": "items-center sm:items-start"
   }
 }
