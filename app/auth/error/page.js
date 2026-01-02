@@ -20,7 +20,7 @@ function ErrorContent() {
 
   return (
     <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
-      <div className={`card w-full max-w-md bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
+      <div className={`card w-full max-w-md ${styling.components.card}`}>
         <div className={`card-body items-center text-center ${styling.paddings.card}`}>
           {!isLoggedIn && (
             <div className="text-error mb-4">

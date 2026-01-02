@@ -74,7 +74,7 @@ function SignInContent() {
       onFocusCapture={clearError}
       onClickCapture={clearError}
     >
-      <div className={`card w-full max-w-sm bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
+      <div className={`card w-full max-w-sm ${styling.components.card}`}>
         <div className={`card-body ${styling.paddings.card}`}>
           <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
             <HeaderTop url={disabled ? "" : "/"} />
