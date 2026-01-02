@@ -1,23 +1,13 @@
 {
   "theme": "lofi",
   "font": "sen",
-  "roundness": [
-    "rounded-md",
-    "rounded-2xl"
-  ],
-  "shadows": [
-    "shadow-md",
-    "shadow-lg"
-  ],
-  "borders": [
-    "border border-primary"
-  ],
+  "roundness": ["rounded-md", "rounded-2xl"],
+  "shadows": ["shadow-md", "shadow-lg"],
+  "borders": ["border border-primary"],
   "paddings": {
-    "card": "p-6 sm:p-8"
+    "card": "py-6 px-4 sm:py-8 sm:px-6"
   },
-  "links": [
-    "link link-hover"
-  ],
+  "links": ["link link-hover"],
   "general": {
     "language": "en",
     "html": "scroll-smooth",
