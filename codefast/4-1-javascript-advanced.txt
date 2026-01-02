@@ -1,0 +1,42 @@
+JavaScript Advanced
+
+OR / AND OPERATOR
+ - || - OR OPERATOR
+ - && - AND OPERATOR
+
+const hasMap = true;
+const hasCompass = false;
+const isReady = hasMap || hasCompass // true
+const isReady = hasMap && hasCompass // false
+if (isReady) { // ready } else { // not ready }
+
+const level = 99;
+FALSY: if level = 
+* 0
+* -0
+* ""
+* null
+* undefined
+> false
+
+TRUTHY: anything else
+> true
+
+PROMISE
+ - JavaScript is synchronous, meaning it will go over the code and execute each line
+ - Promise - to handle requests, such as having a loading until request is done, then setState
+ - using .then() / .catch() to send data from requests, and update the useState
+
+ASYNC/AWAIT
+ - used to write code that looks synchronous, but it's asynchronous
+ - async getImage() { const response = await fetch(url) }
+ - const data = await response.json();
+
+Try/Catch
+ - if the error happens, we need try/catch when we do async/await
+ - without try/catch the whole app breaks - we need to tell users nicely
+ - try { // code } catch(e) { console.error(e) }
+ - throw new Error(e) - it's to stop the whole app
+ - used to catch when javascript breaks so the app keeps going
+
+

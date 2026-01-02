@@ -1,0 +1,77 @@
+Database Configurations
+
+API / Authenticate users / Store data somewhere
+ - save users who signed-up / social media / store
+ - client - site.com - server - database - api keys
+ - SQL - structured query language (like spreadsheets)
+ - NoSQL - data is store like javascript object (not strict)
+
+MongoDB 
+ - the nosql database - multiple documents = collection
+ - Collection (users) / Collection (jobs) - eg. { "name": "Tudor" }
+ - Database = all collections in which we have the documents (for each)
+ - New business / new database - to store all data for that app
+ - We can have 2, one for testing, one for production (to not break anything)
+
+Atlas
+ - mongodb.com/cloud/atlas - here we register a new account for the database
+ - survey - fill the information with what ever feels right
+ - M0 Free - select the cluster with 512Mb storage (AWS) - Cluster0
+ - Disable - "preload sample dataset" - choose "us-east-1" as per vercel
+ - Region - it's important the distances to be close between next.js and db
+ - Connect to Cluster0 - add a connection ip address / create a database user
+ - Compas - chose how to connect, save the connection string uri
+ - Network access - on the left menu, set "allow access from everywhere"
+
+Test
+ - Cluster0 - connect / Browse collections - "Add my own data"
+ - Database name / Collection name - Set these for test (production / jobs)
+ - Insert Document - title: "Entrepreneur" - click "Save" to store the data
+ - _id: ObjectId('6234234923482wqqe') - that's how they identify unique documents
+ - we don't touch anything of this, since this is how we reference across milions of files
+
+Compass
+ - Download - mongodb.com/products/tools/compass
+ - New connection - URI = <the-saved-uri-from-earlier>
+ - Anyone with access to this can do anything, it has to remain private
+ - mongodb+src://<username>:<password>@<cluster>mongodb.net
+ - Find it on Atlast webpage, connect to cluster0, select compass
+ - If forgot password - go to "Database access" - "Edit" - "Edit password"
+ - Connect / Create database / Create collection / Insert document
+{ "email": "tudor.crisan.webdev@gmail.com", "age": 36, "isEntrepreneur": true }
+ - Query - to retrieve documents / filter / serach - { isEntrepeneur: true }
+ - { age: { $gte: 30 } } - this query is to find age greater or equal to 30
+ - double-click to edit any value / change type of data, String - Int32 - boolean
+ - delete - the whole database by clicking the trash icon
+
+Environment variables
+ - .env.local - to store the variables
+ - MONGO_URI - the one stored on docs-v3
+ - .gitignore - will ignore sensitive information
+ - it's specific for node.js - console.log(process.env.MONGO_URI)
+ - it's how the node.js will locate the respective variable
+ - we need to reference it in a server-side component, not client-side component
+ - we can have different values based on the environments we are running
+ - if we put /dev (we are going to connect to the dev database) - on production we put /prod
+ - vercel - environment variables key / value - Environment Variables
+
+MongoDB API
+ - function - customizable to re-use everywhere in the code to update the db
+ - libs/mongo.js - here is the adapter that we will use across the whole app
+ - import clientPromise from "@/libs/mongo";
+ - clientPromise.db.collection("users").fnd({ age: 32 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

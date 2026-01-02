@@ -1,0 +1,14 @@
+Building the posts feature
+- We are going to build the boards and posts on public dashboard
+- As well as the deletion of the boards from the dashboard private page
+
+Tips with AI
+-Google Antigravity - to code with AI / Github Copilot (line-autocompletion)
+
+Security
+-Protect public routes which inputs databases (by limiting based on ip address)
+-Have a middleware to check how many ip request per minute/second have been done
+
+
+
+

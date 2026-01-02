@@ -1,0 +1,54 @@
+Version Control
+ - at some point you want a lot of features, and maybe you change your mind
+ - if you want to get back to previous version we need a tool called "git"
+
+Git
+ - it will store all previous versions of your code, lets you go back in time
+ - in case you lose your code, you can have it uploaded to "github"
+ - in case we want to work with multiple developers, to have a common application
+
+Install
+ - go to git-scm.com/download and install for win or mac
+ - on a mac for git we need homebrew, go ahead and install that one (google it)
+ - do step-by-step what it says, then "brew install git"
+
+---
+
+Init/Commit
+ - git init - to initiliaze a new git project, or "Initialize repository" in vscode
+ - git commit - and add a message "first commit" or "."
+
+Git config
+ - we need to set-up the global email and username
+ - git config --global user.email "tudor.crisan.webdev@gmail.com"
+ - git config --global user.name "tudor.crisan"
+
+Git publish branch
+ - it will ask you for a github account
+ - sign-up with your email address
+ - it's kinda like google drive for developers
+ - now authorize vscode to sign-in with github
+
+Git push
+ - in vscode on the "source control" on the left click "Publish branch"
+ - select "Private repository" and select the github username to push
+
+Git workflow
+ - the workflow is always the same, we are going to make changes on application
+ - the test it, then commit it, push it to the branch, and have it stored online
+
+---
+
+Git file diff
+ - changed files are with yellow, with M next to them indicating they are modified
+ - we have on the left the previous version, and on the right the changed version
+ - we can then add it, clicking the + icon, then put the message and see it in github
+
+Git timeline
+ - we can see the differences and activity that was done a file
+ - useful if something breaks, or want to see previous version of something
+
+Git ignore
+ - .gitignore - it's the file of things we don't want to track
+ - it's gray out, because we don't want to track there, since we have package.json
+

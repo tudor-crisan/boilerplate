@@ -1,0 +1,167 @@
+3.4. Medium Landing Page
+
+daisyUI components
+ - https://daisyui.com/components/ - hava bunch of pre-made UI/UX
+ - npm i -D daisyui@4.11.1 (marc) - or daisyui@latest 
+ - tailwind.config.js (v3) - plugins: [require("daisyui")]
+ - globals.css (v4) - @plugin "daisyui"
+
+daisyUI themes
+ - v3 - daisyui: { themes: ["light", "dark", "cupcake"] }
+ - v4 - @plugin "daisyui" {  themes: light --default, dark --prefersdark, cupcake; }
+ - layout - <html data-theme="cupcake">
+
+---
+
+SectionHeader
+ - 3 divs - for the appName , menus (no Link needed) we scroll on page, and login
+ - we can go an see the base colors, primary and everything in daisyui
+ - we are using bg-base-200 for the top menu
+
+flex
+ - flex - it changes display: flex and all are inline and use minimum width needed
+ - flex-row - default, elements inline left to right
+ - flex-col - elements will be vertical, one after the other
+ - justify-center - all elements will be aligned in center
+ - justify-between - elements inside will be pushed as far between
+ - justify-start - at the start of the section, or -end at the end
+ - items-strecth - default, it means they will take as much space as they can
+ - items-start - at the start positioned, -end at the end, and -center at the center
+ - space-x-4 - for the top menus to have space between them
+ - space-y-4 - to add space on the vertical axis
+
+responsive & media-queries
+ - usually it looks good on desktop but doesn't look good on mobile
+ - media-query - we can filter for mobile/desktop, sizes, distances
+ - sm (640px) mobile - md (768px) tablet - lg (1024px) laptop - xl (1280px) screens
+ - flex-col | flex-row - to display on mobile as vertical
+ - font-size - to be reduced on mobile devices - lg:text-5xl 
+ - hidden md:block - it's hidden for smaller than tablet, but for larger is visible
+ - max-md:hidden - it's hidden until it reaches the tablet size
+
+---
+
+SectionPricing
+ - section with title, text, a card, all the features, price, button to get started
+ - bg-base-100 - is the default of the website, so putting bg-base-200 changes it a bit
+ - bg-base-200 - is the one we are using for the section to differentiate
+ - text-primary - a new class that adds the primary color from the button
+ - daisyui card component - search a good one from daisyui to design the pricing section
+ - flex items-baseline - to have the text at the bottom with the pricing
+ - font-black - for the pricing to be the maximum of bold up to 900
+ - <ul> - unorganized list, to display the features
+
+svg (math vectors)
+ - svg or images for adding the thick item 
+ - image is made of pixels, while svg can scale
+ - it can scale and looks the same, it doesn't need to make another request
+ - its best to use svg's instead of images, for size, performance - heroicons.com
+ - xmlns, viewbox - we don't bother of these
+ - stroke - is what we actually see, color / width
+ - fill - is what's inside it
+
+useful tips
+ - text-primary - changes the color of line of the svg
+ - size-4 - is instead of putting w-4 and h-4
+ - svg's for html we can't use in jsx files
+ - space-y-2 - on the <ul> container, since it works for display block elements such as the <li>
+ - a lot better than putting mb everywhere
+
+ternary operator
+ - it's used if/else inline
+ - const age = 19; let canVote = age >= 18 ? "Yes" : "No"
+
+eslint rules
+ - it shows where it's broken, but sometimes we might not see the error immediately
+ - that's why eslint will catch, lets say we say "ages" instead of age
+
+template literals
+ - combining strings - `Hello ${name}` (under back thicks)
+ - it introduces the variables, or other operations, or even new lines
+ - we can do ternary inside template literals - `Hello ${isLoggedIn ? name : 'there'}`
+ - really useful in javascript to render better strings
+ - with normal strings we put \n
+ 
+---
+
+component customization
+ - we want ButtonLogin to have different width/class
+ - extraStyle = '' - as a prop inside the component to add more classes
+
+javascript arrays
+ - a list of elements - const fruits = ['a', 'b', 'c']
+ - fruits[0] - 'a' , the index being zero
+ - fruits.length - 3 | fruits.pop() - remove last one
+ - fruits.push('d') - pushes another one into the array at the end
+ - fruits.forEach(el => console.log(el)) - iterates through the elements
+ - const fruitsParagraphs = fruits.map(el => (<p>{el}</p>)}) - it returns the new array
+ - const fruitsWithoutA = fruits.filter(fruit => fruit !== 'a') - it returns all the others
+ - they are not limited to any type of value - const stuff = ['a', 23, false, ['c','d']]
+
+javascript jsx
+ - we want to make the listicle a little bit cleaner inside our code
+ - {pricingTable.map(el => (<li>...</li>))}
+ - when using the .map we need to add a key={} for children
+ - we can replace the array directly inside the jsx and map it
+ - when functions return just one thing, we can have arrow function inline
+
+useState hook
+ - is a special function to manage stateful functions
+ - when updating it changes the entire appearence of the page
+ - [name, setName] - its destructuring the main variable and the function to modify it
+
+server and client components
+ - the browser doesn't understand components, so they must be rendered, either on browser or next.js
+ - by default all components are server components - only if we specify "use client"
+ - it has advantages, because it's private - console.log shows only on the server, in node.js
+ - another big advantage is that we send only what the user need, it goes faster
+
+using client components
+ - if we want to useState or onClick we need to make it a client component, "use client" at the top
+ - it sends the js/html and react will render them inside the clients browser
+ - we shouldn't keep sensitive information inside these
+
+---
+
+FAQ section
+ - https://daisyui.com/components/accordion/ - take the jsx accordion, and use it with tailwind
+ - <></> - react fragment, it returns multiple elements, or to do conditional rendering with it
+ - condition ? <p>this</p> : <></>
+
+Anchor links
+ - we add id to the sections - #pricing #faq | we then put the href="#pricing"
+ - we want a bit of scrolling to do it in any-page - html className="scroll-smooth"
+ - the hash (#) means we stay on the page, we are not searching for a new page
+ - if we put /#pricing on another page, it will link to the home page and go to the id
+
+---
+
+Image component
+ - <img> - using just the html tag there are some drawbacks
+ - we can import an image from the same folder file, <Image src={productDemo} alt="text" />
+ - when importing vs adding the source in public folder it reduces based on width, height
+ - when importing, width and height are not required, but with source they are
+
+Style images
+ - flex flex-col sm:flex-row items-center space-y-6 - style properly the images
+ - we can give an image "h-40" object-center | object-contain | object-cover
+ - this way we adjust the image even though it's size is not properly positioned
+ - grayscale - make it black  and white | saturate-200 the saturation and others
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+Coding with AI
+
+- Extension: GitHub.copilot - costs $10/month
+- It knows stackoverflow / popular API for stripe
+- Lives inside your code and knows your variables, functions etc.
+
+How to use
+- Embed Chat - We can ask question of stuff in the codebase (select and ask)
+- Change Code - Select parts and say stuff that needs to be changed
+- Code autocompletion - Github copilot autocompletes for next line
+
+Tips
+- Keep most of the tabs open so AI knows the entire code
+- Naming matters - how we name variables determine the autocompletion
+- Goes for Functions, Components, so it knows the intent of the files
+- Comments - // create a portal session it will suggest what to code
+- Add more details on comment it will give even better outputs

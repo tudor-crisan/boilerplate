@@ -1,0 +1,24 @@
+Dashboard setup
+
+SignIn
+- import { signIn } from "next-auth/react";
+- signIn(undefined, { callbackUrl: dashboardUrl })
+
+Private Dashboard
+- we need to build a layout for everypage inside the dashboard
+"use client";
+import { redirect } from "next/navigation";
+import { useAuth } from "@/context/ContextAuth";
+export default function LayoutDashboard({ children }) {
+  const { isLoggedIn } = useAuth();
+  if (!isLoggedIn) redirect("/");
+  return children;
+}
+
+SignOut
+- import { signOut } from "next-auth/react";
+- <button className="btn btn-ghost" onClick={() => signOut()}>
+
+Production checklist
+- pushing changes without env variables doesn't work
+- in case it happens just select redeploy for the latest

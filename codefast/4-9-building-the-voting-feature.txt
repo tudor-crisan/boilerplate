@@ -1,0 +1,7 @@
+Building the voting feature
+- we are going to enable users to vote, and sort on the highest voted feature
+- anyone can come to the board and see those are the most requested features
+
+Analyze with AI
+- here we want to send screenshots of the actual app to the AI so it figures out
+- what new features can be added or other things we didn't thought about

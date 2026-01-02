@@ -1,0 +1,146 @@
+Payment Subscriptions
+- Alongside with the headline it impacts the most the conversion rates / can make or break your startup
+
+We need a payment processign solution
+Stripe, LemonSqueezy, Paddle 
+-they have parternship with visa, mastercard and amex
+
+they handle the payments, recurring, taxes
+they have a frontend for the users to input their details
+they always have api , so we can retrieve customers etc programatically
+
+Stripe / LemonSquezy (5% commision)
+each have a test environment to test setting-up users
+
+///
+
+Legal
+Each requires to have a sort of business
+freelancing solo-proprietorship / or LLC / or S-Corp
+-Best is to own one business, for any product be under that business
+-Organization settings, create a new stripe account
+-It's best to have one, since multiple products will fail
+-It doesn't matter where you register a business, but check if your govermnet allows it
+-It's best to set-up on your own country the business
+-It's best to pay your taxes, even if it's 25-30% then to have trouble later
+
+///
+
+Our Client -- Subscribe / Manage subscription
+Our API -- Update database / grant or revoke access
+Stripe Req -- Process request / Send webhook events
+Stripe API -- Renew subscription / Send invoice
+
+Payment processor
+-- product & prices/variants (the item/service you sell)
+-- prices/variations is a version of your product, like a plan
+-- webhook events - customer paid the invoce / last payment failed / subscription renewed
+
+/// 
+
+Data - to know if a user has access or not
+- on User model we set for having access, the stripe id, and plan id
+- hasAccess (Boolean) customerId (String) planId (String) - different features
+
+///
+
+Strie - how to set-up the account
+- Email, Full name, Country, Password
+- Developers - API keys - copy publishable / secret key to .env.example STRIPE_API_KEY
+- Product catalog - "Add new product" name as is required (use from the copywriting.json the appName)
+- Description - SectionHero headline / paragraph
+- Upload logo - apps/logo-favicon.png
+- Price - Recurring - $19 (what we have on the landing page)
+- Click - "Add the product"
+
+We have on price, one variation for the same product
+- we can have 3 plans for same product
+- we then click on the top right to copy the id and on the product to copy the price id
+- prod_TeU164ShYOZyiW -- price_1ShB397s6ZMXjd6BqEUcsV2W
+- we are going to use that later so user can subscribe
+- we will have one for testing locally for sandbox / and one for testing live
+
+Business set-up
+- on the sandbox / live account go to /settings/account and set-up account name, branding etc
+- enter the address, postal code
+
+///
+
+Checkout process
+- we can have it really simple - with payment links - click on the product and create link
+- users can click the link and pay and subscribe to product - it's great for individual work
+- Subscribe - POST /create-checkout - Stripe create checkout - Send back checkout url
+- Enters the details - Charge credit card / set-up recurring / invoice - Redirect to dashboard
+- Webhook - the payment processor will send a webhook to our database (hasAccess: true, customerId: "cus_123")
+
+Test credit cards
+- 4242 4242 4242 4242 12/26 123
+- Customers - to see new customers - view their subscriptions etc
+- You can see their next billing cycle, cancel their subscription, refund and other manual operations
+
+Success page
+- having a success page is important since we an thank the customers first of all, but more importantly
+we can wait a bit until the webhook gets updated, since it takes a few seconds, so we can update the access
+- else we might still display the "Subscribe" button for the customer, even if they already paid
+
+Webhook
+- Stripe CLI (go to docs to install it)
+- command: stripe listen --forward-to localhost:3000/api/billing/webhook
+- STRIPE_WEBHOOK_SECRET="whsec_46562c38a975d3484bffaf6a5971b04001450606020b73b520cefd3c75243022"
+- we need the webhook secret to verify that no one else sends us events as being signed-in
+- api/billing/webhook/route.js - all the logic for giving and revoking user access
+
+New customer event
+- Verify the request comes from stripe
+- Update the user in the database
+- Send back an answer to stripe
+
+Paid-only API
+- only allow from users that have paid
+- if !user.hasAccess then return with error "Please subscribe first"
+
+Customer portal
+- for paid users to update their invoices, plans, billings and delete their account
+- Stripe has the "customer portal so it's a lot easier
+- same process as getting a new URL to send it to the customer so they can update their billing
+- Stripe - Customer billing - Customer portal - "Activate test link"
+- ButtonPortal - to redirect users to billing portal
+
+Revoking access
+- First when customer decides to cancel their subscription through portal
+- If stripe failed to charge their payment - listen to an event, customer stripe deleted
+- Stripe - Settings - Billings - Subscriptions and emails - Manage failed payments for subscriptions
+
+Customer emails:
+ * Send a reminder email 7 days before a free trial ends
+ * Send emails about upcoming renewals
+ * Send emails about expiring cards
+ * Send emails when card payments fail
+ * Send emails when bank debit payments fail
+  > Payment method updates - Use your own custom link - domain.com/dashboard
+
+Settings > Billing > Customer portal
+Cancellations - Cancellation reason - Edit reasons (update with all of them)
+- if we go to "Customers" and click the customer and click their cancelation
+- we can run a simulation in the future and see if the webhook is being triggered for deletion
+
+///
+
+Going LIVE
+Product Catalog > Select Product > Copy to live mode > Copy new price id > Add it to vercel
+Docs-v3.rtf > Copy the live key > Add it to vercel
+
+Logs
+-In case of issues go to Vercel to Logs to see what's going on
+
+
+
+
+
+
+
+
+
+
+
+

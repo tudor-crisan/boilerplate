@@ -1,0 +1,135 @@
+3.3. Basic Landing Page
+
+next.js structure
+ - app - folder where 99% of the app will be there
+ - app/page.js - is the main page where users land
+ - app/layout.js - is the layout wrapper of pages
+ - app/globals.css - is the css globals, tailwind and daisyui
+ - app/favicon.ico - is the favicon, logo of the website
+
+eslint
+ - when we installed next.js we have a dependency called eslint
+ - this one shows errors in code so we don't ship stuff that's broken
+
+headline / paragraph
+ - it will be in the hero section, where users arrive
+ - <main>
+     <h1> 
+       Collect customer feedback to build better products
+     </h1>
+     <div>
+	Create a feedback board in minutes, prioritize features, and build produts your customers will love.
+     </div>
+   </main>
+
+new page (dashboard)
+ - at some point users will sign-up for the service and have a dashboard etc.
+ - app/dashboard/page.js - here we have a new page created for /dashboard path
+ - export default function Dashboard() {} - a new component page for dashboard
+ - app/dashboard/invoices - this will take you to a nested route inside
+ - root segment / segment / leaf segment
+export default function Dashboard() {}
+
+---
+
+link
+ - we want users to navigate from the homepage to the dashboard
+ - at this point the application is really fast since it's on the computer
+ - but when it's hosted it will move differently, that's why we use <Link>
+ - using the <Link> it prefetches the dashboard page as chunks by next.js
+ - we can still use the <a> tag, but the point of framework is to make it better / easier
+<Link href="/dashboard">Dashboard</Link>
+
+layout container
+ - it wraps with a template on all pages, a container for all other pages
+ - we have import './globals.css' , we inject the css properties in all pages
+ - we remove everything from globals.css except the tailwind and daisyui parts
+export default function RootLayout({ children }) {}
+
+why react.js
+ - buttons, that handle data to the database, or just to show a simple message
+ - the library simplifies, and makes it much faster and easier with jsx
+ - javascript (programming language), react.js (library), next.js (react.js framework)
+
+---
+
+components
+ - just like legos, they can be small chunks that we build with them, we customize them, re-use
+ - <Header /> <Hero /> <ButtonCheckout /> all of these can be easily moved around
+ - if we want to have checkout started, we just put this component where we want to
+ - /components/ we store them here, we name them relevant to know about them
+ - name eg. ButtonLogin (what it is, a button) and what it doesn ButtonLogin, ButtonCheckout
+
+const ButtonLogin = () => <button>ButtonLogin</button>;
+export default ButtonLogin;
+
+return
+ - return we use it once in every javascript function, after return nothing will run
+ - give the value to the outside part of the function, we always have a return keyword
+
+import/export
+ - separate the code in different files, and we use the code with import
+ - we export the code to other places, export default will be the default what we import
+ - @/components/ButtonLogin it's the path to get to that component
+ - we don't need to write the implied extension, such as .js at the end
+ - import Link from "next/link" it's imported from packages we installed from internet
+
+---
+
+naming
+ - it's important to have a name that's very clear for you, since we are using them all over
+ - ButtonCheckout (visually knowing it's a Button, and Checkout to know the feature of it)
+ - <ButtonLogin /> like this since we aren't having anything inside of it
+
+jsx (javascript xml)
+ - we can build complex dynamic html without overcomplicating things
+ - we can import components, we can also just put curly-brackets {console.log("I'm here")}
+ - <p>hey {name} 👋</p> - we use a constant from the component, or maybe a function etc
+ - we cannot put class since it's a reserved word, so we need to put className
+ - also we can put onClick and send a function there what to happen when the button is clicked
+
+props
+ - here we receive in parameters, so we can send there isLoggedIn which can get props.isLoggedIn
+ - we can pass multiple props and have different visuals, different behaviors
+ - we can use destructuring on the props inside the function parameters
+ - children - to add inside the elements, just like .children on native javascript
+
+functions
+ - export default / function home(){} / () => {}
+ - next.js pages are components - when it compiles it looks at the layout, and adds the children
+
+styling
+ - <h1 style={{ fontSzie: "48px" }}>hello</h1> - the object key, instead of font-size, will be fontSize
+ - same goes for textAlign, fontWeight, etc and we send an object to the style attribute
+ - we can re-use in globals.css classes that we just add to className
+ - the ./globals is done with import, similar to have it will be done with <link href="" />
+
+tailwindcss
+ - switching between files for css, and also to find names for classes, and manage it all
+ - has hundreds predefined classes, to just add it to elements
+ - line-clamp-1 to be in 1 line / text-3xl the font size / font-bold to bold fold
+ - Tailwind CSS IntelliSense - extension for vscode for autocomplete / explanations
+
+---
+
+hero section
+ - headline / paragraph / button / demo of app
+ - <section> - use for the hero, pricing, faq, etc. -- p-8
+ - h1 - text-4xl font-extrabold leading-none capitalize mb-6 -- to have a standard for all pages
+ - p - we want it to have less opacity than the headline -- opacity-90 and mb-10 to it's spaced good
+ - "text-center max-w-2xl mx-auto" to center on screen, center the text and have a max width
+
+screen-size
+ - remember - 1rem = 16px - p-4 = 16px (or 1rem)
+ - mobile - on inspect element we select the mobile icon to see how it looks
+
+
+
+
+
+
+
+
+
+
+
