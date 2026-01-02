@@ -22,12 +22,10 @@ function ErrorContent() {
     <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
       <div className={`card w-full max-w-md px-4 bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
         <div className="card-body py-8 items-center text-center">
-          {!isLoggedIn ? (
+          {!isLoggedIn && (
             <div className="text-error mb-4">
               <SvgError className="size-16" />
             </div>
-          ) : (
-            <div className="mb-4"></div>
           )}
           <Title>
             {isLoggedIn ? "You are logged in" : "Authentication Error"}
@@ -44,12 +42,13 @@ function ErrorContent() {
                 {isLoggedIn ? "Go to dashboard" : "Try Again"}
               </Button>
             )}
-
-            <div className="mx-auto mt-2">
-              <ButtonBack
-                className="btn-ghost btn-md! shadow-none!"
-              />
-            </div>
+            {!isLoggedIn && (
+              <div className="mx-auto mt-2">
+                <ButtonBack
+                  className="btn-ghost btn-md! shadow-none!"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

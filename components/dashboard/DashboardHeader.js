@@ -1,6 +1,10 @@
+"use client";
+import { useStyling } from "@/context/ContextStyling";
+
 export default function DashboardHeader({ children }) {
+  const { styling } = useStyling();
   return (
-    <section className="max-w-5xl mx-auto bg-base-100 flex justify-between items-center px-3 sm:px-5 py-3">
+    <section className={`max-w-5xl mx-auto bg-base-100 ${styling.SectionHeader.spacing}`}>
       {children}
     </section>
   )

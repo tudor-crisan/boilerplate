@@ -1,12 +1,14 @@
 "use client";
 import TosHeader from "@/components/tos/TosHeader";
+import { useStyling } from "@/context/ContextStyling";
 import Main from "@/components/common/Main";
 
 export default function TosWrapper({ children }) {
+  const { styling } = useStyling();
   return (
     <Main className="bg-base-100">
       <TosHeader />
-      <div className="max-w-3xl mx-auto py-12 px-4 sm:px-8">
+      <div className={`max-w-3xl mx-auto ${styling.general.spacing}`}>
         {children}
       </div>
     </Main>

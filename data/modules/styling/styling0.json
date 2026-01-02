@@ -4,13 +4,17 @@
   "roundness": ["rounded-md", "rounded-2xl"],
   "shadows": ["shadow-md", "shadow-lg"],
   "borders": ["border border-primary"],
+  "paddings": {
+    "card": "p-6 sm:p-8"
+  },
   "links": ["link link-hover"],
   "general": {
     "language": "en",
     "html": "scroll-smooth",
     "body": "select-none",
     "container": "max-w-3xl mx-auto",
-    "spacing": "py-32 px-4 sm:px-8",
+    "section": "py-32 px-4 sm:px-8",
+    "spacing": "py-12 px-4 sm:px-8",
     "label": "text-sm uppercase font-bold text-center text-primary",
     "title": "text-2xl sm:text-3xl font-extrabold leading-none"
   },
