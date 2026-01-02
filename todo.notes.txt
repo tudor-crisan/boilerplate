@@ -1,6 +1,3 @@
-- refresh with event the new posts on dashboard as well
-- have a view board (to go to public board view)
-- on loyalboards.my when addin a new post it doesn't update the screen
 - when no posts added for a board, have a svg or message to say it's empty
 - have the same message for boards as well, somewhere inside the <ListDisplay>
 - don't show the "Board updated" when the event is from the same browser

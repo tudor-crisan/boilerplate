@@ -14,7 +14,7 @@ import Title from "@/components/common/Title";
 import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import Label from "@/components/common/Label";
-import FormGroup from "@/components/common/FormGroup";
+import Vertical from "@/components/common/Vertical";
 import DashboardPostsList from "@/components/modules/boards/DashboardPostsList";
 
 export async function generateMetadata({ params }) {
@@ -49,7 +49,7 @@ export default async function PrivateFeedbackBoard({ params }) {
               <Title>
                 {board.name}
               </Title>
-              <FormGroup>
+              <Vertical>
                 <Label>Public link</Label>
                 <InputCopy
                   value={`${baseUrl()}/b/${boardId}`}
@@ -57,7 +57,7 @@ export default async function PrivateFeedbackBoard({ params }) {
                   tooltipCopy="Copy link"
                   tooltipOpen="Go to board"
                 />
-              </FormGroup>
+              </Vertical>
               <ButtonDelete
                 url={deleteUrl}
                 buttonText="Delete Board"

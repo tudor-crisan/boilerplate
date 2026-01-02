@@ -2,10 +2,21 @@
 import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SingleItem = ({ item, styling, itemAction }) => {
   return (
-    <li className={`${styling.roundness[1]} ${styling.borders[0]} ${styling.shadows[0]} bg-base-100 p-6 flex justify-between items-start`}>
+    <motion.li
+      layout
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{
+        layout: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.2 }
+      }}
+      className={`${styling.roundness[1]} ${styling.borders[0]} ${styling.shadows[0]} bg-base-100 p-6 flex justify-between items-start`}
+    >
       <div className="space-y-1">
         <Title>{item.title}</Title>
         <Paragraph className="max-h-32">
@@ -17,7 +28,7 @@ const SingleItem = ({ item, styling, itemAction }) => {
           {typeof itemAction === "function" ? itemAction(item) : item.action}
         </div>
       )}
-    </li>
+    </motion.li>
   );
 };
 
@@ -26,14 +37,16 @@ export default function ItemDisplay({ items, itemAction }) {
 
   return (
     <ul className="space-y-4 grow">
-      {items && items.map((item) => (
-        <SingleItem
-          key={item._id}
-          item={item}
-          styling={styling}
-          itemAction={itemAction}
-        />
-      ))}
+      <AnimatePresence mode="popLayout">
+        {items && items.map((item) => (
+          <SingleItem
+            key={item._id}
+            item={item}
+            styling={styling}
+            itemAction={itemAction}
+          />
+        ))}
+      </AnimatePresence>
     </ul>
   );
 }
