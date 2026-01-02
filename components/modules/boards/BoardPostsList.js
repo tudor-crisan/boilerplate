@@ -1,91 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import ItemDisplay from "@/components/list/ItemDisplay";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
-import toast from "react-hot-toast";
-import { getClientId } from "@/libs/utils.client";
+import useBoardPosts from "@/hooks/useBoardPosts";
 
 const BoardPostsList = ({ posts, boardId }) => {
-  const [postsState, setPostsState] = useState(posts);
-
-  useEffect(() => {
-    setPostsState(posts);
-  }, [posts]);
-
-  const handleVote = (postId, newVoteCount) => {
-
-    setPostsState((prevPosts) => {
-      // 1. Update the specific post
-      const updatedPosts = prevPosts.map((post) => {
-        if (post._id === postId) {
-          return { ...post, votesCounter: newVoteCount };
-        }
-        return post;
-      });
-
-      // 2. Sort the array
-      // Primary sort: votesCounter (desc)
-      // Secondary sort: createdAt (desc)
-      return updatedPosts.sort((a, b) => {
-        if (b.votesCounter !== a.votesCounter) {
-          return b.votesCounter - a.votesCounter;
-        }
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
-    });
-  };
-
-  // Real-time updates with SSE
-  useEffect(() => {
-    const eventSource = new EventSource("/api/modules/boards/stream");
-
-    eventSource.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-
-        if (data.type === "vote" && data.boardId === boardId) {
-          handleVote(data.postId, data.votesCounter);
-          toast.success("Board updated!");
-        }
-
-        if (data.type === "post-create" && data.boardId === boardId) {
-          setPostsState((prevPosts) => {
-            if (prevPosts.some(p => p._id === data.post._id)) return prevPosts;
-
-            const newPosts = [data.post, ...prevPosts];
-            // Sort them in case they are not in order
-            return newPosts.sort((a, b) => {
-              if (b.votesCounter !== a.votesCounter) {
-                return (b.votesCounter || 0) - (a.votesCounter || 0);
-              }
-              return new Date(b.createdAt) - new Date(a.createdAt);
-            });
-          });
-
-          if (data.clientId !== getClientId()) {
-            toast.success("New post added!");
-          }
-        }
-
-        if (data.type === "post-delete" && data.boardId === boardId) {
-          setPostsState((prevPosts) => prevPosts.filter(p => p._id !== data.postId));
-          toast.success("Post removed!");
-        }
-      } catch (error) {
-        console.error("SSE parse error", error);
-      }
-    };
-
-    eventSource.onerror = (error) => {
-      console.error("EventSource failed:", error);
-      eventSource.close();
-    };
-
-    return () => {
-      eventSource.close();
-    };
-  }, [boardId]);
+  const { posts: postsState, handleVote } = useBoardPosts(boardId, posts, { showVoteToast: true });
 
   return (
     <ItemDisplay

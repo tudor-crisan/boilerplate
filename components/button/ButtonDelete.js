@@ -28,7 +28,7 @@ export default function ButtonDelete({
         onSuccess: () => {
           if (refreshOnSuccess) {
             router.refresh();
-          } else {
+          } else if (withRedirect) {
             router.push(redirectUrl);
           }
         },

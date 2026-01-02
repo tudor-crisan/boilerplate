@@ -105,6 +105,7 @@ export default function FormCreate({ type, queryParams = {} }) {
               disabled={loading}
               rows={config.rows || 3}
               maxLength={config.maxlength}
+              showCharacterCount={config.showCharacterCount ?? formConfig.showCharacterCount}
             />
           ) : (
             <Input
@@ -118,6 +119,7 @@ export default function FormCreate({ type, queryParams = {} }) {
               onChange={(e) => handleChange(target, e.target.value)}
               disabled={loading}
               maxLength={config.maxlength}
+              showCharacterCount={config.showCharacterCount ?? formConfig.showCharacterCount}
             />
           )}
 

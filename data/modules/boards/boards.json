@@ -55,7 +55,8 @@
           "value": "",
           "label": "Short, descriptive title",
           "placeholder": "Green buttons plz",
-          "maxlength": 100
+          "maxlength": 60,
+          "showCharacterCount": true
         },
         "description": {
           "type": "textarea",
@@ -64,7 +65,8 @@
           "label": "Description",
           "placeholder": "The login button color should be green to match our brand colors.",
           "rows": 4,
-          "maxlength": 1000
+          "maxlength": 400,
+          "showCharacterCount": true
         }
       },
       "backend": {

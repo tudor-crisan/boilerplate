@@ -5,12 +5,12 @@ const postSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    maxlength: 100,
+    maxlength: 60,
   },
   description: {
     type: String,
     trim: true,
-    maxlength: 1000,
+    maxlength: 400,
   },
   boardId: {
     type: mongoose.Schema.Types.ObjectId,
