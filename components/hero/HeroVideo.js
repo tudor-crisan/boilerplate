@@ -14,7 +14,7 @@ export default function HeroVideo() {
           aria-label={visual.HeroVideo.video.arialabel}
           width={visual.HeroVideo.video.width}
           height={visual.HeroVideo.video.height}
-          className={`${styling.roundness[1]} ${styling.shadows[1]} ${visual.HeroVideo.video.classname}`}
+          className={`${styling.components.card_featured} ${visual.HeroVideo.video.classname}`}
         >
           <source src={visual.HeroVideo.source.src} type={visual.HeroVideo.source.type} />
         </video>

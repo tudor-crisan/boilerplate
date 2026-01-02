@@ -27,7 +27,7 @@ export default function IconLogo() {
   }, []);
 
   return (
-    <div className={`${styling.roundness[0]} ${styling.shadows[0]} ${visual.logo.container} inline-flex items-center justify-center`}>
+    <div className={`${styling.components.element} ${visual.logo.container} inline-flex items-center justify-center`}>
       <svg
         className={visual.logo.svg.classname}
         viewBox={visual.logo.svg.viewbox}

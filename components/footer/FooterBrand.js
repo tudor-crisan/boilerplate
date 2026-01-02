@@ -20,7 +20,7 @@ export default function FooterBrand() {
               alt={settings.business.entity_name}
               width={32}
               height={32}
-              className={`${styling.roundness[0]} ${styling.shadows[0]} size-6 sm:size-8`}
+              className={`${styling.components.element} size-6 sm:size-8`}
             />
           )}
           <span>{settings.business.entity_name}</span>
