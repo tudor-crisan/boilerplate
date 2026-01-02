@@ -1,5 +1,6 @@
 "use client";
 import { useStyling } from "@/context/ContextStyling";
+import CharacterCount from "@/components/common/CharacterCount";
 
 export default function Input({ className = "", error, showCharacterCount, ...props }) {
   const { styling } = useStyling();
@@ -24,9 +25,11 @@ export default function Input({ className = "", error, showCharacterCount, ...pr
           className={`${defaultClasses} ${errorClass} ${className} w-full pr-14`.trim()}
           {...props}
         />
-        <div className="absolute p-1 right-2 bottom-2 text-xs text-base-content/40 font-medium pointer-events-none">
-          {props.value?.length || 0} / {props.maxLength}
-        </div>
+        <CharacterCount
+          currentLength={props.value?.length || 0}
+          maxLength={props.maxLength}
+          className="bottom-2"
+        />
       </div>
     );
   }

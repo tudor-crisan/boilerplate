@@ -1,5 +1,6 @@
 "use client";
 import { useStyling } from "@/context/ContextStyling";
+import CharacterCount from "@/components/common/CharacterCount";
 
 export default function Textarea({ className = "", error, showCharacterCount, ...props }) {
   const { styling } = useStyling();
@@ -16,9 +17,11 @@ export default function Textarea({ className = "", error, showCharacterCount, ..
           className={`${standardClass} ${errorClass} ${className} w-full pb-12`.trim()}
           {...props}
         />
-        <div className="absolute p-1 right-2 bottom-px text-xs text-base-content/40 font-medium pointer-events-none">
-          {props.value?.length || 0} / {props.maxLength}
-        </div>
+        <CharacterCount
+          currentLength={props.value?.length || 0}
+          maxLength={props.maxLength}
+          className="bottom-px"
+        />
       </div>
     );
   }

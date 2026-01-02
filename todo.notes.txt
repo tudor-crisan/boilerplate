@@ -1,8 +1,4 @@
-- figure out at email-theme.js to get out the shadows, borders, roundness
-- find through the project the useStyling, and figure out if we can standardize repeatable implementations
-- fix the space- and add them to the lb0_styling to be re-used
 
-- check app\auth\error\page.js and app\auth\verify-request\page.js what they have in common
 - move the redirect "/dashboard" paths into the boards.json module to easily re-use (and update components)
 - have redirect - when logged-in on /auth/error or /auth/verify-request to a path to have the "Go to dashboard" button and the message
 - have a way to edit the board link slug, and use slugs when possible (with checks for existing board names)
