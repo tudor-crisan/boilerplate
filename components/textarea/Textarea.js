@@ -6,7 +6,7 @@ export default function Textarea({ className = "", error, showCharacterCount, ..
 
   // Helper for error state
   const errorClass = error ? "textarea-error" : "";
-  const standardClass = `${styling.roundness[0]} ${styling.shadows[0]} textarea`;
+  const standardClass = `${styling.components.element} textarea`;
 
   if (showCharacterCount && props.maxLength) {
     return (
