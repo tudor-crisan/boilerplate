@@ -1,12 +1,12 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import ItemDisplay from "@/components/list/ItemDisplay";
-import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
+import ButtonDelete from "@/components/button/ButtonDelete";
 import toast from "react-hot-toast";
+import Title from "@/components/common/Title";
 import { getClientId } from "@/libs/utils.client";
 
-const BoardPostsList = ({ posts, boardId }) => {
+const DashboardPostsList = ({ posts, boardId }) => {
   const [postsState, setPostsState] = useState(posts);
 
   useEffect(() => {
@@ -14,9 +14,7 @@ const BoardPostsList = ({ posts, boardId }) => {
   }, [posts]);
 
   const handleVote = (postId, newVoteCount) => {
-
     setPostsState((prevPosts) => {
-      // 1. Update the specific post
       const updatedPosts = prevPosts.map((post) => {
         if (post._id === postId) {
           return { ...post, votesCounter: newVoteCount };
@@ -24,19 +22,15 @@ const BoardPostsList = ({ posts, boardId }) => {
         return post;
       });
 
-      // 2. Sort the array
-      // Primary sort: votesCounter (desc)
-      // Secondary sort: createdAt (desc)
       return updatedPosts.sort((a, b) => {
         if (b.votesCounter !== a.votesCounter) {
-          return b.votesCounter - a.votesCounter;
+          return (b.votesCounter || 0) - (a.votesCounter || 0);
         }
         return new Date(b.createdAt) - new Date(a.createdAt);
       });
     });
   };
 
-  // Real-time updates with SSE
   useEffect(() => {
     const eventSource = new EventSource("/api/modules/boards/stream");
 
@@ -46,7 +40,6 @@ const BoardPostsList = ({ posts, boardId }) => {
 
         if (data.type === "vote" && data.boardId === boardId) {
           handleVote(data.postId, data.votesCounter);
-          toast.success("Board updated!");
         }
 
         if (data.type === "post-create" && data.boardId === boardId) {
@@ -54,7 +47,6 @@ const BoardPostsList = ({ posts, boardId }) => {
             if (prevPosts.some(p => p._id === data.post._id)) return prevPosts;
 
             const newPosts = [data.post, ...prevPosts];
-            // Sort them in case they are not in order
             return newPosts.sort((a, b) => {
               if (b.votesCounter !== a.votesCounter) {
                 return (b.votesCounter || 0) - (a.votesCounter || 0);
@@ -88,17 +80,23 @@ const BoardPostsList = ({ posts, boardId }) => {
   }, [boardId]);
 
   return (
-    <ItemDisplay
-      items={postsState}
-      itemAction={(item) => (
-        <BoardButtonVote
-          postId={item._id}
-          initialVotesCounter={item.votesCounter || 0}
-          onVote={(newCount) => handleVote(item._id, newCount)}
-        />
-      )}
-    />
+    <div className="space-y-4 w-full">
+      <Title>Posts ({postsState?.length || 0})</Title>
+      <ItemDisplay
+
+        items={postsState}
+        itemAction={(item) => (
+          <ButtonDelete
+            url={`/api/modules/boards/post?postId=${item._id}`}
+            buttonText="Delete"
+            withConfirm={true}
+            confirmMessage="Are you sure you want to delete this post?"
+            refreshOnSuccess={false} // SSE will handle the update
+          />
+        )}
+      />
+    </div>
   );
 };
 
-export default BoardPostsList;
+export default DashboardPostsList;

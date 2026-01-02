@@ -105,3 +105,11 @@ export function oklchToHex(oklchStr) {
 
   return `#${toHex(r)}${toHex(g)}${toHex(bl)}`;
 }
+
+let clientId = null;
+export function getClientId() {
+  if (!clientId && typeof window !== 'undefined') {
+    clientId = Math.random().toString(36).substring(2, 15);
+  }
+  return clientId;
+}

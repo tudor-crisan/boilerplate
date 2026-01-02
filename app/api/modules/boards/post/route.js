@@ -7,6 +7,8 @@ import Post from "@/models/modules/boards/Post";
 import Board from "@/models/modules/boards/Board";
 import { Filter } from "bad-words";
 import { checkReqRateLimit } from "@/libs/rateLimit";
+import boardEvents from "@/libs/modules/boards/events";
+
 
 const TYPE = "Post";
 
@@ -74,7 +76,12 @@ export async function POST(req) {
 
     const post = await Post.create(postData);
 
+    const clientId = req.headers.get("x-client-id");
+    boardEvents.emit("post-create", { boardId, post, clientId });
+
     return responseSuccess(createSuccesfully.message, { post }, createSuccesfully.status)
+
+
 
   } catch (e) {
     console.error("Post creation error: " + e?.message);
@@ -133,7 +140,10 @@ export async function DELETE(req) {
 
     await Post.deleteOne({ _id: postId });
 
+    boardEvents.emit("post-delete", { boardId: post.boardId, postId });
+
     return responseSuccess(deleteSuccesfully.message, {}, deleteSuccesfully.status);
+
   } catch (e) {
     console.error("Post deletion error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);

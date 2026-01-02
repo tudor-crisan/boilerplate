@@ -10,12 +10,12 @@ import { baseUrl } from "@/libs/utils.client";
 import { getMetadata } from "@/libs/seo";
 import ButtonDelete from "@/components/button/ButtonDelete";
 import Title from "@/components/common/Title";
-import ItemDisplay from "@/components/list/ItemDisplay";
 
 import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import Label from "@/components/common/Label";
 import FormGroup from "@/components/common/FormGroup";
+import DashboardPostsList from "@/components/modules/boards/DashboardPostsList";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;
@@ -36,20 +36,6 @@ export default async function PrivateFeedbackBoard({ params }) {
   if (!board) {
     redirect(backUrl);
   }
-
-  const postsWithAction = board?.posts?.map(post => ({
-    ...post,
-    action: (
-      <ButtonDelete
-        url={`/api/modules/boards/post?postId=${post._id}`}
-        buttonText="Delete"
-        withConfirm={true}
-        confirmMessage="Are you sure you want to delete this post?"
-        refreshOnSuccess={true}
-      />
-    )
-  }));
-
 
   return (
     <DashboardWrapper>
@@ -78,12 +64,10 @@ export default async function PrivateFeedbackBoard({ params }) {
               />
             </div>
           </Sidebar>
-          <div className="space-y-4 w-full">
-            <Title>Posts ({board?.posts?.length || 0})</Title>
-            <ItemDisplay
-              items={postsWithAction}
-            />
-          </div>
+          <DashboardPostsList
+            posts={board.posts}
+            boardId={boardId}
+          />
         </Columns>
       </DashboardMain>
     </DashboardWrapper>

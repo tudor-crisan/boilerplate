@@ -16,8 +16,18 @@ export async function GET(req) {
         sendEvent({ type: "vote", ...data });
       };
 
-      // Listen for 'vote' events
+      const onPostCreate = (data) => {
+        sendEvent({ type: "post-create", ...data });
+      };
+
+      const onPostDelete = (data) => {
+        sendEvent({ type: "post-delete", ...data });
+      };
+
+      // Listen for events
       boardEvents.on("vote", onVote);
+      boardEvents.on("post-create", onPostCreate);
+      boardEvents.on("post-delete", onPostDelete);
 
       // Keep connection alive
       const keepAlive = setInterval(() => {
@@ -28,6 +38,8 @@ export async function GET(req) {
       req.signal.addEventListener("abort", () => {
         clearInterval(keepAlive);
         boardEvents.off("vote", onVote);
+        boardEvents.off("post-create", onPostCreate);
+        boardEvents.off("post-delete", onPostDelete);
         controller.close();
       });
     },
