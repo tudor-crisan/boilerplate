@@ -13,7 +13,7 @@ export default function VerifyRequestPage() {
   return (
     <div className={`min-h-screen flex items-center justify-center bg-base-200 ${styling.general.spacing}`}>
       <div className={`card w-full max-w-sm bg-base-100 ${styling.shadows[1]} ${styling.roundness[1]} ${styling.borders[0]}`}>
-        <div className="card-body py-8 items-center text-center">
+        <div className={`card-body items-center text-center ${styling.paddings.card}`}>
           {!isLoggedIn && (
             <div className="text-primary mx-auto my-4">
               <SvgEmail className="size-12" />
