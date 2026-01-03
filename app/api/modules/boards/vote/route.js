@@ -8,12 +8,7 @@ import boardEvents from "@/libs/modules/boards/events";
 
 const TYPE = "Vote";
 
-const {
-  voteRecorded,
-  voteRemoved,
-  postNotFound,
-  postIdRequired,
-} = settings.forms[TYPE].backend.responses;
+
 
 const {
   serverError,
@@ -23,6 +18,16 @@ export async function POST(req) {
   if (isResponseMock(TYPE)) {
     return responseMock(TYPE);
   };
+
+  if (!settings.forms?.[TYPE]) {
+    return responseError(serverError.message, {}, serverError.status);
+  }
+
+  const {
+    voteRecorded,
+    postNotFound,
+    postIdRequired,
+  } = settings.forms[TYPE].backend.responses;
 
   const error = await checkReqRateLimit(req, "vote-toggle");
   if (error) return error;
@@ -67,6 +72,16 @@ export async function DELETE(req) {
   if (isResponseMock(TYPE)) {
     return responseMock(TYPE);
   };
+
+  if (!settings.forms?.[TYPE]) {
+    return responseError(serverError.message, {}, serverError.status);
+  }
+
+  const {
+    voteRemoved,
+    postNotFound,
+    postIdRequired,
+  } = settings.forms[TYPE].backend.responses;
 
   const error = await checkReqRateLimit(req, "vote-toggle");
   if (error) return error;

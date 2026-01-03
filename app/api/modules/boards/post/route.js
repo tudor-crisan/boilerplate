@@ -19,20 +19,23 @@ const {
   noAccess,
 } = settings.forms.general.backend.responses;
 
-const {
-  titleRequired,
-  descriptionRequired,
-  boardIdRequired,
-  postIdRequired,
-  postNotFound,
-  createSuccesfully,
-  deleteSuccesfully,
-} = settings.forms[TYPE].backend.responses;
+
 
 export async function POST(req) {
   if (isResponseMock(TYPE)) {
     return responseMock(TYPE);
   };
+
+  if (!settings.forms?.[TYPE]) {
+    return responseError(serverError.message, {}, serverError.status);
+  }
+
+  const {
+    titleRequired,
+    descriptionRequired,
+    boardIdRequired,
+    createSuccesfully,
+  } = settings.forms[TYPE].backend.responses;
 
   const error = await checkReqRateLimit(req, "post-create");
   if (error) return error;
@@ -92,6 +95,16 @@ export async function POST(req) {
 export async function DELETE(req) {
   const error = await checkReqRateLimit(req, "post-delete");
   if (error) return error;
+
+  if (!settings.forms?.[TYPE]) {
+    return responseError(serverError.message, {}, serverError.status);
+  }
+
+  const {
+    postIdRequired,
+    postNotFound,
+    deleteSuccesfully,
+  } = settings.forms[TYPE].backend.responses;
 
   try {
     const session = await auth();
@@ -157,6 +170,8 @@ export async function GET(req) {
     const boardId = searchParams.get("boardId");
 
     if (!boardId) {
+      if (!settings.forms?.[TYPE]) return responseError(serverError.message, {}, serverError.status);
+      const { boardIdRequired } = settings.forms[TYPE].backend.responses;
       return responseError(boardIdRequired.message, {}, boardIdRequired.status);
     }
 
