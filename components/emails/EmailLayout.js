@@ -1,3 +1,4 @@
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export const EmailBody = ({ children, style }) => (
   <body style={{ margin: 0, padding: 0, ...style }}>
@@ -21,9 +22,11 @@ export const EmailButton = ({ href, children, style }) => (
   </a>
 );
 
+
+
 export const GenericLayout = ({ font, fontImportName, children }) => {
   const googleFontImport = (font && fontImportName && !font.toLowerCase().includes("sans-serif"))
-    ? `@import url('https://fonts.googleapis.com/css2?family=${fontImportName}:wght@400;600;700;800&display=swap');`
+    ? `@import url('${settings.integrations.googleFonts.baseUrl}?family=${fontImportName}:wght@400;600;700;800&display=swap');`
     : "";
 
   return (

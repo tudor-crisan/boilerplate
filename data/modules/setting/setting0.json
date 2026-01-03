@@ -114,6 +114,9 @@
     "integrations": {
       "resend": {
         "baseUrl": "https://api.resend.com/"
+      },
+      "googleFonts": {
+        "baseUrl": "https://fonts.googleapis.com/css2"
       }
     }
   },

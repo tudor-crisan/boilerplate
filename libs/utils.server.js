@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { defaultSetting as settings } from "@/libs/defaults";
 
+export const getBaseUrl = () => {
+  return process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://" + process.env.NEXT_PUBLIC_DOMAIN;
+};
+
 export function responseSuccess(message = "", data = {}, status = 200) {
   return NextResponse.json({ message, data }, { status });
 }

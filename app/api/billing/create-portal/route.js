@@ -1,6 +1,6 @@
 import connectMongo from "@/libs/mongoose";
 import { auth } from "@/libs/auth";
-import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
+import { isResponseMock, responseMock, responseSuccess, responseError, getBaseUrl } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
 import User from "@/models/User";
 import Stripe from "stripe";
@@ -37,7 +37,7 @@ export async function POST(req) {
     const body = await req.json();
 
     if (!body.returnUrl) {
-      return responseError(urlsRequired.message, {}, urlsRequired.status);
+      body.returnUrl = getBaseUrl() + settings.paths.dashboard.source;
     }
 
     await connectMongo();
