@@ -50,7 +50,8 @@ function copyDir(src, dest, exclusions) {
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
 
-    if (exclusions.some(ex => entry.name === ex || srcPath.endsWith(ex))) {
+    // Stricter exclusion: check if the exact name is in the list
+    if (exclusions.includes(entry.name)) {
       continue;
     }
 
@@ -58,6 +59,10 @@ function copyDir(src, dest, exclusions) {
       copyDir(srcPath, destPath, exclusions);
     } else {
       fs.copyFileSync(srcPath, destPath);
+      // Optional: verbose log for critical files to reassure user
+      if (entry.name === 'next.config.mjs') {
+        console.log(`      ✅ Copied next.config.mjs`);
+      }
     }
   }
 }
