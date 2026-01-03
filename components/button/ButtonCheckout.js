@@ -3,9 +3,10 @@ import { clientApi } from "@/libs/api";
 import Button from "@/components/button/Button";
 import useApiRequest from "@/hooks/useApiRequest";
 import SvgPay from "@/components/svg/SvgPay";
+import { defaultSetting as settings } from "@/libs/defaults";
 
-const SUCCESS_URL_REDIRECT = "/success";
-const CANCEL_URL_REDIRECT = "/dashboard";
+const SUCCESS_URL_REDIRECT = settings.paths.billingSuccess.source;
+const CANCEL_URL_REDIRECT = settings.paths.dashboard.source;
 
 const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "Subscribe", ...props }) => {
   const { loading, request } = useApiRequest();

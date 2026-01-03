@@ -10,12 +10,12 @@ import { baseUrl } from "@/libs/utils.client";
 import { getMetadata } from "@/libs/seo";
 import ButtonDelete from "@/components/button/ButtonDelete";
 import Title from "@/components/common/Title";
-
 import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import Label from "@/components/common/Label";
 import Vertical from "@/components/common/Vertical";
 import DashboardPostsList from "@/components/modules/boards/DashboardPostsList";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;
@@ -27,7 +27,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PrivateFeedbackBoard({ params }) {
-  const backUrl = "/dashboard";
+  const backUrl = settings.paths.dashboard.source;
   const { boardId } = await params;
 
   const board = await getBoardPrivate(boardId, "posts");

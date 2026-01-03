@@ -20,7 +20,7 @@ export default async function PagesDashboard({ children }) {
   return (
     <DashboardWrapper>
       <DashboardHeader>
-        <HeaderTop url="/" />
+        <HeaderTop url={settings.paths.home.source} />
         <div className="flex gap-2">
           {!hasAccess ? <ButtonCheckout /> : <ButtonPortal />}
           <ButtonLogout />

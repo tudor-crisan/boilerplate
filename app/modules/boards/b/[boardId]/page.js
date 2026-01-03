@@ -7,7 +7,7 @@ import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import FormCreate from "@/components/form/FormCreate";
 import BoardPostsList from "@/components/modules/boards/BoardPostsList";
-import { defaultStyling } from "@/libs/defaults";
+import { defaultStyling, defaultSetting as settings } from "@/libs/defaults";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;
@@ -23,7 +23,7 @@ export default async function PublicFeedbackBoard({ params }) {
   const board = await getBoardPublic(boardId, "posts");
 
   if (!board) {
-    redirect("/");
+    redirect(settings.paths.home.source);
   }
 
   return (

@@ -2,10 +2,11 @@
 import { useAuth } from "@/context/ContextAuth";
 import { signIn } from "next-auth/react";
 import Button from "@/components/button/Button";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function ButtonLogin({ className = "", loggedInText = "Go to dashboard", loggedOutText = "Get started" }) {
   const { isLoggedIn } = useAuth();
-  const dashboardUrl = "/dashboard";
+  const dashboardUrl = settings.paths.dashboard.source;
 
   if (isLoggedIn) {
     return (

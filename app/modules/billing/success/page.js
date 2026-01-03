@@ -6,12 +6,13 @@ import DashboardMain from "@/components/dashboard/DashboardMain";
 import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 import HeaderButton from "@/components/header/HeaderButton";
 import HeaderTop from "@/components/header/HeaderTop";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export default async function SuccessPage() {
   return (
     <DashboardWrapper>
       <DashboardHeader>
-        <HeaderTop url="/" />
+        <HeaderTop url={settings.paths.home.source} />
         <HeaderButton />
       </DashboardHeader>
       <DashboardMain className="space-y-2">

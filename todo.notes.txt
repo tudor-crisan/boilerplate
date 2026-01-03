@@ -10,3 +10,4 @@
 - make it either $10/month or pay $60 one-time, no monthly subcriptions (change the SectionPricing and make it with modal for subscribe in dashboard)
 - make a video screenrecording demo of the app how it works, behind the scenes and everything
 - specify in the copywriting, that it works on mobile also, even dashboard, and that it updates in real time when users create posts/upvotes
+- look at the /success page to figure out how it can be better done
