@@ -11,6 +11,7 @@ const loadJSON = (p) =>
 const settings = {
   lb0_setting: loadJSON("../data/apps/loyalboards/lb0_setting.json"),
   tf0_setting: loadJSON("../data/apps/taskflow/tf0_setting.json"),
+  tc0_setting: loadJSON("../data/apps/tudorcrisan/tc0_setting.json"),
   setting0: loadJSON("../data/modules/setting/setting0.json"),
   boards: loadJSON("../data/modules/boards/boards.json"),
 };

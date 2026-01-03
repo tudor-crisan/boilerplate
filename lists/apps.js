@@ -35,6 +35,24 @@ const apps = {
       "override": "tf0_setting"
     }
   },
+  "tudorcrisan": {
+    "copywriting": {
+      "default": "copywriting0",
+      "override": "tc0_copywriting"
+    },
+    "styling": {
+      "default": "styling0",
+      "override": "tc0_styling"
+    },
+    "visual": {
+      "default": "visual0",
+      "override": "tc0_visual"
+    },
+    "setting": {
+      "default": "setting0",
+      "override": "tc0_setting"
+    }
+  },
   "contentcalendar": {
     "copywriting": "copywriting2",
     "styling": "styling0",

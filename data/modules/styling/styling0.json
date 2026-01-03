@@ -33,12 +33,16 @@
     "label": "text-sm uppercase font-bold text-center text-primary",
     "title": "text-2xl sm:text-3xl font-extrabold leading-none"
   },
+  "SectionHeader": {
+    "colors": "bg-base-200"
+  },
   "SectionHero": {
     "headline": "text-3xl sm:text-4xl font-extrabold leading-none capitalize",
     "paragraph": "opacity-90 px-4 sm:px-0",
     "textalign": "text-center sm:text-left"
   },
   "SectionFooter": {
+    "colors": "bg-base-200 text-base-content",
     "className": "text-center sm:text-left gap-10 sm:gap-16",
     "positioning": "items-center sm:items-start"
   }

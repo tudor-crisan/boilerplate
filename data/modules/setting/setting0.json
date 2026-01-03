@@ -55,6 +55,18 @@
       "billingSuccess": {
         "source": "/success",
         "destination": "/modules/billing/success"
+      },
+      "terms": {
+        "source": "/terms",
+        "destination": "/tos/terms"
+      },
+      "privacy": {
+        "source": "/privacy",
+        "destination": "/tos/privacy"
+      },
+      "support": {
+        "source": "/support",
+        "destination": "/tos/support"
       }
     }
   },

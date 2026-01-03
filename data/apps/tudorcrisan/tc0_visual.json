@@ -1,0 +1,29 @@
+{
+  "favicon": {
+    "href": "/apps/tudorcrisan.dev/favicon.jpg"
+  },
+  "show": {
+    "SectionHeader": {
+      "top": true,
+      "logo": true,
+      "appName": true,
+      "menu": false,
+      "button": false
+    },
+    "SectionHero": {
+      "headline": true,
+      "paragraph": true,
+      "button": false,
+      "image": false,
+      "video": false
+    },
+    "SectionFooter": {
+      "brand": false,
+      "menus": true,
+      "socials": true
+    }
+  },
+  "homepage": {
+    "sections": ["SectionHeader", "SectionHero", "SectionFooter"]
+  }
+}

@@ -21,11 +21,11 @@
         "links": [
           {
             "label": "Terms of Service",
-            "href": "/tos/terms"
+            "href": "/terms"
           },
           {
             "label": "Privacy Policy",
-            "href": "/tos/privacy"
+            "href": "/privacy"
           }
         ]
       },
@@ -34,7 +34,7 @@
         "links": [
           {
             "label": "Contact Support",
-            "href": "/tos/support"
+            "href": "/support"
           }
         ]
       }

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev:local": "cross-env APP=local next dev",
+    "dev:tudorcrisan": "cross-env APP=tudorcrisan next dev",
     "dev:loyalboards": "cross-env APP=loyalboards next dev",
     "dev:taskflow": "cross-env APP=taskflow next dev",
     "build": "next build",
