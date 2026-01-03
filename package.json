@@ -13,7 +13,8 @@
     "lint": "eslint",
     "typescript": "npx tsx scripts/typescript.js",
     "stripe": "stripe listen --forward-to localhost:3000/api/billing/webhook",
-    "deploy": "node scripts/deploy.js"
+    "deploy": "node scripts/deploy.js",
+    "stick": "node scripts/copy-to-stick.js"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.1",
