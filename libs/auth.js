@@ -56,7 +56,7 @@ const getPages = () => {
 
 const config = {
   providers: getProviders(),
-  adapter: MongoDBAdapter(clientPromise),
+  ...(clientPromise && { adapter: MongoDBAdapter(clientPromise) }),
   pages: getPages()
 };
 
