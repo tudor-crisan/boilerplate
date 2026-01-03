@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-if (!process.env.MONGO_URI || !process.env.MONGO_DB || !process.env.MONGO_QUERY) {
-  throw new Error('Invalid/Missing environment variable: "MONGO_URI"');
-}
-
 const connectMongo = async () => {
+  if (!process.env.MONGO_URI || !process.env.MONGO_DB || !process.env.MONGO_QUERY) {
+    console.warn('Invalid/Missing environment variable: "MONGO_URI". MongoDB connection will be skipped.');
+    return;
+  }
   try {
     const uri = process.env.MONGO_URI + process.env.MONGO_DB + process.env.MONGO_QUERY;
     await mongoose.connect(uri);
