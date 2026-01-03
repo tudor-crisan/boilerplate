@@ -25,7 +25,10 @@ const EXCLUDED_FILES = [
   'env',
   '.git', // Always exclude .git from source copy to avoid overwriting target repo
   'scripts', // Maybe exclude scripts too? User didn't specify, but often good practice. Keeping as per request: only .next, node_modules, .vscode, .env
-  'todo.notes.txt'
+  'todo.notes.txt',
+  'README.md',
+  '.env.example',
+  '.editorconfig'
 ];
 
 // Helper to copy directory recursively with exclusions
