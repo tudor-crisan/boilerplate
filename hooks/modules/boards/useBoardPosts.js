@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import toast from "react-hot-toast";
 import { getClientId } from "@/libs/utils.client";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 /**
  * Common sorting function for board posts
@@ -49,7 +50,7 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
   useEffect(() => {
     if (!boardId) return;
 
-    const eventSource = new EventSource("/api/modules/boards/stream");
+    const eventSource = new EventSource(settings.paths.api.boardsStream);
 
     eventSource.onmessage = (event) => {
       try {

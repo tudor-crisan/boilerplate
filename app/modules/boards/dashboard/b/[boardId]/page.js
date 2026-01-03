@@ -31,7 +31,7 @@ export default async function PrivateFeedbackBoard({ params }) {
   const { boardId } = await params;
 
   const board = await getBoardPrivate(boardId, "posts");
-  const deleteUrl = `/api/modules/boards/board?boardId=${boardId}`;
+  const deleteUrl = `${settings.paths.api.boardsDetail}?boardId=${boardId}`;
 
   if (!board) {
     redirect(backUrl);

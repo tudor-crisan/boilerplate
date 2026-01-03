@@ -31,7 +31,10 @@
   },
   "modules": [],
   "auth": {
-    "providers": ["resend", "google"],
+    "providers": [
+      "resend",
+      "google"
+    ],
     "hasThemePages": true,
     "hasThemeEmails": true
   },
@@ -100,6 +103,12 @@
     "home": {
       "source": "/",
       "destination": "/"
+    },
+    "api": {
+      "billingCreateCheckout": "/api/billing/create-checkout",
+      "billingCreatePortal": "/api/billing/create-portal",
+      "boardsStream": "/api/modules/boards/stream",
+      "boardsDetail": "/api/modules/boards/board"
     }
   },
   "metadata": {

@@ -13,7 +13,7 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
 
   const handleSubscribe = async () => {
     await request(
-      () => clientApi.post("/api/billing/create-checkout", {
+      () => clientApi.post(settings.paths.api.billingCreateCheckout, {
         successUrl: window.location.origin + SUCCESS_URL_REDIRECT,
         cancelUrl: window.location.origin + CANCEL_URL_REDIRECT,
       }),

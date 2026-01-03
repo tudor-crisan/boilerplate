@@ -12,7 +12,7 @@ const ButtonPortal = ({ className = "", variant = "btn-primary", children = "Bil
 
   const handleBilling = async () => {
     await request(
-      () => clientApi.post("/api/billing/create-portal", {
+      () => clientApi.post(settings.paths.api.billingCreatePortal, {
         returnUrl: window.location.origin + RETURN_URL_REDIRECT,
       }),
       {

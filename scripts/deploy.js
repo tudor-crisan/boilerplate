@@ -17,6 +17,13 @@ const TARGET_FOLDERS = [
   'tudorcrisan.dev'
 ];
 
+// Configuration for app-specific folders to KEEP.
+// Standardizes "tudorcrisan" (folder) vs "tudorcrisan.dev" (target)
+const APP_CONFIG = {
+  'loyalboards': ['loyalboards'],
+  'tudorcrisan.dev': ['tudorcrisan', 'tudorcrisan.dev']
+};
+
 const EXCLUDED_FILES = [
   '.next',
   'node_modules',
@@ -63,6 +70,39 @@ function cleanDir(dir) {
     if (entry === '.git') continue;
     const fullPath = path.join(dir, entry);
     fs.rmSync(fullPath, { recursive: true, force: true });
+  }
+}
+
+// Helper to remove unrelated app folders from specific directories
+function cleanAppSpecificFiles(targetDir, appName) {
+  const allowedApps = APP_CONFIG[appName] || [];
+
+  // Directories that contain app-specific subfolders
+  const directoriesToClean = [
+    'public/apps',
+    'data/apps',
+    'components/apps'
+  ];
+
+  console.log(`   🧹 Cleaning app-specific files for ${appName} (Allowing: ${allowedApps.join(', ')})...`);
+
+  for (const relativeDir of directoriesToClean) {
+    const fullDir = path.join(targetDir, relativeDir);
+
+    if (!fs.existsSync(fullDir)) continue;
+
+    const entries = fs.readdirSync(fullDir, { withFileTypes: true });
+
+    for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
+
+      // If the folder name is NOT in the allowed list for this app, delete it.
+      if (!allowedApps.includes(entry.name)) {
+        const entryPath = path.join(fullDir, entry.name);
+        console.log(`      Running rmSync on ${relativeDir}/${entry.name}`);
+        fs.rmSync(entryPath, { recursive: true, force: true });
+      }
+    }
   }
 }
 
@@ -118,6 +158,9 @@ async function main() {
       // Copy files
       console.log('   📂 Copying files...');
       copyDir(BOILERPLATE_DIR, targetDir, EXCLUDED_FILES);
+
+      // Filter app-specific files
+      cleanAppSpecificFiles(targetDir, folder);
 
       // Git operations
       console.log('   💾 Committing and pushing target...');
