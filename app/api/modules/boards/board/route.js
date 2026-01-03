@@ -15,17 +15,21 @@ const {
   noAccess,
 } = settings.forms.general.backend.responses;
 
-const {
-  nameRequired,
-  boardIdRequired,
-  createSuccesfully,
-  deleteSuccesfully,
-} = settings.forms[TYPE].backend.responses;
+
 
 export async function POST(req) {
   if (isResponseMock(TYPE)) {
     return responseMock(TYPE);
   };
+
+  if (!settings.forms?.[TYPE]) {
+    return responseError(serverError.message, {}, serverError.status);
+  }
+
+  const {
+    nameRequired,
+    createSuccesfully,
+  } = settings.forms[TYPE].backend.responses;
 
   const error = await checkReqRateLimit(req, "board-create");
   if (error) return error;
@@ -71,6 +75,15 @@ export async function DELETE(req) {
   const error = await checkReqRateLimit(req, "board-delete");
   if (error) return error;
 
+  if (!settings.forms?.[TYPE]) {
+    return responseError(serverError.message, {}, serverError.status);
+  }
+
+  const {
+    boardIdRequired,
+    deleteSuccesfully,
+  } = settings.forms[TYPE].backend.responses;
+
   try {
     const session = await auth();
 
@@ -82,6 +95,8 @@ export async function DELETE(req) {
     const boardId = searchParams.get("boardId");
 
     if (!boardId) {
+      if (!settings.forms?.[TYPE]) return responseError(serverError.message, {}, serverError.status); // Fallback if somehow check passed above? Actually redundant but safe.
+      const { boardIdRequired } = settings.forms[TYPE].backend.responses;
       return responseError(boardIdRequired.message, boardIdRequired.inputErrors, boardIdRequired.status);
     }
 

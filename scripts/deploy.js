@@ -22,8 +22,10 @@ const EXCLUDED_FILES = [
   'node_modules',
   '.vscode',
   '.env',
+  'env',
   '.git', // Always exclude .git from source copy to avoid overwriting target repo
   'scripts', // Maybe exclude scripts too? User didn't specify, but often good practice. Keeping as per request: only .next, node_modules, .vscode, .env
+  'todo.notes.txt'
 ];
 
 // Helper to copy directory recursively with exclusions
@@ -67,13 +69,28 @@ async function main() {
     const packageJsonPath = path.join(BOILERPLATE_DIR, 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
-    const versionParts = packageJson.version.split('.').map(Number);
+    const currentVersion = packageJson.version;
+    const versionParts = currentVersion.split('.').map(Number);
     versionParts[2] += 1;
     const newVersion = versionParts.join('.');
 
+    console.log(`ℹ️  Current version: ${currentVersion}`);
+    console.log(`✅ Bumping version to: ${newVersion}`);
+
     packageJson.version = newVersion;
     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
-    console.log(`✅ Bumped version to ${newVersion}`);
+
+    // 1b. Commit and Push Source Repo (Boilerplate)
+    console.log(`\n💾 Committing and pushing source repo (${newVersion})...`);
+    try {
+      const sourceExecOptions = { cwd: BOILERPLATE_DIR, stdio: 'inherit' };
+      execSync('git add .', sourceExecOptions);
+      execSync(`git commit -am "${newVersion}"`, sourceExecOptions);
+      execSync('git push', sourceExecOptions);
+      console.log(`   ✅ Source repo updated.`);
+    } catch (e) {
+      console.error(`   ❌ Source repo git operations failed:`, e.message);
+    }
 
     if (TARGET_FOLDERS.length === 0) {
       console.warn('⚠️  No target folders defined in scripts/deploy.js. Please update TARGET_FOLDERS array.');
@@ -100,7 +117,7 @@ async function main() {
       copyDir(BOILERPLATE_DIR, targetDir, EXCLUDED_FILES);
 
       // Git operations
-      console.log('   💾 Committing and pushing...');
+      console.log('   💾 Committing and pushing target...');
       try {
         const execOptions = { cwd: targetDir, stdio: 'inherit' };
         execSync('git add .', execOptions);
