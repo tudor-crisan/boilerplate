@@ -5,6 +5,18 @@
     "description": "Create a feedback board in minutes, prioritize features, and build products your customers will love.",
     "tagline": "Create feedback boards your customers will love."
   },
+  "business": {
+    "socials": [
+      {
+        "name": "Twitter",
+        "url": "https://x.com/tudorcrisan_dev"
+      },
+      {
+        "name": "YouTube",
+        "url": "https://www.youtube.com/@loyalboards"
+      }
+    ]
+  },
   "modules": ["boards"],
   "pages": {
     "dashboard": {

@@ -16,7 +16,7 @@ export default function SectionFAQ() {
   };
 
   return (
-    <section id="faq" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, 'py-32!')}>
+    <section id="faq" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, styling.SectionFAQ.padding)}>
       <div className={`${styling.flex.col} space-y-6 justify-center`}>
         <div className="flex-1 space-y-2">
           <p className={`${styling.section.label}`}>

@@ -23,6 +23,9 @@
       "socials": true
     }
   },
+  "logo": {
+    "shape": "monitor"
+  },
   "homepage": {
     "sections": ["SectionHeader", "SectionHero", "SectionFooter"]
   }

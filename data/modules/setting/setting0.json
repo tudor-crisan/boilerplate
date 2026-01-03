@@ -1,4 +1,10 @@
 {
+  "appName": "",
+  "seo": {
+    "title": "",
+    "description": "",
+    "tagline": ""
+  },
   "business": {
     "last_updated": "12/23/2025",
     "name": "TudorCrisan.dev",
@@ -23,6 +29,7 @@
       }
     ]
   },
+  "modules": [],
   "auth": {
     "providers": ["resend", "google"],
     "hasThemePages": true,
@@ -47,6 +54,9 @@
     }
   },
   "pages": {
+    "dashboard": {
+      "component": ""
+    },
     "paths": {
       "previewEmail": {
         "source": "/preview/email",

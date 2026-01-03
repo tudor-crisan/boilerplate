@@ -28,13 +28,15 @@ export default function RootLayout({ children }) {
             <IconFavicon />
           </WrapperHead>
           <WrapperBody>
-            <WrapperAuth>
-              <WrapperCopywriting>
-                <WrapperFont>
-                  {children}
-                </WrapperFont>
-              </WrapperCopywriting>
-            </WrapperAuth>
+            <WrapperCopywriting>
+              <WrapperFont>
+                {process.env.MONGO_DB ? (
+                  <WrapperAuth>
+                    {children}
+                  </WrapperAuth>
+                ) : children}
+              </WrapperFont>
+            </WrapperCopywriting>
             <WrapperShuffle>
               <ShuffleLogos />
               <ShuffleFonts />

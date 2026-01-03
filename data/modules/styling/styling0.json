@@ -37,9 +37,17 @@
     "colors": "bg-base-200"
   },
   "SectionHero": {
+    "padding": "py-32!",
+    "container": "flex flex-col sm:flex-row sm:items-start space-y-12",
     "headline": "text-3xl sm:text-4xl font-extrabold leading-none capitalize",
     "paragraph": "opacity-90 px-4 sm:px-0",
     "textalign": "text-center sm:text-left"
+  },
+  "SectionPricing": {
+    "padding": "py-32!"
+  },
+  "SectionFAQ": {
+    "padding": "py-32!"
   },
   "SectionFooter": {
     "colors": "bg-base-200 text-base-content",

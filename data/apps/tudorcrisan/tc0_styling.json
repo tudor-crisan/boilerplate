@@ -2,6 +2,8 @@
   "theme": "lofi",
   "font": "sen",
   "SectionHero": {
+    "padding": "py-40! sm:py-64!",
+    "container": "flex flex-col items-center space-y-12",
     "textalign": "text-center"
   }
 }

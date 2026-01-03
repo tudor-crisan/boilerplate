@@ -11,7 +11,7 @@ export default function SectionPricing() {
   const { copywriting } = useCopywriting();
   return (
     <section id="pricing" className="bg-base-200">
-      <div className={cn(`${styling.general.container} ${styling.general.box}`, 'py-32!')}>
+      <div className={cn(`${styling.general.container} ${styling.general.box}`, styling.SectionPricing.padding)}>
         <p className={`${styling.section.label} mb-2`}>
           {copywriting.SectionPricing.label}
         </p>

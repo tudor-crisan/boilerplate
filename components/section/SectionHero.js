@@ -11,9 +11,10 @@ export default function SectionHero() {
   const { visual } = useVisual();
   const { styling } = useStyling();
   const { copywriting } = useCopywriting();
+
   return (
-    <section id="hero" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, 'py-32!')}>
-      <div className="flex flex-col sm:flex-row sm:items-start space-y-12">
+    <section id="hero" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, styling.SectionHero.padding)}>
+      <div className={`${styling.SectionHero.container}`}>
         <div className="space-y-6">
           <div className="space-y-3">
             {visual.show.SectionHero.headline && (
