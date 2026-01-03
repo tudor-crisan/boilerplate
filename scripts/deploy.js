@@ -107,7 +107,8 @@ function filterListFiles(targetDir, appName) {
         const keyMatch = line.match(/^\s*["']?([\w-]+)["']?:\s*\{/);
         if (keyMatch) {
           const key = keyMatch[1];
-          if (!allowedApps.includes(key)) {
+          const standardProps = ['copywriting', 'styling', 'visual', 'setting', 'paths'];
+          if (!standardProps.includes(key) && !allowedApps.includes(key)) {
             isSkippingBlock = true;
             blockBraceCount = 0;
           }

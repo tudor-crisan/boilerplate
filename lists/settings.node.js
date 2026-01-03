@@ -5,8 +5,14 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const loadJSON = (p) =>
-  JSON.parse(fs.readFileSync(path.join(__dirname, p), "utf8"));
+const loadJSON = (p) => {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(__dirname, p), "utf8"));
+  } catch (e) {
+    console.warn(`⚠️ Failed to load JSON file: ${p}`);
+    return {};
+  }
+};
 
 const settings = {
   lb0_setting: loadJSON("../data/apps/loyalboards/lb0_setting.json"),
