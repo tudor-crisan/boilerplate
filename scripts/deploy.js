@@ -78,6 +78,91 @@ function cleanDir(dir) {
   }
 }
 
+// Helper to filter lists/*.js files to only include relevant app content
+function filterListFiles(targetDir, appName) {
+  const listsDir = path.join(targetDir, 'lists');
+  if (!fs.existsSync(listsDir)) return;
+
+  const allowedApps = APP_CONFIG[appName] || [appName];
+  const files = fs.readdirSync(listsDir);
+
+  console.log(`   🧹 Filtering list files for ${appName}...`);
+
+  for (const file of files) {
+    if (!file.endsWith('.js')) continue;
+
+    const filePath = path.join(listsDir, file);
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const lines = content.split('\n');
+    const newLines = [];
+    const forbiddenVars = new Set();
+
+    // State for apps.js object filtering
+    let isSkippingBlock = false;
+    let blockBraceCount = 0;
+
+    for (const line of lines) {
+      // 1. Handle apps.js object keys
+      if (file === 'apps.js') {
+        const keyMatch = line.match(/^\s*["']?([\w-]+)["']?:\s*\{/);
+        if (keyMatch) {
+          const key = keyMatch[1];
+          if (!allowedApps.includes(key)) {
+            isSkippingBlock = true;
+            blockBraceCount = 0;
+          }
+        }
+
+        if (isSkippingBlock) {
+          // Track braces to know when block ends
+          const openBraces = (line.match(/\{/g) || []).length;
+          const closeBraces = (line.match(/\}/g) || []).length;
+          blockBraceCount += (openBraces - closeBraces);
+
+          if (blockBraceCount <= 0) {
+            isSkippingBlock = false;
+          }
+          continue;
+        }
+      }
+
+      // 2. Handle Imports or loadJSON calls pointing to other apps
+      // Regex looks for paths like: .../data/apps/appName/...
+      const appPathMatch = line.match(/data\/apps\/([^/]+)\//);
+      if (appPathMatch) {
+        const folderName = appPathMatch[1];
+        if (!allowedApps.includes(folderName)) {
+          // This line references an excluded app. Skip it.
+          // If it's an import, capture the var name.
+          const importVarMatch = line.match(/import\s+(\w+)\s+from/);
+          if (importVarMatch) {
+            forbiddenVars.add(importVarMatch[1]);
+          }
+          continue;
+        }
+      }
+
+      // 3. Handle usages of forbidden variables (e.g. in export objects)
+      // Check if line contains literal match of forbidden var
+      let containsForbidden = false;
+      for (const badVar of forbiddenVars) {
+        // Precise word check
+        if (new RegExp(`\\b${badVar}\\b`).test(line)) {
+          containsForbidden = true;
+          break;
+        }
+      }
+      if (containsForbidden) {
+        continue;
+      }
+
+      newLines.push(line);
+    }
+
+    fs.writeFileSync(filePath, newLines.join('\n'));
+  }
+}
+
 // Helper to remove unrelated app folders from specific directories
 function cleanAppSpecificFiles(targetDir, appName) {
   const allowedApps = APP_CONFIG[appName] || [];
@@ -166,6 +251,11 @@ async function main() {
 
       // Filter app-specific files
       cleanAppSpecificFiles(targetDir, folder);
+
+      // Filter list files to remove refs to other apps
+      filterListFiles(targetDir, folder);
+
+
 
       // Git operations
       console.log('   💾 Committing and pushing target...');
