@@ -1,8 +1,6 @@
 {
   "appName": "TaskFlow",
-  "pages": {
-    "dashboard": {
-      "component": "TaskFlowDashboard"
-    }
+  "components": {
+    "dashboard": "TaskFlowDashboard"
   }
 }

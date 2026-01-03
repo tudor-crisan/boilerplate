@@ -4,6 +4,7 @@ import { clientApi } from "@/libs/api";
 import useApiRequest from "@/hooks/useApiRequest";
 import SvgTrash from "@/components/svg/SvgTrash";
 import Button from "@/components/button/Button";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function ButtonDelete({
   url = "/api/...",
@@ -11,7 +12,7 @@ export default function ButtonDelete({
   withConfirm = true,
   confirmMessage = "Are you sure you want to delete?",
   withRedirect = true,
-  redirectUrl = "/dashboard",
+  redirectUrl = settings.paths.dashboard.source,
   refreshOnSuccess = false,
 }) {
   const router = useRouter();

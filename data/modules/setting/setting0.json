@@ -53,31 +53,53 @@
       "window": 60
     }
   },
-  "pages": {
-    "dashboard": {
-      "component": ""
+  "components": {
+    "dashboard": ""
+  },
+  "paths": {
+    "previewEmail": {
+      "source": "/preview/email",
+      "destination": "/modules/preview/email"
     },
-    "paths": {
-      "previewEmail": {
-        "source": "/preview/email",
-        "destination": "/modules/preview/email"
-      },
-      "billingSuccess": {
-        "source": "/success",
-        "destination": "/modules/billing/success"
-      },
-      "terms": {
-        "source": "/terms",
-        "destination": "/tos/terms"
-      },
-      "privacy": {
-        "source": "/privacy",
-        "destination": "/tos/privacy"
-      },
-      "support": {
-        "source": "/support",
-        "destination": "/tos/support"
-      }
+    "billingSuccess": {
+      "source": "/success",
+      "destination": "/modules/billing/success"
+    },
+    "terms": {
+      "source": "/terms",
+      "destination": "/tos/terms"
+    },
+    "privacy": {
+      "source": "/privacy",
+      "destination": "/tos/privacy"
+    },
+    "support": {
+      "source": "/support",
+      "destination": "/tos/support"
+    },
+    "dashboard": {
+      "source": "/dashboard",
+      "destination": "/dashboard"
+    },
+    "signin": {
+      "source": "/auth/signin",
+      "destination": "/auth/signin"
+    },
+    "signout": {
+      "source": "/auth/signout",
+      "destination": "/auth/signout"
+    },
+    "error": {
+      "source": "/auth/error",
+      "destination": "/auth/error"
+    },
+    "verifyRequest": {
+      "source": "/auth/verify-request",
+      "destination": "/auth/verify-request"
+    },
+    "home": {
+      "source": "/",
+      "destination": "/"
     }
   },
   "metadata": {

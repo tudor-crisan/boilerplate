@@ -12,7 +12,7 @@ import { getUser } from "@/libs/modules/boards/db";
 import ButtonPortal from "@/components/button/ButtonPortal";
 
 export default async function PagesDashboard({ children }) {
-  const component = settings.pages.dashboard.component
+  const component = settings.components.dashboard
   const Component = dashboards[component];
   const user = await getUser();
   const { hasAccess } = user || {};

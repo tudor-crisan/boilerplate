@@ -18,9 +18,7 @@
     ]
   },
   "modules": ["boards"],
-  "pages": {
-    "dashboard": {
-      "component": "LoyalBoardsDashboard"
-    }
+  "components": {
+    "dashboard": "LoyalBoardsDashboard"
   }
 }

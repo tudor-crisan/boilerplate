@@ -15,12 +15,13 @@ export default async function LoyalBoardsDashboard() {
   }
 
   const { boards = [] } = user;
-  const { source } = settings.pages.paths.boardPrivate;
+  const { source } = settings.paths.boardPrivate;
 
   const type = "Board";
 
   const list = [...boards].map((board) => ({
-    ...board, href: source.replace(":boardId", board._id),
+    ...board,
+    href: source.replace(":boardId", board._id),
   }));
 
   return (

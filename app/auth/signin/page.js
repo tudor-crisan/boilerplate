@@ -17,7 +17,7 @@ import { useError } from "@/hooks/useError";
 import Error from "@/components/common/Error";
 import { useAuth } from "@/context/ContextAuth";
 
-const CALLBACK_URL = "/dashboard";
+const CALLBACK_URL = settings.paths.dashboard.source;
 
 function SignInContent() {
   const { styling } = useStyling();
