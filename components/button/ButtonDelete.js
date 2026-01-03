@@ -7,7 +7,7 @@ import Button from "@/components/button/Button";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function ButtonDelete({
-  url = "/api/...",
+  url = "",
   buttonText = "Delete",
   withConfirm = true,
   confirmMessage = "Are you sure you want to delete?",

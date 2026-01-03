@@ -108,7 +108,13 @@
       "billingCreateCheckout": "/api/billing/create-checkout",
       "billingCreatePortal": "/api/billing/create-portal",
       "boardsStream": "/api/modules/boards/stream",
-      "boardsDetail": "/api/modules/boards/board"
+      "boardsDetail": "/api/modules/boards/board",
+      "boardsPost": "/api/modules/boards/post"
+    },
+    "integrations": {
+      "resend": {
+        "baseUrl": "https://api.resend.com/"
+      }
     }
   },
   "metadata": {

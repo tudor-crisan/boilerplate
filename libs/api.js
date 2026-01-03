@@ -52,7 +52,7 @@ export const setDataSuccess = (response = null, successCallback = null) => {
 }
 
 export const sendEmail = async ({
-  apiUrl = "https://api.resend.com/",
+  apiUrl = settings.integrations.resend.baseUrl,
   apiPath = "emails",
   method = "POST",
   apiKey = "",

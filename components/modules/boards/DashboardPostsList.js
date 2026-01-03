@@ -7,6 +7,7 @@ import TextSmall from "@/components/common/TextSmall";
 import Title from "@/components/common/Title";
 import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 import Vertical from "@/components/common/Vertical";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 const DashboardPostsList = ({ posts, boardId }) => {
   const { posts: postsState } = useBoardPosts(boardId, posts);
@@ -20,7 +21,7 @@ const DashboardPostsList = ({ posts, boardId }) => {
           itemAction={(item) => (
             <Vertical className="text-right">
               <ButtonDelete
-                url={`/api/modules/boards/post?postId=${item._id}`}
+                url={`${settings.paths.api.boardsPost}?postId=${item._id}`}
                 buttonText="Delete"
                 withConfirm={true}
                 confirmMessage="Are you sure you want to delete this post?"
