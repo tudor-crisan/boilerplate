@@ -1,6 +1,5 @@
 
-- move the redirect "/dashboard" paths into the boards.json module to easily re-use (and update components)
-- have redirect - when logged-in on /auth/error or /auth/verify-request to a path to have the "Go to dashboard" button and the message
+- when deleting a board, show toast message that the board is deleted and will be incative, and be redirected in 15 seconds
 - have a way to edit the board link slug, and use slugs when possible (with checks for existing board names)
 - have a settings panel to change the theme, style of the page, such as shadows, borders, roundness (from lb0_settings)
 - have a top menu for changing the billing, logout, my profile, initials, name and others for users
