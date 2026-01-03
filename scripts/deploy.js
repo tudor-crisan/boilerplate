@@ -128,8 +128,8 @@ function filterListFiles(targetDir, appName) {
       }
 
       // 2. Handle Imports or loadJSON calls pointing to other apps
-      // Regex looks for paths like: .../data/apps/appName/...
-      const appPathMatch = line.match(/data\/apps\/([^/]+)\//);
+      // Regex looks for paths like: .../data/apps/appName/... or .../components/apps/appName/...
+      const appPathMatch = line.match(/(?:data|components|public)\/apps\/([^/]+)\//);
       if (appPathMatch) {
         const folderName = appPathMatch[1];
         if (!allowedApps.includes(folderName)) {
