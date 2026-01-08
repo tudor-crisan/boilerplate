@@ -1,7 +1,7 @@
 "use client";
 import { useStyling } from "@/context/ContextStyling";
 import Grid from "@/components/common/Grid";
-import { getAppDetails } from "@/lists/apps";
+import { getAppDetails } from "@/libs/apps";
 import Image from "next/image";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
