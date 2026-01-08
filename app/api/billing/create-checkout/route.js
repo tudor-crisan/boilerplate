@@ -93,6 +93,7 @@ export async function POST(req) {
       // Force customer creation for one-time payments so we can use the billing portal later
       if (mode === "payment") {
         stripeSessionConfig.customer_creation = "always";
+        stripeSessionConfig.invoice_creation = { enabled: true };
       }
     }
 
