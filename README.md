@@ -43,6 +43,8 @@ Database & Auth
 Resend
 - Prepare the domain, for testing use tudorcrisan.dev
 - Prepare the api_key also, the one from tudor.crisan.webdev@gmail.com
+- Prepare the webhook, to point to https://www.tudorcrisan.dev/api/resend/webhook with "email.received" event
+- Prepare the RESEND_WEBHOOK_SECRET which is the signing secret received after creating the webhook
 
 Google OAuth
 - Create a new OAuth at https://console.cloud.google.com/auth/overview
