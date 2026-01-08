@@ -27,6 +27,6 @@
     "shape": "monitor"
   },
   "homepage": {
-    "sections": ["SectionHeader", "SectionHero", "SectionFooter"]
+    "sections": ["SectionHeader", "SectionHero", "SectionApps", "SectionFooter"]
   }
 }

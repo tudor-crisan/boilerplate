@@ -21,7 +21,15 @@ const TARGET_FOLDERS = [
 // Standardizes "tudorcrisan" (folder) vs "tudorcrisan.dev" (target)
 const APP_CONFIG = {
   'loyalboards': ['loyalboards'],
-  'tudorcrisan.dev': ['tudorcrisan', 'tudorcrisan.dev']
+  'tudorcrisan.dev': [
+    'tudorcrisan', 'tudorcrisan.dev',
+    'loyalboards',
+    'taskflow',
+    'contentcalendar',
+    'invoicesnap',
+    'meetingmind',
+    'emailwarmup'
+  ]
 };
 
 const EXCLUDED_FILES = [
@@ -189,6 +197,12 @@ function cleanAppSpecificFiles(targetDir, appName) {
 
       // If the folder name is NOT in the allowed list for this app, delete it.
       if (!allowedApps.includes(entry.name)) {
+        // EXCEPTION: Always keep tudorcrisan in public/apps
+        if (relativeDir === 'public/apps' && entry.name === 'tudorcrisan') {
+          console.log(`      Found public/apps/tudorcrisan, preserving it (shared assets).`);
+          continue;
+        }
+
         const entryPath = path.join(fullDir, entry.name);
         console.log(`      Running rmSync on ${relativeDir}/${entry.name}`);
         fs.rmSync(entryPath, { recursive: true, force: true });

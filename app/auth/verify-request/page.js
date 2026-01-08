@@ -11,7 +11,7 @@ export default function VerifyRequestPage() {
       icon={<SvgEmail className="size-12 text-primary" />}
       maxWidth="max-w-sm"
     >
-      <div className="mx-auto mt-4 w-full">
+      <div className="mx-auto w-full">
         <ButtonBack
           className="btn-ghost btn-md! shadow-none!"
         />

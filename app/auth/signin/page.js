@@ -23,7 +23,7 @@ function SignInContent() {
   const { styling } = useStyling();
   const { message } = useAuthError();
   const { isLoggedIn } = useAuth();
-  const { error: errorMessage, clearError, setError } = useError(message);
+  const { error: errorMessage, clearError } = useError(message);
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [loadingEmail, setLoadingEmail] = useState(false);
@@ -48,8 +48,8 @@ function SignInContent() {
       const res = await signIn(provider, { ...options, callbackUrl: CALLBACK_URL, redirect: false });
 
       if (res?.error) {
-        setError(res.error);
         setLoading(false);
+        router.push(`/auth/error?error=${res.error}`);
       } else if (res?.url) {
         window.location.href = res.url;
       }

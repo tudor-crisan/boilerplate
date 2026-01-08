@@ -41,7 +41,7 @@ Database & Auth
 - Create a new AUTH_SECRET in env - with "npx auth secret"
 
 Resend
-- Prepare the domain, for testing use email.tudorcrisan.dev
+- Prepare the domain, for testing use tudorcrisan.dev
 - Prepare the api_key also, the one from tudor.crisan.webdev@gmail.com
 
 Google OAuth

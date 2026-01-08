@@ -4,6 +4,7 @@ import { useAuth } from "@/context/ContextAuth";
 import Title from "@/components/common/Title";
 import Button from "@/components/button/Button";
 import Paragraph from "@/components/common/Paragraph";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function PagesAuth({
   icon,
