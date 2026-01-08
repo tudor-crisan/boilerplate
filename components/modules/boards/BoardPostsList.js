@@ -16,7 +16,7 @@ const BoardPostsList = ({ posts, boardId }) => {
 
   useEffect(() => {
     if (isBoardDeleted) {
-      toast.error("This board has been deleted and will be inactive");
+      toast.error("This board has been deleted and will be inactive.");
 
       const timer = setTimeout(() => {
         router.push(settings.paths.home.source);

@@ -26,7 +26,9 @@ export default function useApiRequest() {
   const request = async (requestFn, {
     onSuccess = () => { },
     onError = () => { },
-    keepLoadingOnSuccess = false } = {}
+    keepLoadingOnSuccess = false,
+    showToast = true,
+  } = {}
   ) => {
     if (loading) return;
 
@@ -46,7 +48,9 @@ export default function useApiRequest() {
       };
 
       const successCallback = (msg, data) => {
-        setMessage(msg);
+        if (showToast) {
+          setMessage(msg);
+        }
         onSuccess(msg, data);
         if (!keepLoadingOnSuccess) {
           setLoading(false);

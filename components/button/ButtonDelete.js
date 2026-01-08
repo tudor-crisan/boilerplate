@@ -14,6 +14,7 @@ export default function ButtonDelete({
   withRedirect = true,
   redirectUrl = settings.paths.dashboard.source,
   refreshOnSuccess = false,
+  withToast = true,
 }) {
   const router = useRouter();
   const { loading, request } = useApiRequest();
@@ -33,7 +34,8 @@ export default function ButtonDelete({
             router.push(redirectUrl);
           }
         },
-        keepLoadingOnSuccess: withRedirect
+        keepLoadingOnSuccess: withRedirect,
+        showToast: withToast
       }
     );
   };

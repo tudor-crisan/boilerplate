@@ -4,11 +4,8 @@ import { isResponseMock, responseMock, responseSuccess, responseError } from "@/
 import { defaultSetting as settings } from "@/libs/defaults";
 import Post from "@/models/modules/boards/Post";
 import { checkReqRateLimit } from "@/libs/rateLimit";
-import boardEvents from "@/libs/modules/boards/events";
 
 const TYPE = "Vote";
-
-
 
 const {
   serverError,

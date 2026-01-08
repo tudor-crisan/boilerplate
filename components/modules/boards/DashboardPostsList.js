@@ -27,6 +27,7 @@ const DashboardPostsList = ({ posts, boardId }) => {
                 confirmMessage="Are you sure you want to delete this post?"
                 refreshOnSuccess={false} // SSE will handle the update
                 withRedirect={false}
+                withToast={false}
               />
               <TextSmall>
                 {item.votesCounter || 0} votes

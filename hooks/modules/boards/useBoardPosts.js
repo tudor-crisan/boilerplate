@@ -82,9 +82,7 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
 
         if (data.type === "post-delete") {
           setPosts((prevPosts) => prevPosts.filter(p => p._id !== data.postId));
-          if (data.clientId !== getClientId()) {
-            toast.success("Post removed!");
-          }
+          toast.success("Post removed!");
         }
 
         if (data.type === "board-delete" && data.boardId === boardId) {

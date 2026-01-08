@@ -27,9 +27,9 @@ export async function GET(req) {
             console.log("SERVER: Stream sending vote event. LastActionBy:", change.fullDocument.lastActionByClientId);
             sendEvent({
               type: "vote",
-              postId: change.documentKey._id,
+              postId: change.documentKey._id.toString(),
               votesCounter: change.fullDocument.votesCounter,
-              boardId: change.fullDocument.boardId,
+              boardId: change.fullDocument.boardId.toString(),
               clientId: change.fullDocument.lastActionByClientId,
             });
           }
@@ -40,7 +40,8 @@ export async function GET(req) {
           sendEvent({
             type: "post-create",
             post: change.fullDocument,
-            boardId: change.fullDocument.boardId
+            boardId: change.fullDocument.boardId.toString(),
+            clientId: change.fullDocument.lastActionByClientId,
           });
         }
 
@@ -48,7 +49,7 @@ export async function GET(req) {
         if (change.operationType === "delete") {
           sendEvent({
             type: "post-delete",
-            postId: change.documentKey._id
+            postId: change.documentKey._id.toString()
           });
         }
       });
@@ -57,7 +58,7 @@ export async function GET(req) {
         if (change.operationType === "delete") {
           sendEvent({
             type: "board-delete",
-            boardId: change.documentKey._id
+            boardId: change.documentKey._id.toString()
           });
         }
       });
