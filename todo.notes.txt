@@ -1,3 +1,4 @@
+- change the support@email.tudorcrisan.dev to support@tudorcrisan.dev all over, also in .env
 - make it that it doesn't delete the others, so the tudorcrisan.dev can have the portfolio of apps, and the others the tudorcrisan logo
 - put the same title/paragraph in the youtube/x banners as is on tudorcrisan.dev
 - put the portfolio items on tudorcrisan.dev
