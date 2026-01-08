@@ -24,11 +24,7 @@ const APP_CONFIG = {
   'tudorcrisan.dev': [
     'tudorcrisan', 'tudorcrisan.dev',
     'loyalboards',
-    'taskflow',
-    'contentcalendar',
-    'invoicesnap',
-    'meetingmind',
-    'emailwarmup'
+    'taskflow'
   ]
 };
 

@@ -52,30 +52,6 @@ const apps = {
       "default": "setting0",
       "override": "tc0_setting"
     }
-  },
-  "contentcalendar": {
-    "copywriting": "copywriting2",
-    "styling": "styling0",
-    "visual": "visual0",
-    "setting": "setting0"
-  },
-  "invoicesnap": {
-    "copywriting": "copywriting3",
-    "styling": "styling0",
-    "visual": "visual0",
-    "setting": "setting0"
-  },
-  "meetingmind": {
-    "copywriting": "copywriting4",
-    "styling": "styling0",
-    "visual": "visual0",
-    "setting": "setting0"
-  },
-  "emailwarmup": {
-    "copywriting": "copywriting5",
-    "styling": "styling0",
-    "visual": "visual0",
-    "setting": "setting0"
   }
 }
 
