@@ -1,5 +1,6 @@
 {
   "appName": "TaskFlow",
+  "website": "taskflow.my",
   "components": {
     "dashboard": "TaskFlowDashboard"
   }

@@ -2,11 +2,11 @@
   "theme": "lofi",
   "font": "sen",
   "SectionHero": {
-    "padding": "pt-12!",
+    "padding": "pt-20!",
     "container": "flex flex-col items-center space-y-12",
     "textalign": "text-center"
   },
   "SectionApps": {
-    "padding": "pb-12!"
+    "padding": "pb-32!"
   }
 }

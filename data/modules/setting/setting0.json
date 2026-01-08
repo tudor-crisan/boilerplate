@@ -6,6 +6,7 @@
     "description": "",
     "tagline": ""
   },
+  "availableApps": ["loyalboards"],
   "business": {
     "last_updated": "12/23/2025",
     "name": "TudorCrisan.dev",
