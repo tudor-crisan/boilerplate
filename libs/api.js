@@ -60,7 +60,9 @@ export const sendEmail = async ({
   email,
   subject,
   html,
-  text
+  text,
+  replyTo,
+  headers
 }) => {
   try {
     const res = await fetch(apiUrl + apiPath, {
@@ -72,9 +74,11 @@ export const sendEmail = async ({
       body: JSON.stringify({
         from: from,
         to: email,
+        reply_to: replyTo,
         subject,
         html,
         text,
+        headers
       }),
     });
 
