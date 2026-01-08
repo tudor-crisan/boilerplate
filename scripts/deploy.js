@@ -198,8 +198,8 @@ function cleanAppSpecificFiles(targetDir, appName) {
       // If the folder name is NOT in the allowed list for this app, delete it.
       if (!allowedApps.includes(entry.name)) {
         // EXCEPTION: Always keep tudorcrisan in public/apps
-        if (relativeDir === 'public/apps' && entry.name === 'tudorcrisan') {
-          console.log(`      Found public/apps/tudorcrisan, preserving it (shared assets).`);
+        if (relativeDir === 'public/apps' && entry.name === 'tudorcrisan.dev') {
+          console.log(`      Found public/apps/tudorcrisan.dev, preserving it (shared assets).`);
           continue;
         }
 
