@@ -37,7 +37,7 @@ export function isMobile() {
 }
 
 export function pluralize(word = '', count = 0) {
-  return word + (count > 1 ? 's' : '')
+  return word + ((count > 1 || count === 0) ? 's' : '')
 }
 
 export function baseUrl() {
