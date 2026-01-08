@@ -15,6 +15,7 @@ import Form from "@/components/common/Form";
 import { useAuthError } from "@/hooks/useAuthError";
 import { useError } from "@/hooks/useError";
 import Error from "@/components/common/Error";
+import Divider from "@/components/common/Divider";
 import { useAuth } from "@/context/ContextAuth";
 
 const CALLBACK_URL = settings.paths.dashboard.source;
@@ -112,7 +113,7 @@ function SignInContent() {
               </Button>
             </Form>
             {settings.auth.providers.length > 1 && (
-              <div className="divider">OR</div>
+              <Divider />
             )}
           </>}
           {settings.auth.providers.includes("google") && (

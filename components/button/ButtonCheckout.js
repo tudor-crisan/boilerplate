@@ -7,8 +7,8 @@ import SvgPay from "@/components/svg/SvgPay";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import Modal from "@/components/common/Modal";
-import Title from "@/components/common/Title";
-import Paragraph from "@/components/common/Paragraph";
+import PricingPlanCard from "@/components/pricing/PricingPlanCard";
+import Divider from "@/components/common/Divider";
 
 const SUCCESS_URL_REDIRECT = settings.paths.billingSuccess.source;
 const CANCEL_URL_REDIRECT = settings.paths.dashboard.source;
@@ -17,8 +17,10 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
   const { loading, request } = useApiRequest();
   const { copywriting } = useCopywriting();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState(null);
 
   const handleSubscribe = async (type = "monthly") => {
+    setSelectedPlan(type);
     await request(
       () => clientApi.post(settings.paths.api.billingCreateCheckout, {
         successUrl: window.location.origin + SUCCESS_URL_REDIRECT,
@@ -32,6 +34,9 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
           if (checkoutUrl) {
             window.location.href = checkoutUrl;
           }
+        },
+        onError: () => {
+          setSelectedPlan(null);
         }
       }
     );
@@ -59,23 +64,28 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
         boxClassName="max-w-md"
       >
         <div className="flex flex-col gap-3">
-          {Object.entries(plans).map(([key, plan]) => (
-            <div
-              key={key}
-              className="relative border-2 border-base-200 rounded-2xl p-4 hover:border-primary cursor-pointer transition-all hover:bg-base-200/50 group"
-              onClick={() => handleSubscribe(key)}
-            >
-              <div className="flex justify-between items-start mb-2">
-                <div>
-                  <Title>{plan.label}</Title>
-                  <Paragraph>{plan.benefits}</Paragraph>
-                </div>
-                <div className="text-right">
-                  <div className="font-black text-2xl">{plan.price}<span className="text-sm font-medium opacity-60 ml-0.5">{plan.period}</span></div>
-                </div>
-              </div>
-            </div>
-          ))}
+          {plans.monthly && (
+            <PricingPlanCard
+              item={plans.monthly}
+              variant="simple"
+              onClick={() => handleSubscribe("monthly")}
+              isLoading={loading && selectedPlan === "monthly"}
+              disabled={loading}
+            />
+          )}
+
+          <Divider />
+
+          {plans.lifetime && (
+            <PricingPlanCard
+              item={plans.lifetime}
+              isBestOffer={true} // Explicitly set for lifetime as per requirements
+              variant="featured"
+              onClick={() => handleSubscribe("lifetime")}
+              isLoading={loading && selectedPlan === "lifetime"}
+              disabled={loading}
+            />
+          )}
         </div>
       </Modal>
     </>
