@@ -33,8 +33,8 @@ export default function Terms() {
         </p>
         <p>
           <strong>Email:&nbsp;</strong>
-          <Link href={`mailto:${settings.business.email}`} className={styling.components.link}>
-            {settings.business.email}
+          <Link href={`mailto:${settings.business.support_email}`} className={styling.components.link}>
+            {settings.business.support_email}
           </Link>
         </p>
         <p>

@@ -25,8 +25,8 @@ export default function Support() {
               <div className="space-y-4 mt-4">
                 <div>
                   <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Email&nbsp;</span>
-                  <Link href={`mailto:${settings.business.email}`} className={styling.components.link}>
-                    {settings.business.email}
+                  <Link href={`mailto:${settings.business.support_email}`} className={styling.components.link}>
+                    {settings.business.support_email}
                   </Link>
                 </div>
                 {settings.business.phone && (

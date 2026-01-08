@@ -209,6 +209,16 @@ function cleanAppSpecificFiles(targetDir, appName) {
       }
     }
   }
+
+  // NEW: Remove webhooks for apps that don't need them (specifically `resend` webhook for `tudorcrisan.dev` only)
+  // If we had more webhooks, we would make this more granular, but for now:
+  if (appName !== 'tudorcrisan.dev') {
+    const resendDir = path.join(targetDir, 'app/api/resend');
+    if (fs.existsSync(resendDir)) {
+      console.log(`      Running rmSync on app/api/resend (only for tudorcrisan.dev)`);
+      fs.rmSync(resendDir, { recursive: true, force: true });
+    }
+  }
 }
 
 async function main() {
