@@ -45,10 +45,8 @@ export async function POST(req) {
 
     // Forward the email
     await sendEmail({
-      // We will likely default to the system's "from" address for sending the forward, 
-      // but maybe include original sender info in the content or reply-to?
-      // Since `sendEmail` uses `process.env.RESEND_EMAIL_FROM` by default or what is passed.
-      // We'll resend FROM our system, TO the forwarding address.
+      apiKey: process.env.RESEND_API_KEY,
+      from: process.env.RESEND_EMAIL_FROM,
       email: forwardingEmail,
       subject: `FW: ${subject}`,
       html: `
