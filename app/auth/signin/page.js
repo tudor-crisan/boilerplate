@@ -96,7 +96,7 @@ function SignInContent() {
                   required
                   type="email"
                   placeholder="email@example.com"
-                  className={`input-bordered w-full`}
+                  className="input-bordered w-full"
                   value={email}
                   disabled={disabled}
                   onChange={(e) => setEmail(e.target.value)}

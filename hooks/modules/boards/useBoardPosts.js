@@ -29,6 +29,7 @@ const sortPosts = (posts) => {
  */
 export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } = {}) => {
   const [posts, setPosts] = useState(sortPosts(initialPosts));
+  const [isBoardDeleted, setIsBoardDeleted] = useState(false);
 
   // Sync state if initialProps change
   useEffect(() => {
@@ -56,8 +57,8 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
       try {
         const data = JSON.parse(event.data);
 
-        // Only process events for this board
-        if (data.boardId !== boardId) return;
+        // Only process events for this board (except delete, which might lack boardId)
+        if (data.type !== "post-delete" && data.boardId !== boardId) return;
 
         if (data.type === "vote") {
           handleVote(data.postId, data.votesCounter);
@@ -85,6 +86,10 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
             toast.success("Post removed!");
           }
         }
+
+        if (data.type === "board-delete" && data.boardId === boardId) {
+          setIsBoardDeleted(true);
+        }
       } catch (error) {
         console.error("SSE parse error", error);
       }
@@ -103,7 +108,8 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
   return {
     posts,
     setPosts,
-    handleVote
+    handleVote,
+    isBoardDeleted
   };
 };
 

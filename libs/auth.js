@@ -6,6 +6,7 @@ import clientPromise from "@/libs/mongo";
 import { MagicLinkEmail } from "@/libs/email";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { sendEmail } from "@/libs/api";
+import { validateEmail } from "@/libs/utils.server";
 
 const providersConfig = {
   resend: () => Resend({
@@ -56,6 +57,18 @@ const getPages = () => {
 
 const config = {
   providers: getProviders(),
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      if (user?.email) {
+        const { isValid, error } = validateEmail(user.email);
+        if (!isValid) {
+          console.warn(`Blocked sign-in attempt for invalid email: ${user.email}. Reason: ${error}`);
+          return `/auth/error?error=EmailValidation`;
+        }
+      }
+      return true;
+    },
+  },
   ...(clientPromise && { adapter: MongoDBAdapter(clientPromise) }),
   pages: getPages()
 };

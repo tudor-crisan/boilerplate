@@ -1,10 +1,12 @@
-import boardEvents from "@/libs/modules/boards/events";
+import connectMongo from "@/libs/mongoose";
+import Post from "@/models/modules/boards/Post";
+import Board from "@/models/modules/boards/Board";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req) {
   const stream = new ReadableStream({
-    start(controller) {
+    async start(controller) {
       const encoder = new TextEncoder();
 
       const sendEvent = (data) => {
@@ -12,36 +14,66 @@ export async function GET(req) {
         controller.enqueue(encoder.encode(text));
       };
 
-      const onVote = (data) => {
-        sendEvent({ type: "vote", ...data });
-      };
+      await connectMongo();
 
-      const onPostCreate = (data) => {
-        sendEvent({ type: "post-create", ...data });
-      };
+      const changeStream = Post.watch([], { fullDocument: 'updateLookup' });
+      const boardChangeStream = Board.watch([], { fullDocument: 'updateLookup' });
 
-      const onPostDelete = (data) => {
-        sendEvent({ type: "post-delete", ...data });
-      };
+      changeStream.on("change", (change) => {
+        // Handle Vote (Update)
+        if (change.operationType === "update") {
+          const updatedFields = change.updateDescription.updatedFields;
+          if (updatedFields && typeof updatedFields.votesCounter !== 'undefined') {
+            console.log("SERVER: Stream sending vote event. LastActionBy:", change.fullDocument.lastActionByClientId);
+            sendEvent({
+              type: "vote",
+              postId: change.documentKey._id,
+              votesCounter: change.fullDocument.votesCounter,
+              boardId: change.fullDocument.boardId,
+              clientId: change.fullDocument.lastActionByClientId,
+            });
+          }
+        }
 
-      // Listen for events
-      boardEvents.on("vote", onVote);
-      boardEvents.on("post-create", onPostCreate);
-      boardEvents.on("post-delete", onPostDelete);
+        // Handle New Post (Insert)
+        if (change.operationType === "insert") {
+          sendEvent({
+            type: "post-create",
+            post: change.fullDocument,
+            boardId: change.fullDocument.boardId
+          });
+        }
+
+        // Handle Delete
+        if (change.operationType === "delete") {
+          sendEvent({
+            type: "post-delete",
+            postId: change.documentKey._id
+          });
+        }
+      });
+
+      boardChangeStream.on("change", (change) => {
+        if (change.operationType === "delete") {
+          sendEvent({
+            type: "board-delete",
+            boardId: change.documentKey._id
+          });
+        }
+      });
 
       // Keep connection alive
       const keepAlive = setInterval(() => {
-        // Send a comment to keep the connection open
         controller.enqueue(encoder.encode(": keep-alive\n\n"));
       }, 15000);
 
       req.signal.addEventListener("abort", () => {
         clearInterval(keepAlive);
-        boardEvents.off("vote", onVote);
-        boardEvents.off("post-create", onPostCreate);
-        boardEvents.off("post-delete", onPostDelete);
+        changeStream.close();
+        boardChangeStream.close();
         controller.close();
       });
+
     },
   });
 

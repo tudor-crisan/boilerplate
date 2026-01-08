@@ -6,7 +6,8 @@ const errorMessages = {
   Verification: "The sign in link is no longer valid. It may have been used already or it may have expired.",
   Default: "An unexpected authentication error occurred.",
   OAuthAccountNotLinked: "Google authentication not available for this account. Please sign-in with email address",
-  RateLimit: "Too many requests. Please try again in a few minutes."
+  RateLimit: "Too many requests. Please try again in a few minutes.",
+  EmailValidation: "Please enter a valid email address."
 };
 
 export const useAuthError = () => {

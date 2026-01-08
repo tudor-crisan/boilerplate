@@ -11,16 +11,14 @@ export async function POST(req) {
   if (url.pathname.includes("/signin/email") || url.pathname.includes("/signin/resend")) {
     const response = await checkReqRateLimit(req, "auth-magic-link");
     if (response) {
-      const data = await response.json();
-      return NextResponse.json({ url: `${url.origin}/auth/error?error=${encodeURIComponent(data.error)}` }, { status: 429 });
+      return NextResponse.json({ url: `${url.origin}/auth/error?error=RateLimit` }, { status: 429 });
     }
   }
 
   if (url.pathname.includes("/signin/google")) {
     const response = await checkReqRateLimit(req, "auth-google-signin");
     if (response) {
-      const data = await response.json();
-      return NextResponse.json({ url: `${url.origin}/auth/error?error=${encodeURIComponent(data.error)}` }, { status: 429 });
+      return NextResponse.json({ url: `${url.origin}/auth/error?error=RateLimit` }, { status: 429 });
     }
   }
 

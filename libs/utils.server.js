@@ -1,5 +1,7 @@
+import { z } from "zod";
 import { NextResponse } from "next/server";
 import { defaultSetting as settings } from "@/libs/defaults";
+import blockedDomains from "@/lists/blockedDomains";
 
 export const getBaseUrl = () => {
   return process.env.NODE_ENV === "development"
@@ -39,4 +41,29 @@ export function isResponseMock(target = "") {
 export const cleanObject = (obj) => {
   if (!obj) return null;
   return JSON.parse(JSON.stringify(obj));
+};
+
+const emailSchema = z.email();
+
+export const validateEmail = (email) => {
+  if (!email) return { isValid: false, error: "Email is required" };
+
+  // 1. Format validation using Zod
+  const result = emailSchema.safeParse(email);
+  if (!result.success) {
+    return { isValid: false, error: "Invalid email format" };
+  }
+
+  // 2. Check for '+' aliases
+  if (email.includes("+")) {
+    return { isValid: false, error: "Email aliases with '+' are not allowed" };
+  }
+
+  // 3. Check for disposable domains
+  const domain = email.split("@")[1].toLowerCase();
+  if (blockedDomains.includes(domain)) {
+    return { isValid: false, error: "Disposable email domains are not allowed" };
+  }
+
+  return { isValid: true };
 };
