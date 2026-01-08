@@ -46,7 +46,7 @@ export async function POST(req) {
 
     // Retrieve the full email body since the webhook payload doesn't contain it
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const { data: emailData, error: emailError } = await resend.emails.get(email_id);
+    const { data: emailData, error: emailError } = await resend.emails.receiving.get(email_id);
 
     if (emailError) {
       console.error('Failed to retrieve email content:', emailError);
