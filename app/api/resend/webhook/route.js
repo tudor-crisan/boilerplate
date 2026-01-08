@@ -56,6 +56,22 @@ export async function POST(req) {
     const html = emailData.html;
     const text = emailData.text;
 
+    // Determine the best "From" address to use
+    // We try to match the "To" address (the alias used) if it belongs to our domain.
+    // This way, if email was sent to `LoyalBoards@tudorcrisan.dev`, the forward comes FROM `LoyalBoards@tudorcrisan.dev`
+    const systemFromAddress = process.env.RESEND_EMAIL_FROM || '';
+    // Extract domain from "Name <email@domain.com>" or "email@domain.com"
+    const domainMatch = systemFromAddress.match(/@([\w.-]+\.[a-zA-Z]{2,})/);
+    const domain = domainMatch ? domainMatch[0] : null;
+
+    let senderFrom = systemFromAddress;
+    if (domain) {
+      const aliasAddress = to.find(t => t.toLowerCase().includes(domain.toLowerCase()));
+      if (aliasAddress) {
+        senderFrom = aliasAddress;
+      }
+    }
+
     // Forward the email
     await sendEmail({
       // We will likely default to the system's "from" address for sending the forward, 
@@ -63,7 +79,7 @@ export async function POST(req) {
       // Since `sendEmail` uses `process.env.RESEND_EMAIL_FROM` by default or what is passed.
       // We'll resend FROM our system, TO the forwarding address.
       apiKey: process.env.RESEND_API_KEY,
-      from: process.env.RESEND_EMAIL_FROM,
+      from: senderFrom,
       replyTo: from,
       email: forwardingEmail,
       subject: `FW: ${subject}`,
