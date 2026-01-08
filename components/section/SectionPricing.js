@@ -19,12 +19,44 @@ export default function SectionPricing() {
           {copywriting.SectionPricing.headline}
         </h2>
         <PricingCard>
-          <div className="flex items-baseline mb-4">
-            <div className="text-4xl font-black">
-              {copywriting.SectionPricing.price}
+          <div className="flex flex-col gap-3 mb-6">
+            {/* Monthly Plan */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-baseline">
+                <div className="text-3xl font-black">
+                  {copywriting.SectionPricing.formattedPlans.monthly.price}
+                </div>
+                <div className="text-sm font-medium opacity-60">
+                  {copywriting.SectionPricing.formattedPlans.monthly.period}
+                </div>
+              </div>
+              <div className="text-sm font-medium opacity-60">
+                {copywriting.SectionPricing.formattedPlans.monthly.label}
+              </div>
             </div>
-            <div className="text-sm font-medium opacity-60">
-              {copywriting.SectionPricing.period}
+
+            <div className="divider text-xs font-bold opacity-50 my-1">OR</div>
+
+            {/* Lifetime Plan */}
+            <div className="relative p-3 rounded-xl border-2 border-primary/20 bg-primary/5">
+              <div className="absolute -top-3 right-4 bg-primary text-primary-content text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                Best Offer
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="flex items-baseline">
+                    <div className="text-3xl font-black text-primary">
+                      {copywriting.SectionPricing.formattedPlans.lifetime.price}
+                    </div>
+                  </div>
+                  <div className="text-xs font-bold text-primary">
+                    {copywriting.SectionPricing.formattedPlans.lifetime.label}
+                  </div>
+                </div>
+                <div className="text-sm font-medium text-right opacity-80">
+                  {copywriting.SectionPricing.formattedPlans.lifetime.benefits}
+                </div>
+              </div>
             </div>
           </div>
           <ul className="space-y-1">

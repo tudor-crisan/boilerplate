@@ -155,7 +155,7 @@
             "status": 401
           },
           "noAccess": {
-            "message": "Please subscribe first",
+            "message": "Access only for paid users",
             "status": 403
           },
           "sessionLost": {

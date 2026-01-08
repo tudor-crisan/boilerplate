@@ -1,4 +1,4 @@
-- create a webhook for resend received emails to forward them to main email address
+
 - make it either $10/month or pay $60 one-time, no monthly subcriptions (change the SectionPricing and make it with modal for subscribe in dashboard)
 - look at the /success page to figure out how it can be better done
 

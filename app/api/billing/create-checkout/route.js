@@ -58,11 +58,25 @@ export async function POST(req) {
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+    const type = body.type; // 'monthly' or 'lifetime'
+    let priceId = process.env.STRIPE_PRICE_ID;
+    let mode = "subscription";
+
+    if (type === "lifetime") {
+      priceId = process.env.STRIPE_PRICE_ID_LIFETIME;
+      mode = "payment";
+    }
+
+    if (!priceId) {
+      console.error(`Stripe price ID missing for type: ${type}`);
+      return responseError(serverError.message, {}, serverError.status);
+    }
+
     const stripeCheckoutSession = await stripe.checkout.sessions.create({
-      mode: "subscription",
+      mode: mode,
       line_items: [
         {
-          price: process.env.STRIPE_PRICE_ID,
+          price: priceId,
           quantity: 1,
         },
       ],

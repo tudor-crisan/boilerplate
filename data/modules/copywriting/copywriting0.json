@@ -11,6 +11,27 @@
       }
     ]
   },
+  "SectionPricing": {
+    "label": "Pricing",
+    "headline": "Choose your plan",
+    "formattedPlans": {
+      "monthly": {
+        "price": "$19",
+        "period": "/month",
+        "label": "Monthly",
+        "benefits": "Cancel anytime"
+      },
+      "lifetime": {
+        "price": "$59",
+        "period": "",
+        "label": "Lifetime",
+        "benefits": "One time payment"
+      }
+    },
+    "button": {
+      "label": "Payment"
+    }
+  },
   "SectionFooter": {
     "brand": {
       "rights": "All rights reserved."
