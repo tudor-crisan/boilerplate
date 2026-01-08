@@ -54,6 +54,10 @@ export async function POST(req) {
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+    if (!user.customerId) {
+      return responseError("You don't have a billing account yet. Make a purchase first.", {}, 400);
+    }
+
     const stripeCustomerPortal = await stripe.billingPortal.sessions.create({
       customer: user.customerId,
       return_url: body.returnUrl,

@@ -72,7 +72,7 @@ export async function POST(req) {
       return responseError(serverError.message, {}, serverError.status);
     }
 
-    const stripeCheckoutSession = await stripe.checkout.sessions.create({
+    const stripeSessionConfig = {
       mode: mode,
       line_items: [
         {
@@ -82,9 +82,16 @@ export async function POST(req) {
       ],
       success_url: body.successUrl,
       cancel_url: body.cancelUrl,
-      customer_email: user.email,
       client_reference_id: user._id.toString(),
-    });
+    };
+
+    if (user.customerId) {
+      stripeSessionConfig.customer = user.customerId;
+    } else {
+      stripeSessionConfig.customer_email = user.email;
+    }
+
+    const stripeCheckoutSession = await stripe.checkout.sessions.create(stripeSessionConfig);
 
     return responseSuccess(checkoutCreated.message, { url: stripeCheckoutSession.url }, checkoutCreated.status);
   } catch (e) {

@@ -1,6 +1,7 @@
 "use client";
 import IconLoading from "@/components/icon/IconLoading";
 import { cn } from "@/libs/utils.client";
+import { useStyling } from "@/context/ContextStyling";
 
 const PricingPlanCard = ({
   item,
@@ -11,6 +12,7 @@ const PricingPlanCard = ({
   className = "",
   variant = "featured", // "featured" | "simple"
 }) => {
+  const { styling } = useStyling();
   const { price, period, label, benefits } = item;
 
   const isFeatured = variant === "featured";
