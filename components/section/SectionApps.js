@@ -1,54 +1,66 @@
 "use client";
-import apps from "@/lists/apps";
-import copywritings from "@/lists/copywritings";
 import { useStyling } from "@/context/ContextStyling";
+import Grid from "@/components/common/Grid";
+import { getAppDetails } from "@/lists/apps";
+import Image from "next/image";
+import Paragraph from "@/components/common/Paragraph";
+import Title from "@/components/common/Title";
+import { cn } from "@/libs/utils.client";
+import Button from "@/components/button/Button";
 
+// Define the apps to display in this section
 const availableApps = ['loyalboards'];
-const filteredApps = {};
 
-for (const app in apps) {
-  if (!availableApps.includes(app)) {
-    continue;
-  }
+const SectionAppsContent = () => {
+  availableApps.map((app) => {
+    const { title, description, favicon, website, appName } = getAppDetails(app);
 
-  filteredApps[app] = apps[app];
+    return (
+      <div key={app} className={`card w-full max-w-sm ${styling.components.card}`}>
+        <div className={`card-body ${styling.general.box} space-y-6`}>
+          <div className={`flex items-center gap-2 font-extrabold`}>
+            {favicon && (
+              <Image
+                src={favicon}
+                alt={`${appName} logo`}
+                width={32}
+                height={32}
+                className={`${styling.components.element} object-contain`} // Safety for images
+              />
+            )}
+            <Title>{appName}</Title>
+          </div>
+
+          <div className="space-y-1">
+            <Title>{title}</Title>
+            <Paragraph>{description}</Paragraph>
+          </div>
+
+          {website && (
+            <Button href={website}>
+              View App
+            </Button>
+          )}
+        </div>
+      </div>
+    );
+  });
 }
 
 export default function SectionApps() {
   const { styling } = useStyling();
+
   return (
-    <section id="apps" className={`${styling.general.container} ${styling.general.box} bg-base-100`}>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        {Object.keys(filteredApps).map((appName) => {
-          const appConfig = filteredApps[appName];
-          const copyKey =
-            typeof appConfig.copywriting === "string"
-              ? appConfig.copywriting
-              : appConfig.copywriting.override || appConfig.copywriting.default;
-
-          const copyData = copywritings[copyKey];
-          if (!copyData) return null;
-
-          const title = copyData.SectionHero?.headline || appName;
-          const description = copyData.SectionHero?.paragraph || "";
-
-          return (
-            <div key={appName} className="card bg-base-100 shadow-xl border border-base-200">
-              <div className="card-body">
-                <div className="flex items-center gap-2 mb-2">
-                  <h3 className="card-title capitalize">{appName}</h3>
-                </div>
-                {title && <p className="font-semibold text-sm mb-2 opacity-80">{title}</p>}
-                <p className="text-sm opacity-70 mb-4 line-clamp-3">{description}</p>
-                <div className="card-actions justify-end mt-auto">
-                  <button className="btn btn-sm btn-outline">View App</button>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+    <section id="apps" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, styling.SectionApps.padding)}>
+      {availableApps.length === 1 ? (
+        <div className={styling.flex.center}>
+          <SectionAppsContent />
+        </div>
+      ) : (
+        <Grid>
+          <SectionAppsContent />
+        </Grid>
+      )}
     </section>
   );
 }

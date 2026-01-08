@@ -1,3 +1,10 @@
+
+import copywritings from "@/lists/copywritings";
+import settings from "@/lists/settings";
+import visuals from "@/lists/visuals";
+import stylings from "@/lists/stylings";
+import { formatWebsiteUrl } from "@/libs/utils.server";
+
 const apps = {
   "loyalboards": {
     "copywriting": {
@@ -78,5 +85,43 @@ const apps = {
     "setting": "setting0"
   }
 }
+
+export const getAppDetails = (appName) => {
+  const appConfig = apps[appName];
+  if (!appConfig) return null;
+
+  // Resolve keys
+  const resolveKey = (configItem) => {
+    if (typeof configItem === "string") return configItem;
+    return configItem.override || configItem.default;
+  };
+
+  const copyKey = resolveKey(appConfig.copywriting);
+  const settingKey = resolveKey(appConfig.setting);
+  const visualKey = resolveKey(appConfig.visual);
+  const stylingKey = resolveKey(appConfig.styling);
+
+  // Fetch data
+  const copywriting = copywritings[copyKey];
+  const setting = settings[settingKey];
+  const visual = visuals[visualKey];
+  const styling = stylings[stylingKey];
+
+  if (!copywriting || !setting || !visual || !styling) return null;
+
+  return {
+    copywriting,
+    setting,
+    visual,
+    styling,
+
+    title: copywriting.SectionHero?.headline || "",
+    description: copywriting.SectionHero?.paragraph || "",
+    favicon: visual.favicon?.href || "",
+
+    appName: setting.appName || "",
+    website: formatWebsiteUrl(setting.website || ""),
+  };
+};
 
 export default apps;

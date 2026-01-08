@@ -15,7 +15,7 @@ export default function SectionHero() {
   return (
     <section id="hero" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, styling.SectionHero.padding)}>
       <div className={`${styling.SectionHero.container}`}>
-        <div className={visual.show.SectionHero.button && 'space-y-6'}>
+        <div className={visual.show.SectionHero.button ? 'space-y-6' : ''}>
           <div className="space-y-3">
             {visual.show.SectionHero.headline && (
               <h1 className={`${styling.SectionHero.headline} ${styling.SectionHero.textalign}`}>

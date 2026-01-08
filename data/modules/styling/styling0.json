@@ -43,6 +43,9 @@
     "paragraph": "opacity-90 px-4 sm:px-0",
     "textalign": "text-center sm:text-left"
   },
+  "SectionApps": {
+    "padding": "py-32!"
+  },
   "SectionPricing": {
     "padding": "py-32!"
   },

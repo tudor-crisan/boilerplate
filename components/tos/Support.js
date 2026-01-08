@@ -6,6 +6,7 @@ import Title from "@/components/common/Title";
 import TosContent from "@/components/tos/TosContent";
 import { useStyling } from "@/context/ContextStyling";
 import Link from "next/link";
+import Grid from "@/components/common/Grid";
 
 export default function Support() {
   const { styling } = useStyling();
@@ -17,9 +18,8 @@ export default function Support() {
         <Paragraph>
           Need help? We are here for you. Please reach out to us using the contact details below.
         </Paragraph>
-
         <div className={`${styling.components.card} mt-8 bg-base-200 ${styling.general.box}`}>
-          <div className="grid sm:grid-cols-2 gap-8">
+          <Grid>
             <div>
               <Title>Contact Information</Title>
               <div className="space-y-4 mt-4">
@@ -63,8 +63,9 @@ export default function Support() {
                 </div>
               </div>
             </div>
-          </div>
+          </Grid>
         </div>
+
       </TosContent>
     </TosWrapper>
   )

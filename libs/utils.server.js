@@ -7,6 +7,13 @@ export const getBaseUrl = () => {
     : "https://" + process.env.NEXT_PUBLIC_DOMAIN;
 };
 
+export function formatWebsiteUrl(url = "") {
+  if (!url) return "";
+  // remove any protocol and www to force https://www.
+  const clean = url.replace(/(^\w+:|^)\/\//, '').replace(/^www\./, '');
+  return `https://www.${clean}`;
+}
+
 export function responseSuccess(message = "", data = {}, status = 200) {
   return NextResponse.json({ message, data }, { status });
 }
