@@ -89,6 +89,11 @@ export async function POST(req) {
       stripeSessionConfig.customer = user.customerId;
     } else {
       stripeSessionConfig.customer_email = user.email;
+
+      // Force customer creation for one-time payments so we can use the billing portal later
+      if (mode === "payment") {
+        stripeSessionConfig.customer_creation = "always";
+      }
     }
 
     const stripeCheckoutSession = await stripe.checkout.sessions.create(stripeSessionConfig);
