@@ -45,13 +45,13 @@ export default function DashboardMessage() {
 
     return (
       <div className={containerClass}>
-        <div className="space-y-3 text-center sm:text-left">
+        <div className="space-y-3 text-center sm:text-left w-full sm:w-auto">
           <div className="space-y-1">
             <Title>
               Dashboard
             </Title>
             <Paragraph>
-              Welcome <span className="font-bold">&quot;{name}&quot;</span>. <br /> You&apos;re logged in from <span className="font-bold">&quot;{email}&quot;</span>
+              Welcome <span className="font-bold">&quot;{name}&quot;</span>. <br className="hidden sm:block" /> You&apos;re logged in from <span className="font-bold">&quot;{email}&quot;</span>
             </Paragraph>
           </div>
           <Button onClick={handleEditClick}>
@@ -59,7 +59,7 @@ export default function DashboardMessage() {
           </Button>
         </div>
 
-        <div className="shrink-0">
+        <div className="shrink-0 order-first sm:order-0">
           <Avatar
             initials={getNameInitials(name) || initials}
             src={image}
@@ -74,7 +74,7 @@ export default function DashboardMessage() {
           title="Edit Profile"
         >
           <Form onSubmit={handleSave} className="space-y-6">
-            <div className={`flex justify-center ${styling.flex.center}`}>
+            <div className={styling.flex.center}>
               <Avatar
                 initials={getNameInitials(inputs.name) || initials}
                 src={inputs.image}
@@ -87,40 +87,39 @@ export default function DashboardMessage() {
             />
 
             {inputs.image && (
-              <div className="flex justify-center">
+              <div className={styling.flex.center}>
                 <button
-                  type="button"
                   onClick={() => handleChange("image", "")}
-                  className="text-error text-sm hover:underline"
+                  className={styling.components.link}
                 >
                   Remove Image
                 </button>
               </div>
             )}
 
-            <div className="w-full">
-              <Label>
-                Display Name
-              </Label>
-              <Input
-                required
-                type="text"
-                value={inputs.name}
-                onChange={(e) => handleChange("name", e.target.value)}
-                placeholder="Your Name"
-                maxLength={30}
-                showCharacterCount
-              />
-            </div>
-
-            <div className="pt-4">
-              <Button
-                type="submit"
-                className="btn-primary w-full"
-                isLoading={isSaving}
-              >
-                Save Changes
-              </Button>
+            <div className="w-full space-y-3">
+              <div className="space-y-1">
+                <Label>
+                  Display Name
+                </Label>
+                <Input
+                  required
+                  type="text"
+                  value={inputs.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
+                  placeholder="Your Name"
+                  maxLength={30}
+                  showCharacterCount
+                />
+              </div>
+              <div className="w-full text-center">
+                <Button
+                  type="submit"
+                  isLoading={isSaving}
+                >
+                  Save Changes
+                </Button>
+              </div>
             </div>
           </Form>
         </Modal>

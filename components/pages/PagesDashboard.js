@@ -12,25 +12,21 @@ import { getUser } from "@/libs/modules/boards/db";
 import ButtonPortal from "@/components/button/ButtonPortal";
 
 export default async function PagesDashboard({ children }) {
-  const component = settings.components.dashboard
-  const Component = dashboards[component];
-  const user = await getUser();
-  const { hasAccess } = user || {};
+  const DashboardComponent = dashboards[settings.components.dashboard];
+  const { hasAccess } = await getUser();
 
   return (
     <DashboardWrapper>
       <DashboardHeader>
         <HeaderTop url={settings.paths.home.source} />
         <div className="flex gap-2">
-          {!hasAccess ? <ButtonCheckout /> : <ButtonPortal />}
+          {hasAccess ? <ButtonPortal /> : <ButtonCheckout />}
           <ButtonLogout />
         </div>
       </DashboardHeader>
-      <DashboardMain>
+      <DashboardMain className="space-y-6">
         <DashboardMessage />
-        <div className="my-6">
-          {children || <Component /> || null}
-        </div>
+        <DashboardComponent />
       </DashboardMain>
     </DashboardWrapper>
   )

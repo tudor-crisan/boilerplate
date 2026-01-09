@@ -4,6 +4,7 @@ import Button from "@/components/button/Button";
 import useUpload from "@/hooks/useUpload";
 import { cn } from "@/libs/utils.client";
 import { useStyling } from "@/context/ContextStyling";
+import Paragraph from "./Paragraph";
 
 const Upload = ({ onFileSelect, className }) => {
   const { styling } = useStyling();
@@ -21,7 +22,7 @@ const Upload = ({ onFileSelect, className }) => {
           onFileSelect(dataUri);
         }
       } catch (error) {
-        console.error("Upload failed", error);
+        console.warn("Upload failed", error);
       }
       // Clear the value to allow re-selection of the same file
       e.target.value = "";
@@ -29,7 +30,7 @@ const Upload = ({ onFileSelect, className }) => {
   };
 
   return (
-    <div className={cn(`${styling.flex.col} gap-2`, className)}>
+    <div className={cn(`${styling.flex.col} gap-2 text-center`, className)}>
       <input
         type="file"
         ref={fileInputRef}
@@ -46,13 +47,13 @@ const Upload = ({ onFileSelect, className }) => {
           }
         }}
         isLoading={isLoading}
-        className="btn-neutral w-full"
+        className="mx-auto max-w-xs"
       >
         {isLoading ? "Processing..." : "Choose Image"}
       </Button>
-      <p className="text-xs text-center opacity-60">
+      <Paragraph>
         Max 2MB. formats: JPG, PNG, GIF
-      </p>
+      </Paragraph>
     </div>
   );
 };
