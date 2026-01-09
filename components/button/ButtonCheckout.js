@@ -54,7 +54,7 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
         startIcon={<SvgPay />}
         {...props}
       >
-        {copywriting.SectionPricing.button?.label || "Payment"}
+        {copywriting.SectionPricing.button?.label || "Pricing"}
       </Button>
 
       <Modal

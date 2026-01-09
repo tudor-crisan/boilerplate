@@ -4,6 +4,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
 import Link from "next/link";
+import config from "@/package.json";
 
 export default function FooterBrand() {
   const { styling } = useStyling();
@@ -28,6 +29,9 @@ export default function FooterBrand() {
       </Link>
       <div className="text-sm text-base-content/60">
         © {currentYear} {copywriting.SectionFooter.brand.rights}
+      </div>
+      <div className="text-[10px] text-base-content/40">
+        Build version {config.version}
       </div>
     </div>
   );

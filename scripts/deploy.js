@@ -21,11 +21,11 @@ const TARGET_FOLDERS = [
 // Standardizes "tudorcrisan" (folder) vs "tudorcrisan.dev" (target)
 const APP_CONFIG = {
   'loyalboards': ['loyalboards'],
-  'tudorcrisan.dev': [
-    'tudorcrisan', 'tudorcrisan.dev',
-    'loyalboards',
-    'taskflow'
-  ]
+  // 'tudorcrisan.dev': [
+  //   'tudorcrisan', 'tudorcrisan.dev',
+  //   'loyalboards',
+  //   'taskflow'
+  // ]
 };
 
 const EXCLUDED_FILES = [
