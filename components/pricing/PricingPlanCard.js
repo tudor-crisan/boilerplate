@@ -21,17 +21,17 @@ const PricingPlanCard = ({
     <div
       className={cn(
         "relative transition-all text-left",
-        isFeatured && "p-3 rounded-xl border-2 border-primary/20 bg-primary/5",
-        !isFeatured && "p-2 rounded-lg border-2 border-transparent hover:bg-base-200/50",
-        onClick && !disabled && isFeatured && "cursor-pointer hover:border-primary hover:bg-base-200/50",
-        onClick && !disabled && !isFeatured && "cursor-pointer",
+        isFeatured && styling.pricing.card_featured,
+        !isFeatured && styling.pricing.card_simple,
+        onClick && !disabled && isFeatured && styling.pricing.card_featured_interactive,
+        onClick && !disabled && !isFeatured && styling.pricing.card_simple_interactive,
         disabled && "opacity-60 cursor-not-allowed",
         className
       )}
       onClick={!disabled && onClick ? onClick : undefined}
     >
       {isBestOffer && (
-        <div className="absolute -top-3 right-4 bg-primary text-primary-content text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+        <div className={styling.pricing.label}>
           Best Offer
         </div>
       )}

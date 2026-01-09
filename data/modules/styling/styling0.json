@@ -6,11 +6,18 @@
     "element": "rounded-md shadow-md",
     "card": "rounded-2xl shadow-md border border-primary bg-base-100",
     "card_featured": "rounded-2xl shadow-lg bg-base-100",
-    "input": "input rounded-md shadow-md",
+    "input": "input input-bordered w-full rounded-md shadow-md",
     "textarea": "textarea rounded-md shadow-md",
     "select": "select rounded-md shadow-md",
     "input_copy": "rounded-md shadow-md bg-base-100 flex items-center w-full",
     "header": "px-3 sm:px-5 py-3"
+  },
+  "pricing": {
+    "label": "absolute -top-3 right-4 bg-primary text-primary-content text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider",
+    "card_featured": "p-3 rounded-xl border-2 border-primary/20 bg-primary/5",
+    "card_simple": "p-2 rounded-lg border-2 border-transparent hover:bg-base-200/50",
+    "card_featured_interactive": "cursor-pointer hover:border-primary hover:bg-base-200/50",
+    "card_simple_interactive": "cursor-pointer"
   },
   "flex": {
     "center": "flex items-center justify-center",

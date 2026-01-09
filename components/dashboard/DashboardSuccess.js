@@ -7,7 +7,7 @@ import Paragraph from "@/components/common/Paragraph";
 import Button from "@/components/button/Button";
 import Vertical from "@/components/common/Vertical";
 
-export default function DashboardSuccessView() {
+export default function DashboardSuccess() {
   const { styling } = useStyling();
 
   return (

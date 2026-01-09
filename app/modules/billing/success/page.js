@@ -3,7 +3,7 @@ import DashboardMain from "@/components/dashboard/DashboardMain";
 import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 import HeaderTop from "@/components/header/HeaderTop";
 import { defaultSetting as settings } from "@/libs/defaults";
-import DashboardSuccessView from "@/components/dashboard/DashboardSuccessView";
+import DashboardSuccess from "@/components/dashboard/DashboardSuccess";
 
 export default async function SuccessPage() {
   return (
@@ -12,7 +12,7 @@ export default async function SuccessPage() {
         <HeaderTop url={settings.paths.home.source} />
       </DashboardHeader>
       <DashboardMain className="min-h-[60vh]">
-        <DashboardSuccessView />
+        <DashboardSuccess />
       </DashboardMain>
     </DashboardWrapper>
   );

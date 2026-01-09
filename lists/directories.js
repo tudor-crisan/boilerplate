@@ -1,4 +1,5 @@
 const directories = [
+  "https://websitelaunches.com/",
   "https://peerpush.net/",
   "https://www.hot100.ai/",
   "https://launched.lovable.app/",
@@ -30,7 +31,7 @@ const directories = [
   "https://esidehustles.com/",
   "https://madewithlovable.com/",
   "https://producthunt.com",
-  "https://foundrlist.com",
+  "https://foundrlist.com"
 ]
 
 export default directories;

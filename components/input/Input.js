@@ -22,7 +22,7 @@ export default function Input({ className = "", error, showCharacterCount, ...pr
     return (
       <div className="relative w-full">
         <input
-          className={`${defaultClasses} ${errorClass} ${className} w-full pr-14`.trim()}
+          className={`${defaultClasses} ${errorClass} ${className} pr-14`.trim()}
           {...props}
         />
         <CharacterCount

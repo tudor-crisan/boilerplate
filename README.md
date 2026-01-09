@@ -127,7 +127,7 @@ Stripe
 Additional (when having traction):
 - "Create new stripe" for the domain, with branding and everything
 - Resend: "Add domain" add the email.domain.com to send from it
-- Tracking: "Add datafa.st" for advanced tracking of the apps
+- Tracking: "Add google analytics" for advanced tracking of the apps
 - Mongo: daily backups of all databases in case something goes wrong
 ```
 

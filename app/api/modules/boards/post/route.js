@@ -17,8 +17,6 @@ const {
   noAccess,
 } = settings.forms.general.backend.responses;
 
-
-
 export async function POST(req) {
   if (isResponseMock(TYPE)) {
     return responseMock(TYPE);

@@ -6,7 +6,9 @@
     "description": "",
     "tagline": ""
   },
-  "availableApps": ["loyalboards"],
+  "availableApps": [
+    "loyalboards"
+  ],
   "business": {
     "last_updated": "12/23/2025",
     "name": "TudorCrisan.dev",
@@ -34,7 +36,10 @@
   },
   "modules": [],
   "auth": {
-    "providers": ["resend", "google"],
+    "providers": [
+      "resend",
+      "google"
+    ],
     "hasThemePages": true,
     "hasThemeEmails": true
   },
@@ -190,6 +195,16 @@
           },
           "portalCreated": {
             "message": "You are being redirected to billing",
+            "status": 200
+          }
+        }
+      }
+    },
+    "User": {
+      "backend": {
+        "responses": {
+          "profileUpdated": {
+            "message": "Profile updated successfully",
             "status": 200
           }
         }
