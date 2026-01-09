@@ -1,4 +1,5 @@
 
+- copy the "deployed" folders without the .git inside, and delete them first on stick, also copy the docs.rtf file from c:\twain_32
 - have a way to edit the board link slug, and use slugs when possible (with checks for existing board names)
 - have a settings panel to change the theme, style of the page, such as shadows, borders, roundness (from lb0_settings)
 
