@@ -14,7 +14,7 @@ import useForm from "@/hooks/useForm";
 import Upload from "@/components/common/Upload";
 import { useStyling } from "@/context/ContextStyling";
 
-export default function DashboardMessage() {
+export default function DashboardProfile() {
   const { styling } = useStyling();
   const { isLoggedIn, email, name, initials, image, updateProfile } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);

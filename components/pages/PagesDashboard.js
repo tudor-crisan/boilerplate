@@ -4,7 +4,7 @@ import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardMain from "@/components/dashboard/DashboardMain";
 import HeaderTop from "@/components/header/HeaderTop";
 import ButtonLogout from "@/components/button/ButtonLogout";
-import DashboardMessage from "@/components/dashboard/DashboardMessage";
+import DashboardProfile from "@/components/dashboard/DashboardProfile";
 import dashboards from "@/lists/dashboards";
 import ButtonCheckout from "@/components/button/ButtonCheckout";
 import { defaultSetting as settings } from "@/libs/defaults";
@@ -25,7 +25,7 @@ export default async function PagesDashboard({ children }) {
         </div>
       </DashboardHeader>
       <DashboardMain className="space-y-6">
-        <DashboardMessage />
+        <DashboardProfile />
         <DashboardComponent />
       </DashboardMain>
     </DashboardWrapper>
