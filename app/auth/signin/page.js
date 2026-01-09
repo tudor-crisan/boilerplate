@@ -90,10 +90,10 @@ function SignInContent() {
               <p className="text-center">No sign-in methods available at this time</p>
             )}
             {settings.auth.providers.includes("resend") && <>
-              <Form onSubmit={handleEmailSignIn} className="gap-4">
-                <div className="mb-2">
+              <Form onSubmit={handleEmailSignIn} className="space-y-3">
+                <div className="space-y-1">
                   <Label>
-                    <span>Email Address</span>
+                    Email Address
                   </Label>
                   <Input
                     required
@@ -139,7 +139,9 @@ function SignInContent() {
             </div>
           </div>
         </div>
-        <FooterAuth />
+        {settings.auth.providers.length > 0 && (
+          <FooterAuth />
+        )}
       </div>
 
 

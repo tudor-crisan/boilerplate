@@ -4,6 +4,7 @@ import Cropper from "react-easy-crop";
 import Button from "@/components/button/Button";
 import { useStyling } from "@/context/ContextStyling";
 import { getCroppedImg } from "@/libs/utils.client";
+import InputRange from "@/components/input/InputRange";
 
 const ImageCropper = ({ imageSrc, onCropComplete, onCancel, aspect = 1 }) => {
   const { styling } = useStyling();
@@ -61,28 +62,28 @@ const ImageCropper = ({ imageSrc, onCropComplete, onCancel, aspect = 1 }) => {
         <div className="w-full max-w-xs mx-auto space-y-4">
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium w-12 text-right">Zoom</span>
-            <input
-              type="range"
+            <InputRange
               value={zoom}
               min={1}
               max={3}
               step={0.1}
-              aria-labelledby="Zoom"
+              ariaLabel="Zoom"
               onChange={(e) => setZoom(Number(e.target.value))}
-              className="range range-primary range-xs flex-1"
+              color="primary"
+              className="flex-1"
             />
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium w-12 text-right">Rotate</span>
-            <input
-              type="range"
+            <InputRange
               value={rotation}
               min={0}
               max={360}
               step={1}
-              aria-labelledby="Rotation"
+              ariaLabel="Rotation"
               onChange={(e) => setRotation(Number(e.target.value))}
-              className="range range-secondary range-xs flex-1"
+              color="secondary"
+              className="flex-1"
             />
           </div>
         </div>
