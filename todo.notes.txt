@@ -1,4 +1,13 @@
 
+- have input placeholders editable (as well as labels for adding posts)
+- have colors editables, borders, theme, fonts as well (inside the whole app)
+- have the main landing page be editable as well (have a "refresh" button to change even the copywriting)
+- have a feedback board for the new features of loyalboards as well (on the main page)
+- have the sharable board be embeded as an iframe also directly on websites
+
+- for select inputs, have right/left navigation to try different themes, fonts etc
+- the unintended zoom-in still happens on safari on iphone when focusing on inputs
+
 - have a way to edit the board link slug, and use slugs when possible (with checks for existing board names)
 - have a settings panel to change the theme, style of the page, such as shadows, borders, roundness (from lb0_settings)
 
