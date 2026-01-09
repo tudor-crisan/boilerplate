@@ -48,10 +48,10 @@ export default function DashboardProfile() {
         <div className="space-y-3 text-center sm:text-left w-full sm:w-auto">
           <div className="space-y-1">
             <Title>
-              Dashboard
+              Profile
             </Title>
             <Paragraph>
-              Welcome <span className="font-bold">&quot;{name}&quot;</span>. <br className="hidden sm:block" /> You&apos;re logged in from <span className="font-bold">&quot;{email}&quot;</span>
+              Welcome <span className="font-bold">{name}</span>. <br className="hidden sm:block" /> You&apos;re logged in from <span className="font-bold">{email}</span>
             </Paragraph>
           </div>
           <Button onClick={handleEditClick}>
