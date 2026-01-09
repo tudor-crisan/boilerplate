@@ -12,6 +12,7 @@ import Label from "@/components/common/Label";
 import Input from "@/components/input/Input";
 import useForm from "@/hooks/useForm";
 import Upload from "@/components/common/Upload";
+import ImageCropper from "@/components/common/ImageCropper";
 import { useStyling } from "@/context/ContextStyling";
 
 export default function DashboardProfile() {
@@ -19,6 +20,8 @@ export default function DashboardProfile() {
   const { isLoggedIn, email, name, initials, image, updateProfile } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [showCropper, setShowCropper] = useState(false);
+  const [tempImage, setTempImage] = useState(null);
 
   const { inputs, handleChange, resetInputs } = useForm({
     name: name || "",
@@ -38,6 +41,25 @@ export default function DashboardProfile() {
     if (success) {
       setIsModalOpen(false);
     }
+  };
+
+  const handleFileSelect = (dataUri) => {
+    setTempImage(dataUri);
+    setIsModalOpen(false);
+    setShowCropper(true);
+  };
+
+  const handleCropComplete = (croppedImage) => {
+    handleChange("image", croppedImage);
+    setShowCropper(false);
+    setTempImage(null);
+    setIsModalOpen(true);
+  };
+
+  const handleCropCancel = () => {
+    setShowCropper(false);
+    setTempImage(null);
+    setIsModalOpen(true);
   };
 
   if (isLoggedIn) {
@@ -83,12 +105,13 @@ export default function DashboardProfile() {
             </div>
 
             <Upload
-              onFileSelect={(dataUri) => handleChange("image", dataUri)}
+              onFileSelect={handleFileSelect}
             />
 
             {inputs.image && (
               <div className={styling.flex.center}>
                 <button
+                  type="button"
                   onClick={() => handleChange("image", "")}
                   className={styling.components.link}
                 >
@@ -123,6 +146,14 @@ export default function DashboardProfile() {
             </div>
           </Form>
         </Modal>
+
+        {showCropper && tempImage && (
+          <ImageCropper
+            imageSrc={tempImage}
+            onCropComplete={handleCropComplete}
+            onCancel={handleCropCancel}
+          />
+        )}
       </div>
     );
   }

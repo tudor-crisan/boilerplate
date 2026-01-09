@@ -1,8 +1,10 @@
 
-- copy the "deployed" folders without the .git inside, and delete them first on stick, also copy the docs.rtf file from c:\twain_32
 - have a way to edit the board link slug, and use slugs when possible (with checks for existing board names)
 - have a settings panel to change the theme, style of the page, such as shadows, borders, roundness (from lb0_settings)
 
 - have screenshots from the app to investigate an figure out what other features or where is friction to be removed
 - make a video screenrecording demo of the app how it works, behind the scenes and everything, highlighting the benefits
 - specify in the copywriting/promo videos, that it works on mobile also, even dashboard, and that it updates in real time when users create posts/upvotes
+
+- have a section for reviews as well (when reviews come in)
+- have a section to buy the boilerplate, one-time with $250 on tudorcrisan.dev with stripe payment link and redirect to the google drive

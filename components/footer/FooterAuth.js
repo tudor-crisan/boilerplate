@@ -1,0 +1,23 @@
+"use client";
+import Link from "next/link";
+import { defaultSetting as settings } from "@/libs/defaults";
+import Paragraph from "@/components/common/Paragraph";
+import { useStyling } from "@/context/ContextStyling";
+
+export default function FooterAuth() {
+  const { styling } = useStyling();
+  return (
+    <div className="mt-8 text-center text-sm text-base-content/60">
+      <Paragraph className="mb-2">
+        By signing up, you agree to our{" "}
+        <Link href={settings.paths.terms.source} className={`${styling.components.link}`}>
+          Terms of Service
+        </Link>
+        .
+      </Paragraph>
+      <Link href={settings.paths.support.source} className={`${styling.components.link} ${styling.flex.center}`}>
+        Need help?
+      </Link>
+    </div>
+  );
+}

@@ -17,6 +17,7 @@ import { useError } from "@/hooks/useError";
 import Error from "@/components/common/Error";
 import Divider from "@/components/common/Divider";
 import { useAuth } from "@/context/ContextAuth";
+import FooterAuth from "@/components/footer/FooterAuth";
 
 const CALLBACK_URL = settings.paths.dashboard.source;
 
@@ -70,73 +71,95 @@ function SignInContent() {
   };
 
   return (
-    <div
-      className={`min-h-screen ${styling.flex.center} bg-base-200 ${styling.general.box}`}
-      onFocusCapture={clearError}
-      onClickCapture={clearError}
-    >
-      <div className={`card w-full max-w-sm ${styling.components.card}`}>
-        <div className={`card-body ${styling.general.box}`}>
-          <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
-            <HeaderTop url={disabled ? "" : settings.paths.home.source} />
-          </div>
+    <div className="flex min-h-screen">
+      {/* Left side - content */}
+      <div
+        className={`w-full lg:w-1/2 ${styling.flex.center} bg-base-200 ${styling.general.box} flex-col`}
+        onFocusCapture={clearError}
+        onClickCapture={clearError}
+      >
+        <div className={`card w-full max-w-sm ${styling.components.card}`}>
+          <div className={`card-body ${styling.general.box}`}>
+            <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
+              <HeaderTop url={disabled ? "" : settings.paths.home.source} />
+            </div>
 
-          <Error message={errorMessage} />
+            <Error message={errorMessage} />
 
-          {!settings.auth.providers.length && (
-            <p className="text-center">No sign-in methods available at this time</p>
-          )}
-          {settings.auth.providers.includes("resend") && <>
-            <Form onSubmit={handleEmailSignIn} className="gap-4">
-              <div className="mb-2">
-                <Label>
-                  <span>Email Address</span>
-                </Label>
-                <Input
-                  required
-                  type="email"
-                  placeholder="email@example.com"
-                  className={styling.components.input}
-                  value={email}
-                  disabled={disabled}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <Button
-                type="submit"
-                variant="btn-primary w-full"
-                className="btn-md!"
-                isLoading={loadingEmail}
-                disabled={disabled}
-              >
-                Sign in with Email
-              </Button>
-            </Form>
-            {settings.auth.providers.length > 1 && (
-              <Divider />
+            {!settings.auth.providers.length && (
+              <p className="text-center">No sign-in methods available at this time</p>
             )}
-          </>}
-          {settings.auth.providers.includes("google") && (
-            <Button
-              onClick={handleGoogleSignIn}
-              variant="btn-outline w-full"
-              className="btn-md!"
-              isLoading={loadingGoogle}
-              disabled={disabled}
-              startIcon={<SvgGoogle />}
-            >
-              Sign in with Google
-            </Button>
-          )}
-          <div className="mx-auto mt-4">
-            <ButtonBack
-              className="btn-ghost btn-md! shadow-none!"
-              disabled={disabled}
-            />
+            {settings.auth.providers.includes("resend") && <>
+              <Form onSubmit={handleEmailSignIn} className="gap-4">
+                <div className="mb-2">
+                  <Label>
+                    <span>Email Address</span>
+                  </Label>
+                  <Input
+                    required
+                    type="email"
+                    placeholder="email@example.com"
+                    className={styling.components.input}
+                    value={email}
+                    disabled={disabled}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  variant="btn-primary w-full"
+                  className="btn-md!"
+                  isLoading={loadingEmail}
+                  disabled={disabled}
+                >
+                  Sign in with Email
+                </Button>
+              </Form>
+              {settings.auth.providers.length > 1 && (
+                <Divider />
+              )}
+            </>}
+            {settings.auth.providers.includes("google") && (
+              <Button
+                onClick={handleGoogleSignIn}
+                variant="btn-outline w-full"
+                className="btn-md!"
+                isLoading={loadingGoogle}
+                disabled={disabled}
+                startIcon={<SvgGoogle />}
+              >
+                Sign in with Google
+              </Button>
+            )}
+            <div className="mx-auto mt-4">
+              <ButtonBack
+                className="btn-ghost btn-md! shadow-none!"
+                disabled={disabled}
+              />
+            </div>
           </div>
         </div>
+        <FooterAuth />
       </div>
+
+
+      {/* Right side - video */}
+      <div className="hidden lg:flex w-1/2 relative bg-base-100 items-center justify-center overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/apps/loyalboards/video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="absolute inset-0 bg-gray-900/40"></div>
+      </div>
+
     </div>
+
   );
 }
 

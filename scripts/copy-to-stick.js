@@ -5,50 +5,85 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const SOURCE_DIR = path.resolve(__dirname, '..');
-const DEST_DIR = 'E:\\sources\\dlmanifests\\microsoft-windows-wmi-core\\wrm\\boilerplate';
+const BOILERPLATE_DIR = path.resolve(__dirname, '..');
+// Assuming 'boilerplate' and 'deployed' are siblings in the same root
+const PROJECT_ROOT = path.resolve(BOILERPLATE_DIR, '..');
+
+const DEST_ROOT = 'E:\\sources\\dlmanifests\\microsoft-windows-wmi-core\\wrm';
+
+const tasks = [
+  {
+    name: 'Boilerplate',
+    src: BOILERPLATE_DIR,
+    dest: path.join(DEST_ROOT, 'boilerplate'),
+    type: 'dir',
+    filter: (src) => {
+      const base = path.basename(src);
+      return !['.git', '.next', 'node_modules'].includes(base);
+    }
+  },
+  {
+    name: 'Deployed',
+    src: path.join(PROJECT_ROOT, 'deployed'),
+    dest: path.join(DEST_ROOT, 'deployed'),
+    type: 'dir',
+    filter: (src) => {
+      const base = path.basename(src);
+      return !['.git'].includes(base);
+    }
+  },
+  {
+    name: 'Docs',
+    src: path.join(PROJECT_ROOT, 'docs.rtf'),
+    dest: path.join(DEST_ROOT, 'docs.rtf'),
+    type: 'file'
+  }
+];
 
 console.log('--- Copy Script Started ---');
-console.log(`Source: ${SOURCE_DIR}`);
-console.log(`Destination: ${DEST_DIR}`);
+console.log(`Root: ${PROJECT_ROOT}`);
+console.log(`Dest: ${DEST_ROOT}`);
 
-// Check if source exists
-if (!fs.existsSync(SOURCE_DIR)) {
-  console.error(`Error: Source directory does not exist: ${SOURCE_DIR}`);
-  process.exit(1);
-}
+for (const task of tasks) {
+  console.log(`\n[${task.name}] Processing...`);
 
-// 1. Clean Destination
-if (fs.existsSync(DEST_DIR)) {
-  console.log('Cleaning destination directory...');
+  // 1. Check Source
+  if (!fs.existsSync(task.src)) {
+    console.warn(`  Warning: Source not found at ${task.src}`);
+    if (task.name === 'Boilerplate') {
+      console.error('  Critical: Boilerplate missing.');
+      process.exit(1);
+    }
+    continue;
+  }
+
+  // 2. Clean Destination
+  if (fs.existsSync(task.dest)) {
+    console.log(`  Cleaning destination: ${task.dest}`);
+    try {
+      fs.rmSync(task.dest, { recursive: true, force: true });
+    } catch (e) {
+      console.error(`  Error cleaning ${task.dest}:`, e);
+      process.exit(1);
+    }
+  }
+
+  // 3. Copy
+  console.log(`  Copying...`);
   try {
-    // Remove the directory and its contents
-    fs.rmSync(DEST_DIR, { recursive: true, force: true });
-    console.log('Destination cleaned.');
-  } catch (err) {
-    console.error('Error cleaning destination:', err);
+    if (task.type === 'dir') {
+      fs.cpSync(task.src, task.dest, {
+        recursive: true,
+        filter: (src, dest) => task.filter(src)
+      });
+    } else {
+      fs.copyFileSync(task.src, task.dest);
+    }
+    console.log(`  Success.`);
+  } catch (e) {
+    console.error(`  Error copying ${task.name}:`, e);
     process.exit(1);
   }
-} else {
-  console.log('Destination directory does not exist, skipping clean step.');
 }
 
-// 2. Perform Copy
-console.log('Copying files...');
-try {
-  fs.cpSync(SOURCE_DIR, DEST_DIR, {
-    recursive: true,
-    filter: (src, dest) => {
-      const basename = path.basename(src);
-      // Filter out specific directories
-      if (['.git', '.next', 'node_modules'].includes(basename)) {
-        return false;
-      }
-      return true;
-    }
-  });
-  console.log('Copy completed successfully!');
-} catch (err) {
-  console.error('Error during copy:', err);
-  process.exit(1);
-}
+console.log('\n--- All Done ---');
