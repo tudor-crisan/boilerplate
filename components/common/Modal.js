@@ -24,10 +24,9 @@ const Modal = ({
     return () => document.removeEventListener("keydown", handleEsc);
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
-
   return (
-    <div className={cn("modal modal-bottom sm:modal-middle modal-open", className)} role="dialog">
+    <div className={cn("modal modal-bottom sm:modal-middle", isOpen && "modal-open", className)} role="dialog">
+
       <div className={cn("modal-box", boxClassName)}>
         {title && <Title className="mb-4">{title}</Title>}
 
