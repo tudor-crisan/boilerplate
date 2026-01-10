@@ -66,6 +66,7 @@ export default async function PrivateFeedbackBoard({ params }) {
                   boardId={boardId}
                   currentSlug={board.slug}
                   currentName={board.name}
+                  extraSettings={board.extraSettings}
                 />
                 <ButtonDelete
                   url={deleteUrl}

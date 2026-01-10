@@ -23,6 +23,10 @@ const boardSchema = new mongoose.Schema({
   }],
   lastSlugUpdate: {
     type: Date
+  },
+  extraSettings: {
+    type: mongoose.Schema.Types.Mixed,
+    default: {}
   }
 }, {
   timestamps: true

@@ -13,9 +13,27 @@ import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
 import Label from "@/components/common/Label";
 
-export default function FormCreate({ type, queryParams = {}, skipRefresh = false }) {
+export default function FormCreate({ type, queryParams = {}, skipRefresh = false, customConfig = {} }) {
   const router = useRouter();
-  const { formConfig, inputsConfig } = settings.forms[type];
+
+  // Merge default config with custom config
+  let { formConfig, inputsConfig } = settings.forms[type];
+
+  if (customConfig?.form) {
+    // Override form config (title, button)
+    formConfig = { ...formConfig, ...customConfig.form };
+
+    // Override inputs config
+    if (customConfig.form.inputs) {
+      const newInputsConfig = { ...inputsConfig };
+      Object.keys(customConfig.form.inputs).forEach(key => {
+        if (newInputsConfig[key]) {
+          newInputsConfig[key] = { ...newInputsConfig[key], ...customConfig.form.inputs[key] };
+        }
+      });
+      inputsConfig = newInputsConfig;
+    }
+  }
   const { styling } = useStyling();
 
   const defaultInputs = Object.entries(inputsConfig).reduce((acc, entry) => ({

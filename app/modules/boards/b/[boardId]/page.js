@@ -38,11 +38,13 @@ export default async function PublicFeedbackBoard({ params }) {
               type="Post"
               queryParams={{ boardId: board._id.toString() }}
               skipRefresh={true}
+              customConfig={board.extraSettings}
             />
           </Sidebar>
           <BoardPostsList
             posts={board.posts}
             boardId={board._id.toString()}
+            emptyStateConfig={board.extraSettings?.emptyState}
           />
         </Columns>
       </div>
