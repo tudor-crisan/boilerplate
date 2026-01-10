@@ -13,22 +13,21 @@ const Modal = ({
   boxClassName = "",
   actions
 }) => {
-  const modalRef = useRef(null);
-
   useEffect(() => {
-    if (isOpen) {
-      modalRef.current?.showModal();
-    } else {
-      modalRef.current?.close();
-    }
-  }, [isOpen]);
+    const handleEsc = (e) => {
+      if (e.key === "Escape") onClose();
+    };
 
-  // Handle ESC key and backdrop click manually if needed, 
-  // but DaisyUI dialog with method="dialog" handles backdrop click if we structure it right.
-  // Actually, standard HTML dialog close on backdrop needs a form method="dialog" or click handler.
+    if (isOpen) {
+      document.addEventListener("keydown", handleEsc);
+    }
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
 
   return (
-    <dialog ref={modalRef} className={cn("modal modal-bottom sm:modal-middle", className)} onClose={onClose}>
+    <div className={cn("modal modal-bottom sm:modal-middle modal-open", className)} role="dialog">
       <div className={cn("modal-box", boxClassName)}>
         {title && <Title className="mb-4">{title}</Title>}
 
@@ -40,10 +39,10 @@ const Modal = ({
           )}
         </div>
       </div>
-      <form method="dialog" className="modal-backdrop bg-black/60 backdrop-blur-sm">
-        <button onClick={onClose}>close</button>
-      </form>
-    </dialog>
+      <div className="modal-backdrop bg-black/60 backdrop-blur-sm" onClick={onClose}>
+        <button className="cursor-default">close</button>
+      </div>
+    </div>
   );
 };
 
