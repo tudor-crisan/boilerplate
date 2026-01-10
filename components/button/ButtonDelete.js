@@ -64,6 +64,7 @@ export default function ButtonDelete({
         isModalOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Confirm Deletion"
+        contentClassName="p-0! pb-2!"
         actions={
           <>
             <Button

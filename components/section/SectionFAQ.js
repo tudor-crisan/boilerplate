@@ -1,19 +1,17 @@
 "use client";
-import { useState } from "react";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
 import { cn } from "@/libs/utils.client";
+import Accordion from "@/components/common/Accordion";
 
 export default function SectionFAQ() {
   const { copywriting } = useCopywriting();
   const { styling } = useStyling();
-  const [openIndices, setOpenIndices] = useState([0]);
 
-  const handleToggle = (index) => {
-    setOpenIndices((prev) =>
-      prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
-    );
-  };
+  const accordionItems = copywriting.SectionFAQ.questions.map((faq) => ({
+    title: faq.question,
+    content: faq.answer,
+  }));
 
   return (
     <section id="faq" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, styling.SectionFAQ.padding)}>
@@ -27,20 +25,7 @@ export default function SectionFAQ() {
           </h2>
         </div>
         <div className="flex-1">
-          {copywriting.SectionFAQ.questions.map((faq, index) => (
-            <div
-              key={index}
-              className={`${styling.components.card} collapse collapse-arrow bg-base-200 my-2 ${openIndices.includes(index) ? "collapse-open" : ""}`}
-              onClick={() => handleToggle(index)}
-            >
-              <div className="collapse-title font-semibold text-primary cursor-pointer">
-                {faq.question}
-              </div>
-              <div className="collapse-content text-sm">
-                {faq.answer}
-              </div>
-            </div>
-          ))}
+          <Accordion items={accordionItems} />
         </div>
       </div>
     </section>

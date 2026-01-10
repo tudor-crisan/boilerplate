@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { cn } from "@/libs/utils.client";
 import Button from "@/components/button/Button";
 import Title from "@/components/common/Title";
+import { useStyling } from "@/context/ContextStyling";
 
 const Modal = ({
   isModalOpen,
@@ -11,8 +12,11 @@ const Modal = ({
   children,
   className = "",
   boxClassName = "",
+  contentClassName = "",
   actions
 }) => {
+  const { styling } = useStyling();
+
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
@@ -25,18 +29,22 @@ const Modal = ({
   }, [isModalOpen, onClose]);
 
   return (
-    <div className={cn("modal modal-bottom sm:modal-middle", isModalOpen && "modal-open", className)} role="dialog">
+    <div className={cn("modal modal-bottom sm:modal-middle", isModalOpen && "modal-open")} role="dialog">
 
-      <div className={cn("modal-box space-y-3", boxClassName)}>
+      <div className={cn(`${styling.components.modal} modal-box max-h-[calc(100vh-4rem)] p-0 flex flex-col overflow-hidden`, boxClassName)}>
         {title && (
-          <div className="w-full text-center">
+          <div className="w-full text-center p-4 sm:p-6 pb-2 sm:pb-2 flex-none z-10 bg-base-100">
             <Title>{title}</Title>
           </div>
         )}
 
-        {children}
+        <div className={cn(`flex-1 overflow-y-auto p-4 sm:p-6 pt-2`, contentClassName)}>
+          <div className="space-y-3">
+            {children}
+          </div>
+        </div>
 
-        <div className="modal-action justify-center">
+        <div className="modal-action justify-center p-4 sm:p-6 pt-2 mt-0 flex-none bg-base-100 z-10">
           {actions ? actions : (
             <Button className="btn-ghost" onClick={onClose}>Close</Button>
           )}

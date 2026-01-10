@@ -58,10 +58,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
 
   return (
     <div className={className}>
-      <Button
-        onClick={handleOpen}
-        variant="btn-secondary"
-      >
+      <Button onClick={handleOpen}>
         Edit board
       </Button>
 
@@ -69,7 +66,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
         isModalOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Edit Board"
-        className="w-full max-w-5xl"
+        boxClassName="max-w-7xl"
         actions={
           <>
             <Button
@@ -88,7 +85,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
           </>
         }
       >
-        <div className="flex flex-col gap-6 h-[70vh]">
+        <div className="flex flex-col gap-6">
           <div className="space-y-2 border-b border-base-200 pb-6">
             <Label>Board Slug</Label>
             <div className="flex items-center gap-4">
@@ -108,14 +105,15 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
             </TextSmall>
           </div>
 
-          <div className="flex-1 min-h-0">
+          <div className="min-h-0">
             <BoardExtraSettings
               settings={settingsState}
               onChange={setSettingsState}
+              disabled={loading}
             />
           </div>
         </div>
-      </Modal>
-    </div>
+      </Modal >
+    </div >
   );
 }

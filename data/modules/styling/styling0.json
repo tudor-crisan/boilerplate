@@ -3,6 +3,7 @@
   "font": "sen",
   "components": {
     "link": "link link-hover text-primary",
+    "modal": "rounded-md",
     "element": "rounded-md shadow-md",
     "card": "rounded-2xl shadow-md border border-primary bg-base-100",
     "card_featured": "rounded-2xl shadow-lg bg-base-100",
