@@ -1,3 +1,10 @@
+- have an option for users to download all their data from db
+- have a page with all features included
+- have a documentation page for the boilerplate (plus mention of new updates)
+- have a login page for the boilerplate as well (tudorcrisan.dev)
+- have a general settings modal on home page and on dashboard to change the lp/admin
+- have a custom settings modal for each board to be customizable, and it inherits from the dashboard settings as the start
+
 - have colors editables, borders, theme, fonts as well (inside the whole app)
 - have the main landing page be editable as well (have a "refresh" button to change even the copywriting)
 - have a feedback board for the new features of loyalboards as well (on the main page)
