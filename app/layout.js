@@ -19,6 +19,13 @@ import IconFavicon from "@/components/icon/IconFavicon";
 import { getMetadata } from "@/libs/seo";
 
 export const metadata = getMetadata("home");
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <WrapperStyling>

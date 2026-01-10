@@ -60,7 +60,7 @@ export default async function PrivateFeedbackBoard({ params }) {
               </Vertical>
               <ButtonDelete
                 url={deleteUrl}
-                buttonText="Delete Board"
+                buttonText="Delete board"
               />
             </div>
           </Sidebar>
