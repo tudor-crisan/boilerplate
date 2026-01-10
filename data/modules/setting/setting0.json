@@ -6,9 +6,7 @@
     "description": "",
     "tagline": ""
   },
-  "availableApps": [
-    "loyalboards"
-  ],
+  "availableApps": ["loyalboards"],
   "business": {
     "last_updated": "12/23/2025",
     "name": "TudorCrisan.dev",
@@ -36,10 +34,7 @@
   },
   "modules": [],
   "auth": {
-    "providers": [
-      "resend",
-      "google"
-    ],
+    "providers": ["resend", "google"],
     "hasThemePages": true,
     "hasThemeEmails": true
   },
@@ -111,10 +106,7 @@
     },
     "api": {
       "billingCreateCheckout": "/api/billing/create-checkout",
-      "billingCreatePortal": "/api/billing/create-portal",
-      "boardsStream": "/api/modules/boards/stream",
-      "boardsDetail": "/api/modules/boards/board",
-      "boardsPost": "/api/modules/boards/post"
+      "billingCreatePortal": "/api/billing/create-portal"
     }
   },
   "integrations": {

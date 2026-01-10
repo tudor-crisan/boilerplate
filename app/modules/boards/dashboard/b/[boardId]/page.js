@@ -15,6 +15,7 @@ import Sidebar from "@/components/common/Sidebar";
 import Label from "@/components/common/Label";
 import Vertical from "@/components/common/Vertical";
 import DashboardPostsList from "@/components/modules/boards/DashboardPostsList";
+import BoardEditSlug from "@/components/modules/boards/BoardEditSlug";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 export async function generateMetadata({ params }) {
@@ -52,8 +53,8 @@ export default async function PrivateFeedbackBoard({ params }) {
               <Vertical>
                 <Label>Public link</Label>
                 <InputCopy
-                  value={`${baseUrl()}/b/${boardId}`}
-                  openUrl={`${baseUrl()}/b/${boardId}`}
+                  value={`${baseUrl()}/b/${board.slug || boardId}`}
+                  openUrl={`${baseUrl()}/b/${board.slug || boardId}`}
                   tooltipCopy="Copy link"
                   tooltipOpen="Go to board"
                 />
@@ -61,6 +62,11 @@ export default async function PrivateFeedbackBoard({ params }) {
               <ButtonDelete
                 url={deleteUrl}
                 buttonText="Delete board"
+              />
+              <BoardEditSlug
+                boardId={boardId}
+                currentSlug={board.slug}
+                currentName={board.name}
               />
             </div>
           </Sidebar>

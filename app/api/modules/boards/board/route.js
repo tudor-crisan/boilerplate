@@ -61,7 +61,14 @@ export async function POST(req) {
       return responseError(noAccess.message, {}, noAccess.status);
     }
 
-    const board = await Board.create({ userId: user._id, name: body.name });
+    // Generate unique slug
+    let slug = body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    let existingBoard = await Board.findOne({ slug });
+    if (existingBoard) {
+      slug = `${slug}-${Date.now()}`;
+    }
+
+    const board = await Board.create({ userId: user._id, name: body.name, slug });
 
     return responseSuccess(createSuccesfully.message, { board }, createSuccesfully.status)
 
@@ -123,6 +130,92 @@ export async function DELETE(req) {
 
   } catch (e) {
     console.error("Board deletion error: " + e?.message);
+    return responseError(serverError.message, {}, serverError.status);
+  }
+}
+
+export async function PUT(req) {
+  const error = await checkReqRateLimit(req, "board-update");
+  if (error) return error;
+
+  if (!settings.forms?.[TYPE]) {
+    return responseError(serverError.message, {}, serverError.status);
+  }
+
+  const {
+    boardIdRequired,
+    updateSuccesfully,
+    slugAlreadyInUse,
+    rateLimitExceeded
+  } = settings.forms[TYPE].backend.responses;
+
+  try {
+    const session = await auth();
+
+    if (!session) {
+      return responseError(notAuthorized.message, {}, notAuthorized.status);
+    }
+
+    const body = await req.json();
+    const { boardId, slug } = body;
+
+    if (!boardId || !slug) {
+      return responseError(boardIdRequired.message, {}, boardIdRequired.status);
+    }
+
+    await connectMongo();
+
+    const userId = session?.user?.id
+
+    if (!userId) {
+      return responseError(sessionLost.message, {}, sessionLost.status);
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user.hasAccess) {
+      return responseError(noAccess.message, {}, noAccess.status);
+    }
+
+    const board = await Board.findOne({ _id: boardId, userId: userId });
+
+    if (!board) {
+      return responseError("Board not found", {}, 404);
+    }
+
+    // Check rate limit (1 day)
+    if (board.lastSlugUpdate) {
+      const oneDay = 24 * 60 * 60 * 1000;
+      if (new Date() - new Date(board.lastSlugUpdate) < oneDay) {
+        return responseError(rateLimitExceeded.message, {}, rateLimitExceeded.status);
+      }
+    }
+
+    // Validate slug format
+    const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+    if (newSlug.length < 3) {
+      return responseError("Slug must be at least 3 characters", {}, 400);
+    }
+
+    // Check uniqueness
+    const existing = await Board.findOne({ slug: newSlug });
+    if (existing && existing._id.toString() !== boardId) {
+      return responseError(slugAlreadyInUse.message, {}, slugAlreadyInUse.status);
+    }
+
+    // Update
+    if (board.slug && board.slug !== newSlug) {
+      board.previousSlugs.push(board.slug);
+    }
+    board.slug = newSlug;
+    board.lastSlugUpdate = new Date();
+    await board.save();
+
+    return responseSuccess(updateSuccesfully.message, { slug: newSlug }, updateSuccesfully.status)
+
+  } catch (e) {
+    console.error("Board update error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);
   }
 }

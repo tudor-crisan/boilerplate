@@ -1,4 +1,5 @@
 import { cache } from "react";
+import mongoose from "mongoose";
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
@@ -37,10 +38,13 @@ export const getBoardPrivate = cache(async (boardId, populate = "") => {
   await connectMongo();
 
   try {
-    const board = await Board.findOne({
-      _id: boardId,
-      userId: session?.user?.id
-    }).lean();
+    const query = { userId: session?.user?.id };
+    if (mongoose.Types.ObjectId.isValid(boardId)) {
+      query._id = boardId;
+    } else {
+      query.slug = boardId;
+    }
+    const board = await Board.findOne(query).lean();
 
     if (!board) return null;
 
@@ -59,7 +63,13 @@ export const getBoardPublic = cache(async (boardId, populate = "") => {
   await connectMongo();
 
   try {
-    const board = await Board.findById(boardId).lean();
+    let query = {};
+    if (mongoose.Types.ObjectId.isValid(boardId)) {
+      query._id = boardId;
+    } else {
+      query.slug = boardId;
+    }
+    const board = await Board.findOne(query).lean();
 
     if (!board) return null;
 

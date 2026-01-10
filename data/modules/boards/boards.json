@@ -7,6 +7,11 @@
     "boardPrivate": {
       "source": "/dashboard/b/:boardId",
       "destination": "/modules/boards/dashboard/b/:boardId"
+    },
+    "api": {
+      "boardsStream": "/api/modules/boards/stream",
+      "boardsDetail": "/api/modules/boards/board",
+      "boardsPost": "/api/modules/boards/post"
     }
   },
   "metadata": {
@@ -157,6 +162,18 @@
           "createSuccesfully": {
             "message": "Board created succesfully",
             "status": 200
+          },
+          "updateSuccesfully": {
+            "message": "Board updated successfully",
+            "status": 200
+          },
+          "slugAlreadyInUse": {
+            "message": "Slug already in use",
+            "status": 400
+          },
+          "rateLimitExceeded": {
+            "message": "You can only change the slug once per day",
+            "status": 429
           },
           "deleteSuccesfully": {
             "message": "Board was succesfully deleted",
