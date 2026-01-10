@@ -10,7 +10,7 @@ import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
 import TextSmall from "@/components/common/TextSmall";
 import { createSlug } from "@/libs/utils.client";
-import Textarea from "@/components/textarea/Textarea";
+import BoardExtraSettings from "@/components/modules/boards/BoardExtraSettings";
 
 export default function BoardEditModal({ boardId, currentSlug, currentName, extraSettings = {}, className = "" }) {
   const router = useRouter();
@@ -21,11 +21,10 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
   // Check if extraSettings is empty object or null/undefined
   const hasSettings = extraSettings && Object.keys(extraSettings).length > 0;
 
-  const [settingsJSON, setSettingsJSON] = useState(
-    hasSettings
-      ? JSON.stringify(extraSettings, null, 2)
-      : JSON.stringify(defaultTemplate, null, 2)
+  const [settingsState, setSettingsState] = useState(
+    hasSettings ? extraSettings : defaultTemplate
   );
+
   const { loading, request } = useApiRequest();
 
   // Reset/Sync state when modal opens
@@ -36,25 +35,17 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
 
     // Always sync with latest prop when opening
     if (extraSettings && Object.keys(extraSettings).length > 0) {
-      setSettingsJSON(JSON.stringify(extraSettings, null, 2));
+      setSettingsState(extraSettings);
     } else {
-      setSettingsJSON(JSON.stringify(defaultTemplate, null, 2));
+      setSettingsState(defaultTemplate);
     }
 
     setIsModalOpen(true);
   };
 
   const handleSave = async () => {
-    let parsedSettings = {};
-    try {
-      parsedSettings = JSON.parse(settingsJSON);
-    } catch (e) {
-      alert("Invalid JSON in Extra Settings");
-      return;
-    }
-
     await request(
-      () => clientApi.put(settings.paths.api.boardsDetail, { boardId, slug, extraSettings: parsedSettings }),
+      () => clientApi.put(settings.paths.api.boardsDetail, { boardId, slug, extraSettings: settingsState }),
       {
         onSuccess: () => {
           setIsModalOpen(false);
@@ -78,6 +69,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
         isModalOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Edit Board"
+        className="w-full max-w-5xl"
         actions={
           <>
             <Button
@@ -96,35 +88,31 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
           </>
         }
       >
-        <div className="space-y-4">
-          <div className="space-y-2">
+        <div className="flex flex-col gap-6 h-[70vh]">
+          <div className="space-y-2 border-b border-base-200 pb-6">
             <Label>Board Slug</Label>
-            <Input
-              value={slug}
-              onChange={(e) => setSlug(createSlug(e.target.value, false))}
-              placeholder="e.g. my-awesome-board"
-              maxLength={30}
-              showCharacterCount={true}
-              disabled={loading}
-            />
-          </div>
-          <TextSmall>
-            This will change the public link to your board. You can only change this once per day.
-          </TextSmall>
-
-          <div className="space-y-2">
-            <Label>Extra Settings (JSON)</Label>
-            <Textarea
-              value={settingsJSON}
-              onChange={(e) => setSettingsJSON(e.target.value)}
-              className="w-full"
-              placeholder="{}"
-              rows={10}
-              disabled={loading}
-            />
+            <div className="flex items-center gap-4">
+              <div className="flex-1">
+                <Input
+                  value={slug}
+                  onChange={(e) => setSlug(createSlug(e.target.value, false))}
+                  placeholder="e.g. my-awesome-board"
+                  maxLength={30}
+                  showCharacterCount={true}
+                  disabled={loading}
+                />
+              </div>
+            </div>
             <TextSmall>
-              Override default texts. Valid JSON required.
+              This will change the public link to your board. You can only change this once per day.
             </TextSmall>
+          </div>
+
+          <div className="flex-1 min-h-0">
+            <BoardExtraSettings
+              settings={settingsState}
+              onChange={setSettingsState}
+            />
           </div>
         </div>
       </Modal>
