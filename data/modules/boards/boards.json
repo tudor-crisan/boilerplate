@@ -58,6 +58,7 @@
       "inputsConfig": {
         "title": {
           "type": "text",
+          "className": "w-full",
           "required": false,
           "value": "",
           "label": "Short, descriptive title",
@@ -67,6 +68,7 @@
         },
         "description": {
           "type": "textarea",
+          "className": "w-full",
           "required": false,
           "value": "",
           "label": "Description",
