@@ -36,13 +36,13 @@ export default async function PublicFeedbackBoard({ params }) {
           <Sidebar>
             <FormCreate
               type="Post"
-              queryParams={{ boardId }}
+              queryParams={{ boardId: board._id.toString() }}
               skipRefresh={true}
             />
           </Sidebar>
           <BoardPostsList
             posts={board.posts}
-            boardId={boardId}
+            boardId={board._id.toString()}
           />
         </Columns>
       </div>

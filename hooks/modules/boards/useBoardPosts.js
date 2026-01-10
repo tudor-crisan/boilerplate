@@ -58,7 +58,9 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
         const data = JSON.parse(event.data);
 
         // Only process events for this board (except delete, which might lack boardId)
-        if (data.type !== "post-delete" && data.boardId !== boardId) return;
+        if (data.type !== "post-delete" && data.boardId !== boardId) {
+          return;
+        }
 
         if (data.type === "vote") {
           handleVote(data.postId, data.votesCounter);

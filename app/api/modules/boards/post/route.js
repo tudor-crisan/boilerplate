@@ -1,5 +1,6 @@
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
+import mongoose from "mongoose";
 import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
 import User from "@/models/User";
@@ -38,7 +39,7 @@ export async function POST(req) {
 
   try {
     const { searchParams } = req.nextUrl;
-    const boardId = searchParams.get("boardId");
+    let boardId = searchParams.get("boardId");
 
     if (!boardId) {
       return responseError(boardIdRequired.message, {}, boardIdRequired.status);
@@ -59,6 +60,13 @@ export async function POST(req) {
     const cleanDescription = filter.clean(body.description);
 
     await connectMongo();
+
+    if (!mongoose.Types.ObjectId.isValid(boardId)) {
+      const board = await Board.findOne({ slug: boardId });
+      if (board) {
+        boardId = board._id;
+      }
+    }
 
     const session = await auth();
     const userId = session?.user?.id;
@@ -163,7 +171,7 @@ export async function DELETE(req) {
 export async function GET(req) {
   try {
     const { searchParams } = req.nextUrl;
-    const boardId = searchParams.get("boardId");
+    let boardId = searchParams.get("boardId");
 
     if (!boardId) {
       if (!settings.forms?.[TYPE]) return responseError(serverError.message, {}, serverError.status);
@@ -172,6 +180,13 @@ export async function GET(req) {
     }
 
     await connectMongo();
+
+    if (!mongoose.Types.ObjectId.isValid(boardId)) {
+      const board = await Board.findOne({ slug: boardId });
+      if (board) {
+        boardId = board._id;
+      }
+    }
 
     const posts = await Post.find({ boardId })
       .sort({ votesCounter: -1, createdAt: -1 });
