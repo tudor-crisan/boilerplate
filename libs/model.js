@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 export const userSchemaConfig = {
   name: {
     type: String,
-    trim: true
+    trim: true,
+    maxlength: 30
   },
   email: {
     type: String,

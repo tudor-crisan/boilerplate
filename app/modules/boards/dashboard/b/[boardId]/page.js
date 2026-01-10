@@ -4,10 +4,6 @@ import DashboardMain from "@/components/dashboard/DashboardMain";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import ButtonBack from "@/components/button/ButtonBack";
 import InputCopy from "@/components/input/InputCopy";
-import { getBoardPrivate } from "@/libs/modules/boards/db";
-import { redirect } from "next/navigation";
-import { baseUrl } from "@/libs/utils.client";
-import { getMetadata } from "@/libs/seo";
 import ButtonDelete from "@/components/button/ButtonDelete";
 import Title from "@/components/common/Title";
 import Columns from "@/components/common/Columns";
@@ -15,8 +11,12 @@ import Sidebar from "@/components/common/Sidebar";
 import Label from "@/components/common/Label";
 import Vertical from "@/components/common/Vertical";
 import DashboardPostsList from "@/components/modules/boards/DashboardPostsList";
-import BoardEditSlug from "@/components/modules/boards/BoardEditSlug";
+import BoardEditModal from "@/components/modules/boards/BoardEditModal";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { getBoardPrivate } from "@/libs/modules/boards/db";
+import { redirect } from "next/navigation";
+import { baseUrl } from "@/libs/utils.client";
+import { getMetadata } from "@/libs/seo";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;
@@ -38,6 +38,8 @@ export default async function PrivateFeedbackBoard({ params }) {
     redirect(backUrl);
   }
 
+  const boardUrl = `${baseUrl()}/b/${board.slug || boardId}`;
+
   return (
     <DashboardWrapper>
       <DashboardHeader>
@@ -53,21 +55,23 @@ export default async function PrivateFeedbackBoard({ params }) {
               <Vertical>
                 <Label>Public link</Label>
                 <InputCopy
-                  value={`${baseUrl()}/b/${board.slug || boardId}`}
-                  openUrl={`${baseUrl()}/b/${board.slug || boardId}`}
+                  value={boardUrl}
+                  openUrl={boardUrl}
                   tooltipCopy="Copy link"
                   tooltipOpen="Go to board"
                 />
               </Vertical>
-              <ButtonDelete
-                url={deleteUrl}
-                buttonText="Delete board"
-              />
-              <BoardEditSlug
-                boardId={boardId}
-                currentSlug={board.slug}
-                currentName={board.name}
-              />
+              <div className="flex gap-2">
+                <BoardEditModal
+                  boardId={boardId}
+                  currentSlug={board.slug}
+                  currentName={board.name}
+                />
+                <ButtonDelete
+                  url={deleteUrl}
+                  buttonText="Delete board"
+                />
+              </div>
             </div>
           </Sidebar>
           <DashboardPostsList

@@ -8,8 +8,10 @@ import Label from "@/components/common/Label";
 import useApiRequest from "@/hooks/useApiRequest";
 import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
+import TextSmall from "@/components/common/TextSmall";
+import { createSlug } from "@/libs/utils.client";
 
-export default function BoardEditSlug({ boardId, currentSlug, currentName, className = "" }) {
+export default function BoardEditModal({ boardId, currentSlug, currentName, className = "" }) {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [slug, setSlug] = useState(currentSlug || "");
@@ -18,7 +20,7 @@ export default function BoardEditSlug({ boardId, currentSlug, currentName, class
   // Default slug generation from name if empty and no current slug
   const handleOpen = () => {
     if (!slug && !currentSlug) {
-      setSlug(currentName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''));
+      setSlug(createSlug(currentName));
     }
     setIsOpen(true);
   };
@@ -27,15 +29,9 @@ export default function BoardEditSlug({ boardId, currentSlug, currentName, class
     await request(
       () => clientApi.put(settings.paths.api.boardsDetail, { boardId, slug }),
       {
-        onSuccess: (data) => {
-          const newSlug = data?.slug;
+        onSuccess: () => {
           setIsOpen(false);
-          if (newSlug && newSlug !== currentSlug) {
-            // Redirect to new slug URL
-            router.push(`/b/${newSlug}`);
-          } else {
-            router.refresh();
-          }
+          router.refresh();
         },
         showToast: true
       }
@@ -44,35 +40,49 @@ export default function BoardEditSlug({ boardId, currentSlug, currentName, class
 
   return (
     <div className={className}>
-      <Button onClick={handleOpen} variant="btn-secondary" className="w-full mb-2">
+      <Button
+        onClick={handleOpen}
+        variant="btn-secondary"
+      >
         Edit board
       </Button>
 
       <Modal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
-        title="Edit Board Slug"
+        title="Edit Board"
         actions={
           <>
-            <Button className="btn-ghost" onClick={() => setIsOpen(false)}>Cancel</Button>
-            <Button onClick={handleSave} isLoading={loading}>Save</Button>
+            <Button
+              className="btn-ghost"
+              onClick={() => setIsOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSave}
+              isLoading={loading}
+            >
+              Save
+            </Button>
           </>
         }
       >
         <div className="space-y-4">
-          <div>
+          <div className="space-y-2">
             <Label>Board Slug</Label>
             <Input
               value={slug}
-              onChange={(e) => setSlug(e.target.value)}
+              onChange={(e) => setSlug(createSlug(e.target.value, false))}
               placeholder="e.g. my-awesome-board"
-              maxLength={50}
+              maxLength={30}
               showCharacterCount={true}
+              disabled={loading}
             />
-            <p className="text-xs text-base-content/70 mt-1">
-              This will change the public link to your board. You can only change this once per day.
-            </p>
           </div>
+          <TextSmall>
+            This will change the public link to your board. You can only change this once per day.
+          </TextSmall>
         </div>
       </Modal>
     </div>

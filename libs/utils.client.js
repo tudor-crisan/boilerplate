@@ -199,3 +199,8 @@ export async function getCroppedImg(
   // As Base64 string
   return canvas.toDataURL("image/jpeg");
 }
+
+export function createSlug(name = "", trim = true) {
+  const slug = name.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  return trim ? slug.replace(/^-+|-+$/g, '') : slug;
+}
