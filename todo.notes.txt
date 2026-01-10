@@ -9,3 +9,4 @@
 - specify in the copywriting/promo videos, that it works on mobile also (show it), even dashboard, and that it updates in real time when users create posts/upvotes
 - have a section to buy the boilerplate, one-time with $250 on tudorcrisan.dev with stripe payment link and redirect to the google drive
 - have a section for reviews as well (when reviews come in) - of the feedback users give to loyalboards
+- consider making a mock admin for where users can test boards and see how they look / behave (where they can init a new account before paying)
