@@ -26,6 +26,9 @@ const BoardPostsList = ({ posts, boardId, emptyStateConfig = {} }) => {
     }
   }, [isBoardDeleted, router]);
 
+  const emptyStateTitle = emptyStateConfig?.title || settings.defaultExtraSettings.emptyState.title;
+  const emptyStateDescription = emptyStateConfig?.description || settings.defaultExtraSettings.emptyState.description;
+
   return (
     <div className="w-full min-w-0 relative">
       {isBoardDeleted && (
@@ -33,8 +36,8 @@ const BoardPostsList = ({ posts, boardId, emptyStateConfig = {} }) => {
       )}
       {(!postsState || postsState.length === 0) ? (
         <EmptyState
-          title={emptyStateConfig?.title}
-          description={emptyStateConfig?.description}
+          title={emptyStateTitle}
+          description={emptyStateDescription}
           icon={<SvgPost size="size-16" />}
         />
       ) : (

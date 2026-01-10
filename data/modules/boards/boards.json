@@ -230,5 +230,25 @@
         }
       }
     }
+  },
+  "defaultExtraSettings": {
+    "form": {
+      "title": "Suggest a feature",
+      "button": "Add Post",
+      "inputs": {
+        "title": {
+          "label": "Short, descriptive title",
+          "placeholder": "Green buttons plz"
+        },
+        "description": {
+          "label": "Description",
+          "placeholder": "The login button color should be green to match our brand colors."
+        }
+      }
+    },
+    "emptyState": {
+      "title": "Be the first to post",
+      "description": "Create a new post to see it here"
+    }
   }
 }

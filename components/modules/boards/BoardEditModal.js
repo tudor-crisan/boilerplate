@@ -16,26 +16,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slug, setSlug] = useState(currentSlug || "");
-  const defaultTemplate = {
-    form: {
-      title: "Suggest a feature",
-      button: "Add Post",
-      inputs: {
-        title: {
-          label: "Short, descriptive title",
-          placeholder: "Green buttons plz"
-        },
-        description: {
-          label: "Description",
-          placeholder: "The login button color should be green to match our brand colors."
-        }
-      }
-    },
-    emptyState: {
-      title: "Be the first to post",
-      description: "Create a new post to see it here"
-    }
-  };
+  const defaultTemplate = settings.defaultExtraSettings;
 
   // Check if extraSettings is empty object or null/undefined
   const hasSettings = extraSettings && Object.keys(extraSettings).length > 0;

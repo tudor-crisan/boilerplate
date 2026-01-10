@@ -5,6 +5,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import User from "@/models/User";
 import Board from "@/models/modules/boards/Board";
 import { checkReqRateLimit } from "@/libs/rateLimit";
+import { revalidatePath } from "next/cache";
 
 const TYPE = "Board";
 
@@ -14,8 +15,6 @@ const {
   serverError,
   noAccess,
 } = settings.forms.general.backend.responses;
-
-
 
 export async function POST(req) {
   if (isResponseMock(TYPE)) {
@@ -231,6 +230,9 @@ export async function PUT(req) {
     }
 
     await board.save();
+
+    revalidatePath(`/b/${newSlug}`);
+    revalidatePath(`/dashboard/b/${boardId}`);
 
     return responseSuccess(updateSuccesfully.message, { slug: newSlug }, updateSuccesfully.status)
 
