@@ -1,6 +1,3 @@
-
-- have input placeholders editable (as well as labels for adding posts)
-
 - have colors editables, borders, theme, fonts as well (inside the whole app)
 - have the main landing page be editable as well (have a "refresh" button to change even the copywriting)
 - have a feedback board for the new features of loyalboards as well (on the main page)
