@@ -39,6 +39,10 @@
       "limit": 10,
       "window": 60
     },
+    "board-update": {
+      "limit": 10,
+      "window": 60
+    },
     "vote-toggle": {
       "limit": 20,
       "window": 60
@@ -174,6 +178,10 @@
           "rateLimitExceeded": {
             "message": "You can only change the slug once per day",
             "status": 429
+          },
+          "slugTooShort": {
+            "message": "Slug must be at least 3 characters",
+            "status": 400
           },
           "deleteSuccesfully": {
             "message": "Board was succesfully deleted",

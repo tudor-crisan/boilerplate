@@ -7,6 +7,7 @@ import Input from "@/components/input/Input";
 import Label from "@/components/common/Label";
 import useApiRequest from "@/hooks/useApiRequest";
 import { clientApi } from "@/libs/api";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function BoardEditSlug({ boardId, currentSlug, currentName, className = "" }) {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function BoardEditSlug({ boardId, currentSlug, currentName, class
 
   const handleSave = async () => {
     await request(
-      () => clientApi.put("/api/modules/boards/board", { boardId, slug }),
+      () => clientApi.put(settings.paths.api.boardsDetail, { boardId, slug }),
       {
         onSuccess: (data) => {
           const newSlug = data?.slug;

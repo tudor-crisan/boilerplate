@@ -146,7 +146,8 @@ export async function PUT(req) {
     boardIdRequired,
     updateSuccesfully,
     slugAlreadyInUse,
-    rateLimitExceeded
+    rateLimitExceeded,
+    slugTooShort
   } = settings.forms[TYPE].backend.responses;
 
   try {
@@ -195,7 +196,7 @@ export async function PUT(req) {
     const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
     if (newSlug.length < 3) {
-      return responseError("Slug must be at least 3 characters", {}, 400);
+      return responseError(slugTooShort.message, {}, slugTooShort.status);
     }
 
     // Check uniqueness
