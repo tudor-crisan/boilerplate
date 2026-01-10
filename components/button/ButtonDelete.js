@@ -21,11 +21,11 @@ export default function ButtonDelete({
 }) {
   const router = useRouter();
   const { loading, request } = useApiRequest();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDelete = async () => {
     if (withConfirm) {
-      setIsOpen(true);
+      setIsModalOpen(true);
       return;
     }
     await confirmDelete();
@@ -41,7 +41,7 @@ export default function ButtonDelete({
           } else if (withRedirect) {
             router.push(redirectUrl);
           }
-          setIsOpen(false);
+          setIsModalOpen(false);
         },
         keepLoadingOnSuccess: withRedirect,
         showToast: withToast
@@ -61,14 +61,14 @@ export default function ButtonDelete({
       </Button>
 
       <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        isModalOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         title="Confirm Deletion"
         actions={
           <>
             <Button
               className="btn-ghost"
-              onClick={() => setIsOpen(false)}
+              onClick={() => setIsModalOpen(false)}
               disabled={loading}
             >
               Cancel
@@ -83,7 +83,9 @@ export default function ButtonDelete({
           </>
         }
       >
-        <Paragraph>{confirmMessage}</Paragraph>
+        <Paragraph className="text-center">
+          {confirmMessage}
+        </Paragraph>
       </Modal>
     </>
   );

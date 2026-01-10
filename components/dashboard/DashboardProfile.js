@@ -7,7 +7,6 @@ import Paragraph from "@/components/common/Paragraph";
 import Avatar from "@/components/common/Avatar";
 import Modal from "@/components/common/Modal";
 import Button from "@/components/button/Button";
-import Form from "@/components/common/Form";
 import Label from "@/components/common/Label";
 import Input from "@/components/input/Input";
 import useForm from "@/hooks/useForm";
@@ -19,7 +18,7 @@ export default function DashboardProfile() {
   const { styling } = useStyling();
   const { isLoggedIn, email, name, initials, image, updateProfile } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
   const [tempImage, setTempImage] = useState(null);
 
@@ -35,9 +34,9 @@ export default function DashboardProfile() {
 
   const handleSave = async (e) => {
     e.preventDefault();
-    setIsSaving(true);
+    setIsLoading(true);
     const success = await updateProfile(inputs);
-    setIsSaving(false);
+    setIsLoading(false);
     if (success) {
       setIsModalOpen(false);
     }
@@ -91,11 +90,28 @@ export default function DashboardProfile() {
         </div>
 
         <Modal
-          isOpen={isModalOpen}
+          isModalOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           title="Edit Profile"
+          actions={
+            <>
+              <Button
+                className="btn-ghost"
+                onClick={() => setIsModalOpen(false)}
+                disabled={isLoading}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleSave}
+                isLoading={isLoading}
+              >
+                Save
+              </Button>
+            </>
+          }
         >
-          <Form onSubmit={handleSave} className="space-y-6">
+          <div className="space-y-6">
             <div className={styling.flex.center}>
               <Avatar
                 initials={getNameInitials(inputs.name) || initials}
@@ -133,18 +149,11 @@ export default function DashboardProfile() {
                   placeholder="Your Name"
                   maxLength={30}
                   showCharacterCount
+                  disabled={isLoading}
                 />
               </div>
-              <div className="w-full text-center">
-                <Button
-                  type="submit"
-                  isLoading={isSaving}
-                >
-                  Save Changes
-                </Button>
-              </div>
             </div>
-          </Form>
+          </div>
         </Modal>
 
         {showCropper && tempImage && (

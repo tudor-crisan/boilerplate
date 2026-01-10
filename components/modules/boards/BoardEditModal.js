@@ -13,7 +13,7 @@ import { createSlug } from "@/libs/utils.client";
 
 export default function BoardEditModal({ boardId, currentSlug, currentName, className = "" }) {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [slug, setSlug] = useState(currentSlug || "");
   const { loading, request } = useApiRequest();
 
@@ -22,7 +22,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, clas
     if (!slug && !currentSlug) {
       setSlug(createSlug(currentName));
     }
-    setIsOpen(true);
+    setIsModalOpen(true);
   };
 
   const handleSave = async () => {
@@ -30,7 +30,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, clas
       () => clientApi.put(settings.paths.api.boardsDetail, { boardId, slug }),
       {
         onSuccess: () => {
-          setIsOpen(false);
+          setIsModalOpen(false);
           router.refresh();
         },
         showToast: true
@@ -48,14 +48,15 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, clas
       </Button>
 
       <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        isModalOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
         title="Edit Board"
         actions={
           <>
             <Button
               className="btn-ghost"
-              onClick={() => setIsOpen(false)}
+              onClick={() => setIsModalOpen(false)}
+              disabled={loading}
             >
               Cancel
             </Button>

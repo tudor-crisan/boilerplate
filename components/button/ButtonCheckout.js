@@ -58,7 +58,7 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
       </Button>
 
       <Modal
-        isOpen={isModalOpen}
+        isModalOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Choose your plan"
         boxClassName="max-w-md"

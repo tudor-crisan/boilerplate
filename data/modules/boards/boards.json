@@ -176,7 +176,7 @@
             "status": 400
           },
           "rateLimitExceeded": {
-            "message": "You can only change the slug once per day",
+            "message": "You can only change the slug once per day, try again in 24 hours",
             "status": 429
           },
           "slugTooShort": {

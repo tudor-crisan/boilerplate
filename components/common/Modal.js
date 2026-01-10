@@ -5,7 +5,7 @@ import Button from "@/components/button/Button";
 import Title from "@/components/common/Title";
 
 const Modal = ({
-  isOpen,
+  isModalOpen,
   onClose,
   title,
   children,
@@ -18,17 +18,21 @@ const Modal = ({
       if (e.key === "Escape") onClose();
     };
 
-    if (isOpen) {
+    if (isModalOpen) {
       document.addEventListener("keydown", handleEsc);
     }
     return () => document.removeEventListener("keydown", handleEsc);
-  }, [isOpen, onClose]);
+  }, [isModalOpen, onClose]);
 
   return (
-    <div className={cn("modal modal-bottom sm:modal-middle", isOpen && "modal-open", className)} role="dialog">
+    <div className={cn("modal modal-bottom sm:modal-middle", isModalOpen && "modal-open", className)} role="dialog">
 
-      <div className={cn("modal-box", boxClassName)}>
-        {title && <Title className="mb-4">{title}</Title>}
+      <div className={cn("modal-box space-y-3", boxClassName)}>
+        {title && (
+          <div className="w-full text-center">
+            <Title>{title}</Title>
+          </div>
+        )}
 
         {children}
 
