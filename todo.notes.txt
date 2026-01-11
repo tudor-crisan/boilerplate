@@ -1,3 +1,8 @@
+- no roundness on bottom modal on mobile
+- board delete modal show message that posts will be deleted
+- have commmon component functions for space-y-1 etc on BoardExtraSettings
+- email notifications on new posts / weekly email reports of posts, votes, visits to each board
+
 - have an option for users to download all their data from db
 - have a page with all features included
 - have a documentation page for the boilerplate (plus mention of new updates)
