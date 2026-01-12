@@ -24,7 +24,7 @@ export default function FooterBrand() {
               className={`${styling.components.element} size-6 sm:size-5`}
             />
           )}
-          <span>{settings.business.entity_name}</span>
+          <span className="text-base-content">{settings.business.entity_name}</span>
         </div>
       </Link>
       <div className="text-sm text-base-content/60">

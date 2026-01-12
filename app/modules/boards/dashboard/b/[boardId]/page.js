@@ -71,6 +71,7 @@ export default async function PrivateFeedbackBoard({ params }) {
                 <ButtonDelete
                   url={deleteUrl}
                   buttonText="Delete board"
+                  confirmMessage="Are you sure you want to delete? All associated posts will also be deleted."
                 />
               </div>
             </div>

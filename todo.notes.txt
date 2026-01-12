@@ -1,5 +1,3 @@
-- no roundness on bottom modal on mobile
-- board delete modal show message that posts will be deleted
 - have commmon component functions for space-y-1 etc on BoardExtraSettings
 - email notifications on new posts / weekly email reports of posts, votes, visits to each board
 

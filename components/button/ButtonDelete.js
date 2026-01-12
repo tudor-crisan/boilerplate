@@ -8,6 +8,7 @@ import Button from "@/components/button/Button";
 import Modal from "@/components/common/Modal";
 import { defaultSetting as settings } from "@/libs/defaults";
 import Paragraph from "@/components/common/Paragraph";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function ButtonDelete({
   url = "",
@@ -22,6 +23,7 @@ export default function ButtonDelete({
   const router = useRouter();
   const { loading, request } = useApiRequest();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { styling } = useStyling();
 
   const handleDelete = async () => {
     if (withConfirm) {
@@ -84,7 +86,7 @@ export default function ButtonDelete({
           </>
         }
       >
-        <Paragraph className="text-center">
+        <Paragraph className={`${styling.general.element} text-center`}>
           {confirmMessage}
         </Paragraph>
       </Modal>

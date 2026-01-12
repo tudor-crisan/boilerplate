@@ -4,6 +4,7 @@ import { isResponseMock, responseMock, responseSuccess, responseError } from "@/
 import { defaultSetting as settings } from "@/libs/defaults";
 import User from "@/models/User";
 import Board from "@/models/modules/boards/Board";
+import Post from "@/models/modules/boards/Post";
 import { checkReqRateLimit } from "@/libs/rateLimit";
 import { revalidatePath } from "next/cache";
 
@@ -123,7 +124,9 @@ export async function DELETE(req) {
     await Board.deleteOne({
       _id: boardId,
       userId: userId
-    })
+    });
+
+    await Post.deleteMany({ boardId: boardId });
 
     return responseSuccess(deleteSuccesfully.message, {}, deleteSuccesfully.status)
 
