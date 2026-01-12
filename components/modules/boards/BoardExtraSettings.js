@@ -9,7 +9,7 @@ import Title from "@/components/common/Title";
 import Button from "@/components/button/Button";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
-import { defaultSetting } from "@/libs/defaults";
+import { defaultSetting, defaultStyling } from "@/libs/defaults";
 import { useStyling, ContextStyling } from "@/context/ContextStyling";
 import Accordion from "@/components/common/Accordion";
 import TextSmall from "@/components/common/TextSmall";
@@ -58,15 +58,15 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
   // Preview styling: merge global styling with board specific appearance settings
   const previewStyling = useMemo(() => {
     const appearance = getNestedValue(settings, "appearance", {});
-    if (!appearance || Object.keys(appearance).length === 0) return styling;
+    if (!appearance || Object.keys(appearance).length === 0) return defaultStyling;
 
     return {
-      ...styling,
+      ...defaultStyling,
       ...appearance,
-      components: { ...styling.components, ...appearance.components },
-      pricing: { ...styling.pricing, ...appearance.pricing },
+      components: { ...defaultStyling.components, ...appearance.components },
+      pricing: { ...defaultStyling.pricing, ...appearance.pricing },
     };
-  }, [styling, settings]);
+  }, [settings]);
 
   const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -74,7 +74,7 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
     const config = getVal("randomizer", { theme: true, font: true, styling: true });
 
     // Start with current appearance or default styling if empty
-    let newAppearance = getVal("appearance", JSON.parse(JSON.stringify(styling)));
+    let newAppearance = getVal("appearance", JSON.parse(JSON.stringify(defaultStyling)));
 
     if (config.theme !== false) {
       newAppearance.theme = getRandomItem(themes);
@@ -90,8 +90,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
       const randomRadius = getRandomItem(radiusOptions);
 
       // Ensure objects exist
-      if (!newAppearance.components) newAppearance.components = JSON.parse(JSON.stringify(styling.components));
-      if (!newAppearance.pricing) newAppearance.pricing = JSON.parse(JSON.stringify(styling.pricing));
+      if (!newAppearance.components) newAppearance.components = JSON.parse(JSON.stringify(defaultStyling.components));
+      if (!newAppearance.pricing) newAppearance.pricing = JSON.parse(JSON.stringify(defaultStyling.pricing));
 
       const newComponents = { ...newAppearance.components };
       const newPricing = { ...newAppearance.pricing };
@@ -148,7 +148,7 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
       content: (
         <SettingsContainer>
           <SettingsAppearance
-            styling={getVal("appearance", styling)}
+            styling={getVal("appearance", defaultStyling)}
             onChange={(newStyling) => handleChange("appearance", newStyling)}
             isLoading={disabled}
           />
