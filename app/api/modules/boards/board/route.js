@@ -160,7 +160,7 @@ export async function PUT(req) {
     }
 
     const body = await req.json();
-    const { boardId, slug } = body;
+    const { boardId, slug, name } = body;
 
     if (!boardId || !slug) {
       return responseError(boardIdRequired.message, {}, boardIdRequired.status);
@@ -214,6 +214,10 @@ export async function PUT(req) {
     }
 
     board.slug = newSlug;
+
+    if (name && board.name !== name) {
+      board.name = name;
+    }
 
     if (body.extraSettings) {
       try {

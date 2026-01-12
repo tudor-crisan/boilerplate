@@ -16,6 +16,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slug, setSlug] = useState(currentSlug || "");
+  const [name, setName] = useState(currentName || "");
   const defaultTemplate = settings.defaultExtraSettings;
 
   // Check if extraSettings is empty object or null/undefined
@@ -32,6 +33,9 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
     if (!slug && !currentSlug) {
       setSlug(createSlug(currentName));
     }
+    if (!name && !currentName) {
+      setName(currentName);
+    }
 
     // Always sync with latest prop when opening
     if (extraSettings && Object.keys(extraSettings).length > 0) {
@@ -45,7 +49,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
 
   const handleSave = async () => {
     await request(
-      () => clientApi.put(settings.paths.api.boardsDetail, { boardId, slug, extraSettings: settingsState }),
+      () => clientApi.put(settings.paths.api.boardsDetail, { boardId, slug, name, extraSettings: settingsState }),
       {
         onSuccess: () => {
           setIsModalOpen(false);
@@ -86,6 +90,17 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
         }
       >
         <div className="flex flex-col gap-6">
+          <div className="space-y-2 border-b border-base-200 pb-6">
+            <Label>Board Name</Label>
+            <Input
+              required={true}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="e.g. My Awesome Board"
+              maxLength={50}
+              disabled={loading}
+            />
+          </div>
           <div className="space-y-2 border-b border-base-200 pb-6">
             <Label>Board Slug</Label>
             <div className="flex items-center gap-4">
