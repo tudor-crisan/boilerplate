@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import toast from "react-hot-toast";
 import { getClientId } from "@/libs/utils.client";
 import { defaultSetting as settings } from "@/libs/defaults";
@@ -30,6 +30,7 @@ const sortPosts = (posts) => {
 export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } = {}) => {
   const [posts, setPosts] = useState(sortPosts(initialPosts));
   const [isBoardDeleted, setIsBoardDeleted] = useState(false);
+  const isBoardDeletedRef = useRef(false);
 
   // Sync state if initialProps change
   useEffect(() => {
@@ -84,11 +85,15 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
 
         if (data.type === "post-delete") {
           setPosts((prevPosts) => prevPosts.filter(p => p._id !== data.postId));
-          toast.success("Post removed!");
+
+          if (!isBoardDeletedRef.current) {
+            toast.success("Post removed!");
+          }
         }
 
         if (data.type === "board-delete" && data.boardId === boardId) {
           setIsBoardDeleted(true);
+          isBoardDeletedRef.current = true;
         }
       } catch (error) {
         console.error("SSE parse error", error);
