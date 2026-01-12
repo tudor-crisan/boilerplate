@@ -72,36 +72,22 @@ export async function GET(req) {
             type: "comment-update",
             postId: change.fullDocument.postId.toString(),
             boardId: change.fullDocument.boardId.toString(),
-            action: "add"
+            action: "add",
+            comment: change.fullDocument
           });
         }
-        if (change.operationType === "delete") {
-          // For delete, we might not have the full document if it's not enabled in pre-image
-          // But we can try to look it up if we have it, or client needs to handle it.
-          // Note: Standard mongo change streams for delete only provide documentKey (_id).
-          // To get the postId/boardId, we'd need to store it or look it up before delete, 
-          // but here we only have the ID. 
-          // IMPROVEMENT: If we can't reliably get the postId from a delete event without extra config,
-          // we might just broadcast the commentId and let client search, OR we rely on the fact 
-          // that standard delete implementations usually don't return the deleted doc details in change stream.
-          // However, we can simply emit the delete event. But wait, useBoardPosts needs postId to update the count.
-          // Problem: 'delete' event in toggle doesn't give us postId.
-          // Solution: Client side optimistic update is done. But for other clients?
-          // We can't know which post the comment belonged to easily from just the ID in a standard stream.
-          // A workaround: In `comment/route.js`, we could technically fire an event, but we want to stick to the stream watcher.
-          // ALTERNATIVE: Use `fullDocumentBeforeChange` if enabled (requires config).
-          // EASIER FIX: For now, we will just support "add" updates reliably. 
-          // actually, let's look at how we can support delete.
-          // If we can't get postId, we can't update the specific post count on other clients.
-          // Let's rely on 'insert' for now as it's the most important for "showing activity".
-          // If the user wants deletions to sync, we'd need to fetch the comment before delete in the API 
-          // and manually send an event, OR enable pre-images.
-          // Given constraints, I will implement 'insert' logic which works 100%.
-          // For delete, I will simply omit it for now or try to see if we can get it.
-          // Wait, 'post-delete' works because we just remove the post.
-          // 'comment-delete' needs to decrement a counter on a specific post.
-          // If we don't know the post, we can't decrement.
-          // Let's just implement INSERT for now as it's the primary request "when a comment is added".
+        if (change.operationType === "update") {
+          const updatedFields = change.updateDescription.updatedFields;
+          if (updatedFields && updatedFields.isDeleted === true) {
+            sendEvent({
+              type: "comment-update",
+              // With updateLookup we get fullDocument
+              postId: change.fullDocument.postId.toString(),
+              boardId: change.fullDocument.boardId.toString(),
+              action: "remove",
+              commentId: change.documentKey._id.toString()
+            });
+          }
         }
       });
 

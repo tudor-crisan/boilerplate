@@ -153,7 +153,7 @@ export async function DELETE(req) {
       return responseError(notAuthorized.message, {}, notAuthorized.status);
     }
 
-    await Comment.deleteOne({ _id: commentId });
+    await Comment.updateOne({ _id: commentId }, { $set: { isDeleted: true } });
 
     return responseSuccess(deleteSuccesfully.message, {}, deleteSuccesfully.status);
 
@@ -175,7 +175,7 @@ export async function GET(req) {
 
     await connectMongo();
 
-    const comments = await Comment.find({ postId })
+    const comments = await Comment.find({ postId, isDeleted: { $ne: true } })
       .sort({ createdAt: 1 })
       .populate("userId", "name image email");
 

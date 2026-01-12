@@ -8,8 +8,8 @@ const Avatar = ({ src, initials, size = "md", className }) => {
   const sizeClasses = {
     sm: "size-8 text-xs",
     md: "size-12 text-base",
-    lg: "size-16 text-lg",
-    xl: "size-24 text-xl"
+    lg: "size-16 text-2xl",
+    xl: "size-24 text-3xl"
   };
 
   // Extract base component style from json if available, or fallback

@@ -204,7 +204,15 @@ export async function GET(req) {
       },
       {
         $addFields: {
-          commentsCount: { $size: "$comments" }
+          commentsCount: {
+            $size: {
+              $filter: {
+                input: "$comments",
+                as: "comment",
+                cond: { $ne: ["$$comment.isDeleted", true] }
+              }
+            }
+          }
         }
       },
       {

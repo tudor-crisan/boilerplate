@@ -11,7 +11,10 @@ import Textarea from "@/components/textarea/Textarea";
 import Label from "@/components/common/Label";
 import Modal from "@/components/common/Modal";
 import Paragraph from "@/components/common/Paragraph";
+
 import useBoardComments from "@/hooks/modules/boards/useBoardComments";
+import SvgTrash from "@/components/svg/SvgTrash";
+import Tooltip from "@/components/common/Tooltip";
 
 const BoardCommentSection = ({ postId }) => {
   const session = useAuth();
@@ -51,23 +54,25 @@ const BoardCommentSection = ({ postId }) => {
                 <span className="font-semibold text-sm">
                   {comment.userId?.name || comment.name || "Anonymous"}
                 </span>
-                <span className="text-xs opacity-50">
-                  {new Date(comment.createdAt).toLocaleDateString()}
-                </span>
+
+                <div className="flex items-center gap-2">
+                  {/* Delete button logic */}
+                  {((session?.id && comment.userId?._id === session.id) || (session?.id && comment.boardId?.userId === session.id)) && (
+                    <Tooltip text="Delete comment">
+                      <Button
+                        onClick={() => setCommentToDelete(comment._id)}
+                        className="btn-ghost btn-square btn-xs text-error opacity-50 hover:opacity-100"
+                      >
+                        <SvgTrash className="w-4 h-4" />
+                      </Button>
+                    </Tooltip>
+                  )}
+                  <span className="text-xs opacity-50">
+                    {new Date(comment.createdAt).toLocaleDateString()}
+                  </span>
+                </div>
               </div>
               <p className="text-sm whitespace-pre-wrap">{comment.text}</p>
-
-              {/* Delete button logic could go here if user has permission */}
-              {((session?.id && comment.userId?._id === session.id) || (session?.id && comment.boardId?.userId === session.id)) && (
-                <div className="flex justify-end mt-1">
-                  <Button
-                    onClick={() => setCommentToDelete(comment._id)}
-                    className="btn-outline btn-xs text-error font-normal"
-                  >
-                    Delete
-                  </Button>
-                </div>
-              )}
             </div>
           </div>
         ))}
