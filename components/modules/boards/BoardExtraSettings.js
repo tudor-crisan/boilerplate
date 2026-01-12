@@ -358,10 +358,13 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
             <div className="text-sm uppercase font-bold text-base-content/50 mb-4">PREVIEW</div>
             <div className="space-y-6">
               {/* Wrapper for Theme Isolation */}
-              <div data-theme={previewStyling.theme?.toLowerCase()} className="p-1 space-y-6">
+              <div
+                data-theme={previewStyling.theme?.toLowerCase()}
+                className="p-1 space-y-6"
+                style={{ fontFamily: fontMap[previewStyling.font] }}
+              >
                 <div
                   className={`${previewStyling.components.card} space-y-4 ${previewStyling.general.box} p-6 border border-base-200 shadow-sm transition-all duration-300 bg-base-100 text-base-content`}
-                  style={{ fontFamily: fontMap[previewStyling.font] }}
                 >
                   <Title>{getVal("form.title", "Suggest a feature")}</Title>
 
