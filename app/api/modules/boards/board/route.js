@@ -186,16 +186,16 @@ export async function PUT(req) {
       return responseError("Board not found", {}, 404);
     }
 
+    // Validate slug format
+    const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
     // Check rate limit (1 day)
-    if (board.lastSlugUpdate) {
+    if (board.slug !== newSlug && board.lastSlugUpdate) {
       const oneDay = 24 * 60 * 60 * 1000;
       if (new Date() - new Date(board.lastSlugUpdate) < oneDay) {
         return responseError(rateLimitExceeded.message, {}, rateLimitExceeded.status);
       }
     }
-
-    // Validate slug format
-    const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
     if (newSlug.length < 3) {
       return responseError(slugTooShort.message, {}, slugTooShort.status);
