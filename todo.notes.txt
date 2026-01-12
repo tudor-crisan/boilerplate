@@ -1,4 +1,6 @@
 
+- think of adding a shuffle toggle on the edit profile container to shuffle around
+
 - have an option for users to download all their data from db
 - have a page with all features included (kinda like a documentation page)
 - have a documentation page for the boilerplate (plus mention of new updates)

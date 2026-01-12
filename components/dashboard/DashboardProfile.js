@@ -32,9 +32,19 @@ export default function DashboardProfile() {
     image: image || ""
   });
 
+  const [originalStyling, setOriginalStyling] = useState(null);
+
   const handleEditClick = () => {
     resetInputs({ name: name || "", image: image || "" });
+    setOriginalStyling(JSON.parse(JSON.stringify(styling))); // Deep copy current styling
     setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    if (originalStyling) {
+      setStyling(originalStyling);
+    }
+    setIsModalOpen(false);
   };
 
   const handleSave = async (e) => {
@@ -96,13 +106,13 @@ export default function DashboardProfile() {
 
         <Modal
           isModalOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          onClose={handleCancel}
           title="Edit Profile"
           actions={
             <>
               <Button
                 className="btn-ghost"
-                onClick={() => setIsModalOpen(false)}
+                onClick={handleCancel}
                 disabled={isLoading}
               >
                 Cancel
@@ -192,6 +202,8 @@ export default function DashboardProfile() {
                     value={styling.components.input.split(" ").find(c => c.startsWith("rounded-")) || "rounded-md"}
                     onChange={(radius) => {
                       const newComponents = { ...styling.components };
+                      const newPricing = { ...styling.pricing };
+
                       // Replace any rounded class with new radius
                       const replaceRadius = (str) =>
                         str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() + " " + radius;
@@ -201,7 +213,14 @@ export default function DashboardProfile() {
                           newComponents[key] = replaceRadius(newComponents[key]);
                         }
                       });
-                      setStyling((prev) => ({ ...prev, components: newComponents }));
+
+                      Object.keys(newPricing).forEach((key) => {
+                        if (typeof newPricing[key] === "string" && newPricing[key].includes("rounded")) {
+                          newPricing[key] = replaceRadius(newPricing[key]);
+                        }
+                      });
+
+                      setStyling((prev) => ({ ...prev, components: newComponents, pricing: newPricing }));
                     }}
                   />
                 </div>

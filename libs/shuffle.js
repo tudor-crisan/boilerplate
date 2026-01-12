@@ -14,6 +14,9 @@ const shuffle = {
     "isEnabled": false,
     "timeInterval": timeInterval
   },
+
+  /////////////
+
   "font": {
     "isEnabled": false,
     "timeInterval": timeInterval
