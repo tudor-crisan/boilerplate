@@ -1,13 +1,8 @@
 import { getBoardPublic } from "@/libs/modules/boards/db";
 import { redirect } from "next/navigation";
 import { getMetadata } from "@/libs/seo";
-import Title from "@/components/common/Title";
-import Main from "@/components/common/Main";
-import Columns from "@/components/common/Columns";
-import Sidebar from "@/components/common/Sidebar";
-import FormCreate from "@/components/form/FormCreate";
-import BoardPublicPostsList from "@/components/modules/boards/BoardPublicPostsList";
-import { defaultStyling, defaultSetting as settings } from "@/libs/defaults";
+import { defaultSetting as settings } from "@/libs/defaults";
+import BoardPublicClient from "@/components/modules/boards/BoardPublicClient";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;
@@ -26,28 +21,8 @@ export default async function PublicFeedbackBoard({ params }) {
     redirect(settings.paths.home.source);
   }
 
-  return (
-    <Main className={`bg-base-200 ${defaultStyling.general.box}`}>
-      <div className="max-w-5xl space-y-4 mx-auto w-full">
-        <Title>
-          {board.name}
-        </Title>
-        <Columns>
-          <Sidebar>
-            <FormCreate
-              type="Post"
-              queryParams={{ boardId: board._id.toString() }}
-              skipRefresh={true}
-              customConfig={board.extraSettings}
-            />
-          </Sidebar>
-          <BoardPublicPostsList
-            posts={board.posts}
-            boardId={board._id.toString()}
-            emptyStateConfig={board.extraSettings?.emptyState}
-          />
-        </Columns>
-      </div>
-    </Main>
-  )
+  // Serialize board data to ensure it's safe to pass to Client Component (handles ObjectIds, Dates)
+  const serializableBoard = JSON.parse(JSON.stringify(board));
+
+  return <BoardPublicClient board={serializableBoard} />;
 }

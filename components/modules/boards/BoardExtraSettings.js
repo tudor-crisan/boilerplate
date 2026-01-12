@@ -10,7 +10,7 @@ import Button from "@/components/button/Button";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
 import { defaultSetting } from "@/libs/defaults";
-import { useStyling } from "@/context/ContextStyling";
+import { useStyling, ContextStyling } from "@/context/ContextStyling";
 import Accordion from "@/components/common/Accordion";
 import TextSmall from "@/components/common/TextSmall";
 import SettingsAppearance from "@/components/settings/SettingsAppearance";
@@ -356,52 +356,54 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
 
       {/* Preview Column */}
       <div className="flex-none lg:flex-1 border-t pt-6 lg:border-t-0 lg:pt-0 lg:border-l border-base-300 lg:pl-6">
-        <div className="sticky top-0 space-y-8">
-          <div className="text-sm uppercase font-bold text-base-content/50 mb-4">PREVIEW</div>
-          <div className="space-y-6">
-            {/* Wrapper for Theme Isolation */}
-            <div data-theme={previewStyling.theme?.toLowerCase()} className="p-1">
-              <div
-                className={`${previewStyling.components.card} space-y-4 ${previewStyling.general.box} p-6 border border-base-200 shadow-sm transition-all duration-300 bg-base-100 text-base-content`}
-                style={{ fontFamily: fontMap[previewStyling.font] }}
-              >
-                <Title>{getVal("form.title", "Suggest a feature")}</Title>
+        <ContextStyling.Provider value={{ styling: previewStyling }}>
+          <div className="sticky top-0 space-y-8">
+            <div className="text-sm uppercase font-bold text-base-content/50 mb-4">PREVIEW</div>
+            <div className="space-y-6">
+              {/* Wrapper for Theme Isolation */}
+              <div data-theme={previewStyling.theme?.toLowerCase()} className="p-1 space-y-6">
+                <div
+                  className={`${previewStyling.components.card} space-y-4 ${previewStyling.general.box} p-6 border border-base-200 shadow-sm transition-all duration-300 bg-base-100 text-base-content`}
+                  style={{ fontFamily: fontMap[previewStyling.font] }}
+                >
+                  <Title>{getVal("form.title", "Suggest a feature")}</Title>
 
-                <div className="space-y-2">
-                  <Label>{getVal("form.inputs.title.label", "Short, descriptive title")}</Label>
-                  <Input
-                    placeholder={getVal("form.inputs.title.placeholder", "")}
-                    maxLength={getVal("form.inputs.title.maxlength", 60)}
-                    showCharacterCount={getVal("form.inputs.title.showCharacterCount", true)}
-                    readOnly
-                  />
+                  <div className="space-y-2">
+                    <Label>{getVal("form.inputs.title.label", "Short, descriptive title")}</Label>
+                    <Input
+                      placeholder={getVal("form.inputs.title.placeholder", "")}
+                      maxLength={getVal("form.inputs.title.maxlength", 60)}
+                      showCharacterCount={getVal("form.inputs.title.showCharacterCount", true)}
+                      readOnly
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>{getVal("form.inputs.description.label", "Description")}</Label>
+                    <Textarea
+                      placeholder={getVal("form.inputs.description.placeholder", "")}
+                      rows={getVal("form.inputs.description.rows", 4)}
+                      maxLength={getVal("form.inputs.description.maxlength", 400)}
+                      showCharacterCount={getVal("form.inputs.description.showCharacterCount", true)}
+                      readOnly
+                      className="w-full"
+                    />
+                  </div>
+
+                  <Button variant="btn-primary">
+                    {getVal("form.button", "Add Post")}
+                  </Button>
                 </div>
 
-                <div className="space-y-2">
-                  <Label>{getVal("form.inputs.description.label", "Description")}</Label>
-                  <Textarea
-                    placeholder={getVal("form.inputs.description.placeholder", "")}
-                    rows={getVal("form.inputs.description.rows", 4)}
-                    maxLength={getVal("form.inputs.description.maxlength", 400)}
-                    showCharacterCount={getVal("form.inputs.description.showCharacterCount", true)}
-                    readOnly
-                    className="w-full"
-                  />
-                </div>
-
-                <Button variant="btn-primary">
-                  {getVal("form.button", "Add Post")}
-                </Button>
+                <EmptyState
+                  title={getVal("emptyState.title", defaultSetting.defaultExtraSettings.emptyState.title)}
+                  description={getVal("emptyState.description", defaultSetting.defaultExtraSettings.emptyState.description)}
+                  icon={<SvgPost size="size-16" />}
+                />
               </div>
             </div>
-
-            <EmptyState
-              title={getVal("emptyState.title", defaultSetting.defaultExtraSettings.emptyState.title)}
-              description={getVal("emptyState.description", defaultSetting.defaultExtraSettings.emptyState.description)}
-              icon={<SvgPost size="size-16" />}
-            />
           </div>
-        </div>
+        </ContextStyling.Provider>
       </div>
     </div>
   );
