@@ -13,7 +13,6 @@ import SvgComment from "@/components/svg/SvgComment";
 const BoardPostItem = ({ item, itemAction }) => {
   const { styling } = useStyling();
   const [showComments, setShowComments] = useState(false);
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
   return (
     <motion.li
@@ -37,21 +36,16 @@ const BoardPostItem = ({ item, itemAction }) => {
         </div>
 
         <div className="ml-6 shrink-0 flex items-center gap-2">
-          <Tooltip text={showComments ? "Hide Comments" : "Comments"} isVisible={isTooltipVisible}>
-            <div
-              onMouseEnter={() => setIsTooltipVisible(true)}
-              onMouseLeave={() => setIsTooltipVisible(false)}
+          <Tooltip text={showComments ? "Hide Comments" : "Comments"}>
+            <Button
+              onClick={() => setShowComments(!showComments)}
+              className="btn-ghost btn-sm opacity-70 hover:opacity-100 gap-1.5 px-2"
             >
-              <Button
-                onClick={() => setShowComments(!showComments)}
-                className="btn-ghost btn-sm opacity-70 hover:opacity-100 gap-1.5 px-2"
-              >
-                <SvgComment size="w-5 h-5" />
-                {item.commentsCount > 0 && (
-                  <span className="text-xs font-normal">{item.commentsCount}</span>
-                )}
-              </Button>
-            </div>
+              <SvgComment size="w-5 h-5" />
+              {item.commentsCount > 0 && (
+                <span className="text-xs font-normal">{item.commentsCount}</span>
+              )}
+            </Button>
           </Tooltip>
 
           {(itemAction || item.action) && (

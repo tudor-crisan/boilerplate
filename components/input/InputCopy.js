@@ -4,7 +4,7 @@ import ButtonCopy from "@/components/button/ButtonCopy";
 import Button from "@/components/button/Button";
 import SvgExternal from "@/components/svg/SvgExternal";
 import Tooltip from "@/components/common/Tooltip";
-import useTooltip from "@/hooks/useTooltip";
+
 
 export default function InputCopy({
   value = "",
@@ -13,8 +13,7 @@ export default function InputCopy({
   tooltipOpen = ""
 }) {
   const { styling } = useStyling();
-  const copyTooltip = useTooltip();
-  const openTooltip = useTooltip();
+
 
   return (
     <div className={`${styling.components.input_copy} ${styling.general.element} `}>
@@ -22,22 +21,18 @@ export default function InputCopy({
         {value}
       </p>
       <div className={`${styling.flex.items_center} gap-2 shrink-0 ml-4`}>
-        <Tooltip text={tooltipCopy} isVisible={copyTooltip.isVisible}>
+        <Tooltip text={tooltipCopy}>
           <ButtonCopy
             copyText={value}
-            onMouseEnter={copyTooltip.show}
-            onMouseLeave={copyTooltip.hide}
           />
         </Tooltip>
         {openUrl && (
-          <Tooltip text={tooltipOpen} isVisible={openTooltip.isVisible}>
+          <Tooltip text={tooltipOpen}>
             <Button
               href={openUrl}
               target="_blank"
               variant="btn-neutral btn-square"
               noAutoLoading={true}
-              onMouseEnter={openTooltip.show}
-              onMouseLeave={openTooltip.hide}
             >
               <SvgExternal size="size-5" />
             </Button>

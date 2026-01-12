@@ -1,13 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import InputCheckbox from "@/components/input/InputCheckbox";
 import Button from "@/components/button/Button";
 import Grid from "@/components/common/Grid";
 import Tooltip from "@/components/common/Tooltip";
 
 export default function SettingsRandomizer({ config, onConfigChange, onShuffle, isLoading, title }) {
-  const [isHovered, setIsHovered] = useState(false);
 
   if (!config) return null;
 
@@ -58,24 +56,18 @@ export default function SettingsRandomizer({ config, onConfigChange, onShuffle, 
         </div>
 
         <div className="col-span-2 sm:col-span-1 flex justify-end">
-          <div
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+          <Tooltip
+            text={isShuffleDisabled ? "Select an option first" : ""}
           >
-            <Tooltip
-              text="Select an option first"
-              isVisible={isShuffleDisabled && isHovered}
+            <Button
+              onClick={onShuffle}
+              className="w-full sm:w-auto btn-outline"
+              type="button"
+              disabled={isLoading || isShuffleDisabled}
             >
-              <Button
-                onClick={onShuffle}
-                className="w-full sm:w-auto btn-outline"
-                type="button"
-                disabled={isLoading || isShuffleDisabled}
-              >
-                Shuffle Now
-              </Button>
-            </Tooltip>
-          </div>
+              Shuffle Now
+            </Button>
+          </Tooltip>
         </div>
       </Grid>
     </div>

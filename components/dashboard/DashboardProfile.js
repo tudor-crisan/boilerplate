@@ -16,7 +16,7 @@ import ImageCropper from "@/components/common/ImageCropper";
 import SettingsAppearance from "@/components/settings/SettingsAppearance";
 import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
 import Tooltip from "@/components/common/Tooltip";
-import useTooltip from "@/hooks/useTooltip";
+
 import { useStyling } from "@/context/ContextStyling";
 import themes from "@/lists/themes";
 import { fontMap } from "@/lists/fonts";
@@ -27,7 +27,7 @@ export default function DashboardProfile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showCropper, setShowCropper] = useState(false);
-  const emailTooltip = useTooltip();
+
   const [tempImage, setTempImage] = useState(null);
 
   const { inputs, handleChange, resetInputs } = useForm({
@@ -224,16 +224,14 @@ export default function DashboardProfile() {
                 <Label>
                   Email
                 </Label>
-                <div onMouseEnter={emailTooltip.show} onMouseLeave={emailTooltip.hide}>
-                  <Tooltip text="Email address can't be edited" isVisible={emailTooltip.isVisible}>
-                    <Input
-                      type="email"
-                      value={email}
-                      disabled={true}
-                      placeholder="your@email.com"
-                    />
-                  </Tooltip>
-                </div>
+                <Tooltip text="Email address can't be edited">
+                  <Input
+                    type="email"
+                    value={email}
+                    disabled={true}
+                    placeholder="your@email.com"
+                  />
+                </Tooltip>
               </div>
             </div>
 
