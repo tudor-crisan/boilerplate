@@ -152,19 +152,16 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
             onChange={(newStyling) => handleChange("appearance", newStyling)}
             isLoading={disabled}
           />
-        </SettingsContainer>
-      )
-    },
-    {
-      title: "Randomizer",
-      content: (
-        <SettingsContainer>
-          <SettingsRandomizer
-            config={getVal("randomizer", { theme: true, font: true, styling: true, auto: false })}
-            onConfigChange={(key, val) => handleChange(`randomizer.${key}`, val)}
-            onShuffle={handleShuffle}
-            isLoading={disabled}
-          />
+
+          <div className="pt-4 border-t border-base-200">
+            <div className="font-bold text-sm mb-4">Randomizer</div>
+            <SettingsRandomizer
+              config={getVal("randomizer", { theme: true, font: true, styling: true, auto: false })}
+              onConfigChange={(key, val) => handleChange(`randomizer.${key}`, val)}
+              onShuffle={handleShuffle}
+              isLoading={disabled}
+            />
+          </div>
         </SettingsContainer>
       )
     },
