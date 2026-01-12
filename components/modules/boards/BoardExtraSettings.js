@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useEffect, useCallback, useRef } from "react";
 import Input from "@/components/input/Input";
 import InputCheckbox from "@/components/input/InputCheckbox";
 import Textarea from "@/components/textarea/Textarea";
@@ -38,7 +38,7 @@ const SettingsRow = ({ children }) => (
 export default function BoardExtraSettings({ settings, onChange, disabled }) {
   const { styling } = useStyling();
 
-  const handleChange = (path, value) => {
+  const handleChange = useCallback((path, value) => {
     const newSettings = JSON.parse(JSON.stringify(settings));
     const parts = path.split('.');
     let current = newSettings;
@@ -48,12 +48,12 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
     }
     current[parts[parts.length - 1]] = value;
     onChange(newSettings);
-  };
+  }, [settings, onChange]);
 
-  const getVal = (path, fallback) => {
-    const val = getNestedValue(settings, path); // Call getNestedValue without fallback
-    return val !== undefined ? val : fallback; // Use strict undefined check
-  };
+  const getVal = useCallback((path, fallback) => {
+    const val = getNestedValue(settings, path);
+    return val !== undefined ? val : fallback;
+  }, [settings]);
 
   // Preview styling: merge global styling with board specific appearance settings
   const previewStyling = useMemo(() => {
@@ -65,33 +65,31 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
       ...appearance,
       components: { ...styling.components, ...appearance.components },
       pricing: { ...styling.pricing, ...appearance.pricing },
-      // Flex and General are usually not part of appearance settings shuffle but we keep defaults
     };
   }, [styling, settings]);
 
-
   const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-  const handleShuffle = () => {
+  const handleShuffle = useCallback(() => {
     const config = getVal("randomizer", { theme: true, font: true, styling: true });
 
     // Start with current appearance or default styling if empty
     let newAppearance = getVal("appearance", JSON.parse(JSON.stringify(styling)));
 
-    if (config.theme) {
+    if (config.theme !== false) {
       newAppearance.theme = getRandomItem(themes);
     }
 
-    if (config.font) {
+    if (config.font !== false) {
       const fontsKeys = Object.keys(fontMap);
       newAppearance.font = getRandomItem(fontsKeys);
     }
 
-    if (config.styling) {
+    if (config.styling !== false) {
       const radiusOptions = ["rounded-none", "rounded-md"];
       const randomRadius = getRandomItem(radiusOptions);
 
-      // We need to ensure components object exists in newAppearance
+      // Ensure objects exist
       if (!newAppearance.components) newAppearance.components = JSON.parse(JSON.stringify(styling.components));
       if (!newAppearance.pricing) newAppearance.pricing = JSON.parse(JSON.stringify(styling.pricing));
 
@@ -118,7 +116,30 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
     }
 
     handleChange("appearance", newAppearance);
-  };
+  }, [styling, settings, handleChange, getVal]);
+
+  // Auto Shuffle Effect
+  const randomizerConfig = getVal("randomizer", {});
+  const isAutoShuffle = randomizerConfig.auto === true;
+
+  const handleShuffleRef = useRef(handleShuffle);
+
+  useEffect(() => {
+    handleShuffleRef.current = handleShuffle;
+  }, [handleShuffle]);
+
+  useEffect(() => {
+    if (!isAutoShuffle) return;
+
+    // Initial shuffle
+    handleShuffleRef.current();
+
+    const id = setInterval(() => {
+      handleShuffleRef.current();
+    }, 3000);
+
+    return () => clearInterval(id);
+  }, [isAutoShuffle]);
 
 
   const accordionItems = [
@@ -209,8 +230,6 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                 onChange={(e) => {
                   let val = parseInt(e.target.value) || 0;
                   if (val > 100) val = 100;
-                  // We don't enforce min 10 regarding typing (preventing deletion), but could on blur/save.
-                  // For now, let's just let them type and maybe clamp max.
                   handleChange("form.inputs.title.maxlength", val);
                 }}
                 min={10}
@@ -340,39 +359,42 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
         <div className="sticky top-0 space-y-8">
           <div className="text-sm uppercase font-bold text-base-content/50 mb-4">PREVIEW</div>
           <div className="space-y-6">
-            <div
-              className={`${previewStyling.components.card} space-y-4 ${previewStyling.general.box} p-6 border border-base-200 shadow-sm transition-all duration-300 bg-base-100 text-base-content`}
-              data-theme={previewStyling.theme}
-              style={{ fontFamily: fontMap[previewStyling.font] }}
-            >
-              <Title>{getVal("form.title", "Suggest a feature")}</Title>
+            {/* Wrapper for Theme Isolation */}
+            <div data-theme={previewStyling.theme?.toLowerCase()} className="p-1">
+              <div
+                className={`${previewStyling.components.card} space-y-4 ${previewStyling.general.box} p-6 border border-base-200 shadow-sm transition-all duration-300 bg-base-100 text-base-content`}
+                style={{ fontFamily: fontMap[previewStyling.font] }}
+              >
+                <Title>{getVal("form.title", "Suggest a feature")}</Title>
 
-              <div className="space-y-2">
-                <Label>{getVal("form.inputs.title.label", "Short, descriptive title")}</Label>
-                <Input
-                  placeholder={getVal("form.inputs.title.placeholder", "")}
-                  maxLength={getVal("form.inputs.title.maxlength", 60)}
-                  showCharacterCount={getVal("form.inputs.title.showCharacterCount", true)}
-                  readOnly
-                />
+                <div className="space-y-2">
+                  <Label>{getVal("form.inputs.title.label", "Short, descriptive title")}</Label>
+                  <Input
+                    placeholder={getVal("form.inputs.title.placeholder", "")}
+                    maxLength={getVal("form.inputs.title.maxlength", 60)}
+                    showCharacterCount={getVal("form.inputs.title.showCharacterCount", true)}
+                    readOnly
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>{getVal("form.inputs.description.label", "Description")}</Label>
+                  <Textarea
+                    placeholder={getVal("form.inputs.description.placeholder", "")}
+                    rows={getVal("form.inputs.description.rows", 4)}
+                    maxLength={getVal("form.inputs.description.maxlength", 400)}
+                    showCharacterCount={getVal("form.inputs.description.showCharacterCount", true)}
+                    readOnly
+                    className="w-full"
+                  />
+                </div>
+
+                <Button variant="btn-primary">
+                  {getVal("form.button", "Add Post")}
+                </Button>
               </div>
-
-              <div className="space-y-2">
-                <Label>{getVal("form.inputs.description.label", "Description")}</Label>
-                <Textarea
-                  placeholder={getVal("form.inputs.description.placeholder", "")}
-                  rows={getVal("form.inputs.description.rows", 4)}
-                  maxLength={getVal("form.inputs.description.maxlength", 400)}
-                  showCharacterCount={getVal("form.inputs.description.showCharacterCount", true)}
-                  readOnly
-                  className="w-full"
-                />
-              </div>
-
-              <Button variant="btn-primary">
-                {getVal("form.button", "Add Post")}
-              </Button>
             </div>
+
             <EmptyState
               title={getVal("emptyState.title", defaultSetting.defaultExtraSettings.emptyState.title)}
               description={getVal("emptyState.description", defaultSetting.defaultExtraSettings.emptyState.description)}
