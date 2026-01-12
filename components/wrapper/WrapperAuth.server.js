@@ -17,6 +17,7 @@ export default async function WrapperAuth({ children }) {
       "name": name,
       "initials": getNameInitials(name),
       "image": sessionAuth.user.image,
+      "styling": sessionAuth.user.styling,
     });
 
   }

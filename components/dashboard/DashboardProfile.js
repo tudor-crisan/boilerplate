@@ -40,7 +40,7 @@ export default function DashboardProfile() {
   const handleSave = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    const success = await updateProfile(inputs);
+    const success = await updateProfile({ ...inputs, styling });
     setIsLoading(false);
     if (success) {
       setIsModalOpen(false);

@@ -32,12 +32,12 @@ export async function POST(req) {
       return responseError(notAuthorized.message, {}, notAuthorized.status);
     }
 
-    const { name, image } = await req.json();
+    const { name, image, styling } = await req.json();
 
     await clientPromise;
-    await User.updateOne({ email: session.user.email }, { $set: { name, image } });
+    await User.updateOne({ email: session.user.email }, { $set: { name, image, styling } });
 
-    return responseSuccess(profileUpdated.message, { name, image }, profileUpdated.status);
+    return responseSuccess(profileUpdated.message, { name, image, styling }, profileUpdated.status);
   } catch (e) {
     console.error("User update error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);

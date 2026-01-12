@@ -23,6 +23,9 @@ export const userSchemaConfig = {
   },
   planId: {
     type: String
+  },
+  styling: {
+    type: Object
   }
 }
 

@@ -5,12 +5,18 @@ import { useState, useEffect } from "react";
 import { clientApi, setDataError, setDataSuccess } from "@/libs/api";
 import toast from "react-hot-toast";
 
+import { useStyling } from "@/context/ContextStyling";
+
 export default function WrapperAuthClient({ authSession, children }) {
   const [session, setSession] = useState(authSession);
+  const { setStyling } = useStyling();
 
   useEffect(() => {
     setSession(authSession);
-  }, [authSession]);
+    if (authSession?.styling) {
+      setStyling(authSession.styling);
+    }
+  }, [authSession, setStyling]);
 
   const updateProfile = async (data) => {
     // Optimistic update

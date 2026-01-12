@@ -68,6 +68,12 @@ const config = {
       }
       return true;
     },
+    async session({ session, user, token }) {
+      if (session?.user && user?.styling) {
+        session.user.styling = user.styling;
+      }
+      return session;
+    },
   },
   ...(clientPromise && { adapter: MongoDBAdapter(clientPromise) }),
   pages: getPages()
