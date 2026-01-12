@@ -46,6 +46,14 @@
     "vote-toggle": {
       "limit": 20,
       "window": 60
+    },
+    "comment-create": {
+      "limit": 10,
+      "window": 60
+    },
+    "comment-delete": {
+      "limit": 10,
+      "window": 60
     }
   },
   "forms": {
@@ -230,6 +238,74 @@
           "postIdRequired": {
             "message": "Post ID is required",
             "status": 400
+          }
+        }
+      }
+    },
+    "Comment": {
+      "formConfig": {
+        "title": "Add a comment",
+        "button": "Post Comment",
+        "apiUrl": "/api/modules/boards/comment"
+      },
+      "inputsConfig": {
+        "text": {
+          "type": "textarea",
+          "className": "w-full",
+          "required": true,
+          "value": "",
+          "label": "Your comment",
+          "placeholder": "What do you think?",
+          "rows": 3,
+          "maxlength": 1000,
+          "showCharacterCount": true
+        },
+        "name": {
+          "type": "text",
+          "className": "w-full",
+          "required": true,
+          "value": "",
+          "label": "Name",
+          "placeholder": "Enter your name",
+          "maxlength": 50,
+          "showCharacterCount": false
+        }
+      },
+      "backend": {
+        "responses": {
+          "textRequired": {
+            "message": "Comment text is required",
+            "inputErrors": {
+              "text": "This is required"
+            },
+            "status": 400
+          },
+          "nameRequired": {
+            "message": "Name is required for guests",
+            "inputErrors": {
+              "name": "This is required"
+            },
+            "status": 400
+          },
+          "postIdRequired": {
+            "message": "Post ID is required",
+            "status": 400
+          },
+          "createSuccesfully": {
+            "message": "Comment posted successfully",
+            "status": 200
+          },
+          "deleteSuccesfully": {
+            "message": "Comment deleted successfully",
+            "status": 200
+          },
+          "commentsFetched": {
+            "message": "Comments fetched successfully",
+            "status": 200
+          },
+          "commentNotFound": {
+            "message": "Comment not found",
+            "status": 404
           }
         }
       }

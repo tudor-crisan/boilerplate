@@ -30,7 +30,7 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
                 withToast={false}
               />
               <TextSmall>
-                {item.votesCounter || 0} votes
+                {item.votesCounter || 0} votes • {item.commentsCount || 0} comments
               </TextSmall>
             </Vertical>
           )}

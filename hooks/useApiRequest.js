@@ -1,13 +1,19 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { setDataError, setDataSuccess } from "@/libs/api";
 import toast from "react-hot-toast";
 
 export default function useApiRequest() {
-  const [loading, setLoading] = useState(false);
+  const [loading, _setLoading] = useState(false);
+  const loadingRef = useRef(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [inputErrors, setInputErrors] = useState({});
+
+  const setLoading = (val) => {
+    loadingRef.current = val;
+    _setLoading(val);
+  };
 
   useEffect(() => {
     if (message) {
@@ -23,14 +29,14 @@ export default function useApiRequest() {
     }
   }, [error]);
 
-  const request = async (requestFn, {
+  const request = useCallback(async (requestFn, {
     onSuccess = () => { },
     onError = () => { },
     keepLoadingOnSuccess = false,
     showToast = true,
   } = {}
   ) => {
-    if (loading) return;
+    if (loadingRef.current) return;
 
     setLoading(true);
     setInputErrors({});
@@ -78,7 +84,7 @@ export default function useApiRequest() {
       setDataError(err?.response || err, errorCallback);
       setLoading(false);
     }
-  };
+  }, []);
 
   return {
     loading,

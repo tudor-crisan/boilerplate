@@ -6,7 +6,8 @@ import toast from "react-hot-toast";
 import { defaultSetting as settings } from "@/libs/defaults";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
-import ItemDisplay from "@/components/list/ItemDisplay";
+import BoardPostItem from "@/components/modules/boards/BoardPostItem";
+import { AnimatePresence } from "framer-motion";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
 import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 
@@ -41,20 +42,27 @@ const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {} }) => {
           icon={<SvgPost size="size-16" />}
         />
       ) : (
-        <ItemDisplay
-          items={postsState}
-          itemAction={
-            (item) => (
-              <BoardButtonVote
-                postId={item._id}
-                initialVotesCounter={item.votesCounter || 0}
-                onVote={(newCount) => handleVote(item._id, newCount)}
+        <ul className="space-y-4 grow">
+          <AnimatePresence mode="popLayout">
+            {postsState.map((item) => (
+              <BoardPostItem
+                key={item._id}
+                item={item}
+                itemAction={
+                  (item) => (
+                    <BoardButtonVote
+                      postId={item._id}
+                      initialVotesCounter={item.votesCounter || 0}
+                      onVote={(newCount) => handleVote(item._id, newCount)}
+                    />
+                  )}
               />
-            )}
-        />
+            ))}
+          </AnimatePresence>
+        </ul>
       )}
 
-    </div>
+    </div >
   );
 };
 

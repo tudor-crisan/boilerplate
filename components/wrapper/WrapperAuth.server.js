@@ -13,6 +13,7 @@ export default async function WrapperAuth({ children }) {
 
     Object.assign(authSession, {
       "hasAccess": sessionAuth.user.hasAccess,
+      "id": sessionAuth.user.id,
       "email": sessionAuth.user.email,
       "name": name,
       "initials": getNameInitials(name),
