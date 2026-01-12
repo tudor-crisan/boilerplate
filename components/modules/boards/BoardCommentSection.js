@@ -61,7 +61,7 @@ const BoardCommentSection = ({ postId }) => {
                     <Tooltip text="Delete comment">
                       <Button
                         onClick={() => setCommentToDelete(comment._id)}
-                        className="btn-ghost btn-square btn-xs text-error opacity-50 hover:opacity-100"
+                        className="btn-ghost btn-xs text-error p-1 h-auto min-h-0"
                       >
                         <SvgTrash className="w-4 h-4" />
                       </Button>
