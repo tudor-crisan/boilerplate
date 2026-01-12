@@ -64,8 +64,11 @@ const useBoardComments = (postId) => {
       {
         onSuccess: (message, data) => {
           if (data?.comment) {
-            // Optimistic update
-            setComments(prev => [...prev, data.comment]);
+            // Optimistic update - safely check for duplicates
+            setComments(prev => {
+              if (prev.some(c => c._id === data.comment._id)) return prev;
+              return [...prev, data.comment];
+            });
             if (onSuccess) onSuccess();
           }
         },

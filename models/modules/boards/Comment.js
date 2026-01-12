@@ -24,6 +24,10 @@ const commentSchema = new mongoose.Schema({
     ref: "Board",
     required: true
   },
+  isDeleted: {
+    type: Boolean,
+    default: false
+  },
 }, {
   timestamps: true,
 });
