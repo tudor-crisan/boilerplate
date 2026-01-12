@@ -1,7 +1,4 @@
 
-- for select inputs, have right/left navigation to try different themes, fonts etc
-
-
 - have an option for users to download all their data from db
 - have a page with all features included (kinda like a documentation page)
 - have a documentation page for the boilerplate (plus mention of new updates)
@@ -14,7 +11,6 @@
 - have a feedback board for the new features of loyalboards as well (on the main page)
 - have the sharable board be embeded as an iframe also directly on websites
 
-- have a settings panel to change the theme, style of the page, such as shadows, borders, roundness (from lb0_settings)
 - have screenshots from the app to investigate an figure out what other features or where is friction to be removed
 - make a video screenrecording demo of the app how it works, behind the scenes and everything, highlighting the benefits
 - specify in the copywriting/promo videos, that it works on mobile also (show it), even dashboard, and that it updates in real time when users create posts/upvotes

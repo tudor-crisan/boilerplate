@@ -12,10 +12,15 @@ import Input from "@/components/input/Input";
 import useForm from "@/hooks/useForm";
 import Upload from "@/components/common/Upload";
 import ImageCropper from "@/components/common/ImageCropper";
+import Select from "@/components/select/Select";
+import InputButton from "@/components/input/InputButton";
 import { useStyling } from "@/context/ContextStyling";
+import themes from "@/lists/themes";
+import { fontMap } from "@/lists/fonts";
+import Grid from "../common/Grid";
 
 export default function DashboardProfile() {
-  const { styling } = useStyling();
+  const { styling, setStyling } = useStyling();
   const { isLoggedIn, email, name, initials, image, updateProfile } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -152,6 +157,55 @@ export default function DashboardProfile() {
                   disabled={isLoading}
                 />
               </div>
+            </div>
+
+            <div className="w-full space-y-6 pt-4 border-t border-base-200">
+              <Title>Appearance</Title>
+              <Grid>
+                <div className="space-y-1">
+                  <Label>Theme</Label>
+                  <Select
+                    className="w-full capitalize"
+                    value={styling.theme}
+                    onChange={(e) => setStyling((prev) => ({ ...prev, theme: e.target.value }))}
+                    options={themes}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <Label>Font</Label>
+                  <Select
+                    className="w-full"
+                    value={styling.font}
+                    onChange={(e) => setStyling((prev) => ({ ...prev, font: e.target.value }))}
+                    options={Object.entries(fontMap).map(([key, name]) => ({ label: name, value: key }))}
+                  />
+                </div>
+
+                <div className="space-y-2 sm:col-span-2">
+                  <Label>Styling</Label>
+                  <InputButton
+                    options={[
+                      { label: "Square", value: "rounded-none" },
+                      { label: "Rounded", value: "rounded-md" }
+                    ]}
+                    value={styling.components.input.split(" ").find(c => c.startsWith("rounded-")) || "rounded-md"}
+                    onChange={(radius) => {
+                      const newComponents = { ...styling.components };
+                      // Replace any rounded class with new radius
+                      const replaceRadius = (str) =>
+                        str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() + " " + radius;
+
+                      Object.keys(newComponents).forEach((key) => {
+                        if (typeof newComponents[key] === "string" && newComponents[key].includes("rounded")) {
+                          newComponents[key] = replaceRadius(newComponents[key]);
+                        }
+                      });
+                      setStyling((prev) => ({ ...prev, components: newComponents }));
+                    }}
+                  />
+                </div>
+              </Grid>
             </div>
           </div>
         </Modal>

@@ -6,8 +6,14 @@ import shuffle from "@/libs/shuffle";
 
 export default function WrapperFont({ children }) {
   const { styling } = useStyling();
-  const defaultFont = fonts[styling.font].className;
+  const defaultFont = fonts[styling.font]?.className || fonts["sen"].className;
   const [fontClass, setFontClass] = useState(defaultFont);
+
+  useEffect(() => {
+    if (styling.font && fonts[styling.font]) {
+      setFontClass(fonts[styling.font].className);
+    }
+  }, [styling.font]);
 
   const shuffleFont = () => {
     if (shuffle.font.isEnabled) {
