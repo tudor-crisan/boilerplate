@@ -62,7 +62,7 @@ export async function POST(req) {
     }
 
     // Generate unique slug
-    let slug = body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    let slug = body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
     let existingBoard = await Board.findOne({ slug });
     if (existingBoard) {
       slug = `${slug}-${Date.now()}`;
@@ -187,7 +187,7 @@ export async function PUT(req) {
     }
 
     // Validate slug format
-    const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
 
     // Check rate limit (1 day)
     if (board.slug !== newSlug && board.lastSlugUpdate) {

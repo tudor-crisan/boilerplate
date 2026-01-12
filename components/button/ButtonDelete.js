@@ -55,7 +55,7 @@ export default function ButtonDelete({
     <>
       <Button
         isLoading={loading}
-        variant="btn-error"
+        variant="btn-error btn-outline"
         onClick={() => handleDelete()}
         startIcon={<SvgTrash />}
       >
@@ -77,7 +77,7 @@ export default function ButtonDelete({
               Cancel
             </Button>
             <Button
-              variant="btn-error"
+              variant="btn-error btn-outline"
               onClick={confirmDelete}
               isLoading={loading}
             >

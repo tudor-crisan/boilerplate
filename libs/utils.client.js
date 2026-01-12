@@ -202,5 +202,6 @@ export async function getCroppedImg(
 
 export function createSlug(name = "", trim = true) {
   const slug = name.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  return trim ? slug.replace(/^-+|-+$/g, '') : slug;
+  const cleaned = trim ? slug.replace(/^-+|-+$/g, '') : slug;
+  return cleaned.slice(0, 30);
 }

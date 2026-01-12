@@ -10,8 +10,8 @@ import IconLoading from "@/components/icon/IconLoading";
 function ListItem({ item, hasLink, isLoading, styling }) {
   return hasLink ? (
     <div className={styling.flex.between}>
-      {item.name}
-      {isLoading ? <IconLoading /> : <SvgView size="size-4 sm:size-5" />}
+      <span className="truncate pr-2 text-sm sm:text-base font-medium">{item.name}</span>
+      {isLoading ? <IconLoading /> : <SvgView size="size-4 sm:size-5 shrink-0" />}
     </div>
   ) : (
     <div>{item.name}</div>

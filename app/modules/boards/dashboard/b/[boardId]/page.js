@@ -49,7 +49,7 @@ export default async function PrivateFeedbackBoard({ params }) {
         <Columns>
           <Sidebar>
             <div className="space-y-4">
-              <Title>
+              <Title className="line-clamp-2 break-all">
                 {board.name}
               </Title>
               <Vertical>
