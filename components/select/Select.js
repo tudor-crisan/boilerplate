@@ -44,8 +44,8 @@ export default function Select({ className = "", error, children, options, place
     };
 
     // Icons
-    const IconPrev = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>;
-    const IconNext = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>;
+    const IconPrev = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>;
+    const IconNext = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>;
 
     navigationControls = (
       <div className="flex items-center justify-between gap-2 mb-1">
@@ -55,7 +55,7 @@ export default function Select({ className = "", error, children, options, place
         <div className="flex items-center gap-1">
           <button
             type="button"
-            className="btn btn-sm btn-square btn-ghost"
+            className="btn btn-sm btn-square btn-ghost hover:bg-base-200"
             onClick={() => handleStep(-1)}
             disabled={props.disabled || currentIndex <= 0}
           >
@@ -63,7 +63,7 @@ export default function Select({ className = "", error, children, options, place
           </button>
           <button
             type="button"
-            className="btn btn-sm btn-square btn-ghost"
+            className="btn btn-sm btn-square btn-ghost hover:bg-base-200"
             onClick={() => handleStep(1)}
             disabled={props.disabled || currentIndex === -1 || currentIndex >= total - 1}
           >

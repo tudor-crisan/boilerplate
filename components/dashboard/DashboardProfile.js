@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect, useCallback } from "react";
 import { getNameInitials } from "@/libs/utils.client";
 import { useAuth } from "@/context/ContextAuth";
@@ -12,13 +13,11 @@ import Input from "@/components/input/Input";
 import useForm from "@/hooks/useForm";
 import Upload from "@/components/common/Upload";
 import ImageCropper from "@/components/common/ImageCropper";
-import Select from "@/components/select/Select";
-import InputButton from "@/components/input/InputButton";
-import InputCheckbox from "@/components/input/InputCheckbox";
+import SettingsAppearance from "@/components/settings/SettingsAppearance";
+import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
 import { useStyling } from "@/context/ContextStyling";
 import themes from "@/lists/themes";
 import { fontMap } from "@/lists/fonts";
-import Grid from "../common/Grid";
 
 export default function DashboardProfile() {
   const { styling, setStyling } = useStyling();
@@ -39,9 +38,9 @@ export default function DashboardProfile() {
   const [shuffleConfig, setShuffleConfig] = useState({
     theme: true,
     font: true,
-    styling: true
+    styling: true,
+    auto: false
   });
-  const [isAutoShuffle, setIsAutoShuffle] = useState(false);
 
   const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -91,12 +90,12 @@ export default function DashboardProfile() {
 
   useEffect(() => {
     let interval;
-    if (isAutoShuffle) {
+    if (shuffleConfig.auto) {
       handleShuffle(); // Shuffle immediately on enable
       interval = setInterval(handleShuffle, 3000); // Shuffle every 3 seconds
     }
     return () => clearInterval(interval);
-  }, [isAutoShuffle, handleShuffle]);
+  }, [shuffleConfig.auto, handleShuffle]);
 
   const handleEditClick = () => {
     resetInputs({ name: name || "", image: image || "" });
@@ -108,13 +107,13 @@ export default function DashboardProfile() {
     if (originalStyling) {
       setStyling(originalStyling);
     }
-    setIsAutoShuffle(false);
+    setShuffleConfig(prev => ({ ...prev, auto: false }));
     setIsModalOpen(false);
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
-    setIsAutoShuffle(false);
+    setShuffleConfig(prev => ({ ...prev, auto: false }));
     setIsLoading(true);
     const success = await updateProfile({ ...inputs, styling });
     setIsLoading(false);
@@ -237,117 +236,21 @@ export default function DashboardProfile() {
 
             <div className="w-full space-y-6 pt-4 border-t border-base-200">
               <Title>Appearance</Title>
-              <Grid>
-                <div className="space-y-1">
-                  <Label>Theme</Label>
-                  <Select
-                    className="w-full capitalize"
-                    value={styling.theme}
-                    onChange={(e) => setStyling((prev) => ({ ...prev, theme: e.target.value }))}
-                    options={themes}
-                    withNavigation={true}
-                    disabled={isLoading}
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <Label>Font</Label>
-                  <Select
-                    className="w-full"
-                    value={styling.font}
-                    onChange={(e) => setStyling((prev) => ({ ...prev, font: e.target.value }))}
-                    options={Object.entries(fontMap).map(([key, name]) => ({ label: name, value: key }))}
-                    withNavigation={true}
-                    disabled={isLoading}
-                  />
-                </div>
-
-                <div className="space-y-2 sm:col-span-2">
-                  <Label>Styling</Label>
-                  <InputButton
-                    options={[
-                      { label: "Square", value: "rounded-none" },
-                      { label: "Rounded", value: "rounded-md" }
-                    ]}
-                    value={styling.components.input.split(" ").find(c => c.startsWith("rounded-")) || "rounded-md"}
-                    onChange={(radius) => {
-                      const newComponents = { ...styling.components };
-                      const newPricing = { ...styling.pricing };
-
-                      // Replace any rounded class with new radius
-                      const replaceRadius = (str) =>
-                        str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() + " " + radius;
-
-                      Object.keys(newComponents).forEach((key) => {
-                        if (typeof newComponents[key] === "string" && newComponents[key].includes("rounded")) {
-                          newComponents[key] = replaceRadius(newComponents[key]);
-                        }
-                      });
-
-                      Object.keys(newPricing).forEach((key) => {
-                        if (typeof newPricing[key] === "string" && newPricing[key].includes("rounded")) {
-                          newPricing[key] = replaceRadius(newPricing[key]);
-                        }
-                      });
-
-                      setStyling((prev) => ({ ...prev, components: newComponents, pricing: newPricing }));
-                    }}
-                    disabled={isLoading}
-                  />
-                </div>
-              </Grid>
+              <SettingsAppearance
+                styling={styling}
+                onChange={setStyling}
+                isLoading={isLoading}
+              />
             </div>
 
             <div className="w-full space-y-6 pt-4 border-t border-base-200">
-              <div className="flex items-center justify-between">
-                <Title>Randomizer</Title>
-                <div className="flex items-center gap-2">
-                  <InputCheckbox
-                    label="Auto Shuffle"
-                    className="toggle-sm"
-                    value={isAutoShuffle}
-                    onChange={(checked) => setIsAutoShuffle(checked)}
-                    disabled={isLoading}
-                  />
-                </div>
-              </div>
-
-              <Grid>
-                <div className="flex items-center gap-4 col-span-2 sm:col-span-1">
-                  <InputCheckbox
-                    label="Theme"
-                    value={shuffleConfig.theme}
-                    onChange={(checked) => setShuffleConfig(prev => ({ ...prev, theme: checked }))}
-                    className="checkbox-sm"
-                    disabled={isLoading}
-                  />
-                  <InputCheckbox
-                    label="Font"
-                    value={shuffleConfig.font}
-                    onChange={(checked) => setShuffleConfig(prev => ({ ...prev, font: checked }))}
-                    className="checkbox-sm"
-                    disabled={isLoading}
-                  />
-                  <InputCheckbox
-                    label="Styling"
-                    value={shuffleConfig.styling}
-                    onChange={(checked) => setShuffleConfig(prev => ({ ...prev, styling: checked }))}
-                    className="checkbox-sm"
-                    disabled={isLoading}
-                  />
-                </div>
-
-                <div className="col-span-2 sm:col-span-1 flex justify-end">
-                  <Button
-                    onClick={handleShuffle}
-                    className="w-full sm:w-auto btn-outline"
-                    type="button"
-                    disabled={isLoading}
-                  >
-                    Shuffle Now
-                  </Button>
-                </div>
-              </Grid>
+              <SettingsRandomizer
+                title={<Title>Randomizer</Title>}
+                config={shuffleConfig}
+                onConfigChange={(key, val) => setShuffleConfig(prev => ({ ...prev, [key]: val }))}
+                onShuffle={handleShuffle}
+                isLoading={isLoading}
+              />
             </div>
           </div>
         </Modal>

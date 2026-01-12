@@ -8,7 +8,7 @@ import { useStyling } from "@/context/ContextStyling";
 import Link from "next/link";
 import Grid from "@/components/common/Grid";
 
-export default function Support() {
+export default function PagesSupport() {
   const { styling } = useStyling();
 
   return (
@@ -39,7 +39,6 @@ export default function Support() {
                 )}
               </div>
             </div>
-
             <div>
               <Title>Business Details</Title>
               <div className="space-y-4 mt-4">
@@ -65,7 +64,6 @@ export default function Support() {
             </div>
           </Grid>
         </div>
-
       </TosContent>
     </TosWrapper>
   )

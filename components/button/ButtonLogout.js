@@ -15,6 +15,7 @@ export default function ButtonLogout() {
         variant="btn-base"
         onClick={() => {
           setLoading(true);
+          localStorage.removeItem("styling-config");
           signOut();
         }}
       >

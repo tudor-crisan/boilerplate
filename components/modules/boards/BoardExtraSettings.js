@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import Input from "@/components/input/Input";
 import InputCheckbox from "@/components/input/InputCheckbox";
 import Textarea from "@/components/textarea/Textarea";
@@ -12,6 +13,10 @@ import { defaultSetting } from "@/libs/defaults";
 import { useStyling } from "@/context/ContextStyling";
 import Accordion from "@/components/common/Accordion";
 import TextSmall from "@/components/common/TextSmall";
+import SettingsAppearance from "@/components/settings/SettingsAppearance";
+import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
+import themes from "@/lists/themes";
+import { fontMap } from "@/lists/fonts";
 
 // Helper to safely get nested values
 const getNestedValue = (obj, path, defaultValue) => {
@@ -32,7 +37,6 @@ const SettingsRow = ({ children }) => (
 
 export default function BoardExtraSettings({ settings, onChange, disabled }) {
   const { styling } = useStyling();
-  // const [openSection, setOpenSection] = useState("formGeneral"); // No longer needed
 
   const handleChange = (path, value) => {
     const newSettings = JSON.parse(JSON.stringify(settings));
@@ -51,7 +55,98 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
     return val !== undefined ? val : fallback; // Use strict undefined check
   };
 
+  // Preview styling: merge global styling with board specific appearance settings
+  const previewStyling = useMemo(() => {
+    const appearance = getNestedValue(settings, "appearance", {});
+    if (!appearance || Object.keys(appearance).length === 0) return styling;
+
+    return {
+      ...styling,
+      ...appearance,
+      components: { ...styling.components, ...appearance.components },
+      pricing: { ...styling.pricing, ...appearance.pricing },
+      // Flex and General are usually not part of appearance settings shuffle but we keep defaults
+    };
+  }, [styling, settings]);
+
+
+  const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+  const handleShuffle = () => {
+    const config = getVal("randomizer", { theme: true, font: true, styling: true });
+
+    // Start with current appearance or default styling if empty
+    let newAppearance = getVal("appearance", JSON.parse(JSON.stringify(styling)));
+
+    if (config.theme) {
+      newAppearance.theme = getRandomItem(themes);
+    }
+
+    if (config.font) {
+      const fontsKeys = Object.keys(fontMap);
+      newAppearance.font = getRandomItem(fontsKeys);
+    }
+
+    if (config.styling) {
+      const radiusOptions = ["rounded-none", "rounded-md"];
+      const randomRadius = getRandomItem(radiusOptions);
+
+      // We need to ensure components object exists in newAppearance
+      if (!newAppearance.components) newAppearance.components = JSON.parse(JSON.stringify(styling.components));
+      if (!newAppearance.pricing) newAppearance.pricing = JSON.parse(JSON.stringify(styling.pricing));
+
+      const newComponents = { ...newAppearance.components };
+      const newPricing = { ...newAppearance.pricing };
+
+      const replaceRadius = (str) =>
+        str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() + " " + randomRadius;
+
+      Object.keys(newComponents).forEach((key) => {
+        if (typeof newComponents[key] === "string" && newComponents[key].includes("rounded")) {
+          newComponents[key] = replaceRadius(newComponents[key]);
+        }
+      });
+
+      Object.keys(newPricing).forEach((key) => {
+        if (typeof newPricing[key] === "string" && newPricing[key].includes("rounded")) {
+          newPricing[key] = replaceRadius(newPricing[key]);
+        }
+      });
+
+      newAppearance.components = newComponents;
+      newAppearance.pricing = newPricing;
+    }
+
+    handleChange("appearance", newAppearance);
+  };
+
+
   const accordionItems = [
+    {
+      title: "Appearance",
+      content: (
+        <SettingsContainer>
+          <SettingsAppearance
+            styling={getVal("appearance", styling)}
+            onChange={(newStyling) => handleChange("appearance", newStyling)}
+            isLoading={disabled}
+          />
+        </SettingsContainer>
+      )
+    },
+    {
+      title: "Randomizer",
+      content: (
+        <SettingsContainer>
+          <SettingsRandomizer
+            config={getVal("randomizer", { theme: true, font: true, styling: true, auto: false })}
+            onConfigChange={(key, val) => handleChange(`randomizer.${key}`, val)}
+            onShuffle={handleShuffle}
+            isLoading={disabled}
+          />
+        </SettingsContainer>
+      )
+    },
     {
       title: "General Form Settings",
       content: (
@@ -245,7 +340,11 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
         <div className="sticky top-0 space-y-8">
           <div className="text-sm uppercase font-bold text-base-content/50 mb-4">PREVIEW</div>
           <div className="space-y-6">
-            <div className={`${styling.components.card} space-y-4 ${styling.general.box} p-6 border border-base-200 shadow-sm`}>
+            <div
+              className={`${previewStyling.components.card} space-y-4 ${previewStyling.general.box} p-6 border border-base-200 shadow-sm transition-all duration-300 bg-base-100 text-base-content`}
+              data-theme={previewStyling.theme}
+              style={{ fontFamily: fontMap[previewStyling.font] }}
+            >
               <Title>{getVal("form.title", "Suggest a feature")}</Title>
 
               <div className="space-y-2">
