@@ -18,6 +18,18 @@ const getNestedValue = (obj, path, defaultValue) => {
   return path.split('.').reduce((acc, part) => acc && acc[part], obj);
 };
 
+const SettingsContainer = ({ children }) => (
+  <div className="space-y-4 pb-2">{children}</div>
+);
+
+const SettingsItem = ({ children }) => (
+  <div className="space-y-1">{children}</div>
+);
+
+const SettingsRow = ({ children }) => (
+  <div className="grid grid-cols-2 gap-4">{children}</div>
+);
+
 export default function BoardExtraSettings({ settings, onChange, disabled }) {
   const { styling } = useStyling();
   // const [openSection, setOpenSection] = useState("formGeneral"); // No longer needed
@@ -43,8 +55,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
     {
       title: "General Form Settings",
       content: (
-        <div className="space-y-4 pb-2">
-          <div className="space-y-1">
+        <SettingsContainer>
+          <SettingsItem>
             <Label>Form Title</Label>
             <Input
               value={getVal("form.title", "")}
@@ -54,8 +66,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               maxLength={50}
               showCharacterCount={true}
             />
-          </div>
-          <div className="space-y-1">
+          </SettingsItem>
+          <SettingsItem>
             <Label>Submit Button Text</Label>
             <Input
               value={getVal("form.button", "")}
@@ -65,15 +77,15 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               maxLength={30}
               showCharacterCount={true}
             />
-          </div>
-        </div>
+          </SettingsItem>
+        </SettingsContainer>
       )
     },
     {
       title: "Input: Title",
       content: (
-        <div className="space-y-4 pb-2">
-          <div className="space-y-1">
+        <SettingsContainer>
+          <SettingsItem>
             <Label>Label</Label>
             <Input
               value={getVal("form.inputs.title.label", "")}
@@ -82,8 +94,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               maxLength={50}
               showCharacterCount={true}
             />
-          </div>
-          <div className="space-y-1">
+          </SettingsItem>
+          <SettingsItem>
             <Label>Placeholder</Label>
             <Input
               value={getVal("form.inputs.title.placeholder", "")}
@@ -92,9 +104,9 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               maxLength={60}
               showCharacterCount={true}
             />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1">
+          </SettingsItem>
+          <SettingsRow>
+            <SettingsItem>
               <Label>Max Length</Label>
               <Input
                 type="number"
@@ -102,7 +114,7 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                 onChange={(e) => {
                   let val = parseInt(e.target.value) || 0;
                   if (val > 100) val = 100;
-                  // We don't enforce min 10 regarding typing (preventing deletion), but could on blur/save. 
+                  // We don't enforce min 10 regarding typing (preventing deletion), but could on blur/save.
                   // For now, let's just let them type and maybe clamp max.
                   handleChange("form.inputs.title.maxlength", val);
                 }}
@@ -111,7 +123,7 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                 disabled={disabled}
               />
               <TextSmall className="mt-1">Min: 10, Max: 100</TextSmall>
-            </div>
+            </SettingsItem>
             <InputCheckbox
               label="Show Count"
               value={getVal("form.inputs.title.showCharacterCount", true)}
@@ -119,15 +131,15 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               className="pb-3"
               disabled={disabled}
             />
-          </div>
-        </div>
+          </SettingsRow>
+        </SettingsContainer>
       )
     },
     {
       title: "Input: Description",
       content: (
-        <div className="space-y-4 pb-2">
-          <div className="space-y-1">
+        <SettingsContainer>
+          <SettingsItem>
             <Label>Label</Label>
             <Input
               value={getVal("form.inputs.description.label", "")}
@@ -136,8 +148,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               maxLength={50}
               showCharacterCount={true}
             />
-          </div>
-          <div className="space-y-1">
+          </SettingsItem>
+          <SettingsItem>
             <Label>Placeholder</Label>
             <Input
               value={getVal("form.inputs.description.placeholder", "")}
@@ -146,9 +158,9 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               maxLength={100}
               showCharacterCount={true}
             />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1">
+          </SettingsItem>
+          <SettingsRow>
+            <SettingsItem>
               <Label>Max Length</Label>
               <Input
                 type="number"
@@ -163,8 +175,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                 disabled={disabled}
               />
               <TextSmall className="mt-1">Min: 50, Max: 700</TextSmall>
-            </div>
-            <div className="space-y-1">
+            </SettingsItem>
+            <SettingsItem>
               <Label>Rows</Label>
               <Input
                 type="number"
@@ -179,8 +191,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                 disabled={disabled}
               />
               <TextSmall className="mt-1">Min: 2, Max: 10</TextSmall>
-            </div>
-          </div>
+            </SettingsItem>
+          </SettingsRow>
           <InputCheckbox
             label="Show Character Count"
             value={getVal("form.inputs.description.showCharacterCount", true)}
@@ -188,14 +200,14 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
             className="pt-2"
             disabled={disabled}
           />
-        </div>
+        </SettingsContainer>
       )
     },
     {
       title: "Empty State",
       content: (
-        <div className="space-y-4 pb-2">
-          <div className="space-y-1">
+        <SettingsContainer>
+          <SettingsItem>
             <Label>Title</Label>
             <Input
               value={getVal("emptyState.title", "")}
@@ -204,8 +216,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               maxLength={50}
               showCharacterCount={true}
             />
-          </div>
-          <div className="space-y-1">
+          </SettingsItem>
+          <SettingsItem>
             <Label>Description</Label>
             <Input
               value={getVal("emptyState.description", "")}
@@ -214,8 +226,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               maxLength={100}
               showCharacterCount={true}
             />
-          </div>
-        </div>
+          </SettingsItem>
+        </SettingsContainer>
       )
     }
   ];
