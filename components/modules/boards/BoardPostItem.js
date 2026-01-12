@@ -44,9 +44,12 @@ const BoardPostItem = ({ item, itemAction }) => {
             >
               <Button
                 onClick={() => setShowComments(!showComments)}
-                className="btn-ghost btn-square btn-sm opacity-70 hover:opacity-100"
+                className="btn-ghost btn-sm opacity-70 hover:opacity-100 gap-1.5 px-2"
               >
                 <SvgComment size="w-5 h-5" />
+                {item.commentsCount > 0 && (
+                  <span className="text-xs font-normal">{item.commentsCount}</span>
+                )}
               </Button>
             </div>
           </Tooltip>

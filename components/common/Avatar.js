@@ -24,7 +24,7 @@ const Avatar = ({ src, initials, size = "md", className }) => {
           className={`w-full h-full object-cover ${baseStyle}`}
         />
       ) : (
-        <div className={`w-full h-full bg-primary text-primary-content ${styling.flex.center} text-3xl font-extrabold uppercase select-none`}>
+        <div className={`w-full h-full bg-primary text-primary-content ${styling.flex.center} font-extrabold uppercase select-none`}>
           {initials || "?"}
         </div>
       )}

@@ -188,8 +188,37 @@ export async function GET(req) {
       }
     }
 
-    const posts = await Post.find({ boardId })
-      .sort({ votesCounter: -1, createdAt: -1 });
+    const posts = await Post.aggregate([
+      {
+        $match: {
+          boardId: boardId
+        }
+      },
+      {
+        $lookup: {
+          from: "comments",
+          localField: "_id",
+          foreignField: "postId",
+          as: "comments"
+        }
+      },
+      {
+        $addFields: {
+          commentsCount: { $size: "$comments" }
+        }
+      },
+      {
+        $project: {
+          comments: 0
+        }
+      },
+      {
+        $sort: {
+          votesCounter: -1,
+          createdAt: -1
+        }
+      }
+    ]);
 
     return responseSuccess("Posts fetched successfully", { posts }, 200);
 

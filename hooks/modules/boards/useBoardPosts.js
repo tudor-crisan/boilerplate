@@ -91,6 +91,20 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
           }
         }
 
+        if (data.type === "comment-update" && data.boardId === boardId) {
+          setPosts((prevPosts) => {
+            return prevPosts.map(post => {
+              if (post._id === data.postId) {
+                return {
+                  ...post,
+                  commentsCount: (post.commentsCount || 0) + (data.action === "add" ? 1 : -1)
+                };
+              }
+              return post;
+            });
+          });
+        }
+
         if (data.type === "board-delete" && data.boardId === boardId) {
           setIsBoardDeleted(true);
           isBoardDeletedRef.current = true;

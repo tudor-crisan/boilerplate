@@ -59,12 +59,14 @@ const BoardCommentSection = ({ postId }) => {
 
               {/* Delete button logic could go here if user has permission */}
               {((session?.id && comment.userId?._id === session.id) || (session?.id && comment.boardId?.userId === session.id)) && (
-                <Button
-                  onClick={() => setCommentToDelete(comment._id)}
-                  className="btn-ghost btn-xs text-error opacity-50 hover:opacity-100 mt-1 h-auto min-h-0 pl-0 font-normal"
-                >
-                  Delete
-                </Button>
+                <div className="flex justify-end mt-1">
+                  <Button
+                    onClick={() => setCommentToDelete(comment._id)}
+                    className="btn-outline btn-xs text-error font-normal"
+                  >
+                    Delete
+                  </Button>
+                </div>
               )}
             </div>
           </div>
