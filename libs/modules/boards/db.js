@@ -58,8 +58,15 @@ export const getBoardPrivate = cache(async (boardId, populate = "") => {
         {
           $lookup: {
             from: "comments",
-            localField: "_id",
-            foreignField: "postId",
+            let: { postId: "$_id" },
+            pipeline: [
+              {
+                $match: {
+                  $expr: { $eq: ["$postId", "$$postId"] },
+                  isDeleted: { $ne: true }
+                }
+              }
+            ],
             as: "comments"
           }
         },
@@ -120,8 +127,15 @@ export const getBoardPublic = cache(async (boardId, populate = "") => {
         {
           $lookup: {
             from: "comments",
-            localField: "_id",
-            foreignField: "postId",
+            let: { postId: "$_id" },
+            pipeline: [
+              {
+                $match: {
+                  $expr: { $eq: ["$postId", "$$postId"] },
+                  isDeleted: { $ne: true }
+                }
+              }
+            ],
             as: "comments"
           }
         },
@@ -171,8 +185,15 @@ export const getPosts = async (boardId) => {
       {
         $lookup: {
           from: "comments",
-          localField: "_id",
-          foreignField: "postId",
+          let: { postId: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ["$postId", "$$postId"] },
+                isDeleted: { $ne: true }
+              }
+            }
+          ],
           as: "comments"
         }
       },

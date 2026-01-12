@@ -15,6 +15,7 @@ import Paragraph from "@/components/common/Paragraph";
 import useBoardComments from "@/hooks/modules/boards/useBoardComments";
 import SvgTrash from "@/components/svg/SvgTrash";
 import Tooltip from "@/components/common/Tooltip";
+import IconLoading from "@/components/icon/IconLoading";
 
 const BoardCommentSection = ({ postId }) => {
   const session = useAuth();
@@ -37,7 +38,13 @@ const BoardCommentSection = ({ postId }) => {
 
   const formConfig = settings.forms.Comment;
 
-  if (isLoading) return <div className="text-sm opacity-70 p-4">Loading comments...</div>;
+  if (isLoading) return (
+    <div className="py-4">
+      <Paragraph className="text-sm">
+        <IconLoading /> Loading comments ...
+      </Paragraph>
+    </div>
+  );
 
   return (
     <div className="mt-4 border-t border-base-200 pt-4 space-y-4">
