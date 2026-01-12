@@ -148,7 +148,9 @@
           "required": false,
           "value": "",
           "label": "Board name",
-          "placeholder": "Enter board name"
+          "placeholder": "Enter board name",
+          "maxlength": 50,
+          "showCharacterCount": true
         }
       },
       "backend": {

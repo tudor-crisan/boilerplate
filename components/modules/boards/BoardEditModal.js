@@ -97,7 +97,8 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. My Awesome Board"
-              maxLength={50}
+              maxLength={settings.forms.Board.inputsConfig.name.maxlength || 50}
+              showCharacterCount={settings.forms.Board.inputsConfig.name.showCharacterCount}
               disabled={loading}
             />
           </div>
