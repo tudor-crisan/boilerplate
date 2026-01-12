@@ -57,7 +57,7 @@ export default function Select({ className = "", error, children, options, place
             type="button"
             className="btn btn-sm btn-square btn-ghost"
             onClick={() => handleStep(-1)}
-            disabled={currentIndex <= 0}
+            disabled={props.disabled || currentIndex <= 0}
           >
             {IconPrev}
           </button>
@@ -65,7 +65,7 @@ export default function Select({ className = "", error, children, options, place
             type="button"
             className="btn btn-sm btn-square btn-ghost"
             onClick={() => handleStep(1)}
-            disabled={currentIndex === -1 || currentIndex >= total - 1}
+            disabled={props.disabled || currentIndex === -1 || currentIndex >= total - 1}
           >
             {IconNext}
           </button>

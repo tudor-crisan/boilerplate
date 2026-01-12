@@ -10,7 +10,7 @@ import ItemDisplay from "@/components/list/ItemDisplay";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
 import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 
-const BoardPostsList = ({ posts, boardId, emptyStateConfig = {} }) => {
+const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {} }) => {
   const { posts: postsState, handleVote, isBoardDeleted } = useBoardPosts(boardId, posts, { showVoteToast: true });
   const router = useRouter();
 
@@ -58,4 +58,4 @@ const BoardPostsList = ({ posts, boardId, emptyStateConfig = {} }) => {
   );
 };
 
-export default BoardPostsList;
+export default BoardPublicPostsList;

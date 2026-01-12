@@ -9,7 +9,7 @@ import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 import Vertical from "@/components/common/Vertical";
 import { defaultSetting as settings } from "@/libs/defaults";
 
-const DashboardPostsList = ({ posts, boardId }) => {
+const BoardPrivatePostsList = ({ posts, boardId }) => {
   const { posts: postsState } = useBoardPosts(boardId, posts);
 
   return (
@@ -46,4 +46,4 @@ const DashboardPostsList = ({ posts, boardId }) => {
   );
 };
 
-export default DashboardPostsList;
+export default BoardPrivatePostsList;

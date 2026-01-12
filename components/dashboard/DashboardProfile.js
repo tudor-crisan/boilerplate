@@ -246,6 +246,7 @@ export default function DashboardProfile() {
                     onChange={(e) => setStyling((prev) => ({ ...prev, theme: e.target.value }))}
                     options={themes}
                     withNavigation={true}
+                    disabled={isLoading}
                   />
                 </div>
 
@@ -257,6 +258,7 @@ export default function DashboardProfile() {
                     onChange={(e) => setStyling((prev) => ({ ...prev, font: e.target.value }))}
                     options={Object.entries(fontMap).map(([key, name]) => ({ label: name, value: key }))}
                     withNavigation={true}
+                    disabled={isLoading}
                   />
                 </div>
 
@@ -290,6 +292,7 @@ export default function DashboardProfile() {
 
                       setStyling((prev) => ({ ...prev, components: newComponents, pricing: newPricing }));
                     }}
+                    disabled={isLoading}
                   />
                 </div>
               </Grid>
@@ -304,6 +307,7 @@ export default function DashboardProfile() {
                     className="toggle-sm"
                     value={isAutoShuffle}
                     onChange={(checked) => setIsAutoShuffle(checked)}
+                    disabled={isLoading}
                   />
                 </div>
               </div>
@@ -315,18 +319,21 @@ export default function DashboardProfile() {
                     value={shuffleConfig.theme}
                     onChange={(checked) => setShuffleConfig(prev => ({ ...prev, theme: checked }))}
                     className="checkbox-sm"
+                    disabled={isLoading}
                   />
                   <InputCheckbox
                     label="Font"
                     value={shuffleConfig.font}
                     onChange={(checked) => setShuffleConfig(prev => ({ ...prev, font: checked }))}
                     className="checkbox-sm"
+                    disabled={isLoading}
                   />
                   <InputCheckbox
                     label="Styling"
                     value={shuffleConfig.styling}
                     onChange={(checked) => setShuffleConfig(prev => ({ ...prev, styling: checked }))}
                     className="checkbox-sm"
+                    disabled={isLoading}
                   />
                 </div>
 
@@ -335,6 +342,7 @@ export default function DashboardProfile() {
                     onClick={handleShuffle}
                     className="w-full sm:w-auto btn-outline"
                     type="button"
+                    disabled={isLoading}
                   >
                     Shuffle Now
                   </Button>

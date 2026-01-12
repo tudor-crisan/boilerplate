@@ -29,7 +29,7 @@ export default function Accordion({ items, allowMultiple = true, className = "" 
             checked={openIndices.includes(index)}
             onChange={() => handleToggle(index)}
           />
-          <div className="collapse-title font-semibold text-primary cursor-pointer">
+          <div className="collapse-title font-semibold text-base-content cursor-pointer">
             {item.title}
           </div>
           <div className="collapse-content text-sm">

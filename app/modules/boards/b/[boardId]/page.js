@@ -6,7 +6,7 @@ import Main from "@/components/common/Main";
 import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import FormCreate from "@/components/form/FormCreate";
-import BoardPostsList from "@/components/modules/boards/BoardPostsList";
+import BoardPublicPostsList from "@/components/modules/boards/BoardPublicPostsList";
 import { defaultStyling, defaultSetting as settings } from "@/libs/defaults";
 
 export async function generateMetadata({ params }) {
@@ -41,7 +41,7 @@ export default async function PublicFeedbackBoard({ params }) {
               customConfig={board.extraSettings}
             />
           </Sidebar>
-          <BoardPostsList
+          <BoardPublicPostsList
             posts={board.posts}
             boardId={board._id.toString()}
             emptyStateConfig={board.extraSettings?.emptyState}
