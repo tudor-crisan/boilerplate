@@ -29,7 +29,7 @@ export default function BoardFilterBar({
 
       {/* Sort Dropdown */}
       {sortOptions.length > 0 && setSort && (
-        <div className="w-full sm:w-32 sm:min-w-32 shrink-0">
+        <div className="w-full sm:w-42 sm:min-w-42 shrink-0">
           <Select
             value={sort}
             onChange={(e) => setSort(e.target.value)}

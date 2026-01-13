@@ -2,6 +2,7 @@
 import { useStyling } from "@/context/ContextStyling";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
+import SvgSearch from "@/components/svg/SvgSearch";
 import ButtonDelete from "@/components/button/ButtonDelete";
 import TextSmall from "@/components/common/TextSmall";
 import Title from "@/components/common/Title";
@@ -115,12 +116,21 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
           </AnimatePresence>
         </ul>
       ) : (
-        <EmptyState
-          title="No posts yet"
-          description="Here will be the new posts created"
-          icon={<SvgPost size="size-16" />}
-        />
+        search ? (
+          <EmptyState
+            title="No posts found"
+            description="There are no posts for your search"
+            icon={<SvgSearch size="size-16" />}
+          />
+        ) : (
+          <EmptyState
+            title="No posts yet"
+            description="Here will be the new posts created"
+            icon={<SvgPost size="size-16" />}
+          />
+        )
       )}
+
     </div>
   );
 };

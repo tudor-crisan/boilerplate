@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { defaultSetting as settings } from "@/libs/defaults";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
+import SvgSearch from "@/components/svg/SvgSearch";
 import BoardPostItem from "@/components/modules/boards/BoardPostItem";
 import { AnimatePresence } from "framer-motion";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
@@ -60,11 +61,19 @@ const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {}, commentSe
         <div className="fixed inset-0 z-50 bg-base-100/50 cursor-not-allowed user-select-none" />
       )}
       {(!filteredPosts || filteredPosts.length === 0) ? (
-        <EmptyState
-          title={emptyStateTitle}
-          description={emptyStateDescription}
-          icon={<SvgPost size="size-16" />}
-        />
+        search ? (
+          <EmptyState
+            title="No posts found"
+            description="There are no posts for your search"
+            icon={<SvgSearch size="size-16" />}
+          />
+        ) : (
+          <EmptyState
+            title={emptyStateTitle}
+            description={emptyStateDescription}
+            icon={<SvgPost size="size-16" />}
+          />
+        )
       ) : (
         <ul className="space-y-4 grow">
           <AnimatePresence mode="popLayout">
