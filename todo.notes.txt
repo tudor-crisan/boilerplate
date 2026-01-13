@@ -1,7 +1,8 @@
 
 - create a new feature for adding comments without being logged in for each of the posts
+- go through the whole codebase to get rid of tech-debt and see what can be standardized, refactored
+
 - show the number of posts (date created / updated on the right of the list display)
 - have the dates of the posts when they where created
 - have a notification system, to get notified when new posts/votes/comments are added to boards (and on the right for boards)
 - have a notification system for weekly updates on all boards, number of posts/votes/comments/visits, like a summary
-- go through the whole codebase to get rid of tech-debt and see what can be standardized, refactored

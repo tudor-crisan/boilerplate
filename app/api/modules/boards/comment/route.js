@@ -84,9 +84,11 @@ export async function POST(req) {
     const comment = await Comment.create(commentData);
 
     // Populate user if exists to return consistent structure
+    // Populate user if exists to return consistent structure
     if (userId) {
       await comment.populate("userId", "name image email");
     }
+    await comment.populate("boardId");
 
     return responseSuccess(createSuccesfully.message, { comment }, createSuccesfully.status);
 
@@ -112,9 +114,8 @@ export async function DELETE(req) {
   try {
     const session = await auth();
 
-    if (!session) {
-      return responseError(notAuthorized.message, {}, notAuthorized.status);
-    }
+    // Removed global session check to allow guest deletion
+
 
     const { searchParams } = req.nextUrl;
     const commentId = searchParams.get("commentId");
@@ -127,9 +128,8 @@ export async function DELETE(req) {
 
     const userId = session?.user?.id;
 
-    if (!userId) {
-      return responseError(sessionLost.message, {}, sessionLost.status);
-    }
+    // Remove sessionLost check as we allow guests
+
 
     const comment = await Comment.findById(commentId);
 
@@ -140,13 +140,18 @@ export async function DELETE(req) {
     // Check permissions: Owner of comment OR Owner of board
     let canDelete = false;
 
-    if (comment.userId && comment.userId.toString() === userId) {
+    if (userId && comment.userId && comment.userId.toString() === userId) {
+      // Logged in user deletes their own comment
       canDelete = true;
-    } else {
+    } else if (userId) {
+      // Logged in user checks if they own the board
       const board = await Board.findById(comment.boardId);
       if (board && board.userId.toString() === userId) {
         canDelete = true;
       }
+    } else if (!comment.userId) {
+      // Anonymous comment - allow deletion (relying on client to have the ID)
+      canDelete = true;
     }
 
     if (!canDelete) {
@@ -177,7 +182,8 @@ export async function GET(req) {
 
     const comments = await Comment.find({ postId, isDeleted: { $ne: true } })
       .sort({ createdAt: 1 })
-      .populate("userId", "name image email");
+      .populate("userId", "name image email")
+      .populate("boardId");
 
     const { commentsFetched } = settings.forms[TYPE].backend.responses;
     return responseSuccess(commentsFetched.message, { comments }, commentsFetched.status);
