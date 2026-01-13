@@ -3,6 +3,7 @@
 import { useMemo, useEffect, useCallback, useRef } from "react";
 import Input from "@/components/input/Input";
 import InputCheckbox from "@/components/input/InputCheckbox";
+import InputToggle from "@/components/input/InputToggle";
 import Textarea from "@/components/textarea/Textarea";
 import Label from "@/components/common/Label";
 import Title from "@/components/common/Title";
@@ -522,20 +523,24 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                 <div className={`${previewStyling.components.card} ${previewStyling.general.box} p-6 border border-base-200 shadow-sm transition-all duration-300 bg-base-100 text-base-content`}>
 
                   {/* Mock Post Item for Context */}
-                  <div className="flex gap-4 mb-6 pb-6 border-b border-base-200">
+                  <div className="flex gap-4 mb-6">
                     <div className="flex-1">
-                      <h3 className="font-bold text-lg mb-1">A</h3>
-                      <p className="opacity-80">A</p>
+                      <h3 className="font-bold text-lg mb-1">This is a preview post</h3>
+                      <p className="opacity-80">Here goes the description of what a potential user might write</p>
                     </div>
                     <div className="flex gap-2 text-sm font-medium">
-                      <div className="flex items-center gap-1 bg-base-200 px-2 py-1 rounded">
-                        <SvgComment size="size-4" />
-                        1
-                      </div>
-                      <div className="flex items-center gap-1 bg-base-200 px-2 py-1 rounded">
-                        <SvgVote size="size-4" />
-                        1
-                      </div>
+                      <Button
+                        className="btn-ghost btn-sm opacity-70 hover:opacity-100 gap-1.5 px-2"
+                      >
+                        <SvgComment size="size-5" />
+                        <span className="text-xs font-normal">1</span>
+                      </Button>
+                      <Button
+                        className="btn-ghost btn-sm gap-1.5 px-2"
+                        startIcon={<SvgVote />}
+                      >
+                        <span className="text-sm font-medium">1</span>
+                      </Button>
                     </div>
                   </div>
 
@@ -573,10 +578,11 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
 
                   {/* Toggle for Previewing Empty State */}
                   <div className="mt-4 pt-4 border-t border-base-200 flex justify-end">
-                    <label className="label cursor-pointer gap-2">
-                      <span className="label-text text-xs uppercase font-bold opacity-50">Preview Empty State</span>
-                      <input type="checkbox" className="toggle toggle-xs" checked={getVal("comments.showEmptyStatePreview", false)} onChange={(e) => handleChange("comments.showEmptyStatePreview", e.target.checked)} />
-                    </label>
+                    <InputToggle
+                      label="Preview Empty State"
+                      value={getVal("comments.showEmptyStatePreview", false)}
+                      onChange={(checked) => handleChange("comments.showEmptyStatePreview", checked)}
+                    />
                   </div>
 
                 </div>

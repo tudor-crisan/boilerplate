@@ -11,7 +11,7 @@ import { AnimatePresence } from "framer-motion";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
 import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 
-const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {} }) => {
+const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {}, commentSettings }) => {
   const { posts: postsState, handleVote, isBoardDeleted } = useBoardPosts(boardId, posts, { showVoteToast: true });
   const router = useRouter();
 
@@ -48,6 +48,7 @@ const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {} }) => {
               <BoardPostItem
                 key={item._id}
                 item={item}
+                boardSettings={commentSettings}
                 itemAction={
                   (item) => (
                     <BoardButtonVote

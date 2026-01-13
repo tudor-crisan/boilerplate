@@ -8,7 +8,7 @@ import Button from "@/components/button/Button";
 import BoardCommentSection from "@/components/modules/boards/BoardCommentSection";
 import SvgComment from "@/components/svg/SvgComment";
 
-const BoardPostItem = ({ item, itemAction }) => {
+const BoardPostItem = ({ item, itemAction, boardSettings }) => {
   const { styling } = useStyling();
   const [showComments, setShowComments] = useState(false);
 
@@ -43,7 +43,7 @@ const BoardPostItem = ({ item, itemAction }) => {
       </Paragraph>
 
       {showComments && (
-        <BoardCommentSection postId={item._id} />
+        <BoardCommentSection postId={item._id} settings={boardSettings} />
       )}
     </li>
   );

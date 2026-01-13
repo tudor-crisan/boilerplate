@@ -58,6 +58,7 @@ export default function BoardPublicClient({ board }) {
                 posts={board.posts}
                 boardId={board._id.toString()}
                 emptyStateConfig={board.extraSettings?.emptyState}
+                commentSettings={board.extraSettings?.comments}
               />
             </Columns>
           </div>

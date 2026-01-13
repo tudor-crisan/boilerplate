@@ -9,7 +9,7 @@ import useBoardComments from "@/hooks/modules/boards/useBoardComments";
 import { useStyling } from "@/context/ContextStyling";
 import BoardCommentUI from "./BoardCommentUI";
 
-const BoardCommentSection = ({ postId }) => {
+const BoardCommentSection = ({ postId, settings: customSettings }) => {
   const { styling } = useStyling();
   const session = useAuth();
   const { comments, isLoading, isSubmitting, addComment, deleteComment, inputErrors } = useBoardComments(postId);
@@ -55,23 +55,23 @@ const BoardCommentSection = ({ postId }) => {
     });
   };
 
-  const formConfig = settings.forms.Comment;
-
-  // Map legacy settings structure to BoardCommentUI flat structure if needed, 
-  // or BoardCommentUI defaults handle it. 
-  // For now, we are using defaults or hardcoded values where settings would be.
-  // Ideally, 'settings' would be passed as a prop from the board data.
-  // Since we don't have board settings here yet, we pass what we have from defaults.
+  const defaultFormConfig = settings.forms.Comment;
 
   const uiSettings = {
-    // Map existing default settings to UI component props if feasible,
-    // otherwise it uses its internal defaults which match the requirements.
-    // e.g. label: formConfig.inputsConfig.text.label
-    label: formConfig.inputsConfig.text.label,
-    placeholder: "What do you think?", // Or from default settings if it exists there
-    buttonText: formConfig.formConfig.button,
-    maxLength: formConfig.inputsConfig.text.maxlength,
-    // Use defaults for others (showDate, allowDeletion etc.) as they were hardcoded before
+    // Merge custom settings with defaults
+    // Note: customSettings comes from board.extraSettings.comments
+
+    label: customSettings?.label || defaultFormConfig.inputsConfig.text.label,
+    placeholder: customSettings?.placeholder || "What do you think?",
+    buttonText: customSettings?.buttonText || defaultFormConfig.formConfig.button,
+    maxLength: customSettings?.maxLength || defaultFormConfig.inputsConfig.text.maxlength,
+    rows: customSettings?.rows, // BoardCommentUI handles default
+
+    // Toggles / Texts
+    showDate: customSettings?.showDate !== false, // Default true
+    allowDeletion: customSettings?.allowDeletion !== false, // Default true
+    ownerBadgeText: customSettings?.ownerBadgeText,
+    emptyStateText: customSettings?.emptyStateText,
   };
 
   return (
