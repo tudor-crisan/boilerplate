@@ -8,8 +8,7 @@ import SvgTrash from "@/components/svg/SvgTrash";
 import TextSmall from "@/components/common/TextSmall";
 import IconLoading from "@/components/icon/IconLoading";
 import Paragraph from "@/components/common/Paragraph";
-import EmptyState from "@/components/common/EmptyState"; // Assuming this is desirable or use custom text
-import SvgPost from "@/components/svg/SvgPost"; // For empty state icon
+import Tooltip from "@/components/common/Tooltip";
 
 const BoardCommentUI = ({
   comments = [],
@@ -86,7 +85,7 @@ const BoardCommentUI = ({
                   {/* Owner Badge */}
                   {comment.userId?._id && comment.boardId?.userId === comment.userId._id && (
                     <span className={`${styling?.components?.element || ""} badge badge-outline badge-xs h-5 pointer-events-none select-none ml-2`}>
-                      {config.ownerBadgeText}
+                      {config.ownerBadgeText || "Owner"}
                     </span>
                   )}
                 </span>
@@ -120,21 +119,26 @@ const BoardCommentUI = ({
         ))}
 
         {comments.length === 0 && (
-          <div className="text-sm opacity-50 italic">{config.emptyStateText}</div>
+          <div className="text-sm opacity-50 italic">{config.emptyStateText || "Be the first to comment."}</div>
         )}
       </div>
 
       <form onSubmit={onSubmit} className="space-y-3 pt-2">
-        {(!user?.isLoggedIn && !isNameSaved) && (
+        {!user?.isLoggedIn && (
           <div className="space-y-1">
             <Label>{formConfig.inputsConfig.name.label}</Label>
-            <Input
-              maxLength={formConfig.inputsConfig.name.maxlength}
-              value={name}
-              onChange={(e) => onNameChange && onNameChange(e.target.value)}
-              disabled={isSubmitting || isNameSaved}
-              error={inputErrors?.name}
-            />
+            <Tooltip
+              text={isNameSaved ? "Name can't be changed once it has been set" : ""}
+            >
+              <Input
+                maxLength={formConfig.inputsConfig.name.maxlength}
+                value={name}
+                onChange={(e) => onNameChange && onNameChange(e.target.value)}
+                disabled={isSubmitting || isNameSaved}
+                error={inputErrors?.name}
+                showCharacterCount={true}
+              />
+            </Tooltip>
           </div>
         )}
 
