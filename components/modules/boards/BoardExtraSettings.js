@@ -9,6 +9,9 @@ import Title from "@/components/common/Title";
 import Button from "@/components/button/Button";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
+import SvgTrash from "@/components/svg/SvgTrash";
+import Avatar from "@/components/common/Avatar";
+import { formatCommentDate } from "@/libs/utils.client";
 import { defaultSetting, defaultStyling } from "@/libs/defaults";
 import { useStyling, ContextStyling } from "@/context/ContextStyling";
 import Accordion from "@/components/common/Accordion";
@@ -340,6 +343,120 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
           </div>
         </SettingsContainer>
       )
+    },
+    {
+      title: "Comment Section",
+      content: (
+        <SettingsContainer>
+          <SettingsRow>
+            <InputCheckbox
+              label="Show Date"
+              value={getVal("comments.showDate", true)}
+              onChange={(checked) => handleChange("comments.showDate", checked)}
+              disabled={disabled}
+            />
+            <InputCheckbox
+              label="Allow Deletion"
+              value={getVal("comments.allowDeletion", true)}
+              onChange={(checked) => handleChange("comments.allowDeletion", checked)}
+              disabled={disabled}
+            />
+          </SettingsRow>
+
+          <SettingsItem>
+            <Label>Owner Badge Text</Label>
+            <Input
+              value={getVal("comments.ownerBadgeText", "Owner")}
+              onChange={(e) => handleChange("comments.ownerBadgeText", e.target.value)}
+              placeholder="Owner"
+              disabled={disabled}
+              maxLength={20}
+              showCharacterCount={true}
+            />
+          </SettingsItem>
+
+          <SettingsItem>
+            <Label>Empty State Text</Label>
+            <Input
+              value={getVal("comments.emptyStateText", "Be the first to comment")}
+              onChange={(e) => handleChange("comments.emptyStateText", e.target.value)}
+              placeholder="Be the first to comment"
+              disabled={disabled}
+              maxLength={50}
+              showCharacterCount={true}
+            />
+          </SettingsItem>
+
+          <SettingsItem>
+            <Label>Input Label</Label>
+            <Input
+              value={getVal("comments.label", "Your comment")}
+              onChange={(e) => handleChange("comments.label", e.target.value)}
+              placeholder="Your comment"
+              disabled={disabled}
+              maxLength={50}
+              showCharacterCount={true}
+            />
+          </SettingsItem>
+
+          <SettingsItem>
+            <Label>Placeholder</Label>
+            <Input
+              value={getVal("comments.placeholder", "What do you think?")}
+              onChange={(e) => handleChange("comments.placeholder", e.target.value)}
+              placeholder="What do you think?"
+              disabled={disabled}
+              maxLength={100}
+              showCharacterCount={true}
+            />
+          </SettingsItem>
+
+          <SettingsRow>
+            <SettingsItem>
+              <Label>Max Length</Label>
+              <Input
+                type="number"
+                value={getVal("comments.maxLength", 1000)}
+                onChange={(e) => {
+                  let val = parseInt(e.target.value) || 0;
+                  if (val > 2000) val = 2000;
+                  handleChange("comments.maxLength", val);
+                }}
+                min={100}
+                max={2000}
+                disabled={disabled}
+              />
+            </SettingsItem>
+            <SettingsItem>
+              <Label>Rows</Label>
+              <Input
+                type="number"
+                value={getVal("comments.rows", 3)}
+                onChange={(e) => {
+                  let val = parseInt(e.target.value) || 0;
+                  if (val > 10) val = 10;
+                  handleChange("comments.rows", val);
+                }}
+                min={1}
+                max={10}
+                disabled={disabled}
+              />
+            </SettingsItem>
+          </SettingsRow>
+
+          <SettingsItem>
+            <Label>Button Text</Label>
+            <Input
+              value={getVal("comments.buttonText", "Post Comment")}
+              onChange={(e) => handleChange("comments.buttonText", e.target.value)}
+              placeholder="Post Comment"
+              disabled={disabled}
+              maxLength={30}
+              showCharacterCount={true}
+            />
+          </SettingsItem>
+        </SettingsContainer>
+      )
     }
   ];
 
@@ -400,6 +517,85 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                   description={getVal("emptyState.description", defaultSetting.defaultExtraSettings.emptyState.description)}
                   icon={<SvgPost size="size-16" />}
                 />
+
+                {/* Comment Section Preview */}
+                <div className={`${previewStyling.components.card} ${previewStyling.general.box} p-6 border border-base-200 shadow-sm transition-all duration-300 bg-base-100 text-base-content`}>
+
+                  {/* Mock Post Item for Context */}
+                  <div className="flex gap-4 mb-6 pb-6 border-b border-base-200">
+                    <div className="flex-1">
+                      <h3 className="font-bold text-lg mb-1">A</h3>
+                      <p className="opacity-80">A</p>
+                    </div>
+                    <div className="flex gap-2 text-sm font-medium">
+                      <div className="flex items-center gap-1 bg-base-200 px-2 py-1 rounded">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        1
+                      </div>
+                      <div className="flex items-center gap-1 bg-base-200 px-2 py-1 rounded">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                        1
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    {/* Mock Comment */}
+                    <div className="flex gap-3 items-start">
+                      <Avatar initials="FE" size="sm" />
+                      <div className="flex-1 space-y-1">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-semibold text-sm">
+                            Fearless
+                            <span className={`${previewStyling.components.element} badge badge-outline badge-xs h-5 pointer-events-none select-none ml-2`}>
+                              {getVal("comments.ownerBadgeText", "Owner")}
+                            </span>
+                          </span>
+
+                          <div className="flex items-center gap-2">
+                            {getVal("comments.showDate", true) && (
+                              <TextSmall className="text-base-content/50">
+                                {formatCommentDate(new Date())}
+                              </TextSmall>
+                            )}
+
+                            {getVal("comments.allowDeletion", true) && (
+                              <Button
+                                variant="btn-error btn-outline"
+                                size="btn-xs px-2!"
+                              >
+                                <SvgTrash />
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                        <p className="text-sm">qeqe</p>
+                      </div>
+                    </div>
+
+                    {/* Comment Form */}
+                    <div className="space-y-3 pt-2">
+                      <div className="space-y-1">
+                        <Label>{getVal("comments.label", "Your comment")}</Label>
+                        <Textarea
+                          placeholder={getVal("comments.placeholder", "What do you think?")}
+                          rows={getVal("comments.rows", 3)}
+                          maxLength={getVal("comments.maxLength", 1000)}
+                          showCharacterCount={true}
+                          readOnly
+                          className="w-full"
+                        />
+                      </div>
+
+                      <div className="flex justify-end">
+                        <Button variant="btn-primary">
+                          {getVal("comments.buttonText", "Post Comment")}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
