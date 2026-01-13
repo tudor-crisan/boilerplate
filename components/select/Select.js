@@ -1,5 +1,7 @@
 "use client";
 import { useStyling } from "@/context/ContextStyling";
+import SvgChevronLeft from "@/components/svg/SvgChevronLeft";
+import SvgChevronRight from "@/components/svg/SvgChevronRight";
 
 export default function Select({ className = "", error, children, options, placeholder, value, withNavigation = false, ...props }) {
   const { styling } = useStyling();
@@ -44,8 +46,8 @@ export default function Select({ className = "", error, children, options, place
     };
 
     // Icons
-    const IconPrev = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" /></svg>;
-    const IconNext = <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" /></svg>;
+    const IconPrev = <SvgChevronLeft className="w-5 h-5" />;
+    const IconNext = <SvgChevronRight className="w-5 h-5" />;
 
     navigationControls = (
       <div className="flex items-center justify-between gap-2 mb-1">

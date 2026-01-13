@@ -10,18 +10,65 @@ import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { formatCommentDate } from "@/libs/utils.client";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import BoardFilterBar from "@/components/modules/boards/BoardFilterBar";
 
 const BoardPrivatePostsList = ({ posts, boardId }) => {
   const { styling } = useStyling();
   const { posts: postsState } = useBoardPosts(boardId, posts);
 
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("votes_desc");
+
+  const sortOptions = [
+    { label: "Top Voted", value: "votes_desc" },
+    { label: "Newest", value: "date_desc" },
+    { label: "Oldest", value: "date_asc" },
+    { label: "Most Comments", value: "comments_desc" },
+  ];
+
+  const filteredPosts = [...(postsState || [])]
+    .filter(post => {
+      if (!search) return true;
+      const term = search.toLowerCase();
+      return (
+        post.title?.toLowerCase().includes(term) ||
+        post.description?.toLowerCase().includes(term)
+      );
+    })
+    .sort((a, b) => {
+      switch (sort) {
+        case "votes_desc":
+          return (b.votesCounter || 0) - (a.votesCounter || 0);
+        case "date_desc":
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        case "date_asc":
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        case "comments_desc":
+          return (b.commentsCount || 0) - (a.commentsCount || 0);
+        default:
+          return 0;
+      }
+    });
+
   return (
     <div className="space-y-4 w-full min-w-0">
-      <Title>Posts ({postsState?.length || 0})</Title>
-      {postsState?.length > 0 ? (
+      <Title>Posts ({filteredPosts?.length || 0})</Title>
+
+      {postsState?.length > 0 && (
+        <BoardFilterBar
+          search={search}
+          setSearch={setSearch}
+          sort={sort}
+          setSort={setSort}
+          sortOptions={sortOptions}
+        />
+      )}
+
+      {filteredPosts?.length > 0 ? (
         <ul className="space-y-4 grow">
           <AnimatePresence mode="popLayout">
-            {postsState.map((item) => (
+            {filteredPosts.map((item) => (
               <motion.li
                 key={item._id}
                 layout

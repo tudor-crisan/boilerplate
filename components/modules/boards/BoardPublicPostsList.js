@@ -11,9 +11,33 @@ import { AnimatePresence } from "framer-motion";
 import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
 import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 
-const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {}, commentSettings }) => {
+const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {}, commentSettings, search = "", sort = "votes_desc" }) => {
   const { posts: postsState, handleVote, isBoardDeleted } = useBoardPosts(boardId, posts, { showVoteToast: true });
   const router = useRouter();
+
+  const filteredPosts = [...(postsState || [])]
+    .filter(post => {
+      if (!search) return true;
+      const term = search.toLowerCase();
+      return (
+        post.title?.toLowerCase().includes(term) ||
+        post.description?.toLowerCase().includes(term)
+      );
+    })
+    .sort((a, b) => {
+      switch (sort) {
+        case "votes_desc":
+          return (b.votesCounter || 0) - (a.votesCounter || 0);
+        case "date_desc":
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        case "date_asc":
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        case "comments_desc":
+          return (b.commentsCount || 0) - (a.commentsCount || 0);
+        default:
+          return 0;
+      }
+    });
 
   useEffect(() => {
     if (isBoardDeleted) {
@@ -35,7 +59,7 @@ const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {}, commentSe
       {isBoardDeleted && (
         <div className="fixed inset-0 z-50 bg-base-100/50 cursor-not-allowed user-select-none" />
       )}
-      {(!postsState || postsState.length === 0) ? (
+      {(!filteredPosts || filteredPosts.length === 0) ? (
         <EmptyState
           title={emptyStateTitle}
           description={emptyStateDescription}
@@ -44,7 +68,7 @@ const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {}, commentSe
       ) : (
         <ul className="space-y-4 grow">
           <AnimatePresence mode="popLayout">
-            {postsState.map((item) => (
+            {filteredPosts.map((item) => (
               <BoardPostItem
                 key={item._id}
                 item={item}

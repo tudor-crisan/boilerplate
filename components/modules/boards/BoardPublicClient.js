@@ -6,6 +6,8 @@ import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import FormCreate from "@/components/form/FormCreate";
 import BoardPublicPostsList from "@/components/modules/boards/BoardPublicPostsList";
+import BoardFilterBar from "@/components/modules/boards/BoardFilterBar";
+import { useState } from "react";
 import { defaultStyling } from "@/libs/defaults";
 import { ContextStyling } from "@/context/ContextStyling";
 import { fontMap } from "@/lists/fonts";
@@ -33,6 +35,16 @@ export default function BoardPublicClient({ board }) {
   const fontName = customStyling.font || "Inter";
   const fontFamilyValue = fontMap[fontName] || fontMap["Inter"];
 
+  const sortOptions = [
+    { label: "Top Voted", value: "votes_desc" },
+    { label: "Newest", value: "date_desc" },
+    { label: "Oldest", value: "date_asc" },
+    { label: "Most Comments", value: "comments_desc" },
+  ];
+
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("votes_desc");
+
   return (
     <ContextStyling.Provider value={{ styling: customStyling }}>
       <div
@@ -45,6 +57,7 @@ export default function BoardPublicClient({ board }) {
             <Title>
               {board.name}
             </Title>
+
             <Columns>
               <Sidebar>
                 <FormCreate
@@ -54,12 +67,25 @@ export default function BoardPublicClient({ board }) {
                   customConfig={board.extraSettings}
                 />
               </Sidebar>
-              <BoardPublicPostsList
-                posts={board.posts}
-                boardId={board._id.toString()}
-                emptyStateConfig={board.extraSettings?.emptyState}
-                commentSettings={board.extraSettings?.comments}
-              />
+              <div className="flex-1 w-full min-w-0">
+                {board.posts?.length > 0 && (
+                  <BoardFilterBar
+                    search={search}
+                    setSearch={setSearch}
+                    sort={sort}
+                    setSort={setSort}
+                    sortOptions={sortOptions}
+                  />
+                )}
+                <BoardPublicPostsList
+                  posts={board.posts}
+                  boardId={board._id.toString()}
+                  emptyStateConfig={board.extraSettings?.emptyState}
+                  commentSettings={board.extraSettings?.comments}
+                  search={search}
+                  sort={sort}
+                />
+              </div>
             </Columns>
           </div>
         </Main>

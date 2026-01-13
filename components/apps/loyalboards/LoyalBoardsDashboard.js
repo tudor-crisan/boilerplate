@@ -1,6 +1,6 @@
 
 import FormCreate from "@/components/form/FormCreate";
-import ListDisplay from "@/components/list/ListDisplay";
+import LoyalBoardsList from "@/components/apps/loyalboards/LoyalBoardsList";
 import { getUser } from "@/libs/modules/boards/db";
 import { defaultSetting as settings } from "@/libs/defaults";
 import Error from "@/components/common/Error";
@@ -29,9 +29,9 @@ export default async function LoyalBoardsDashboard() {
       <FormCreate
         type={type}
       />
-      <ListDisplay
+      <LoyalBoardsList
+        initialBoards={list}
         type={type}
-        list={list}
       />
     </div>
   );
