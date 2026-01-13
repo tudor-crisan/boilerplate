@@ -10,7 +10,7 @@ import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import Label from "@/components/common/Label";
 import Vertical from "@/components/common/Vertical";
-import BoardPrivatePostsList from "@/components/modules/boards/BoardPrivatePostsList";
+import BoardPrivateDashboard from "@/components/modules/boards/BoardPrivateDashboard";
 import BoardEditModal from "@/components/modules/boards/BoardEditModal";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { getBoardPrivate } from "@/libs/modules/boards/db";
@@ -76,7 +76,7 @@ export default async function PrivateFeedbackBoard({ params }) {
               </div>
             </div>
           </Sidebar>
-          <BoardPrivatePostsList
+          <BoardPrivateDashboard
             posts={board.posts}
             boardId={boardId}
           />

@@ -4,6 +4,7 @@ import { isResponseMock, responseMock, responseSuccess, responseError } from "@/
 import { defaultSetting as settings } from "@/libs/defaults";
 import Post from "@/models/modules/boards/Post";
 import { checkReqRateLimit } from "@/libs/rateLimit";
+import { trackEvent, createNotification } from "@/libs/modules/boards/analytics";
 
 const TYPE = "Vote";
 
@@ -50,6 +51,13 @@ export async function POST(req) {
     post.votesCounter += 1;
     post.lastActionByClientId = clientId;
     await post.save();
+
+    // Analytics & Notifications
+    await trackEvent(post.boardId, "VOTE");
+    await createNotification(post.boardId, "VOTE", {
+      postId: post._id,
+      postTitle: post.title,
+    });
 
     // Emitting via Change Stream now (handled in stream/route.js)
 

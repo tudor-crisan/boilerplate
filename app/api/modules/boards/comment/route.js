@@ -9,6 +9,7 @@ import Board from "@/models/modules/boards/Board";
 import Comment from "@/models/modules/boards/Comment";
 import { Filter } from "bad-words";
 import { checkReqRateLimit } from "@/libs/rateLimit";
+import { trackEvent, createNotification } from "@/libs/modules/boards/analytics";
 
 const TYPE = "Comment";
 
@@ -82,6 +83,15 @@ export async function POST(req) {
     }
 
     const comment = await Comment.create(commentData);
+
+    // Analytics & Notifications
+    await trackEvent(post.boardId, "COMMENT");
+    await createNotification(post.boardId, "COMMENT", {
+      postId: post._id,
+      commentId: comment._id,
+      commentText: comment.text.substring(0, 50),
+      postTitle: post.title
+    });
 
     // Populate user if exists to return consistent structure
     // Populate user if exists to return consistent structure

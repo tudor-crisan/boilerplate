@@ -8,6 +8,7 @@ import Post from "@/models/modules/boards/Post";
 import Board from "@/models/modules/boards/Board";
 import { Filter } from "bad-words";
 import { checkReqRateLimit } from "@/libs/rateLimit";
+import { trackEvent, createNotification } from "@/libs/modules/boards/analytics";
 
 const TYPE = "Post";
 
@@ -88,6 +89,13 @@ export async function POST(req) {
     }
 
     const post = await Post.create(postData);
+
+    // Analytics & Notifications
+    await trackEvent(boardId, "POST");
+    await createNotification(boardId, "POST", {
+      postId: post._id,
+      postTitle: post.title,
+    });
 
     return responseSuccess(createSuccesfully.message, { post }, createSuccesfully.status)
 

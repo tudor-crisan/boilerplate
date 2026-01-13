@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import axios from "axios";
 import { defaultSetting as settings } from "@/libs/defaults";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
@@ -51,6 +52,14 @@ const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {}, commentSe
       return () => clearTimeout(timer);
     }
   }, [isBoardDeleted, router]);
+
+  useEffect(() => {
+    // Track visit
+    if (boardId) {
+      axios.post('/api/modules/analytics/visit', { boardId })
+        .catch(err => console.error(err));
+    }
+  }, [boardId]);
 
   const emptyStateTitle = emptyStateConfig?.title || settings.defaultExtraSettings.emptyState.title;
   const emptyStateDescription = emptyStateConfig?.description || settings.defaultExtraSettings.emptyState.description;
