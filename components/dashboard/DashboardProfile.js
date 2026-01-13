@@ -18,6 +18,7 @@ import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
 import Tooltip from "@/components/common/Tooltip";
 
 import { useStyling } from "@/context/ContextStyling";
+import { defaultStyling, appStyling } from "@/libs/defaults";
 import themes from "@/lists/themes";
 import { fontMap } from "@/lists/fonts";
 
@@ -260,6 +261,15 @@ export default function DashboardProfile() {
                 onChange={setStyling}
                 isLoading={isLoading}
               />
+              <div className="flex justify-end mt-2">
+                <button
+                  type="button"
+                  onClick={() => setStyling({ ...defaultStyling, ...appStyling })}
+                  className="text-xs text-base-content/50 hover:text-base-content transition-colors underline"
+                >
+                  Reset to default
+                </button>
+              </div>
             </div>
 
             <div className="w-full space-y-6 pt-4 border-t border-base-200">

@@ -13,7 +13,7 @@ import SvgPost from "@/components/svg/SvgPost";
 import BoardCommentUI from "./BoardCommentUI";
 import SvgComment from "@/components/svg/SvgComment";
 import SvgVote from "@/components/svg/SvgVote";
-import { defaultSetting, defaultStyling } from "@/libs/defaults";
+import { defaultSetting, defaultStyling, appStyling } from "@/libs/defaults";
 import { useStyling, ContextStyling } from "@/context/ContextStyling";
 import Accordion from "@/components/common/Accordion";
 import TextSmall from "@/components/common/TextSmall";
@@ -448,6 +448,23 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
             onChange={(newStyling) => handleChange("appearance", newStyling)}
             isLoading={disabled}
           />
+
+          <div className="flex justify-end gap-3 mt-2">
+            <button
+              type="button"
+              onClick={() => handleChange("appearance", appStyling)}
+              className="text-xs text-base-content/50 hover:text-base-content transition-colors underline"
+            >
+              Reset to default
+            </button>
+            <button
+              type="button"
+              onClick={() => handleChange("appearance", styling)}
+              className="text-xs text-base-content/50 hover:text-base-content transition-colors underline"
+            >
+              Use profile settings
+            </button>
+          </div>
 
           <div className="pt-4 border-t border-base-200">
             <div className="font-bold text-sm mb-4">Randomizer</div>

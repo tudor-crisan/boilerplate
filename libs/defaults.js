@@ -11,3 +11,4 @@ export const defaultCopywriting = getMergedConfig("copywriting", copywriting, co
 export const defaultStyling = getMergedConfig("styling", styling, stylings);
 export const defaultVisual = getMergedConfig("visual", visual, visuals);
 export const defaultSetting = getMergedConfigWithModules("setting", setting, settings);
+export const appStyling = stylings[styling.override];
