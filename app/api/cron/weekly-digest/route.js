@@ -84,7 +84,7 @@ export async function GET(req) {
 
       try {
         await resend.emails.send({
-          from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
+          from: process.env.RESEND_EMAIL_FROM || '',
           to: data.email,
           subject: 'Your Weekly Board Stats 📈',
           html: emailContent

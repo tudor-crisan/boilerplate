@@ -10,7 +10,8 @@ import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import Label from "@/components/common/Label";
 import Vertical from "@/components/common/Vertical";
-import BoardPrivateDashboard from "@/components/modules/boards/BoardPrivateDashboard";
+import BoardPrivatePostsList from "@/components/modules/boards/BoardPrivatePostsList";
+import BoardAnalyticsWidget from "@/components/modules/boards/BoardAnalyticsWidget";
 import BoardEditModal from "@/components/modules/boards/BoardEditModal";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { getBoardPrivate } from "@/libs/modules/boards/db";
@@ -74,9 +75,13 @@ export default async function PrivateFeedbackBoard({ params }) {
                   confirmMessage="Are you sure you want to delete? All associated posts will also be deleted."
                 />
               </div>
+
+              <div className="pt-6 border-t border-base-200">
+                <BoardAnalyticsWidget boardId={boardId} />
+              </div>
             </div>
           </Sidebar>
-          <BoardPrivateDashboard
+          <BoardPrivatePostsList
             posts={board.posts}
             boardId={boardId}
           />
