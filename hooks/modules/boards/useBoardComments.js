@@ -67,7 +67,7 @@ const useBoardComments = (postId) => {
             // Optimistic update - safely check for duplicates
             setComments(prev => {
               if (prev.some(c => c._id === data.comment._id)) return prev;
-              return [...prev, data.comment];
+              return [data.comment, ...prev];
             });
             if (onSuccess) onSuccess(data.comment);
           }

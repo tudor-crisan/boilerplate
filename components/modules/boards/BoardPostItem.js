@@ -18,7 +18,7 @@ const BoardPostItem = ({ item, itemAction }) => {
     >
       <div className="flex justify-between items-start">
         <div className="space-y-1 min-w-0 flex-1">
-          <Title className="wrap-break-word">{item.title}</Title>
+          <Title className="wrap-break-word line-clamp-2">{item.title}</Title>
           <Paragraph className="max-h-32 wrap-break-word">
             {item.description}
           </Paragraph>
