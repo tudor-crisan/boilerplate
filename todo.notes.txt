@@ -1,4 +1,5 @@
 
 - have a search for the boards on the dashboard and also for posts (on both private/public dashboards)
+- have a date created on posts / also sort by votes/comments/date created either asc/desc (on both private/public boards dashboards)
 - have a notification system, to get notified when new posts/votes/comments are added to boards (and on the right for boards)
 - have a notification system for weekly updates on all boards, number of posts/votes/comments/visits, like a summary
