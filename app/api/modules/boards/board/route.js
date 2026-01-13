@@ -47,6 +47,12 @@ export async function POST(req) {
       return responseError(nameRequired.message, nameRequired.inputErrors, nameRequired.status);
     }
 
+    const { nameTooShort } = settings.forms[TYPE].backend.responses;
+
+    if (body.name.length < 3) {
+      return responseError(nameTooShort.message, {}, nameTooShort.status);
+    }
+
     await connectMongo();
 
     const userId = session?.user?.id

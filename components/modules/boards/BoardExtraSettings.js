@@ -527,8 +527,8 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                   {/* Mock Post Item for Context */}
                   <div className="flex gap-4 mb-6">
                     <div className="flex-1">
-                      <h3 className="font-bold text-lg mb-1">This is a preview post</h3>
-                      <p className="opacity-80">Here goes the description of what a potential user might write</p>
+                      <h3 className="font-bold text-lg mb-1 line-clamp-1">This is a preview post</h3>
+                      <p className="opacity-80 line-clamp-2">Here goes the description of what a potential user might write</p>
                     </div>
                     <div className="flex gap-2 text-sm font-medium">
                       <Button

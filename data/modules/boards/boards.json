@@ -170,6 +170,10 @@
             },
             "status": 403
           },
+          "nameTooShort": {
+            "message": "Board name must be at least 3 characters",
+            "status": 400
+          },
           "boardIdRequired": {
             "message": "Board ID is required",
             "inputErrors": {},
