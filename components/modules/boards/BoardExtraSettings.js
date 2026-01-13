@@ -324,28 +324,6 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
       )
     },
     {
-      title: "Appearance",
-      content: (
-        <SettingsContainer>
-          <SettingsAppearance
-            styling={getVal("appearance", defaultStyling)}
-            onChange={(newStyling) => handleChange("appearance", newStyling)}
-            isLoading={disabled}
-          />
-
-          <div className="pt-4 border-t border-base-200">
-            <div className="font-bold text-sm mb-4">Randomizer</div>
-            <SettingsRandomizer
-              config={getVal("randomizer", { theme: true, font: true, styling: true, auto: false })}
-              onConfigChange={(key, val) => handleChange(`randomizer.${key}`, val)}
-              onShuffle={handleShuffle}
-              isLoading={disabled}
-            />
-          </div>
-        </SettingsContainer>
-      )
-    },
-    {
       title: "Comment Section",
       content: (
         <SettingsContainer>
@@ -458,6 +436,28 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
               showCharacterCount={true}
             />
           </SettingsItem>
+        </SettingsContainer>
+      )
+    },
+    {
+      title: "Appearance",
+      content: (
+        <SettingsContainer>
+          <SettingsAppearance
+            styling={getVal("appearance", defaultStyling)}
+            onChange={(newStyling) => handleChange("appearance", newStyling)}
+            isLoading={disabled}
+          />
+
+          <div className="pt-4 border-t border-base-200">
+            <div className="font-bold text-sm mb-4">Randomizer</div>
+            <SettingsRandomizer
+              config={getVal("randomizer", { theme: true, font: true, styling: true, auto: false })}
+              onConfigChange={(key, val) => handleChange(`randomizer.${key}`, val)}
+              onShuffle={handleShuffle}
+              isLoading={disabled}
+            />
+          </div>
         </SettingsContainer>
       )
     }
