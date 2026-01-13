@@ -4,6 +4,8 @@ import axios from 'axios';
 import clsx from 'clsx';
 import { useStyling } from "@/context/ContextStyling";
 import { formatCommentDate } from "@/libs/utils.client";
+import Title from "@/components/common/Title";
+import TextSmall from "@/components/common/TextSmall";
 
 export default function DashboardNotifications() {
   const { styling } = useStyling();
@@ -29,10 +31,10 @@ export default function DashboardNotifications() {
 
   return (
     <div className={`${styling.components.card} p-5`}>
-      <h2 className="text-lg font-bold mb-4">Recent Notifications</h2>
+      <Title className="mb-4">Recent Notifications</Title>
       <div className="max-h-60 overflow-y-auto space-y-2">
         {notifications.map(n => (
-          <div key={n._id} className={clsx("alert p-2 flex flex-row items-center", !n.isRead && "alert-info")}>
+          <div key={n._id} className={clsx("alert px-4 py-2 flex flex-row items-center opacity-70", !n.isRead && "alert-outline opacity-100")}>
             <div className="flex-1 text-sm">
               <div>
                 <span className="font-bold mr-2">[{n.boardId?.name || 'Board'}]</span>
@@ -43,9 +45,9 @@ export default function DashboardNotifications() {
                       n.data?.postTitle}
                 </span>
               </div>
-              <div className="text-[10px] opacity-60 mt-1">
+              <TextSmall className="mt-1">
                 {formatCommentDate(n.createdAt)}
-              </div>
+              </TextSmall>
             </div>
             {!n.isRead && (
               <button onClick={() => markAsRead([n._id])} className="btn btn-xs btn-ghost">Mark Read</button>

@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import { useStyling } from "@/context/ContextStyling";
+import Title from "@/components/common/Title";
+import TextSmall from "@/components/common/TextSmall";
 
 export default function DashboardAnalyticsSummary() {
   const { styling } = useStyling();
@@ -27,25 +29,25 @@ export default function DashboardAnalyticsSummary() {
   return (
     <div className={`${styling.components.card} p-5`}>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-bold">Analytics</h2>
+        <Title>Analytics</Title>
         <Link href="/dashboard/analytics" className="text-xs font-bold opacity-70 hover:opacity-100">View All</Link>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
         <div className="flex flex-col bg-base-200/30 p-4 rounded-xl">
-          <div className="text-xs opacity-70 mb-1">Views</div>
+          <TextSmall className="mb-1">Views</TextSmall>
           <div className="text-2xl font-extrabold text-primary">{totals.views}</div>
         </div>
         <div className="flex flex-col bg-base-200/30 p-4 rounded-xl">
-          <div className="text-xs opacity-70 mb-1">Posts</div>
+          <TextSmall className="mb-1">Posts</TextSmall>
           <div className="text-2xl font-extrabold text-secondary">{totals.posts}</div>
         </div>
         <div className="flex flex-col bg-base-200/30 p-4 rounded-xl">
-          <div className="text-xs opacity-70 mb-1">Votes</div>
+          <TextSmall className="mb-1">Votes</TextSmall>
           <div className="text-2xl font-extrabold">{totals.votes}</div>
         </div>
         <div className="flex flex-col bg-base-200/30 p-4 rounded-xl">
-          <div className="text-xs opacity-70 mb-1">Comments</div>
+          <TextSmall className="mb-1">Comments</TextSmall>
           <div className="text-2xl font-extrabold">{totals.comments}</div>
         </div>
       </div>

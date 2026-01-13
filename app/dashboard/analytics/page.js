@@ -7,6 +7,9 @@ import DashboardMain from "@/components/dashboard/DashboardMain";
 import ButtonBack from "@/components/button/ButtonBack";
 import SvgSearch from '@/components/svg/SvgSearch';
 import { useStyling } from "@/context/ContextStyling";
+import Title from "@/components/common/Title";
+import Paragraph from "@/components/common/Paragraph";
+import TextSmall from "@/components/common/TextSmall";
 
 const ranges = [
   { label: "Today", value: "today" },
@@ -73,7 +76,7 @@ export default function AnalyticsPage() {
       <DashboardMain>
         <div className="space-y-6 w-full">
           <div className="flex flex-col gap-2">
-            <h1 className={titleClass}>Analytics</h1>
+            <Title className={titleClass}>Analytics</Title>
           </div>
 
           {isLoading ? (
@@ -82,7 +85,7 @@ export default function AnalyticsPage() {
             <>
               {/* Timeline Visualization */}
               <div className={cardClass}>
-                <h2 className="text-lg font-bold mb-4">Activity Trend</h2>
+                <Title className="mb-4">Activity Trend</Title>
 
                 {data?.timeline && data.timeline.length > 0 ? (
                   <div className="w-full">
@@ -101,31 +104,31 @@ export default function AnalyticsPage() {
                         );
                       })}
                     </div>
-                    <div className="flex justify-between text-xs opacity-50 mt-2 font-medium">
-                      <span>{startLabel}</span>
-                      <span>{endLabel}</span>
+                    <div className="flex justify-between mt-2">
+                      <TextSmall>{startLabel}</TextSmall>
+                      <TextSmall>{endLabel}</TextSmall>
                     </div>
                   </div>
                 ) : (
                   <div className="py-12 flex flex-col items-center text-center opacity-60">
                     <SvgSearch className="w-12 h-12 mb-2" />
-                    <p>No activity found for this period</p>
+                    <Paragraph>No activity found for this period</Paragraph>
                   </div>
                 )}
               </div>
 
               {/* Boards Table */}
               <div className={cardClass}>
-                <h2 className="text-lg font-bold mb-4">Board Performance</h2>
+                <Title className="mb-4">Board Performance</Title>
                 <div className="overflow-x-auto">
                   <table className="table">
                     <thead>
                       <tr>
-                        <th>Board Name</th>
-                        <th>Views</th>
-                        <th>Posts</th>
-                        <th>Votes</th>
-                        <th>Comments</th>
+                        <th><TextSmall className="font-bold">Board Name</TextSmall></th>
+                        <th><TextSmall className="font-bold">Views</TextSmall></th>
+                        <th><TextSmall className="font-bold">Posts</TextSmall></th>
+                        <th><TextSmall className="font-bold">Votes</TextSmall></th>
+                        <th><TextSmall className="font-bold">Comments</TextSmall></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -137,7 +140,7 @@ export default function AnalyticsPage() {
                           <td>{board.totalVotes || 0}</td>
                           <td>{board.totalComments || 0}</td>
                         </tr>
-                      )) : <tr><td colSpan="5" className="text-center py-4">No boards found</td></tr>}
+                      )) : <tr><td colSpan="5" className="text-center py-4"><Paragraph>No boards found</Paragraph></td></tr>}
                     </tbody>
                   </table>
                 </div>

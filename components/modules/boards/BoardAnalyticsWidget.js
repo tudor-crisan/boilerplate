@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useStyling } from "@/context/ContextStyling";
+import Label from "@/components/common/Label";
+import TextSmall from "@/components/common/TextSmall";
 
 const ranges = [
   { label: "Today", value: "today" },
@@ -55,7 +57,7 @@ export default function BoardAnalyticsWidget({ boardId }) {
   return (
     <div className="space-y-4 w-full">
       <div className="flex justify-between items-center sm:hidden">
-        <label className="text-sm font-bold opacity-70">Analytics</label>
+        <Label className="opacity-70">Analytics</Label>
       </div>
 
       <select
@@ -68,26 +70,26 @@ export default function BoardAnalyticsWidget({ boardId }) {
 
       <div className="grid grid-cols-2 gap-2">
         <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
-          <span className="text-xs opacity-70 mb-1">Views</span>
+          <TextSmall className="mb-1">Views</TextSmall>
           <span className="text-xl font-bold text-primary leading-none">{totals.views}</span>
         </div>
         <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
-          <span className="text-xs opacity-70 mb-1">Posts</span>
+          <TextSmall className="mb-1">Posts</TextSmall>
           <span className="text-xl font-bold text-secondary leading-none">{totals.posts}</span>
         </div>
         <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
-          <span className="text-xs opacity-70 mb-1">Votes</span>
+          <TextSmall className="mb-1">Votes</TextSmall>
           <span className="text-xl font-bold leading-none">{totals.votes}</span>
         </div>
         <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
-          <span className="text-xs opacity-70 mb-1">Comments</span>
+          <TextSmall className="mb-1">Comments</TextSmall>
           <span className="text-xl font-bold leading-none">{totals.comments}</span>
         </div>
       </div>
 
       {/* Chart */}
       <div className={`${styling.components.card} p-3`}>
-        <h3 className="text-xs font-bold mb-2">Activity Trend</h3>
+        <TextSmall className="font-bold mb-2">Activity Trend</TextSmall>
         <div className="flex items-end space-x-1 h-16 w-full">
           {data && data.length > 0 ? data.map((day, i) => {
             const total = (day.views || 0) + (day.posts || 0) + (day.votes || 0) + (day.comments || 0);
@@ -102,13 +104,13 @@ export default function BoardAnalyticsWidget({ boardId }) {
             );
           }) : (
             <div className="w-full h-full flex items-center justify-center opacity-30">
-              <span className="text-[10px] uppercase font-bold">No Data</span>
+              <TextSmall className="uppercase font-bold">No Data</TextSmall>
             </div>
           )}
         </div>
-        <div className="flex justify-between text-[9px] opacity-40 uppercase font-bold mt-2">
-          <span>{startLabel}</span>
-          <span>{endLabel}</span>
+        <div className="flex justify-between mt-2">
+          <TextSmall className="opacity-40 uppercase font-bold">{startLabel}</TextSmall>
+          <TextSmall className="opacity-40 uppercase font-bold">{endLabel}</TextSmall>
         </div>
       </div>
     </div>
