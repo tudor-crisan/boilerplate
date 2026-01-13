@@ -31,7 +31,7 @@ const Modal = ({
   return (
     <div className={cn("modal modal-bottom sm:modal-middle", isModalOpen && "modal-open")} role="dialog">
 
-      <div className={cn(`${styling.components.modal} modal-box max-h-[calc(100vh-4rem)] p-0 flex flex-col overflow-hidden`, boxClassName)}>
+      <div className={cn(`${styling.components.modal} modal-box max-h-[calc(100vh-4rem)] p-0 pb-4 sm:pb-0 flex flex-col overflow-hidden`, boxClassName)}>
         {title && (
           <div className="w-full text-center p-4 sm:p-6 pb-2 sm:pb-2 flex-none z-10 bg-base-100">
             <Title>{title}</Title>

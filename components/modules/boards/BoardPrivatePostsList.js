@@ -57,7 +57,7 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
                     url={`${settings.paths.api.boardsPost}?postId=${item._id}`}
                     buttonText="Delete"
                     withConfirm={true}
-                    confirmMessage="Are you sure you want to delete this post?"
+                    confirmMessage="Are you sure you want to delete? All associated comments will also be deleted."
                     refreshOnSuccess={false} // SSE will handle the update
                     withRedirect={false}
                     withToast={false}

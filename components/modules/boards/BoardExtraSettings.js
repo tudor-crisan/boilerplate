@@ -9,9 +9,9 @@ import Title from "@/components/common/Title";
 import Button from "@/components/button/Button";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
-import SvgTrash from "@/components/svg/SvgTrash";
-import Avatar from "@/components/common/Avatar";
-import { formatCommentDate } from "@/libs/utils.client";
+import BoardCommentUI from "./BoardCommentUI";
+import SvgComment from "@/components/svg/SvgComment";
+import SvgVote from "@/components/svg/SvgVote";
 import { defaultSetting, defaultStyling } from "@/libs/defaults";
 import { useStyling, ContextStyling } from "@/context/ContextStyling";
 import Accordion from "@/components/common/Accordion";
@@ -529,70 +529,54 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                     </div>
                     <div className="flex gap-2 text-sm font-medium">
                       <div className="flex items-center gap-1 bg-base-200 px-2 py-1 rounded">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <SvgComment size="size-4" />
                         1
                       </div>
                       <div className="flex items-center gap-1 bg-base-200 px-2 py-1 rounded">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                        <SvgVote size="size-4" />
                         1
                       </div>
                     </div>
                   </div>
 
-                  <div className="space-y-6">
-                    {/* Mock Comment */}
-                    <div className="flex gap-3 items-start">
-                      <Avatar initials="FE" size="sm" />
-                      <div className="flex-1 space-y-1">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="font-semibold text-sm">
-                            Fearless
-                            <span className={`${previewStyling.components.element} badge badge-outline badge-xs h-5 pointer-events-none select-none ml-2`}>
-                              {getVal("comments.ownerBadgeText", "Owner")}
-                            </span>
-                          </span>
+                  <BoardCommentUI
+                    // Mock Comments only if NOT showing empty state
+                    comments={getVal("comments.showEmptyStatePreview", false) ? [] : [
+                      {
+                        _id: "preview-1",
+                        userId: { name: "Admin", _id: "admin-id" },
+                        boardId: { userId: "admin-id" },
+                        text: "Hello, I've left this test comment",
+                        createdAt: new Date(),
+                      }
+                    ]}
+                    user={{ isLoggedIn: true, id: "admin-id" }}
+                    settings={{
+                      showDate: getVal("comments.showDate", true),
+                      allowDeletion: getVal("comments.allowDeletion", true),
+                      ownerBadgeText: getVal("comments.ownerBadgeText", "Owner"),
+                      emptyStateText: getVal("comments.emptyStateText", "Be the first to comment"),
+                      label: getVal("comments.label", "Your comment"),
+                      placeholder: getVal("comments.placeholder", "What do you think?"),
+                      maxLength: getVal("comments.maxLength", 1000),
+                      rows: getVal("comments.rows", 3),
+                      buttonText: getVal("comments.buttonText", "Post Comment"),
+                      showCharacterCount: true
+                    }}
+                    localCommentIds={["preview-1"]}
+                    styling={previewStyling}
+                    onTextChange={() => { }}
+                    onNameChange={() => { }}
+                    onSubmit={(e) => e.preventDefault()}
+                    onDelete={() => { }}
+                  />
 
-                          <div className="flex items-center gap-2">
-                            {getVal("comments.showDate", true) && (
-                              <TextSmall className="text-base-content/50">
-                                {formatCommentDate(new Date())}
-                              </TextSmall>
-                            )}
-
-                            {getVal("comments.allowDeletion", true) && (
-                              <Button
-                                variant="btn-error btn-outline"
-                                size="btn-xs px-2!"
-                              >
-                                <SvgTrash />
-                              </Button>
-                            )}
-                          </div>
-                        </div>
-                        <p className="text-sm">qeqe</p>
-                      </div>
-                    </div>
-
-                    {/* Comment Form */}
-                    <div className="space-y-3 pt-2">
-                      <div className="space-y-1">
-                        <Label>{getVal("comments.label", "Your comment")}</Label>
-                        <Textarea
-                          placeholder={getVal("comments.placeholder", "What do you think?")}
-                          rows={getVal("comments.rows", 3)}
-                          maxLength={getVal("comments.maxLength", 1000)}
-                          showCharacterCount={true}
-                          readOnly
-                          className="w-full"
-                        />
-                      </div>
-
-                      <div className="flex justify-end">
-                        <Button variant="btn-primary">
-                          {getVal("comments.buttonText", "Post Comment")}
-                        </Button>
-                      </div>
-                    </div>
+                  {/* Toggle for Previewing Empty State */}
+                  <div className="mt-4 pt-4 border-t border-base-200 flex justify-end">
+                    <label className="label cursor-pointer gap-2">
+                      <span className="label-text text-xs uppercase font-bold opacity-50">Preview Empty State</span>
+                      <input type="checkbox" className="toggle toggle-xs" checked={getVal("comments.showEmptyStatePreview", false)} onChange={(e) => handleChange("comments.showEmptyStatePreview", e.target.checked)} />
+                    </label>
                   </div>
 
                 </div>

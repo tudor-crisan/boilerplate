@@ -16,13 +16,9 @@ const BoardPostItem = ({ item, itemAction }) => {
     <li
       className={`${styling.components.card} ${styling.general.box} block`}
     >
-      <div className="flex justify-between items-start">
+      <div className="flex justify-between items-start mb-2">
         <div className="space-y-1 min-w-0 flex-1">
           <Title className="wrap-break-word line-clamp-2">{item.title}</Title>
-          <Paragraph className="max-h-32 wrap-break-word">
-            {item.description}
-          </Paragraph>
-
         </div>
 
         <div className="ml-6 shrink-0 flex items-center gap-2">
@@ -41,6 +37,10 @@ const BoardPostItem = ({ item, itemAction }) => {
           )}
         </div>
       </div>
+
+      <Paragraph className="max-h-32 wrap-break-word">
+        {item.description}
+      </Paragraph>
 
       {showComments && (
         <BoardCommentSection postId={item._id} />
