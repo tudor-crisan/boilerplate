@@ -36,7 +36,7 @@ const BoardCommentUI = ({
     emptyStateText: "Be the first to comment.",
     label: "Your comment",
     placeholder: "What do you think?",
-    maxLength: 1000,
+    maxLength: 700,
     rows: 3,
     buttonText: "Post Comment",
     showCharacterCount: true,

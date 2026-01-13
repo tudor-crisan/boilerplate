@@ -427,6 +427,7 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                 max={2000}
                 disabled={disabled}
               />
+              <TextSmall className="mt-1">Min: 100, Max: 2000</TextSmall>
             </SettingsItem>
             <SettingsItem>
               <Label>Rows</Label>
@@ -438,10 +439,11 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
                   if (val > 10) val = 10;
                   handleChange("comments.rows", val);
                 }}
-                min={1}
+                min={2}
                 max={10}
                 disabled={disabled}
               />
+              <TextSmall className="mt-1">Min: 2, Max: 10</TextSmall>
             </SettingsItem>
           </SettingsRow>
 
