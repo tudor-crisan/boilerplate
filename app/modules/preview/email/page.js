@@ -32,7 +32,7 @@ export default function EmailPreviewPage() {
     const data = {
       host: host,
       url: 'https://' + host + '/',
-      baseUrl: window.location.protocol + '//' + host
+      baseUrl: typeof window !== 'undefined' ? window.location.protocol + '//' + host : 'https://' + host
     };
 
     try {

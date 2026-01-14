@@ -34,10 +34,10 @@ export default function DashboardNotifications() {
     });
   };
 
-  const unreadCount = notifications.filter(n => !n.isRead).length;
+  const unreadCount = notifications.filter(notification => !notification.isRead).length;
 
   const markAllRead = () => {
-    const unreadIds = notifications.filter(n => !n.isRead).map(n => n._id);
+    const unreadIds = notifications.filter(notification => !notification.isRead).map(notification => notification._id);
     if (unreadIds.length > 0) {
       markAsRead(unreadIds);
     }
@@ -60,29 +60,30 @@ export default function DashboardNotifications() {
         )}
       </div>
       <div className="max-h-60 overflow-y-auto space-y-2">
-        {notifications.map(n => (
-          <div key={n._id} className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70`, n.isRead && "alert-outline alert-success opacity-100")}>
-            <div className="flex-1 space-y-1 pt-1">
+        {notifications.map(notification => (
+          <div key={notification._id} className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70`, !notification.isRead && "alert-outline alert-success opacity-100")}>
+            <div className="flex-1 space-y-1 pt-1 min-w-0">
               <TextSmall>
-                {formatCommentDate(n.createdAt)}
+                {formatCommentDate(notification.createdAt)}
               </TextSmall>
-              <Paragraph>
-                <span className="badge badge-xs badge-primary font-bold mr-2">{n.type}</span>
-                <span className="font-bold mr-2">[{n.boardId?.name || 'Board'}  ]</span>
+              <Paragraph className="truncate overflow-hidden">
+                <span className="badge badge-xs badge-primary font-bold mr-2">{notification.type}</span>
+                <span className="font-bold mr-2">[{notification.boardId?.name || 'Board'}  ]</span>
                 <span className="opacity-80">
                   {
-                    n.type === 'POST' ? n.data?.postTitle :
-                      n.type === 'COMMENT' ? n.data?.commentText :
-                        n.data?.postTitle
+                    notification.type === 'POST' ? notification.data?.postTitle :
+                      notification.type === 'COMMENT' ? notification.data?.commentText :
+                        notification.data?.postTitle
                   }
                 </span>
               </Paragraph>
             </div>
-            {!n.isRead && (
+            {!notification.isRead && (
               <Button
-                onClick={() => markAsRead([n._id])}
+                onClick={() => markAsRead([notification._id])}
                 variant="btn-outline"
                 size="btn-xs"
+                className="shrink-0 ml-2"
               >
                 Mark Read
               </Button>
