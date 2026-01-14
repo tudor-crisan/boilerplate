@@ -11,7 +11,7 @@ import { clientApi } from '@/libs/api';
 import Button from '@/components/button/Button';
 import Paragraph from '@/components/common/Paragraph';
 
-export default function DashboardNotifications() {
+export default function BoardDashboardNotifications() {
   const { styling } = useStyling();
   const [notifications, setNotifications] = useState([]);
   const { request } = useApiRequest();
@@ -25,7 +25,7 @@ export default function DashboardNotifications() {
 
   useEffect(() => {
     fetchNotifications();
-  }, []);
+  });
 
   const markAsRead = (ids) => {
     request(() => clientApi.put(settings.paths.api.boardsNotifications, { notificationIds: ids }), {

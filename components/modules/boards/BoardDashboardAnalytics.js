@@ -10,7 +10,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import useApiRequest from '@/hooks/useApiRequest';
 import { clientApi } from '@/libs/api';
 
-const DashboardAnalyticsItem = ({ text = '', className = '', count = '' }) => {
+const AnalyticsItem = ({ text = '', className = '', count = '' }) => {
   const { styling } = useStyling();
   return (
     <Flex className={`${styling.components.card} ${styling.general.box} ${styling.flex.col_center}`}>
@@ -20,7 +20,7 @@ const DashboardAnalyticsItem = ({ text = '', className = '', count = '' }) => {
   )
 }
 
-export default function DashboardAnalytics() {
+export default function BoardDashboardAnalytics() {
   const { styling } = useStyling();
   const [data, setData] = useState(null);
   const { request } = useApiRequest();
@@ -46,13 +46,13 @@ export default function DashboardAnalytics() {
     <div className={`${styling.components.card} ${styling.general.box} space-y-3`}>
       <div className={`${styling.flex.between}`}>
         <Title>Analytics</Title>
-        <Button href="/dashboard/analytics">View All</Button>
+        <Button href={settings.paths.dashboardAnalytics.source}>View All</Button>
       </div>
       <Grid className="gap-4 grid-cols-2 sm:grid-cols-4">
-        <DashboardAnalyticsItem text="Views" className="text-primary" count={totals.views} />
-        <DashboardAnalyticsItem text="Posts" className="text-secondary" count={totals.posts} />
-        <DashboardAnalyticsItem text="Votes" count={totals.votes} />
-        <DashboardAnalyticsItem text="Comments" count={totals.comments} />
+        <AnalyticsItem text="Views" className="text-primary" count={totals.views} />
+        <AnalyticsItem text="Posts" className="text-secondary" count={totals.posts} />
+        <AnalyticsItem text="Votes" count={totals.votes} />
+        <AnalyticsItem text="Comments" count={totals.comments} />
       </Grid>
     </div>
   );

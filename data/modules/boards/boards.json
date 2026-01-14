@@ -4,6 +4,10 @@
       "source": "/b/:boardId",
       "destination": "/modules/boards/b/:boardId"
     },
+    "dashboardAnalytics": {
+      "source": "/dashboard/analytics",
+      "destination": "/modules/boards/dashboard/analytics"
+    },
     "boardPrivate": {
       "source": "/dashboard/b/:boardId",
       "destination": "/modules/boards/dashboard/b/:boardId"
