@@ -30,7 +30,7 @@ export default function AnalyticsPage() {
   useEffect(() => {
     setIsLoading(true);
     axios.get(`/api/modules/analytics/global?range=${range}`)
-      .then(res => setData(res.data))
+      .then(res => setData(res.data.data))
       .catch(err => console.error("Error fetching analytics:", err))
       .finally(() => setIsLoading(false));
   }, [range]);

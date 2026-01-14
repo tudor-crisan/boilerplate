@@ -59,7 +59,7 @@ export async function GET(req) {
   const boardIds = boards.map(b => b._id);
 
   if (boardIds.length === 0) {
-    return NextResponse.json({ boards: [], timeline: [] });
+    return NextResponse.json({ data: { boards: [], timeline: [] } });
   }
 
   // Match condition for the range
@@ -112,5 +112,5 @@ export async function GET(req) {
     { $sort: { _id: 1 } }
   ]);
 
-  return NextResponse.json({ boards: boardsData, timeline });
+  return NextResponse.json({ data: { boards: boardsData, timeline } });
 }

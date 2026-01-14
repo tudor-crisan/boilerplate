@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
 import TextSmall from "@/components/common/TextSmall";
 import Button from '@/components/button/Button';
 import Grid from '@/components/common/Grid';
 import Flex from '@/components/common/Flex';
+import useApiRequest from '@/hooks/useApiRequest';
+import { clientApi } from '@/libs/api';
 
 const DashboardAnalyticsItem = ({ text = '', className = '', count = '' }) => {
   const { styling } = useStyling();
@@ -21,12 +22,14 @@ const DashboardAnalyticsItem = ({ text = '', className = '', count = '' }) => {
 export default function DashboardAnalytics() {
   const { styling } = useStyling();
   const [data, setData] = useState(null);
+  const { request } = useApiRequest();
 
   useEffect(() => {
-    axios.get('/api/modules/analytics/global')
-      .then(res => setData(res.data))
-      .catch(err => console.error(err));
-  }, []);
+    request(() => clientApi.get('/api/modules/analytics/global'), {
+      onSuccess: (msg, res) => setData(res),
+      showToast: false,
+    });
+  }, [request]);
 
   if (!data) return <div className="skeleton h-24 w-full"></div>;
 
