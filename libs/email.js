@@ -46,20 +46,20 @@ export const sendEmail = async ({
   }
 }
 
-export async function MagicLinkEmail({ host, url }) {
-  const { appName } = getEmailBranding();
+export async function MagicLinkEmail({ host, url, styling }) {
+  const { appName } = getEmailBranding(styling);
   const { MagicLinkTemplate } = emailTemplates;
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
 
   const subject = `Sign in to ${appName}`;
   const text = `Sign in to ${appName}\n${url}\n\nIf you did not request this email you can safely ignore it.`;
 
-  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<MagicLinkTemplate host={host} url={url} />);
+  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<MagicLinkTemplate host={host} url={url} styling={styling} />);
 
   return { subject, html, text };
 }
 
-export async function WeeklyDigestEmail({ baseUrl, userName, boards }) {
+export async function WeeklyDigestEmail({ baseUrl, userName, boards, styling }) {
   const { WeeklyDigestTemplate } = emailTemplates;
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
 
@@ -67,7 +67,7 @@ export async function WeeklyDigestEmail({ baseUrl, userName, boards }) {
   // Simple text fallback
   const text = `Hi ${userName || 'there'}, here is your weekly summary for your boards. Please check the html version.`;
 
-  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<WeeklyDigestTemplate baseUrl={baseUrl} userName={userName} boards={boards} />);
+  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<WeeklyDigestTemplate baseUrl={baseUrl} userName={userName} boards={boards} styling={styling} />);
 
   return { subject, html, text };
 }

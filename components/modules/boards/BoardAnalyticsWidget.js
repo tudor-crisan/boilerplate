@@ -5,21 +5,12 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import { useStyling } from "@/context/ContextStyling";
 import Label from "@/components/common/Label";
 import TextSmall from "@/components/common/TextSmall";
-
-const ranges = [
-  { label: "Today", value: "today" },
-  { label: "Yesterday", value: "yesterday" },
-  { label: "Last 7 Days", value: "7d" },
-  { label: "Last 30 Days", value: "30d" },
-  { label: "Last 3 Months", value: "3m" },
-  { label: "This Year", value: "thisYear" },
-  { label: "Last Year", value: "lastYear" },
-];
+import { useAnalyticsRange } from "@/hooks/modules/boards/useAnalyticsRange";
 
 export default function BoardAnalyticsWidget({ boardId }) {
   const { styling } = useStyling();
   const [data, setData] = useState(null);
-  const [range, setRange] = useState("30d");
+  const { range, setRange, ranges, startLabel, endLabel } = useAnalyticsRange();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -29,21 +20,6 @@ export default function BoardAnalyticsWidget({ boardId }) {
       .catch(err => console.error(err))
       .finally(() => setIsLoading(false));
   }, [boardId, range]);
-
-  const getRangeLabel = () => {
-    switch (range) {
-      case 'today': return ['Today', 'Now'];
-      case 'yesterday': return ['Yesterday', 'End of day'];
-      case '7d': return ['7 days ago', 'Today'];
-      case '30d': return ['30 days ago', 'Today'];
-      case '3m': return ['3 months ago', 'Today'];
-      case 'thisYear': return ['Jan 1', 'Today'];
-      case 'lastYear': return ['Jan 1', 'Dec 31'];
-      default: return ['Start', 'End'];
-    }
-  };
-
-  const [startLabel, endLabel] = getRangeLabel();
 
   if (isLoading && !data) return <div className="flex justify-center p-4"><span className="loading loading-spinner text-primary"></span></div>;
 

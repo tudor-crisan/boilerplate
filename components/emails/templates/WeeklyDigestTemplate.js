@@ -1,8 +1,8 @@
 import { getEmailBranding, getLogoUrl } from '@/components/emails/email-theme';
 import { GenericLayout, EmailBody, EmailContainer, EmailButton } from '@/components/emails/EmailLayout';
 
-export default function WeeklyDigestTemplate({ baseUrl, userName, boards }) {
-  const branding = getEmailBranding();
+export default function WeeklyDigestTemplate({ baseUrl, userName, boards, styling }) {
+  const branding = getEmailBranding(styling);
   const {
     themeColor, base100, base200, content, appName, font,
     dividerColor, cardRoundness, btnRoundness, cardShadow, cardBorder

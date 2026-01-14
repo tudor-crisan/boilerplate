@@ -4,18 +4,20 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import emailTemplates from '@/lists/emailTemplates';
 import Select from '@/components/select/Select';
 import Label from "@/components/common/Label";
+import { useStyling } from "@/context/ContextStyling";
 
 const { MagicLinkTemplate, WeeklyDigestTemplate } = emailTemplates;
 
 const TEMPLATES = {
-  'Magic Link': (data) => <MagicLinkTemplate host={data.host} url={data.url} />,
-  'Weekly Digest': (data) => <WeeklyDigestTemplate baseUrl={data.baseUrl} userName="John Doe" boards={[
+  'Magic Link': (data, styling) => <MagicLinkTemplate host={data.host} url={data.url} styling={styling} />,
+  'Weekly Digest': (data, styling) => <WeeklyDigestTemplate styling={styling} baseUrl={data.baseUrl} userName="John Doe" boards={[
     { name: "Product Feedback", stats: { views: 123, posts: 12, votes: 45, comments: 8 } },
     { name: "Feature Requests", stats: { views: 456, posts: 23, votes: 89, comments: 15 } }
   ]} />
 };
 
 export default function EmailPreviewPage() {
+  const { styling } = useStyling();
   const [selectedTemplate, setSelectedTemplate] = useState('Magic Link');
   const [host, setHost] = useState('/');
 
@@ -36,13 +38,13 @@ export default function EmailPreviewPage() {
     };
 
     try {
-      const markup = renderToStaticMarkup(Component(data));
+      const markup = renderToStaticMarkup(Component(data, styling));
       return `<!DOCTYPE html>${markup}`;
     } catch (e) {
       console.error(e);
       return `Error rendering template: ${e.message}`;
     }
-  }, [selectedTemplate, host]);
+  }, [selectedTemplate, host, styling]);
 
   return (
     <div className="h-screen flex flex-col">

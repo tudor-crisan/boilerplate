@@ -38,8 +38,9 @@ export const extractBorder = (classNames = "", themeColor) => {
   return `${width} solid ${color}`;
 };
 
-export const getEmailBranding = () => {
-  const theme = defaultStyling.theme || "light";
+export const getEmailBranding = (styling) => {
+  const activeStyling = styling || defaultStyling;
+  const theme = activeStyling.theme || "light";
   const colors = themeColors[theme] || themeColors.light;
 
   // Convert OKLCH strings to HEX
@@ -51,7 +52,7 @@ export const getEmailBranding = () => {
   const appName = defaultSetting.appName || "App";
 
   // Use font map to get correct Google Font family
-  const fontKey = defaultStyling.font || "inter";
+  const fontKey = activeStyling.font || "inter";
   const fontName = fontMap[fontKey] || "Inter";
   const font = `${fontName}, sans-serif`;
 
@@ -59,8 +60,8 @@ export const getEmailBranding = () => {
   const isDark = ["dracula", "dark", "night", "synthwave", "halloween", "forest", "luxury", "abyss", "dim", "business", "sunset", "coffee", "aqua", "black", "luxury", "abyss"].includes(theme);
   const dividerColor = isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)";
 
-  const cardClasses = defaultStyling.components?.card || "";
-  const elementClasses = defaultStyling.components?.element || "";
+  const cardClasses = activeStyling.components?.card || "";
+  const elementClasses = activeStyling.components?.element || "";
 
   return {
     themeColor,
