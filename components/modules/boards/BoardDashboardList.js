@@ -13,17 +13,18 @@ export default function BoardDashboardList({ initialBoards = [], type = "Board" 
 
   return (
     <div>
-      {initialBoards.length > 0 && (
-        <BoardFilterBar
-          search={search}
-          setSearch={setSearch}
-          placeholder={`Search ${type.toLowerCase()}s...`}
-        />
-      )}
       <ListDisplay
         type={type}
         list={filteredBoards}
-      />
+      >
+        {initialBoards.length > 0 && (
+          <BoardFilterBar
+            search={search}
+            setSearch={setSearch}
+            placeholder={`Search ${type.toLowerCase()}s...`}
+          />
+        )}
+      </ListDisplay>
     </div>
   );
 }

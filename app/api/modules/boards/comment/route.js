@@ -1,10 +1,7 @@
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
-import mongoose from "mongoose";
 import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
-import User from "@/models/User";
-import Post from "@/models/modules/boards/Post";
 import Board from "@/models/modules/boards/Board";
 import Comment from "@/models/modules/boards/Comment";
 import { Filter } from "bad-words";
@@ -15,9 +12,7 @@ const TYPE = "Comment";
 
 const {
   notAuthorized,
-  sessionLost,
   serverError,
-  noAccess,
 } = settings.forms.general.backend.responses;
 
 export async function POST(req) {
@@ -34,9 +29,7 @@ export async function POST(req) {
     nameRequired,
     postIdRequired,
     createSuccesfully,
-
     commentNotFound,
-    commentsFetched,
   } = settings.forms[TYPE].backend.responses;
 
   const error = await checkReqRateLimit(req, "comment-create");

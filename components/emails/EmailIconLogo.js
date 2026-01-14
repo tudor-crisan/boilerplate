@@ -51,8 +51,8 @@ export default function EmailIconLogo({ branding }) {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox={svg.viewbox}
-        width={svg.size}
-        height={svg.size}
+        width={svgSize}
+        height={svgSize}
         fill={svg.fill === "currentColor" ? finalFill : "none"}
         stroke={svg.stroke === "currentColor" ? finalFill : "none"}
         strokeWidth={svg.strokewidth}
@@ -62,8 +62,8 @@ export default function EmailIconLogo({ branding }) {
         style={{
           display: "block",
           margin: "0 auto",
-          width: svg.size,
-          height: svg.size,
+          width: svgSize,
+          height: svgSize,
           fill: svg.fill === "currentColor" ? finalFill : "none",
           stroke: svg.stroke === "currentColor" ? finalFill : "none"
         }}

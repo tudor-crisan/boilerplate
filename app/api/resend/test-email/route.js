@@ -11,6 +11,14 @@ export async function POST(req) {
   }
 
   try {
+    const ip = req.headers.get("x-forwarded-for") || "0.0.0.0";
+    const rateLimit = await import("@/libs/rateLimit");
+    const { allowed, message } = await rateLimit.checkRateLimit(ip, "send-test-email", 5, 60);
+
+    if (!allowed) {
+      return NextResponse.json({ error: message }, { status: 429 });
+    }
+
     const { template, data, styling } = await req.json();
 
     let emailContent;

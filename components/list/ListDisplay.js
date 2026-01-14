@@ -17,7 +17,7 @@ function ListItem({ item, hasLink, isLoading, styling }) {
     <div>{item.name}</div>
   );
 }
-export default function ListDisplay({ list, type = "Board" }) {
+export default function ListDisplay({ list, type = "Board", children }) {
   const { styling } = useStyling();
   const [loadingItem, setLoadingItem] = useState(null);
   const itemClass = `${styling.components.card} block ${styling.general.box}`;
@@ -28,6 +28,7 @@ export default function ListDisplay({ list, type = "Board" }) {
       <Title className="mb-4">
         {list.length} {pluralize(type, list.length)}
       </Title>
+      {children}
       <ul className="space-y-4">
         {list.map(item => {
           const isLoading = loadingItem === item._id;
