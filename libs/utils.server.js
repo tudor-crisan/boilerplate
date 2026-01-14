@@ -2,6 +2,8 @@ import { z } from "zod";
 import { NextResponse } from "next/server";
 import { defaultSetting as settings } from "@/libs/defaults";
 import blockedDomains from "@/lists/blockedDomains";
+import themeColors from "@/lists/themeColors";
+import logos from "@/lists/logos";
 
 export const getBaseUrl = () => {
   return process.env.NODE_ENV === "development"
@@ -113,3 +115,106 @@ export const getAnalyticsDateRange = (range = "30d") => {
 
   return { startDate, endDate };
 };
+
+function oklchToHex(oklchStr) {
+  if (!oklchStr) return "#000000";
+  if (!oklchStr.startsWith("oklch(")) return oklchStr;
+
+  const match = oklchStr.match(/oklch\(([^)]+)\)/);
+  if (!match) return "#000000";
+
+  const parts = match[1].trim().split(/\s+/);
+  if (parts.length < 3) return "#000000";
+
+  let l = parseFloat(parts[0]);
+  if (parts[0].includes('%')) l = l / 100;
+  const c = parseFloat(parts[1]);
+  const h = parseFloat(parts[2]);
+
+  const L = l;
+  const a = c * Math.cos(h * Math.PI / 180);
+  const b = c * Math.sin(h * Math.PI / 180);
+
+  const l_ = L + 0.3963377774 * a + 0.2158037573 * b;
+  const m_ = L - 0.1055613458 * a - 0.0638541728 * b;
+  const s_ = L - 0.0894841775 * a - 1.2914855480 * b;
+
+  const l_lin = l_ * l_ * l_;
+  const m_lin = m_ * m_ * m_;
+  const s_lin = s_ * s_ * s_;
+
+  let r = +4.0767416621 * l_lin - 3.3077115913 * m_lin + 0.2309699292 * s_lin;
+  let g = -1.2684380046 * l_lin + 2.6097574011 * m_lin - 0.3413193965 * s_lin;
+  let bl = -0.0041960863 * l_lin - 0.7034186147 * m_lin + 1.7076147010 * s_lin;
+
+  r = r >= 0.0031308 ? 1.055 * Math.pow(r, 1.0 / 2.4) - 0.055 : 12.92 * r;
+  g = g >= 0.0031308 ? 1.055 * Math.pow(g, 1.0 / 2.4) - 0.055 : 12.92 * g;
+  bl = bl >= 0.0031308 ? 1.055 * Math.pow(bl, 1.0 / 2.4) - 0.055 : 12.92 * bl;
+
+  r = Math.max(0, Math.min(1, r));
+  g = Math.max(0, Math.min(1, g));
+  bl = Math.max(0, Math.min(1, bl));
+
+  const toHex = (n) => {
+    const hex = Math.round(n * 255).toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+  };
+
+  return `#${toHex(r)}${toHex(g)}${toHex(bl)}`;
+}
+
+export const generateLogoBase64 = (styling, visual) => {
+  if (!styling || !visual) return "";
+
+  const theme = styling.theme || "light";
+  const colors = themeColors[theme] || themeColors.light;
+
+  const primaryColor = oklchToHex(colors["--color-primary"]); // fallback violet
+
+  const shape = visual.logo.shape || "star";
+  // We use the local logoShapes object to avoid importing the large list if unnecessary, 
+  // or we can import @/lists/logos if we want full support.
+  // For now, I'll update it to import full logos if needed, but keeping it minimal is faster.
+  // Wait, I should import the real logos list to support all shapes.
+  // Re-importing logos inside the function or at top? Top is better.
+
+  // Since I defined logoShapes locally with just star, I should probably stick to that or import.
+  // The 'logos' list is in @/lists/logos. I should use that.
+  return internalGenerate(styling, shape, primaryColor);
+};
+
+// Moving implementation to use imported logos would be better but requires top validation.
+// Let's rely on the internal simplified version for now, or update validation.
+// Actually, I'll import 'logos' at the top of the replacement block to be safe.
+function internalGenerate(styling, shape, primaryColor) {
+  const logoData = logos[shape] || logos["star"]; // Fallback to star
+  const radiusMap = {
+    "rounded-none": 0, "rounded-sm": 2, "rounded-md": 6, "rounded-lg": 8,
+    "rounded-xl": 12, "rounded-2xl": 16, "rounded-3xl": 24, "rounded-full": 16
+  };
+
+  let radius = 4;
+  const elementClasses = styling.components?.element || "";
+  for (const [cls, r] of Object.entries(radiusMap)) {
+    if (elementClasses.includes(cls)) radius = r;
+  }
+
+  const paths = logoData.path.map(d => `<path d="${d}" fill="#ffffff" stroke="none" />`).join("");
+  const circles = (logoData.circle || []).map(c => `<circle cx="${c[0]}" cy="${c[1]}" r="${c[2]}" fill="#ffffff" stroke="none" />`).join("");
+  const rects = (logoData.rect || []).map(r => `<rect x="${r[0]}" y="${r[1]}" width="${r[2]}" height="${r[3]}" rx="${r[4]}" fill="#ffffff" stroke="none" />`).join("");
+
+  const svgString = `
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <rect x="0" y="0" width="32" height="32" rx="${radius}" fill="${primaryColor}" />
+  <g transform="translate(8, 8)">
+    <svg width="16" height="16" viewBox="0 0 24 24">
+      ${paths}
+      ${circles}
+      ${rects}
+    </svg>
+  </g>
+</svg>
+    `.trim();
+
+  return `data:image/svg+xml;base64,${Buffer.from(svgString).toString('base64')}`;
+}

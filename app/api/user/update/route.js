@@ -1,7 +1,7 @@
 import { auth } from "@/libs/auth";
 import clientPromise from "@/libs/mongo";
 import User from "@/models/User";
-import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
+import { isResponseMock, responseMock, responseSuccess, responseError, generateLogoBase64 } from "@/libs/utils.server";
 import { checkReqRateLimit } from "@/libs/rateLimit";
 
 import setting from "@/data/modules/setting/setting0.json";
@@ -32,12 +32,22 @@ export async function POST(req) {
       return responseError(notAuthorized.message, {}, notAuthorized.status);
     }
 
-    const { name, image, styling } = await req.json();
+    const { name, image, styling, visualConfig } = await req.json();
+
+    // Generate logo server-side
+    const logoShape = visualConfig?.logo?.shape || "star";
+    const logo = generateLogoBase64(styling, { logo: { shape: logoShape } });
+
+    // Merge logo into styling object
+    const stylingWithLogo = { ...styling, logo };
 
     await clientPromise;
-    await User.updateOne({ email: session.user.email }, { $set: { name, image, styling } });
+    await User.updateOne(
+      { email: session.user.email },
+      { $set: { name, image, styling: stylingWithLogo } }
+    );
 
-    return responseSuccess(profileUpdated.message, { name, image, styling }, profileUpdated.status);
+    return responseSuccess(profileUpdated.message, { name, image, styling: stylingWithLogo }, profileUpdated.status);
   } catch (e) {
     console.error("User update error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);

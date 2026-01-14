@@ -6,9 +6,7 @@
     "description": "",
     "tagline": ""
   },
-  "availableApps": [
-    "loyalboards"
-  ],
+  "availableApps": ["loyalboards"],
   "business": {
     "last_updated": "12/23/2025",
     "name": "TudorCrisan.dev",
@@ -36,10 +34,7 @@
   },
   "modules": [],
   "auth": {
-    "providers": [
-      "resend",
-      "google"
-    ],
+    "providers": ["resend", "google"],
     "hasThemePages": true,
     "hasThemeEmails": true
   },

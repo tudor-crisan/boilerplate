@@ -21,9 +21,11 @@ import { useStyling } from "@/context/ContextStyling";
 import { defaultStyling, appStyling } from "@/libs/defaults";
 import themes from "@/lists/themes";
 import { fontMap } from "@/lists/fonts";
+import { useVisual } from "@/context/ContextVisual";
 
 export default function DashboardProfile() {
   const { styling, setStyling } = useStyling();
+  const { visual } = useVisual();
   const { isLoggedIn, email, name, initials, image, updateProfile } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -119,7 +121,11 @@ export default function DashboardProfile() {
     e.preventDefault();
     setShuffleConfig(prev => ({ ...prev, auto: false }));
     setIsLoading(true);
-    const success = await updateProfile({ ...inputs, styling });
+    const success = await updateProfile({
+      ...inputs,
+      styling,
+      visualConfig: { logo: { shape: visual?.logo?.shape || "star" } }
+    });
     setIsLoading(false);
     if (success) {
       setIsModalOpen(false);

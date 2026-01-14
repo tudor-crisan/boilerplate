@@ -74,7 +74,8 @@ export const getEmailBranding = (styling) => {
     cardRoundness: extractRoundness(cardClasses),
     btnRoundness: extractRoundness(elementClasses),
     cardShadow: extractShadow(cardClasses),
-    cardBorder: extractBorder(cardClasses, themeColor)
+    cardBorder: extractBorder(cardClasses, themeColor),
+    logo: activeStyling.logo || defaultVisual.favicon?.href || defaultSetting.business?.logo || ""
   };
 };
 
