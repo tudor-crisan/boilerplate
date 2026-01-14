@@ -7,7 +7,7 @@ import Sidebar from "@/components/common/Sidebar";
 import FormCreate from "@/components/form/FormCreate";
 import BoardPublicPostsList from "@/components/modules/boards/BoardPublicPostsList";
 import BoardFilterBar from "@/components/modules/boards/BoardFilterBar";
-import { useState } from "react";
+import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
 import { defaultStyling } from "@/libs/defaults";
 import { ContextStyling } from "@/context/ContextStyling";
 import { fontMap } from "@/lists/fonts";
@@ -35,15 +35,13 @@ export default function BoardPublicClient({ board }) {
   const fontName = customStyling.font || "Inter";
   const fontFamilyValue = fontMap[fontName] || fontMap["Inter"];
 
-  const sortOptions = [
-    { label: "Top Voted", value: "votes_desc" },
-    { label: "Newest", value: "date_desc" },
-    { label: "Oldest", value: "date_asc" },
-    { label: "Most Comments", value: "comments_desc" },
-  ];
-
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("votes_desc");
+  const {
+    search,
+    setSearch,
+    sort,
+    setSort,
+    sortOptions
+  } = useBoardFiltering();
 
   return (
     <ContextStyling.Provider value={{ styling: customStyling }}>
@@ -52,7 +50,7 @@ export default function BoardPublicClient({ board }) {
         style={{ fontFamily: fontFamilyValue }}
         className="min-h-screen bg-base-200 text-base-content"
       >
-        <Main className={`!bg-transparent ${defaultStyling.general.box}`}>
+        <Main className={`bg-transparent! ${defaultStyling.general.box}`}>
           <div className="max-w-5xl space-y-4 mx-auto w-full">
             <Title>
               {board.name}

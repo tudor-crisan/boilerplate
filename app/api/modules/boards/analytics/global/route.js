@@ -3,6 +3,7 @@ import connectMongo from "@/libs/mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Board from "@/models/modules/boards/Board";
 import { NextResponse } from "next/server";
+import { getAnalyticsDateRange } from "@/libs/utils.server";
 
 export async function GET(req) {
   const session = await auth();
@@ -14,45 +15,7 @@ export async function GET(req) {
   const range = searchParams.get("range") || "30d";
 
   // Calculate Date Range
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-  let startDate = new Date(today);
-  let endDate = new Date(now); // End is now (inclusive of today's partial data if any)
-
-  switch (range) {
-    case "today":
-      startDate = today;
-      break;
-    case "yesterday":
-      startDate = new Date(today);
-      startDate.setDate(today.getDate() - 1);
-      endDate = today; // Up to start of today
-      break;
-    case "7d":
-      startDate = new Date(today);
-      startDate.setDate(today.getDate() - 7);
-      break;
-    case "30d":
-      startDate = new Date(today);
-      startDate.setDate(today.getDate() - 30);
-      break;
-    case "3m":
-      startDate = new Date(today);
-      startDate.setMonth(today.getMonth() - 3);
-      break;
-    case "thisYear":
-      startDate = new Date(now.getFullYear(), 0, 1);
-      break;
-    case "lastYear":
-      startDate = new Date(now.getFullYear() - 1, 0, 1);
-      endDate = new Date(now.getFullYear(), 0, 1);
-      break;
-    default: // 30d
-      startDate = new Date(today);
-      startDate.setDate(today.getDate() - 30);
-      break;
-  }
+  const { startDate, endDate } = getAnalyticsDateRange(range);
 
   // Find all boards owned by user
   const boards = await Board.find({ userId: session.user.id }).select("_id name");
@@ -65,11 +28,8 @@ export async function GET(req) {
   // Match condition for the range
   const matchCondition = {
     boardId: { $in: boardIds },
-    date: { $gte: startDate }
+    date: { $gte: startDate, $lte: endDate }
   };
-  if (range === "yesterday" || range === "lastYear") {
-    matchCondition.date.$lt = endDate;
-  }
 
   // Aggregate stats per board (Filtered by range)
   const analytics = await BoardAnalytics.aggregate([

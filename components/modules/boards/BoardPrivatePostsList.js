@@ -11,46 +11,21 @@ import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { formatCommentDate } from "@/libs/utils.client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
 import BoardFilterBar from "@/components/modules/boards/BoardFilterBar";
 
 const BoardPrivatePostsList = ({ posts, boardId }) => {
   const { styling } = useStyling();
   const { posts: postsState } = useBoardPosts(boardId, posts);
 
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("votes_desc");
-
-  const sortOptions = [
-    { label: "Top Voted", value: "votes_desc" },
-    { label: "Newest", value: "date_desc" },
-    { label: "Oldest", value: "date_asc" },
-    { label: "Most Comments", value: "comments_desc" },
-  ];
-
-  const filteredPosts = [...(postsState || [])]
-    .filter(post => {
-      if (!search) return true;
-      const term = search.toLowerCase();
-      return (
-        post.title?.toLowerCase().includes(term) ||
-        post.description?.toLowerCase().includes(term)
-      );
-    })
-    .sort((a, b) => {
-      switch (sort) {
-        case "votes_desc":
-          return (b.votesCounter || 0) - (a.votesCounter || 0);
-        case "date_desc":
-          return new Date(b.createdAt) - new Date(a.createdAt);
-        case "date_asc":
-          return new Date(a.createdAt) - new Date(b.createdAt);
-        case "comments_desc":
-          return (b.commentsCount || 0) - (a.commentsCount || 0);
-        default:
-          return 0;
-      }
-    });
+  const {
+    search,
+    setSearch,
+    sort,
+    setSort,
+    filteredPosts,
+    sortOptions
+  } = useBoardFiltering(postsState);
 
   return (
     <div className="space-y-4 w-full min-w-0">
@@ -82,8 +57,6 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
                 }}
                 className={`${styling.components.card} ${styling.general.box} block`}
               >
-
-
                 <div className="space-y-1 mb-4">
                   <Title className="wrap-break-word line-clamp-2 mb-4">{item.title}</Title>
                   <Paragraph className="max-h-32 wrap-break-word">
