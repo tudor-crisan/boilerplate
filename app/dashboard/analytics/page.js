@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { clientApi } from '@/libs/api';
+import { defaultSetting as settings } from "@/libs/defaults";
 import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardMain from "@/components/dashboard/DashboardMain";
@@ -29,7 +30,7 @@ export default function AnalyticsPage() {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`/api/modules/analytics/global?range=${range}`)
+    clientApi.get(settings.paths.api.analyticsGlobal, { params: { range } })
       .then(res => setData(res.data.data))
       .catch(err => console.error("Error fetching analytics:", err))
       .finally(() => setIsLoading(false));

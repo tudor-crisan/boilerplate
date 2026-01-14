@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import axios from "axios";
+import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
@@ -56,7 +56,7 @@ const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {}, commentSe
   useEffect(() => {
     // Track visit
     if (boardId) {
-      axios.post('/api/modules/analytics/visit', { boardId })
+      clientApi.post(settings.paths.api.analyticsVisit, { boardId })
         .catch(err => console.error(err));
     }
   }, [boardId]);

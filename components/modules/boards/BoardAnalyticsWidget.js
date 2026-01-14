@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { clientApi } from '@/libs/api';
+import { defaultSetting as settings } from "@/libs/defaults";
 import { useStyling } from "@/context/ContextStyling";
 import Label from "@/components/common/Label";
 import TextSmall from "@/components/common/TextSmall";
@@ -23,7 +24,7 @@ export default function BoardAnalyticsWidget({ boardId }) {
 
   useEffect(() => {
     setIsLoading(true);
-    axios.get(`/api/modules/analytics/board?boardId=${boardId}&range=${range}`)
+    clientApi.get(settings.paths.api.analyticsBoard, { params: { boardId, range } })
       .then(res => setData(res.data.stats || []))
       .catch(err => console.error(err))
       .finally(() => setIsLoading(false));

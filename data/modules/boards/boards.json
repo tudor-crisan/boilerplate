@@ -11,7 +11,10 @@
     "api": {
       "boardsStream": "/api/modules/boards/stream",
       "boardsDetail": "/api/modules/boards/board",
-      "boardsPost": "/api/modules/boards/post"
+      "boardsPost": "/api/modules/boards/post",
+      "analyticsVisit": "/api/modules/boards/analytics/visit",
+      "analyticsBoard": "/api/modules/boards/analytics/board",
+      "analyticsGlobal": "/api/modules/boards/analytics/global"
     }
   },
   "metadata": {

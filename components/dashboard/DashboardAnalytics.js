@@ -6,6 +6,7 @@ import TextSmall from "@/components/common/TextSmall";
 import Button from '@/components/button/Button';
 import Grid from '@/components/common/Grid';
 import Flex from '@/components/common/Flex';
+import { defaultSetting as settings } from "@/libs/defaults";
 import useApiRequest from '@/hooks/useApiRequest';
 import { clientApi } from '@/libs/api';
 
@@ -25,7 +26,7 @@ export default function DashboardAnalytics() {
   const { request } = useApiRequest();
 
   useEffect(() => {
-    request(() => clientApi.get('/api/modules/analytics/global'), {
+    request(() => clientApi.get(settings.paths.api.analyticsGlobal), {
       onSuccess: (msg, res) => setData(res),
       showToast: false,
     });
