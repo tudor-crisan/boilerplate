@@ -90,7 +90,7 @@ export default function EmailPreviewPage() {
 
   return (
     <div className="h-screen flex flex-col sm:flex-row">
-      <div className="bg-base-100 px-4 pb-4 pt-6 mx-auto w-full sm:w-1/3 flex flex-row sm:flex-col gap-4">
+      <div className="bg-base-100 px-0 sm:px-4 pb-4 pt-6 mx-auto max-w-88 flex flex-row sm:flex-col gap-4">
         <div className="flex-1 w-full">
           <Label>
             Email preview
@@ -102,7 +102,7 @@ export default function EmailPreviewPage() {
             withNavigation={true}
           />
         </div>
-        <div className="flex-1 p-4 border border-base-200 rounded-lg bg-base-50 max-h-32 sm:max-h-24">
+        <div className="flex-1 p-2 sm:p-2 max-h-32 sm:max-h-24">
           <Label>Send Test Email</Label>
           <div className=" flex flex-col sm:flex-row gap-2 items-end">
             <div className="flex-1">
