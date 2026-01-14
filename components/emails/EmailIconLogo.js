@@ -51,9 +51,16 @@ export default function EmailIconLogo({ branding }) {
   const shouldFill = svg.fill === "currentColor";
   const shouldStroke = svg.stroke === "currentColor";
 
-  const commonProps = {
-    fill: shouldFill ? finalColor : (svg.fill === "currentColor" ? finalColor : (svg.fill || "none")),
-    stroke: shouldStroke ? finalColor : (svg.stroke === "currentColor" ? finalColor : (svg.stroke || "none")),
+  // commonProps only for the SVG container's presentation
+  const svgProps = {
+    fill: "none",
+    stroke: "none",
+  };
+
+  // Explicit props for the path/rect/circle elements
+  const elementProps = {
+    fill: shouldFill ? finalColor : (svg.fill || "none"),
+    stroke: shouldStroke ? finalColor : (svg.stroke || "none"),
     strokeWidth: svg.strokewidth || 2,
     strokeLinecap: svg.strokelinecap || "round",
     strokeLinejoin: svg.strokelinejoin || "round"
@@ -66,7 +73,7 @@ export default function EmailIconLogo({ branding }) {
         viewBox={svg.viewbox || "0 0 24 24"}
         width={svgSize}
         height={svgSize}
-        {...commonProps}
+        {...svgProps}
         preserveAspectRatio="xMidYMid meet"
         style={{
           display: "inline-block",
@@ -79,7 +86,7 @@ export default function EmailIconLogo({ branding }) {
           <path
             key={`path-${i}`}
             d={d}
-            {...commonProps}
+            {...elementProps}
           />
         ))}
         {logoData.circle && logoData.circle.map((c, i) => (
@@ -88,7 +95,7 @@ export default function EmailIconLogo({ branding }) {
             cx={c[0]}
             cy={c[1]}
             r={c[2]}
-            {...commonProps}
+            {...elementProps}
           />
         ))}
         {logoData.rect && logoData.rect.map((r, i) => (
@@ -99,7 +106,7 @@ export default function EmailIconLogo({ branding }) {
             width={r[2]}
             height={r[3]}
             rx={r[4]}
-            {...commonProps}
+            {...elementProps}
           />
         ))}
       </svg>

@@ -22,7 +22,7 @@
   },
   "logo": {
     "shape": "star",
-    "container": "size-8 bg-primary text-base-100",
+    "container": "size-8 bg-primary text-primary-content",
     "svg": {
       "classname": "size-4",
       "viewbox": "0 0 24 24",

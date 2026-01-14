@@ -4,6 +4,7 @@ import { isResponseMock, responseMock, responseSuccess, responseError } from "@/
 import { defaultSetting as settings } from "@/libs/defaults";
 import Board from "@/models/modules/boards/Board";
 import Comment from "@/models/modules/boards/Comment";
+import Post from "@/models/modules/boards/Post";
 import { Filter } from "bad-words";
 import { checkReqRateLimit } from "@/libs/rateLimit";
 import { trackEvent, createNotification } from "@/libs/modules/boards/analytics";
