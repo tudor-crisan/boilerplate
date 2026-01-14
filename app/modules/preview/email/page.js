@@ -8,6 +8,7 @@ import { useStyling } from "@/context/ContextStyling";
 import Input from "@/components/input/Input";
 import Button from "@/components/button/Button";
 import { useSession } from "next-auth/react";
+import { getEmailBranding } from '@/components/emails/email-theme';
 import toast from "react-hot-toast";
 import useApiRequest from "@/hooks/useApiRequest";
 import { clientApi } from "@/libs/api";
@@ -21,8 +22,14 @@ const MOCK_BOARDS = [
 ];
 
 const TEMPLATES = {
-  'Quick Link': (data, styling) => <QuickLinkTemplate host={data.host} url={data.url} styling={styling} />,
-  'Weekly Digest': (data, styling) => <WeeklyDigestTemplate styling={styling} baseUrl={data.baseUrl} userName={data.userName} boards={data.boards} />
+  'Quick Link': {
+    component: (data, styling) => <QuickLinkTemplate host={data.host} url={data.url} styling={styling} />,
+    subject: (data, styling) => `Sign in to ${getEmailBranding(styling).appName}`
+  },
+  'Weekly Digest': {
+    component: (data, styling) => <WeeklyDigestTemplate styling={styling} baseUrl={data.baseUrl} userName={data.userName} boards={data.boards} />,
+    subject: () => 'Your Weekly Board Stats 📈'
+  }
 };
 
 export default function EmailPreviewPage() {
@@ -45,13 +52,12 @@ export default function EmailPreviewPage() {
     userName: "John Doe",
     boards: MOCK_BOARDS
   }), [host]);
-
   const html = useMemo(() => {
-    const Component = TEMPLATES[selectedTemplate];
-    if (!Component) return '';
+    const template = TEMPLATES[selectedTemplate];
+    if (!template) return '';
 
     try {
-      const markup = renderToStaticMarkup(Component(data, styling));
+      const markup = renderToStaticMarkup(template.component(data, styling));
       // Inject styles to disable interactions in the preview
       const previewStyles = `
         <style>
@@ -68,6 +74,12 @@ export default function EmailPreviewPage() {
     }
   }, [selectedTemplate, data, styling]);
 
+  const testSubject = useMemo(() => {
+    const template = TEMPLATES[selectedTemplate];
+    if (!template) return '';
+    return "[TEST] " + template.subject(data, styling);
+  }, [selectedTemplate, data, styling]);
+
   const handleSendTestEmail = () => {
     if (!session?.user?.email) {
       toast.error("You must be logged in to send a test email");
@@ -77,6 +89,7 @@ export default function EmailPreviewPage() {
     request(async () => {
       return await clientApi.post(settings.paths.api.resendTestEmail, {
         template: selectedTemplate,
+        subject: testSubject,
         data: data,
         styling: styling
       });
@@ -123,12 +136,18 @@ export default function EmailPreviewPage() {
           </div>
         </div>
       </div>
-      <div className="flex-1 bg-base-100">
-        <iframe
-          srcDoc={html}
-          className="w-full h-full border-0"
-          title="Email Preview"
-        />
+      <div className="flex-1 bg-base-100 flex flex-col">
+        <div className="p-4 border-b border-base-200 bg-base-200/50">
+          <p className="text-sm font-medium opacity-70 mb-1">Subject:</p>
+          <p className="font-semibold">{testSubject}</p>
+        </div>
+        <div className="flex-1">
+          <iframe
+            srcDoc={html}
+            className="w-full h-full border-0"
+            title="Email Preview"
+          />
+        </div>
       </div>
     </div>
   );

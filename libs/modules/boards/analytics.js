@@ -1,4 +1,5 @@
 import connectMongo from "@/libs/mongoose";
+import mongoose from "mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Notification from "@/models/modules/boards/Notification";
 import Board from "@/models/modules/boards/Board";
@@ -20,6 +21,7 @@ export async function trackEvent(boardId, type) {
     await connectMongo();
     const today = getTodayDate();
     const update = { $inc: {} };
+    const boardObjectId = new mongoose.Types.ObjectId(boardId);
 
     if (type === 'VIEW') update.$inc.views = 1;
     else if (type === 'POST') update.$inc.posts = 1;
@@ -28,7 +30,7 @@ export async function trackEvent(boardId, type) {
     else return;
 
     await BoardAnalytics.updateOne(
-      { boardId, date: today },
+      { boardId: boardObjectId, date: today },
       update,
       { upsert: true }
     );

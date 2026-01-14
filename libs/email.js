@@ -20,21 +20,25 @@ export const sendEmail = async ({
     const path = apiPath.startsWith('/') ? apiPath : '/' + apiPath;
     const fullUrl = base + path;
 
+    const body = {
+      from: from,
+      to: email,
+      reply_to: replyTo,
+      subject,
+      html,
+      text,
+      headers
+    };
+
+    console.log("resend API request body:", JSON.stringify(body, null, 2));
+
     const res = await fetch(fullUrl, {
       method,
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        from: from,
-        to: email,
-        reply_to: replyTo,
-        subject,
-        html,
-        text,
-        headers
-      }),
+      body: JSON.stringify(body),
     });
 
     if (!res.ok) {

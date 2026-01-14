@@ -1,5 +1,6 @@
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
+import mongoose from "mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Board from "@/models/modules/boards/Board";
 import { NextResponse } from "next/server";
@@ -26,7 +27,7 @@ export async function GET(req) {
 
   // Get stats
   const stats = await BoardAnalytics.find({
-    boardId,
+    boardId: new mongoose.Types.ObjectId(boardId),
     date: { $gte: startDate, $lte: endDate }
   }).sort({ date: 1 });
 

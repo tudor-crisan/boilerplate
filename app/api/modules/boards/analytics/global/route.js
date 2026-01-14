@@ -1,5 +1,6 @@
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
+import mongoose from "mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Board from "@/models/modules/boards/Board";
 import { NextResponse } from "next/server";
@@ -19,7 +20,7 @@ export async function GET(req) {
 
   // Find all boards owned by user
   const boards = await Board.find({ userId: session.user.id }).select("_id name");
-  const boardIds = boards.map(b => b._id);
+  const boardIds = boards.map(b => new mongoose.Types.ObjectId(b._id));
 
   if (boardIds.length === 0) {
     return NextResponse.json({ data: { boards: [], timeline: [] } });

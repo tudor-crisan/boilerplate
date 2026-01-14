@@ -72,13 +72,13 @@ export default function AnalyticsPage() {
                     <div className="flex items-end space-x-1 h-64 pt-4 w-full">
                       {data.timeline.map((day, i) => {
                         const total = (day.views || 0) + (day.posts || 0) + (day.votes || 0) + (day.comments || 0);
-                        const maxVal = Math.max(...data.timeline.map(t => (t.views || 0) + (t.posts || 0) + (t.votes || 0) + (t.comments || 0))) || 1;
-                        const height = Math.max((total / maxVal) * 100, 2);
+                        const maxVal = Math.max(1, ...data.timeline.map(t => (t.views || 0) + (t.posts || 0) + (t.votes || 0) + (t.comments || 0)));
+                        const height = (total / maxVal) * 100;
 
                         return (
-                          <div key={i} className="flex-1 flex flex-col justify-end group relative">
+                          <div key={i} className="flex-1 h-full flex flex-col justify-end group relative">
                             <div className="tooltip tooltip-primary w-full h-full flex items-end" data-tip={`${new Date(day._id).toLocaleDateString()}: ${total} events`}>
-                              <div className="bg-primary opacity-70 hover:opacity-100 transition-all rounded-t w-full" style={{ height: `${height}%` }}></div>
+                              <div className="bg-primary opacity-70 hover:opacity-100 transition-all rounded-t w-full" style={{ height: `${Math.max(height, 2)}%` }}></div>
                             </div>
                           </div>
                         );

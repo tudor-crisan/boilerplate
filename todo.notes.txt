@@ -2,6 +2,10 @@ curl -X GET http://localhost:3000/api/cron/weekly-digest -H "Authorization: Bear
 
 -------
 
+fix the svg display on the email, it doesn't show the paths, circles etc, just the rectangle with the primary color
+
+-------
+
 activity doesn't show anything on /dashboard/analytics and on each individual analytics for each board
 
 -------

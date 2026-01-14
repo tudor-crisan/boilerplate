@@ -15,7 +15,7 @@ export async function POST(req) {
   if (error) return error;
 
   try {
-    const { template, data, styling } = await req.json();
+    const { template, subject, data, styling } = await req.json();
 
     let emailContent;
 
@@ -38,13 +38,15 @@ export async function POST(req) {
       return NextResponse.json({ error: "Error generating email content" }, { status: 500 });
     }
 
-    console.log("Sending test email:", { template, subject: emailContent.subject });
+    const finalSubject = subject || ("[TEST] " + emailContent.subject);
+
+    console.log("Sending test email:", { template, subject: finalSubject });
 
     await sendEmail({
       from,
       to: to,
       email: to, // sendEmail uses 'email' param as 'to' based on viewing libs/email.js
-      subject: "[TEST] " + emailContent.subject,
+      subject: finalSubject,
       html: emailContent.html,
       text: emailContent.text,
     });
