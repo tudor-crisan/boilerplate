@@ -2,27 +2,6 @@ curl -X GET http://localhost:3000/api/cron/weekly-digest -H "Authorization: Bear
 
 -------
 
-fix the svg display on the email, it doesn't show the paths, circles etc, just the rectangle with the primary color
+fix the svg display on the email, it doesn't show the paths, circles etc, just the rectangle with the primary color on the email that's being sent
 
 -------
-
-activity doesn't show anything on /dashboard/analytics and on each individual analytics for each board
-
--------
-
-fix the svg to be centered on components\emails\EmailIconLogo.js and on app\api\resend\test-email\route.js instead of rateLimit.checkRateLimit instead of that, use the checkReqRateLimit as it's used in other places such as app\api\modules\boards\comment\route.js
-
--------
-
-why does it send the /api/modules/boards/notifications so many times and so often?
-
- GET /api/modules/boards/notifications 200 in 475ms (compile: 1897µs, render: 473ms)
- GET /api/modules/boards/notifications 200 in 480ms (compile: 3ms, render: 477ms)
- GET /api/modules/boards/notifications 200 in 485ms (compile: 2ms, render: 483ms)
- GET /api/modules/boards/notifications 200 in 485ms (compile: 1992µs, render: 483ms)
- GET /api/modules/boards/notifications 200 in 490ms (compile: 3ms, render: 487ms)
- GET /api/modules/boards/notifications 200 in 477ms (compile: 1977µs, render: 475ms)
- GET /api/modules/boards/notifications 200 in 475ms (compile: 2ms, render: 473ms)
- GET /api/modules/boards/notifications 200 in 210ms (compile: 3ms, render: 207ms)
- GET /api/modules/boards/notifications 200 in 501ms (compile: 2ms, render: 499ms)
- GET /api/modules/boards/analytics/global 200 in 626ms (compile: 3ms, render: 623ms)

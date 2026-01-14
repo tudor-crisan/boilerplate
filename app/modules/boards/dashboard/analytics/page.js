@@ -32,8 +32,22 @@ export default function AnalyticsPage() {
   const selectClass = styling.components.select;
   const titleClass = styling.section.title;
   const roundingClass = styling.components.element.split(' ').find(c => c.startsWith('rounded')) || 'rounded-none';
-  const barRounding = roundingClass.replace('rounded', 'rounded-t');
-  const tooltipRounding = `before:${roundingClass}`;
+  const barRounding = roundingClass.replace('rounded', '!rounded-t');
+
+  const getRadiusValue = (cls) => {
+    const map = {
+      'rounded-none': '0px',
+      'rounded-sm': '0.125rem',
+      'rounded-md': '0.375rem',
+      'rounded-lg': '0.5rem',
+      'rounded-xl': '0.75rem',
+      'rounded-2xl': '1rem',
+      'rounded-3xl': '1.5rem',
+      'rounded-full': '9999px'
+    };
+    return map[cls] || '0.25rem';
+  };
+  const tooltipRadius = getRadiusValue(roundingClass);
 
   return (
     <DashboardWrapper>
@@ -79,7 +93,11 @@ export default function AnalyticsPage() {
 
                         return (
                           <div key={i} className="flex-1 max-w-[40px] h-full flex flex-col justify-end group relative">
-                            <div className={`tooltip tooltip-primary w-full h-full flex items-end ${tooltipRounding}`} data-tip={`${new Date(day._id).toLocaleDateString()}: ${total} events`}>
+                            <div
+                              className="tooltip tooltip-primary w-full h-full flex items-end"
+                              data-tip={`${new Date(day._id).toLocaleDateString()}: ${total} events`}
+                              style={{ '--tooltip-radius': tooltipRadius }}
+                            >
                               <div className={`bg-primary opacity-70 hover:opacity-100 transition-all ${barRounding} w-full`} style={{ height: `${Math.max(height, 2)}%` }}></div>
                             </div>
                           </div>
