@@ -9,7 +9,7 @@ const { MagicLinkTemplate, WeeklyDigestTemplate } = emailTemplates;
 
 const TEMPLATES = {
   'Magic Link': (data) => <MagicLinkTemplate host={data.host} url={data.url} />,
-  'Weekly Digest': (data) => <WeeklyDigestTemplate host={data.host} userName="John Doe" boards={[
+  'Weekly Digest': (data) => <WeeklyDigestTemplate baseUrl={data.baseUrl} userName="John Doe" boards={[
     { name: "Product Feedback", stats: { views: 123, posts: 12, votes: 45, comments: 8 } },
     { name: "Feature Requests", stats: { views: 456, posts: 23, votes: 89, comments: 15 } }
   ]} />
@@ -31,7 +31,8 @@ export default function EmailPreviewPage() {
     // For now we only have Magic Link
     const data = {
       host: host,
-      url: 'https://' + host + '/'
+      url: 'https://' + host + '/',
+      baseUrl: window.location.protocol + '//' + host
     };
 
     try {

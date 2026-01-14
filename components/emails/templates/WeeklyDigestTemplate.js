@@ -1,13 +1,16 @@
 import { getEmailBranding, getLogoUrl } from '@/components/emails/email-theme';
 import { GenericLayout, EmailBody, EmailContainer, EmailButton } from '@/components/emails/EmailLayout';
 
-export default function WeeklyDigestTemplate({ host, userName, boards }) {
+export default function WeeklyDigestTemplate({ baseUrl, userName, boards }) {
   const branding = getEmailBranding();
   const {
     themeColor, base100, base200, content, appName, font,
     dividerColor, cardRoundness, btnRoundness, cardShadow, cardBorder
   } = branding;
 
+  // Extract host from baseUrl for logo logic (which expects just domain)
+  // baseUrl is expected to be like "https://domain.com" or "http://localhost:3000"
+  const host = baseUrl ? baseUrl.replace(/^https?:\/\//, '') : '';
   const logoUrl = getLogoUrl(host);
   const primaryFont = font.split(',')[0].trim().replace(/['"]/g, '');
   const fontImportName = primaryFont.replace(/\s+/g, '+');
@@ -78,7 +81,7 @@ export default function WeeklyDigestTemplate({ host, userName, boards }) {
               </div>
 
               <EmailButton
-                href={`https://${host}`}
+                href={baseUrl}
                 style={{
                   backgroundColor: themeColor,
                   color: '#ffffff',

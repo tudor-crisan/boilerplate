@@ -16,7 +16,11 @@ export const sendEmail = async ({
   headers
 }) => {
   try {
-    const res = await fetch(apiUrl + apiPath, {
+    const base = apiUrl.endsWith('/') ? apiUrl.slice(0, -1) : apiUrl;
+    const path = apiPath.startsWith('/') ? apiPath : '/' + apiPath;
+    const fullUrl = base + path;
+
+    const res = await fetch(fullUrl, {
       method,
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -55,7 +59,7 @@ export async function MagicLinkEmail({ host, url }) {
   return { subject, html, text };
 }
 
-export async function WeeklyDigestEmail({ host, userName, boards }) {
+export async function WeeklyDigestEmail({ baseUrl, userName, boards }) {
   const { WeeklyDigestTemplate } = emailTemplates;
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
 
@@ -63,7 +67,7 @@ export async function WeeklyDigestEmail({ host, userName, boards }) {
   // Simple text fallback
   const text = `Hi ${userName || 'there'}, here is your weekly summary for your boards. Please check the html version.`;
 
-  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<WeeklyDigestTemplate host={host} userName={userName} boards={boards} />);
+  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<WeeklyDigestTemplate baseUrl={baseUrl} userName={userName} boards={boards} />);
 
   return { subject, html, text };
 }

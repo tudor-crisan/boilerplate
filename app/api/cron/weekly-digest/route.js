@@ -3,6 +3,7 @@ import connectMongo from "@/libs/mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Board from "@/models/modules/boards/Board";
 import { sendEmail, WeeklyDigestEmail } from '@/libs/email';
+import { getBaseUrl } from "@/libs/utils.server";
 
 export async function GET(req) {
   const authHeader = req.headers.get('authorization');
@@ -61,14 +62,14 @@ export async function GET(req) {
 
     // Send emails
     let emailsSent = 0;
-    const host = req.headers.get('host') || 'localhost:3000';
+    const baseUrl = getBaseUrl();
 
     for (const userId in userBoards) {
       const data = userBoards[userId];
 
       try {
         const { subject, html, text } = await WeeklyDigestEmail({
-          host,
+          baseUrl,
           userName: data.name,
           boards: data.boards
         });

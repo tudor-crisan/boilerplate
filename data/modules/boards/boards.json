@@ -14,7 +14,8 @@
       "boardsPost": "/api/modules/boards/post",
       "analyticsVisit": "/api/modules/boards/analytics/visit",
       "analyticsBoard": "/api/modules/boards/analytics/board",
-      "analyticsGlobal": "/api/modules/boards/analytics/global"
+      "analyticsGlobal": "/api/modules/boards/analytics/global",
+      "boardsNotifications": "/api/modules/boards/notifications"
     }
   },
   "metadata": {

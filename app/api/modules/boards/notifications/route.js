@@ -13,7 +13,7 @@ export async function GET(req) {
     .limit(50)
     .populate("boardId", "name slug");
 
-  return NextResponse.json({ notifications });
+  return NextResponse.json({ data: { notifications } });
 }
 
 export async function PUT(req) {
@@ -28,5 +28,5 @@ export async function PUT(req) {
     { $set: { isRead: true } }
   );
 
-  return NextResponse.json({ success: true });
+  return NextResponse.json({ data: { success: true } });
 }
