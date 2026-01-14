@@ -9,12 +9,15 @@ const useBoardComments = (postId) => {
   const [comments, setComments] = useState([]);
 
   const { request: fetchRequest, loading: isLoading } = useApiRequest();
+  const { request: silentFetchRequest } = useApiRequest(); // New request handler for background fetches
   const { request: actionRequest, loading: isSubmitting, inputErrors } = useApiRequest();
 
-  const fetchComments = useCallback(async () => {
+  const fetchComments = useCallback(async (isBackground = false) => {
     if (!postId) return;
 
-    await fetchRequest(
+    const requestHandler = isBackground ? silentFetchRequest : fetchRequest;
+
+    await requestHandler(
       () => clientApi.get(settings.forms.Comment.formConfig.apiUrl + "?postId=" + postId),
       {
         onSuccess: (message, data) => {
@@ -25,7 +28,7 @@ const useBoardComments = (postId) => {
         showToast: false
       }
     );
-  }, [postId, fetchRequest]);
+  }, [postId, fetchRequest, silentFetchRequest]);
 
   useEffect(() => {
     fetchComments();
@@ -43,7 +46,7 @@ const useBoardComments = (postId) => {
         if (data.type === "comment-update" && data.postId === postId) {
           // Re-fetch to ensure we get populated user data and avoid duplicates
           // This handles both "add" (getting the real user info) and "remove" (syncing state)
-          fetchComments();
+          fetchComments(true); // Call with isBackground = true
         }
       } catch (error) {
         console.error("SSE parse error", error);
@@ -67,7 +70,7 @@ const useBoardComments = (postId) => {
             // Optimistic update - safely check for duplicates
             setComments(prev => {
               if (prev.some(c => c._id === data.comment._id)) return prev;
-              return [data.comment, ...prev];
+              return [...prev, data.comment]; // Add to end of list
             });
             if (onSuccess) onSuccess(data.comment);
           }

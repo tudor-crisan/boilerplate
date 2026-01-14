@@ -116,7 +116,7 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
           // Or they saw one but item didn't update.
           // I will add a generic toast.
           if (showVoteToast) {
-            toast.success(data.action === "add" ? "New comment!" : "Comment deleted!");
+            toast.success(data.action === "add" ? "New comment added" : "Comment deleted!");
           }
         }
 

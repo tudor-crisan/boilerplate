@@ -18,6 +18,7 @@ export default function BoardDashboardNotifications() {
   const { request: actionReq } = useApiRequest();
   const [loadingIds, setLoadingIds] = useState([]);
   const [isMarkingAll, setIsMarkingAll] = useState(false);
+  const prevLoadingIdsRef = React.useRef(loadingIds);
 
   const fetchNotifications = React.useCallback(() => {
     fetchReq(() => clientApi.get(settings.paths.api.boardsNotifications), {
@@ -30,11 +31,17 @@ export default function BoardDashboardNotifications() {
     fetchNotifications();
   }, [fetchNotifications]);
 
+  // Debounced fetch: Only fetch when all concurrent requests are finished
+  useEffect(() => {
+    const prevIds = prevLoadingIdsRef.current;
+    if (prevIds.length > 0 && loadingIds.length === 0) {
+      fetchNotifications();
+    }
+    prevLoadingIdsRef.current = loadingIds;
+  }, [loadingIds, fetchNotifications]);
+
   const markAsRead = (ids) => {
     setLoadingIds(prev => [...new Set([...prev, ...ids])]);
-    // If we're marking more than one, assume it's "Mark All"
-    // (In a more complex app we might pass a flag, but this heuristic works for now 
-    // since the only other call is single ID).
     if (ids.length > 1) {
       setIsMarkingAll(true);
     }
@@ -48,7 +55,7 @@ export default function BoardDashboardNotifications() {
       onSuccess: () => {
         setLoadingIds(prev => prev.filter(id => !ids.includes(id)));
         setIsMarkingAll(false);
-        fetchNotifications();
+        // fetchNotifications() is now handled by the useEffect above
       },
       onError: () => {
         setLoadingIds(prev => prev.filter(id => !ids.includes(id)));
