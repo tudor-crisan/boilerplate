@@ -22,7 +22,9 @@ export default function BoardAnalyticsWidget({ boardId }) {
       .catch(err => console.error(err))
       .finally(() => setIsLoading(false));
   }, [boardId, range]);
-  const barRounding = styling.components.element.split(' ').find(c => c.startsWith('rounded'))?.replace('rounded', 'rounded-t') || 'rounded-t-none';
+  const roundingClass = styling.components.element.split(' ').find(c => c.startsWith('rounded')) || 'rounded-none';
+  const barRounding = roundingClass.replace('rounded', 'rounded-t');
+  const tooltipRounding = `before:${roundingClass}`;
 
   // Calculate totals from data
   const totals = (data || []).reduce((acc, curr) => ({
@@ -80,7 +82,7 @@ export default function BoardAnalyticsWidget({ boardId }) {
                 const height = (total / max) * 100;
                 return (
                   <div key={i} className="flex-1 max-w-8 h-full flex flex-col justify-end group relative">
-                    <div className="tooltip tooltip-left w-full h-full flex items-end" data-tip={`${new Date(day.date).toLocaleDateString()}: ${total}`}>
+                    <div className={`tooltip tooltip-left w-full h-full flex items-end ${tooltipRounding}`} data-tip={`${new Date(day.date).toLocaleDateString()}: ${total}`}>
                       <div className={`bg-primary opacity-60 hover:opacity-100 transition-all ${barRounding} w-full`} style={{ height: `${Math.max(height, 5)}%` }}></div>
                     </div>
                   </div>
