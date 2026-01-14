@@ -1,5 +1,6 @@
-import { getEmailBranding, getLogoUrl } from '@/components/emails/email-theme';
+import { getEmailBranding } from '@/components/emails/email-theme';
 import { GenericLayout, EmailBody, EmailContainer, EmailButton } from '@/components/emails/EmailLayout';
+import EmailIconLogo from '@/components/emails/EmailIconLogo';
 
 export default function WeeklyDigestTemplate({ baseUrl, userName, boards, styling }) {
   const branding = getEmailBranding(styling);
@@ -29,17 +30,7 @@ export default function WeeklyDigestTemplate({ baseUrl, userName, boards, stylin
             border: cardBorder
           }}>
             <div style={{ textAlign: 'center', marginBottom: '40px', whiteSpace: 'nowrap' }}>
-              {logoUrl && (
-                <div style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '12px', lineHeight: 0 }}>
-                  <img
-                    src={logoUrl}
-                    width="32"
-                    height="32"
-                    alt="Logo"
-                    style={{ display: 'block', width: '32px', height: '32px', borderRadius: btnRoundness }}
-                  />
-                </div>
-              )}
+              <EmailIconLogo branding={branding} />
               <h1 style={{
                 display: 'inline-block',
                 fontSize: '22px',

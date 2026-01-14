@@ -21,8 +21,6 @@ export default function BoardAnalyticsWidget({ boardId }) {
       .finally(() => setIsLoading(false));
   }, [boardId, range]);
 
-  if (isLoading && !data) return <div className="flex justify-center p-4"><span className="loading loading-spinner text-primary"></span></div>;
-
   // Calculate totals from data
   const totals = (data || []).reduce((acc, curr) => ({
     views: acc.views + (curr.views || 0),
@@ -45,51 +43,58 @@ export default function BoardAnalyticsWidget({ boardId }) {
         {ranges.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
       </select>
 
-      <div className="grid grid-cols-2 gap-2">
-        <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
-          <TextSmall className="mb-1">Views</TextSmall>
-          <span className="text-xl font-bold text-primary leading-none">{totals.views}</span>
+      {isLoading ? (
+        <div className="flex justify-center p-12">
+          <span className="loading loading-spinner text-primary"></span>
         </div>
-        <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
-          <TextSmall className="mb-1">Posts</TextSmall>
-          <span className="text-xl font-bold text-secondary leading-none">{totals.posts}</span>
-        </div>
-        <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
-          <TextSmall className="mb-1">Votes</TextSmall>
-          <span className="text-xl font-bold leading-none">{totals.votes}</span>
-        </div>
-        <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
-          <TextSmall className="mb-1">Comments</TextSmall>
-          <span className="text-xl font-bold leading-none">{totals.comments}</span>
-        </div>
-      </div>
-
-      {/* Chart */}
-      <div className={`${styling.components.card} p-3`}>
-        <TextSmall className="font-bold mb-2">Activity Trend</TextSmall>
-        <div className="flex items-end space-x-1 h-16 w-full">
-          {data && data.length > 0 ? data.map((day, i) => {
-            const total = (day.views || 0) + (day.posts || 0) + (day.votes || 0) + (day.comments || 0);
-            const max = Math.max(...data.map(d => (d.views || 0) + (d.posts || 0) + (d.votes || 0) + (d.comments || 0))) || 1;
-            const height = Math.max((total / max) * 100, 5);
-            return (
-              <div key={i} className="flex-1 flex flex-col justify-end group relative">
-                <div className="tooltip tooltip-left w-full h-full flex items-end" data-tip={`${new Date(day.date).toLocaleDateString()}: ${total}`}>
-                  <div className="bg-primary opacity-60 hover:opacity-100 transition-all rounded-t w-full" style={{ height: `${height}%` }}></div>
-                </div>
-              </div>
-            );
-          }) : (
-            <div className="w-full h-full flex items-center justify-center opacity-30">
-              <TextSmall className="uppercase font-bold">No Data</TextSmall>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 gap-2">
+            <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
+              <TextSmall className="mb-1">Views</TextSmall>
+              <span className="text-xl font-bold text-primary leading-none">{totals.views}</span>
             </div>
-          )}
-        </div>
-        <div className="flex justify-between mt-2">
-          <TextSmall className="opacity-40 uppercase font-bold">{startLabel}</TextSmall>
-          <TextSmall className="opacity-40 uppercase font-bold">{endLabel}</TextSmall>
-        </div>
-      </div>
+            <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
+              <TextSmall className="mb-1">Posts</TextSmall>
+              <span className="text-xl font-bold text-secondary leading-none">{totals.posts}</span>
+            </div>
+            <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
+              <TextSmall className="mb-1">Votes</TextSmall>
+              <span className="text-xl font-bold leading-none">{totals.votes}</span>
+            </div>
+            <div className={`${styling.components.card} p-3 flex flex-col justify-center items-center text-center bg-base-100`}>
+              <TextSmall className="mb-1">Comments</TextSmall>
+              <span className="text-xl font-bold leading-none">{totals.comments}</span>
+            </div>
+          </div>
+
+          <div className={`${styling.components.card} p-3`}>
+            <TextSmall className="font-bold mb-2">Activity Trend</TextSmall>
+            <div className="flex items-end space-x-1 h-16 w-full">
+              {data && data.length > 0 ? data.map((day, i) => {
+                const total = (day.views || 0) + (day.posts || 0) + (day.votes || 0) + (day.comments || 0);
+                const max = Math.max(...data.map(d => (d.views || 0) + (d.posts || 0) + (d.votes || 0) + (d.comments || 0))) || 1;
+                const height = Math.max((total / max) * 100, 5);
+                return (
+                  <div key={i} className="flex-1 flex flex-col justify-end group relative">
+                    <div className="tooltip tooltip-left w-full h-full flex items-end" data-tip={`${new Date(day.date).toLocaleDateString()}: ${total}`}>
+                      <div className="bg-primary opacity-60 hover:opacity-100 transition-all rounded-t w-full" style={{ height: `${height}%` }}></div>
+                    </div>
+                  </div>
+                );
+              }) : (
+                <div className="w-full h-full flex items-center justify-center opacity-30">
+                  <TextSmall className="uppercase font-bold">No Data</TextSmall>
+                </div>
+              )}
+            </div>
+            <div className="flex justify-between mt-2">
+              <TextSmall className="opacity-40 uppercase font-bold">{startLabel}</TextSmall>
+              <TextSmall className="opacity-40 uppercase font-bold">{endLabel}</TextSmall>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }
