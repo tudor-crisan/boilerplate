@@ -453,14 +453,14 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
             <button
               type="button"
               onClick={() => handleChange("appearance", appStyling)}
-              className="text-xs text-base-content/50 hover:text-base-content transition-colors underline"
+              className="text-xs text-base-content/50 hover:text-base-content transition-colors underline cursor-pointer"
             >
               Reset to default
             </button>
             <button
               type="button"
               onClick={() => handleChange("appearance", styling)}
-              className="text-xs text-base-content/50 hover:text-base-content transition-colors underline"
+              className="text-xs text-base-content/50 hover:text-base-content transition-colors underline cursor-pointer"
             >
               Use profile settings
             </button>

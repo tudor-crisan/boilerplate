@@ -59,6 +59,10 @@
     "billing-create-portal": {
       "limit": 10,
       "window": 60
+    },
+    "resend-test-email": {
+      "limit": 5,
+      "window": 60
     }
   },
   "components": {

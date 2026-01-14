@@ -16,16 +16,16 @@ export default function BoardDashboardNotifications() {
   const [notifications, setNotifications] = useState([]);
   const { request } = useApiRequest();
 
-  const fetchNotifications = () => {
+  const fetchNotifications = React.useCallback(() => {
     request(() => clientApi.get(settings.paths.api.boardsNotifications), {
       onSuccess: (msg, data) => setNotifications(data.notifications || []),
       showToast: false
     });
-  };
+  }, [request]);
 
   useEffect(() => {
     fetchNotifications();
-  });
+  }, [fetchNotifications]);
 
   const markAsRead = (ids) => {
     request(() => clientApi.put(settings.paths.api.boardsNotifications, { notificationIds: ids }), {

@@ -265,7 +265,7 @@ export default function DashboardProfile() {
                 <button
                   type="button"
                   onClick={() => setStyling({ ...defaultStyling, ...appStyling })}
-                  className="text-xs text-base-content/50 hover:text-base-content transition-colors underline"
+                  className="text-xs text-base-content/50 hover:text-base-content transition-colors underline cursor-pointer"
                 >
                   Reset to default
                 </button>

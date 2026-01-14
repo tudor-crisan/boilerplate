@@ -2,6 +2,7 @@ import { auth } from "@/libs/auth";
 import { NextResponse } from "next/server";
 import { sendEmail, QuickLinkEmail, WeeklyDigestEmail } from "@/libs/email";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { checkReqRateLimit } from "@/libs/rateLimit";
 
 export async function POST(req) {
   const session = await auth();
@@ -10,15 +11,10 @@ export async function POST(req) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const error = await checkReqRateLimit(req, "resend-test-email");
+  if (error) return error;
+
   try {
-    const ip = req.headers.get("x-forwarded-for") || "0.0.0.0";
-    const rateLimit = await import("@/libs/rateLimit");
-    const { allowed, message } = await rateLimit.checkRateLimit(ip, "send-test-email", 5, 60);
-
-    if (!allowed) {
-      return NextResponse.json({ error: message }, { status: 429 });
-    }
-
     const { template, data, styling } = await req.json();
 
     let emailContent;

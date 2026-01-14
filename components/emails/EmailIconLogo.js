@@ -60,8 +60,8 @@ export default function EmailIconLogo({ branding }) {
         strokeLinejoin={svg.strokelinejoin}
         preserveAspectRatio="xMidYMid meet"
         style={{
-          display: "block",
-          margin: "0 auto",
+          display: "inline-block",
+          verticalAlign: "middle",
           width: svgSize,
           height: svgSize,
           fill: svg.fill === "currentColor" ? finalFill : "none",
