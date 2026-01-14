@@ -9,7 +9,6 @@ export default function MagicLinkTemplate({ host, url, styling }) {
     dividerColor, cardRoundness, btnRoundness, cardShadow, cardBorder
   } = branding;
 
-  const logoUrl = getLogoUrl(host);
   const primaryFont = font.split(',')[0].trim().replace(/['"]/g, '');
   const fontImportName = primaryFont.replace(/\s+/g, '+');
 

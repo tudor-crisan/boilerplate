@@ -12,6 +12,7 @@ import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import { useAnalyticsRange } from "@/hooks/modules/boards/useAnalyticsRange";
+import IconLoading from "@/components/icon/IconLoading";
 
 export default function AnalyticsPage() {
   const { styling } = useStyling();
@@ -57,7 +58,9 @@ export default function AnalyticsPage() {
           </div>
 
           {isLoading ? (
-            <div className="flex justify-center py-20"><span className="loading loading-spinner loading-lg"></span></div>
+            <Paragraph className={`${styling.flex.start} gap-2`}>
+              <IconLoading /> Loading analytics...
+            </Paragraph>
           ) : (
             <>
               {/* Timeline Visualization */}

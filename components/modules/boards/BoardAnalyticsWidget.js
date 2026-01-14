@@ -5,7 +5,9 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import { useStyling } from "@/context/ContextStyling";
 import Label from "@/components/common/Label";
 import TextSmall from "@/components/common/TextSmall";
+import IconLoading from "@/components/icon/IconLoading";
 import { useAnalyticsRange } from "@/hooks/modules/boards/useAnalyticsRange";
+import Paragraph from '@/components/common/Paragraph';
 
 export default function BoardAnalyticsWidget({ boardId }) {
   const { styling } = useStyling();
@@ -44,9 +46,9 @@ export default function BoardAnalyticsWidget({ boardId }) {
       </select>
 
       {isLoading ? (
-        <div className="flex justify-center p-12">
-          <span className="loading loading-spinner text-primary"></span>
-        </div>
+        <Paragraph className={`${styling.flex.start} gap-2 mt-2`}>
+          <IconLoading /> Loading analytics...
+        </Paragraph>
       ) : (
         <>
           <div className="grid grid-cols-2 gap-2">

@@ -9,10 +9,6 @@ export default function WeeklyDigestTemplate({ baseUrl, userName, boards, stylin
     dividerColor, cardRoundness, btnRoundness, cardShadow, cardBorder
   } = branding;
 
-  // Extract host from baseUrl for logo logic (which expects just domain)
-  // baseUrl is expected to be like "https://domain.com" or "http://localhost:3000"
-  const host = baseUrl ? baseUrl.replace(/^https?:\/\//, '') : '';
-  const logoUrl = getLogoUrl(host);
   const primaryFont = font.split(',')[0].trim().replace(/['"]/g, '');
   const fontImportName = primaryFont.replace(/\s+/g, '+');
 
