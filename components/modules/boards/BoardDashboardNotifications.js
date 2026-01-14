@@ -8,6 +8,7 @@ import TextSmall from "@/components/common/TextSmall";
 import { defaultSetting as settings } from "@/libs/defaults";
 import useApiRequest from '@/hooks/useApiRequest';
 import { clientApi } from '@/libs/api';
+import { setDataError, setDataSuccess } from "@/libs/api";
 import Button from '@/components/button/Button';
 import Paragraph from '@/components/common/Paragraph';
 
@@ -15,7 +16,7 @@ export default function BoardDashboardNotifications() {
   const { styling } = useStyling();
   const [notifications, setNotifications] = useState([]);
   const { request: fetchReq } = useApiRequest();
-  const { request: actionReq } = useApiRequest();
+  // Removed actionReq to allow concurrent requests
   const [loadingIds, setLoadingIds] = useState([]);
   const [isMarkingAll, setIsMarkingAll] = useState(false);
   const prevLoadingIdsRef = React.useRef(loadingIds);
@@ -40,7 +41,7 @@ export default function BoardDashboardNotifications() {
     prevLoadingIdsRef.current = loadingIds;
   }, [loadingIds, fetchNotifications]);
 
-  const markAsRead = (ids) => {
+  const markAsRead = async (ids) => {
     setLoadingIds(prev => [...new Set([...prev, ...ids])]);
     if (ids.length > 1) {
       setIsMarkingAll(true);
@@ -51,18 +52,22 @@ export default function BoardDashboardNotifications() {
       ids.includes(notification._id) ? { ...notification, isRead: true } : notification
     ));
 
-    actionReq(() => clientApi.put(settings.paths.api.boardsNotifications, { notificationIds: ids }), {
-      onSuccess: () => {
+    try {
+      const res = await clientApi.put(settings.paths.api.boardsNotifications, { notificationIds: ids });
+
+      const onCompletion = () => {
         setLoadingIds(prev => prev.filter(id => !ids.includes(id)));
         setIsMarkingAll(false);
-        // fetchNotifications() is now handled by the useEffect above
-      },
-      onError: () => {
-        setLoadingIds(prev => prev.filter(id => !ids.includes(id)));
-        setIsMarkingAll(false);
-      },
-      showToast: false
-    });
+      }
+
+      if (setDataSuccess(res, onCompletion)) return;
+      if (setDataError(res, onCompletion)) return;
+
+    } catch (error) {
+      console.error(error);
+      setLoadingIds(prev => prev.filter(id => !ids.includes(id)));
+      setIsMarkingAll(false);
+    }
   };
 
   const unreadCount = notifications.filter(notification => !notification.isRead).length;
