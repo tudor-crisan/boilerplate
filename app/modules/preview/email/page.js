@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import useApiRequest from "@/hooks/useApiRequest";
 import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
+import Tooltip from "@/components/common/Tooltip";
 
 const { QuickLinkTemplate, WeeklyDigestTemplate } = emailTemplates;
 
@@ -124,11 +125,13 @@ export default function EmailPreviewPage() {
           <Label>Send Test Email</Label>
           <div className=" flex flex-col sm:flex-row gap-2 items-end">
             <div className="flex-1">
-              <Input
-                value={session?.user?.email || "Not logged in"}
-                disabled={true}
-                className="w-full"
-              />
+              <Tooltip text="Email cannot be changed">
+                <Input
+                  value={session?.user?.email || "Not logged in"}
+                  disabled={true}
+                  className="w-full"
+                />
+              </Tooltip>
             </div>
             <Button
               onClick={handleSendTestEmail}

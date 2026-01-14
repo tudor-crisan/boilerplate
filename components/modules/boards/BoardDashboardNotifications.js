@@ -15,7 +15,9 @@ export default function BoardDashboardNotifications() {
   const { styling } = useStyling();
   const [notifications, setNotifications] = useState([]);
   const { request: fetchReq } = useApiRequest();
-  const { loading: actionLoading, request: actionReq } = useApiRequest();
+  const { request: actionReq } = useApiRequest();
+  const [loadingIds, setLoadingIds] = useState([]);
+  const [isMarkingAll, setIsMarkingAll] = useState(false);
 
   const fetchNotifications = React.useCallback(() => {
     fetchReq(() => clientApi.get(settings.paths.api.boardsNotifications), {
@@ -29,13 +31,29 @@ export default function BoardDashboardNotifications() {
   }, [fetchNotifications]);
 
   const markAsRead = (ids) => {
+    setLoadingIds(prev => [...new Set([...prev, ...ids])]);
+    // If we're marking more than one, assume it's "Mark All"
+    // (In a more complex app we might pass a flag, but this heuristic works for now 
+    // since the only other call is single ID).
+    if (ids.length > 1) {
+      setIsMarkingAll(true);
+    }
+
     // Optimistic Update: Immediately mark selected notifications as read in local state
     setNotifications(prev => prev.map(notification =>
       ids.includes(notification._id) ? { ...notification, isRead: true } : notification
     ));
 
     actionReq(() => clientApi.put(settings.paths.api.boardsNotifications, { notificationIds: ids }), {
-      onSuccess: () => fetchNotifications(),
+      onSuccess: () => {
+        setLoadingIds(prev => prev.filter(id => !ids.includes(id)));
+        setIsMarkingAll(false);
+        fetchNotifications();
+      },
+      onError: () => {
+        setLoadingIds(prev => prev.filter(id => !ids.includes(id)));
+        setIsMarkingAll(false);
+      },
       showToast: false
     });
   };
@@ -55,12 +73,12 @@ export default function BoardDashboardNotifications() {
     <div className={`${styling.components.card} ${styling.general.box} space-y-3`}>
       <div className={`${styling.flex.between}`}>
         <Title>Recent Notifications</Title>
-        {unreadCount > 0 && (
+        {(unreadCount > 0 || isMarkingAll) && (
           <Button
             onClick={markAllRead}
             variant="btn-outline"
             size="btn-xs"
-            isLoading={actionLoading}
+            isLoading={isMarkingAll}
           >
             Mark all as read
           </Button>
@@ -68,7 +86,7 @@ export default function BoardDashboardNotifications() {
       </div>
       <div className="max-h-60 overflow-y-auto space-y-2">
         {notifications.map(notification => (
-          <div key={notification._id} className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70`, !notification.isRead && "border-primary alert-outline opacity-100")}>
+          <div key={notification._id} className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70`, (!notification.isRead || loadingIds.includes(notification._id)) && "border-primary alert-outline opacity-100")}>
             <div className="flex-1 space-y-1 pt-1 min-w-0">
               <TextSmall>
                 {formatCommentDate(notification.createdAt)}
@@ -85,13 +103,14 @@ export default function BoardDashboardNotifications() {
                 </span>
               </Paragraph>
             </div>
-            {!notification.isRead && (
+            {(!notification.isRead || loadingIds.includes(notification._id)) && (
               <Button
                 onClick={() => markAsRead([notification._id])}
                 variant="btn-outline"
                 size="btn-xs"
                 className="shrink-0 ml-2"
-                isLoading={actionLoading}
+                isLoading={loadingIds.includes(notification._id)}
+                disabled={notification.isRead} // Disable if already optimistically read
               >
                 Mark Read
               </Button>
