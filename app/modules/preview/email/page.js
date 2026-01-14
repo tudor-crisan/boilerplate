@@ -13,7 +13,7 @@ import useApiRequest from "@/hooks/useApiRequest";
 import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
 
-const { MagicLinkTemplate, WeeklyDigestTemplate } = emailTemplates;
+const { QuickLinkTemplate, WeeklyDigestTemplate } = emailTemplates;
 
 const MOCK_BOARDS = [
   { name: "Product Feedback", stats: { views: 123, posts: 12, votes: 45, comments: 8 } },
@@ -21,14 +21,14 @@ const MOCK_BOARDS = [
 ];
 
 const TEMPLATES = {
-  'Magic Link': (data, styling) => <MagicLinkTemplate host={data.host} url={data.url} styling={styling} />,
+  'Quick Link': (data, styling) => <QuickLinkTemplate host={data.host} url={data.url} styling={styling} />,
   'Weekly Digest': (data, styling) => <WeeklyDigestTemplate styling={styling} baseUrl={data.baseUrl} userName={data.userName} boards={data.boards} />
 };
 
 export default function EmailPreviewPage() {
   const { styling } = useStyling();
   const { data: session } = useSession();
-  const [selectedTemplate, setSelectedTemplate] = useState('Magic Link');
+  const [selectedTemplate, setSelectedTemplate] = useState('Quick Link');
   const [host, setHost] = useState('/');
 
   const { loading: isSending, request } = useApiRequest();

@@ -5,7 +5,7 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/libs/mongo";
 import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
-import { MagicLinkEmail, sendEmail } from "@/libs/email";
+import { QuickLinkEmail, sendEmail } from "@/libs/email";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 import { validateEmail } from "@/libs/utils.server";
@@ -29,7 +29,7 @@ const providersConfig = {
         } catch (e) {
           console.error("Error fetching user styling for email:", e);
         }
-        const { subject, html, text } = await MagicLinkEmail({ host, url, styling });
+        const { subject, html, text } = await QuickLinkEmail({ host, url, styling });
 
         sendEmail({
           apiKey: provider.apiKey,

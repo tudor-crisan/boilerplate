@@ -6,7 +6,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 /**
  * Check rate limit for an IP and route.
  * @param {string} ip - User IP address
- * @param {string} route - Identifier for the action/route (e.g. "auth-magic-link")
+ * @param {string} route - Identifier for the action/route (e.g. "auth-quick-link")
  * @param {number} limit - Max requests allowed in the window (default 5)
  * @param {number} windowSeconds - Time window in seconds (default 60)
  * @returns {Promise<{ allowed: boolean, message?: string }>}

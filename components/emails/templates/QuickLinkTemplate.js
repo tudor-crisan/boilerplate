@@ -2,7 +2,7 @@ import { getEmailBranding } from '@/components/emails/email-theme';
 import { GenericLayout, EmailBody, EmailContainer, EmailButton } from '@/components/emails/EmailLayout';
 import EmailIconLogo from '@/components/emails/EmailIconLogo';
 
-export default function MagicLinkTemplate({ host, url, styling }) {
+export default function QuickLinkTemplate({ host, url, styling }) {
   const branding = getEmailBranding(styling);
   const {
     themeColor, base100, base200, content, appName, font,

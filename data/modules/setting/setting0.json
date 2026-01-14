@@ -44,7 +44,7 @@
     "hasThemeEmails": true
   },
   "rateLimits": {
-    "auth-magic-link": {
+    "auth-quick-link": {
       "limit": 5,
       "window": 300
     },

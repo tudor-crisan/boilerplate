@@ -46,15 +46,15 @@ export const sendEmail = async ({
   }
 }
 
-export async function MagicLinkEmail({ host, url, styling }) {
+export async function QuickLinkEmail({ host, url, styling }) {
   const { appName } = getEmailBranding(styling);
-  const { MagicLinkTemplate } = emailTemplates;
+  const { QuickLinkTemplate } = emailTemplates;
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
 
   const subject = `Sign in to ${appName}`;
   const text = `Sign in to ${appName}\n${url}\n\nIf you did not request this email you can safely ignore it.`;
 
-  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<MagicLinkTemplate host={host} url={url} styling={styling} />);
+  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<QuickLinkTemplate host={host} url={url} styling={styling} />);
 
   return { subject, html, text };
 }

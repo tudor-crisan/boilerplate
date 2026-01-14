@@ -9,7 +9,7 @@ export async function POST(req) {
   const url = new URL(req.url);
 
   if (url.pathname.includes("/signin/email") || url.pathname.includes("/signin/resend")) {
-    const response = await checkReqRateLimit(req, "auth-magic-link");
+    const response = await checkReqRateLimit(req, "auth-quick-link");
     if (response) {
       return NextResponse.json({ url: `${url.origin}/auth/error?error=RateLimit` }, { status: 429 });
     }

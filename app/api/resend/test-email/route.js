@@ -1,6 +1,6 @@
 import { auth } from "@/libs/auth";
 import { NextResponse } from "next/server";
-import { sendEmail, MagicLinkEmail, WeeklyDigestEmail } from "@/libs/email";
+import { sendEmail, QuickLinkEmail, WeeklyDigestEmail } from "@/libs/email";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 export async function POST(req) {
@@ -28,9 +28,9 @@ export async function POST(req) {
     const to = session.user.email;
     const from = settings.business?.support_email || "noreply@example.com";
 
-    if (template === 'Magic Link') {
+    if (template === 'Quick Link') {
       const { host, url } = data;
-      emailContent = await MagicLinkEmail({ host, url, styling });
+      emailContent = await QuickLinkEmail({ host, url, styling });
     } else if (template === 'Weekly Digest') {
       const { baseUrl, userName, boards } = data;
       emailContent = await WeeklyDigestEmail({ baseUrl, userName, boards, styling });
