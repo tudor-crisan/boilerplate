@@ -3,12 +3,13 @@ import { useStyling } from "@/context/ContextStyling";
 import SvgChevronLeft from "@/components/svg/SvgChevronLeft";
 import SvgChevronRight from "@/components/svg/SvgChevronRight";
 
-export default function Select({ className = "", error, children, options, placeholder, value, withNavigation = false, ...props }) {
+export default function Select({ className = "", error, children, options, placeholder, value, withNavigation = false, rounded = false, ...props }) {
   const { styling } = useStyling();
 
   // Helper for error state
   const errorClass = error ? "select-error" : "";
-  const standardClass = `${styling.components.select} ${styling.general.element} `;
+  const roundedClass = rounded ? "rounded-md" : "";
+  const standardClass = `${styling.components.select} ${styling.general.element} ${roundedClass}`;
 
   // Navigation Logic
   let navigationControls = null;

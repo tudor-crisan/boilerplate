@@ -15,7 +15,7 @@ const AnalyticsItem = ({ text = '', className = '', count = '' }) => {
   return (
     <Flex className={`${styling.components.card} ${styling.general.box} ${styling.flex.col_center}`}>
       <TextSmall>{text}</TextSmall>
-      <Title className={className}>{count}</Title>
+      <Title className={`${className} text-2xl sm:text-3xl`}>{count}</Title>
     </Flex>
   )
 }

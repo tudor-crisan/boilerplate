@@ -51,6 +51,7 @@ export async function GET(req) {
         userBoards[userId] = {
           email: board.userId.email,
           name: board.userId.name,
+          styling: board.userId.styling,
           boards: []
         };
       }
@@ -71,7 +72,8 @@ export async function GET(req) {
         const { subject, html, text } = await WeeklyDigestEmail({
           baseUrl,
           userName: data.name,
-          boards: data.boards
+          boards: data.boards,
+          styling: data.styling
         });
 
         await sendEmail({

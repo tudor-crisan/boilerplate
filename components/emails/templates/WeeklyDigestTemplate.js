@@ -32,7 +32,7 @@ export default function WeeklyDigestTemplate({ baseUrl, userName, boards, stylin
                 fontSize: '22px',
                 fontWeight: 800,
                 margin: 0,
-                color: themeColor,
+                color: content,
                 letterSpacing: '-0.025em',
                 verticalAlign: 'middle',
                 fontFamily: font

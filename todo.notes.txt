@@ -1,9 +1,2 @@
-we need the following 
-
-- a notification system, to get notified when new posts/votes/comments are added to boards (and on each individual boards, saving these statistics)
-- a separate page to view analytics of all boards, and how everything is performing
-- on the dashboard do display a bit of stats and notifications of new changes
-- on individual o boards notifications of recent updates, and analytics for that board
-- a email notification system for weekly updates on all boards, number of posts/votes/comments/visits, like a summary of all the activity to be send on a weekly basis
-
-analyze the current system, and think how all of this can be implemented
+- go through the whole project and find any word such as "magic" lower or uppercase and replace it with Quick or quick everywhere including the filenames
+- activity doesn't show anything on /dashboard/analytics and on each individual analytics for each board

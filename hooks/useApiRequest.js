@@ -46,8 +46,10 @@ export default function useApiRequest() {
     try {
       const response = await requestFn();
 
-      const errorCallback = (errMsg, validationErrors) => {
-        setError(errMsg);
+      const errorCallback = (errMsg, validationErrors, status) => {
+        if (status !== 401) {
+          setError(errMsg);
+        }
         setInputErrors(validationErrors || {});
         onError(errMsg, validationErrors);
         setLoading(false);
@@ -75,8 +77,10 @@ export default function useApiRequest() {
       setLoading(false);
 
     } catch (err) {
-      const errorCallback = (errMsg, validationErrors) => {
-        setError(errMsg);
+      const errorCallback = (errMsg, validationErrors, status) => {
+        if (status !== 401) {
+          setError(errMsg);
+        }
         setInputErrors(validationErrors || {});
         onError(errMsg, validationErrors);
       };

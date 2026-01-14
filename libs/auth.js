@@ -3,6 +3,8 @@ import Resend from "next-auth/providers/resend"
 import Google from "next-auth/providers/google"
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/libs/mongo";
+import connectMongo from "@/libs/mongoose";
+import User from "@/models/User";
 import { MagicLinkEmail, sendEmail } from "@/libs/email";
 import { defaultSetting as settings } from "@/libs/defaults";
 
@@ -17,7 +19,17 @@ const providersConfig = {
     ...(settings.auth.hasThemeEmails && {
       async sendVerificationRequest({ identifier: email, url, provider }) {
         const { host } = new URL(url);
-        const { subject, html, text } = await MagicLinkEmail({ host, url });
+        let styling;
+        try {
+          await connectMongo();
+          const user = await User.findOne({ email });
+          if (user && user.styling) {
+            styling = user.styling;
+          }
+        } catch (e) {
+          console.error("Error fetching user styling for email:", e);
+        }
+        const { subject, html, text } = await MagicLinkEmail({ host, url, styling });
 
         sendEmail({
           apiKey: provider.apiKey,

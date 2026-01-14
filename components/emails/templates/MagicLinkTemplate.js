@@ -32,7 +32,7 @@ export default function MagicLinkTemplate({ host, url, styling }) {
                 fontSize: '22px',
                 fontWeight: 800,
                 margin: 0,
-                color: themeColor,
+                color: content,
                 letterSpacing: '-0.025em',
                 verticalAlign: 'middle',
                 fontFamily: font

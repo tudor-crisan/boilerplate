@@ -47,7 +47,8 @@ export function baseUrl() {
 }
 
 export function oklchToHex(oklchStr) {
-  if (!oklchStr || !oklchStr.startsWith("oklch(")) return "#000000";
+  if (!oklchStr) return "#000000";
+  if (!oklchStr.startsWith("oklch(")) return oklchStr;
 
   // Parse: oklch(L% C H) or oklch(L C H)
   // Remove "oklch(" and ")" and split by space/dividers
