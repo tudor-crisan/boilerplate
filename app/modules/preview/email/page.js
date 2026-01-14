@@ -40,8 +40,13 @@ export default function EmailPreviewPage() {
 
   const { loading: isSending, request } = useApiRequest();
 
+  const [mounted, setMounted] = useState(false);
+  const [currentTime, setCurrentTime] = useState('');
+
   useEffect(() => {
     setHost(window.location.host);
+    setMounted(true);
+    setCurrentTime(new Date().toLocaleTimeString());
   }, []);
 
   const data = useMemo(() => ({
@@ -77,8 +82,9 @@ export default function EmailPreviewPage() {
   const testSubject = useMemo(() => {
     const template = TEMPLATES[selectedTemplate];
     if (!template) return '';
-    return `[TEST ${new Date().toLocaleTimeString()}] ` + template.subject(data, styling);
-  }, [selectedTemplate, data, styling]);
+    const timePrefix = mounted ? `[TEST ${currentTime}] ` : '[TEST] ';
+    return timePrefix + template.subject(data, styling);
+  }, [selectedTemplate, data, styling, mounted, currentTime]);
 
   const handleSendTestEmail = () => {
     if (!session?.user?.email) {

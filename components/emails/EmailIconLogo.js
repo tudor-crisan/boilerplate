@@ -24,7 +24,9 @@ export default function EmailIconLogo({ branding }) {
   const svgSize = "16px";
 
   const containerStyle = {
-    display: "inline-block",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
     width: containerSize,
     height: containerSize,
     backgroundColor: bgColor,
@@ -32,8 +34,6 @@ export default function EmailIconLogo({ branding }) {
     borderRadius: branding.btnRoundness, // Using element roundness per IconLogo usage
     marginRight: "16px",
     verticalAlign: "middle",
-    textAlign: "center",
-    lineHeight: containerSize,
     textDecoration: "none"
   };
 
@@ -43,35 +43,43 @@ export default function EmailIconLogo({ branding }) {
   // Use logoData but fallback to hardcoded star if path is empty/missing logic
   const paths = logoData?.path?.length ? logoData.path : [STAR_PATH];
 
-  // Force white for primary background
-  const finalFill = container.includes("bg-primary") ? "white" : textColor;
+  // Force HEX white for primary background
+  const finalColor = container.includes("bg-primary") ? "#ffffff" :
+    (textColor === "white" ? "#ffffff" : textColor);
+
+  // Determine if we should fill or stroke based on configuration
+  const shouldFill = svg.fill === "currentColor";
+  const shouldStroke = svg.stroke === "currentColor";
+
+  const commonProps = {
+    fill: shouldFill ? finalColor : (svg.fill === "currentColor" ? finalColor : (svg.fill || "none")),
+    stroke: shouldStroke ? finalColor : (svg.stroke === "currentColor" ? finalColor : (svg.stroke || "none")),
+    strokeWidth: svg.strokewidth || 2,
+    strokeLinecap: svg.strokelinecap || "round",
+    strokeLinejoin: svg.strokelinejoin || "round"
+  };
 
   return (
     <div style={containerStyle}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox={svg.viewbox}
+        viewBox={svg.viewbox || "0 0 24 24"}
         width={svgSize}
         height={svgSize}
-        fill={svg.fill === "currentColor" ? finalFill : "none"}
-        stroke={svg.stroke === "currentColor" ? finalFill : "none"}
-        strokeWidth={svg.strokewidth}
-        strokeLinecap={svg.strokelinecap}
-        strokeLinejoin={svg.strokelinejoin}
+        {...commonProps}
         preserveAspectRatio="xMidYMid meet"
         style={{
           display: "inline-block",
           verticalAlign: "middle",
           width: svgSize,
           height: svgSize,
-          fill: svg.fill === "currentColor" ? finalFill : "none",
-          stroke: svg.stroke === "currentColor" ? finalFill : "none"
         }}
       >
         {paths.map((d, i) => (
           <path
             key={`path-${i}`}
             d={d}
+            {...commonProps}
           />
         ))}
         {logoData.circle && logoData.circle.map((c, i) => (
@@ -80,6 +88,7 @@ export default function EmailIconLogo({ branding }) {
             cx={c[0]}
             cy={c[1]}
             r={c[2]}
+            {...commonProps}
           />
         ))}
         {logoData.rect && logoData.rect.map((r, i) => (
@@ -90,6 +99,7 @@ export default function EmailIconLogo({ branding }) {
             width={r[2]}
             height={r[3]}
             rx={r[4]}
+            {...commonProps}
           />
         ))}
       </svg>

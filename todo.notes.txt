@@ -1,7 +1,1 @@
-curl -X GET http://localhost:3000/api/cron/weekly-digest -H "Authorization: Bearer 836ac71ba02b54506a4ae03fe3f752b684c1ab6bc831fa7643aedf5c4d0b524a"
-
--------
-
-fix the svg display on the email, it doesn't show the paths, circles etc, just the rectangle with the primary color on the email that's being sent
-
--------
+- the comments part doesn't work, it says "something went wrong"

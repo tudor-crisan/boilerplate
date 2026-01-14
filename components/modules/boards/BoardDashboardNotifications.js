@@ -14,21 +14,27 @@ import Paragraph from '@/components/common/Paragraph';
 export default function BoardDashboardNotifications() {
   const { styling } = useStyling();
   const [notifications, setNotifications] = useState([]);
-  const { loading, request } = useApiRequest();
+  const { request: fetchReq } = useApiRequest();
+  const { loading: actionLoading, request: actionReq } = useApiRequest();
 
   const fetchNotifications = React.useCallback(() => {
-    request(() => clientApi.get(settings.paths.api.boardsNotifications), {
+    fetchReq(() => clientApi.get(settings.paths.api.boardsNotifications), {
       onSuccess: (msg, data) => setNotifications(data.notifications || []),
       showToast: false
     });
-  }, [request]);
+  }, [fetchReq]);
 
   useEffect(() => {
     fetchNotifications();
   }, [fetchNotifications]);
 
   const markAsRead = (ids) => {
-    request(() => clientApi.put(settings.paths.api.boardsNotifications, { notificationIds: ids }), {
+    // Optimistic Update: Immediately mark selected notifications as read in local state
+    setNotifications(prev => prev.map(notification =>
+      ids.includes(notification._id) ? { ...notification, isRead: true } : notification
+    ));
+
+    actionReq(() => clientApi.put(settings.paths.api.boardsNotifications, { notificationIds: ids }), {
       onSuccess: () => fetchNotifications(),
       showToast: false
     });
@@ -54,7 +60,7 @@ export default function BoardDashboardNotifications() {
             onClick={markAllRead}
             variant="btn-outline"
             size="btn-xs"
-            isLoading={loading}
+            isLoading={actionLoading}
           >
             Mark all as read
           </Button>
@@ -85,7 +91,7 @@ export default function BoardDashboardNotifications() {
                 variant="btn-outline"
                 size="btn-xs"
                 className="shrink-0 ml-2"
-                isLoading={loading}
+                isLoading={actionLoading}
               >
                 Mark Read
               </Button>
