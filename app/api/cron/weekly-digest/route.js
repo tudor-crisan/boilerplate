@@ -2,9 +2,7 @@ import { NextResponse } from 'next/server';
 import connectMongo from "@/libs/mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Board from "@/models/modules/boards/Board";
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { sendEmail, WeeklyDigestEmail } from '@/libs/email';
 
 export async function GET(req) {
   const authHeader = req.headers.get('authorization');
@@ -63,31 +61,24 @@ export async function GET(req) {
 
     // Send emails
     let emailsSent = 0;
+    const host = req.headers.get('host') || 'localhost:3000';
+
     for (const userId in userBoards) {
       const data = userBoards[userId];
-      const emailContent = `
-        <h1>Weekly Board Digest</h1>
-        <p>Hi ${data.name || 'there'}, here is your weekly summary for your boards:</p>
-        <ul>
-          ${data.boards.map(b => `
-            <li style="margin-bottom: 20px;">
-              <strong>${b.name}</strong><br/>
-              👀 Views: ${b.stats.views}<br/>
-              📝 Posts: ${b.stats.posts}<br/>
-              👍 Votes: ${b.stats.votes}<br/>
-              💬 Comments: ${b.stats.comments}
-            </li>
-          `).join('')}
-        </ul>
-        <p>Keep up the great work!</p>
-      `;
 
       try {
-        await resend.emails.send({
+        const { subject, html, text } = await WeeklyDigestEmail({
+          host,
+          userName: data.name,
+          boards: data.boards
+        });
+
+        await sendEmail({
           from: process.env.RESEND_EMAIL_FROM || '',
-          to: data.email,
-          subject: 'Your Weekly Board Stats 📈',
-          html: emailContent
+          email: data.email,
+          subject,
+          html,
+          text
         });
         emailsSent++;
       } catch (e) {

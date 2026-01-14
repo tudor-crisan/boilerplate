@@ -5,10 +5,14 @@ import emailTemplates from '@/lists/emailTemplates';
 import Select from '@/components/select/Select';
 import Label from "@/components/common/Label";
 
-const { MagicLinkTemplate } = emailTemplates;
+const { MagicLinkTemplate, WeeklyDigestTemplate } = emailTemplates;
 
 const TEMPLATES = {
   'Magic Link': (data) => <MagicLinkTemplate host={data.host} url={data.url} />,
+  'Weekly Digest': (data) => <WeeklyDigestTemplate host={data.host} userName="John Doe" boards={[
+    { name: "Product Feedback", stats: { views: 123, posts: 12, votes: 45, comments: 8 } },
+    { name: "Feature Requests", stats: { views: 456, posts: 23, votes: 89, comments: 15 } }
+  ]} />
 };
 
 export default function EmailPreviewPage() {
@@ -40,19 +44,19 @@ export default function EmailPreviewPage() {
   }, [selectedTemplate, host]);
 
   return (
-    <div className="min-h-screen flex flex-col h-screen">
-      <div className="bg-base-100 p-4 flex flex-col items-center gap-1">
+    <div className="h-screen flex flex-col">
+      <div className="bg-base-100 pb-4 pt-2 mx-auto w-1/2 sm:w-1/3">
         <Label>
-          Email Preview
+          Email preview
         </Label>
         <Select
-          className="select-sm w-full max-w-xs"
           value={selectedTemplate}
           onChange={(e) => setSelectedTemplate(e.target.value)}
           options={Object.keys(TEMPLATES)}
+          withNavigation={true}
         />
       </div>
-      <div className="flex-1 bg-base-100 px-0 py-2 sm:px-8 sm:py-4 overflow-hidden relative">
+      <div className="flex-1 bg-base-100">
         <iframe
           srcDoc={html}
           className="w-full h-full border-0"

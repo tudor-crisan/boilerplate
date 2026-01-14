@@ -51,42 +51,4 @@ export const setDataSuccess = (response = null, successCallback = null) => {
   return false;
 }
 
-export const sendEmail = async ({
-  apiUrl = settings.integrations.resend.baseUrl,
-  apiPath = "emails",
-  method = "POST",
-  apiKey = "",
-  from,
-  email,
-  subject,
-  html,
-  text,
-  replyTo,
-  headers
-}) => {
-  try {
-    const res = await fetch(apiUrl + apiPath, {
-      method,
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: from,
-        to: email,
-        reply_to: replyTo,
-        subject,
-        html,
-        text,
-        headers
-      }),
-    });
 
-    if (!res.ok) {
-      const error = await res.json();
-      throw new Error(JSON.stringify(error));
-    }
-  } catch (err) {
-    throw new Error(err);
-  }
-}

@@ -3,9 +3,9 @@ import Resend from "next-auth/providers/resend"
 import Google from "next-auth/providers/google"
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/libs/mongo";
-import { MagicLinkEmail } from "@/libs/email";
+import { MagicLinkEmail, sendEmail } from "@/libs/email";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { sendEmail } from "@/libs/api";
+
 import { validateEmail } from "@/libs/utils.server";
 
 const providersConfig = {

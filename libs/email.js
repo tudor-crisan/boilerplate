@@ -1,6 +1,46 @@
-
 import emailTemplates from '@/lists/emailTemplates';
 import { getEmailBranding } from '@/components/emails/email-theme';
+import { defaultSetting as settings } from "@/libs/defaults";
+
+export const sendEmail = async ({
+  apiUrl = settings.integrations?.resend?.baseUrl || "https://api.resend.com", // Fallback if settings structure differs
+  apiPath = "/emails", // Make sure to handle leading slash if needed, api.js had "emails" but base might not have slash
+  method = "POST",
+  apiKey = process.env.RESEND_API_KEY,
+  from,
+  email,
+  subject,
+  html,
+  text,
+  replyTo,
+  headers
+}) => {
+  try {
+    const res = await fetch(apiUrl + apiPath, {
+      method,
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: from,
+        to: email,
+        reply_to: replyTo,
+        subject,
+        html,
+        text,
+        headers
+      }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(JSON.stringify(error));
+    }
+  } catch (err) {
+    throw new Error(err);
+  }
+}
 
 export async function MagicLinkEmail({ host, url }) {
   const { appName } = getEmailBranding();
@@ -11,6 +51,19 @@ export async function MagicLinkEmail({ host, url }) {
   const text = `Sign in to ${appName}\n${url}\n\nIf you did not request this email you can safely ignore it.`;
 
   const html = "<!DOCTYPE html>" + renderToStaticMarkup(<MagicLinkTemplate host={host} url={url} />);
+
+  return { subject, html, text };
+}
+
+export async function WeeklyDigestEmail({ host, userName, boards }) {
+  const { WeeklyDigestTemplate } = emailTemplates;
+  const { renderToStaticMarkup } = (await import('react-dom/server')).default;
+
+  const subject = 'Your Weekly Board Stats 📈';
+  // Simple text fallback
+  const text = `Hi ${userName || 'there'}, here is your weekly summary for your boards. Please check the html version.`;
+
+  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<WeeklyDigestTemplate host={host} userName={userName} boards={boards} />);
 
   return { subject, html, text };
 }
