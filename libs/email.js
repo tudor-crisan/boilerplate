@@ -55,7 +55,7 @@ export async function QuickLinkEmail({ host, url, styling, isTest = false }) {
   const { QuickLinkTemplate } = emailTemplates;
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
 
-  const subject = `${isTest ? "[TEST] " : ""}Sign in to ${appName}`;
+  const subject = `${isTest ? `[TEST ${new Date().toLocaleTimeString()}] ` : ""}Sign in to ${appName}`;
   const text = `Sign in to ${appName}\n${url}\n\nIf you did not request this email you can safely ignore it.`;
 
   const html = "<!DOCTYPE html>" + renderToStaticMarkup(<QuickLinkTemplate host={host} url={url} styling={styling} />);
@@ -67,7 +67,7 @@ export async function WeeklyDigestEmail({ baseUrl, userName, boards, styling, is
   const { WeeklyDigestTemplate } = emailTemplates;
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
 
-  const subject = `${isTest ? "[TEST] " : ""}Your Weekly Board Stats 📈`;
+  const subject = `${isTest ? `[TEST ${new Date().toLocaleTimeString()}] ` : ""}Your Weekly Board Stats 📈`;
   // Simple text fallback
   const text = `Hi ${userName || 'there'}, here is your weekly summary for your boards. Please check the html version.`;
 

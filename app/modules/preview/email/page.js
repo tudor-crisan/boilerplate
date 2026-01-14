@@ -77,7 +77,7 @@ export default function EmailPreviewPage() {
   const testSubject = useMemo(() => {
     const template = TEMPLATES[selectedTemplate];
     if (!template) return '';
-    return "[TEST] " + template.subject(data, styling);
+    return `[TEST ${new Date().toLocaleTimeString()}] ` + template.subject(data, styling);
   }, [selectedTemplate, data, styling]);
 
   const handleSendTestEmail = () => {
