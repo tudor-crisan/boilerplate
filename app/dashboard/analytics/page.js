@@ -111,7 +111,7 @@ export default function AnalyticsPage() {
                   </div>
                 ) : (
                   <div className="py-12 flex flex-col items-center text-center opacity-60">
-                    <SvgSearch className="w-12 h-12 mb-2" />
+                    <SvgSearch className="size-12 mb-2" />
                     <Paragraph>No activity found for this period</Paragraph>
                   </div>
                 )}

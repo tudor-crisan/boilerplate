@@ -1,7 +1,7 @@
 
 import FormCreate from "@/components/form/FormCreate";
 import LoyalBoardsList from "@/components/apps/loyalboards/LoyalBoardsList";
-import DashboardAnalyticsSummary from "@/components/dashboard/DashboardAnalyticsSummary";
+import DashboardAnalytics from "@/components/dashboard/DashboardAnalytics";
 import DashboardNotifications from "@/components/dashboard/DashboardNotifications";
 import { getUser } from "@/libs/modules/boards/db";
 import { defaultSetting as settings } from "@/libs/defaults";
@@ -28,7 +28,7 @@ export default async function LoyalBoardsDashboard() {
 
   return (
     <div className="space-y-6">
-      <DashboardAnalyticsSummary />
+      <DashboardAnalytics />
       <DashboardNotifications />
       <FormCreate
         type={type}
