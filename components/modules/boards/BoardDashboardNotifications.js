@@ -14,7 +14,7 @@ import Paragraph from '@/components/common/Paragraph';
 export default function BoardDashboardNotifications() {
   const { styling } = useStyling();
   const [notifications, setNotifications] = useState([]);
-  const { request } = useApiRequest();
+  const { loading, request } = useApiRequest();
 
   const fetchNotifications = React.useCallback(() => {
     request(() => clientApi.get(settings.paths.api.boardsNotifications), {
@@ -54,6 +54,7 @@ export default function BoardDashboardNotifications() {
             onClick={markAllRead}
             variant="btn-outline"
             size="btn-xs"
+            isLoading={loading}
           >
             Mark all as read
           </Button>
@@ -61,7 +62,7 @@ export default function BoardDashboardNotifications() {
       </div>
       <div className="max-h-60 overflow-y-auto space-y-2">
         {notifications.map(notification => (
-          <div key={notification._id} className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70`, !notification.isRead && "alert-outline alert-success opacity-100")}>
+          <div key={notification._id} className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70`, !notification.isRead && "border-primary alert-outline opacity-100")}>
             <div className="flex-1 space-y-1 pt-1 min-w-0">
               <TextSmall>
                 {formatCommentDate(notification.createdAt)}
@@ -84,6 +85,7 @@ export default function BoardDashboardNotifications() {
                 variant="btn-outline"
                 size="btn-xs"
                 className="shrink-0 ml-2"
+                isLoading={loading}
               >
                 Mark Read
               </Button>
