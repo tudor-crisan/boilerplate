@@ -6,7 +6,6 @@ import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardMain from "@/components/dashboard/DashboardMain";
 import ButtonBack from "@/components/button/ButtonBack";
-import SvgSearch from '@/components/svg/SvgSearch';
 import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
@@ -69,14 +68,14 @@ export default function AnalyticsPage() {
 
                 {data?.timeline && data.timeline.length > 0 ? (
                   <div className="w-full">
-                    <div className="flex items-end space-x-1 h-64 pt-4 w-full">
+                    <div className="flex items-end justify-center space-x-1 h-64 pt-4 w-full">
                       {data.timeline.map((day, i) => {
                         const total = (day.views || 0) + (day.posts || 0) + (day.votes || 0) + (day.comments || 0);
                         const maxVal = Math.max(1, ...data.timeline.map(t => (t.views || 0) + (t.posts || 0) + (t.votes || 0) + (t.comments || 0)));
                         const height = (total / maxVal) * 100;
 
                         return (
-                          <div key={i} className="flex-1 h-full flex flex-col justify-end group relative">
+                          <div key={i} className="flex-1 max-w-[40px] h-full flex flex-col justify-end group relative">
                             <div className="tooltip tooltip-primary w-full h-full flex items-end" data-tip={`${new Date(day._id).toLocaleDateString()}: ${total} events`}>
                               <div className="bg-primary opacity-70 hover:opacity-100 transition-all rounded-t w-full" style={{ height: `${Math.max(height, 2)}%` }}></div>
                             </div>
@@ -91,7 +90,6 @@ export default function AnalyticsPage() {
                   </div>
                 ) : (
                   <div className="py-12 flex flex-col items-center text-center opacity-60">
-                    <SvgSearch className="size-12 mb-2" />
                     <Paragraph>No activity found for this period</Paragraph>
                   </div>
                 )}

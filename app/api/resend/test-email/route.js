@@ -26,10 +26,10 @@ export async function POST(req) {
 
     if (template === 'Quick Link') {
       const { host, url } = data;
-      emailContent = await QuickLinkEmail({ host, url, styling });
+      emailContent = await QuickLinkEmail({ host, url, styling, isTest: true });
     } else if (template === 'Weekly Digest') {
       const { baseUrl, userName, boards } = data;
-      emailContent = await WeeklyDigestEmail({ baseUrl, userName, boards, styling });
+      emailContent = await WeeklyDigestEmail({ baseUrl, userName, boards, styling, isTest: true });
     } else {
       return NextResponse.json({ error: "Template not found" }, { status: 404 });
     }
@@ -38,15 +38,13 @@ export async function POST(req) {
       return NextResponse.json({ error: "Error generating email content" }, { status: 500 });
     }
 
-    const finalSubject = subject || ("[TEST] " + emailContent.subject);
-
-    console.log("Sending test email:", { template, subject: finalSubject });
+    console.log("Sending test email:", { template, subject: emailContent.subject });
 
     await sendEmail({
       from,
       to: to,
       email: to, // sendEmail uses 'email' param as 'to' based on viewing libs/email.js
-      subject: finalSubject,
+      subject: emailContent.subject,
       html: emailContent.html,
       text: emailContent.text,
     });

@@ -72,13 +72,13 @@ export default function BoardAnalyticsWidget({ boardId }) {
 
           <div className={`${styling.components.card} p-3`}>
             <TextSmall className="font-bold mb-2">Activity Trend</TextSmall>
-            <div className="flex items-end space-x-1 h-16 w-full">
+            <div className="flex items-end justify-center space-x-1 h-16 w-full">
               {data && data.length > 0 ? data.map((day, i) => {
                 const total = (day.views || 0) + (day.posts || 0) + (day.votes || 0) + (day.comments || 0);
                 const max = Math.max(1, ...data.map(d => (d.views || 0) + (d.posts || 0) + (d.votes || 0) + (d.comments || 0)));
                 const height = (total / max) * 100;
                 return (
-                  <div key={i} className="flex-1 h-full flex flex-col justify-end group relative">
+                  <div key={i} className="flex-1 max-w-8 h-full flex flex-col justify-end group relative">
                     <div className="tooltip tooltip-left w-full h-full flex items-end" data-tip={`${new Date(day.date).toLocaleDateString()}: ${total}`}>
                       <div className="bg-primary opacity-60 hover:opacity-100 transition-all rounded-t w-full" style={{ height: `${Math.max(height, 5)}%` }}></div>
                     </div>

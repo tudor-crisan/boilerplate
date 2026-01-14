@@ -89,7 +89,6 @@ export default function EmailPreviewPage() {
     request(async () => {
       return await clientApi.post(settings.paths.api.resendTestEmail, {
         template: selectedTemplate,
-        subject: testSubject,
         data: data,
         styling: styling
       });
