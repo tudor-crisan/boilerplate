@@ -32,6 +32,52 @@ export default function BoardDashboardNotifications() {
     fetchNotifications();
   }, [fetchNotifications]);
 
+  // Realtime Updates via SSE
+  useEffect(() => {
+    const eventSource = new EventSource(settings.paths.api.notificationsStream);
+
+    eventSource.onmessage = (event) => {
+      try {
+        // Handle keep-alive
+        if (event.data === ": keep-alive") return;
+
+        const data = JSON.parse(event.data);
+
+        if (data.type === "notification-create") {
+          setNotifications(prev => {
+            // Avoid duplicates
+            if (prev.some(n => n._id === data.notification._id)) return prev;
+            return [data.notification, ...prev];
+          });
+        }
+
+        if (data.type === "notification-update") {
+          setNotifications(prev => prev.map(n => {
+            if (n._id === data.notificationId && data.updatedFields) {
+              return { ...n, ...data.updatedFields };
+            }
+            return n;
+          }));
+        }
+
+      } catch (error) {
+        console.error("SSE parse error", error);
+      }
+    };
+
+    eventSource.onerror = (error) => {
+      // Vercel serverless functions will close the connection.
+      // The browser's EventSource will automatically attempt to reconnect.
+      // We can log it but usually no action needed unless it's a permanent failure.
+      console.log("SSE connection closed/error, reconnecting...");
+      eventSource.close();
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, []); // Empty dependency array to run once on mount
+
   // Debounced fetch: Only fetch when all concurrent requests are finished
   useEffect(() => {
     const prevIds = prevLoadingIdsRef.current;
@@ -92,7 +138,7 @@ export default function BoardDashboardNotifications() {
             size="btn-xs"
             isLoading={isMarkingAll}
           >
-            Mark all
+            Mark all as read
           </Button>
         )}
       </div>
@@ -120,9 +166,9 @@ const NotificationItem = ({ notification, loadingIds, markAsRead, styling }) => 
   const isContentLong = content && content.length > 70; // Threshold for truncation
 
   return (
-    <div className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70 flex-col sm:flex-row items-start`, (!notification.isRead || loadingIds.includes(notification._id)) && "border-primary alert-outline opacity-100")}>
-      <div className="flex-1 space-y-1 pt-1 min-w-0 w-full">
-        <div className="flex items-center gap-2 flex-wrap">
+    <div className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70 items-start`, (!notification.isRead || loadingIds.includes(notification._id)) && "border-primary alert-outline opacity-100")}>
+      <div className="flex-1 space-y-1 pt-1 min-w-0">
+        <div className="flex items-center gap-2">
           <TextSmall>
             {formatCommentDate(notification.createdAt)}
           </TextSmall>
@@ -146,18 +192,16 @@ const NotificationItem = ({ notification, loadingIds, markAsRead, styling }) => 
         )}
       </div>
       {(!notification.isRead || loadingIds.includes(notification._id)) && (
-        <div className="self-end sm:self-center w-full sm:w-auto mt-2 sm:mt-0">
-          <Button
-            onClick={() => markAsRead([notification._id])}
-            variant="btn-outline"
-            size="btn-xs"
-            className="w-full sm:w-auto shrink-0 sm:ml-2"
-            isLoading={loadingIds.includes(notification._id)}
-            disabled={notification.isRead}
-          >
-            Mark Read
-          </Button>
-        </div>
+        <Button
+          onClick={() => markAsRead([notification._id])}
+          variant="btn-outline"
+          size="btn-xs"
+          className="shrink-0 ml-2 mt-1"
+          isLoading={loadingIds.includes(notification._id)}
+          disabled={notification.isRead}
+        >
+          Mark Read
+        </Button>
       )}
     </div>
   );

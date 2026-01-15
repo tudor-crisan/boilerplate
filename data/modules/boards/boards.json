@@ -19,7 +19,8 @@
       "analyticsVisit": "/api/modules/boards/analytics/visit",
       "analyticsBoard": "/api/modules/boards/analytics/board",
       "analyticsGlobal": "/api/modules/boards/analytics/global",
-      "boardsNotifications": "/api/modules/boards/notifications"
+      "boardsNotifications": "/api/modules/boards/notifications",
+      "notificationsStream": "/api/modules/boards/notifications/stream"
     }
   },
   "metadata": {

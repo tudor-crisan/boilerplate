@@ -20,12 +20,23 @@ export default function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
-    clientApi.get(settings.paths.api.analyticsGlobal, { params: { range } })
-      .then(res => setData(res.data.data))
-      .catch(err => console.error("Error fetching analytics:", err))
-      .finally(() => setIsLoading(false));
-  }, [range]);
+    const fetchData = () => {
+      // Only set loading on initial load, not background updates
+      if (!data) setIsLoading(true);
+
+      clientApi.get(settings.paths.api.analyticsGlobal, { params: { range } })
+        .then(res => setData(res.data.data))
+        .catch(err => console.error("Error fetching analytics:", err))
+        .finally(() => setIsLoading(false));
+    };
+
+    fetchData();
+
+    // Poll every 30 seconds
+    const intervalId = setInterval(fetchData, 30000);
+
+    return () => clearInterval(intervalId);
+  }, [range, data]);
 
   // Dynamic Styling from Context
   const cardClass = `${styling.components.card} p-6 h-full`;
