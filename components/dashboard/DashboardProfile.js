@@ -1,31 +1,20 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { getNameInitials } from "@/libs/utils.client";
 import { useAuth } from "@/context/ContextAuth";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import Avatar from "@/components/common/Avatar";
-import Modal from "@/components/common/Modal";
 import Button from "@/components/button/Button";
-import Label from "@/components/common/Label";
-import Input from "@/components/input/Input";
 import useForm from "@/hooks/useForm";
-import Upload from "@/components/common/Upload";
 import ImageCropper from "@/components/common/ImageCropper";
-import SettingsAppearance from "@/components/settings/SettingsAppearance";
-import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
-import Tooltip from "@/components/common/Tooltip";
-
 import { useStyling } from "@/context/ContextStyling";
-import { defaultStyling, appStyling } from "@/libs/defaults";
-import themes from "@/lists/themes";
-import { fontMap } from "@/lists/fonts";
-import { useVisual } from "@/context/ContextVisual";
+import DashboardProfileEditModal from "@/components/dashboard/DashboardProfileEditModal";
+import { useStylingRandomizer } from "@/hooks/useStylingRandomizer";
 
 export default function DashboardProfile() {
   const { styling, setStyling } = useStyling();
-  const { visual } = useVisual();
   const { isLoggedIn, email, name, initials, image, updateProfile } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,68 +29,8 @@ export default function DashboardProfile() {
 
   const [originalStyling, setOriginalStyling] = useState(null);
 
-  // Shuffle Configuration
-  const [shuffleConfig, setShuffleConfig] = useState({
-    theme: true,
-    font: true,
-    styling: true,
-    auto: false
-  });
-
-  const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-  const handleShuffle = useCallback(() => {
-    setStyling((prev) => {
-      const newStyling = { ...prev };
-
-      if (shuffleConfig.theme) {
-        newStyling.theme = getRandomItem(themes);
-      }
-
-      if (shuffleConfig.font) {
-        const fontsKeys = Object.keys(fontMap);
-        newStyling.font = getRandomItem(fontsKeys);
-      }
-
-      if (shuffleConfig.styling) {
-        const radiusOptions = ["rounded-none", "rounded-md"];
-        const randomRadius = getRandomItem(radiusOptions);
-
-        const newComponents = { ...newStyling.components };
-        const newPricing = { ...newStyling.pricing };
-
-        // Replace any rounded class with new radius
-        const replaceRadius = (str) =>
-          str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() + " " + randomRadius;
-
-        Object.keys(newComponents).forEach((key) => {
-          if (typeof newComponents[key] === "string" && newComponents[key].includes("rounded")) {
-            newComponents[key] = replaceRadius(newComponents[key]);
-          }
-        });
-
-        Object.keys(newPricing).forEach((key) => {
-          if (typeof newPricing[key] === "string" && newPricing[key].includes("rounded")) {
-            newPricing[key] = replaceRadius(newPricing[key]);
-          }
-        });
-
-        newStyling.components = newComponents;
-        newStyling.pricing = newPricing;
-      }
-
-      return newStyling;
-    });
-  }, [shuffleConfig, setStyling]);
-
-  useEffect(() => {
-    let interval;
-    if (shuffleConfig.auto) {
-      handleShuffle(); // Shuffle immediately on enable
-      interval = setInterval(handleShuffle, 3000); // Shuffle every 3 seconds
-    }
-    return () => clearInterval(interval);
-  }, [shuffleConfig.auto, handleShuffle]);
+  // Randomizer Hook
+  const { shuffleConfig, setShuffleConfig, handleShuffle } = useStylingRandomizer({ setStyling });
 
   const handleEditClick = () => {
     resetInputs({ name: name || "", image: image || "" });
@@ -178,116 +107,22 @@ export default function DashboardProfile() {
           />
         </div>
 
-        <Modal
+        <DashboardProfileEditModal
           isModalOpen={isModalOpen}
           onClose={handleCancel}
-          title="Edit Profile"
-          actions={
-            <>
-              <Button
-                className="btn-ghost"
-                onClick={handleCancel}
-                disabled={isLoading}
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={handleSave}
-                isLoading={isLoading}
-              >
-                Save
-              </Button>
-            </>
-          }
-        >
-          <div className="space-y-6">
-            <div className={styling.flex.center}>
-              <Avatar
-                initials={getNameInitials(inputs.name) || initials}
-                src={inputs.image}
-                size="xl"
-              />
-            </div>
-
-            <Upload
-              onFileSelect={handleFileSelect}
-            />
-
-            {inputs.image && (
-              <div className={styling.flex.center}>
-                <button
-                  type="button"
-                  onClick={() => handleChange("image", "")}
-                  className={styling.components.link}
-                >
-                  Remove Image
-                </button>
-              </div>
-            )}
-
-            <div className="w-full space-y-3">
-              <div className="space-y-1">
-                <Label>
-                  Email
-                </Label>
-                <Tooltip text="Email address can't be edited">
-                  <Input
-                    type="email"
-                    value={email}
-                    disabled={true}
-                    placeholder="your@email.com"
-                  />
-                </Tooltip>
-              </div>
-            </div>
-
-            <div className="w-full space-y-3">
-              <div className="space-y-1">
-                <Label>
-                  Display Name
-                </Label>
-                <Input
-                  required
-                  type="text"
-                  value={inputs.name}
-                  onChange={(e) => handleChange("name", e.target.value)}
-                  placeholder="Your Name"
-                  maxLength={30}
-                  showCharacterCount
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-
-            <div className="w-full space-y-6 pt-4 border-t border-base-200">
-              <Title>Appearance</Title>
-              <SettingsAppearance
-                styling={styling}
-                onChange={setStyling}
-                isLoading={isLoading}
-              />
-              <div className="flex justify-end mt-2">
-                <button
-                  type="button"
-                  onClick={() => setStyling({ ...defaultStyling, ...appStyling })}
-                  className="text-xs text-base-content/50 hover:text-base-content transition-colors underline cursor-pointer"
-                >
-                  Reset to default
-                </button>
-              </div>
-            </div>
-
-            <div className="w-full space-y-6 pt-4 border-t border-base-200">
-              <SettingsRandomizer
-                title={<Title>Randomizer</Title>}
-                config={shuffleConfig}
-                onConfigChange={(key, val) => setShuffleConfig(prev => ({ ...prev, [key]: val }))}
-                onShuffle={handleShuffle}
-                isLoading={isLoading}
-              />
-            </div>
-          </div>
-        </Modal>
+          isLoading={isLoading}
+          onSave={handleSave}
+          inputs={inputs}
+          handleChange={handleChange}
+          styling={styling}
+          setStyling={setStyling}
+          email={email}
+          initials={initials}
+          onFileSelect={handleFileSelect}
+          shuffleConfig={shuffleConfig}
+          setShuffleConfig={setShuffleConfig}
+          handleShuffle={handleShuffle}
+        />
 
         {showCropper && tempImage && (
           <ImageCropper
