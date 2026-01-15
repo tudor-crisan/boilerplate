@@ -7,13 +7,22 @@ export async function GET(req) {
   const session = await auth();
   if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  const { searchParams } = new URL(req.url);
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = parseInt(searchParams.get("limit") || "20");
+  const skip = (page - 1) * limit;
+
   await connectMongo();
   const notifications = await Notification.find({ userId: session.user.id })
     .sort({ createdAt: -1 })
-    .limit(50)
+    .skip(skip)
+    .limit(limit)
     .populate("boardId", "name slug");
 
-  return NextResponse.json({ data: { notifications } });
+  const totalCount = await Notification.countDocuments({ userId: session.user.id });
+  const hasMore = skip + notifications.length < totalCount;
+
+  return NextResponse.json({ data: { notifications, hasMore, totalCount } });
 }
 
 export async function PUT(req) {

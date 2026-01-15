@@ -36,7 +36,7 @@ export default function AnalyticsPage() {
     const intervalId = setInterval(fetchData, 30000);
 
     return () => clearInterval(intervalId);
-  }, [range, data]);
+  }, [range]);
 
   // Dynamic Styling from Context
   const cardClass = `${styling.components.card} p-6 h-full`;

@@ -25,12 +25,26 @@ export default function BoardDashboardAnalytics() {
   const [data, setData] = useState(null);
   const { request } = useApiRequest();
 
-  useEffect(() => {
+  const fetchAnalytics = React.useCallback(() => {
     request(() => clientApi.get(settings.paths.api.analyticsGlobal), {
       onSuccess: (msg, res) => setData(res),
       showToast: false,
     });
   }, [request]);
+
+  useEffect(() => {
+    fetchAnalytics();
+    const interval = setInterval(fetchAnalytics, 30000); // Poll every 30 seconds
+
+    // Reactive refresh when notifications arrive
+    const handleRefresh = () => fetchAnalytics();
+    window.addEventListener('analytics-refresh', handleRefresh);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('analytics-refresh', handleRefresh);
+    };
+  }, [fetchAnalytics]);
 
   if (!data) return <div className="skeleton h-24 w-full"></div>;
 

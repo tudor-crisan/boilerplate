@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import clsx from 'clsx';
 import { useStyling } from "@/context/ContextStyling";
 import { formatCommentDate } from "@/libs/utils.client";
@@ -10,20 +10,34 @@ import useApiRequest from '@/hooks/useApiRequest';
 import { clientApi } from '@/libs/api';
 import { setDataError, setDataSuccess } from "@/libs/api";
 import Button from '@/components/button/Button';
-import Paragraph from '@/components/common/Paragraph';
 
 export default function BoardDashboardNotifications() {
   const { styling } = useStyling();
   const [notifications, setNotifications] = useState([]);
-  const { request: fetchReq } = useApiRequest();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingInitial, setLoadingInitial] = useState(true);
+  const { request: fetchReq, loading: isFetching } = useApiRequest();
   // Removed actionReq to allow concurrent requests
   const [loadingIds, setLoadingIds] = useState([]);
   const [isMarkingAll, setIsMarkingAll] = useState(false);
-  const prevLoadingIdsRef = React.useRef(loadingIds);
+  const prevLoadingIdsRef = useRef(loadingIds);
+  const scrollContainerRef = useRef(null);
 
-  const fetchNotifications = React.useCallback(() => {
-    fetchReq(() => clientApi.get(settings.paths.api.boardsNotifications), {
-      onSuccess: (msg, data) => setNotifications(data.notifications || []),
+  const fetchNotifications = React.useCallback((pageNumber = 1) => {
+    fetchReq(() => clientApi.get(`${settings.paths.api.boardsNotifications}?page=${pageNumber}&limit=20`), {
+      onSuccess: (msg, data) => {
+        setNotifications(prev => {
+          if (pageNumber === 1) return data.notifications || [];
+          const newNotifications = data.notifications || [];
+          const existingIds = new Set(prev.map(n => n._id));
+          const filteredNew = newNotifications.filter(n => !existingIds.has(n._id));
+          return [...prev, ...filteredNew];
+        });
+        setHasMore(data.hasMore);
+        setPage(pageNumber);
+        if (pageNumber === 1) setLoadingInitial(false);
+      },
       showToast: false
     });
   }, [fetchReq]);
@@ -49,6 +63,8 @@ export default function BoardDashboardNotifications() {
             if (prev.some(n => n._id === data.notification._id)) return prev;
             return [data.notification, ...prev];
           });
+          // Trigger analytics refresh
+          window.dispatchEvent(new CustomEvent('analytics-refresh'));
         }
 
         if (data.type === "notification-update") {
@@ -58,6 +74,8 @@ export default function BoardDashboardNotifications() {
             }
             return n;
           }));
+          // Trigger analytics refresh
+          window.dispatchEvent(new CustomEvent('analytics-refresh'));
         }
 
       } catch (error) {
@@ -125,7 +143,15 @@ export default function BoardDashboardNotifications() {
     }
   };
 
-  if (notifications.length === 0) return null;
+  const handleScroll = (e) => {
+    if (isFetching || !hasMore) return;
+    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 30) {
+      fetchNotifications(page + 1);
+    }
+  };
+
+  if (loadingInitial && notifications.length === 0) return null;
 
   return (
     <div className={`${styling.components.card} ${styling.general.box} space-y-3`}>
@@ -142,7 +168,11 @@ export default function BoardDashboardNotifications() {
           </Button>
         )}
       </div>
-      <div className="max-h-60 overflow-y-auto space-y-2">
+      <div
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="max-h-60 overflow-y-auto space-y-2"
+      >
         {notifications.map(notification => (
           <NotificationItem
             key={notification._id}
@@ -152,6 +182,11 @@ export default function BoardDashboardNotifications() {
             styling={styling}
           />
         ))}
+        {isFetching && hasMore && (
+          <div className="flex justify-center p-2">
+            <span className="loading loading-spinner loading-xs text-primary"></span>
+          </div>
+        )}
       </div>
     </div>
   );
