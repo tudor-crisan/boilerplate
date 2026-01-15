@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
+
 import connectMongo from "@/libs/mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Board from "@/models/modules/boards/Board";

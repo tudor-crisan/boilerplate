@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { sendEmail } from '@/libs/api';
+import { sendEmail } from '@/libs/email';
 import { defaultSetting as settings } from '@/libs/defaults';
 import { Webhook } from 'svix';
 import { Resend } from 'resend';

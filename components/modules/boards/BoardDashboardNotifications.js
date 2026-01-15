@@ -10,6 +10,8 @@ import useApiRequest from '@/hooks/useApiRequest';
 import { clientApi } from '@/libs/api';
 import { setDataError, setDataSuccess } from "@/libs/api";
 import Button from '@/components/button/Button';
+import IconLoading from "@/components/icon/IconLoading";
+import Paragraph from "@/components/common/Paragraph";
 
 export default function BoardDashboardNotifications() {
   const { styling } = useStyling();
@@ -154,7 +156,16 @@ export default function BoardDashboardNotifications() {
     }
   };
 
-  if (loadingInitial && notifications.length === 0) return null;
+  if (loadingInitial && notifications.length === 0) {
+    return (
+      <div className={`${styling.components.card} ${styling.general.box} space-y-3`}>
+        <Title>Recent Notifications</Title>
+        <Paragraph className={`${styling.flex.start} gap-2 opacity-60`}>
+          <IconLoading /> Loading notifications ...
+        </Paragraph>
+      </div>
+    );
+  }
 
   return (
     <div className={`${styling.components.card} ${styling.general.box} space-y-3`}>
@@ -176,19 +187,25 @@ export default function BoardDashboardNotifications() {
         onScroll={handleScroll}
         className="max-h-60 overflow-y-auto space-y-2"
       >
-        {notifications.map(notification => (
-          <NotificationItem
-            key={notification._id}
-            notification={notification}
-            loadingIds={loadingIds}
-            markAsRead={markAsRead}
-            styling={styling}
-          />
-        ))}
+        {notifications.length > 0 ? (
+          notifications.map(notification => (
+            <NotificationItem
+              key={notification._id}
+              notification={notification}
+              loadingIds={loadingIds}
+              markAsRead={markAsRead}
+              styling={styling}
+            />
+          ))
+        ) : (
+
+          <TextSmall className="overflow-hidden">No recent notifications yet. When someone votes, comments, or posts, they will appear here.</TextSmall>
+
+        )}
         {isFetching && hasMore && (
-          <div className="flex justify-center p-2">
-            <span className="loading loading-spinner loading-xs text-primary"></span>
-          </div>
+          <Paragraph className={`${styling.flex.start} gap-2 opacity-60 py-4`}>
+            <IconLoading /> Loading notifications ...
+          </Paragraph>
         )}
       </div>
     </div>
@@ -215,7 +232,7 @@ const NotificationItem = ({ notification, loadingIds, markAsRead, styling }) => 
 
         <div className="text-sm">
           <span className="font-bold mr-2">[{notification.boardId?.name || 'Board'}]</span>
-          <span className={clsx("opacity-80 break-words", !isExpanded && "line-clamp-1 inline")}>
+          <span className={clsx("opacity-80 wrap-break-words", !isExpanded && "line-clamp-1 inline")}>
             {content}
           </span>
         </div>
