@@ -92,44 +92,73 @@ export default function BoardDashboardNotifications() {
             size="btn-xs"
             isLoading={isMarkingAll}
           >
-            Mark all as read
+            Mark all
           </Button>
         )}
       </div>
       <div className="max-h-60 overflow-y-auto space-y-2">
         {notifications.map(notification => (
-          <div key={notification._id} className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70`, (!notification.isRead || loadingIds.includes(notification._id)) && "border-primary alert-outline opacity-100")}>
-            <div className="flex-1 space-y-1 pt-1 min-w-0">
-              <TextSmall>
-                {formatCommentDate(notification.createdAt)}
-              </TextSmall>
-              <Paragraph className="truncate overflow-hidden">
-                <span className="badge badge-xs badge-primary font-bold mr-2">{notification.type}</span>
-                <span className="font-bold mr-2">[{notification.boardId?.name || 'Board'}  ]</span>
-                <span className="opacity-80">
-                  {
-                    notification.type === 'POST' ? notification.data?.postTitle :
-                      notification.type === 'COMMENT' ? notification.data?.commentText :
-                        notification.data?.postTitle
-                  }
-                </span>
-              </Paragraph>
-            </div>
-            {(!notification.isRead || loadingIds.includes(notification._id)) && (
-              <Button
-                onClick={() => markAsRead([notification._id])}
-                variant="btn-outline"
-                size="btn-xs"
-                className="shrink-0 ml-2"
-                isLoading={loadingIds.includes(notification._id)}
-                disabled={notification.isRead} // Disable if already optimistically read
-              >
-                Mark Read
-              </Button>
-            )}
-          </div>
+          <NotificationItem
+            key={notification._id}
+            notification={notification}
+            loadingIds={loadingIds}
+            markAsRead={markAsRead}
+            styling={styling}
+          />
         ))}
       </div>
+    </div>
+  );
+}
+
+const NotificationItem = ({ notification, loadingIds, markAsRead, styling }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const content = notification.type === 'POST' ? notification.data?.postTitle :
+    notification.type === 'COMMENT' ? notification.data?.commentText :
+      notification.data?.postTitle;
+
+  const isContentLong = content && content.length > 70; // Threshold for truncation
+
+  return (
+    <div className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70 flex-col sm:flex-row items-start`, (!notification.isRead || loadingIds.includes(notification._id)) && "border-primary alert-outline opacity-100")}>
+      <div className="flex-1 space-y-1 pt-1 min-w-0 w-full">
+        <div className="flex items-center gap-2 flex-wrap">
+          <TextSmall>
+            {formatCommentDate(notification.createdAt)}
+          </TextSmall>
+          <span className="badge badge-xs badge-primary font-bold">{notification.type}</span>
+        </div>
+
+        <div className="text-sm">
+          <span className="font-bold mr-2">[{notification.boardId?.name || 'Board'}]</span>
+          <span className={clsx("opacity-80 break-words", !isExpanded && "line-clamp-1 inline")}>
+            {content}
+          </span>
+        </div>
+
+        {isContentLong && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-xs text-primary hover:underline mt-1 block"
+          >
+            {isExpanded ? "View Less" : "View More"}
+          </button>
+        )}
+      </div>
+      {(!notification.isRead || loadingIds.includes(notification._id)) && (
+        <div className="self-end sm:self-center w-full sm:w-auto mt-2 sm:mt-0">
+          <Button
+            onClick={() => markAsRead([notification._id])}
+            variant="btn-outline"
+            size="btn-xs"
+            className="w-full sm:w-auto shrink-0 sm:ml-2"
+            isLoading={loadingIds.includes(notification._id)}
+            disabled={notification.isRead}
+          >
+            Mark Read
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
