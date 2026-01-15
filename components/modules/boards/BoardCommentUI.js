@@ -1,14 +1,11 @@
-import { formatCommentDate } from "@/libs/utils.client";
-import Avatar from "@/components/common/Avatar";
 import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
 import Textarea from "@/components/textarea/Textarea";
 import Label from "@/components/common/Label";
-import SvgTrash from "@/components/svg/SvgTrash";
-import TextSmall from "@/components/common/TextSmall";
 import IconLoading from "@/components/icon/IconLoading";
 import Paragraph from "@/components/common/Paragraph";
 import Tooltip from "@/components/common/Tooltip";
+import BoardCommentItem from "./BoardCommentItem";
 
 const BoardCommentUI = ({
   comments = [],
@@ -59,7 +56,6 @@ const BoardCommentUI = ({
     }
   };
 
-
   if (isLoading) return (
     <div className="py-4">
       <Paragraph className="text-sm">
@@ -72,50 +68,15 @@ const BoardCommentUI = ({
     <div className="mt-4 border-t border-base-200 pt-4 space-y-4">
       <div className="space-y-4">
         {comments.map((comment) => (
-          <div key={comment._id} className="flex gap-3 items-start">
-            <Avatar
-              src={comment.userId?.image}
-              initials={(comment.userId?.name || comment.name || "?").substring(0, 2)}
-              size="sm"
-            />
-            <div className="flex-1 space-y-1">
-              <div className="flex items-center justify-between gap-2">
-                <span className="font-semibold text-sm">
-                  {comment.userId?.name || comment.name || "Anonymous"}
-                  {/* Owner Badge */}
-                  {comment.userId?._id && comment.boardId?.userId === comment.userId._id && (
-                    <span className={`${styling?.components?.element || ""} badge badge-outline badge-xs h-5 pointer-events-none select-none ml-2`}>
-                      {config.ownerBadgeText || "Owner"}
-                    </span>
-                  )}
-                </span>
-
-                <div className="flex items-center gap-2">
-                  {config.showDate && (
-                    <TextSmall className="line-clamp-2 max-w-20 text-center text-base-content/50">
-                      {/* If comment.createdAt is string/date, format it. If null (preview), use now */}
-                      {formatCommentDate(comment.createdAt || new Date())}
-                    </TextSmall>
-                  )}
-
-                  {/* Delete button logic */}
-                  {config.allowDeletion && ((user?.id && comment.userId?._id === user.id) ||
-                    (user?.id && comment.boardId?.userId === user.id) ||
-                    (localCommentIds.includes(comment._id))
-                  ) && (
-                      <Button
-                        onClick={() => onDelete && onDelete(comment._id)}
-                        variant="btn-error btn-outline"
-                        size="btn-xs px-2!"
-                      >
-                        <SvgTrash />
-                      </Button>
-                    )}
-                </div>
-              </div>
-              <p className="text-sm whitespace-pre-wrap">{comment.text}</p>
-            </div>
-          </div>
+          <BoardCommentItem
+            key={comment._id}
+            comment={comment}
+            user={user}
+            config={config}
+            styling={styling}
+            onDelete={onDelete}
+            localCommentIds={localCommentIds}
+          />
         ))}
 
         {comments.length === 0 && (

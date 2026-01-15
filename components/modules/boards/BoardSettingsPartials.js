@@ -303,7 +303,7 @@ export const CommentSectionSettings = ({ getVal, handleChange, disabled }) => (
   </SettingsContainer>
 );
 
-export const AppearanceSettingsSection = ({ getVal, handleChange, disabled, defaultStyling, appStyling, handleShuffle, children }) => (
+export const AppearanceSettingsSection = ({ getVal, handleChange, disabled, defaultStyling, appStyling, handleShuffle, styling, children }) => (
   <SettingsContainer>
     <SettingsAppearance
       styling={getVal("appearance", defaultStyling)}
@@ -321,7 +321,7 @@ export const AppearanceSettingsSection = ({ getVal, handleChange, disabled, defa
       </button>
       <button
         type="button"
-        onClick={() => handleChange("appearance", styling)} // Note: 'styling' needs to be passed in or handled differently if using context
+        onClick={() => handleChange("appearance", styling)}
         className="text-xs text-base-content/50 hover:text-base-content transition-colors underline cursor-pointer"
       >
         Use profile settings
