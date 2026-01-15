@@ -1,5 +1,8 @@
 {
   "logo": {
-    "shape": "star"
+    "shape": "cuboid"
+  },
+  "favicon": {
+    "href": "/app/loyalboards/favicon.png"
   }
 }
