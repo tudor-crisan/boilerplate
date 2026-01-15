@@ -1,6 +1,7 @@
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import Notification from "@/models/modules/boards/Notification";
+import mongoose from "mongoose";
 
 export const dynamic = "force-dynamic";
 
@@ -39,6 +40,8 @@ export async function GET(req) {
 
         // Strictly filter by userId
         if (change.fullDocument.userId.toString() !== userId) return;
+
+        console.log(`Notification event for user ${userId}:`, change.operationType);
 
         // Handle New Notification (Insert)
         if (change.operationType === "insert") {

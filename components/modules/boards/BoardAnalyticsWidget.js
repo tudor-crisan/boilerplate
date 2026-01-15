@@ -15,13 +15,25 @@ export default function BoardAnalyticsWidget({ boardId }) {
   const { range, setRange, ranges, startLabel, endLabel } = useAnalyticsRange();
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setIsLoading(true);
+  const fetchAnalytics = React.useCallback((showLoading = true) => {
+    if (showLoading) setIsLoading(true);
     clientApi.get(settings.paths.api.analyticsBoard, { params: { boardId, range } })
       .then(res => setData(res.data.stats || []))
       .catch(err => console.error(err))
       .finally(() => setIsLoading(false));
   }, [boardId, range]);
+
+  useEffect(() => {
+    fetchAnalytics();
+
+    const handleRefresh = () => fetchAnalytics(false);
+    window.addEventListener('analytics-refresh', handleRefresh);
+
+    return () => {
+      window.removeEventListener('analytics-refresh', handleRefresh);
+    };
+  }, [fetchAnalytics]);
+
 
   const roundingClass = styling.components.element.split(' ').find(c => c.startsWith('rounded')) || 'rounded-none';
   const barRounding = roundingClass.replace('rounded', '!rounded-t');

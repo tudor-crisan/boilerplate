@@ -50,12 +50,17 @@ export default function BoardDashboardNotifications() {
   useEffect(() => {
     const eventSource = new EventSource(settings.paths.api.notificationsStream);
 
+    eventSource.onopen = () => {
+      console.log("SSE connection established");
+    };
+
     eventSource.onmessage = (event) => {
       try {
         // Handle keep-alive
         if (event.data === ": keep-alive") return;
 
         const data = JSON.parse(event.data);
+        console.log("SSE message received:", data.type);
 
         if (data.type === "notification-create") {
           setNotifications(prev => {
@@ -86,9 +91,7 @@ export default function BoardDashboardNotifications() {
     eventSource.onerror = (error) => {
       // Vercel serverless functions will close the connection.
       // The browser's EventSource will automatically attempt to reconnect.
-      // We can log it but usually no action needed unless it's a permanent failure.
-      console.log("SSE connection closed/error, reconnecting...");
-      eventSource.close();
+      console.log("SSE connection interrupted, waiting for auto-reconnect...");
     };
 
     return () => {
