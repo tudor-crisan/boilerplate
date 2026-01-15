@@ -20,9 +20,11 @@ export default function AnalyticsPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = () => {
-      // Only set loading on initial load, not background updates
-      if (!data) setIsLoading(true);
+    const fetchData = (showLoading = true) => {
+      if (showLoading) {
+        setIsLoading(true);
+        setData(null);
+      }
 
       clientApi.get(settings.paths.api.analyticsGlobal, { params: { range } })
         .then(res => setData(res.data.data))
@@ -32,10 +34,17 @@ export default function AnalyticsPage() {
 
     fetchData();
 
-    // Poll every 30 seconds
-    const intervalId = setInterval(fetchData, 30000);
+    // Poll every 30 seconds (don't show full loading spinner for background updates)
+    const intervalId = setInterval(() => fetchData(false), 30000);
 
-    return () => clearInterval(intervalId);
+    // Reactive refresh when notifications arrive (triggered in BoardDashboardNotifications)
+    const handleRefresh = () => fetchData(false);
+    window.addEventListener('analytics-refresh', handleRefresh);
+
+    return () => {
+      clearInterval(intervalId);
+      window.removeEventListener('analytics-refresh', handleRefresh);
+    };
   }, [range]);
 
   // Dynamic Styling from Context

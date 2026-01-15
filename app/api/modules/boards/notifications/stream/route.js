@@ -34,7 +34,7 @@ export async function GET(req) {
 
       const changeStream = Notification.watch([], { fullDocument: 'updateLookup' });
 
-      changeStream.on("change", (change) => {
+      changeStream.on("change", async (change) => {
         if (!change.fullDocument) return;
 
         // Strictly filter by userId
@@ -42,9 +42,17 @@ export async function GET(req) {
 
         // Handle New Notification (Insert)
         if (change.operationType === "insert") {
+          // Manual population for SSE because simple watch doesn't populate
+          const fullDoc = change.fullDocument;
+          if (fullDoc.boardId) {
+            const Board = mongoose.models.Board || mongoose.model("Board");
+            const board = await Board.findById(fullDoc.boardId).select("name slug").lean();
+            fullDoc.boardId = board;
+          }
+
           sendEvent({
             type: "notification-create",
-            notification: change.fullDocument,
+            notification: fullDoc,
           });
         }
 
