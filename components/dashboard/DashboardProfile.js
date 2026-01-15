@@ -123,8 +123,7 @@ export default function DashboardProfile() {
     setIsLoading(true);
     const success = await updateProfile({
       ...inputs,
-      styling,
-      visualConfig: { logo: { shape: visual?.logo?.shape || "star" } }
+      styling
     });
     setIsLoading(false);
     if (success) {

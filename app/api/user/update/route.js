@@ -35,19 +35,22 @@ export async function POST(req) {
     const { name, image, styling, visualConfig } = await req.json();
 
     // Generate logo server-side
-    const logoShape = visualConfig?.logo?.shape || "star";
-    const logo = generateLogoBase64(styling, { logo: { shape: logoShape } });
+    let stylingData = { ...styling };
 
-    // Merge logo into styling object
-    const stylingWithLogo = { ...styling, logo };
+    if (visualConfig?.logo?.shape) {
+      const logoShape = visualConfig.logo.shape || "";
+      const logo = generateLogoBase64(styling, { logo: { shape: logoShape } });
+      // Merge logo into styling object
+      stylingData = { ...styling, logo };
+    }
 
     await clientPromise;
     await User.updateOne(
       { email: session.user.email },
-      { $set: { name, image, styling: stylingWithLogo } }
+      { $set: { name, image, styling: stylingData } }
     );
 
-    return responseSuccess(profileUpdated.message, { name, image, styling: stylingWithLogo }, profileUpdated.status);
+    return responseSuccess(profileUpdated.message, { name, image, styling: stylingData }, profileUpdated.status);
   } catch (e) {
     console.error("User update error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);
