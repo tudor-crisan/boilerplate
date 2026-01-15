@@ -15,7 +15,12 @@ import SvgVote from "@/components/svg/SvgVote";
 import { defaultSetting, defaultStyling, appStyling } from "@/libs/defaults";
 import { useStyling, ContextStyling } from "@/context/ContextStyling";
 import Accordion from "@/components/common/Accordion";
-import { GeneralFormSettings, InputTitleSettings, InputDescriptionSettings, EmptyStateSettings, CommentSectionSettings, AppearanceSettingsSection } from "./BoardSettingsPartials";
+import BoardSettingsGeneralForm from "@/components/modules/boards/settings/BoardSettingsGeneralForm";
+import BoardSettingsInputTitle from "@/components/modules/boards/settings/BoardSettingsInputTitle";
+import BoardSettingsInputDescription from "@/components/modules/boards/settings/BoardSettingsInputDescription";
+import BoardSettingsEmptyState from "@/components/modules/boards/settings/BoardSettingsEmptyState";
+import BoardSettingsComments from "@/components/modules/boards/settings/BoardSettingsComments";
+import BoardSettingsAppearance from "@/components/modules/boards/settings/BoardSettingsAppearance";
 import { useBoardRandomizer } from "@/hooks/modules/boards/useBoardRandomizer";
 import { fontMap } from "@/lists/fonts";
 
@@ -64,28 +69,28 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
   const accordionItems = [
     {
       title: "General Form Settings",
-      content: <GeneralFormSettings getVal={getVal} handleChange={handleChange} disabled={disabled} />
+      content: <BoardSettingsGeneralForm getVal={getVal} handleChange={handleChange} disabled={disabled} />
     },
     {
       title: "Input: Title",
-      content: <InputTitleSettings getVal={getVal} handleChange={handleChange} disabled={disabled} />
+      content: <BoardSettingsInputTitle getVal={getVal} handleChange={handleChange} disabled={disabled} />
     },
     {
       title: "Input: Description",
-      content: <InputDescriptionSettings getVal={getVal} handleChange={handleChange} disabled={disabled} />
+      content: <BoardSettingsInputDescription getVal={getVal} handleChange={handleChange} disabled={disabled} />
     },
     {
       title: "Empty State",
-      content: <EmptyStateSettings getVal={getVal} handleChange={handleChange} disabled={disabled} />
+      content: <BoardSettingsEmptyState getVal={getVal} handleChange={handleChange} disabled={disabled} />
     },
     {
       title: "Comment Section",
-      content: <CommentSectionSettings getVal={getVal} handleChange={handleChange} disabled={disabled} />
+      content: <BoardSettingsComments getVal={getVal} handleChange={handleChange} disabled={disabled} />
     },
     {
       title: "Appearance",
       content: (
-        <AppearanceSettingsSection
+        <BoardSettingsAppearance
           getVal={getVal}
           handleChange={handleChange}
           disabled={disabled}

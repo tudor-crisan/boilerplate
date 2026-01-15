@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import Button from "@/components/button/Button";
 import { useStyling } from "@/context/ContextStyling";
-import { getCroppedImg } from "@/libs/utils.client";
+import { getCroppedImg } from "@/libs/image";
 import InputRange from "@/components/input/InputRange";
 
 const ImageCropper = ({ imageSrc, onCropComplete, onCancel, aspect = 1 }) => {
