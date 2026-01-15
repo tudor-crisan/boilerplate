@@ -4,7 +4,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import blockedDomains from "@/lists/blockedDomains";
 import themeColors from "@/lists/themeColors";
 import logos from "@/lists/logos";
-import { oklchToHex } from "./colors";
+import { oklchToHex } from "@/libs/colors";
 
 export const getBaseUrl = () => {
   return process.env.NODE_ENV === "development"

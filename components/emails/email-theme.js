@@ -1,6 +1,6 @@
 import { defaultSetting, defaultStyling, defaultVisual } from "@/libs/defaults";
 import themeColors from "@/lists/themeColors";
-import { oklchToHex } from "@/libs/utils.client";
+import { oklchToHex } from "@/libs/colors";
 import { fontMap } from "@/lists/fonts";
 
 export const extractRoundness = (classNames = "") => {
