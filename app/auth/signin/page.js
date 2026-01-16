@@ -74,7 +74,7 @@ function SignInContent() {
     <div className="flex min-h-screen">
       {/* Left side - content */}
       <div
-        className={`w-full lg:w-1/2 ${styling.flex.center} bg-base-200 ${styling.general.box} flex-col`}
+        className={`w-full ${styling.flex.center} bg-base-200 ${styling.general.box} flex-col`}
         onFocusCapture={clearError}
         onClickCapture={clearError}
       >
@@ -143,23 +143,6 @@ function SignInContent() {
           <FooterAuth />
         )}
       </div>
-
-
-      {/* Right side - video */}
-      <div className="hidden lg:flex w-1/2 relative bg-base-100 items-center justify-center overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/apps/loyalboards/video.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-        <div className="absolute inset-0 bg-gray-900/40"></div>
-      </div>
-
     </div>
 
   );

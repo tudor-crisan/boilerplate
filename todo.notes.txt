@@ -1,0 +1,4 @@
+- refactor existing boilerplate for current apps
+- find popular saas on trustmrr and code a simpler better cheaper version
+- make launch video of full app with obs / capcut template
+- make extension for posting on multiple directories

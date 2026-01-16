@@ -16,6 +16,7 @@ import ShuffleCopywritings from "@/components/shuffle/ShuffleCopywritings";
 import ShuffleStylings from "@/components/shuffle/ShuffleStylings";
 import ShuffleVisuals from "@/components/shuffle/ShuffleVisuals";
 import IconFavicon from "@/components/icon/IconFavicon";
+import { Analytics } from "@vercel/analytics/next"
 import { getMetadata } from "@/libs/seo";
 
 export const metadata = getMetadata("home");
@@ -53,6 +54,7 @@ export default function RootLayout({ children }) {
               <ShuffleVisuals />
             </WrapperShuffle>
             <Toaster />
+            <Analytics />
           </WrapperBody>
         </WrapperHtml>
       </WrapperVisual>
