@@ -1,0 +1,46 @@
+{
+  "categories": [
+    {
+      "slug": "product",
+      "title": "Product Updates",
+      "titleShort": "Updates",
+      "description": "Latest news and updates from LoyalBoards.",
+      "descriptionShort": "Latest news from LoyalBoards."
+    },
+    {
+      "slug": "marketing",
+      "title": "Marketing & Growth",
+      "titleShort": "Marketing",
+      "description": "Strategies and scripts for growing your product.",
+      "descriptionShort": "Growth strategies and scripts."
+    }
+  ],
+  "articles": [
+    {
+      "slug": "loyalboards-features-analysis",
+      "title": "LoyalBoards Features Analysis",
+      "description": "A deep dive into the powerful features of LoyalBoards, from interactive feedback boards to advanced analytics.",
+      "categorySlugs": ["product"],
+      "publishedAt": "2023-11-20",
+      "image": {
+        "src": "/lb/blog/introducing-supabase/header.png",
+        "urlRelative": "/lb/blog/introducing-supabase/header.png",
+        "alt": "LoyalBoards Features"
+      },
+      "content": "<h2>1. Interactive Feedback Boards</h2><ul><li><strong>Public & Private Boards</strong>: Create dedicated spaces for user feedback. Keep internals private or open your roadmap to the world.</li><li><strong>Custom Slugs</strong>: Professional, brandable URLs for every board (e.g., <code>loyalboards.com/b/your-product</code>).</li><li><strong>Post Management</strong>: Users can easily submit ideas, bugs, or feature requests.</li></ul><h2>2. Smart Prioritization (Upvoting)</h2><ul><li><strong>Community-Driven Roadmap</strong>: Let your users vote on what matters most.</li><li><strong>Vote Without Friction</strong>: Users can upvote and post feedback instantly <em>without</em> creating an account.</li><li><strong>Vote Counting</strong>: Real-time upvote tracking to identify high-impact features at a glance.</li><li><strong>Engagement Heatmap</strong>: See which posts are gaining traction.</li></ul><h2>3. Real-time Communication</h2><ul><li><strong>Commenting System</strong>: Deep dive into feedback with threaded comments.</li><li><strong>Instant Notifications</strong>: Stay updated with real-time alerts for new posts, votes, and comments.</li><li><strong>Email Integration</strong>: Stay in the loop even when away from the dashboard.</li></ul><h2>4. Advanced Analytics</h2><ul><li><strong>Performance Tracking</strong>: Monitor board views, post volume, voting activity, and comment density.</li><li><strong>Engagement Trends</strong>: Visualize how user interaction grows over time with daily granularity.</li><li><strong>Actionable Insights</strong>: Use data to back your product decisions.</li></ul><h2>5. Customization & Control</h2><ul><li><strong>Board Settings</strong>: Fine-tune board behavior with flexible \"extra settings.\"</li><li><strong>Private Post Management</strong>: Handle sensitive feedback or internal notes securely.</li><li><strong>Filter & Search</strong>: Robust filtering to navigate through hundreds of feedback items.</li></ul><h2>Tech Stack (Under the Hood)</h2><ul><li><strong>Framework</strong>: Next.js for a fast, SEO-friendly experience.</li><li><strong>Database</strong>: MongoDB for flexible and scalable data storage.</li><li><strong>Authentication</strong>: Secure Google OAuth and Email login.</li><li><strong>Styling</strong>: Sleek, modern UI with Vanilla CSS and responsive design.</li></ul>"
+    },
+    {
+      "slug": "youtube-shorts-scripts",
+      "title": "YouTube Shorts Scripts for LoyalBoards",
+      "description": "Engaging scripts for promoting LoyalBoards on YouTube Shorts, focusing on key value propositions.",
+      "categorySlugs": ["marketing"],
+      "publishedAt": "2023-11-21",
+      "image": {
+        "src": "/lb/blog/introducing-supabase/header.png",
+        "urlRelative": "/lb/blog/introducing-supabase/header.png",
+        "alt": "YouTube Shorts Scripts"
+      },
+      "content": "<h2>Short 1: The \"Guessing Game\" Killer</h2><p><strong>Focus</strong>: Upvoting & Prioritization<br><strong>Hook</strong>: Stop building features that nobody uses.</p><p><strong>Script</strong>:</p><ul><li><strong>[0-5s] Visual</strong>: Screen recording of a chaotic spreadsheet of \"feature ideas\".</li><li><strong>Audio</strong>: \"Is your feature roadmap a guessing game? Stop using spreadsheets.\"</li><li><strong>[5-15s] Visual</strong>: Transition to a sleek LoyalBoards feedback board. Click an upvote button.</li><li><strong>Audio</strong>: \"With LoyalBoards, your users tell YOU what to build next. Upvoting makes the impact clear.\"</li><li><strong>[15-25s] Visual</strong>: Show the 'Trending' section or high-vote posts.</li><li><strong>Audio</strong>: \"No more guesswork. Just data-driven product growth.\"</li><li><strong>[25-30s] Visual</strong>: CTA - Logo + \"Get Started at LoyalBoards.com\"</li><li><strong>Audio</strong>: \"Start your board today for free!\"</li></ul><h2>Short 2: The Feedback Loop (Real-time)</h2><p><strong>Focus</strong>: Notifications & Engagement<br><strong>Hook</strong>: 3 seconds to miss a customer. 1 second to keep them loyal.</p><p><strong>Script</strong>:</p><ul><li><strong>[0-5s] Visual</strong>: Split screen - User posting feedback vs. Admin getting a notification.</li><li><strong>Audio</strong>: \"Your users are talking. Are you listening?\"</li><li><strong>[5-15s] Visual</strong>: Show a real-time notification popping up on the dashboard.</li><li><strong>Audio</strong>: \"LoyalBoards gives you real-time alerts. New post? New vote? You're the first to know.\"</li><li><strong>[15-25s] Visual</strong>: Admin replying to a comment in the app.</li><li><strong>Audio</strong>: \"Engage instantly. Build trust. Close the loop before they even close the tab.\"</li><li><strong>[25-30s] Visual</strong>: Mobile view of the app.</li><li><strong>Audio</strong>: \"Your community, empowered. LoyalBoards.\"</li></ul>"
+    }
+  ]
+}

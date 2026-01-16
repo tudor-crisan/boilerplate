@@ -1,4 +1,6 @@
-- refactor existing boilerplate for current apps
+- use the shipfast blog as reference to integrate it for loyalboards
+- refactor existing boilerplate for current apps to be expandable on other micro-saas
 - find popular saas on trustmrr and code a simpler better cheaper version
 - make launch video of full app with obs / capcut template
 - make extension for posting on multiple directories
+- put og image for the social sharing

@@ -15,6 +15,10 @@ const apps = {
     "setting": {
       "default": "setting0",
       "override": "lb0_setting"
+    },
+    "blog": {
+      "default": "blog0",
+      "override": "lb0_blog"
     }
   },
   "taskflow": {
@@ -33,6 +37,10 @@ const apps = {
     "setting": {
       "default": "setting0",
       "override": "tf0_setting"
+    },
+    "blog": {
+      "default": "blog0",
+      "override": "tf0_blog"
     }
   },
   "tudorcrisan": {
@@ -51,6 +59,10 @@ const apps = {
     "setting": {
       "default": "setting0",
       "override": "tc0_setting"
+    },
+    "blog": {
+      "default": "blog0",
+      "override": "tc0_blog"
     }
   }
 }

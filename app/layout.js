@@ -19,7 +19,10 @@ import IconFavicon from "@/components/icon/IconFavicon";
 import { Analytics } from "@vercel/analytics/next"
 import { getMetadata } from "@/libs/seo";
 
-export const metadata = getMetadata("home");
+export const metadata = {
+  ...getMetadata("home"),
+  metadataBase: new URL(`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME || "localhost:3000"}`),
+};
 
 export const viewport = {
   width: "device-width",
@@ -54,7 +57,7 @@ export default function RootLayout({ children }) {
               <ShuffleVisuals />
             </WrapperShuffle>
             <Toaster />
-            <Analytics />
+            {process.env.NODE_ENV !== "development" && <Analytics />}
           </WrapperBody>
         </WrapperHtml>
       </WrapperVisual>

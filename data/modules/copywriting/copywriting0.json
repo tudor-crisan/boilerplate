@@ -8,6 +8,10 @@
       {
         "label": "FAQ",
         "path": "#faq"
+      },
+      {
+        "label": "Blog",
+        "path": "/blog"
       }
     ]
   },

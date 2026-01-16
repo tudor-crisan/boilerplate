@@ -4,6 +4,7 @@ import { useStyling } from "@/context/ContextStyling";
 import { useVisual } from "@/context/ContextVisual";
 import shuffle from "@/libs/shuffle";
 import logos from "@/lists/logos";
+import Link from "next/link";
 
 export default function IconLogo() {
   const { styling } = useStyling();
@@ -27,7 +28,7 @@ export default function IconLogo() {
   }, []);
 
   return (
-    <div className={`${styling.components.element} ${visual.logo.container} ${styling.flex.inline_center}`}>
+    <Link href="/" title="Home" className={`${styling.components.element} ${visual.logo.container} ${styling.flex.inline_center}`}>
       <svg
         className={visual.logo.svg.classname}
         viewBox={visual.logo.svg.viewbox}
@@ -47,6 +48,6 @@ export default function IconLogo() {
           <rect key={rectIndex} x={rect[0]} y={rect[1]} width={rect[2]} height={rect[3]} rx={rect[4]} />
         ))}
       </svg>
-    </div>
+    </Link>
   );
 }

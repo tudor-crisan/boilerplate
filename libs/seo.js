@@ -17,6 +17,7 @@ export const getMetadata = (target = "", variables = {}) => {
     variables.seoTitle = settings.seo.title;
     variables.seoDescription = settings.seo.description;
     variables.seoTagline = settings.seo.tagline;
+    variables.seoImage = settings.seo.image;
   }
 
   if (!metadata) {
@@ -34,6 +35,13 @@ export const getMetadata = (target = "", variables = {}) => {
   return {
     title,
     description,
+    openGraph: {
+      images: [
+        {
+          url: variables.seoImage || "", // Fallback to default if not set
+        },
+      ],
+    },
   };
 };
 
