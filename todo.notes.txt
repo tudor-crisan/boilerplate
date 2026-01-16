@@ -4,3 +4,4 @@
 - make launch video of full app with obs / capcut template
 - make extension for posting on multiple directories
 - put og image for the social sharing
+- make a hamburger menu with the paths and login when on mobile

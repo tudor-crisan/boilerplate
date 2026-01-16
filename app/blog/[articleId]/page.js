@@ -96,13 +96,11 @@ export default async function Article({ params }) {
       />
 
       {/* GO BACK LINK */}
-      <div>
-        <ButtonBack url="/blog" />
-      </div>
+
 
       <article>
         {/* HEADER WITH CATEGORIES AND DATE AND TITLE */}
-        <section className="my-12 md:my-20 max-w-200">
+        <section className="my-12 md:my-20 max-w-5xl mx-auto px-6">
           <div className="flex items-center gap-4 mb-6">
             {article.categories.map((category) => (
               <BadgeCategory
@@ -120,22 +118,21 @@ export default async function Article({ params }) {
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 md:mb-8">
-            {article.title}
-          </h1>
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 md:mb-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+              {article.title}
+            </h1>
+            <ButtonBack url="/blog" />
+          </div>
 
           <p className="text-base-content/80 md:text-lg max-w-[700px]">
             {article.description}
           </p>
         </section>
 
-        <div className="flex flex-col md:flex-row">
-          {/* SIDEBAR WITH AUTHORS AND 3 RELATED ARTICLES */}
+        <div className="flex flex-col md:flex-row max-w-5xl mx-auto px-6">
+          {/* SIDEBAR WITH 3 RELATED ARTICLES */}
           <section className="max-md:pb-4 md:pl-12 max-md:border-b md:border-l md:order-last md:w-72 shrink-0 border-base-content/10">
-            <p className="text-base-content/80 text-sm mb-2 md:mb-3">
-              Posted by
-            </p>
-            <Avatar />
 
             {articlesRelated.length > 0 && (
               <div className="hidden md:block mt-12">
@@ -167,7 +164,7 @@ export default async function Article({ params }) {
 
           {/* ARTICLE CONTENT */}
           <section className="w-full max-md:pt-4 md:pr-20 space-y-12 md:space-y-20">
-            {article.content}
+            <div dangerouslySetInnerHTML={{ __html: article.content }} />
           </section>
         </div>
       </article>
