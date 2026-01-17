@@ -4,6 +4,7 @@ import SectionPricing from "@/components/section/SectionPricing";
 import SectionFAQ from "@/components/section/SectionFAQ";
 import SectionFooter from "@/components/section/SectionFooter";
 import SectionApps from "@/components/section/SectionApps";
+import SectionBlog from "@/components/section/SectionBlog";
 
 const sections = {
   SectionHeader,
@@ -12,6 +13,7 @@ const sections = {
   SectionFAQ,
   SectionFooter,
   SectionApps,
+  SectionBlog,
 };
 
 export default sections;

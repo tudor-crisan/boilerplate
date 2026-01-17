@@ -8,6 +8,7 @@ import ButtonBack from "@/components/button/ButtonBack";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import BlogCardArticle from "@/components/blog/BlogCardArticle";
+import Grid from "@/components/common/Grid";
 
 const { articles, categories } = defaultBlog;
 
@@ -156,7 +157,7 @@ export default async function Article({ params }) {
             <Title tag="h2" className="mb-8">
               Related Articles
             </Title>
-            <div className={`grid sm:grid-cols-3 gap-8`}>
+            <Grid>
               {articlesRelated.map((relatedArticle) => (
                 <BlogCardArticle
                   key={relatedArticle.slug}
@@ -164,7 +165,7 @@ export default async function Article({ params }) {
                   showCategory={false}
                 />
               ))}
-            </div>
+            </Grid>
           </section>
         )}
       </article>

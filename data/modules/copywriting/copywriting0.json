@@ -36,6 +36,13 @@
       "label": "Payment"
     }
   },
+  "SectionBlog": {
+    "headline": "Latest from our blog",
+    "paragraph": "Stay updated with the latest news, tips, and insights from our team.",
+    "button": {
+      "label": "Read all blog articles"
+    }
+  },
   "SectionFooter": {
     "brand": {
       "rights": "All rights reserved."

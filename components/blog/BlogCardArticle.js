@@ -60,31 +60,38 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
             {article.description}
           </Paragraph>
 
-          <div className="flex items-center gap-4 text-sm">
+          <div className="flex items-center gap-3 text-sm">
             <div
               title={`Posts by ${config.business.name}`}
-              className="inline-flex items-center gap-2 group"
+              className="flex items-start gap-3 group"
             >
-              <span itemProp="author">
-                <IconBusinessImage
-                  className="size-6 sm:size-5"
-                />
-              </span>
-              <TextSmall>{config.business.name}</TextSmall>
+              <div className="flex-shrink-0 mt-0.5">
+                <IconBusinessImage className="size-8 sm:size-7" />
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <span itemProp="author">
+                  <TextSmall className="text-base-content font-semibold text-sm leading-none">
+                    {config.business.name}
+                  </TextSmall>
+                </span>
+                <div className="flex items-center gap-1.5 text-xs opacity-60">
+                  <span itemProp="datePublished">
+                    {new Date(article.publishedAt).toLocaleDateString("en-US", {
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </span>
+                  {article.content && (
+                    <>
+                      <span>•</span>
+                      <span>
+                        {Math.ceil(article.content.split(/\s+/).length / 200)} min read
+                      </span>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
-
-            <span itemProp="datePublished">
-              {new Date(article.publishedAt).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-              })}
-            </span>
-
-            {article.content && (
-              <span className="flex items-center gap-1 opacity-60">
-                • {Math.ceil(article.content.split(/\s+/).length / 200)} min read
-              </span>
-            )}
           </div>
         </div>
       </div>
