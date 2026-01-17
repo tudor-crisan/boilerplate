@@ -3,11 +3,11 @@
     "menus": [
       {
         "label": "Pricing",
-        "path": "#pricing"
+        "path": "/#pricing"
       },
       {
         "label": "FAQ",
-        "path": "#faq"
+        "path": "/#faq"
       },
       {
         "label": "Blog",

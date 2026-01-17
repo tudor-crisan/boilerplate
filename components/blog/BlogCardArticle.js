@@ -1,19 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import BadgeCategory from "./BadgeCategory";
-import Avatar from "./Avatar";
+import BlogBadgeCategory from "./BlogBadgeCategory";
+import ProfileImage from "@/components/common/ProfileImage";
+import Title from "@/components/common/Title";
+import Paragraph from "@/components/common/Paragraph";
+import { defaultStyling, defaultSetting as config } from "@/libs/defaults";
 
-// This is the article card that appears in the home page, in the category page, and in the author's page
-const CardArticle = ({
-  article,
-  tag = "h2",
-  showCategory = true,
-  isImagePriority = false,
-}) => {
-  const TitleTag = tag;
-
+const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false }) => {
   return (
-    <article className="card bg-base-200 rounded-box overflow-hidden">
+    <article className={`${defaultStyling.components.card} overflow-hidden`}>
       {article.image?.src && (
         <Link
           href={`/blog/${article.slug}`}
@@ -34,34 +29,45 @@ const CardArticle = ({
         </Link>
       )}
       <div className="card-body">
-        {/* CATEGORIES */}
+
         {showCategory && (
           <div className="flex flex-wrap gap-2">
             {article.categories.map((category) => (
-              <BadgeCategory category={category} key={category.slug} />
+              <BlogBadgeCategory category={category} key={category.slug} />
             ))}
           </div>
         )}
 
-        {/* TITLE WITH RIGHT TAG */}
-        <TitleTag className="mb-1 text-xl md:text-2xl font-bold">
+        <Title className={defaultStyling.section.title}>
           <Link
             href={`/blog/${article.slug}`}
-            className="link link-hover hover:link-primary"
+            className={defaultStyling.components.link}
             title={article.title}
             rel="bookmark"
           >
             {article.title}
           </Link>
-        </TitleTag>
+        </Title>
 
         <div className=" text-base-content/80 space-y-4">
-          {/* DESCRIPTION */}
-          <p className="">{article.description}</p>
+          <Paragraph>
+            {article.description}
+          </Paragraph>
 
-          {/* AUTHOR & DATE */}
           <div className="flex items-center gap-4 text-sm">
-            <Avatar />
+            <div
+              title={`Posts by ${config.business.name}`}
+              className="inline-flex items-center gap-2 group"
+            >
+              <span itemProp="author">
+                <ProfileImage
+                  src={config.business.logo}
+                  size="sm"
+                  className="w-7 h-7 rounded-full object-cover object-center"
+                />
+              </span>
+              <span className="group-hover:underline">{config.business.name}</span>
+            </div>
 
             <span itemProp="datePublished">
               {new Date(article.publishedAt).toLocaleDateString("en-US", {
@@ -76,4 +82,4 @@ const CardArticle = ({
   );
 };
 
-export default CardArticle;
+export default BlogCardArticle;

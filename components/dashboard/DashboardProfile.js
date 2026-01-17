@@ -5,7 +5,7 @@ import { getNameInitials } from "@/libs/utils.client";
 import { useAuth } from "@/context/ContextAuth";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
-import Avatar from "@/components/common/Avatar";
+import ProfileImage from "@/components/common/ProfileImage";
 import Button from "@/components/button/Button";
 import useForm from "@/hooks/useForm";
 import ImageCropper from "@/components/common/ImageCropper";
@@ -99,7 +99,7 @@ export default function DashboardProfile() {
         </div>
 
         <div className="shrink-0 order-first sm:order-0">
-          <Avatar
+          <ProfileImage
             initials={getNameInitials(name) || initials}
             src={image}
             size="xl"

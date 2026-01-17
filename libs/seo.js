@@ -14,10 +14,10 @@ export const getMetadata = (target = "", variables = {}) => {
   }
 
   if (settings?.seo) {
-    variables.seoTitle = settings.seo.title;
-    variables.seoDescription = settings.seo.description;
-    variables.seoTagline = settings.seo.tagline;
-    variables.seoImage = settings.seo.image;
+    variables.seoTitle = variables.seoTitle || settings.seo.title;
+    variables.seoDescription = variables.seoDescription || settings.seo.description;
+    variables.seoTagline = variables.seoTagline || settings.seo.tagline;
+    variables.seoImage = variables.seoImage || settings.seo.image;
   }
 
   if (!metadata) {

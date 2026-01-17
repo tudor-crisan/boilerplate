@@ -1,5 +1,5 @@
 import { formatCommentDate } from "@/libs/utils.client";
-import Avatar from "@/components/common/Avatar";
+import ProfileImage from "@/components/common/ProfileImage";
 import Button from "@/components/button/Button";
 import SvgTrash from "@/components/svg/SvgTrash";
 import TextSmall from "@/components/common/TextSmall";
@@ -21,7 +21,7 @@ const BoardCommentItem = ({
 
   return (
     <div className="flex gap-3 items-start">
-      <Avatar
+      <ProfileImage
         src={comment.userId?.image}
         initials={(comment.userId?.name || comment.name || "?").substring(0, 2)}
         size="sm"

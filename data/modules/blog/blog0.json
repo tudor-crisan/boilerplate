@@ -1,33 +1,31 @@
 {
+  "title": "",
+  "description": "",
+  "image": "",
   "categories": [
     {
-      "slug": "feature",
-      "title": "New Features",
-      "titleShort": "Features",
-      "description": "Here are the latest features we've added to ShipFast. I'm constantly improving our product to help you ship faster.",
-      "descriptionShort": "Latest features added to ShipFast."
-    },
-    {
-      "slug": "tutorial",
-      "title": "How Tos & Tutorials",
-      "titleShort": "Tutorials",
-      "description": "Learn how to use ShipFast with these step-by-step tutorials. I'll show you how to ship faster and save time.",
-      "descriptionShort": "Learn how to use ShipFast with these step-by-step tutorials."
+      "slug": "example",
+      "title": "Example title",
+      "titleShort": "Example title",
+      "description": "Learn how to etc.",
+      "descriptionShort": "Learn how to etc."
     }
   ],
   "articles": [
     {
-      "slug": "introducing-supabase",
-      "title": "Introducing Supabase to ShipFast",
-      "description": "Supabase is an open-source Firebase alternative. It's a great tool for building a backend for your app. It's now integrated with ShipFast!",
-      "categorySlugs": ["feature"],
-      "publishedAt": "2023-11-20",
+      "slug": "example-article",
+      "title": "Introducing Article",
+      "description": "Article description etc",
+      "categorySlugs": [
+        "example"
+      ],
+      "publishedAt": "2025-01-17",
       "image": {
         "src": "",
         "urlRelative": "",
-        "alt": "Supabase and ShipFast logo combined"
+        "alt": ""
       },
-      "content": "<p>Content to be handled internally or via MDX if complex, for this JSON refactor we might need to handle HTML content carefully or stick to simple text if moving away from JSX components in data.</p>"
+      "content": "<p>Random test content</p>"
     }
   ]
 }

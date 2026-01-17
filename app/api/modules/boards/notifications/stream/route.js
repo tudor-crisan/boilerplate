@@ -1,6 +1,7 @@
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import Notification from "@/models/modules/boards/Notification";
+import Board from "@/models/modules/boards/Board";
 import mongoose from "mongoose";
 
 export const dynamic = "force-dynamic";
@@ -48,7 +49,6 @@ export async function GET(req) {
           // Manual population for SSE because simple watch doesn't populate
           const fullDoc = change.fullDocument;
           if (fullDoc.boardId) {
-            const Board = mongoose.models.Board || mongoose.model("Board");
             const board = await Board.findById(fullDoc.boardId).select("name slug").lean();
             fullDoc.boardId = board;
           }

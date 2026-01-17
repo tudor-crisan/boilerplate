@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
-import BadgeCategory from "@/components/blog/BadgeCategory";
-import Avatar from "@/components/blog/Avatar";
-import { defaultSetting as config, defaultBlog } from "@/libs/defaults";
+import BlogBadgeCategory from "@/components/blog/BlogBadgeCategory";
+import { defaultSetting as settings, defaultBlog } from "@/libs/defaults";
 import { getMetadata } from "@/libs/seo";
 import PagesBlog from "@/components/pages/PagesBlog";
 import ButtonBack from "@/components/button/ButtonBack";
+import Title from "@/components/common/Title";
+import Paragraph from "@/components/common/Paragraph";
 
 const { articles, categories } = defaultBlog;
 
@@ -14,22 +15,14 @@ export async function generateMetadata({ params }) {
   const { articleId } = await params;
   const article = articles.find((article) => article.slug === articleId);
 
-  // Fallback if not found (though page component handles rendering, metadata needs it too)
+
   if (!article) return {};
 
   return getMetadata("modules.blog.article", {
     title: article.title,
     description: article.description,
-    canonicalUrlRelative: `/blog/${article.slug}`,
-    // Note: getMetadata in target might not support all these structure-specific overrides 
-    // without modification to libs/seo.js but we pass them as variables if the template uses them.
-    // However, for full custom metadata (og tags), we might need to conform to what getMetadata returns
-    // OR just return the object directly here merged with defaults.
-    // Given the target libs/seo.js, it looks like it merges defaults.
-    // We can try to manually construct a metadata object if getMetadata is too rigid.
-
-    // For now, using getMetadata and we might need to enhance libs/seo.js to support image overrides via variables
-    // or just return standard Next.js metadata object here if getMetadata isn't flexible enough.
+    seoImage: article.image.urlRelative,
+    canonicalUrlRelative: `/blog/${article.slug}`
   });
 }
 
@@ -69,7 +62,7 @@ export default async function Article({ params }) {
 
   return (
     <PagesBlog>
-      {/* SCHEMA JSON-LD MARKUP FOR GOOGLE */}
+
       <Script
         type="application/ld+json"
         id={`json-ld-article-${article.slug}`}
@@ -79,31 +72,28 @@ export default async function Article({ params }) {
             "@type": "Article",
             mainEntityOfPage: {
               "@type": "WebPage",
-              "@id": `https://${config.domainName}/blog/${article.slug}`,
+              "@id": `https://${settings.website}/blog/${article.slug}`,
             },
             name: article.title,
             headline: article.title,
             description: article.description,
-            image: `https://${config.domainName}${article.image.urlRelative}`,
+            image: `https://${settings.website}${article.image.urlRelative}`,
             datePublished: article.publishedAt,
             dateModified: article.publishedAt,
             author: {
               "@type": "Person",
-              name: config.business.name,
+              name: settings.appName,
             },
           }),
         }}
       />
 
-      {/* GO BACK LINK */}
-
-
       <article>
-        {/* HEADER WITH CATEGORIES AND DATE AND TITLE */}
-        <section className="my-12 md:my-20 max-w-5xl mx-auto px-6">
+
+        <section className="my-12 sm:my-20 max-w-5xl mx-auto px-6">
           <div className="flex items-center gap-4 mb-6">
             {article.categories.map((category) => (
-              <BadgeCategory
+              <BlogBadgeCategory
                 category={category}
                 key={category.slug}
                 extraStyle="!badge-lg"
@@ -118,28 +108,28 @@ export default async function Article({ params }) {
             </span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 md:mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
+          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 sm:mb-8">
+            <Title className={defaultStyling.section.title}>
               {article.title}
-            </h1>
+            </Title>
             <ButtonBack url="/blog" />
           </div>
 
-          <p className="text-base-content/80 md:text-lg max-w-[700px]">
+          <Paragraph className="text-base-content/80 sm:text-lg max-w-[700px]">
             {article.description}
-          </p>
+          </Paragraph>
         </section>
 
-        <div className="flex flex-col md:flex-row max-w-5xl mx-auto px-6">
-          {/* SIDEBAR WITH 3 RELATED ARTICLES */}
-          <section className="max-md:pb-4 md:pl-12 max-md:border-b md:border-l md:order-last md:w-72 shrink-0 border-base-content/10">
+        <div className="flex flex-col sm:flex-row max-w-5xl mx-auto px-6">
+
+          <section className="max-sm:pb-4 sm:pl-12 max-sm:border-b sm:border-l sm:order-last sm:w-72 shrink-0 border-base-content/10">
 
             {articlesRelated.length > 0 && (
-              <div className="hidden md:block mt-12">
-                <p className=" text-base-content/80 text-sm  mb-2 md:mb-3">
+              <div className="hidden sm:block mt-12">
+                <Paragraph className=" text-base-content/80 text-sm  mb-2 sm:mb-3">
                   Related reading
-                </p>
-                <div className="space-y-2 md:space-y-5">
+                </Paragraph>
+                <div className="space-y-2 sm:space-y-5">
                   {articlesRelated.map((article) => (
                     <div className="" key={article.slug}>
                       <p className="mb-0.5">
@@ -152,9 +142,9 @@ export default async function Article({ params }) {
                           {article.title}
                         </Link>
                       </p>
-                      <p className="text-base-content/80 max-w-full text-sm">
+                      <Paragraph className="text-base-content/80 max-w-full text-sm">
                         {article.description}
-                      </p>
+                      </Paragraph>
                     </div>
                   ))}
                 </div>
@@ -162,8 +152,8 @@ export default async function Article({ params }) {
             )}
           </section>
 
-          {/* ARTICLE CONTENT */}
-          <section className="w-full max-md:pt-4 md:pr-20 space-y-12 md:space-y-20">
+
+          <section className="w-full max-sm:pt-4 sm:pr-20 space-y-12 sm:space-y-20">
             <div dangerouslySetInnerHTML={{ __html: article.content }} />
           </section>
         </div>

@@ -1,3 +1,7 @@
+- look at the sending of emails from @libs/email and other places, and see if we can send emails with the domain tudorcrisan.dev and have a redirect link in params to redirect to the current domain ... also to use the image from the tudorcrisan.dev domain as well
+
+----
+
 - use the shipfast blog as reference to integrate it for loyalboards
 - refactor existing boilerplate for current apps to be expandable on other micro-saas
 - find popular saas on trustmrr and code a simpler better cheaper version

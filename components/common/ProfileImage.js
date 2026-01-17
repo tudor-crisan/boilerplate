@@ -2,7 +2,7 @@
 import { cn } from "@/libs/utils.client";
 import { useStyling } from "@/context/ContextStyling";
 
-const Avatar = ({ src, initials, size = "md", className }) => {
+const ProfileImage = ({ src, initials, size = "md", className }) => {
   const { styling } = useStyling();
 
   const sizeClasses = {
@@ -20,7 +20,7 @@ const Avatar = ({ src, initials, size = "md", className }) => {
       {src ? (
         <img
           src={src}
-          alt="Avatar"
+          alt="Profile image"
           className={`w-full h-full object-cover ${baseStyle}`}
         />
       ) : (
@@ -32,4 +32,4 @@ const Avatar = ({ src, initials, size = "md", className }) => {
   );
 };
 
-export default Avatar;
+export default ProfileImage;

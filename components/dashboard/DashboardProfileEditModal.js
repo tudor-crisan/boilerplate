@@ -1,6 +1,6 @@
 import Modal from "@/components/common/Modal";
 import Button from "@/components/button/Button";
-import Avatar from "@/components/common/Avatar";
+import ProfileImage from "@/components/common/ProfileImage";
 import Upload from "@/components/common/Upload";
 import Label from "@/components/common/Label";
 import Tooltip from "@/components/common/Tooltip";
@@ -52,7 +52,7 @@ export default function DashboardProfileEditModal({
     >
       <div className="space-y-6">
         <div className={styling.flex.center}>
-          <Avatar
+          <ProfileImage
             initials={getNameInitials(inputs.name) || initials}
             src={inputs.image}
             size="xl"

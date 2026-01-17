@@ -1,21 +1,30 @@
-import Button from "@/components/button/Button";
+import Link from "next/link";
 import { useCopywriting } from "@/context/ContextCopywriting";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function HeaderMenu() {
   const { copywriting } = useCopywriting();
+  const { styling } = useStyling();
+
+  // If no menus defined, don't render anything
+  if (!copywriting.SectionHeader.menus || copywriting.SectionHeader.menus.length === 0) {
+    return null;
+  }
 
   return (
-    <div className="max-sm:hidden">
-      {copywriting.SectionHeader.menus.map((menu, index) => (
-        <Button
-          href={menu.path}
-          key={index}
-          variant="btn-ghost shadow-none!"
-          noAutoLoading={true}
-        >
-          {menu.label}
-        </Button>
-      ))}
-    </div>
-  )
+    <>
+      {/* Desktop Menu */}
+      <div className="hidden sm:flex gap-2">
+        {copywriting.SectionHeader.menus.map((menu, index) => (
+          <Link
+            href={menu.path}
+            key={index}
+            className={`${styling.components.element} btn btn-ghost shadow-none!`}
+          >
+            {menu.label}
+          </Link>
+        ))}
+      </div>
+    </>
+  );
 }
