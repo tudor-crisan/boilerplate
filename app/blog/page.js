@@ -2,7 +2,7 @@ import BlogCardArticle from "@/components/blog/BlogCardArticle";
 import BlogCardCategory from "@/components/blog/BlogCardCategory";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
-import { defaultBlog, defaultStyling } from "@/libs/defaults";
+import { defaultSetting as settings, defaultBlog, defaultStyling } from "@/libs/defaults";
 import { getMetadata } from "@/libs/seo";
 import PagesBlog from "@/components/pages/PagesBlog";
 import Grid from "@/components/common/Grid";
@@ -39,13 +39,13 @@ export default async function Blog() {
             "@type": "CollectionPage",
             name: defaultBlog.title,
             description: defaultBlog.description,
-            url: `https://${defaultSetting.website}/blog`,
+            url: `https://${settings.website}/blog`,
             mainEntity: {
               "@type": "ItemList",
               itemListElement: articlesToDisplay.map((article, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
-                url: `https://${defaultSetting.website}/blog/${article.slug}`,
+                url: `https://${settings.website}/blog/${article.slug}`,
                 name: article.title,
               })),
             },
@@ -62,7 +62,7 @@ export default async function Blog() {
       </section>
 
       <section className={`${defaultStyling.general.container} px-4 mb-12`}>
-        <Title tag="h2" className="mb-4 sm:mb-6 font-bold text-lg sm:text-xl">
+        <Title tag="h2" className="mb-4 font-bold text-lg sm:text-xl">
           Browse articles by category
         </Title>
 

@@ -7,6 +7,7 @@ import PagesBlog from "@/components/pages/PagesBlog";
 import ButtonBack from "@/components/button/ButtonBack";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
+import BlogCardArticle from "@/components/blog/BlogCardArticle";
 
 const { articles, categories } = defaultBlog;
 
@@ -25,6 +26,7 @@ export async function generateMetadata({ params }) {
     ogType: "article",
     publishedTime: article.publishedAt,
     author: settings.business?.name || settings.appName,
+    tags: article.categorySlugs.map(slug => categories.find(c => c.slug === slug)?.title).filter(Boolean),
   });
 }
 
@@ -148,6 +150,23 @@ export default async function Article({ params }) {
         <div className="flex justify-start items-start mt-8">
           <ButtonBack url="/blog" />
         </div>
+
+        {articlesRelated.length > 0 && (
+          <section className="mt-16 sm:mt-24">
+            <Title tag="h2" className="mb-8">
+              Related Articles
+            </Title>
+            <div className={`grid sm:grid-cols-3 gap-8`}>
+              {articlesRelated.map((relatedArticle) => (
+                <BlogCardArticle
+                  key={relatedArticle.slug}
+                  article={relatedArticle}
+                  showCategory={false}
+                />
+              ))}
+            </div>
+          </section>
+        )}
       </article>
     </PagesBlog>
   );
