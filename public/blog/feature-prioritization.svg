@@ -1,8 +1,10 @@
 <svg width="600" height="338" viewBox="0 0 600 338" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="600" height="338" fill="white"/>
-  <rect x="200" y="220" width="60" height="60" fill="black"/>
-  <rect x="270" y="140" width="60" height="140" fill="black"/>
-  <rect x="340" y="240" width="60" height="40" fill="black"/>
-  <rect x="410" y="230" width="60" height="50" fill="black"/>
-  <path d="M300 120L300 40M300 40L280 60M300 40L320 60" stroke="black" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(0, 30)">
+    <rect x="200" y="220" width="60" height="60" fill="black"/>
+    <rect x="270" y="140" width="60" height="140" fill="black"/>
+    <rect x="340" y="240" width="60" height="40" fill="black"/>
+    <rect x="410" y="230" width="60" height="50" fill="black"/>
+    <path d="M300 120L300 40M300 40L280 60M300 40L320 60" stroke="black" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
 </svg>

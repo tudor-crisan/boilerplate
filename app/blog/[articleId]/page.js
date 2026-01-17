@@ -157,8 +157,8 @@ export default async function Article({ params }) {
         </div>
 
         {articlesRelated.length > 0 && (
-          <section className="mt-16 sm:mt-24">
-            <Title tag="h2" className="mb-8">
+          <section className="mt-12 mb-6">
+            <Title tag="h2" className="mb-4">
               Related Articles
             </Title>
             <Grid>
