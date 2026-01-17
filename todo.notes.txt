@@ -1,7 +1,5 @@
-- use the shipfast blog as reference to integrate it for loyalboards
 - refactor existing boilerplate for current apps to be expandable on other micro-saas
-- find popular saas on trustmrr and code a simpler better cheaper version
 - make launch video of full app with obs / capcut template
 - make extension for posting on multiple directories
-- put og image for the social sharing
-- make a hamburger menu with the paths and login when on mobile
+- find popular saas on trustmrr and code a simpler better cheaper version
+- discuss freelancing opportunities, and see if I will start next week
