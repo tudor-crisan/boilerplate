@@ -34,7 +34,6 @@ export default function EmailIconLogo({ branding }) {
 
   return (
     <div style={containerStyle}>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={logoSrc}
         alt="Logo"

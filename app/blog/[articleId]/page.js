@@ -1,8 +1,7 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import BlogBadgeCategory from "@/components/blog/BlogBadgeCategory";
-import { defaultSetting as settings, defaultBlog } from "@/libs/defaults";
+import { defaultSetting as settings, defaultBlog, defaultStyling } from "@/libs/defaults";
 import { getMetadata } from "@/libs/seo";
 import PagesBlog from "@/components/pages/PagesBlog";
 import ButtonBack from "@/components/button/ButtonBack";
@@ -88,74 +87,38 @@ export default async function Article({ params }) {
         }}
       />
 
-      <article>
-
-        <section className="my-12 sm:my-20 max-w-5xl mx-auto px-6">
-          <div className="flex items-center gap-4 mb-6">
-            {article.categories.map((category) => (
-              <BlogBadgeCategory
-                category={category}
-                key={category.slug}
-                extraStyle="!badge-lg"
-              />
-            ))}
-            <span className="text-base-content/80" itemProp="datePublished">
-              {new Date(article.publishedAt).toLocaleDateString("en-US", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </span>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-between gap-4 mb-6 sm:mb-8">
-            <Title className={defaultStyling.section.title}>
-              {article.title}
-            </Title>
-            <ButtonBack url="/blog" />
-          </div>
-
-          <Paragraph className="text-base-content/80 sm:text-lg max-w-[700px]">
+      <article className={`${defaultStyling.general.container} ${defaultStyling.components.header} pt-8 sm:pt-12 pb-8`}>
+        <div className="mb-4 sm:mb-6">
+          <Title className={`${defaultStyling.section.title} mb-4`}>
+            {article.title}
+          </Title>
+          <Paragraph className="text-base-content/80 sm:text-lg">
             {article.description}
           </Paragraph>
+          <div className="flex items-center justify-between gap-4 mt-4">
+            <div className="flex items-center gap-4">
+              {article.categories.map((category) => (
+                <BlogBadgeCategory
+                  category={category}
+                  key={category.slug}
+                  extraStyle="!badge-lg"
+                />
+              ))}
+              <span className="text-base-content/80" itemProp="datePublished">
+                {new Date(article.publishedAt).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </span>
+            </div>
+          </div>
+        </div>
+        <section className="w-full mt-4 border-t-2 pt-6 border-gray-200">
+          <div dangerouslySetInnerHTML={{ __html: article.content }} />
         </section>
-
-        <div className="flex flex-col sm:flex-row max-w-5xl mx-auto px-6">
-
-          <section className="max-sm:pb-4 sm:pl-12 max-sm:border-b sm:border-l sm:order-last sm:w-72 shrink-0 border-base-content/10">
-
-            {articlesRelated.length > 0 && (
-              <div className="hidden sm:block mt-12">
-                <Paragraph className=" text-base-content/80 text-sm  mb-2 sm:mb-3">
-                  Related reading
-                </Paragraph>
-                <div className="space-y-2 sm:space-y-5">
-                  {articlesRelated.map((article) => (
-                    <div className="" key={article.slug}>
-                      <p className="mb-0.5">
-                        <Link
-                          href={`/blog/${article.slug}`}
-                          className="link link-hover hover:link-primary font-medium"
-                          title={article.title}
-                          rel="bookmark"
-                        >
-                          {article.title}
-                        </Link>
-                      </p>
-                      <Paragraph className="text-base-content/80 max-w-full text-sm">
-                        {article.description}
-                      </Paragraph>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </section>
-
-
-          <section className="w-full max-sm:pt-4 sm:pr-20 space-y-12 sm:space-y-20">
-            <div dangerouslySetInnerHTML={{ __html: article.content }} />
-          </section>
+        <div className="flex justify-start items-start mt-8">
+          <ButtonBack url="/blog" />
         </div>
       </article>
     </PagesBlog>

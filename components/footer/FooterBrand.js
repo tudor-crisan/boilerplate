@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import IconBusinessImage from "@/components/icon/IconBusinessImage";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
@@ -15,15 +15,9 @@ export default function FooterBrand() {
     <div className={`${styling.flex.col} ${styling.SectionFooter.positioning} gap-1`}>
       <Link href={settings.business.website} className={styling.components.link}>
         <div className={`${styling.flex.items_center} gap-1 sm:gap-2 font-bold text-md sm:text-lg`}>
-          {settings.business.logo && (
-            <Image
-              src={settings.business.logo}
-              alt={settings.business.entity_name}
-              width={32}
-              height={32}
-              className={`${styling.components.element} size-6 sm:size-5`}
-            />
-          )}
+          <IconBusinessImage
+            className="size-6 sm:size-5"
+          />
           <span className="text-base-content">{settings.business.entity_name}</span>
         </div>
       </Link>

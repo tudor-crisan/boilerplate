@@ -1,14 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import BlogBadgeCategory from "./BlogBadgeCategory";
-import ProfileImage from "@/components/common/ProfileImage";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import { defaultStyling, defaultSetting as config } from "@/libs/defaults";
+import TextSmall from "@/components/common/TextSmall";
+import IconBusinessImage from "@/components/icon/IconBusinessImage";
 
 const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false }) => {
   return (
-    <article className={`${defaultStyling.components.card} overflow-hidden`}>
+    <article className={defaultStyling.blog.card}>
       {article.image?.src && (
         <Link
           href={`/blog/${article.slug}`}
@@ -23,7 +24,7 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
               width={600}
               height={338}
               priority={isImagePriority}
-              className="aspect-video object-center object-cover hover:scale-[1.03] duration-200 ease-in-out"
+              className={defaultStyling.blog.image}
             />
           </figure>
         </Link>
@@ -38,7 +39,7 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
           </div>
         )}
 
-        <Title className={defaultStyling.section.title}>
+        <Title>
           <Link
             href={`/blog/${article.slug}`}
             className={defaultStyling.components.link}
@@ -49,7 +50,7 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
           </Link>
         </Title>
 
-        <div className=" text-base-content/80 space-y-4">
+        <div className="space-y-4">
           <Paragraph>
             {article.description}
           </Paragraph>
@@ -60,13 +61,11 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
               className="inline-flex items-center gap-2 group"
             >
               <span itemProp="author">
-                <ProfileImage
-                  src={config.business.logo}
-                  size="sm"
-                  className="w-7 h-7 rounded-full object-cover object-center"
+                <IconBusinessImage
+                  className="size-6 sm:size-5"
                 />
               </span>
-              <span className="group-hover:underline">{config.business.name}</span>
+              <TextSmall>{config.business.name}</TextSmall>
             </div>
 
             <span itemProp="datePublished">

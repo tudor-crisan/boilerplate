@@ -28,9 +28,11 @@ export function useBoardRandomizer({ settings, handleChange, getVal }) {
       // Ensure objects exist
       if (!newAppearance.components) newAppearance.components = JSON.parse(JSON.stringify(defaultStyling.components));
       if (!newAppearance.pricing) newAppearance.pricing = JSON.parse(JSON.stringify(defaultStyling.pricing));
+      if (!newAppearance.blog) newAppearance.blog = JSON.parse(JSON.stringify(defaultStyling.blog));
 
       const newComponents = { ...newAppearance.components };
       const newPricing = { ...newAppearance.pricing };
+      const newBlog = { ...newAppearance.blog };
 
       const replaceRadius = (str) =>
         str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() + " " + randomRadius;
@@ -47,12 +49,19 @@ export function useBoardRandomizer({ settings, handleChange, getVal }) {
         }
       });
 
+      Object.keys(newBlog).forEach((key) => {
+        if (typeof newBlog[key] === "string" && newBlog[key].includes("rounded")) {
+          newBlog[key] = replaceRadius(newBlog[key]);
+        }
+      });
+
       newAppearance.components = newComponents;
       newAppearance.pricing = newPricing;
+      newAppearance.blog = newBlog;
     }
 
     handleChange("appearance", newAppearance);
-  }, [settings, handleChange, getVal]);
+  }, [handleChange, getVal]);
 
   // Auto Shuffle Effect
   const randomizerConfig = getVal("randomizer", {});

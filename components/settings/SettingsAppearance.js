@@ -26,6 +26,7 @@ export default function SettingsAppearance({ styling, onChange, isLoading }) {
     const safeRadius = handleValidation(radius);
     const newComponents = { ...styling.components };
     const newPricing = { ...styling.pricing };
+    const newBlog = { ...styling.blog };
 
     // Replace any rounded class with new radius
     const replaceRadius = (str) =>
@@ -43,10 +44,17 @@ export default function SettingsAppearance({ styling, onChange, isLoading }) {
       }
     });
 
+    Object.keys(newBlog).forEach((key) => {
+      if (typeof newBlog[key] === "string" && newBlog[key].includes("rounded")) {
+        newBlog[key] = replaceRadius(newBlog[key]);
+      }
+    });
+
     onChange({
       ...styling,
       components: newComponents,
       pricing: newPricing,
+      blog: newBlog,
     });
   };
 

@@ -9,9 +9,7 @@ export default function PagesBlog({ children }) {
     <WrapperStyling>
       <Main className="bg-base-100">
         <SectionHeader />
-        <div className="py-12">
-          {children}
-        </div>
+        {children}
         <SectionFooter />
       </Main>
     </WrapperStyling>

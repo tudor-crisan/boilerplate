@@ -20,6 +20,10 @@
     "card_featured_interactive": "cursor-pointer hover:border-primary hover:bg-base-200/50",
     "card_simple_interactive": "cursor-pointer"
   },
+  "blog": {
+    "card": "rounded-2xl shadow-md border border-primary bg-base-100 overflow-hidden",
+    "image": "aspect-video object-left-top object-cover hover:scale-[1.03] duration-200 ease-in-out"
+  },
   "flex": {
     "center": "flex items-center justify-center",
     "items_center": "flex items-center",

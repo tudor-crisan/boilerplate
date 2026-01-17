@@ -31,7 +31,8 @@ export function useStylingRandomizer({ setStyling }) {
         const randomRadius = getRandomItem(radiusOptions);
 
         const newComponents = { ...newStyling.components };
-        const newPricing = { ...newStyling.pricing };
+        const newPricing = { ...newStyling.blog }; newBlog
+        const newBlog = { ...newStyling.blog };
 
         // Replace any rounded class with new radius
         const replaceRadius = (str) =>
@@ -49,8 +50,15 @@ export function useStylingRandomizer({ setStyling }) {
           }
         });
 
+        Object.keys(newBlog).forEach((key) => {
+          if (typeof newBlog[key] === "string" && newBlog[key].includes("rounded")) {
+            newBlog[key] = replaceRadius(newBlog[key]);
+          }
+        });
+
         newStyling.components = newComponents;
         newStyling.pricing = newPricing;
+        newStyling.blog = newBlog;
       }
 
       return newStyling;
