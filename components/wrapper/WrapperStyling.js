@@ -33,7 +33,7 @@ export default function WrapperStyling({ children }) {
     if (shuffle.styling.isEnabled) {
       const shuffleStyling = localStorage.getItem("shuffle-styling") || "";
       if (shuffleStyling && stylings[shuffleStyling]) {
-        setStyling(stylings[shuffleStyling]);
+        setStyling(deepMerge(defaultStyling, stylings[shuffleStyling]));
         return;
       }
     }

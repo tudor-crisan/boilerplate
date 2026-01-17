@@ -86,7 +86,7 @@ export async function WeeklyDigestEmail({ baseUrl, userName, boards, styling, is
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
 
   const businessWebsite = settings.business?.website;
-  const redirectUrl = businessWebsite + `?redirect=${encodeURIComponent(url)}`;
+  const redirectUrl = businessWebsite + `?redirect=${encodeURIComponent(baseUrl)}`;
 
   const subject = `${isTest ? `[TEST ${new Date().toLocaleTimeString()}] ` : ""}Your Weekly Board Stats 📈`;
   // Simple text fallback

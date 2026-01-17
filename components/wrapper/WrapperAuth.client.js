@@ -4,6 +4,8 @@ import { ContextAuth } from "@/context/ContextAuth";
 import { useState, useEffect } from "react";
 import { clientApi, setDataError, setDataSuccess } from "@/libs/api";
 import toast from "react-hot-toast";
+import { deepMerge } from "@/libs/merge.mjs";
+import { defaultStyling } from "@/libs/defaults";
 
 import { useStyling } from "@/context/ContextStyling";
 
@@ -14,7 +16,7 @@ export default function WrapperAuthClient({ authSession, children }) {
   useEffect(() => {
     setSession(authSession);
     if (authSession?.styling) {
-      setStyling(authSession.styling);
+      setStyling(deepMerge(defaultStyling, authSession.styling));
     }
   }, [authSession, setStyling]);
 
@@ -25,7 +27,7 @@ export default function WrapperAuthClient({ authSession, children }) {
     // Update styling context if present in data, 
     // because components like IconFavicon rely on useStyling()
     if (data.styling) {
-      setStyling(data.styling);
+      setStyling(deepMerge(defaultStyling, data.styling));
     }
 
     try {
@@ -35,7 +37,7 @@ export default function WrapperAuthClient({ authSession, children }) {
 
       // If server returns updated data (e.g. with server-generated logo), update local state again
       if (res.data?.styling) {
-        setStyling(res.data.styling);
+        setStyling(deepMerge(defaultStyling, res.data.styling));
         setSession(prev => ({ ...prev, styling: res.data.styling }));
       }
 

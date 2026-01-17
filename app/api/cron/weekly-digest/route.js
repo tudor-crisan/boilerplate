@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 import connectMongo from "@/libs/mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Board from "@/models/modules/boards/Board";
+import User from "@/models/User";
 import { sendEmail, WeeklyDigestEmail } from '@/libs/email';
 import { getBaseUrl } from "@/libs/utils.server";
 
@@ -88,8 +89,12 @@ export async function GET(req) {
         });
         emailsSent++;
       } catch (e) {
-        console.error(`Failed to send email to ${data.email}`, e);
+        console.error(`[CRON ERROR] Failed to send email to ${data.email}:`, e.message || e);
       }
+    }
+
+    if (emailsSent === 0 && Object.keys(userBoards).length > 0) {
+      console.warn("[CRON WARNING] No emails were successfully sent despite having active users/boards. Check email service configuration.");
     }
 
     return NextResponse.json({ success: true, emailsSent });

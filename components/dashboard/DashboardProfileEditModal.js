@@ -119,7 +119,7 @@ export default function DashboardProfileEditModal({
           <div className="flex justify-end mt-2">
             <button
               type="button"
-              onClick={() => setStyling({ ...defaultStyling, ...appStyling })}
+              onClick={() => setStyling(deepMerge(defaultStyling, appStyling))}
               className="text-xs text-base-content/50 hover:text-base-content transition-colors underline cursor-pointer"
             >
               Reset to default
