@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-export function middleware(request) {
+export function proxy(request) {
   const { searchParams } = new URL(request.url);
   const redirectUrl = searchParams.get('redirect');
 
