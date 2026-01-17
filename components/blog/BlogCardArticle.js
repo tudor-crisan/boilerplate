@@ -1,15 +1,20 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import BlogBadgeCategory from "./BlogBadgeCategory";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
-import { defaultStyling, defaultSetting as config } from "@/libs/defaults";
+import { defaultSetting as config } from "@/libs/defaults";
 import TextSmall from "@/components/common/TextSmall";
 import IconBusinessImage from "@/components/icon/IconBusinessImage";
+import { useStyling } from "@/context/ContextStyling";
 
 const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false }) => {
+  const { styling } = useStyling();
+
   return (
-    <article className={defaultStyling.blog.card}>
+    <article className={styling.blog.card}>
       {article.image?.src && (
         <Link
           href={`/blog/${article.slug}`}
@@ -24,7 +29,7 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
               width={600}
               height={338}
               priority={isImagePriority}
-              className={defaultStyling.blog.image}
+              className={styling.blog.image}
             />
           </figure>
         </Link>
@@ -42,7 +47,7 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
         <Title>
           <Link
             href={`/blog/${article.slug}`}
-            className={defaultStyling.components.link}
+            className={styling.components.link}
             title={article.title}
             rel="bookmark"
           >

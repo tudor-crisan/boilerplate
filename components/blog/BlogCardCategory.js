@@ -1,13 +1,16 @@
+"use client";
+
 import Button from "@/components/button/Button";
-import { defaultStyling } from "@/libs/defaults";
+import { useStyling } from "@/context/ContextStyling";
 
 
 const BlogCardCategory = ({ category, tag = "h2" }) => {
+  const { styling } = useStyling();
   const TitleTag = tag;
 
   return (
     <Button
-      className={`${defaultStyling.components.element} h-auto block font-normal duration-200 hover:bg-neutral hover:text-neutral-content`}
+      className={`${styling.components.element}`}
       href={`/blog/category/${category.slug}`}
       title={category.title}
       rel="tag"
