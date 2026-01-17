@@ -21,7 +21,6 @@ export const metadata = getMetadata("modules.blog", {
 export default async function Blog() {
   const articlesToDisplay = articles
     .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
-    .slice(0, 6)
     .map((article) => ({
       ...article,
       categories: article.categorySlugs.map((slug) =>
