@@ -16,7 +16,7 @@ const eslintConfig = defineConfig([
       '@next/next/no-head-element': 'off',
       '@next/next/no-img-element': 'off',
       'react-hooks/set-state-in-effect': 'off'
-    },
+    }
   }
 ]);
 

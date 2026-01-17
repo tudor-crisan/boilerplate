@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === "development") {
 const nextConfig = {
   devIndicators: {
     appIsrStatus: false,
-    buildActivity: false,
+    buildActivity: false
   },
 
   async rewrites() {
@@ -46,7 +46,7 @@ const nextConfig = {
       console.error("❌ Error generating rewrites:", error);
       return [];
     }
-  },
+  }
 };
 
 export default nextConfig;

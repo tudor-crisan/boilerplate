@@ -25,7 +25,7 @@ const settings = {
   tf0_setting: loadJSON("../data/apps/taskflow/tf0_setting.json"),
   tc0_setting: loadJSON("../data/apps/tudorcrisan/tc0_setting.json"),
   setting0: loadJSON("../data/modules/setting/setting0.json"),
-  boards: loadJSON("../data/modules/boards/boards.json"),
+  boards: loadJSON("../data/modules/boards/boards.json")
 };
 
 export default settings;
