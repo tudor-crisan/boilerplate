@@ -1,11 +1,16 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import { useStyling } from "@/context/ContextStyling";
+import { cn } from "@/libs/utils.client";
 
 const BadgeCategory = ({ category, extraStyle }) => {
+  const { styling } = useStyling();
+
   return (
     <Link
       href={`/blog/category/${category.slug}`}
-      className={`badge badge-sm sm:badge-md hover:badge-primary ${extraStyle ? extraStyle : ""}`}
+      className={cn(styling.blog.badge, extraStyle)}
       title={`Posts in ${category.title}`}
       rel="tag"
     >

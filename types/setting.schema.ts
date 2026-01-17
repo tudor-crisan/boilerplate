@@ -94,9 +94,9 @@ export const FormSchema = z.object({
 });
 
 export const AuthSchema = z.object({
-  providers: z.array(z.string()),
-  hasThemePages: z.boolean(),
-  hasThemeEmails: z.boolean(),
+  providers: z.array(z.string()).optional(),
+  hasThemePages: z.boolean().optional(),
+  hasThemeEmails: z.boolean().optional(),
 });
 
 export const PagePathSchema = z.object({

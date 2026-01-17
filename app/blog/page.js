@@ -7,6 +7,8 @@ import { getMetadata } from "@/libs/seo";
 import PagesBlog from "@/components/pages/PagesBlog";
 import Grid from "@/components/common/Grid";
 
+import Script from "next/script";
+
 const { articles, categories } = defaultBlog;
 
 export const metadata = getMetadata("modules.blog", {
@@ -28,6 +30,28 @@ export default async function Blog() {
     }));
   return (
     <PagesBlog>
+      <Script
+        type="application/ld+json"
+        id="json-ld-blog-home"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: defaultBlog.title,
+            description: defaultBlog.description,
+            url: `https://${defaultSetting.website}/blog`,
+            mainEntity: {
+              "@type": "ItemList",
+              itemListElement: articlesToDisplay.map((article, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                url: `https://${defaultSetting.website}/blog/${article.slug}`,
+                name: article.title,
+              })),
+            },
+          }),
+        }}
+      />
       <section className={`${defaultStyling.general.container} mt-12 mb-12 px-4`}>
         <Title className={`mb-6 ${defaultStyling.section.title}`}>
           {defaultBlog.title}
@@ -38,7 +62,7 @@ export default async function Blog() {
       </section>
 
       <section className={`${defaultStyling.general.container} px-4 mb-12`}>
-        <Title className="mb-4 sm:mb-6 font-bold text-lg sm:text-xl">
+        <Title tag="h2" className="mb-4 sm:mb-6 font-bold text-lg sm:text-xl">
           Browse articles by category
         </Title>
 

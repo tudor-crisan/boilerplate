@@ -1,27 +1,8 @@
 import { z } from "zod";
-
-/**
- * Zod Schema for Menu Item.
- * Validation rules:
- * - label: max 20 characters.
- * - path: must start with /, #, or http.
- */
-export const MenuItemSchema = z.object({
-  label: z
-    .string()
-    .max(20, "Menu label must be 20 characters or less.")
-    .describe("Text to display for the link."),
-  path: z
-    .string()
-    .regex(/^(\/|#|http)/, "Path must start with '/', '#', or 'http'.")
-    .describe('URL or anchor path (e.g., "#pricing").'),
-});
+import { MenuItemSchema, ButtonSchema, LinkSchema } from "./common.schema";
 
 /**
  * Zod Schema for Section Header.
- * Validation rules:
- * - name: max 30 characters.
- * - menus: max 7 items.
  */
 export const SectionHeaderSchema = z.object({
   appName: z
@@ -36,9 +17,6 @@ export const SectionHeaderSchema = z.object({
 
 /**
  * Zod Schema for Section Hero.
- * Validation rules:
- * - headline: max 80 characters.
- * - paragraph: max 300 characters.
  */
 export const SectionHeroSchema = z.object({
   headline: z
@@ -52,11 +30,17 @@ export const SectionHeroSchema = z.object({
 });
 
 /**
+ * Zod Schema for Pricing Plan details.
+ */
+export const PricingPlanSchema = z.object({
+  price: z.string().describe("Price display string, e.g. '$19'"),
+  period: z.string().describe("Billing period, e.g. '/month'"),
+  label: z.string().describe("Plan label, e.g. 'Monthly'"),
+  benefits: z.string().optional().describe("Short benefits text."),
+});
+
+/**
  * Zod Schema for Pricing Section.
- * Validation rules:
- * - label: max 20 characters.
- * - headline: max 60 characters.
- * - features: at least 1 feature.
  */
 export const SectionPricingSchema = z.object({
   label: z
@@ -67,19 +51,30 @@ export const SectionPricingSchema = z.object({
     .string()
     .max(60, "Headline must be 60 characters or less.")
     .describe("Main headline for pricing."),
-  price: z.string().describe("Price display string, e.g. '$19'"),
-  period: z.string().describe("Billing period, e.g. '/month'"),
+  formattedPlans: z.object({
+    monthly: PricingPlanSchema.optional(),
+    lifetime: PricingPlanSchema.optional(),
+  }).describe("Configured pricing plans."),
+  button: ButtonSchema.optional().describe("Call to action button."),
   features: z
     .array(z.string())
     .min(1, "At least one feature is required.")
-    .describe("List of features included in the plan."),
+    .describe("List of features included (general or shared).")
+    .optional(),
+});
+
+/**
+ * Zod Schema for Blog Section (Landing Page).
+ */
+export const SectionBlogSchema = z.object({
+  label: z.string().describe("Section label."),
+  headline: z.string().describe("Section headline."),
+  description: z.string().optional().describe("Supporting text for the blog section."),
+  button: ButtonSchema.optional().describe("Link to the full blog."),
 });
 
 /**
  * Zod Schema for Question Item.
- * Validation rules:
- * - question: max 100 characters.
- * - answer: max 500 characters.
  */
 export const QuestionItemSchema = z.object({
   question: z
@@ -94,8 +89,6 @@ export const QuestionItemSchema = z.object({
 
 /**
  * Zod Schema for FAQ Section.
- * Validation rules:
- * - questions: at least 1 question.
  */
 export const SectionFAQSchema = z.object({
   label: z.string().describe("Section label."),
@@ -107,23 +100,11 @@ export const SectionFAQSchema = z.object({
 });
 
 /**
- * Main Landing Page Config Schema.
- * Combines all section schemas.
- */
-/**
- * Zod Schema for Footer Menu Link.
- */
-export const FooterLinkSchema = z.object({
-  label: z.string().describe("Link label."),
-  href: z.string().describe("Link URL."),
-});
-
-/**
  * Zod Schema for Footer Menu Column.
  */
 export const FooterMenuSchema = z.object({
   title: z.string().describe("Menu column title."),
-  links: z.array(FooterLinkSchema).describe("List of links in the column."),
+  links: z.array(LinkSchema).describe("List of links in the column."),
 });
 
 /**
@@ -143,10 +124,14 @@ export const SectionFooterSchema = z.object({
     .optional(),
 });
 
+/**
+ * Main Landing Page Config Schema.
+ */
 export const CopywritingSchema = z.object({
   SectionHeader: SectionHeaderSchema.partial(),
   SectionHero: SectionHeroSchema.partial(),
   SectionPricing: SectionPricingSchema.partial(),
+  SectionBlog: SectionBlogSchema.partial(),
   SectionFAQ: SectionFAQSchema.partial(),
   SectionFooter: SectionFooterSchema.partial(),
 });
@@ -156,4 +141,6 @@ export type Copywriting = z.infer<typeof CopywritingSchema>;
 export type SectionHeader = z.infer<typeof SectionHeaderSchema>;
 export type SectionHero = z.infer<typeof SectionHeroSchema>;
 export type SectionPricing = z.infer<typeof SectionPricingSchema>;
+export type SectionBlog = z.infer<typeof SectionBlogSchema>;
 export type SectionFAQ = z.infer<typeof SectionFAQSchema>;
+export type PricingPlan = z.infer<typeof PricingPlanSchema>;

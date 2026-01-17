@@ -36,11 +36,42 @@ export const getMetadata = (target = "", variables = {}) => {
     title,
     description,
     openGraph: {
+      title,
+      description,
+      type: variables.ogType || "website",
+      url: `https://${settings.website}${variables.canonicalUrlRelative || ""}`,
       images: [
         {
-          url: variables.seoImage || "", // Fallback to default if not set
+          url: variables.seoImage || settings.seo?.image || "",
         },
       ],
+      ...(variables.ogType === "article" && {
+        article: {
+          publishedTime: variables.publishedTime,
+          authors: [variables.author || settings.appName],
+          tags: variables.tags || [],
+        },
+      }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [variables.seoImage || settings.seo?.image || ""],
+    },
+    alternates: {
+      canonical: variables.canonicalUrlRelative,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
   };
 };

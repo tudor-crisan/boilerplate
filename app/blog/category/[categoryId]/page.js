@@ -75,7 +75,7 @@ export default async function BlogCategory({ params }) {
       </section>
 
       <section className={`${defaultStyling.general.container} space-y-3 px-4 pb-12`}>
-        <Title>
+        <Title tag="h2">
           Browse other categories
         </Title>
         <Grid className="grid-cols-2 sm:grid-cols-4 gap-4">

@@ -44,7 +44,7 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
           </div>
         )}
 
-        <Title>
+        <Title tag="h2">
           <Link
             href={`/blog/${article.slug}`}
             className={styling.components.link}
@@ -79,6 +79,12 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
                 day: "numeric",
               })}
             </span>
+
+            {article.content && (
+              <span className="flex items-center gap-1 opacity-60">
+                • {Math.ceil(article.content.split(/\s+/).length / 200)} min read
+              </span>
+            )}
           </div>
         </div>
       </div>

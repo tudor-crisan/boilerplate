@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, useLayoutEffect } from "react";
+import { deepMerge } from "@/libs/merge";
 import { defaultStyling } from "@/libs/defaults";
 import stylings from "@/lists/stylings";
 import shuffle from "@/libs/shuffle";
@@ -14,7 +15,7 @@ export default function WrapperStyling({ children }) {
     const savedStyling = localStorage.getItem("styling-config");
     if (savedStyling) {
       try {
-        setStyling(JSON.parse(savedStyling));
+        setStyling(deepMerge(defaultStyling, JSON.parse(savedStyling)));
       } catch (e) {
         console.error("Failed to parse saved styling:", e);
       }
