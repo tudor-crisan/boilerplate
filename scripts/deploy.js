@@ -14,7 +14,7 @@ const DEPLOYED_ROOT = 'C:/twain_32/deployed'; // Adjust if needed
 // Example: ['my-app', 'another-app']
 const TARGET_FOLDERS = [
   'loyalboards',
-  'tudorcrisan.dev'
+  // 'tudorcrisan.dev'
 ];
 
 // Configuration for app-specific folders to KEEP.
