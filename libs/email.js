@@ -55,23 +55,30 @@ export async function QuickLinkEmail({ host, url, styling, isTest = false }) {
   const { QuickLinkTemplate } = emailTemplates;
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
 
-  const subject = `${isTest ? `[TEST ${new Date().toLocaleTimeString()}] ` : ""}Sign in to ${appName}`;
-  const text = `Sign in to ${appName}\n${url}\n\nIf you did not request this email you can safely ignore it.`;
+  const businessWebsite = settings.business?.website;
+  const redirectUrl = businessWebsite + `?redirect=${encodeURIComponent(url)}`;
 
-  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<QuickLinkTemplate host={host} url={url} styling={styling} />);
+  const subject = `${isTest ? `[TEST ${new Date().toLocaleTimeString()}] ` : ""}Sign in to ${appName}`;
+  const text = `Sign in to ${appName}\n\nIf you did not request this email you can safely ignore it.`;
+
+  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<QuickLinkTemplate host={host} url={redirectUrl} styling={styling} />);
 
   return { subject, html, text };
 }
 
 export async function WeeklyDigestEmail({ baseUrl, userName, boards, styling, isTest = false }) {
+  const { appName } = getEmailBranding(styling);
   const { WeeklyDigestTemplate } = emailTemplates;
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
 
+  const businessWebsite = settings.business?.website;
+  const redirectUrl = businessWebsite + `?redirect=${encodeURIComponent(url)}`;
+
   const subject = `${isTest ? `[TEST ${new Date().toLocaleTimeString()}] ` : ""}Your Weekly Board Stats 📈`;
   // Simple text fallback
-  const text = `Hi ${userName || 'there'}, here is your weekly summary for your boards. Please check the html version.`;
+  const text = `Hi ${userName || 'there'}, here is your weekly summary for your boards. Please check the html version.\n${appName}`;
 
-  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<WeeklyDigestTemplate baseUrl={baseUrl} userName={userName} boards={boards} styling={styling} />);
+  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<WeeklyDigestTemplate baseUrl={redirectUrl} userName={userName} boards={boards} styling={styling} />);
 
   return { subject, html, text };
 }

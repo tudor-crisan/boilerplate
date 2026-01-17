@@ -25,17 +25,8 @@ export const EmailButton = ({ href, children, style }) => (
 
 
 export const GenericLayout = ({ font, fontImportName, children }) => {
-  const googleFontImport = (font && fontImportName && !font.toLowerCase().includes("sans-serif"))
-    ? `@import url('${settings.integrations.googleFonts.baseUrl}?family=${fontImportName}:wght@400;600;700;800&display=swap');`
-    : "";
-
   return (
     <html>
-      <head>
-        <style>
-          {googleFontImport}
-        </style>
-      </head>
       {children}
     </html>
   );

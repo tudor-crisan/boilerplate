@@ -1,9 +1,9 @@
-import { defaultVisual } from "@/libs/defaults";
-import { getBaseUrl } from "@/libs/utils.server";
+import { defaultSetting, defaultVisual } from "@/libs/defaults";
 
 export default function EmailIconLogo({ branding }) {
   const { container } = defaultVisual.logo;
-  const faviconHref = getBaseUrl() + defaultVisual.favicon.href;
+  const businessWebsite = defaultSetting.business?.website;
+  const faviconHref = businessWebsite + (defaultVisual.favicon.href.startsWith('/') ? '' : '/') + defaultVisual.favicon.href;
 
   // Extract styles based on common Tailwind classes found in visual.logo.container
   const isPrimaryBg = container.includes("bg-primary");

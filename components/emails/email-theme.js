@@ -78,13 +78,3 @@ export const getEmailBranding = (styling) => {
     logo: activeStyling.logo || defaultVisual.favicon?.href || defaultSetting.business?.logo || ""
   };
 };
-
-export const getLogoUrl = (host) => {
-  const favicon = defaultVisual.favicon;
-  if (!favicon || !favicon.href) return "";
-
-  // Construction of absolute URL for the image
-  // Check if we are on localhost to use http, otherwise https
-  const protocol = host.includes("localhost") ? "http" : "https";
-  return `${protocol}://${host}${favicon.href}`;
-};
