@@ -1,12 +1,13 @@
 import copywritings from "@/lists/copywritings.js";
 import stylings from "@/lists/stylings.js";
-import apps from "@/lists/apps.js";
-import visuals from "@/lists/visuals";
-import settings from "@/lists/settings";
-import blogs from "@/lists/blogs";
-import { getMergedConfig, getMergedConfigWithModules } from "@/libs/merge";
+import apps from "@/lists/applications.mjs";
+import visuals from "@/lists/visuals.js";
+import settings from "@/lists/settings.js";
+import blogs from "@/lists/blogs.js";
+import { getMergedConfig, getMergedConfigWithModules } from "@/libs/merge.mjs";
 
-const { copywriting, styling, visual, setting, blog } = apps[process.env.NEXT_PUBLIC_APP];
+const appName = process.env.APP || process.env.NEXT_PUBLIC_APP;
+const { copywriting, styling, visual, setting, blog } = apps[appName] || {};
 
 export const defaultCopywriting = getMergedConfig("copywriting", copywriting, copywritings);
 export const defaultStyling = getMergedConfig("styling", styling, stylings);

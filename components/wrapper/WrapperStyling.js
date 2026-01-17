@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, useLayoutEffect } from "react";
-import { deepMerge } from "@/libs/merge";
+import { deepMerge } from "@/libs/merge.mjs";
 import { defaultStyling } from "@/libs/defaults";
 import stylings from "@/lists/stylings";
 import shuffle from "@/libs/shuffle";

@@ -1,3 +1,21 @@
+import dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Pre-load environment variables based on APP 
+const appName = process.env.APP || process.env.NEXT_PUBLIC_APP;
+if (appName) {
+  const envPath = path.join(__dirname, 'env', 'env-dev', `.env.dev.${appName}`);
+  if (fs.existsSync(envPath)) {
+    dotenv.config({ path: envPath });
+    console.log(`Loaded environment from: ${envPath}`);
+  }
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   devIndicators: {
@@ -6,18 +24,18 @@ const nextConfig = {
   },
 
   async rewrites() {
-    const app = process.env.NEXT_PUBLIC_APP;
+    const app = process.env.APP || process.env.NEXT_PUBLIC_APP;
 
     if (!app) {
-      console.warn("NEXT_PUBLIC_APP not defined");
+      console.warn("APP or NEXT_PUBLIC_APP not defined");
       return [];
     }
 
     try {
       // Dynamic imports to isolate load issues
-      const { default: apps } = await import("./lists/apps.js");
-      const { default: settings } = await import("./lists/settings.node.js");
-      const { getMergedConfigWithModules } = await import("./libs/merge.js");
+      const { default: apps } = await import("./lists/applications.mjs");
+      const { default: settings } = await import("./lists/settings.node.mjs");
+      const { getMergedConfigWithModules } = await import("./libs/merge.mjs");
 
       const appConfig = apps[app];
       const setting = appConfig?.setting;
@@ -37,7 +55,7 @@ const nextConfig = {
       console.log("Rewrites loaded:", returnPaths.length);
       return returnPaths;
     } catch (error) {
-      console.error("Rewrites error:", error.message);
+      console.error("Rewrites error:", error.stack || error.message);
       return [];
     }
   }

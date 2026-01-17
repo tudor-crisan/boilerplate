@@ -1,4 +1,4 @@
-const apps = {
+const applications = {
   "loyalboards": {
     "copywriting": {
       "default": "copywriting0",
@@ -65,6 +65,6 @@ const apps = {
       "override": "tc0_blog"
     }
   }
-}
+};
 
-export default apps;
+export default applications;

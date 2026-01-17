@@ -1,3 +1,17 @@
+if (typeof window === "undefined") {
+  const dotenv = await import("dotenv");
+  const fs = await import("fs");
+  const path = await import("path");
+
+  const appName = process.env.APP || process.env.NEXT_PUBLIC_APP;
+  if (appName) {
+    const envPath = path.join(process.cwd(), 'env', 'env-dev', `.env.dev.${appName}`);
+    if (fs.existsSync(envPath)) {
+      dotenv.config({ path: envPath });
+    }
+  }
+}
+
 import mongoose from "mongoose";
 
 const connectMongo = async () => {

@@ -4,7 +4,7 @@ import settings from "@/lists/settings.js";
 import visuals from "@/lists/visuals.js";
 import stylings from "@/lists/stylings.js";
 import { formatWebsiteUrl } from "@/libs/utils.server.js";
-import apps from "@/lists/apps.js";
+import apps from "@/lists/applications.mjs";
 
 export const getAppDetails = (appName) => {
   const appConfig = apps[appName];
