@@ -5,7 +5,7 @@ import BlogCardCategory from "@/components/blog/BlogCardCategory";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import Grid from "@/components/common/Grid";
-import { defaultSetting as config, defaultBlog } from "@/libs/defaults";
+import { defaultSetting as config, defaultBlog, defaultStyling } from "@/libs/defaults";
 import { getMetadata } from "@/libs/seo";
 import PagesBlog from "@/components/pages/PagesBlog";
 
@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const { categoryId } = params;
+  const { categoryId } = await params;
   const category = categories.find((c) => c.slug === categoryId);
 
   if (!category) {
@@ -33,16 +33,11 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogCategory({ params }) {
-  const { categoryId } = params;
-
-  console.log("DEBUG: BlogCategory params:", params);
-  console.log("DEBUG: categoryId:", categoryId);
-  console.log("DEBUG: Available categories:", categories.map(c => c.slug));
+  const { categoryId } = (await params);
 
   const category = categories.find((c) => c.slug === categoryId);
 
   if (!category) {
-    console.log("DEBUG: Category not found for slug:", categoryId);
     return notFound();
   }
 
@@ -58,16 +53,16 @@ export default async function BlogCategory({ params }) {
 
   return (
     <PagesBlog>
-      <section className="text-center max-w-xl mx-auto mt-12 mb-24 sm:mb-32 px-4">
-        <Title className={`mb-6 ${defaultStyling.section.title}`}>
+      <section className={`${defaultStyling.general.container} my-6 sm:mt-12 px-4 space-y-3`}>
+        <Title className={`${defaultStyling.section.title}`}>
           {category.title}
         </Title>
-        <Paragraph className="text-lg opacity-80 leading-relaxed">
+        <Paragraph>
           {category.description}
         </Paragraph>
       </section>
 
-      <section className="mb-24 sm:mb-32 px-4 max-w-6xl mx-auto">
+      <section className={`${defaultStyling.general.container} px-4 mb-8`}>
         <Grid>
           {articlesToDisplay.map((article, i) => (
             <BlogCardArticle
@@ -79,12 +74,11 @@ export default async function BlogCategory({ params }) {
         </Grid>
       </section>
 
-      <section className="px-4 max-w-6xl mx-auto">
-        <p className="font-bold text-2xl sm:text-4xl tracking-tight text-center mb-8 sm:mb-12">
+      <section className={`${defaultStyling.general.container} space-y-3 px-4 pb-12`}>
+        <Title>
           Browse other categories
-        </p>
-
-        <Grid className="gap-4">
+        </Title>
+        <Grid className="grid-cols-2 sm:grid-cols-4 gap-4">
           {categories.map((category) => (
             <BlogCardCategory key={category.slug} category={category} tag="div" />
           ))}

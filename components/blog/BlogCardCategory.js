@@ -1,25 +1,17 @@
 "use client";
-
 import Button from "@/components/button/Button";
-import { useStyling } from "@/context/ContextStyling";
 
-
-const BlogCardCategory = ({ category, tag = "h2" }) => {
-  const { styling } = useStyling();
-  const TitleTag = tag;
-
+const BlogCardCategory = ({ category }) => {
   return (
     <Button
-      className={`${styling.components.element}`}
+      className="capitalize"
       href={`/blog/category/${category.slug}`}
       title={category.title}
       rel="tag"
-      variant=""
-      size=""
+      variant="btn-neutral"
+      size="btn-sm"
     >
-      <TitleTag className="sm:text-lg font-medium">
-        {category?.titleShort || category.title}
-      </TitleTag>
+      {category?.titleShort || category.title}
     </Button>
   );
 };
