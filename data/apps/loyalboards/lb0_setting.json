@@ -5,19 +5,15 @@
     "title": "Collect customer feedback to build better products",
     "description": "Create a feedback board in minutes, prioritize features, and build products your customers will love.",
     "tagline": "Create feedback boards your customers will love.",
-    "image": "/lb/og-home.png"
+    "image": "/lb_og.png"
   },
   "business": {
     "support_email": "LoyalBoards@tudorcrisan.dev"
   },
   "auth": {
-    "providers": [
-      "resend"
-    ]
+    "providers": ["resend"]
   },
-  "modules": [
-    "boards"
-  ],
+  "modules": ["boards"],
   "components": {
     "dashboard": "LoyalBoardsDashboard"
   }

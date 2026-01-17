@@ -22,14 +22,14 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
           title={article.title}
           rel="bookmark"
         >
-          <figure>
+          <figure className="aspect-video flex items-center justify-center bg-white overflow-hidden">
             <Image
               src={article.image.src}
               alt={article.image.alt}
-              width={600}
-              height={338}
+              width={100}
+              height={100}
               priority={isImagePriority}
-              className={styling.blog.image}
+              className={`${styling.blog.image} w-auto h-full max-h-full object-contain`}
             />
           </figure>
         </Link>
