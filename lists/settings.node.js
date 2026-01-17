@@ -6,10 +6,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const loadJSON = (p) => {
+  const fullPath = path.join(__dirname, p);
   try {
-    return JSON.parse(fs.readFileSync(path.join(__dirname, p), "utf8"));
+    if (!fs.existsSync(fullPath)) {
+      console.warn(`⚠️ JSON file not found: ${fullPath}`);
+      return {};
+    }
+    const content = fs.readFileSync(fullPath, "utf8");
+    return JSON.parse(content);
   } catch (e) {
-    console.warn(`⚠️ Failed to load JSON file: ${p}`);
+    console.error(`❌ Failed to load or parse JSON file: ${fullPath}`, e.message);
     return {};
   }
 };
