@@ -9,7 +9,7 @@ import { withApiHandler } from "@/libs/apiHandler";
 
 const TYPE = "Post";
 
-export const POST = withApiHandler(async (req) => {
+export const POST = withApiHandler(async (req, { session }) => {
   if (!settings.forms?.[TYPE]) {
     throw new Error("Missing settings for " + TYPE);
   }
@@ -49,7 +49,6 @@ export const POST = withApiHandler(async (req) => {
     }
   }
 
-  const session = await auth(); // We still check for session, but don't force it via needAuth
   const userId = session?.user?.id;
 
   const postData = {

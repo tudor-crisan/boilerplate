@@ -6,11 +6,10 @@ import Post from "@/models/modules/boards/Post";
 import { Filter } from "bad-words";
 import { trackEvent, createNotification } from "@/libs/modules/boards/analytics";
 import { withApiHandler } from "@/libs/apiHandler";
-import { auth } from "@/libs/auth";
 
 const TYPE = "Comment";
 
-export const POST = withApiHandler(async (req) => {
+export const POST = withApiHandler(async (req, { session }) => {
   if (!settings.forms?.[TYPE]) {
     throw new Error("Missing settings for " + TYPE);
   }
@@ -33,7 +32,6 @@ export const POST = withApiHandler(async (req) => {
     return responseError(textRequired.message, textRequired.inputErrors, textRequired.status);
   }
 
-  const session = await auth();
   const userId = session?.user?.id;
 
   if (!userId && !body.name) {

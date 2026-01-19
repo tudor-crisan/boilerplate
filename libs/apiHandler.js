@@ -1,6 +1,6 @@
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
-import { responseError, responseSuccess, isResponseMock, responseMock } from "@/libs/utils.server";
+import { responseError, isResponseMock, responseMock } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { checkReqRateLimit } from "@/libs/rateLimit";
 import User from "@/models/User";
@@ -54,23 +54,22 @@ export function withApiHandler(handler, options = {}) {
       let user = null;
 
       // 4. Authentication and Access Checks
-      if (needAuth || needAccess) {
-        session = await auth();
+      // 4. Authentication and Access Checks
+      session = await auth();
 
-        if (needAuth && !session) {
-          return responseError(notAuthorized.message, {}, notAuthorized.status);
+      if (needAuth && !session) {
+        return responseError(notAuthorized.message, {}, notAuthorized.status);
+      }
+
+      if (session?.user?.id) {
+        user = await User.findById(session.user.id);
+
+        if (!user && (needAuth || needAccess)) {
+          return responseError(sessionLost.message, {}, sessionLost.status);
         }
 
-        if (session?.user?.id) {
-          user = await User.findById(session.user.id);
-
-          if (!user) {
-            return responseError(sessionLost.message, {}, sessionLost.status);
-          }
-
-          if (needAccess && !user.hasAccess) {
-            return responseError(noAccess.message, {}, noAccess.status);
-          }
+        if (needAccess && !user.hasAccess) {
+          return responseError(noAccess.message, {}, noAccess.status);
         }
       }
 
