@@ -219,20 +219,31 @@ function cleanAppSpecificFiles(targetDir, appName) {
 
 async function main() {
   try {
+    // 0. Parse arguments
+    const args = process.argv.slice(2);
+    const shouldIncrement = !args.includes('--no-bump');
+
     // 1. Bump Version in package.json
     const packageJsonPath = path.join(BOILERPLATE_DIR, 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
     const currentVersion = packageJson.version;
-    const versionParts = currentVersion.split('.').map(Number);
-    versionParts[2] += 1;
-    const newVersion = versionParts.join('.');
+    let newVersion = currentVersion;
 
-    console.log(`ℹ️  Current version: ${currentVersion}`);
-    console.log(`✅ Bumping version to: ${newVersion}`);
+    if (shouldIncrement) {
+      const versionParts = currentVersion.split('.').map(Number);
+      versionParts[2] += 1;
+      newVersion = versionParts.join('.');
 
-    packageJson.version = newVersion;
-    fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+      console.log(`ℹ️  Current version: ${currentVersion}`);
+      console.log(`✅ Bumping version to: ${newVersion}`);
+
+      packageJson.version = newVersion;
+      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+    } else {
+      console.log(`ℹ️  Current version: ${currentVersion}`);
+      console.log(`⚠️  Skipping version bump (--no-bump flag detected)`);
+    }
 
     // 1b. Commit and Push Source Repo (Boilerplate)
     console.log(`\n💾 Committing and pushing source repo (${newVersion})...`);
