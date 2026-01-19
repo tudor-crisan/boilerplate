@@ -12,12 +12,16 @@ import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import { useAnalyticsRange } from "@/hooks/modules/boards/useAnalyticsRange";
 import IconLoading from "@/components/icon/IconLoading";
+import Select from "@/components/select/Select";
+import { useSort } from "@/hooks/useSort";
 
 export default function AnalyticsPage() {
   const { styling } = useStyling();
   const [data, setData] = useState(null);
   const { range, setRange, ranges, startLabel, endLabel } = useAnalyticsRange();
   const [isLoading, setIsLoading] = useState(true);
+
+  const { sortedItems: sortedBoards, requestSort, getSortIcon } = useSort(data?.boards, { key: 'totalViews', direction: 'desc' });
 
   useEffect(() => {
     const fetchData = (showLoading = true) => {
@@ -49,7 +53,6 @@ export default function AnalyticsPage() {
 
   // Dynamic Styling from Context
   const cardClass = `${styling.components.card} p-6 h-full`;
-  const selectClass = styling.components.select;
   const titleClass = styling.section.title;
   const roundingClass = styling.components.element.split(' ').find(c => c.startsWith('rounded')) || 'rounded-none';
   const barRounding = roundingClass.replace('rounded', '!rounded-t');
@@ -76,13 +79,11 @@ export default function AnalyticsPage() {
           <ButtonBack url="/dashboard" />
 
           <div className="w-full sm:w-auto">
-            <select
-              className={selectClass}
+            <Select
               value={range}
               onChange={(e) => setRange(e.target.value)}
-            >
-              {ranges.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
-            </select>
+              options={ranges}
+            />
           </div>
         </div>
       </DashboardHeader>
@@ -143,15 +144,40 @@ export default function AnalyticsPage() {
                   <table className="table">
                     <thead>
                       <tr>
-                        <th><TextSmall className="font-bold">Board Name</TextSmall></th>
-                        <th><TextSmall className="font-bold">Views</TextSmall></th>
-                        <th><TextSmall className="font-bold">Posts</TextSmall></th>
-                        <th><TextSmall className="font-bold">Votes</TextSmall></th>
-                        <th><TextSmall className="font-bold">Comments</TextSmall></th>
+                        <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('name')}>
+                          <div className="flex items-center gap-2">
+                            <TextSmall className="font-bold">Board Name</TextSmall>
+                            {getSortIcon('name')}
+                          </div>
+                        </th>
+                        <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('totalViews')}>
+                          <div className="flex items-center gap-2">
+                            <TextSmall className="font-bold">Views</TextSmall>
+                            {getSortIcon('totalViews')}
+                          </div>
+                        </th>
+                        <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('totalPosts')}>
+                          <div className="flex items-center gap-2">
+                            <TextSmall className="font-bold">Posts</TextSmall>
+                            {getSortIcon('totalPosts')}
+                          </div>
+                        </th>
+                        <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('totalVotes')}>
+                          <div className="flex items-center gap-2">
+                            <TextSmall className="font-bold">Votes</TextSmall>
+                            {getSortIcon('totalVotes')}
+                          </div>
+                        </th>
+                        <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('totalComments')}>
+                          <div className="flex items-center gap-2">
+                            <TextSmall className="font-bold">Comments</TextSmall>
+                            {getSortIcon('totalComments')}
+                          </div>
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {data?.boards && data.boards.length > 0 ? data.boards.map(board => (
+                      {sortedBoards.length > 0 ? sortedBoards.map(board => (
                         <tr key={board._id}>
                           <td className="font-bold">{board.name}</td>
                           <td>{board.totalViews || 0}</td>
