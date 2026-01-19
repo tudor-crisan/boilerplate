@@ -1,6 +1,7 @@
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import Notification from "@/models/modules/boards/Notification";
+import Board from "@/models/modules/boards/Board";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -17,7 +18,8 @@ export async function GET(req) {
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit)
-    .populate("boardId", "name slug");
+    .populate("boardId", "name slug")
+    .lean();
 
   const totalCount = await Notification.countDocuments({ userId: session.user.id });
   const hasMore = skip + notifications.length < totalCount;

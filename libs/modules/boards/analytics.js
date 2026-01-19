@@ -49,15 +49,18 @@ export async function createNotification(boardId, type, data) {
   try {
     await connectMongo();
 
-    // Find board owner
-    const board = await Board.findById(boardId).select("userId");
+    // Find board owner and name
+    const board = await Board.findById(boardId).select("userId name");
     if (!board || !board.userId) return;
 
     await Notification.create({
       userId: board.userId,
       boardId,
       type,
-      data
+      data: {
+        ...data,
+        boardName: board.name
+      }
     });
   } catch (e) {
     console.error("Notification Error:", e);

@@ -23,7 +23,7 @@ export default function BoardNotificationItem({ notification, loadingIds, markAs
         </div>
 
         <div className="text-sm">
-          <span className="font-bold mr-2">[{notification.boardId?.name || 'Board'}]</span>
+          <span className="font-bold mr-2">[{notification.boardId?.name || notification.data?.boardName || 'Board'}]</span>
           <span className={clsx("opacity-80 wrap-break-words", !isExpanded && "line-clamp-1 inline")}>
             {content}
           </span>
