@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useStyling } from "@/context/ContextStyling";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useState } from "react";
 import HeaderButton from "@/components/header/HeaderButton";
@@ -9,6 +10,7 @@ import IconLogo from "@/components/icon/IconLogo";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function HeaderHamburger() {
+  const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   const { visual } = useVisual();
   const [isOpen, setIsOpen] = useState(false);
@@ -35,9 +37,9 @@ export default function HeaderHamburger() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-base-100 flex flex-col p-4 sm:hidden animate-fade-in-up overflow-y-auto">
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center gap-2">
+        <div className={`fixed inset-0 z-50 bg-base-100 ${styling.flex.col} p-4 sm:hidden animate-fade-in-up overflow-y-auto`}>
+          <div className={`${styling.flex.between} mb-8`}>
+            <div className={`${styling.flex.items_center} gap-2`}>
               <IconLogo />
               {visual.show.SectionHeader.appName && (
                 <span className="font-bold text-md">
@@ -53,7 +55,7 @@ export default function HeaderHamburger() {
               <SvgClose className="w-8 h-8" />
             </button>
           </div>
-          <div className="flex flex-col gap-4 items-center w-full">
+          <div className={`${styling.flex.col} gap-4 items-center w-full`}>
             {copywriting.SectionHeader.menus.map((menu, index) => (
               <Link
                 href={menu.path}

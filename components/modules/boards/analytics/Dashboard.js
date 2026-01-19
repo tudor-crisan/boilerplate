@@ -4,21 +4,11 @@ import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
 import TextSmall from "@/components/common/TextSmall";
 import Button from '@/components/button/Button';
-import Grid from '@/components/common/Grid';
-import Flex from '@/components/common/Flex';
 import { defaultSetting as settings } from "@/libs/defaults";
 import useApiRequest from '@/hooks/useApiRequest';
 import { clientApi } from '@/libs/api';
+import AnalyticsStats from '@/components/analytics/AnalyticsStats';
 
-const AnalyticsItem = ({ text = '', className = '', count = '' }) => {
-  const { styling } = useStyling();
-  return (
-    <Flex className={`${styling.components.card} ${styling.general.box} ${styling.flex.col_center}`}>
-      <TextSmall>{text}</TextSmall>
-      <Title className={`${className} text-2xl sm:text-3xl`}>{count}</Title>
-    </Flex>
-  )
-}
 
 export default function BoardDashboardAnalytics() {
   const { styling } = useStyling();
@@ -64,12 +54,15 @@ export default function BoardDashboardAnalytics() {
         <Title>Analytics</Title>
         <Button href={settings.paths.dashboardAnalytics.source}>View All</Button>
       </div>
-      <Grid className="gap-4 grid-cols-2 sm:grid-cols-4">
-        <AnalyticsItem text="Views" className="text-primary" count={totals.views} />
-        <AnalyticsItem text="Posts" className="text-secondary" count={totals.posts} />
-        <AnalyticsItem text="Votes" count={totals.votes} />
-        <AnalyticsItem text="Comments" count={totals.comments} />
-      </Grid>
+      <AnalyticsStats
+        items={[
+          { label: "Views", value: totals.views, color: "text-primary" },
+          { label: "Posts", value: totals.posts, color: "text-secondary" },
+          { label: "Votes", value: totals.votes },
+          { label: "Comments", value: totals.comments },
+        ]}
+        styling={styling}
+      />
     </div>
   );
 }

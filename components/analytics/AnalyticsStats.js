@@ -9,7 +9,7 @@ export default function AnalyticsStats({ items = [], styling }) {
       {items.map((item, index) => (
         <div
           key={index}
-          className={`${styling?.components?.card || "bg-base-100 rounded-box"} p-3 flex flex-col justify-center items-center text-center`}
+          className={`${styling?.components?.card || "bg-base-100 rounded-box"} p-3 ${styling.flex.col_center} text-center`}
         >
           <TextSmall className="mb-1">{item.label}</TextSmall>
           <span className={`text-xl font-bold leading-none ${item.color || ""}`}>

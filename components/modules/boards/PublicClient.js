@@ -5,7 +5,7 @@ import Main from "@/components/common/Main";
 import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import FormCreate from "@/components/form/FormCreate";
-import BoardPublicPostsList from "@/components/modules/boards/BoardPublicPostsList";
+import BoardPublicPostsList from "@/components/modules/boards/posts/PublicList";
 import FilterBar from "@/components/common/FilterBar";
 import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
 import { defaultStyling } from "@/libs/defaults";

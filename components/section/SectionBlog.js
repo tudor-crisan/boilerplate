@@ -28,7 +28,7 @@ export default function SectionBlog() {
 
   return (
     <SectionWrapper id="blog" containerClassName="space-y-12">
-      <div className="flex flex-col items-center space-y-4">
+      <div className={`${styling.flex.col} items-center space-y-4`}>
         <SectionHeading
           headline={blog.headline}
           paragraph={blog.paragraph}

@@ -58,8 +58,8 @@ const CommentUI = ({
 
   if (isLoading) return (
     <div className="py-4">
-      <Paragraph className="text-sm">
-        <IconLoading /> Loading comments ...
+      <Paragraph className="text-sm mt-2">
+        <IconLoading /> <span className="ml-1">Loading comments ...</span>
       </Paragraph>
     </div>
   );
@@ -93,6 +93,7 @@ const CommentUI = ({
             >
               <Input
                 maxLength={formConfig.inputsConfig.name.maxlength}
+                placeholder="Enter your name"
                 value={name}
                 onChange={(e) => onNameChange && onNameChange(e.target.value)}
                 disabled={isSubmitting || isNameSaved}

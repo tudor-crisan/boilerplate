@@ -1,10 +1,9 @@
 
 import { notFound } from "next/navigation";
-import BlogCardArticle from "@/components/blog/BlogCardArticle";
-import BlogCardCategory from "@/components/blog/BlogCardCategory";
+import BlogCategoryList from "@/components/blog/BlogCategoryList";
+import BlogArticleList from "@/components/blog/BlogArticleList";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
-import Grid from "@/components/common/Grid";
 import { defaultSetting as config, defaultBlog, defaultStyling } from "@/libs/defaults";
 import { getMetadata } from "@/libs/seo";
 import PagesBlog from "@/components/pages/PagesBlog";
@@ -63,26 +62,14 @@ export default async function BlogCategory({ params }) {
       </section>
 
       <section className={`${defaultStyling.general.container} px-4 mb-8`}>
-        <Grid>
-          {articlesToDisplay.map((article, i) => (
-            <BlogCardArticle
-              article={article}
-              key={article.slug}
-              isImagePriority={i <= 2}
-            />
-          ))}
-        </Grid>
+        <BlogArticleList articles={articlesToDisplay} />
       </section>
 
       <section className={`${defaultStyling.general.container} space-y-3 px-4 pb-12`}>
         <Title tag="h2">
           Browse other categories
         </Title>
-        <Grid className="grid-cols-2 sm:grid-cols-4 gap-4">
-          {categories.map((category) => (
-            <BlogCardCategory key={category.slug} category={category} tag="div" />
-          ))}
-        </Grid>
+        <BlogCategoryList />
       </section>
     </PagesBlog>
   );

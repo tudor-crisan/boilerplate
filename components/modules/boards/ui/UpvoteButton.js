@@ -1,8 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { clientApi } from "@/libs/api";
-import Button from "@/components/button/Button";
-import SvgVote from "@/components/svg/SvgVote";
+import ButtonVote from "@/components/button/ButtonVote";
 import useApiRequest from "@/hooks/useApiRequest";
 import { useStyling } from "@/context/ContextStyling";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -60,20 +59,13 @@ const BoardUpvoteButton = ({ postId, initialVotesCounter, onVote }) => {
   };
 
   return (
-    <Button
-      variant={hasVoted ? "btn-primary" : "btn-ghost"}
-      className={`${styling.components.element} group text-lg gap-2 ${hasVoted
-        ? "border-transparent"
-        : "bg-base-100 text-base-content border-base-200 hover:border-base-content/25"
-        }`}
+    <ButtonVote
+      hasVoted={hasVoted}
+      count={votesCounter}
+      className={`${styling.components.element} text-lg`}
       onClick={handleVote}
       isLoading={loading}
-      startIcon={<SvgVote />}
-    >
-      <span className="text-sm font-medium">
-        {votesCounter}
-      </span>
-    </Button>
+    />
   );
 };
 

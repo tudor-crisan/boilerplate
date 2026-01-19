@@ -68,6 +68,7 @@ export const getEmailBranding = (styling) => {
     base100,
     base200,
     content,
+    primaryContent: oklchToHex(colors["--color-primary-content"]),
     appName,
     font,
     dividerColor,
@@ -75,6 +76,12 @@ export const getEmailBranding = (styling) => {
     btnRoundness: extractRoundness(elementClasses),
     cardShadow: extractShadow(cardClasses),
     cardBorder: extractBorder(cardClasses, themeColor),
-    logo: activeStyling.logo || defaultVisual.favicon?.href || defaultSetting.business?.logo || ""
+    logo: (() => {
+      const logoRef = activeStyling.logo || defaultVisual.favicon?.href || defaultSetting.business?.logo || "";
+      if (logoRef && logoRef.startsWith("/") && defaultSetting.business?.website) {
+        return `${defaultSetting.business.website}${logoRef}`;
+      }
+      return logoRef;
+    })()
   };
 };

@@ -16,7 +16,7 @@ export default function Select({ className = "", error, children, options, place
   let wrapperClass = "";
 
   if (withNavigation && options?.length > 0) {
-    wrapperClass = "flex flex-col gap-2";
+    wrapperClass = `${styling.flex.col} gap-2`;
 
     // Normalize options/values for index calculation
     const normalizedOptions = options.map(opt => {
@@ -51,11 +51,11 @@ export default function Select({ className = "", error, children, options, place
     const IconNext = <SvgChevronRight className="w-5 h-5" />;
 
     navigationControls = (
-      <div className="flex items-center justify-between gap-2 mb-1">
+      <div className={`${styling.flex.between} gap-2 mb-1`}>
         <div className="text-xs opacity-70 font-medium">
           {currentIndex !== -1 ? `${displayIndex} / ${total}` : `0 / ${total}`}
         </div>
-        <div className="flex items-center gap-1">
+        <div className={`${styling.flex.items_center} gap-1`}>
           <button
             type="button"
             className="btn btn-sm btn-square btn-ghost hover:bg-base-200"

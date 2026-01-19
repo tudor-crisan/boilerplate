@@ -88,7 +88,7 @@ export default function FormCreate({ type, queryParams = {}, skipRefresh = false
       {Object.entries(inputsConfig).map(([target, config]) => (
         <div
           key={target}
-          className="flex flex-col space-y-2"
+          className={`${styling.flex.col} space-y-2`}
         >
           {config.label && (
             <Label>

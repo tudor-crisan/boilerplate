@@ -22,7 +22,7 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
           title={article.title}
           rel="bookmark"
         >
-          <figure className="aspect-video flex items-center justify-center bg-base-200 overflow-hidden">
+          <figure className={`aspect-video ${styling.flex.center} bg-base-200 overflow-hidden`}>
             <div
               className="w-full h-full bg-primary"
               style={{
@@ -64,21 +64,21 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
             {article.description}
           </Paragraph>
 
-          <div className="flex items-center gap-3 text-sm">
+          <div className={`${styling.flex.items_center} gap-3 text-sm`}>
             <div
               title={`Posts by ${config.business.name}`}
               className="flex items-start gap-3 group"
             >
-              <div className="flex-shrink-0 mt-0.5">
+              <div className="shrink-0 mt-0.5">
                 <IconBusinessImage className="size-8 sm:size-7" />
               </div>
-              <div className="flex flex-col gap-0.5">
+              <div className={`${styling.flex.col} gap-0.5`}>
                 <span itemProp="author">
                   <TextSmall className="text-base-content font-semibold text-sm leading-none">
                     {config.business.name}
                   </TextSmall>
                 </span>
-                <div className="flex items-center gap-1.5 text-xs opacity-60">
+                <div className={`${styling.flex.items_center} gap-1.5 text-xs opacity-60`}>
                   <span itemProp="datePublished">
                     {new Date(article.publishedAt).toLocaleDateString("en-US", {
                       month: "long",

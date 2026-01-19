@@ -25,9 +25,9 @@ export default function SectionPricing() {
         className="mb-12"
       />
       <PricingCard>
-        <div className="flex flex-col gap-3 mb-6">
+        <div className={`${styling.flex.col} gap-3 mb-6`}>
           {/* Monthly Plan */}
-          <div className="flex items-center justify-between">
+          <div className={styling.flex.between}>
             <div className="flex items-baseline">
               <div className="text-3xl font-black">
                 {pricing.formattedPlans.monthly.price}

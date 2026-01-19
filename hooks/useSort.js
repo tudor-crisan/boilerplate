@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useMemo } from 'react';
-import { MoveUp, MoveDown, ChevronsUpDown } from "lucide-react";
+import SvgMoveUp from "@/components/svg/SvgMoveUp";
+import SvgMoveDown from "@/components/svg/SvgMoveDown";
+import SvgChevronsUpDown from "@/components/svg/SvgChevronsUpDown";
 
 /**
  * A reusable hook for sorting arrays of objects.
@@ -20,8 +22,8 @@ export function useSort(items, initialConfig = { key: null, direction: 'desc' })
   };
 
   const getSortIcon = (key) => {
-    if (sortConfig.key !== key) return <ChevronsUpDown className="w-4 h-4 opacity-50" />;
-    return sortConfig.direction === 'asc' ? <MoveUp className="w-4 h-4" /> : <MoveDown className="w-4 h-4" />;
+    if (sortConfig.key !== key) return <SvgChevronsUpDown className="w-4 h-4 opacity-50" />;
+    return sortConfig.direction === 'asc' ? <SvgMoveUp className="w-4 h-4" /> : <SvgMoveDown className="w-4 h-4" />;
   };
 
   const sortedItems = useMemo(() => {

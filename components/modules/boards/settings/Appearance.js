@@ -10,7 +10,17 @@ export const BoardSettingsAppearance = ({ getVal, handleChange, disabled, defaul
       isLoading={disabled}
     />
 
-    <div className="flex justify-end gap-3 mt-2">
+    <div className="pt-4 border-t border-base-200">
+      <div className="font-bold text-sm mb-4">Randomizer</div>
+      <SettingsRandomizer
+        config={getVal("randomizer", { theme: true, font: true, styling: true, auto: false })}
+        onConfigChange={(key, val) => handleChange(`randomizer.${key}`, val)}
+        onShuffle={handleShuffle}
+        isLoading={disabled}
+      />
+    </div>
+
+    <div className="flex justify-between items-center gap-3 mt-4 pt-4 border-t border-base-200 border-dashed">
       <button
         type="button"
         onClick={() => handleChange("appearance", appStyling)}
@@ -25,16 +35,6 @@ export const BoardSettingsAppearance = ({ getVal, handleChange, disabled, defaul
       >
         Use profile settings
       </button>
-    </div>
-
-    <div className="pt-4 border-t border-base-200">
-      <div className="font-bold text-sm mb-4">Randomizer</div>
-      <SettingsRandomizer
-        config={getVal("randomizer", { theme: true, font: true, styling: true, auto: false })}
-        onConfigChange={(key, val) => handleChange(`randomizer.${key}`, val)}
-        onShuffle={handleShuffle}
-        isLoading={disabled}
-      />
     </div>
   </SettingsContainer>
 );

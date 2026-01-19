@@ -43,7 +43,7 @@ const ImageCropper = ({ imageSrc, onCropComplete, onCancel, aspect = 1 }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-base-100">
+    <div className={`fixed inset-0 z-50 ${styling.flex.col} bg-base-100`}>
       <div className="relative flex-1 bg-black">
         <Cropper
           image={imageSrc}
@@ -60,7 +60,7 @@ const ImageCropper = ({ imageSrc, onCropComplete, onCancel, aspect = 1 }) => {
 
       <div className={`p-4 ${styling.flex.col} gap-4 bg-base-100`}>
         <div className="w-full max-w-xs mx-auto space-y-4">
-          <div className="flex items-center gap-4">
+          <div className={`${styling.flex.items_center} gap-4`}>
             <span className="text-sm font-medium w-12 text-right">Zoom</span>
             <InputRange
               value={zoom}
@@ -73,7 +73,7 @@ const ImageCropper = ({ imageSrc, onCropComplete, onCancel, aspect = 1 }) => {
               className="flex-1"
             />
           </div>
-          <div className="flex items-center gap-4">
+          <div className={`${styling.flex.items_center} gap-4`}>
             <span className="text-sm font-medium w-12 text-right">Rotate</span>
             <InputRange
               value={rotation}

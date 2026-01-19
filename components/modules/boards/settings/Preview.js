@@ -4,9 +4,9 @@ import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
 import { defaultSetting } from "@/libs/defaults";
 import { ContextStyling } from "@/context/ContextStyling";
-import { fontMap } from "@/lists/fonts";
-import BoardPreviewForm from "./BoardPreviewForm";
-import BoardPreviewComments from "./BoardPreviewComments";
+import ThemeWrapper from "@/components/common/ThemeWrapper";
+import BoardPreviewForm from "./PreviewForm";
+import BoardPreviewComments from "./PreviewComments";
 
 export default function BoardPreview({
   previewStyling,
@@ -14,16 +14,16 @@ export default function BoardPreview({
   handleChange
 }) {
   return (
-    <div className="flex-none lg:flex-1 border-t pt-6 lg:border-t-0 lg:pt-0 lg:border-l border-base-300 lg:pl-6">
+    <div className="flex-none sm:flex-1 border-t pt-6 sm:border-t-0 sm:pt-0 sm:border-l border-base-300 sm:pl-6">
       <ContextStyling.Provider value={{ styling: previewStyling }}>
         <div className="sticky top-0 space-y-8">
           <div className="text-sm uppercase font-bold text-base-content/50 mb-4">PREVIEW</div>
           <div className="space-y-6">
             {/* Wrapper for Theme Isolation */}
-            <div
-              data-theme={previewStyling.theme?.toLowerCase()}
+            <ThemeWrapper
+              theme={previewStyling.theme}
+              font={previewStyling.font}
               className="p-1 space-y-6"
-              style={{ fontFamily: fontMap[previewStyling.font] }}
             >
               <BoardPreviewForm
                 previewStyling={previewStyling}
@@ -41,7 +41,7 @@ export default function BoardPreview({
                 getVal={getVal}
                 handleChange={handleChange}
               />
-            </div>
+            </ThemeWrapper>
           </div>
         </div>
       </ContextStyling.Provider>

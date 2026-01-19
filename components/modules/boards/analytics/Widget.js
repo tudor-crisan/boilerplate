@@ -6,7 +6,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import { useStyling } from "@/context/ContextStyling";
 import Label from "@/components/common/Label";
 import IconLoading from "@/components/icon/IconLoading";
-import { useAnalyticsRange } from "@/hooks/modules/boards/useAnalyticsRange";
+import { useAnalyticsRange } from "@/hooks/useAnalyticsRange";
 import Paragraph from '@/components/common/Paragraph';
 import AnalyticsStats from '@/components/analytics/AnalyticsStats';
 import AnalyticsChart from '@/components/analytics/AnalyticsChart';
@@ -53,7 +53,7 @@ export default function BoardAnalyticsWidget({ boardId }) {
 
   return (
     <div className="space-y-4 w-full">
-      <div className="flex justify-between items-center sm:hidden">
+      <div className={`${styling.flex.between} sm:hidden`}>
         <Label className="opacity-70">Analytics</Label>
       </div>
 
@@ -66,8 +66,8 @@ export default function BoardAnalyticsWidget({ boardId }) {
       </select>
 
       {isLoading ? (
-        <Paragraph className={`${styling.flex.start} gap-2 mt-2`}>
-          <IconLoading /> Loading analytics...
+        <Paragraph className="text-sm">
+          <IconLoading /> <span className="ml-1">Loading analytics ...</span>
         </Paragraph>
       ) : (
         <>

@@ -24,28 +24,39 @@ export default function SettingsAppearance({ styling, onChange, isLoading }) {
 
   const updateRadius = (radius) => {
     const safeRadius = handleValidation(radius);
-    const newComponents = { ...styling.components };
-    const newPricing = { ...styling.pricing };
-    const newBlog = { ...styling.blog };
 
-    // Replace any rounded class with new radius
-    const replaceRadius = (str) =>
-      str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() + " " + safeRadius;
+    // Create deep copies to avoid mutation
+    const newComponents = styling.components ? { ...styling.components } : {};
+    const newPricing = styling.pricing ? { ...styling.pricing } : {};
+    const newBlog = styling.blog ? { ...styling.blog } : {};
 
+    // Helper to replace or append radius
+    const replaceRadius = (str) => {
+      if (!str) return safeRadius;
+      const radiusRegex = /rounded-(none|sm|md|lg|xl|2xl|3xl|full)/g;
+      if (radiusRegex.test(str)) {
+        return str.replace(radiusRegex, safeRadius);
+      }
+      return `${str} ${safeRadius}`.trim();
+    };
+
+    // Update Components
     Object.keys(newComponents).forEach((key) => {
-      if (typeof newComponents[key] === "string" && newComponents[key].includes("rounded")) {
+      if (typeof newComponents[key] === "string") {
         newComponents[key] = replaceRadius(newComponents[key]);
       }
     });
 
+    // Update Pricing
     Object.keys(newPricing).forEach((key) => {
-      if (typeof newPricing[key] === "string" && newPricing[key].includes("rounded")) {
+      if (typeof newPricing[key] === "string") {
         newPricing[key] = replaceRadius(newPricing[key]);
       }
     });
 
+    // Update Blog
     Object.keys(newBlog).forEach((key) => {
-      if (typeof newBlog[key] === "string" && newBlog[key].includes("rounded")) {
+      if (typeof newBlog[key] === "string") {
         newBlog[key] = replaceRadius(newBlog[key]);
       }
     });

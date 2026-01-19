@@ -27,7 +27,7 @@ const CommentItem = ({
         size="sm"
       />
       <div className="flex-1 space-y-1">
-        <div className="flex items-center justify-between gap-2">
+        <div className={`${styling?.flex?.between} gap-2`}>
           <span className="font-semibold text-sm">
             {comment.userId?.name || comment.name || "Anonymous"}
             {/* Owner Badge */}
@@ -38,7 +38,7 @@ const CommentItem = ({
             )}
           </span>
 
-          <div className="flex items-center gap-2">
+          <div className={`${styling.flex.items_center} gap-2`}>
             {config.showDate && (
               <TextSmall className="line-clamp-2 max-w-20 text-center text-base-content/50">
                 {formatCommentDate(comment.createdAt || new Date())}

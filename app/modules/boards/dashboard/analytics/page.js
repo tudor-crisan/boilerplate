@@ -10,7 +10,7 @@ import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
-import { useAnalyticsRange } from "@/hooks/modules/boards/useAnalyticsRange";
+import { useAnalyticsRange } from "@/hooks/useAnalyticsRange";
 import IconLoading from "@/components/icon/IconLoading";
 import Select from "@/components/select/Select";
 import { useSort } from "@/hooks/useSort";
@@ -75,7 +75,7 @@ export default function AnalyticsPage() {
   return (
     <DashboardWrapper>
       <DashboardHeader>
-        <div className="w-full flex justify-between items-center gap-4">
+        <div className={`w-full ${styling.flex.between} gap-4`}>
           <ButtonBack url="/dashboard" />
 
           <div className="w-fit">
@@ -91,13 +91,13 @@ export default function AnalyticsPage() {
 
       <DashboardMain>
         <div className="space-y-6 w-full">
-          <div className="flex flex-col gap-2">
+          <div className={`${styling.flex.col} gap-2`}>
             <Title className={titleClass}>Analytics</Title>
           </div>
 
           {isLoading ? (
-            <Paragraph className={`${styling.flex.start} gap-2`}>
-              <IconLoading /> Loading analytics...
+            <Paragraph className="text-sm mt-2">
+              <IconLoading /> <span className="ml-1">Loading analytics ...</span>
             </Paragraph>
           ) : (
             <>
@@ -114,7 +114,7 @@ export default function AnalyticsPage() {
                         const height = (total / maxVal) * 100;
 
                         return (
-                          <div key={i} className="flex-1 max-w-[40px] h-full flex flex-col justify-end group relative">
+                          <div key={i} className={`flex-1 max-w-[40px] h-full ${styling.flex.col} justify-end group relative`}>
                             <div
                               className="tooltip tooltip-primary w-full h-full flex items-end"
                               data-tip={`${new Date(day._id).toLocaleDateString()}: ${total} events`}
@@ -132,7 +132,7 @@ export default function AnalyticsPage() {
                     </div>
                   </div>
                 ) : (
-                  <div className="py-12 flex flex-col items-center text-center opacity-60">
+                  <div className={`py-12 ${styling.flex.col} items-center text-center opacity-60`}>
                     <Paragraph>No activity found for this period</Paragraph>
                   </div>
                 )}
@@ -146,31 +146,31 @@ export default function AnalyticsPage() {
                     <thead>
                       <tr>
                         <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('name')}>
-                          <div className="flex items-center gap-2">
+                          <div className={`${styling.flex.items_center} gap-2`}>
                             <TextSmall className="font-bold">Board Name</TextSmall>
                             {getSortIcon('name')}
                           </div>
                         </th>
                         <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('totalViews')}>
-                          <div className="flex items-center gap-2">
+                          <div className={`${styling.flex.items_center} gap-2`}>
                             <TextSmall className="font-bold">Views</TextSmall>
                             {getSortIcon('totalViews')}
                           </div>
                         </th>
                         <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('totalPosts')}>
-                          <div className="flex items-center gap-2">
+                          <div className={`${styling.flex.items_center} gap-2`}>
                             <TextSmall className="font-bold">Posts</TextSmall>
                             {getSortIcon('totalPosts')}
                           </div>
                         </th>
                         <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('totalVotes')}>
-                          <div className="flex items-center gap-2">
+                          <div className={`${styling.flex.items_center} gap-2`}>
                             <TextSmall className="font-bold">Votes</TextSmall>
                             {getSortIcon('totalVotes')}
                           </div>
                         </th>
                         <th className="cursor-pointer hover:bg-base-200 transition-colors" onClick={() => requestSort('totalComments')}>
-                          <div className="flex items-center gap-2">
+                          <div className={`${styling.flex.items_center} gap-2`}>
                             <TextSmall className="font-bold">Comments</TextSmall>
                             {getSortIcon('totalComments')}
                           </div>

@@ -1,25 +1,26 @@
 "use client";
 
+import { useStyling } from "@/context/ContextStyling";
 import InputCheckbox from "@/components/input/InputCheckbox";
 import Button from "@/components/button/Button";
 import Grid from "@/components/common/Grid";
 import Tooltip from "@/components/common/Tooltip";
 
 export default function SettingsRandomizer({ config, onConfigChange, onShuffle, isLoading, title }) {
+  const { styling } = useStyling();
 
   if (!config) return null;
 
   const isThemeEnabled = config.theme !== false;
   const isFontEnabled = config.font !== false;
   const isStylingEnabled = config.styling !== false;
-
   const isShuffleDisabled = !isThemeEnabled && !isFontEnabled && !isStylingEnabled;
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className={styling.flex.between}>
         {title}
-        <div className="flex items-center gap-2">
+        <div className={`${styling.flex.items_center} gap-2`}>
           <InputCheckbox
             label="Auto Shuffle"
             className="toggle-sm"
@@ -30,8 +31,9 @@ export default function SettingsRandomizer({ config, onConfigChange, onShuffle, 
         </div>
       </div>
 
-      <Grid>
-        <div className="flex items-center gap-4 col-span-2 sm:col-span-1">
+      <div className="space-y-4">
+        {/* Checkboxes Area */}
+        <div className={`${styling.flex.items_center} flex-wrap gap-x-4 gap-y-2`}>
           <InputCheckbox
             label="Theme"
             value={isThemeEnabled}
@@ -55,13 +57,14 @@ export default function SettingsRandomizer({ config, onConfigChange, onShuffle, 
           />
         </div>
 
-        <div className="col-span-2 sm:col-span-1 flex justify-end">
+        {/* Shuffle Button Area */}
+        <div className="flex justify-end">
           <Tooltip
             text={isShuffleDisabled ? "Select an option first" : ""}
           >
             <Button
               onClick={onShuffle}
-              className="w-full sm:w-auto btn-outline"
+              className="w-full sm:w-auto btn-outline btn-sm min-h-[2.5rem]"
               type="button"
               disabled={isLoading || isShuffleDisabled}
             >
@@ -69,7 +72,7 @@ export default function SettingsRandomizer({ config, onConfigChange, onShuffle, 
             </Button>
           </Tooltip>
         </div>
-      </Grid>
+      </div>
     </div>
   );
 }

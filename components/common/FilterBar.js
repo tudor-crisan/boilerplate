@@ -2,6 +2,7 @@
 import SvgSearch from "@/components/svg/SvgSearch";
 import Select from "@/components/select/Select";
 import Input from "@/components/input/Input";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function FilterBar({
   search,
@@ -12,8 +13,9 @@ export default function FilterBar({
   placeholder = "Search...",
   className = ""
 }) {
+  const { styling } = useStyling();
   return (
-    <div className={`flex flex-col sm:flex-row gap-4 mb-6 z-0 relative ${className}`}>
+    <div className={`${styling.flex.col} sm:flex-row gap-4 mb-6 z-0 relative ${className}`}>
       {/* Search Input */}
       <div className="flex-1 min-w-0">
         <Input

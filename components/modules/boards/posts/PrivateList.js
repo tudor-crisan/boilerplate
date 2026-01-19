@@ -64,8 +64,8 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
                   </Paragraph>
                 </div>
 
-                <div className="flex justify-between items-center">
-                  <div className="flex flex-col space-y-2">
+                <div className={styling.flex.between}>
+                  <div className={`${styling.flex.col} space-y-2`}>
                     <TextSmall className="text-base-content/50">
                       {formatCommentDate(item.createdAt)}
                     </TextSmall>

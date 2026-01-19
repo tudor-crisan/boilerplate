@@ -38,7 +38,7 @@ export default function AnalyticsChart({
           const max = Math.max(1, ...data.map(d => getValue(d)));
           const height = (total / max) * 100;
           return (
-            <div key={i} className="flex-1 max-w-8 h-full flex flex-col justify-end group relative">
+            <div key={i} className={`flex-1 max-w-8 h-full ${styling?.flex?.col || "flex flex-col"} justify-end group relative`}>
               <div
                 className="tooltip tooltip-left w-full h-full flex items-end"
                 data-tip={tooltipFormat(day, total)}
@@ -49,7 +49,7 @@ export default function AnalyticsChart({
             </div>
           );
         }) : (
-          <div className="w-full h-full flex items-center justify-center opacity-30">
+          <div className={`w-full h-full ${styling?.flex?.center || "flex items-center justify-center"} opacity-30`}>
             <TextSmall className="uppercase font-bold">No Data</TextSmall>
           </div>
         )}

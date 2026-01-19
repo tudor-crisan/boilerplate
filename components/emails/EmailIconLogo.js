@@ -1,54 +1,52 @@
-import { defaultSetting, defaultVisual } from "@/libs/defaults";
+import { defaultVisual, defaultSetting } from "@/libs/defaults";
 
 export default function EmailIconLogo({ branding }) {
-  const { container } = defaultVisual.logo;
-  const businessWebsite = defaultSetting.business?.website;
-  const faviconHref = businessWebsite + (defaultVisual.favicon.href.startsWith('/') ? '' : '/') + defaultVisual.favicon.href;
+  // Use the favicon logic as requested, ignoring complex SVG implementation.
+  const faviconHref = defaultVisual.favicon?.href || "";
+  const website = defaultSetting.business?.website || defaultSetting.appUrl || "";
 
-  // Extract styles based on common Tailwind classes found in visual.logo.container
-  const isPrimaryBg = container.includes("bg-primary");
-  const isBase100Bg = container.includes("bg-base-100");
+  // Construct absolute URL
+  const logoUrl = (faviconHref.startsWith("/") && website)
+    ? `${website}${faviconHref}`
+    : faviconHref;
 
-  const bgColor = isPrimaryBg ? branding.themeColor :
-    isBase100Bg ? branding.base100 : "transparent";
+  // If no URL found, render nothing or a safe fallback? 
+  // User said "use the visual.favicon.href property ... and forget about ... implementation"
+  // If empty, nothing to show.
+  if (!logoUrl) return null;
 
-  // size-8 is 32px
   const containerSize = "32px";
 
   const containerStyle = {
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: "inline-block",
     width: containerSize,
     height: containerSize,
-    backgroundColor: bgColor,
-    borderRadius: branding.btnRoundness,
-    marginRight: "16px",
+    borderRadius: branding?.btnRoundness || "4px",
     verticalAlign: "middle",
-    textDecoration: "none"
+    marginRight: "12px",
+    backgroundColor: "transparent" // Ensure no background conflict
   };
 
-  const logoSrc = faviconHref;
-
-  if (!logoSrc) return null;
+  const imgStyle = {
+    display: "block",
+    width: "100%",
+    height: "100%",
+    borderRadius: branding?.btnRoundness || "4px",
+    objectFit: "contain",
+    // Ensure image is fully visible
+    border: "none",
+    outline: "none"
+  };
 
   return (
     <div style={containerStyle}>
       <img
-        src={logoSrc}
+        src={logoUrl}
         alt="Logo"
         width="32"
         height="32"
-        style={{
-          display: "block",
-          width: "32px",
-          height: "32px",
-          borderRadius: branding.btnRoundness,
-          objectFit: "contain"
-        }}
+        style={imgStyle}
       />
     </div>
   );
 }
-
-

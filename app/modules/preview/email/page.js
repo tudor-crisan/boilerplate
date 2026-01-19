@@ -108,8 +108,8 @@ export default function EmailPreviewPage() {
   };
 
   return (
-    <div className="h-screen flex flex-col sm:flex-row">
-      <div className="bg-base-100 px-0 sm:px-4 pb-4 pt-6 mx-auto max-w-88 flex flex-row sm:flex-col gap-4">
+    <div className={`h-screen ${styling.flex.col} sm:flex-row`}>
+      <div className={`bg-base-100 px-0 sm:px-4 pb-4 pt-6 mx-auto max-w-88 flex flex-row sm:flex-col gap-4`}>
         <div className="flex-1 w-full">
           <Label>
             Email preview
@@ -123,7 +123,7 @@ export default function EmailPreviewPage() {
         </div>
         <div className="flex-1 p-2 sm:p-2 max-h-32 sm:max-h-24">
           <Label>Send Test Email</Label>
-          <div className=" flex flex-col sm:flex-row gap-2 items-end">
+          <div className={` ${styling.flex.col} sm:flex-row gap-2 items-end`}>
             <div className="flex-1">
               <Tooltip text="Email cannot be changed">
                 <Input
@@ -144,7 +144,7 @@ export default function EmailPreviewPage() {
           </div>
         </div>
       </div>
-      <div className="flex-1 bg-base-100 flex flex-col">
+      <div className={`flex-1 bg-base-100 ${styling.flex.col}`}>
         <div className="p-4 border-b border-base-200 bg-base-200/50">
           <p className="text-sm font-medium opacity-70 mb-1">Subject:</p>
           <p className="font-semibold">{testSubject}</p>

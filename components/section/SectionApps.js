@@ -23,7 +23,7 @@ const SectionAppsContent = () => {
       <div key={app} className={cn("card w-full max-w-sm", styling.components.card)}>
         <div className={cn("card-body space-y-6", styling.general.box)}>
           {(favicon || appName) && (
-            <div className="flex items-center gap-2 font-extrabold">
+            <div className={`${styling.flex.items_center} gap-2 font-extrabold`}>
               {favicon && (
                 <Image
                   src={favicon}

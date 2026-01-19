@@ -4,11 +4,11 @@ import Button from "@/components/button/Button";
 import InputToggle from "@/components/input/InputToggle";
 import SvgComment from "@/components/svg/SvgComment";
 import SvgVote from "@/components/svg/SvgVote";
-import BoardCommentUI from "../BoardCommentUI";
+import CommentUI from "@/components/comments/CommentUI";
 
 export default function BoardPreviewComments({ previewStyling, getVal, handleChange }) {
   return (
-    <div className={`${previewStyling.components.card} ${previewStyling.general.box} p-6 border border-base-200 shadow-sm transition-all duration-300 bg-base-100 text-base-content`}>
+    <div className={`${previewStyling.components.card} ${previewStyling.general.box} p-6 border border-base-200 transition-all duration-300 bg-base-100 text-base-content`}>
 
       {/* Mock Post Item for Context */}
       <div className="flex gap-4 mb-6">
@@ -32,7 +32,7 @@ export default function BoardPreviewComments({ previewStyling, getVal, handleCha
         </div>
       </div>
 
-      <BoardCommentUI
+      <CommentUI
         // Mock Comments only if NOT showing empty state
         comments={getVal("comments.showEmptyStatePreview", false) ? [] : [
           {

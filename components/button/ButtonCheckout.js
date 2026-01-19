@@ -9,11 +9,13 @@ import { useCopywriting } from "@/context/ContextCopywriting";
 import Modal from "@/components/common/Modal";
 import PricingPlanCard from "@/components/pricing/PricingPlanCard";
 import Divider from "@/components/common/Divider";
+import { useStyling } from "@/context/ContextStyling";
 
 const SUCCESS_URL_REDIRECT = settings.paths.billingSuccess.source;
 const CANCEL_URL_REDIRECT = settings.paths.dashboard.source;
 
 const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "Subscribe", ...props }) => {
+  const { styling } = useStyling();
   const { loading, request } = useApiRequest();
   const { copywriting } = useCopywriting();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,7 +65,7 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
         title="Choose your plan"
         boxClassName="max-w-md"
       >
-        <div className="flex flex-col gap-3">
+        <div className={`${styling.flex.col} gap-3`}>
           {plans.monthly && (
             <PricingPlanCard
               item={plans.monthly}

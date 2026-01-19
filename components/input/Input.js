@@ -41,7 +41,7 @@ export default function Input({
     <button
       type="button"
       onClick={handleClear}
-      className="absolute inset-y-0 right-0 pr-3 flex items-center text-base-content/50 hover:text-base-content cursor-pointer"
+      className={`absolute inset-y-0 right-0 pr-3 ${styling.flex.items_center} text-base-content/50 hover:text-base-content cursor-pointer`}
     >
       <SvgClose />
     </button>
@@ -70,7 +70,7 @@ export default function Input({
       <div className="relative w-full">
         {inputElement}
         {icon && (
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-base-content/50">
+          <div className={`absolute inset-y-0 left-0 pl-3 ${styling.flex.items_center} pointer-events-none text-base-content/50`}>
             {icon}
           </div>
         )}

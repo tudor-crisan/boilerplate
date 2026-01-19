@@ -1,13 +1,12 @@
 "use client";
 
 import Accordion from "@/components/common/Accordion";
-import BoardSettingsGeneralForm from "@/components/modules/boards/settings/BoardSettingsGeneralForm";
-import BoardSettingsInputTitle from "@/components/modules/boards/settings/BoardSettingsInputTitle";
-import BoardSettingsInputDescription from "@/components/modules/boards/settings/BoardSettingsInputDescription";
-import BoardSettingsEmptyState from "@/components/modules/boards/settings/BoardSettingsEmptyState";
-import BoardSettingsComments from "@/components/modules/boards/settings/BoardSettingsComments";
-import BoardSettingsAppearance from "@/components/modules/boards/settings/BoardSettingsAppearance";
-import BoardPreview from "@/components/modules/boards/settings/BoardPreview";
+import BoardSettingsGeneralForm from "@/components/modules/boards/settings/GeneralForm";
+import SettingsFormField from "@/components/settings/SettingsFormField";
+import CommentSettings from "@/components/comments/CommentSettings";
+import BoardSettingsEmptyState from "@/components/modules/boards/settings/EmptyState";
+import BoardSettingsAppearance from "@/components/modules/boards/settings/Appearance";
+import BoardPreview from "@/components/modules/boards/settings/Preview";
 import { useBoardRandomizer } from "@/hooks/modules/boards/useBoardRandomizer";
 import { useBoardSettingsForm } from "@/hooks/modules/boards/useBoardSettingsForm";
 import { defaultStyling, appStyling } from "@/libs/defaults";
@@ -31,11 +30,33 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
     },
     {
       title: "Input: Title",
-      content: <BoardSettingsInputTitle getVal={getVal} handleChange={handleChange} disabled={disabled} />
+      content: (
+        <SettingsFormField
+          getVal={getVal}
+          handleChange={handleChange}
+          disabled={disabled}
+          prefix="form.inputs.title"
+          config={{
+            maxLengthConfig: { min: 10, max: 100, default: 60 },
+            placeholderConfig: { maxLength: 60 }
+          }}
+        />
+      )
     },
     {
       title: "Input: Description",
-      content: <BoardSettingsInputDescription getVal={getVal} handleChange={handleChange} disabled={disabled} />
+      content: (
+        <SettingsFormField
+          getVal={getVal}
+          handleChange={handleChange}
+          disabled={disabled}
+          prefix="form.inputs.description"
+          config={{
+            showRows: true,
+            maxLengthConfig: { min: 50, max: 700, default: 400 },
+          }}
+        />
+      )
     },
     {
       title: "Empty State",
@@ -43,7 +64,7 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
     },
     {
       title: "Comment Section",
-      content: <BoardSettingsComments getVal={getVal} handleChange={handleChange} disabled={disabled} />
+      content: <CommentSettings getVal={getVal} handleChange={handleChange} disabled={disabled} />
     },
     {
       title: "Appearance",
@@ -62,9 +83,9 @@ export default function BoardExtraSettings({ settings, onChange, disabled }) {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 lg:h-full">
+    <div className={`${styling.flex.col} sm:flex-row gap-6 sm:h-full`}>
       {/* Editor Column */}
-      <div className="flex-none lg:flex-1 lg:overflow-y-auto pr-2">
+      <div className="flex-none sm:flex-1 sm:overflow-y-auto pr-2">
         <div className="text-sm uppercase font-bold text-base-content/50 mb-4">SETTINGS</div>
         <Accordion items={accordionItems} />
       </div>

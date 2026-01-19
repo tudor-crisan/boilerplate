@@ -36,7 +36,7 @@ const PricingPlanCard = ({
         </div>
       )}
 
-      <div className="flex items-center justify-between">
+      <div className={styling.flex.between}>
         <div>
           <div className="flex items-baseline">
             <div className={cn("text-3xl font-black", isFeatured && "text-primary")}>
@@ -53,7 +53,7 @@ const PricingPlanCard = ({
           </div>
         </div>
 
-        <div className="flex flex-col items-end justify-center">
+        <div className={`${styling.flex.col} items-end justify-center`}>
           {isLoading ? (
             <div className="h-6 w-6 relative">
               <IconLoading />

@@ -1,17 +1,17 @@
 "use client";
-import React, { useRef } from 'react';
-import { useStyling } from "@/context/ContextStyling";
+import React from 'react';
+import InfiniteScroll from "@/components/common/InfiniteScroll";
 import Title from "@/components/common/Title";
 import TextSmall from "@/components/common/TextSmall";
 import Button from '@/components/button/Button';
 import IconLoading from "@/components/icon/IconLoading";
 import Paragraph from "@/components/common/Paragraph";
 import useBoardNotifications from '@/hooks/modules/boards/useBoardNotifications';
-import BoardNotificationItem from './BoardNotificationItem';
+import BoardNotificationItem from './NotificationItem';
+import { useStyling } from "@/context/ContextStyling";
 
 export default function BoardDashboardNotifications() {
   const { styling } = useStyling();
-  const scrollContainerRef = useRef(null);
 
   const {
     notifications,
@@ -25,21 +25,14 @@ export default function BoardDashboardNotifications() {
     loadMore
   } = useBoardNotifications();
 
-  const handleScroll = (e) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.currentTarget;
-    if (scrollHeight - scrollTop <= clientHeight + 30) {
-      loadMore();
-    }
-  };
-
   const unreadCount = notifications.filter(notification => !notification.isRead).length;
 
   if (loadingInitial && notifications.length === 0) {
     return (
       <div className={`${styling.components.card} ${styling.general.box} space-y-3`}>
         <Title>Recent Notifications</Title>
-        <Paragraph className={`${styling.flex.start} gap-2 opacity-60`}>
-          <IconLoading /> Loading notifications ...
+        <Paragraph className="text-sm">
+          <IconLoading /> <span className="ml-1">Loading notifications ...</span>
         </Paragraph>
       </div>
     );
@@ -60,9 +53,10 @@ export default function BoardDashboardNotifications() {
           </Button>
         )}
       </div>
-      <div
-        ref={scrollContainerRef}
-        onScroll={handleScroll}
+      <InfiniteScroll
+        onLoadMore={loadMore}
+        hasMore={hasMore}
+        isLoading={isFetching}
         className="max-h-60 overflow-y-auto space-y-2"
       >
         {notifications.length > 0 ? (
@@ -79,11 +73,11 @@ export default function BoardDashboardNotifications() {
           <TextSmall className="overflow-hidden">No recent notifications yet. When someone votes, comments, or posts, they will appear here.</TextSmall>
         )}
         {isFetching && hasMore && (
-          <Paragraph className={`${styling.flex.start} gap-2 opacity-60 py-4`}>
-            <IconLoading /> Loading notifications ...
+          <Paragraph className="text-sm mt-2">
+            <IconLoading /> <span className="ml-1">Loading notifications ...</span>
           </Paragraph>
         )}
-      </div>
+      </InfiniteScroll>
     </div>
   );
 }

@@ -10,7 +10,8 @@ import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
 import TextSmall from "@/components/common/TextSmall";
 import { createSlug } from "@/libs/utils.client";
-import BoardExtraSettings from "@/components/modules/boards/BoardExtraSettings";
+import BoardExtraSettings from "@/components/modules/boards/ui/ExtraSettings";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function BoardEditModal({ boardId, currentSlug, currentName, extraSettings = {}, className = "" }) {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
   const [slug, setSlug] = useState(currentSlug || "");
   const [name, setName] = useState(currentName || "");
   const defaultTemplate = settings.defaultExtraSettings;
+  const { styling } = useStyling();
 
   // Check if extraSettings is empty object or null/undefined
   const hasSettings = extraSettings && Object.keys(extraSettings).length > 0;
@@ -89,7 +91,7 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
           </>
         }
       >
-        <div className="flex flex-col gap-6">
+        <div className={`${styling.flex.col} gap-6`}>
           <div className="space-y-2 border-b border-base-200 pb-6">
             <Label>Board Name</Label>
             <Input
@@ -104,18 +106,15 @@ export default function BoardEditModal({ boardId, currentSlug, currentName, extr
           </div>
           <div className="space-y-2 border-b border-base-200 pb-6">
             <Label>Board Slug</Label>
-            <div className="flex items-center gap-4">
-              <div className="flex-1">
-                <Input
-                  value={slug}
-                  onChange={(e) => setSlug(createSlug(e.target.value, false))}
-                  placeholder="e.g. my-awesome-board"
-                  maxLength={30}
-                  showCharacterCount={true}
-                  disabled={loading}
-                />
-              </div>
-            </div>
+            <Input
+              value={slug}
+              onChange={(e) => setSlug(createSlug(e.target.value, false))}
+              placeholder="e.g. my-awesome-board"
+              maxLength={30}
+              showCharacterCount={true}
+              disabled={loading}
+              className="w-full"
+            />
             <TextSmall>
               This will change the public link to your board. You can only change this once per day.
             </TextSmall>

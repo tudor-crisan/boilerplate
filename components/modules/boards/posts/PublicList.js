@@ -8,9 +8,9 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import EmptyState from "@/components/common/EmptyState";
 import SvgPost from "@/components/svg/SvgPost";
 import SvgSearch from "@/components/svg/SvgSearch";
-import BoardPostItem from "@/components/modules/boards/BoardPostItem";
+import BoardPostItem from "@/components/modules/boards/posts/PostItem";
 import { AnimatePresence } from "framer-motion";
-import BoardButtonVote from "@/components/modules/boards/BoardUpvoteButton";
+import BoardButtonVote from "@/components/modules/boards/ui/UpvoteButton";
 import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
 

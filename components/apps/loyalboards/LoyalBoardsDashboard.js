@@ -1,8 +1,8 @@
 
 import FormCreate from "@/components/form/FormCreate";
-import BoardDashboardList from "@/components/modules/boards/BoardDashboardList";
-import BoardDashboardAnalytics from "@/components/modules/boards/BoardDashboardAnalytics";
-import BoardDashboardNotifications from "@/components/modules/boards/BoardDashboardNotifications";
+import BoardDashboardList from "@/components/modules/boards/dashboard/List";
+import BoardDashboardAnalytics from "@/components/modules/boards/analytics/Dashboard";
+import BoardDashboardNotifications from "@/components/modules/boards/dashboard/Notifications";
 import { getUser } from "@/libs/modules/boards/db";
 import { defaultSetting as settings } from "@/libs/defaults";
 import Error from "@/components/common/Error";
