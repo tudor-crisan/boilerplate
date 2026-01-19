@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 import { generateLists } from "./scripts/generate-lists.mjs";
 
 // Ensure lists are up to date on startup
-generateLists({ silent: true });
+// generateLists({ silent: true });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
