@@ -1,4 +1,7 @@
 - refactor existing boilerplate for current apps to be expandable on other micro-saas
 - test the app on desktop for opera, firefox, safari, edge
+- make a docs part somewhere at the bottom under support for loyalboards
+- make mini-articles and screenshots for different parts explaining the app
+- use the documentation to create a video script, and what to show on screen
 - make launch video of full app with obs / capcut template
 - make extension for posting on multiple directories
