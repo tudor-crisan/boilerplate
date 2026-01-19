@@ -60,11 +60,19 @@ const Modal = ({
         </div>
       </div>
       <div
-        className="modal-backdrop fixed inset-0 bg-black/60 backdrop-blur-sm"
+        className="modal-backdrop fixed bg-black/60 backdrop-blur-sm transition-opacity duration-300"
         onClick={onClose}
-        style={{ zIndex: -1, width: '100vw', height: '100vh', left: 0, top: 0 }}
+        style={{
+          zIndex: -1,
+          width: '120vw',
+          height: '120vh',
+          left: '-10vw',
+          top: '-10vh',
+          opacity: isModalOpen ? 1 : 0,
+          pointerEvents: isModalOpen ? 'auto' : 'none'
+        }}
       >
-        <button className="cursor-default w-full h-full">close</button>
+        <button className="cursor-default w-full h-full outline-none">close</button>
       </div>
     </div>,
     document.body

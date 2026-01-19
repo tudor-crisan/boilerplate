@@ -1,3 +1,4 @@
 - refactor existing boilerplate for current apps to be expandable on other micro-saas
+- test the app on desktop for opera, firefox, safari, edge
 - make launch video of full app with obs / capcut template
 - make extension for posting on multiple directories

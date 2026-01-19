@@ -23,8 +23,19 @@ export default function SectionHeading({
     right: "text-right items-end ml-auto"
   };
 
+  const getResponsiveAlignment = (value) => {
+    if (alignments[value]) return alignments[value];
+
+    // Handle common responsive pattern from styling0.json
+    if (value === "text-center sm:text-left") {
+      return "text-center items-center mx-auto sm:text-left sm:items-start sm:mx-0 sm:mr-auto";
+    }
+
+    return value;
+  };
+
   return (
-    <div className={cn("space-y-4 max-w-2xl", alignments[align], className)}>
+    <div className={cn("space-y-4 max-w-2xl", getResponsiveAlignment(align), className)}>
       {label && (
         <Label className={cn(styling.section.label, labelClassName)}>
           {label}

@@ -22,7 +22,7 @@ export default function SectionHero() {
           <SectionHeading
             headline={showHero.headline ? copywriting.SectionHero.headline : null}
             paragraph={showHero.paragraph ? copywriting.SectionHero.paragraph : null}
-            align={styling.SectionHero.textalign.split('-').pop() || "left"} // Extract align from text-center etc.
+            align={styling.SectionHero.textalign}
             headlineClassName={styling.SectionHero.headline}
             paragraphClassName={styling.SectionHero.paragraph}
           />
