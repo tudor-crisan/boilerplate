@@ -8,22 +8,21 @@ import { useVisual } from "@/context/ContextVisual";
 import { useStyling } from "@/context/ContextStyling";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { useCopywriting } from "@/context/ContextCopywriting";
+import { cn } from "@/libs/utils.client";
 
 export default function SectionHeader() {
   const { styling } = useStyling();
   const { visual } = useVisual();
   const { copywriting } = useCopywriting();
 
-  const hasMenu = (
-    visual.show.SectionHeader.menu &&
-    copywriting.SectionHeader.menus &&
-    copywriting.SectionHeader.menus.length > 0
-  );
+  const showHeader = visual.show.SectionHeader;
+  const menus = copywriting.SectionHeader?.menus;
+  const hasMenu = showHeader.menu && menus && menus.length > 0;
 
   return (
-    <section id="header" className={styling.SectionHeader.colors}>
+    <section id="header" className={cn(styling.SectionHeader.colors)}>
       <WrapperHeader>
-        {visual.show.SectionHeader.top && (
+        {showHeader.top && (
           <HeaderTop url={settings.paths.home.source} />
         )}
         {hasMenu && (
@@ -32,8 +31,8 @@ export default function SectionHeader() {
             <HeaderHamburger />
           </>
         )}
-        {visual.show.SectionHeader.button && (
-          <HeaderButton className={hasMenu ? "hidden sm:block" : ""} />
+        {showHeader.button && (
+          <HeaderButton className={cn(hasMenu && "hidden sm:block")} />
         )}
       </WrapperHeader>
     </section>

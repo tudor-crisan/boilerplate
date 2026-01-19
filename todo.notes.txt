@@ -1,5 +1,3 @@
 - refactor existing boilerplate for current apps to be expandable on other micro-saas
 - make launch video of full app with obs / capcut template
 - make extension for posting on multiple directories
-- find popular saas on trustmrr and code a simpler better cheaper version
-- discuss freelancing opportunities, and see if I will start next week

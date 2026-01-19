@@ -12,19 +12,22 @@ import Flex from "@/components/common/Flex";
 
 const SectionAppsContent = () => {
   const { styling } = useStyling();
+
   return settings.availableApps.map((app) => {
-    const { title, description, favicon, website, appName } = getAppDetails(app);
+    const details = getAppDetails(app);
+    if (!details) return null;
+    const { title, description, favicon, website, appName } = details;
 
     return (
-      <div key={app} className={`card w-full max-w-sm ${styling.components.card}`}>
-        <div className={`card-body ${styling.general.box} space-y-6`}>
+      <div key={app} className={cn("card w-full max-w-sm", styling.components.card)}>
+        <div className={cn("card-body space-y-6", styling.general.box)}>
           {(favicon || appName) && (
-            <div className={`flex items-center gap-2 font-extrabold`}>
+            <div className="flex items-center gap-2 font-extrabold">
               {favicon && (
                 <Image
                   src={favicon}
                   alt={`${appName} logo`}
-                  className={`${styling.components.element} object-contain`} // Safety for images
+                  className={cn("object-contain", styling.components.element)}
                   width={32}
                   height={32}
                 />
@@ -35,8 +38,8 @@ const SectionAppsContent = () => {
 
           {(title || description) && (
             <div className="space-y-1">
-              {title && (<Title>{title}</Title>)}
-              {description && (<Paragraph>{description}</Paragraph>)}
+              {title && <Title>{title}</Title>}
+              {description && <Paragraph>{description}</Paragraph>}
             </div>
           )}
 

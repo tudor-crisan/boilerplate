@@ -10,6 +10,7 @@ import SettingsAppearance from "@/components/settings/SettingsAppearance";
 import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
 import { getNameInitials } from "@/libs/utils.client";
 import { defaultStyling, appStyling } from "@/libs/defaults";
+import { deepMerge } from "@/libs/merge.mjs";
 
 export default function DashboardProfileEditModal({
   isModalOpen,
