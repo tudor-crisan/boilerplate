@@ -1,6 +1,6 @@
 {
   "name": "boilerplate",
-  "version": "0.0.69",
+  "version": "0.0.70",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +8,7 @@
     "dev:tudorcrisan": "cross-env APP=tudorcrisan NEXT_PUBLIC_APP=tudorcrisan next dev",
     "dev:loyalboards": "cross-env APP=loyalboards NEXT_PUBLIC_APP=loyalboards next dev",
     "dev:taskflow": "cross-env APP=taskflow NEXT_PUBLIC_APP=taskflow next dev",
-    "prebuild": "node scripts/generate-lists.mjs",
+    "lists": "node scripts/generate-lists.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
