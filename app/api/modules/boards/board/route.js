@@ -1,155 +1,69 @@
-import { auth } from "@/libs/auth";
-import connectMongo from "@/libs/mongoose";
-import { isResponseMock, responseMock, responseSuccess, responseError } from "@/libs/utils.server";
+import { responseSuccess, responseError } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
-import User from "@/models/User";
 import Board from "@/models/modules/boards/Board";
 import Post from "@/models/modules/boards/Post";
-import { checkReqRateLimit } from "@/libs/rateLimit";
 import { revalidatePath } from "next/cache";
+import { withApiHandler } from "@/libs/apiHandler";
 
 const TYPE = "Board";
 
-const {
-  notAuthorized,
-  sessionLost,
-  serverError,
-  noAccess,
-} = settings.forms.general.backend.responses;
-
-export async function POST(req) {
-  if (isResponseMock(TYPE)) {
-    return responseMock(TYPE);
-  };
-
+export const POST = withApiHandler(async (req, { user }) => {
   if (!settings.forms?.[TYPE]) {
-    return responseError(serverError.message, {}, serverError.status);
+    throw new Error("Missing settings for " + TYPE);
   }
 
   const {
     nameRequired,
+    nameTooShort,
     createSuccesfully,
   } = settings.forms[TYPE].backend.responses;
 
-  const error = await checkReqRateLimit(req, "board-create");
-  if (error) return error;
+  const body = await req.json();
 
-  try {
-    const session = await auth();
-
-    if (!session) {
-      return responseError(notAuthorized.message, {}, notAuthorized.status);
-    }
-
-    const body = await req.json();
-
-    if (!body.name) {
-      return responseError(nameRequired.message, nameRequired.inputErrors, nameRequired.status);
-    }
-
-    const { nameTooShort } = settings.forms[TYPE].backend.responses;
-
-    if (body.name.length < 3) {
-      return responseError(nameTooShort.message, {}, nameTooShort.status);
-    }
-
-    await connectMongo();
-
-    const userId = session?.user?.id
-
-    if (!userId) {
-      return responseError(sessionLost.message, {}, sessionLost.status);
-    }
-
-    const user = await User.findById(userId);
-
-    if (!user.hasAccess) {
-      return responseError(noAccess.message, {}, noAccess.status);
-    }
-
-    // Generate unique slug
-    let slug = body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
-    let existingBoard = await Board.findOne({ slug });
-    if (existingBoard) {
-      slug = `${slug}-${Date.now()}`;
-    }
-
-    const board = await Board.create({ userId: user._id, name: body.name, slug });
-
-    return responseSuccess(createSuccesfully.message, { board }, createSuccesfully.status)
-
-  } catch (e) {
-    console.error("Board creation error: " + e?.message);
-    return responseError(serverError.message, {}, serverError.status);
-  }
-}
-
-export async function DELETE(req) {
-  const error = await checkReqRateLimit(req, "board-delete");
-  if (error) return error;
-
-  if (!settings.forms?.[TYPE]) {
-    return responseError(serverError.message, {}, serverError.status);
+  if (!body.name) {
+    return responseError(nameRequired.message, nameRequired.inputErrors, nameRequired.status);
   }
 
+  if (body.name.length < 3) {
+    return responseError(nameTooShort.message, {}, nameTooShort.status);
+  }
+
+  // Generate unique slug
+  let slug = body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
+  let existingBoard = await Board.findOne({ slug });
+  if (existingBoard) {
+    slug = `${slug}-${Date.now()}`;
+  }
+
+  const board = await Board.create({ userId: user._id, name: body.name, slug });
+
+  return responseSuccess(createSuccesfully.message, { board }, createSuccesfully.status);
+}, { type: TYPE, rateLimitKey: "board-create" });
+
+export const DELETE = withApiHandler(async (req, { user }) => {
   const {
     boardIdRequired,
     deleteSuccesfully,
   } = settings.forms[TYPE].backend.responses;
 
-  try {
-    const session = await auth();
+  const { searchParams } = req.nextUrl;
+  const boardId = searchParams.get("boardId");
 
-    if (!session) {
-      return responseError(notAuthorized.message, {}, notAuthorized.status);
-    }
-
-    const { searchParams } = req.nextUrl;
-    const boardId = searchParams.get("boardId");
-
-    if (!boardId) {
-      if (!settings.forms?.[TYPE]) return responseError(serverError.message, {}, serverError.status); // Fallback if somehow check passed above? Actually redundant but safe.
-      const { boardIdRequired } = settings.forms[TYPE].backend.responses;
-      return responseError(boardIdRequired.message, boardIdRequired.inputErrors, boardIdRequired.status);
-    }
-
-    await connectMongo();
-
-    const userId = session?.user?.id
-
-    if (!userId) {
-      return responseError(sessionLost.message, {}, sessionLost.status);
-    }
-
-    const user = await User.findById(userId);
-
-    if (!user.hasAccess) {
-      return responseError(noAccess.message, {}, noAccess.status);
-    }
-
-    await Board.deleteOne({
-      _id: boardId,
-      userId: userId
-    });
-
-    await Post.deleteMany({ boardId: boardId });
-
-    return responseSuccess(deleteSuccesfully.message, {}, deleteSuccesfully.status)
-
-  } catch (e) {
-    console.error("Board deletion error: " + e?.message);
-    return responseError(serverError.message, {}, serverError.status);
-  }
-}
-
-export async function PUT(req) {
-  const error = await checkReqRateLimit(req, "board-update");
-  if (error) return error;
-
-  if (!settings.forms?.[TYPE]) {
-    return responseError(serverError.message, {}, serverError.status);
+  if (!boardId) {
+    return responseError(boardIdRequired.message, boardIdRequired.inputErrors, boardIdRequired.status);
   }
 
+  await Board.deleteOne({
+    _id: boardId,
+    userId: user._id
+  });
+
+  await Post.deleteMany({ boardId: boardId });
+
+  return responseSuccess(deleteSuccesfully.message, {}, deleteSuccesfully.status);
+}, { type: TYPE, rateLimitKey: "board-delete" });
+
+export const PUT = withApiHandler(async (req, { user }) => {
   const {
     boardIdRequired,
     updateSuccesfully,
@@ -158,99 +72,69 @@ export async function PUT(req) {
     slugTooShort
   } = settings.forms[TYPE].backend.responses;
 
-  try {
-    const session = await auth();
+  const body = await req.json();
+  const { boardId, slug, name } = body;
 
-    if (!session) {
-      return responseError(notAuthorized.message, {}, notAuthorized.status);
-    }
-
-    const body = await req.json();
-    const { boardId, slug, name } = body;
-
-    if (!boardId || !slug) {
-      return responseError(boardIdRequired.message, {}, boardIdRequired.status);
-    }
-
-    await connectMongo();
-
-    const userId = session?.user?.id
-
-    if (!userId) {
-      return responseError(sessionLost.message, {}, sessionLost.status);
-    }
-
-    const user = await User.findById(userId);
-
-    if (!user.hasAccess) {
-      return responseError(noAccess.message, {}, noAccess.status);
-    }
-
-    const board = await Board.findOne({ _id: boardId, userId: userId });
-
-    if (!board) {
-      return responseError("Board not found", {}, 404);
-    }
-
-    // Validate slug format
-    const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
-
-    // Check rate limit (1 day)
-    if (board.slug !== newSlug && board.lastSlugUpdate) {
-      const oneDay = 24 * 60 * 60 * 1000;
-      if (new Date() - new Date(board.lastSlugUpdate) < oneDay) {
-        return responseError(rateLimitExceeded.message, {}, rateLimitExceeded.status);
-      }
-    }
-
-    if (newSlug.length < 3) {
-      return responseError(slugTooShort.message, {}, slugTooShort.status);
-    }
-
-    // Check uniqueness
-    const existing = await Board.findOne({ slug: newSlug });
-    if (existing && existing._id.toString() !== boardId) {
-      return responseError(slugAlreadyInUse.message, {}, slugAlreadyInUse.status);
-    }
-
-    // Update
-    if (board.slug && board.slug !== newSlug) {
-      board.previousSlugs.push(board.slug);
-      board.lastSlugUpdate = new Date();
-    }
-
-    board.slug = newSlug;
-
-    if (name && board.name !== name) {
-      board.name = name;
-    }
-
-    if (body.extraSettings) {
-      try {
-        // Ensure it's valid JSON if sent as string, or just assign if object
-        const settings = typeof body.extraSettings === 'string'
-          ? JSON.parse(body.extraSettings)
-          : body.extraSettings;
-
-        board.extraSettings = settings;
-        board.markModified("extraSettings");
-      } catch (e) {
-        // If invalid JSON, ignore or fail? 
-        // For now, let's allow it to pass if we handled validation in FE, 
-        // but strictly boardSchema expects Mixed.
-        console.error("Invalid JSON for extraSettings", e);
-      }
-    }
-
-    await board.save();
-
-    revalidatePath(`/b/${newSlug}`);
-    revalidatePath(`/dashboard/b/${boardId}`);
-
-    return responseSuccess(updateSuccesfully.message, { slug: newSlug }, updateSuccesfully.status)
-
-  } catch (e) {
-    console.error("Board update error: " + e?.message);
-    return responseError(serverError.message, {}, serverError.status);
+  if (!boardId || !slug) {
+    return responseError(boardIdRequired.message, {}, boardIdRequired.status);
   }
-}
+
+  const board = await Board.findOne({ _id: boardId, userId: user._id });
+
+  if (!board) {
+    return responseError("Board not found", {}, 404);
+  }
+
+  // Validate slug format
+  const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
+
+  // Check rate limit (1 day)
+  if (board.slug !== newSlug && board.lastSlugUpdate) {
+    const oneDay = 24 * 60 * 60 * 1000;
+    if (new Date() - new Date(board.lastSlugUpdate) < oneDay) {
+      return responseError(rateLimitExceeded.message, {}, rateLimitExceeded.status);
+    }
+  }
+
+  if (newSlug.length < 3) {
+    return responseError(slugTooShort.message, {}, slugTooShort.status);
+  }
+
+  // Check uniqueness
+  const existing = await Board.findOne({ slug: newSlug });
+  if (existing && existing._id.toString() !== boardId) {
+    return responseError(slugAlreadyInUse.message, {}, slugAlreadyInUse.status);
+  }
+
+  // Update
+  if (board.slug && board.slug !== newSlug) {
+    board.previousSlugs.push(board.slug);
+    board.lastSlugUpdate = new Date();
+  }
+
+  board.slug = newSlug;
+
+  if (name && board.name !== name) {
+    board.name = name;
+  }
+
+  if (body.extraSettings) {
+    try {
+      const extraSettings = typeof body.extraSettings === 'string'
+        ? JSON.parse(body.extraSettings)
+        : body.extraSettings;
+
+      board.extraSettings = extraSettings;
+      board.markModified("extraSettings");
+    } catch (e) {
+      console.error("Invalid JSON for extraSettings", e);
+    }
+  }
+
+  await board.save();
+
+  revalidatePath(`/b/${newSlug}`);
+  revalidatePath(`/dashboard/b/${boardId}`);
+
+  return responseSuccess(updateSuccesfully.message, { slug: newSlug }, updateSuccesfully.status);
+}, { type: TYPE, rateLimitKey: "board-update" });

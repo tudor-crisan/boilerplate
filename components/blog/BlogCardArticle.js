@@ -22,14 +22,18 @@ const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false
           title={article.title}
           rel="bookmark"
         >
-          <figure className="aspect-video flex items-center justify-center bg-white overflow-hidden">
-            <Image
-              src={article.image.src}
-              alt={article.image.alt}
-              width={100}
-              height={100}
-              priority={isImagePriority}
-              className={`${styling.blog.image} w-auto h-full max-h-full object-contain`}
+          <figure className="aspect-video flex items-center justify-center bg-base-200 overflow-hidden">
+            <div
+              className="w-full h-full bg-primary"
+              style={{
+                maskImage: `url(${article.image.src})`,
+                WebkitMaskImage: `url(${article.image.src})`,
+                maskSize: "contain",
+                maskPosition: "center",
+                maskRepeat: "no-repeat",
+              }}
+              role="img"
+              aria-label={article.image.alt}
             />
           </figure>
         </Link>

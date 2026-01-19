@@ -1,10 +1,11 @@
 <svg width="600" height="338" viewBox="0 0 600 338" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="600" height="338" fill="white"/>
+  <rect width="600" height="338" fill="none"/>
   <g transform="translate(210, 79) scale(1.8)">
-    <path d="M50 0V100M0 50H100" stroke="black" stroke-width="2" stroke-dasharray="4 2"/>
-    <circle cx="50" cy="50" r="40" stroke="black" stroke-width="4" fill="none"/>
-    <path d="M20 50C20 33.4315 33.4315 20 50 20V50H80C80 66.5685 66.5685 80 50 80V50H20Z" fill="black" opacity="0.1"/>
-    <path d="M50 20V50H80" stroke="black" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="50" cy="50" r="4" fill="black"/>
+    <path d="M50 0V100M0 50H100" stroke="currentColor" stroke-width="2" stroke-dasharray="4 2"/>
+    <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="4" fill="none"/>
+    <path d="M20 50C20 33.4315 33.4315 20 50 20V50H80C80 66.5685 66.5685 80 50 80V50H20Z" fill="currentColor" opacity="0.1"/>
+    <path d="M50 20V50H80" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="50" cy="50" r="4" fill="currentColor"/>
   </g>
 </svg>
+

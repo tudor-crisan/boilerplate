@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useStyling } from "@/context/ContextStyling";
 import IconLoading from "@/components/icon/IconLoading";
 import { useState } from "react";
+import { cn } from "@/libs/utils.client";
 
 export default function Button({
   className = "",
@@ -27,32 +28,34 @@ export default function Button({
   const isIcon = variant.includes("btn-square") || variant.includes("btn-circle");
   const sizingClass = isIcon ? "" : styling.general.element;
 
-  const baseClasses = `${styling.components.element} btn ${variant} ${size} ${sizingClass} ${className} ${isButtonLoading ? "!cursor-wait !pointer-events-auto" : ""
-    }`;
+  const baseClasses = cn(
+    "btn",
+    styling.components.element,
+    variant,
+    size,
+    sizingClass,
+    isButtonLoading && "cursor-wait! pointer-events-auto!",
+    className
+  );
 
   const handleClick = async (e) => {
-    // Check if modifiers are pressed to skip internal handling (allow default browser behavior like new tab)
+    // Check if modifiers are pressed to skip internal handling
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || (e.button && e.button !== 0)) {
       return;
     }
 
-    // Execute passed onClick first to see if it prevents default
     let promiseResult = null;
     if (onClick) {
       promiseResult = onClick(e);
     }
 
-    // If navigation prevented, we shouldn't act like it's navigating
     const isNavigation = href && !e.defaultPrevented;
 
-    // If it's a navigation link on current tab, set loading
     if (isNavigation && !noAutoLoading) {
       setInternalLoading(true);
     }
 
-    // Handle promise from custom onClick
     if (promiseResult instanceof Promise) {
-      // If NOT navigating, we need to set loading for async task
       if (!isNavigation && !noAutoLoading) {
         setInternalLoading(true);
       }
@@ -62,7 +65,6 @@ export default function Button({
       } catch (error) {
         console.error("Button click error:", error);
       } finally {
-        // Only unset loading if we are NOT on a strictly loading path (href navigation)
         if (!isNavigation && !noAutoLoading) {
           setInternalLoading(false);
         }
@@ -70,23 +72,25 @@ export default function Button({
     }
   };
 
+  const content = (
+    <>
+      {isButtonLoading ? <IconLoading className="w-4 h-4" /> : startIcon}
+      {children}
+      {endIcon}
+    </>
+  );
+
   if (href) {
     if (isDisabled) {
-      // Render as button if disabled to prevent navigation and keep consistent disabled state styling
       return (
         <button className={baseClasses} disabled={true} {...props}>
-          {isButtonLoading && <IconLoading />}
-          {startIcon && !isButtonLoading && startIcon}
-          {children}
-          {endIcon}
+          {content}
         </button>
-      )
+      );
     }
     return (
       <Link href={href} className={baseClasses} onClick={handleClick} {...props}>
-        {startIcon}
-        {children}
-        {endIcon}
+        {content}
       </Link>
     );
   }
@@ -98,10 +102,7 @@ export default function Button({
       onClick={handleClick}
       {...props}
     >
-      {isButtonLoading && <IconLoading />}
-      {startIcon && !isButtonLoading && startIcon}
-      {children}
-      {endIcon}
+      {content}
     </button>
   );
 }

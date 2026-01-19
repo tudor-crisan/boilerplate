@@ -41,11 +41,13 @@
     "body": "select-none",
     "container": "max-w-3xl mx-auto",
     "element": "px-3 py-2 sm:px-5 sm:py-3 text-sm sm:text-base",
-    "box": "py-6 px-4 sm:py-8 sm:px-6"
+    "box": "py-6 px-4 sm:py-8 sm:px-6",
+    "section_padding": "py-32!"
   },
   "section": {
     "label": "text-sm uppercase font-bold text-center text-primary",
-    "title": "text-2xl sm:text-3xl font-extrabold leading-none"
+    "title": "text-2xl sm:text-3xl font-extrabold leading-none",
+    "paragraph": "opacity-90 px-4 sm:px-0"
   },
   "SectionHeader": {
     "colors": "bg-base-200"

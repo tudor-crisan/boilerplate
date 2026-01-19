@@ -1,7 +1,8 @@
 <svg width="600" height="338" viewBox="0 0 600 338" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="600" height="338" fill="white"/>
-  <path d="M300 240H200L180 280H420L400 240H300Z" fill="black"/>
-  <path d="M420 220L380 180H220L180 220H420Z" fill="black"/>
-  <path d="M300 160L380 80L360 60L300 120L240 60L220 80L300 160Z" fill="black"/>
-  <path d="M280 40H320V70H280V40Z" fill="black"/>
+  <rect width="600" height="338" fill="none"/>
+  <path d="M300 240H200L180 280H420L400 240H300Z" fill="currentColor"/>
+  <path d="M420 220L380 180H220L180 220H420Z" fill="currentColor"/>
+  <path d="M300 160L380 80L360 60L300 120L240 60L220 80L300 160Z" fill="currentColor"/>
+  <path d="M280 40H320V70H280V40Z" fill="currentColor"/>
 </svg>
+

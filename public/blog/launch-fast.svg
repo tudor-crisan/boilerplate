@@ -1,5 +1,6 @@
 <svg width="600" height="338" viewBox="0 0 600 338" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="600" height="338" fill="white"/>
-  <path d="M250 169L400 169M400 169L370 139M400 169L370 199" stroke="black" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M180 139H220M150 169H200M180 199H220" stroke="black" stroke-width="12" stroke-linecap="round"/>
+  <rect width="600" height="338" fill="none"/>
+  <path d="M250 169L400 169M400 169L370 139M400 169L370 199" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M180 139H220M150 169H200M180 199H220" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
 </svg>
+
