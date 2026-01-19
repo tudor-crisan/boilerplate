@@ -11,9 +11,9 @@ import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import { useAnalyticsRange } from "@/hooks/useAnalyticsRange";
-import IconLoading from "@/components/icon/IconLoading";
 import Select from "@/components/select/Select";
 import { useSort } from "@/hooks/useSort";
+import Loading from '@/components/common/Loading';
 
 export default function AnalyticsPage() {
   const { styling } = useStyling();
@@ -96,9 +96,7 @@ export default function AnalyticsPage() {
           </div>
 
           {isLoading ? (
-            <Paragraph className="text-sm mt-2">
-              <IconLoading /> <span className="ml-1">Loading analytics ...</span>
-            </Paragraph>
+            <Loading text="Loading analytics ..." className="mt-2" />
           ) : (
             <>
               {/* Timeline Visualization */}

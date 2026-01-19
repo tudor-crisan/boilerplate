@@ -5,11 +5,10 @@ import { clientApi } from '@/libs/api';
 import { defaultSetting as settings } from "@/libs/defaults";
 import { useStyling } from "@/context/ContextStyling";
 import Label from "@/components/common/Label";
-import IconLoading from "@/components/icon/IconLoading";
 import { useAnalyticsRange } from "@/hooks/useAnalyticsRange";
-import Paragraph from '@/components/common/Paragraph';
 import AnalyticsStats from '@/components/analytics/AnalyticsStats';
 import AnalyticsChart from '@/components/analytics/AnalyticsChart';
+import Loading from '@/components/common/Loading';
 
 export default function BoardAnalyticsWidget({ boardId }) {
   const { styling } = useStyling();
@@ -66,9 +65,7 @@ export default function BoardAnalyticsWidget({ boardId }) {
       </select>
 
       {isLoading ? (
-        <Paragraph className="text-sm">
-          <IconLoading /> <span className="ml-1">Loading analytics ...</span>
-        </Paragraph>
+        <Loading text="Loading analytics ..." />
       ) : (
         <>
           <AnalyticsStats items={statsItems} styling={styling} />

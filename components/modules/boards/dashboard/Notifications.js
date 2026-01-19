@@ -4,11 +4,10 @@ import InfiniteScroll from "@/components/common/InfiniteScroll";
 import Title from "@/components/common/Title";
 import TextSmall from "@/components/common/TextSmall";
 import Button from '@/components/button/Button';
-import IconLoading from "@/components/icon/IconLoading";
-import Paragraph from "@/components/common/Paragraph";
 import useBoardNotifications from '@/hooks/modules/boards/useBoardNotifications';
 import BoardNotificationItem from './NotificationItem';
 import { useStyling } from "@/context/ContextStyling";
+import Loading from '@/components/common/Loading';
 
 export default function BoardDashboardNotifications() {
   const { styling } = useStyling();
@@ -31,9 +30,7 @@ export default function BoardDashboardNotifications() {
     return (
       <div className={`${styling.components.card} ${styling.general.box} space-y-3`}>
         <Title>Recent Notifications</Title>
-        <Paragraph className="text-sm">
-          <IconLoading /> <span className="ml-1">Loading notifications ...</span>
-        </Paragraph>
+        <Loading text="Loading notifications ..." />
       </div>
     );
   }
@@ -73,9 +70,7 @@ export default function BoardDashboardNotifications() {
           <TextSmall className="overflow-hidden">No recent notifications yet. When someone votes, comments, or posts, they will appear here.</TextSmall>
         )}
         {isFetching && hasMore && (
-          <Paragraph className="text-sm mt-2">
-            <IconLoading /> <span className="ml-1">Loading notifications ...</span>
-          </Paragraph>
+          <Loading text="Loading notifications ..." className="mt-2" />
         )}
       </InfiniteScroll>
     </div>

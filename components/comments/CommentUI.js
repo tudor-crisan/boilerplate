@@ -2,10 +2,9 @@ import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
 import Textarea from "@/components/textarea/Textarea";
 import Label from "@/components/common/Label";
-import IconLoading from "@/components/icon/IconLoading";
-import Paragraph from "@/components/common/Paragraph";
 import Tooltip from "@/components/common/Tooltip";
-import CommentItem from "./CommentItem";
+import CommentItem from "@/components/comments/CommentItem";
+import Loading from "@/components/common/Loading";
 
 const CommentUI = ({
   comments = [],
@@ -58,9 +57,7 @@ const CommentUI = ({
 
   if (isLoading) return (
     <div className="py-4">
-      <Paragraph className="text-sm mt-2">
-        <IconLoading /> <span className="ml-1">Loading comments ...</span>
-      </Paragraph>
+      <Loading text="Loading comments ..." className="mt-2" />
     </div>
   );
 
