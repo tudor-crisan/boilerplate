@@ -56,21 +56,16 @@ function validateFile(filePath: string, schema: z.ZodTypeAny) {
 function processModules() {
   if (!fs.existsSync(MODULES_DIR)) return;
 
-  const modules = fs.readdirSync(MODULES_DIR);
-  for (const moduleName of modules) {
-    const modulePath = path.join(MODULES_DIR, moduleName);
-    if (!fs.statSync(modulePath).isDirectory()) continue;
-
+  const files = fs.readdirSync(MODULES_DIR).filter((f) => f.endsWith(".json"));
+  for (const file of files) {
+    const moduleName = path.basename(file, ".json");
     const schema = SCHEMA_MAP[moduleName];
     if (!schema) {
-      console.warn(`⚠️ No schema found for module: ${moduleName}`);
+      console.warn(`⚠️ No schema found for module file: ${file}`);
       continue;
     }
 
-    const files = fs.readdirSync(modulePath).filter((f) => f.endsWith(".json"));
-    for (const file of files) {
-      validateFile(path.join(modulePath, file), schema);
-    }
+    validateFile(path.join(MODULES_DIR, file), schema);
   }
 }
 

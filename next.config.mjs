@@ -2,6 +2,10 @@ import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { generateLists } from "./scripts/generate-lists.mjs";
+
+// Ensure lists are up to date on startup
+generateLists({ silent: true });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,7 +15,7 @@ const appName = process.env.APP || process.env.NEXT_PUBLIC_APP;
 if (appName) {
   const envPath = path.join(__dirname, 'env', 'env-dev', `.env.dev.${appName}`);
   if (fs.existsSync(envPath)) {
-    dotenv.config({ path: envPath });
+    dotenv.config({ path: envPath, quiet: true });
     console.log(`Loaded environment from: ${envPath}`);
   }
 }

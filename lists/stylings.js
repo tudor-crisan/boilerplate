@@ -1,14 +1,13 @@
-
-import lb0_styling from "../data/apps/loyalboards/lb0_styling.json";
-import tf0_styling from "../data/apps/taskflow/tf0_styling.json";
-import tc0_styling from "../data/apps/tudorcrisan/tc0_styling.json";
-import styling0 from "../data/modules/styling/styling0.json";
+import styling from "../data/modules/styling.json";
+import loyalboards_styling from "../data/apps/loyalboards/styling.json";
+import taskflow_styling from "../data/apps/taskflow/styling.json";
+import tudorcrisan_styling from "../data/apps/tudorcrisan/styling.json";
 
 const stylings = {
-  lb0_styling,
-  tf0_styling,
-  tc0_styling,
-  styling0
-}
+  styling,
+  loyalboards_styling,
+  taskflow_styling,
+  tudorcrisan_styling,
+};
 
 export default stylings;

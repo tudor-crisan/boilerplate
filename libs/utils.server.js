@@ -14,9 +14,25 @@ export const getBaseUrl = () => {
 
 export function formatWebsiteUrl(url = "") {
   if (!url) return "";
-  // remove any protocol and www to force https://www.
+  // remove any protocol and www to force https://www.${clean}`;
   const clean = url.replace(/(^\w+:|^)\/\//, '').replace(/^www\./, '');
   return `https://www.${clean}`;
+}
+
+/**
+ * Generates a URL-safe slug from a string.
+ * @param {string} text - The input text to slugify.
+ * @param {number} maxLength - Maximum length of the slug.
+ * @returns {string} The formatted slug.
+ */
+export function generateSlug(text = "", maxLength = 30) {
+  if (!text) return "";
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')     // Replace non-alphanumeric with hyphen
+    .replace(/^-+|-+$/g, '')          // Remove leading/trailing hyphens
+    .slice(0, maxLength);
 }
 
 export function responseSuccess(message = "", data = {}, status = 200) {

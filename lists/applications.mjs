@@ -1,68 +1,60 @@
 const applications = {
   "loyalboards": {
     "copywriting": {
-      "default": "copywriting0",
-      "override": "lb0_copywriting"
+      "default": "copywriting",
+      "override": "loyalboards_copywriting"
     },
     "styling": {
-      "default": "styling0",
-      "override": "lb0_styling"
+      "default": "styling",
+      "override": "loyalboards_styling"
     },
     "visual": {
-      "default": "visual0",
-      "override": "lb0_visual"
+      "default": "visual",
+      "override": "loyalboards_visual"
     },
     "setting": {
-      "default": "setting0",
-      "override": "lb0_setting"
+      "default": "setting",
+      "override": "loyalboards_setting"
     },
     "blog": {
-      "default": "blog0",
-      "override": "lb0_blog"
+      "default": "blog",
+      "override": "loyalboards_blog"
     }
   },
   "taskflow": {
     "copywriting": {
-      "default": "copywriting0",
-      "override": "tf0_copywriting"
+      "default": "copywriting",
+      "override": "taskflow_copywriting"
     },
     "styling": {
-      "default": "styling0",
-      "override": "tf0_styling"
+      "default": "styling",
+      "override": "taskflow_styling"
     },
     "visual": {
-      "default": "visual0",
-      "override": "tf0_visual"
+      "default": "visual",
+      "override": "taskflow_visual"
     },
     "setting": {
-      "default": "setting0",
-      "override": "tf0_setting"
-    },
-    "blog": {
-      "default": "blog0",
-      "override": "tf0_blog"
+      "default": "setting",
+      "override": "taskflow_setting"
     }
   },
   "tudorcrisan": {
     "copywriting": {
-      "default": "copywriting0",
-      "override": "tc0_copywriting"
+      "default": "copywriting",
+      "override": "tudorcrisan_copywriting"
     },
     "styling": {
-      "default": "styling0",
-      "override": "tc0_styling"
+      "default": "styling",
+      "override": "tudorcrisan_styling"
     },
     "visual": {
-      "default": "visual0",
-      "override": "tc0_visual"
+      "default": "visual",
+      "override": "tudorcrisan_visual"
     },
     "setting": {
-      "default": "setting0",
-      "override": "tc0_setting"
-    },
-    "blog": {
-      "default": "blog0",
-      "override": "tc0_blog"
+      "default": "setting",
+      "override": "tudorcrisan_setting"
     }
   }
 };

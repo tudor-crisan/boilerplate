@@ -1,16 +1,13 @@
-
-import lb0_setting from "../data/apps/loyalboards/lb0_setting.json";
-import tf0_setting from "../data/apps/taskflow/tf0_setting.json";
-import tc0_setting from "../data/apps/tudorcrisan/tc0_setting.json";
-import setting0 from "../data/modules/setting/setting0.json";
-import boards from "../data/modules/boards/boards.json";
+import setting from "../data/modules/setting.json";
+import loyalboards_setting from "../data/apps/loyalboards/setting.json";
+import taskflow_setting from "../data/apps/taskflow/setting.json";
+import tudorcrisan_setting from "../data/apps/tudorcrisan/setting.json";
 
 const settings = {
-  lb0_setting,
-  tf0_setting,
-  tc0_setting,
-  setting0,
-  boards,
-}
+  setting,
+  loyalboards_setting,
+  taskflow_setting,
+  tudorcrisan_setting,
+};
 
 export default settings;

@@ -1,4 +1,4 @@
-import { responseSuccess, responseError } from "@/libs/utils.server";
+import { responseSuccess, responseError, generateSlug } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
 import Board from "@/models/modules/boards/Board";
 import Post from "@/models/modules/boards/Post";
@@ -29,7 +29,7 @@ export const POST = withApiHandler(async (req, { user }) => {
   }
 
   // Generate unique slug
-  let slug = body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
+  let slug = generateSlug(body.name);
   let existingBoard = await Board.findOne({ slug });
   if (existingBoard) {
     slug = `${slug}-${Date.now()}`;
@@ -86,7 +86,7 @@ export const PUT = withApiHandler(async (req, { user }) => {
   }
 
   // Validate slug format
-  const newSlug = slug.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 30);
+  const newSlug = generateSlug(slug);
 
   // Check rate limit (1 day)
   if (board.slug !== newSlug && board.lastSlugUpdate) {

@@ -8,24 +8,33 @@ const __dirname = path.dirname(__filename);
 const loadJSON = (p) => {
   const fullPath = path.join(__dirname, p);
   try {
-    if (!fs.existsSync(fullPath)) {
-      console.warn("JSON file not found:", fullPath);
-      return {};
-    }
-    const content = fs.readFileSync(fullPath, "utf8");
-    return JSON.parse(content);
+    if (!fs.existsSync(fullPath)) return {};
+    return JSON.parse(fs.readFileSync(fullPath, "utf8"));
   } catch (e) {
-    console.error("Failed to load or parse JSON file:", fullPath, e.message);
     return {};
   }
 };
 
 const settings = {
-  lb0_setting: loadJSON("../data/apps/loyalboards/lb0_setting.json"),
-  tf0_setting: loadJSON("../data/apps/taskflow/tf0_setting.json"),
-  tc0_setting: loadJSON("../data/apps/tudorcrisan/tc0_setting.json"),
-  setting0: loadJSON("../data/modules/setting/setting0.json"),
-  boards: loadJSON("../data/modules/boards/boards.json")
+  copywriting: loadJSON("../data/modules/copywriting.json"),
+  styling: loadJSON("../data/modules/styling.json"),
+  visual: loadJSON("../data/modules/visual.json"),
+  setting: loadJSON("../data/modules/setting.json"),
+  blog: loadJSON("../data/modules/blog.json"),
+  boards: loadJSON("../data/modules/boards.json"),
+  loyalboards_copywriting: loadJSON("../data/apps/loyalboards/copywriting.json"),
+  loyalboards_styling: loadJSON("../data/apps/loyalboards/styling.json"),
+  loyalboards_visual: loadJSON("../data/apps/loyalboards/visual.json"),
+  loyalboards_setting: loadJSON("../data/apps/loyalboards/setting.json"),
+  loyalboards_blog: loadJSON("../data/apps/loyalboards/blog.json"),
+  taskflow_copywriting: loadJSON("../data/apps/taskflow/copywriting.json"),
+  taskflow_styling: loadJSON("../data/apps/taskflow/styling.json"),
+  taskflow_visual: loadJSON("../data/apps/taskflow/visual.json"),
+  taskflow_setting: loadJSON("../data/apps/taskflow/setting.json"),
+  tudorcrisan_copywriting: loadJSON("../data/apps/tudorcrisan/copywriting.json"),
+  tudorcrisan_styling: loadJSON("../data/apps/tudorcrisan/styling.json"),
+  tudorcrisan_visual: loadJSON("../data/apps/tudorcrisan/visual.json"),
+  tudorcrisan_setting: loadJSON("../data/apps/tudorcrisan/setting.json"),
 };
 
 export default settings;

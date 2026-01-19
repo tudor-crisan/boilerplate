@@ -4,7 +4,7 @@ import User from "@/models/User";
 import { isResponseMock, responseMock, responseSuccess, responseError, generateLogoBase64 } from "@/libs/utils.server";
 import { checkReqRateLimit } from "@/libs/rateLimit";
 
-import setting from "@/data/modules/setting/setting0.json";
+import setting from "@/data/modules/setting.json";
 
 const TYPE = "UserUpdate";
 

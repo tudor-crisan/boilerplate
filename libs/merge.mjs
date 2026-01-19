@@ -37,7 +37,7 @@ export function deepMerge(target, source) {
  * @returns {object} - The merged configuration
  */
 export const getMergedConfig = (configType, configValue, list) => {
-  let baseKey = `${configType}0`;
+  let baseKey = `${configType}`;
   let overrideKey = null;
 
   if (typeof configValue === "string") {
@@ -62,7 +62,7 @@ export const getMergedConfig = (configType, configValue, list) => {
  * @returns {object} - The merged configuration
  */
 export const getMergedConfigWithModules = (configType, configValue, list) => {
-  const baseKey = typeof configValue === 'object' ? (configValue.default || `${configType}0`) : `${configType}0`;
+  const baseKey = typeof configValue === 'object' ? (configValue.default || `${configType}`) : `${configType}`;
   const appSettingKey = typeof configValue === 'object' ? configValue.override : configValue;
 
   let mergedConfig = list[baseKey] || {};

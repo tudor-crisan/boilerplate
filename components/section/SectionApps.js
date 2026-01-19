@@ -9,6 +9,7 @@ import { cn } from "@/libs/utils.client";
 import Button from "@/components/button/Button";
 import { defaultSetting as settings } from "@/libs/defaults";
 import Flex from "@/components/common/Flex";
+import SectionWrapper from "@/components/section/SectionWrapper";
 
 const SectionAppsContent = () => {
   const { styling } = useStyling();
@@ -55,10 +56,8 @@ const SectionAppsContent = () => {
 }
 
 export default function SectionApps() {
-  const { styling } = useStyling();
-
   return (
-    <section id="apps" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100`, styling.SectionApps?.padding)}>
+    <SectionWrapper id="apps">
       {settings.availableApps.length === 1 ? (
         <Flex>
           <SectionAppsContent />
@@ -68,6 +67,6 @@ export default function SectionApps() {
           <SectionAppsContent />
         </Grid>
       )}
-    </section>
+    </SectionWrapper>
   );
 }

@@ -6,7 +6,7 @@ import BlogCardArticle from "@/components/blog/BlogCardArticle";
 import Grid from "@/components/common/Grid";
 import Button from "@/components/button/Button";
 import SectionHeading from "@/components/section/SectionHeading";
-import { cn } from "@/libs/utils.client";
+import SectionWrapper from "@/components/section/SectionWrapper";
 
 export default function SectionBlog() {
   const { styling } = useStyling();
@@ -27,33 +27,31 @@ export default function SectionBlog() {
     }));
 
   return (
-    <section id="blog" className={cn(`${styling.general.container} ${styling.general.box} bg-base-100 mb-10`, styling.SectionBlog?.padding)}>
-      <div className="space-y-12">
-        <div className="flex flex-col items-center space-y-4">
-          <SectionHeading
-            headline={blog.headline}
-            paragraph={blog.paragraph}
-            headlineClassName={styling.section.title}
-            paragraphClassName="max-w-xl mx-auto opacity-80"
-            align="center"
-          />
+    <SectionWrapper id="blog" containerClassName="space-y-12">
+      <div className="flex flex-col items-center space-y-4">
+        <SectionHeading
+          headline={blog.headline}
+          paragraph={blog.paragraph}
+          headlineClassName={styling.section.title}
+          paragraphClassName="max-w-xl mx-auto opacity-80"
+          align="center"
+        />
 
-          <div className="flex justify-center mb-6">
-            <Button href="/blog" className="btn-primary">
-              {blog.button.label}
-            </Button>
-          </div>
+        <div className="flex justify-center mb-6">
+          <Button href="/blog" className="btn-primary">
+            {blog.button.label}
+          </Button>
         </div>
-        <Grid>
-          {latestArticles.map((article) => (
-            <BlogCardArticle
-              article={article}
-              key={article.slug}
-              showCategory={true}
-            />
-          ))}
-        </Grid>
       </div>
-    </section>
+      <Grid>
+        {latestArticles.map((article) => (
+          <BlogCardArticle
+            article={article}
+            key={article.slug}
+            showCategory={true}
+          />
+        ))}
+      </Grid>
+    </SectionWrapper>
   );
 }

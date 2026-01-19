@@ -7,7 +7,7 @@ if (typeof window === "undefined") {
   if (appName) {
     const envPath = path.join(process.cwd(), 'env', 'env-dev', `.env.dev.${appName}`);
     if (fs.existsSync(envPath)) {
-      dotenv.config({ path: envPath });
+      dotenv.config({ path: envPath, quiet: true });
     }
   }
 }
