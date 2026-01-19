@@ -52,7 +52,7 @@ export default function AnalyticsPage() {
   }, [range]);
 
   // Dynamic Styling from Context
-  const cardClass = `${styling.components.card} p-6 h-full`;
+  const cardClass = `${styling.components.card} ${styling.general.box}`;
   const titleClass = styling.section.title;
   const roundingClass = styling.components.element.split(' ').find(c => c.startsWith('rounded')) || 'rounded-none';
   const barRounding = roundingClass.replace('rounded', '!rounded-t');
@@ -78,8 +78,9 @@ export default function AnalyticsPage() {
         <div className="w-full flex justify-between items-center gap-4">
           <ButtonBack url="/dashboard" />
 
-          <div className="w-full sm:w-auto">
+          <div className="w-fit">
             <Select
+              className="pr-10! w-full sm:w-48"
               value={range}
               onChange={(e) => setRange(e.target.value)}
               options={ranges}
