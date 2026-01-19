@@ -5,9 +5,9 @@ import Label from "@/components/common/Label";
 import IconLoading from "@/components/icon/IconLoading";
 import Paragraph from "@/components/common/Paragraph";
 import Tooltip from "@/components/common/Tooltip";
-import BoardCommentItem from "./BoardCommentItem";
+import CommentItem from "./CommentItem";
 
-const BoardCommentUI = ({
+const CommentUI = ({
   comments = [],
   user,
   settings,
@@ -68,7 +68,7 @@ const BoardCommentUI = ({
     <div className="mt-4 border-t border-base-200 pt-4 space-y-4">
       <div className="space-y-4">
         {comments.map((comment) => (
-          <BoardCommentItem
+          <CommentItem
             key={comment._id}
             comment={comment}
             user={user}
@@ -131,4 +131,4 @@ const BoardCommentUI = ({
   );
 };
 
-export default BoardCommentUI;
+export default CommentUI;

@@ -217,6 +217,34 @@ function cleanAppSpecificFiles(targetDir, appName) {
   }
 }
 
+// Helper to configure vercel.json specific to the app
+function configureVercelJson(targetDir, appName) {
+  const vercelPath = path.join(targetDir, 'vercel.json');
+  let vercelConfig = {};
+
+  // Read existing valid json or start fresh
+  if (fs.existsSync(vercelPath)) {
+    try {
+      vercelConfig = JSON.parse(fs.readFileSync(vercelPath, 'utf-8'));
+    } catch (e) {
+      console.warn('   ⚠️ Invalid vercel.json found, starting with empty object.');
+      vercelConfig = {};
+    }
+  }
+
+  // Inject crons for loyalboards
+  if (appName === 'loyalboards') {
+    console.log('   ⚙️ Configuring vercel.json for loyalboards (injecting cron)...');
+    vercelConfig.crons = [
+      {
+        "path": "/api/modules/boards/weekly-digest",
+        "schedule": "0 8 * * 1"
+      }
+    ];
+    fs.writeFileSync(vercelPath, JSON.stringify(vercelConfig, null, 2));
+  }
+}
+
 async function main() {
   try {
     // 0. Parse arguments
@@ -287,7 +315,8 @@ async function main() {
       // Filter list files to remove refs to other apps
       filterListFiles(targetDir, folder);
 
-
+      // Configure vercel.json (inject cron for loyalboards)
+      configureVercelJson(targetDir, folder);
 
       // Git operations
       console.log('   💾 Committing and pushing target...');

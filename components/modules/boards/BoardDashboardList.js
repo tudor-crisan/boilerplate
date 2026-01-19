@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import ListDisplay from "@/components/list/ListDisplay";
-import BoardFilterBar from "@/components/modules/boards/BoardFilterBar";
+import FilterBar from "@/components/common/FilterBar";
 
 export default function BoardDashboardList({ initialBoards = [], type = "Board" }) {
   const [search, setSearch] = useState("");
@@ -18,7 +18,7 @@ export default function BoardDashboardList({ initialBoards = [], type = "Board" 
         list={filteredBoards}
       >
         {initialBoards.length > 0 && (
-          <BoardFilterBar
+          <FilterBar
             search={search}
             setSearch={setSearch}
             placeholder={`Search ${type.toLowerCase()}s...`}

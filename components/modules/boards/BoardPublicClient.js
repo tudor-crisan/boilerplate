@@ -6,7 +6,7 @@ import Columns from "@/components/common/Columns";
 import Sidebar from "@/components/common/Sidebar";
 import FormCreate from "@/components/form/FormCreate";
 import BoardPublicPostsList from "@/components/modules/boards/BoardPublicPostsList";
-import BoardFilterBar from "@/components/modules/boards/BoardFilterBar";
+import FilterBar from "@/components/common/FilterBar";
 import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
 import { defaultStyling } from "@/libs/defaults";
 import { ContextStyling } from "@/context/ContextStyling";
@@ -67,7 +67,7 @@ export default function BoardPublicClient({ board }) {
               </Sidebar>
               <div className="flex-1 w-full min-w-0">
                 {board.posts?.length > 0 && (
-                  <BoardFilterBar
+                  <FilterBar
                     search={search}
                     setSearch={setSearch}
                     sort={sort}

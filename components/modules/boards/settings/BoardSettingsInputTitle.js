@@ -2,7 +2,7 @@ import Input from "@/components/input/Input";
 import InputCheckbox from "@/components/input/InputCheckbox";
 import Label from "@/components/common/Label";
 import TextSmall from "@/components/common/TextSmall";
-import { SettingsContainer, SettingsItem, SettingsRow } from "./BoardSettingsLayout";
+import { SettingsContainer, SettingsItem, SettingsRow } from "@/components/settings/SettingsLayout";
 
 export const BoardSettingsInputTitle = ({ getVal, handleChange, disabled }) => (
   <SettingsContainer>

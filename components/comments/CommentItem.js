@@ -4,7 +4,7 @@ import Button from "@/components/button/Button";
 import SvgTrash from "@/components/svg/SvgTrash";
 import TextSmall from "@/components/common/TextSmall";
 
-const BoardCommentItem = ({
+const CommentItem = ({
   comment,
   user,
   config,
@@ -62,4 +62,4 @@ const BoardCommentItem = ({
   );
 };
 
-export default BoardCommentItem;
+export default CommentItem;

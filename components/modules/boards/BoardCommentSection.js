@@ -7,7 +7,7 @@ import Modal from "@/components/common/Modal";
 import Paragraph from "@/components/common/Paragraph";
 import useBoardComments from "@/hooks/modules/boards/useBoardComments";
 import { useStyling } from "@/context/ContextStyling";
-import BoardCommentUI from "./BoardCommentUI";
+import CommentUI from "@/components/comments/CommentUI";
 
 const BoardCommentSection = ({ postId, settings: customSettings }) => {
   const { styling } = useStyling();
@@ -76,7 +76,7 @@ const BoardCommentSection = ({ postId, settings: customSettings }) => {
 
   return (
     <>
-      <BoardCommentUI
+      <CommentUI
         comments={comments}
         user={session}
         settings={uiSettings}

@@ -8,8 +8,8 @@ import Label from "@/components/common/Label";
 import IconLoading from "@/components/icon/IconLoading";
 import { useAnalyticsRange } from "@/hooks/modules/boards/useAnalyticsRange";
 import Paragraph from '@/components/common/Paragraph';
-import BoardAnalyticsStats from './BoardAnalyticsStats';
-import BoardAnalyticsChart from './BoardAnalyticsChart';
+import AnalyticsStats from '@/components/analytics/AnalyticsStats';
+import AnalyticsChart from '@/components/analytics/AnalyticsChart';
 
 export default function BoardAnalyticsWidget({ boardId }) {
   const { styling } = useStyling();
@@ -44,6 +44,13 @@ export default function BoardAnalyticsWidget({ boardId }) {
     comments: acc.comments + (curr.comments || 0),
   }), { views: 0, posts: 0, votes: 0, comments: 0 });
 
+  const statsItems = [
+    { label: "Views", value: totals.views, color: "text-primary" },
+    { label: "Posts", value: totals.posts, color: "text-secondary" },
+    { label: "Votes", value: totals.votes },
+    { label: "Comments", value: totals.comments },
+  ];
+
   return (
     <div className="space-y-4 w-full">
       <div className="flex justify-between items-center sm:hidden">
@@ -64,13 +71,15 @@ export default function BoardAnalyticsWidget({ boardId }) {
         </Paragraph>
       ) : (
         <>
-          <BoardAnalyticsStats totals={totals} styling={styling} />
+          <AnalyticsStats items={statsItems} styling={styling} />
 
-          <BoardAnalyticsChart
+          <AnalyticsChart
             data={data}
             styling={styling}
             startLabel={startLabel}
             endLabel={endLabel}
+            title="Activity Trend"
+            getValue={(item) => (item.views || 0) + (item.posts || 0) + (item.votes || 0) + (item.comments || 0)}
           />
         </>
       )}

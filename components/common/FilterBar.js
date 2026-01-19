@@ -3,7 +3,7 @@ import SvgSearch from "@/components/svg/SvgSearch";
 import Select from "@/components/select/Select";
 import Input from "@/components/input/Input";
 
-export default function BoardFilterBar({
+export default function FilterBar({
   search,
   setSearch,
   sort,

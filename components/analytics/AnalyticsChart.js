@@ -1,10 +1,17 @@
-
 import React from 'react';
 import TextSmall from "@/components/common/TextSmall";
 
-export default function BoardAnalyticsChart({ data, styling, startLabel, endLabel }) {
+export default function AnalyticsChart({
+  data,
+  styling,
+  startLabel,
+  endLabel,
+  title = "Activity Trend",
+  getValue = (item) => item.value || 0,
+  tooltipFormat = (item, val) => `${new Date(item.date).toLocaleDateString()}: ${val}`
+}) {
 
-  const roundingClass = styling.components.element.split(' ').find(c => c.startsWith('rounded')) || 'rounded-none';
+  const roundingClass = styling?.components?.element?.split(' ').find(c => c.startsWith('rounded')) || 'rounded-none';
   const barRounding = roundingClass.replace('rounded', '!rounded-t');
 
   const getRadiusValue = (cls) => {
@@ -23,18 +30,18 @@ export default function BoardAnalyticsChart({ data, styling, startLabel, endLabe
   const tooltipRadius = getRadiusValue(roundingClass);
 
   return (
-    <div className={`${styling.components.card} p-3`}>
-      <TextSmall className="font-bold mb-2">Activity Trend</TextSmall>
+    <div className={`${styling?.components?.card || "bg-base-100 rounded-box"} p-3`}>
+      <TextSmall className="font-bold mb-2">{title}</TextSmall>
       <div className="flex items-end justify-center space-x-1 h-16 w-full">
         {data && data.length > 0 ? data.map((day, i) => {
-          const total = (day.views || 0) + (day.posts || 0) + (day.votes || 0) + (day.comments || 0);
-          const max = Math.max(1, ...data.map(d => (d.views || 0) + (d.posts || 0) + (d.votes || 0) + (d.comments || 0)));
+          const total = getValue(day);
+          const max = Math.max(1, ...data.map(d => getValue(d)));
           const height = (total / max) * 100;
           return (
             <div key={i} className="flex-1 max-w-8 h-full flex flex-col justify-end group relative">
               <div
                 className="tooltip tooltip-left w-full h-full flex items-end"
-                data-tip={`${new Date(day.date).toLocaleDateString()}: ${total}`}
+                data-tip={tooltipFormat(day, total)}
                 style={{ '--tooltip-radius': tooltipRadius }}
               >
                 <div className={`bg-primary opacity-60 hover:opacity-100 transition-all ${barRounding} w-full`} style={{ height: `${Math.max(height, 5)}%` }}></div>

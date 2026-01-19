@@ -12,7 +12,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import { formatCommentDate } from "@/libs/utils.client";
 import { motion, AnimatePresence } from "framer-motion";
 import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
-import BoardFilterBar from "@/components/modules/boards/BoardFilterBar";
+import FilterBar from "@/components/common/FilterBar";
 
 const BoardPrivatePostsList = ({ posts, boardId }) => {
   const { styling } = useStyling();
@@ -32,7 +32,7 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
       <Title>Posts ({filteredPosts?.length || 0})</Title>
 
       {postsState?.length > 0 && (
-        <BoardFilterBar
+        <FilterBar
           search={search}
           setSearch={setSearch}
           sort={sort}
