@@ -1,4 +1,5 @@
 import { responseSuccess, responseError, generateSlug } from "@/libs/utils.server";
+import { z } from "zod";
 import { defaultSetting as settings } from "@/libs/defaults";
 import Board from "@/models/modules/boards/Board";
 import Post from "@/models/modules/boards/Post";
@@ -20,7 +21,13 @@ export const POST = withApiHandler(async (req, { user }) => {
 
   const body = await req.json();
 
-  if (!body.name) {
+  const createBoardSchema = z.object({
+    name: z.string().min(1),
+  });
+
+  const parsed = createBoardSchema.safeParse(body);
+
+  if (!parsed.success) {
     return responseError(nameRequired.message, nameRequired.inputErrors, nameRequired.status);
   }
 

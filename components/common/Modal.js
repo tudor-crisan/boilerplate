@@ -36,9 +36,8 @@ const Modal = ({
 
   return createPortal(
     <div
-      className={cn("modal modal-bottom sm:modal-middle", isModalOpen && "modal-open")}
+      className={cn("modal modal-bottom sm:modal-middle z-50", isModalOpen && "modal-open")}
       role="dialog"
-      style={{ zIndex: 9999 }}
     >
       <div className={cn(`${styling.components.modal} modal-box max-h-[calc(100vh-10rem)] p-0 pb-4 sm:pb-0 flex flex-col overflow-hidden shadow-2xl`, boxClassName)}>
         {title && (
@@ -60,17 +59,11 @@ const Modal = ({
         </div>
       </div>
       <div
-        className="modal-backdrop fixed bg-black/60 backdrop-blur-sm transition-opacity duration-300"
+        className={cn(
+          "modal-backdrop fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 -z-10",
+          isModalOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        )}
         onClick={onClose}
-        style={{
-          zIndex: -1,
-          width: '120vw',
-          height: '120vh',
-          left: '-10vw',
-          top: '-10vh',
-          opacity: isModalOpen ? 1 : 0,
-          pointerEvents: isModalOpen ? 'auto' : 'none'
-        }}
       >
         <button className="cursor-default w-full h-full outline-none">close</button>
       </div>
