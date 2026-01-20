@@ -1,4 +1,5 @@
 import { useStyling } from "@/context/ContextStyling";
+import { cn } from "@/libs/utils.client";
 
 export default function Title({ className, children, tag: Tag = "h1" }) {
   const { styling } = useStyling();
