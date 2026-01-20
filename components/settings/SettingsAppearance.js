@@ -1,10 +1,10 @@
 "use client";
-import Select from "@/components/select/Select";
-import InputButton from "@/components/input/InputButton";
-import Label from "@/components/common/Label";
 import Grid from "@/components/common/Grid";
-import themes from "@/lists/themes";
+import Label from "@/components/common/Label";
+import InputButton from "@/components/input/InputButton";
+import Select from "@/components/select/Select";
 import { fontMap } from "@/lists/fonts";
+import themes from "@/lists/themes";
 
 export default function SettingsAppearance({ styling, onChange, isLoading }) {
   if (!styling) return null;

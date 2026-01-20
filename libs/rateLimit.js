@@ -1,7 +1,7 @@
-import RateLimit from "@/models/RateLimit";
+import { defaultSetting as settings } from "@/libs/defaults";
 import connectMongo from "@/libs/mongoose";
 import { responseError } from "@/libs/utils.server";
-import { defaultSetting as settings } from "@/libs/defaults";
+import RateLimit from "@/models/RateLimit";
 
 /**
  * Check rate limit for an IP and route.

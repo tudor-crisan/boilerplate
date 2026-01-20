@@ -1,8 +1,8 @@
 "use server";
 
 import connectMongo from "@/libs/mongoose";
-import Post from "@/models/modules/boards/Post";
 import { cleanObject } from "@/libs/utils.server";
+import Post from "@/models/modules/boards/Post";
 
 export const getPosts = async (boardId) => {
   await connectMongo();

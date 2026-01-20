@@ -1,9 +1,9 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
-import WrapperFooter from "@/components/wrapper/WrapperFooter";
 import FooterBrand from "@/components/footer/FooterBrand";
 import FooterMenu from "@/components/footer/FooterMenu";
 import FooterSocial from "@/components/footer/FooterSocial";
+import WrapperFooter from "@/components/wrapper/WrapperFooter";
+import { useStyling } from "@/context/ContextStyling";
 import { useVisual } from "@/context/ContextVisual";
 import { cn } from "@/libs/utils.client";
 

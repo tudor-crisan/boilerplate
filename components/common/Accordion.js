@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
 import { useStyling } from "@/context/ContextStyling";
+import { useState } from "react";
 
 export default function Accordion({ items, allowMultiple = true, className = "" }) {
   const { styling } = useStyling();

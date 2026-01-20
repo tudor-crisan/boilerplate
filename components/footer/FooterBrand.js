@@ -1,10 +1,10 @@
 "use client";
 import IconBusinessImage from "@/components/icon/IconBusinessImage";
-import { defaultSetting as settings } from "@/libs/defaults";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
-import Link from "next/link";
+import { defaultSetting as settings } from "@/libs/defaults";
 import config from "@/package.json";
+import Link from "next/link";
 
 export default function FooterBrand() {
   const { styling } = useStyling();

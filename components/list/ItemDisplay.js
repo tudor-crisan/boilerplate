@@ -1,8 +1,8 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
-import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
-import { motion, AnimatePresence } from "framer-motion";
+import Title from "@/components/common/Title";
+import { useStyling } from "@/context/ContextStyling";
+import { AnimatePresence,motion } from "framer-motion";
 
 const SingleItem = ({ item, styling, itemAction }) => {
   return (

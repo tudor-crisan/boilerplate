@@ -1,9 +1,9 @@
 "use client";
+import Button from '@/components/button/Button';
+import TextSmall from "@/components/common/TextSmall";
+import { useStyling } from "@/context/ContextStyling";
 import React, { useState } from 'react';
 import clsx from 'clsx';
-import TextSmall from "@/components/common/TextSmall";
-import Button from '@/components/button/Button';
-import { useStyling } from "@/context/ContextStyling";
 
 export default function CardNotification({
   isRead,

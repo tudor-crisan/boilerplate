@@ -1,5 +1,5 @@
-import Input from "@/components/input/Input";
 import Label from "@/components/common/Label";
+import Input from "@/components/input/Input";
 import { SettingsContainer, SettingsItem } from "@/components/settings/SettingsLayout";
 
 export const BoardSettingsGeneralForm = ({ getVal, handleChange, disabled }) => (

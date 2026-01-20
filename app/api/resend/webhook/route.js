@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
-import { sendEmail } from '@/libs/email';
 import { defaultSetting as settings } from '@/libs/defaults';
-import { Webhook } from 'svix';
+import { sendEmail } from '@/libs/email';
+import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import { Webhook } from 'svix';
 
 export async function POST(req) {
   try {

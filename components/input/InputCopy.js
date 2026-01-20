@@ -1,9 +1,9 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
-import ButtonCopy from "@/components/button/ButtonCopy";
 import Button from "@/components/button/Button";
-import SvgExternal from "@/components/svg/SvgExternal";
+import ButtonCopy from "@/components/button/ButtonCopy";
 import Tooltip from "@/components/common/Tooltip";
+import SvgExternal from "@/components/svg/SvgExternal";
+import { useStyling } from "@/context/ContextStyling";
 
 
 export default function InputCopy({

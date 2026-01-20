@@ -1,19 +1,19 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import { clientApi } from '@/libs/api';
-import { defaultSetting as settings } from "@/libs/defaults";
-import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import DashboardMain from "@/components/dashboard/DashboardMain";
 import ButtonBack from "@/components/button/ButtonBack";
-import { useStyling } from "@/context/ContextStyling";
-import Title from "@/components/common/Title";
+import Loading from '@/components/common/Loading';
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
-import { useAnalyticsRange } from "@/hooks/useAnalyticsRange";
+import Title from "@/components/common/Title";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import DashboardMain from "@/components/dashboard/DashboardMain";
+import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 import Select from "@/components/select/Select";
+import { useStyling } from "@/context/ContextStyling";
+import { useAnalyticsRange } from "@/hooks/useAnalyticsRange";
 import { useSort } from "@/hooks/useSort";
-import Loading from '@/components/common/Loading';
+import { clientApi } from '@/libs/api';
+import { defaultSetting as settings } from "@/libs/defaults";
+import React, { useEffect, useState } from 'react';
 
 export default function AnalyticsPage() {
   const { styling } = useStyling();

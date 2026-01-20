@@ -1,7 +1,7 @@
 "use client";
-import SvgSearch from "@/components/svg/SvgSearch";
-import Select from "@/components/select/Select";
 import Input from "@/components/input/Input";
+import Select from "@/components/select/Select";
+import SvgSearch from "@/components/svg/SvgSearch";
 import { useStyling } from "@/context/ContextStyling";
 
 export default function FilterBar({

@@ -1,8 +1,8 @@
 import { auth } from "@/libs/auth";
-import connectMongo from "@/libs/mongoose";
-import { responseError, isResponseMock, responseMock } from "@/libs/utils.server";
 import { defaultSetting as settings } from "@/libs/defaults";
+import connectMongo from "@/libs/mongoose";
 import { checkReqRateLimit } from "@/libs/rateLimit";
+import { isResponseMock, responseError, responseMock } from "@/libs/utils.server";
 import User from "@/models/User";
 
 /**

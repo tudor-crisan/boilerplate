@@ -1,5 +1,5 @@
+import { ButtonSchema, LinkSchema,MenuItemSchema } from "@/types/common.schema";
 import { z } from "zod";
-import { MenuItemSchema, ButtonSchema, LinkSchema } from "./common.schema";
 
 /**
  * Zod Schema for Section Header.

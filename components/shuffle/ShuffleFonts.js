@@ -1,7 +1,7 @@
 "use client";
-import { useEffect } from "react";
-import fonts from "@/lists/fonts";
 import shuffle from "@/libs/shuffle";
+import fonts from "@/lists/fonts";
+import { useEffect } from "react";
 
 export default function ShuffleFonts() {
   useEffect(() => {

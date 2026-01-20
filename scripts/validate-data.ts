@@ -1,6 +1,3 @@
-import fs from "fs";
-import path from "path";
-import { z } from "zod";
 import {
   BlogSchema,
   BoardsSchema,
@@ -8,7 +5,10 @@ import {
   SettingSchema,
   StylingSchema,
   VisualSchema,
-} from "../types";
+} from "@/types";
+import fs from "fs";
+import path from "path";
+import { z } from "zod";
 
 // Mapping of module names to their corresponding schemas
 const SCHEMA_MAP: Record<string, z.ZodTypeAny> = {

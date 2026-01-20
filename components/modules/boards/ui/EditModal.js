@@ -1,17 +1,17 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Button from "@/components/button/Button";
-import Modal from "@/components/common/Modal";
-import Input from "@/components/input/Input";
 import Label from "@/components/common/Label";
+import Modal from "@/components/common/Modal";
+import TextSmall from "@/components/common/TextSmall";
+import Input from "@/components/input/Input";
+import BoardExtraSettings from "@/components/modules/boards/ui/ExtraSettings";
+import { useStyling } from "@/context/ContextStyling";
 import useApiRequest from "@/hooks/useApiRequest";
 import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
-import TextSmall from "@/components/common/TextSmall";
 import { createSlug } from "@/libs/utils.client";
-import BoardExtraSettings from "@/components/modules/boards/ui/ExtraSettings";
-import { useStyling } from "@/context/ContextStyling";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function BoardEditModal({ boardId, currentSlug, currentName, extraSettings = {}, className = "" }) {
   const router = useRouter();

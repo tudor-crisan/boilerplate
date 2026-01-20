@@ -1,8 +1,8 @@
-import { formatCommentDate } from "@/libs/utils.client";
-import ProfileImage from "@/components/common/ProfileImage";
 import Button from "@/components/button/Button";
-import SvgTrash from "@/components/svg/SvgTrash";
+import ProfileImage from "@/components/common/ProfileImage";
 import TextSmall from "@/components/common/TextSmall";
+import SvgTrash from "@/components/svg/SvgTrash";
+import { formatCommentDate } from "@/libs/utils.client";
 
 const CommentItem = ({
   comment,

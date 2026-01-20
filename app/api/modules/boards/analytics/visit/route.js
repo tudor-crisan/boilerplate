@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
 import { trackEvent } from '@/libs/modules/boards/analytics';
+import { NextResponse } from 'next/server';
 
 export async function POST(req) {
   try {

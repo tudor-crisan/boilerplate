@@ -1,4 +1,4 @@
-import { defaultVisual, defaultSetting } from "@/libs/defaults";
+import { defaultSetting,defaultVisual } from "@/libs/defaults";
 
 export default function EmailIconLogo({ branding }) {
   // Use the favicon logic as requested, ignoring complex SVG implementation.

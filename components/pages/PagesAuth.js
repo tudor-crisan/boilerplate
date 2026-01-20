@@ -1,9 +1,9 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
-import { useAuth } from "@/context/ContextAuth";
-import Title from "@/components/common/Title";
 import Button from "@/components/button/Button";
 import Paragraph from "@/components/common/Paragraph";
+import Title from "@/components/common/Title";
+import { useAuth } from "@/context/ContextAuth";
+import { useStyling } from "@/context/ContextStyling";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function PagesAuth({

@@ -1,14 +1,14 @@
-import { notFound } from "next/navigation";
 import BlogBadgeCategory from "@/components/blog/BlogBadgeCategory";
-import { defaultSetting as settings, defaultBlog, defaultStyling } from "@/libs/defaults";
-import { getMetadata } from "@/libs/seo";
-import PagesBlog from "@/components/pages/PagesBlog";
-import ButtonBack from "@/components/button/ButtonBack";
-import Title from "@/components/common/Title";
-import Paragraph from "@/components/common/Paragraph";
-import BlogSchemaArticle from "@/components/blog/BlogSchemaArticle";
 import BlogDisclaimer from "@/components/blog/BlogDisclaimer";
 import BlogRelatedArticles from "@/components/blog/BlogRelatedArticles";
+import BlogSchemaArticle from "@/components/blog/BlogSchemaArticle";
+import ButtonBack from "@/components/button/ButtonBack";
+import Paragraph from "@/components/common/Paragraph";
+import Title from "@/components/common/Title";
+import PagesBlog from "@/components/pages/PagesBlog";
+import { defaultBlog, defaultSetting as settings, defaultStyling } from "@/libs/defaults";
+import { getMetadata } from "@/libs/seo";
+import { notFound } from "next/navigation";
 
 const { articles, categories } = defaultBlog;
 

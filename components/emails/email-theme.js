@@ -1,7 +1,7 @@
-import { defaultSetting, defaultStyling, defaultVisual } from "@/libs/defaults";
-import themeColors from "@/lists/themeColors";
 import { oklchToHex } from "@/libs/colors";
+import { defaultSetting, defaultStyling, defaultVisual } from "@/libs/defaults";
 import { fontMap } from "@/lists/fonts";
+import themeColors from "@/lists/themeColors";
 
 export const extractRoundness = (classNames = "") => {
   if (classNames.includes("rounded-none")) return "0";

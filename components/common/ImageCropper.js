@@ -1,10 +1,10 @@
 "use client";
-import { useState, useCallback } from "react";
-import Cropper from "react-easy-crop";
 import Button from "@/components/button/Button";
+import InputRange from "@/components/input/InputRange";
 import { useStyling } from "@/context/ContextStyling";
 import { getCroppedImg } from "@/libs/image";
-import InputRange from "@/components/input/InputRange";
+import { useCallback,useState } from "react";
+import Cropper from "react-easy-crop";
 
 const ImageCropper = ({ imageSrc, onCropComplete, onCancel, aspect = 1 }) => {
   const { styling } = useStyling();

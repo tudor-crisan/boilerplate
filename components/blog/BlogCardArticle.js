@@ -1,16 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import BlogBadgeCategory from "./BlogBadgeCategory";
-import Title from "@/components/common/Title";
+import BlogBadgeCategory from "@/components/blog/BlogBadgeCategory";
 import Paragraph from "@/components/common/Paragraph";
-import { defaultSetting as config } from "@/libs/defaults";
 import TextSmall from "@/components/common/TextSmall";
+import Title from "@/components/common/Title";
 import IconBusinessImage from "@/components/icon/IconBusinessImage";
 import { useStyling } from "@/context/ContextStyling";
+import { defaultSetting as config } from "@/libs/defaults";
+import Link from "next/link";
 
-const BlogCardArticle = ({ article, showCategory = true, isImagePriority = false }) => {
+const BlogCardArticle = ({ article, showCategory = true }) => {
   const { styling } = useStyling();
 
   return (

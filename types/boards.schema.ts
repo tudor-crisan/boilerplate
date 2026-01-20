@@ -1,5 +1,5 @@
+import { FormSchema, PagePathSchema } from "@/types/setting.schema";
 import { z } from "zod";
-import { FormSchema, PagePathSchema } from "./setting.schema";
 
 /**
  * Zod Schema for Board Path Configuration.

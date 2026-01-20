@@ -1,11 +1,11 @@
-import { cache } from "react";
-import mongoose from "mongoose";
 import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
-import User from "@/models/User";
+import { cleanObject } from "@/libs/utils.server";
 import Board from "@/models/modules/boards/Board";
 import Post from "@/models/modules/boards/Post";
-import { cleanObject } from "@/libs/utils.server";
+import User from "@/models/User";
+import { cache } from "react";
+import mongoose from "mongoose";
 
 const getPostsAggregation = async (boardId) => {
   return await Post.aggregate([

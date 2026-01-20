@@ -1,15 +1,15 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
+import Button from "@/components/button/Button";
+import Flex from "@/components/common/Flex";
 import Grid from "@/components/common/Grid";
-import { getAppDetails } from "@/libs/apps";
-import Image from "next/image";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
-import { cn } from "@/libs/utils.client";
-import Button from "@/components/button/Button";
-import { defaultSetting as settings } from "@/libs/defaults";
-import Flex from "@/components/common/Flex";
 import SectionWrapper from "@/components/section/SectionWrapper";
+import { useStyling } from "@/context/ContextStyling";
+import { getAppDetails } from "@/libs/apps";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { cn } from "@/libs/utils.client";
+import Image from "next/image";
 
 const SectionAppsContent = () => {
   const { styling } = useStyling();

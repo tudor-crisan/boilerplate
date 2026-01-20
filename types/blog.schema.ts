@@ -1,5 +1,5 @@
+import { ImageSchema } from "@/types/common.schema";
 import { z } from "zod";
-import { ImageSchema } from "./common.schema";
 
 /**
  * Zod Schema for Blog Category.

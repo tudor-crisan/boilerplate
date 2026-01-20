@@ -1,23 +1,23 @@
 
-import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
-import DashboardMain from "@/components/dashboard/DashboardMain";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import ButtonBack from "@/components/button/ButtonBack";
-import InputCopy from "@/components/input/InputCopy";
 import ButtonDelete from "@/components/button/ButtonDelete";
-import Title from "@/components/common/Title";
 import Columns from "@/components/common/Columns";
-import Sidebar from "@/components/common/Sidebar";
 import Label from "@/components/common/Label";
+import Sidebar from "@/components/common/Sidebar";
+import Title from "@/components/common/Title";
 import Vertical from "@/components/common/Vertical";
-import BoardPrivatePostsList from "@/components/modules/boards/posts/PrivateList";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import DashboardMain from "@/components/dashboard/DashboardMain";
+import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
+import InputCopy from "@/components/input/InputCopy";
 import BoardAnalyticsWidget from "@/components/modules/boards/analytics/Widget";
+import BoardPrivatePostsList from "@/components/modules/boards/posts/PrivateList";
 import BoardEditModal from "@/components/modules/boards/ui/EditModal";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { getBoardPrivate } from "@/libs/modules/boards/db";
-import { redirect } from "next/navigation";
-import { baseUrl } from "@/libs/utils.client";
 import { getMetadata } from "@/libs/seo";
+import { baseUrl } from "@/libs/utils.client";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;

@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect } from "react";
-import themes from "@/lists/themes";
 import { fontMap } from "@/lists/fonts";
+import themes from "@/lists/themes";
+import { useCallback, useEffect,useState } from "react";
 
 export function useStylingRandomizer({ setStyling }) {
   // Shuffle Configuration

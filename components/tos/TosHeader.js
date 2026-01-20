@@ -1,9 +1,9 @@
 "use client";
-import { usePathname } from "next/navigation";
 import ButtonBack from "@/components/button/ButtonBack";
 import HeaderTop from "@/components/header/HeaderTop";
 import WrapperHeader from "@/components/wrapper/WrapperHeader";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { usePathname } from "next/navigation";
 
 export default function TosHeader() {
   const pathname = usePathname();

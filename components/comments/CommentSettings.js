@@ -1,9 +1,9 @@
 "use client";
 
-import Input from "@/components/input/Input";
-import InputCheckbox from "@/components/input/InputCheckbox";
 import Label from "@/components/common/Label";
 import TextSmall from "@/components/common/TextSmall";
+import Input from "@/components/input/Input";
+import InputCheckbox from "@/components/input/InputCheckbox";
 import { SettingsContainer, SettingsItem, SettingsRow } from "@/components/settings/SettingsLayout";
 
 const CommentSettings = ({

@@ -1,7 +1,7 @@
-import User from "@/models/User";
-import { responseSuccess, responseError, generateLogoBase64 } from "@/libs/utils.server";
-import { defaultSetting as setting } from "@/libs/defaults";
 import { withApiHandler } from "@/libs/apiHandler";
+import { defaultSetting as setting } from "@/libs/defaults";
+import { generateLogoBase64,responseError, responseSuccess } from "@/libs/utils.server";
+import User from "@/models/User";
 
 const TYPE = "UserUpdate";
 

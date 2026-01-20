@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import useApiRequest from "@/hooks/useApiRequest";
 import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
-import useApiRequest from "@/hooks/useApiRequest";
+import { useCallback,useEffect, useState } from "react";
 
 const useBoardComments = (postId) => {
   const [comments, setComments] = useState([]);

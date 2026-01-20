@@ -1,8 +1,8 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
-import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
+import Title from "@/components/common/Title";
 import Vertical from "@/components/common/Vertical";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function EmptyState({ title, description, icon }) {
   const { styling } = useStyling();

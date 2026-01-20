@@ -1,7 +1,7 @@
 "use client";
-import Link from "next/link";
-import { useStyling } from "@/context/ContextStyling";
 import { useCopywriting } from "@/context/ContextCopywriting";
+import { useStyling } from "@/context/ContextStyling";
+import Link from "next/link";
 
 export default function FooterMenu() {
   const { styling } = useStyling();

@@ -1,13 +1,12 @@
 "use client";
 
 import { ContextAuth } from "@/context/ContextAuth";
-import { useState, useEffect } from "react";
-import { clientApi, setDataError, setDataSuccess } from "@/libs/api";
-import toast from "react-hot-toast";
-import { deepMerge } from "@/libs/merge.mjs";
-import { defaultStyling } from "@/libs/defaults";
-
 import { useStyling } from "@/context/ContextStyling";
+import { clientApi, setDataError, setDataSuccess } from "@/libs/api";
+import { defaultStyling } from "@/libs/defaults";
+import { deepMerge } from "@/libs/merge.mjs";
+import { useEffect,useState } from "react";
+import toast from "react-hot-toast";
 
 export default function WrapperAuthClient({ authSession, children }) {
   const [session, setSession] = useState(authSession);

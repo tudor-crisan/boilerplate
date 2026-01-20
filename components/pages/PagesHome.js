@@ -1,7 +1,7 @@
 "use client";
+import Main from "@/components/common/Main";
 import { useVisual } from "@/context/ContextVisual";
 import sections from "@/lists/sections";
-import Main from "@/components/common/Main";
 
 export default function PageHome() {
   const { visual } = useVisual();

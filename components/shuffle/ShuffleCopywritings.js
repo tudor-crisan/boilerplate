@@ -1,7 +1,7 @@
 "use client";
-import { useEffect } from "react";
-import copywritings from "@/lists/copywritings";
 import shuffle from "@/libs/shuffle";
+import copywritings from "@/lists/copywritings";
+import { useEffect } from "react";
 
 export default function ShuffleCopywritings() {
   useEffect(() => {

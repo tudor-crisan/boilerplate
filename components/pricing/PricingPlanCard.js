@@ -1,7 +1,7 @@
 "use client";
 import IconLoading from "@/components/icon/IconLoading";
-import { cn } from "@/libs/utils.client";
 import { useStyling } from "@/context/ContextStyling";
+import { cn } from "@/libs/utils.client";
 
 const PricingPlanCard = ({
   item,

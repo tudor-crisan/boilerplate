@@ -1,8 +1,7 @@
-import { responseSuccess, responseError, getBaseUrl } from "@/libs/utils.server";
-import { defaultSetting as settings } from "@/libs/defaults";
-import User from "@/models/User";
-import Stripe from "stripe";
 import { withApiHandler } from "@/libs/apiHandler";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { getBaseUrl,responseError, responseSuccess } from "@/libs/utils.server";
+import Stripe from "stripe";
 
 const TYPE = "Billing";
 

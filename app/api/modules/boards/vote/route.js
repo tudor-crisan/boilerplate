@@ -1,8 +1,8 @@
-import { responseSuccess, responseError } from "@/libs/utils.server";
-import { defaultSetting as settings } from "@/libs/defaults";
-import Post from "@/models/modules/boards/Post";
-import { trackEvent, createNotification } from "@/libs/modules/boards/analytics";
 import { withApiHandler } from "@/libs/apiHandler";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { createNotification,trackEvent } from "@/libs/modules/boards/analytics";
+import { responseError,responseSuccess } from "@/libs/utils.server";
+import Post from "@/models/modules/boards/Post";
 
 const TYPE = "Vote";
 

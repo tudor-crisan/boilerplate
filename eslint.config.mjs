@@ -1,7 +1,8 @@
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
-import simpleImportSort from "eslint-plugin-simple-import-sort";
 import noRelativeImportPaths from "eslint-plugin-no-relative-import-paths";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
+import unusedImports from "eslint-plugin-unused-imports";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -17,6 +18,7 @@ const eslintConfig = defineConfig([
     plugins: {
       "simple-import-sort": simpleImportSort,
       "no-relative-import-paths": noRelativeImportPaths,
+      "unused-imports": unusedImports,
     },
     rules: {
       '@next/next/no-head-element': 'off',
@@ -26,20 +28,21 @@ const eslintConfig = defineConfig([
         "error",
         {
           groups: [
-            // Packages `react` related packages come first.
-            ["^react", "^@react"],
-            // Side effect imports.
-            ["^\\u0000"],
-            // Components imports.
-            ["^@/components", "^\\./components", "^\\.\\./components"],
-            // Internal packages.
-            ["^@/"],
-            // Parent imports. Put `..` last.
-            ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
-            // Other relative imports. Put same-folder imports and `.` last.
-            ["^\\./(?![^/]*components)(?!/?$)", "^\\./?$"],
-            // Style imports.
-            ["^.+\\.?(css)$"],
+            [
+              // All imports in one group to avoid newlines.
+              // Components and internal @/ prefix come first (alphabetically)
+              "^@/components",
+              "^@/",
+              "^react",
+              "^next",
+              "^@?\\w",
+              "^\\u0000",
+              "^\\.\\.(?!/?$)",
+              "^\\.\\./?$",
+              "^\\./(?![^/]*components)(?!/?$)",
+              "^\\./?$",
+              "^.+\\.?(css)$"
+            ],
           ],
         },
       ],
@@ -47,6 +50,11 @@ const eslintConfig = defineConfig([
       "no-relative-import-paths/no-relative-import-paths": [
         "error",
         { "allowSameFolder": false, "rootDir": ".", "prefix": "@" }
+      ],
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
       ],
     }
   }

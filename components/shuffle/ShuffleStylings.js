@@ -1,7 +1,7 @@
 "use client";
-import { useEffect } from "react";
-import stylings from "@/lists/stylings";
 import shuffle from "@/libs/shuffle";
+import stylings from "@/lists/stylings";
+import { useEffect } from "react";
 
 export default function ShuffleStylings() {
   useEffect(() => {

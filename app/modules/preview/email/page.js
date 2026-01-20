@@ -1,19 +1,19 @@
 "use client";
-import { useState, useMemo, useEffect } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
-import emailTemplates from '@/lists/emailTemplates';
-import Select from '@/components/select/Select';
-import Label from "@/components/common/Label";
-import { useStyling } from "@/context/ContextStyling";
-import Input from "@/components/input/Input";
 import Button from "@/components/button/Button";
-import { useSession } from "next-auth/react";
+import Label from "@/components/common/Label";
+import Tooltip from "@/components/common/Tooltip";
 import { getEmailBranding } from '@/components/emails/email-theme';
-import toast from "react-hot-toast";
+import Input from "@/components/input/Input";
+import Select from '@/components/select/Select';
+import { useStyling } from "@/context/ContextStyling";
 import useApiRequest from "@/hooks/useApiRequest";
 import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
-import Tooltip from "@/components/common/Tooltip";
+import emailTemplates from '@/lists/emailTemplates';
+import { useEffect,useMemo, useState } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 const { QuickLinkTemplate, WeeklyDigestTemplate } = emailTemplates;
 

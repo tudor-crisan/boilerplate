@@ -1,9 +1,9 @@
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardMain from "@/components/dashboard/DashboardMain";
+import DashboardSuccess from "@/components/dashboard/DashboardSuccess";
 import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 import HeaderTop from "@/components/header/HeaderTop";
 import { defaultSetting as settings } from "@/libs/defaults";
-import DashboardSuccess from "@/components/dashboard/DashboardSuccess";
 
 export default async function SuccessPage() {
   return (

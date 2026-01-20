@@ -1,16 +1,16 @@
 "use client";
 
-import Accordion from "@/components/common/Accordion";
-import BoardSettingsGeneralForm from "@/components/modules/boards/settings/GeneralForm";
-import SettingsFormField from "@/components/settings/SettingsFormField";
 import CommentSettings from "@/components/comments/CommentSettings";
-import BoardSettingsEmptyState from "@/components/modules/boards/settings/EmptyState";
+import Accordion from "@/components/common/Accordion";
 import BoardSettingsAppearance from "@/components/modules/boards/settings/Appearance";
+import BoardSettingsEmptyState from "@/components/modules/boards/settings/EmptyState";
+import BoardSettingsGeneralForm from "@/components/modules/boards/settings/GeneralForm";
 import BoardPreview from "@/components/modules/boards/settings/Preview";
+import SettingsFormField from "@/components/settings/SettingsFormField";
+import { useStyling } from "@/context/ContextStyling";
 import { useBoardRandomizer } from "@/hooks/modules/boards/useBoardRandomizer";
 import { useBoardSettingsForm } from "@/hooks/modules/boards/useBoardSettingsForm";
-import { defaultStyling, appStyling } from "@/libs/defaults";
-import { useStyling } from "@/context/ContextStyling";
+import { appStyling,defaultStyling } from "@/libs/defaults";
 
 export default function BoardExtraSettings({ settings, onChange, disabled }) {
   const { styling } = useStyling();

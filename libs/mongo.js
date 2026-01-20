@@ -1,4 +1,4 @@
-import { loadAppEnv } from "./env";
+import { loadAppEnv } from "@/libs/env";
 
 loadAppEnv();
 

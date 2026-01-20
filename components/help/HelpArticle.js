@@ -1,14 +1,12 @@
 "use client";
-import React from "react";
-import TosWrapper from "@/components/tos/TosWrapper";
-import TosContent from "@/components/tos/TosContent";
-import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
-import ButtonBack from "@/components/button/ButtonBack";
-
-import { defaultHelp, defaultSetting as settings } from "@/libs/defaults";
-import { useParams, notFound } from "next/navigation";
+import Title from "@/components/common/Title";
+import TosContent from "@/components/tos/TosContent";
+import TosWrapper from "@/components/tos/TosWrapper";
+import { defaultHelp } from "@/libs/defaults";
+import React from "react";
 import Image from "next/image";
+import { notFound,useParams } from "next/navigation";
 
 export default function HelpArticlePage() {
   const params = useParams();

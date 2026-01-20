@@ -1,8 +1,8 @@
 "use client";
-import Link from "next/link";
-import { defaultSetting as settings } from "@/libs/defaults";
 import Paragraph from "@/components/common/Paragraph";
 import { useStyling } from "@/context/ContextStyling";
+import { defaultSetting as settings } from "@/libs/defaults";
+import Link from "next/link";
 
 export default function FooterAuth() {
   const { styling } = useStyling();

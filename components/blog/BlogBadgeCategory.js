@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useStyling } from "@/context/ContextStyling";
 import { cn } from "@/libs/utils.client";
+import Link from "next/link";
 
 const BadgeCategory = ({ category, extraStyle }) => {
   const { styling } = useStyling();

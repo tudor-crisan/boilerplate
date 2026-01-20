@@ -1,10 +1,10 @@
-import { responseSuccess, responseError, generateSlug } from "@/libs/utils.server";
-import { z } from "zod";
+import { withApiHandler } from "@/libs/apiHandler";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { generateSlug,responseError, responseSuccess } from "@/libs/utils.server";
 import Board from "@/models/modules/boards/Board";
 import Post from "@/models/modules/boards/Post";
 import { revalidatePath } from "next/cache";
-import { withApiHandler } from "@/libs/apiHandler";
+import { z } from "zod";
 
 const TYPE = "Board";
 

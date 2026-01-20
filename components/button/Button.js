@@ -1,9 +1,9 @@
 "use client";
-import Link from "next/link";
-import { useStyling } from "@/context/ContextStyling";
 import IconLoading from "@/components/icon/IconLoading";
-import { useState } from "react";
+import { useStyling } from "@/context/ContextStyling";
 import { cn } from "@/libs/utils.client";
+import { useState } from "react";
+import Link from "next/link";
 
 export default function Button({
   className = "",

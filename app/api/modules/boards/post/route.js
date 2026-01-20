@@ -1,11 +1,11 @@
-import { responseSuccess, responseError } from "@/libs/utils.server";
-import { defaultSetting as settings } from "@/libs/defaults";
-import mongoose from "mongoose";
-import Post from "@/models/modules/boards/Post";
-import Board from "@/models/modules/boards/Board";
-import { Filter } from "bad-words";
-import { trackEvent, createNotification } from "@/libs/modules/boards/analytics";
 import { withApiHandler } from "@/libs/apiHandler";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { createNotification,trackEvent } from "@/libs/modules/boards/analytics";
+import { responseError,responseSuccess } from "@/libs/utils.server";
+import Board from "@/models/modules/boards/Board";
+import Post from "@/models/modules/boards/Post";
+import { Filter } from "bad-words";
+import mongoose from "mongoose";
 
 const TYPE = "Post";
 

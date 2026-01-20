@@ -1,13 +1,13 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
-import { useCopywriting } from "@/context/ContextCopywriting";
+import Divider from "@/components/common/Divider";
+import PricingButton from "@/components/pricing/PricingButton";
 import PricingCard from "@/components/pricing/PricingCard";
 import PricingPlanCard from "@/components/pricing/PricingPlanCard";
-import PricingButton from "@/components/pricing/PricingButton";
-import Divider from "@/components/common/Divider";
-import SvgCheck from "@/components/svg/SvgCheck";
 import SectionHeading from "@/components/section/SectionHeading";
 import SectionWrapper from "@/components/section/SectionWrapper";
+import SvgCheck from "@/components/svg/SvgCheck";
+import { useCopywriting } from "@/context/ContextCopywriting";
+import { useStyling } from "@/context/ContextStyling";
 import { cn } from "@/libs/utils.client";
 
 export default function SectionPricing() {

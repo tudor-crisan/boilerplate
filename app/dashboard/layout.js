@@ -1,7 +1,7 @@
 "use client";
-import { redirect } from "next/navigation";
 import { useAuth } from "@/context/ContextAuth";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { redirect } from "next/navigation";
 
 export default function LayoutDashboard({ children }) {
   const { isLoggedIn } = useAuth();

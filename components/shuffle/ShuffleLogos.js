@@ -1,7 +1,7 @@
 "use client";
-import { useEffect } from "react";
-import logos from "@/lists/logos";
 import shuffle from "@/libs/shuffle";
+import logos from "@/lists/logos";
+import { useEffect } from "react";
 
 export default function ShuffleLogo() {
   useEffect(() => {

@@ -1,5 +1,5 @@
-import Script from "next/script";
 import { defaultSetting as settings } from "@/libs/defaults";
+import Script from "next/script";
 
 const BlogSchemaArticle = ({ article }) => {
   return (

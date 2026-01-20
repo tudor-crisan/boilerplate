@@ -1,7 +1,7 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
 import CharacterCount from "@/components/common/CharacterCount";
 import SvgClose from "@/components/svg/SvgClose";
+import { useStyling } from "@/context/ContextStyling";
 import { cn } from "@/libs/utils.client";
 
 export default function Input({

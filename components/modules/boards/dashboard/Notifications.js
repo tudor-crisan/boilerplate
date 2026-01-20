@@ -1,13 +1,13 @@
 "use client";
-import React from 'react';
-import InfiniteScroll from "@/components/common/InfiniteScroll";
-import Title from "@/components/common/Title";
-import TextSmall from "@/components/common/TextSmall";
 import Button from '@/components/button/Button';
-import useBoardNotifications from '@/hooks/modules/boards/useBoardNotifications';
-import BoardNotificationItem from './NotificationItem';
-import { useStyling } from "@/context/ContextStyling";
+import InfiniteScroll from "@/components/common/InfiniteScroll";
 import Loading from '@/components/common/Loading';
+import TextSmall from "@/components/common/TextSmall";
+import Title from "@/components/common/Title";
+import BoardNotificationItem from '@/components/modules/boards/dashboard/NotificationItem';
+import { useStyling } from "@/context/ContextStyling";
+import useBoardNotifications from '@/hooks/modules/boards/useBoardNotifications';
+import React from 'react';
 
 export default function BoardDashboardNotifications() {
   const { styling } = useStyling();

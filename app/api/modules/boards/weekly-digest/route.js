@@ -2,12 +2,11 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-import connectMongo from "@/libs/mongoose";
-import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
-import Board from "@/models/modules/boards/Board";
-import User from "@/models/User";
 import { sendEmail, WeeklyDigestEmail } from '@/libs/email';
+import connectMongo from "@/libs/mongoose";
 import { getBaseUrl } from "@/libs/utils.server";
+import Board from "@/models/modules/boards/Board";
+import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 
 export async function GET(req) {
   const authHeader = req.headers.get('authorization');

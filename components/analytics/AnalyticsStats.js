@@ -1,5 +1,5 @@
-import React from 'react';
 import TextSmall from "@/components/common/TextSmall";
+import React from 'react';
 
 export default function AnalyticsStats({ items = [], styling }) {
   if (!items || items.length === 0) return null;

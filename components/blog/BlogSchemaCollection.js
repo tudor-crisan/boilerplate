@@ -1,5 +1,5 @@
+import { defaultBlog,defaultSetting as settings } from "@/libs/defaults";
 import Script from "next/script";
-import { defaultSetting as settings, defaultBlog } from "@/libs/defaults";
 
 const BlogSchemaCollection = ({ articles }) => {
   return (

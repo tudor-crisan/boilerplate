@@ -1,6 +1,5 @@
 import { handlers } from "@/libs/auth";
 import { checkReqRateLimit } from "@/libs/rateLimit";
-
 import { NextResponse } from "next/server";
 
 export const GET = handlers.GET;

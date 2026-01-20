@@ -1,6 +1,6 @@
 "use client";
-import { cn } from "@/libs/utils.client";
 import { useStyling } from "@/context/ContextStyling";
+import { cn } from "@/libs/utils.client";
 
 const ProfileImage = ({ src, initials, size = "md", className }) => {
   const { styling } = useStyling();

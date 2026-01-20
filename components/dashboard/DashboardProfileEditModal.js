@@ -1,16 +1,16 @@
-import Modal from "@/components/common/Modal";
 import Button from "@/components/button/Button";
-import ProfileImage from "@/components/common/ProfileImage";
-import Upload from "@/components/common/Upload";
 import Label from "@/components/common/Label";
-import Tooltip from "@/components/common/Tooltip";
-import Input from "@/components/input/Input";
+import Modal from "@/components/common/Modal";
+import ProfileImage from "@/components/common/ProfileImage";
 import Title from "@/components/common/Title";
+import Tooltip from "@/components/common/Tooltip";
+import Upload from "@/components/common/Upload";
+import Input from "@/components/input/Input";
 import SettingsAppearance from "@/components/settings/SettingsAppearance";
 import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
-import { getNameInitials } from "@/libs/utils.client";
-import { defaultStyling, appStyling } from "@/libs/defaults";
+import { appStyling,defaultStyling } from "@/libs/defaults";
 import { deepMerge } from "@/libs/merge.mjs";
+import { getNameInitials } from "@/libs/utils.client";
 
 export default function DashboardProfileEditModal({
   isModalOpen,

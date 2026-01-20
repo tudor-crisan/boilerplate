@@ -1,9 +1,9 @@
 "use client";
 import Label from "@/components/common/Label";
-import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
-import { cn } from "@/libs/utils.client";
+import Title from "@/components/common/Title";
 import { useStyling } from "@/context/ContextStyling";
+import { cn } from "@/libs/utils.client";
 
 export default function SectionHeading({
   label,

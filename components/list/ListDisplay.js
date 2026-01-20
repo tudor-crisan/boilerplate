@@ -1,11 +1,11 @@
 "use client";
-import Link from "next/link";
-import { useStyling } from "@/context/ContextStyling";
 import Title from "@/components/common/Title";
-import { pluralize } from "@/libs/utils.client";
-import SvgView from "@/components/svg/SvgView";
-import { useState } from "react";
 import IconLoading from "@/components/icon/IconLoading";
+import SvgView from "@/components/svg/SvgView";
+import { useStyling } from "@/context/ContextStyling";
+import { pluralize } from "@/libs/utils.client";
+import { useState } from "react";
+import Link from "next/link";
 
 function ListItem({ item, hasLink, isLoading, styling }) {
   return hasLink ? (

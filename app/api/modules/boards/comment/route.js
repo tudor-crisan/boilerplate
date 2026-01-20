@@ -1,11 +1,11 @@
-import { responseSuccess, responseError } from "@/libs/utils.server";
+import { withApiHandler } from "@/libs/apiHandler";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { createNotification,trackEvent } from "@/libs/modules/boards/analytics";
+import { responseError,responseSuccess } from "@/libs/utils.server";
 import Board from "@/models/modules/boards/Board";
 import Comment from "@/models/modules/boards/Comment";
 import Post from "@/models/modules/boards/Post";
 import { Filter } from "bad-words";
-import { trackEvent, createNotification } from "@/libs/modules/boards/analytics";
-import { withApiHandler } from "@/libs/apiHandler";
 
 const TYPE = "Comment";
 

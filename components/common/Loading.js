@@ -1,5 +1,5 @@
-import IconLoading from "@/components/icon/IconLoading";
 import Paragraph from "@/components/common/Paragraph";
+import IconLoading from "@/components/icon/IconLoading";
 
 const Loading = ({ text = "Loading ...", className = "" }) => {
   return (

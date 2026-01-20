@@ -1,11 +1,11 @@
 "use client";
-import { useAuthError } from "@/hooks/useAuthError";
-import { useStyling } from "@/context/ContextStyling";
-import { Suspense } from "react";
 import Button from "@/components/button/Button";
-import SvgError from "@/components/svg/SvgError";
 import ButtonBack from "@/components/button/ButtonBack";
 import PagesAuth from "@/components/pages/PagesAuth";
+import SvgError from "@/components/svg/SvgError";
+import { useStyling } from "@/context/ContextStyling";
+import { useAuthError } from "@/hooks/useAuthError";
+import { Suspense } from "react";
 
 const SIGNIN_URL = "/auth/signin";
 

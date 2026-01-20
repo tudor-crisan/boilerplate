@@ -1,12 +1,12 @@
 
-import { notFound } from "next/navigation";
-import BlogCategoryList from "@/components/blog/BlogCategoryList";
 import BlogArticleList from "@/components/blog/BlogArticleList";
-import Title from "@/components/common/Title";
+import BlogCategoryList from "@/components/blog/BlogCategoryList";
 import Paragraph from "@/components/common/Paragraph";
-import { defaultSetting as config, defaultBlog, defaultStyling } from "@/libs/defaults";
-import { getMetadata } from "@/libs/seo";
+import Title from "@/components/common/Title";
 import PagesBlog from "@/components/pages/PagesBlog";
+import { defaultBlog, defaultSetting as config, defaultStyling } from "@/libs/defaults";
+import { getMetadata } from "@/libs/seo";
+import { notFound } from "next/navigation";
 
 const { articles, categories } = defaultBlog;
 

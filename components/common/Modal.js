@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-import { cn } from "@/libs/utils.client";
 import Button from "@/components/button/Button";
 import Title from "@/components/common/Title";
 import { useStyling } from "@/context/ContextStyling";
+import { cn } from "@/libs/utils.client";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 const Modal = ({
   isModalOpen,

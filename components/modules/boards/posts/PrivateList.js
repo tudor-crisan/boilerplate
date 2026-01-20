@@ -1,18 +1,18 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
-import EmptyState from "@/components/common/EmptyState";
-import SvgPost from "@/components/svg/SvgPost";
-import SvgSearch from "@/components/svg/SvgSearch";
 import ButtonDelete from "@/components/button/ButtonDelete";
+import EmptyState from "@/components/common/EmptyState";
+import FilterBar from "@/components/common/FilterBar";
+import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import Title from "@/components/common/Title";
-import Paragraph from "@/components/common/Paragraph";
+import SvgPost from "@/components/svg/SvgPost";
+import SvgSearch from "@/components/svg/SvgSearch";
+import { useStyling } from "@/context/ContextStyling";
+import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
 import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { formatCommentDate } from "@/libs/utils.client";
-import { motion, AnimatePresence } from "framer-motion";
-import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
-import FilterBar from "@/components/common/FilterBar";
+import { AnimatePresence,motion } from "framer-motion";
 
 const BoardPrivatePostsList = ({ posts, boardId }) => {
   const { styling } = useStyling();

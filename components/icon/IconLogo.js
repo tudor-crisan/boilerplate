@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
 import { useStyling } from "@/context/ContextStyling";
 import { useVisual } from "@/context/ContextVisual";
 import shuffle from "@/libs/shuffle";
 import logos from "@/lists/logos";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function IconLogo() {

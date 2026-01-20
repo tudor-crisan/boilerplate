@@ -1,10 +1,10 @@
 "use client";
-import React from 'react';
-import Title from "@/components/common/Title";
 import Grid from "@/components/common/Grid";
+import Title from "@/components/common/Title";
 import { useStyling } from "@/context/ContextStyling";
-import Link from "next/link";
 import { defaultSetting as settings } from "@/libs/defaults";
+import React from 'react';
+import Link from "next/link";
 
 export default function HelpSupport() {
   const { styling } = useStyling();

@@ -1,8 +1,8 @@
 "use client";;
-import { useState } from "react";
-import { useAuth } from "@/context/ContextAuth";
-import { signOut } from "next-auth/react";
 import Button from "@/components/button/Button";
+import { useAuth } from "@/context/ContextAuth";
+import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 export default function ButtonLogout() {
   const [loading, setLoading] = useState(false);

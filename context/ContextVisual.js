@@ -1,6 +1,6 @@
 "use client";
-import { createContext, useContext } from "react";
 import { defaultVisual } from "@/libs/defaults";
+import { createContext, useContext } from "react";
 
 export const ContextVisual = createContext({ visual: defaultVisual });
 

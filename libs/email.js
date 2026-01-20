@@ -1,10 +1,10 @@
-import { loadAppEnv } from "./env";
+import { loadAppEnv } from "@/libs/env";
 
 loadAppEnv();
 
-import emailTemplates from '@/lists/emailTemplates';
 import { getEmailBranding } from '@/components/emails/email-theme';
 import { defaultSetting as settings } from "@/libs/defaults";
+import emailTemplates from '@/lists/emailTemplates';
 
 export const sendEmail = async ({
   apiUrl = settings.integrations?.resend?.baseUrl || "https://api.resend.com", // Fallback if settings structure differs

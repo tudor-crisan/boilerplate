@@ -1,10 +1,10 @@
-import { z } from "zod";
-import { NextResponse } from "next/server";
+import { oklchToHex } from "@/libs/colors";
 import { defaultSetting as settings } from "@/libs/defaults";
 import blockedDomains from "@/lists/blockedDomains";
-import themeColors from "@/lists/themeColors";
 import logos from "@/lists/logos";
-import { oklchToHex } from "@/libs/colors";
+import themeColors from "@/lists/themeColors";
+import { NextResponse } from "next/server";
+import { z } from "zod";
 
 export const getBaseUrl = () => {
   if (process.env.NODE_ENV === "development") return "http://localhost:3000";

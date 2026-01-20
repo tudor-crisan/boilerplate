@@ -1,8 +1,8 @@
-import { getBoardPublic } from "@/libs/modules/boards/db";
-import { redirect } from "next/navigation";
-import { getMetadata } from "@/libs/seo";
-import { defaultSetting as settings } from "@/libs/defaults";
 import BoardPublicClient from "@/components/modules/boards/PublicClient";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { getBoardPublic } from "@/libs/modules/boards/db";
+import { getMetadata } from "@/libs/seo";
+import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   const { boardId } = await params;

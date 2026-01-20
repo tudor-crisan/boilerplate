@@ -1,8 +1,8 @@
 import { auth } from "@/libs/auth";
-import { NextResponse } from "next/server";
-import { sendEmail, QuickLinkEmail, WeeklyDigestEmail } from "@/libs/email";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { QuickLinkEmail, sendEmail, WeeklyDigestEmail } from "@/libs/email";
 import { checkReqRateLimit } from "@/libs/rateLimit";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const session = await auth();

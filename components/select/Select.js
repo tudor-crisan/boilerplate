@@ -1,7 +1,7 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
 import SvgChevronLeft from "@/components/svg/SvgChevronLeft";
 import SvgChevronRight from "@/components/svg/SvgChevronRight";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function Select({ className = "", error, children, options, placeholder, value, withNavigation = false, rounded = false, ...props }) {
   const { styling } = useStyling();

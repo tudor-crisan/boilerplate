@@ -1,10 +1,10 @@
 import Button from "@/components/button/Button";
+import CommentItem from "@/components/comments/CommentItem";
+import Label from "@/components/common/Label";
+import Loading from "@/components/common/Loading";
+import Tooltip from "@/components/common/Tooltip";
 import Input from "@/components/input/Input";
 import Textarea from "@/components/textarea/Textarea";
-import Label from "@/components/common/Label";
-import Tooltip from "@/components/common/Tooltip";
-import CommentItem from "@/components/comments/CommentItem";
-import Loading from "@/components/common/Loading";
 
 const CommentUI = ({
   comments = [],

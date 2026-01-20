@@ -1,4 +1,4 @@
-import fonts, { fontMap } from "@/lists/fonts";
+import fonts from "@/lists/fonts";
 
 export default function ThemeScript() {
   const fontClasses = {};

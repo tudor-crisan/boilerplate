@@ -1,8 +1,8 @@
 "use client";
 
-import { useStyling } from "@/context/ContextStyling";
-import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
+import Title from "@/components/common/Title";
+import { useStyling } from "@/context/ContextStyling";
 
 const CardPost = ({
   title,

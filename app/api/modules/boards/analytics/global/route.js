@@ -1,9 +1,9 @@
-import mongoose from "mongoose";
-import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
-import Board from "@/models/modules/boards/Board";
-import { NextResponse } from "next/server";
-import { getAnalyticsDateRange } from "@/libs/utils.server";
 import { withApiHandler } from "@/libs/apiHandler";
+import { getAnalyticsDateRange } from "@/libs/utils.server";
+import Board from "@/models/modules/boards/Board";
+import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
+import { NextResponse } from "next/server";
+import mongoose from "mongoose";
 
 const TYPE = "GlobalAnalytics";
 

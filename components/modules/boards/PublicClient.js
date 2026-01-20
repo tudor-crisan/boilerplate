@@ -1,15 +1,15 @@
 "use client";
 
-import Title from "@/components/common/Title";
-import Main from "@/components/common/Main";
 import Columns from "@/components/common/Columns";
+import FilterBar from "@/components/common/FilterBar";
+import Main from "@/components/common/Main";
 import Sidebar from "@/components/common/Sidebar";
+import Title from "@/components/common/Title";
 import FormCreate from "@/components/form/FormCreate";
 import BoardPublicPostsList from "@/components/modules/boards/posts/PublicList";
-import FilterBar from "@/components/common/FilterBar";
+import { ContextStyling } from "@/context/ContextStyling";
 import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
 import { defaultStyling } from "@/libs/defaults";
-import { ContextStyling } from "@/context/ContextStyling";
 import { fontMap } from "@/lists/fonts";
 
 export default function BoardPublicClient({ board }) {

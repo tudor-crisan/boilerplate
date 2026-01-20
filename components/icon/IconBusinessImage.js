@@ -1,8 +1,8 @@
 "use client";
-import Image from "next/image";
+import { useStyling } from "@/context/ContextStyling";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { cn } from "@/libs/utils.client";
-import { useStyling } from "@/context/ContextStyling";
+import Image from "next/image";
 
 const IconBusinessImage = ({ className, size = 32, ...props }) => {
   const { styling } = useStyling();

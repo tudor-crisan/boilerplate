@@ -1,12 +1,12 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling";
-import { useCopywriting } from "@/context/ContextCopywriting";
-import { defaultBlog } from "@/libs/defaults";
 import BlogCardArticle from "@/components/blog/BlogCardArticle";
-import Grid from "@/components/common/Grid";
 import Button from "@/components/button/Button";
+import Grid from "@/components/common/Grid";
 import SectionHeading from "@/components/section/SectionHeading";
 import SectionWrapper from "@/components/section/SectionWrapper";
+import { useCopywriting } from "@/context/ContextCopywriting";
+import { useStyling } from "@/context/ContextStyling";
+import { defaultBlog } from "@/libs/defaults";
 
 export default function SectionBlog() {
   const { styling } = useStyling();

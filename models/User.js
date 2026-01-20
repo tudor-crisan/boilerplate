@@ -1,5 +1,5 @@
+import { getUserModel,userSchemaConfig } from "@/libs/model";
 import mongoose from "mongoose";
-import { userSchemaConfig, getUserModel } from "@/libs/model";
 
 const userSchema = new mongoose.Schema({
   ...userSchemaConfig,

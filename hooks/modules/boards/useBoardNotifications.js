@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { defaultSetting as settings } from "@/libs/defaults";
 import useApiRequest from '@/hooks/useApiRequest';
 import { clientApi } from '@/libs/api';
 import { setDataError, setDataSuccess } from "@/libs/api";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { useCallback,useEffect, useRef, useState } from 'react';
 
 export default function useBoardNotifications() {
   const [notifications, setNotifications] = useState([]);

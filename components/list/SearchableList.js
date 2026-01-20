@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import ListDisplay from "@/components/list/ListDisplay";
 import FilterBar from "@/components/common/FilterBar";
+import ListDisplay from "@/components/list/ListDisplay";
+import { useState } from "react";
 
 const SearchableList = ({
   items = [],

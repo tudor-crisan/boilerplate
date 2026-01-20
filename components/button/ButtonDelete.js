@@ -1,14 +1,14 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { clientApi } from "@/libs/api";
-import useApiRequest from "@/hooks/useApiRequest";
-import SvgTrash from "@/components/svg/SvgTrash";
 import Button from "@/components/button/Button";
 import Modal from "@/components/common/Modal";
-import { defaultSetting as settings } from "@/libs/defaults";
 import Paragraph from "@/components/common/Paragraph";
+import SvgTrash from "@/components/svg/SvgTrash";
 import { useStyling } from "@/context/ContextStyling";
+import useApiRequest from "@/hooks/useApiRequest";
+import { clientApi } from "@/libs/api";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ButtonDelete({
   url = "",

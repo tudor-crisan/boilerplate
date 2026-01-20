@@ -1,7 +1,7 @@
 "use client";
-import { defaultSetting as settings } from "@/libs/defaults";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function FooterSocial() {
   const { copywriting } = useCopywriting();

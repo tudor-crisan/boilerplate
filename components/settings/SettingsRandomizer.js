@@ -1,10 +1,9 @@
 "use client";
 
-import { useStyling } from "@/context/ContextStyling";
-import InputCheckbox from "@/components/input/InputCheckbox";
 import Button from "@/components/button/Button";
-import Grid from "@/components/common/Grid";
 import Tooltip from "@/components/common/Tooltip";
+import InputCheckbox from "@/components/input/InputCheckbox";
+import { useStyling } from "@/context/ContextStyling";
 
 export default function SettingsRandomizer({ config, onConfigChange, onShuffle, isLoading, title }) {
   const { styling } = useStyling();

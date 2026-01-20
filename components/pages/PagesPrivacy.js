@@ -1,10 +1,10 @@
 "use client";
-import { defaultSetting as settings } from "@/libs/defaults";
-import TosWrapper from "@/components/tos/TosWrapper";
-import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
+import Title from "@/components/common/Title";
 import TosContent from "@/components/tos/TosContent";
+import TosWrapper from "@/components/tos/TosWrapper";
 import { useStyling } from "@/context/ContextStyling";
+import { defaultSetting as settings } from "@/libs/defaults";
 import Link from "next/link";
 
 export default function PagesPrivacy() {

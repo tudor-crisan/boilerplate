@@ -1,12 +1,11 @@
 
-import Link from "next/link";
 import EmptyState from "@/components/common/EmptyState";
-import SvgPost from "@/components/svg/SvgPost";
-import { defaultSetting } from "@/libs/defaults";
-import { ContextStyling } from "@/context/ContextStyling";
 import ThemeWrapper from "@/components/common/ThemeWrapper";
-import BoardPreviewForm from "./PreviewForm";
-import BoardPreviewComments from "./PreviewComments";
+import BoardPreviewComments from "@/components/modules/boards/settings/PreviewComments";
+import BoardPreviewForm from "@/components/modules/boards/settings/PreviewForm";
+import SvgPost from "@/components/svg/SvgPost";
+import { ContextStyling } from "@/context/ContextStyling";
+import { defaultSetting } from "@/libs/defaults";
 
 export default function BoardPreview({
   previewStyling,

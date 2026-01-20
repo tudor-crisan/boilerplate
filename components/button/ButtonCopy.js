@@ -1,6 +1,6 @@
 "use client";
-import SvgCopy from "@/components/svg/SvgCopy";
 import Button from "@/components/button/Button";
+import SvgCopy from "@/components/svg/SvgCopy";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 
 export default function ButtonCopy({ copyText = "", ...props }) {

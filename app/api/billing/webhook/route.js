@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
-import { headers } from "next/headers";
-import Stripe from "stripe";
 import connectMongo from "@/libs/mongoose";
 import User from "@/models/User";
+import { headers } from "next/headers";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
 
 export async function POST(req) {
   try {

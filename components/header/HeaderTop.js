@@ -1,9 +1,9 @@
 "use client";
 import IconLogo from "@/components/icon/IconLogo";
-import { useVisual } from "@/context/ContextVisual";
 import { useStyling } from "@/context/ContextStyling";
-import { redirect } from "next/navigation";
+import { useVisual } from "@/context/ContextVisual";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { redirect } from "next/navigation";
 
 export default function HeaderTop({ url = "" }) {
   const { visual } = useVisual();

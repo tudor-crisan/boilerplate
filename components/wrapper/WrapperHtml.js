@@ -1,9 +1,8 @@
 "use client"
 import { useStyling } from "@/context/ContextStyling"
-
-import { useEffect, useState } from "react";
-import fonts from "@/lists/fonts";
 import shuffle from "@/libs/shuffle";
+import fonts from "@/lists/fonts";
+import { useEffect, useState } from "react";
 
 export default function WrapperHtml({ children }) {
   const { styling } = useStyling();

@@ -1,13 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useAuth } from "@/context/ContextAuth";
-import { defaultSetting as settings } from "@/libs/defaults";
 import Button from "@/components/button/Button";
+import CommentUI from "@/components/comments/CommentUI";
 import Modal from "@/components/common/Modal";
 import Paragraph from "@/components/common/Paragraph";
-import useBoardComments from "@/hooks/modules/boards/useBoardComments";
+import { useAuth } from "@/context/ContextAuth";
 import { useStyling } from "@/context/ContextStyling";
-import CommentUI from "@/components/comments/CommentUI";
+import useBoardComments from "@/hooks/modules/boards/useBoardComments";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { useEffect,useState } from "react";
 
 const BoardCommentSection = ({ postId, settings: customSettings }) => {
   const { styling } = useStyling();

@@ -1,6 +1,6 @@
-import axios from "axios";
-import { getClientId } from "@/libs/utils.client";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { getClientId } from "@/libs/utils.client";
+import axios from "axios";
 
 export const clientApi = axios.create();
 

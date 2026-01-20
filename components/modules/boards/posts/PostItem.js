@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Button from "@/components/button/Button";
+import CardPost from "@/components/card/CardPost";
 import BoardCommentSection from "@/components/modules/boards/ui/CommentSection";
 import SvgComment from "@/components/svg/SvgComment";
-import CardPost from "@/components/card/CardPost";
+import { useState } from "react";
 
 const BoardPostItem = ({ item, itemAction, boardSettings }) => {
   const [showComments, setShowComments] = useState(false);

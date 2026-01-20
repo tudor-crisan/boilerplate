@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { clientApi } from "@/libs/api";
-import { defaultSetting as settings } from "@/libs/defaults";
 import EmptyState from "@/components/common/EmptyState";
+import BoardPostItem from "@/components/modules/boards/posts/PostItem";
+import BoardButtonVote from "@/components/modules/boards/ui/UpvoteButton";
 import SvgPost from "@/components/svg/SvgPost";
 import SvgSearch from "@/components/svg/SvgSearch";
-import BoardPostItem from "@/components/modules/boards/posts/PostItem";
-import { AnimatePresence } from "framer-motion";
-import BoardButtonVote from "@/components/modules/boards/ui/UpvoteButton";
-import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
+import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
+import { clientApi } from "@/libs/api";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { AnimatePresence } from "framer-motion";
 
 const BoardPublicPostsList = ({ posts, boardId, emptyStateConfig = {}, commentSettings, search = "", sort = "votes_desc" }) => {
   const { posts: postsState, handleVote, isBoardDeleted } = useBoardPosts(boardId, posts, { showVoteToast: true });

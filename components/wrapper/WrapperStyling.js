@@ -1,10 +1,10 @@
 "use client";
-import { useEffect, useState, useLayoutEffect } from "react";
-import { deepMerge } from "@/libs/merge.mjs";
-import { defaultStyling } from "@/libs/defaults";
-import stylings from "@/lists/stylings";
-import shuffle from "@/libs/shuffle";
 import { ContextStyling } from "@/context/ContextStyling";
+import { defaultStyling } from "@/libs/defaults";
+import { deepMerge } from "@/libs/merge.mjs";
+import shuffle from "@/libs/shuffle";
+import stylings from "@/lists/stylings";
+import { useEffect, useLayoutEffect,useState } from "react";
 
 export default function WrapperStyling({ children }) {
   const [styling, setStyling] = useState(defaultStyling);

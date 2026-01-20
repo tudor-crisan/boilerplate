@@ -1,12 +1,12 @@
 "use client";
+import HeroButton from "@/components/hero/HeroButton";
 import HeroImage from "@/components/hero/HeroImage";
 import HeroVideo from "@/components/hero/HeroVideo";
-import HeroButton from "@/components/hero/HeroButton";
 import SectionHeading from "@/components/section/SectionHeading";
+import SectionWrapper from "@/components/section/SectionWrapper";
+import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
 import { useVisual } from "@/context/ContextVisual";
-import { useCopywriting } from "@/context/ContextCopywriting";
-import SectionWrapper from "@/components/section/SectionWrapper";
 import { cn } from "@/libs/utils.client";
 
 export default function SectionHero() {

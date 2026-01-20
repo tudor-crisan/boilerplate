@@ -1,10 +1,10 @@
 
-import copywritings from "@/lists/copywritings.js";
-import settings from "@/lists/settings.js";
-import visuals from "@/lists/visuals.js";
-import stylings from "@/lists/stylings.js";
 import { formatWebsiteUrl } from "@/libs/utils.server.js";
 import apps from "@/lists/applications.mjs";
+import copywritings from "@/lists/copywritings.js";
+import settings from "@/lists/settings.js";
+import stylings from "@/lists/stylings.js";
+import visuals from "@/lists/visuals.js";
 
 export const getAppDetails = (appName) => {
   const appConfig = apps[appName];

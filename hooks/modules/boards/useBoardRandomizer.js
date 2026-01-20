@@ -1,7 +1,7 @@
-import { useRef, useEffect, useCallback } from "react";
-import themes from "@/lists/themes";
-import { fontMap } from "@/lists/fonts";
 import { defaultStyling } from "@/libs/defaults";
+import { fontMap } from "@/lists/fonts";
+import themes from "@/lists/themes";
+import { useCallback,useEffect, useRef } from "react";
 
 export function useBoardRandomizer({ settings, handleChange, getVal }) {
   const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];

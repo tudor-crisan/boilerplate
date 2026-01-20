@@ -1,11 +1,11 @@
 "use client";
 
+import Button from "@/components/button/Button";
+import Paragraph from "@/components/common/Paragraph";
+import Title from "@/components/common/Title";
+import Vertical from "@/components/common/Vertical";
 import { useStyling } from "@/context/ContextStyling";
 import { defaultSetting as settings } from "@/libs/defaults";
-import Title from "@/components/common/Title";
-import Paragraph from "@/components/common/Paragraph";
-import Button from "@/components/button/Button";
-import Vertical from "@/components/common/Vertical";
 
 export default function DashboardSuccess() {
   const { styling } = useStyling();

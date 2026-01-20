@@ -1,15 +1,15 @@
 "use client";
-import { useState } from "react";
-import { clientApi } from "@/libs/api";
 import Button from "@/components/button/Button";
-import useApiRequest from "@/hooks/useApiRequest";
-import SvgPay from "@/components/svg/SvgPay";
-import { defaultSetting as settings } from "@/libs/defaults";
-import { useCopywriting } from "@/context/ContextCopywriting";
+import Divider from "@/components/common/Divider";
 import Modal from "@/components/common/Modal";
 import PricingPlanCard from "@/components/pricing/PricingPlanCard";
-import Divider from "@/components/common/Divider";
+import SvgPay from "@/components/svg/SvgPay";
+import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
+import useApiRequest from "@/hooks/useApiRequest";
+import { clientApi } from "@/libs/api";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { useState } from "react";
 
 const SUCCESS_URL_REDIRECT = settings.paths.billingSuccess.source;
 const CANCEL_URL_REDIRECT = settings.paths.dashboard.source;

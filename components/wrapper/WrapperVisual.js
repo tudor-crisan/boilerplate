@@ -1,9 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
-import { defaultVisual } from "@/libs/defaults";
-import visuals from "@/lists/visuals";
-import shuffle from "@/libs/shuffle";
 import { ContextVisual } from "@/context/ContextVisual";
+import { defaultVisual } from "@/libs/defaults";
+import shuffle from "@/libs/shuffle";
+import visuals from "@/lists/visuals";
+import { useEffect, useState } from "react";
 
 export default function WrapperVisual({ children }) {
   const [visual, setVisual] = useState(defaultVisual);

@@ -1,7 +1,7 @@
 "use client";
-import { useEffect } from "react";
-import visuals from "@/lists/visuals";
 import shuffle from "@/libs/shuffle";
+import visuals from "@/lists/visuals";
+import { useEffect } from "react";
 
 export default function ShuffleVisuals() {
   useEffect(() => {

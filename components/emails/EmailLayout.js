@@ -1,4 +1,3 @@
-import { defaultSetting as settings } from "@/libs/defaults";
 
 export const EmailBody = ({ children, style }) => (
   <body style={{ margin: 0, padding: 0, ...style }}>

@@ -1,6 +1,6 @@
 import SettingsAppearance from "@/components/settings/SettingsAppearance";
-import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
 import { SettingsContainer } from "@/components/settings/SettingsLayout";
+import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
 
 export const BoardSettingsAppearance = ({ getVal, handleChange, disabled, defaultStyling, appStyling, handleShuffle, styling, children }) => (
   <SettingsContainer>

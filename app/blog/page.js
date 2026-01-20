@@ -1,12 +1,12 @@
-import BlogCategoryList from "@/components/blog/BlogCategoryList";
 import BlogArticleList from "@/components/blog/BlogArticleList";
-import Title from "@/components/common/Title";
+import BlogCategoryList from "@/components/blog/BlogCategoryList";
+import BlogDisclaimer from "@/components/blog/BlogDisclaimer";
+import BlogSchemaCollection from "@/components/blog/BlogSchemaCollection";
 import Paragraph from "@/components/common/Paragraph";
+import Title from "@/components/common/Title";
+import PagesBlog from "@/components/pages/PagesBlog";
 import { defaultBlog, defaultStyling } from "@/libs/defaults";
 import { getMetadata } from "@/libs/seo";
-import PagesBlog from "@/components/pages/PagesBlog";
-import BlogSchemaCollection from "@/components/blog/BlogSchemaCollection";
-import BlogDisclaimer from "@/components/blog/BlogDisclaimer";
 
 const { articles, categories } = defaultBlog;
 

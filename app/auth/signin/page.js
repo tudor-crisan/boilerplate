@@ -1,23 +1,23 @@
 "use client";
-import { useState, Suspense, useEffect } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { useStyling } from "@/context/ContextStyling";
-import HeaderTop from "@/components/header/HeaderTop";
-import SvgGoogle from "@/components/svg/SvgGoogle";
 import Button from "@/components/button/Button";
-import Input from "@/components/input/Input";
 import ButtonBack from "@/components/button/ButtonBack";
-import { defaultSetting as settings } from "@/libs/defaults";
-import Label from "@/components/common/Label";
+import Divider from "@/components/common/Divider";
+import Error from "@/components/common/Error";
 import Form from "@/components/common/Form";
+import Label from "@/components/common/Label";
+import FooterAuth from "@/components/footer/FooterAuth";
+import HeaderTop from "@/components/header/HeaderTop";
+import Input from "@/components/input/Input";
+import SvgGoogle from "@/components/svg/SvgGoogle";
+import { useAuth } from "@/context/ContextAuth";
+import { useStyling } from "@/context/ContextStyling";
 import { useAuthError } from "@/hooks/useAuthError";
 import { useError } from "@/hooks/useError";
-import Error from "@/components/common/Error";
-import Divider from "@/components/common/Divider";
-import { useAuth } from "@/context/ContextAuth";
-import FooterAuth from "@/components/footer/FooterAuth";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { Suspense, useEffect,useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const CALLBACK_URL = settings.paths.dashboard.source;
 

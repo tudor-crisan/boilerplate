@@ -1,11 +1,11 @@
 
-import FormCreate from "@/components/form/FormCreate";
-import BoardDashboardList from "@/components/modules/boards/dashboard/List";
-import BoardDashboardAnalytics from "@/components/modules/boards/analytics/Dashboard";
-import BoardDashboardNotifications from "@/components/modules/boards/dashboard/Notifications";
-import { getUser } from "@/libs/modules/boards/db";
-import { defaultSetting as settings } from "@/libs/defaults";
 import Error from "@/components/common/Error";
+import FormCreate from "@/components/form/FormCreate";
+import BoardDashboardAnalytics from "@/components/modules/boards/analytics/Dashboard";
+import BoardDashboardList from "@/components/modules/boards/dashboard/List";
+import BoardDashboardNotifications from "@/components/modules/boards/dashboard/Notifications";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { getUser } from "@/libs/modules/boards/db";
 
 const ERROR_MESSAGE = "Error: Unable to load the boards. Please contact support";
 

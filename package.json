@@ -12,6 +12,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "lint:fix": "eslint --fix .",
     "typescript": "npx tsx scripts/typescript.js",
     "stripe": "stripe listen --forward-to localhost:3000/api/billing/webhook",
     "deploy": "node scripts/deploy.js",
@@ -49,6 +50,7 @@
     "eslint-config-next": "16.0.8",
     "eslint-plugin-no-relative-import-paths": "^1.6.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unused-imports": "^4.3.0",
     "tailwindcss": "^4"
   }
 }

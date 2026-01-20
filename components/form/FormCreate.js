@@ -1,17 +1,17 @@
 "use client";
+import Button from "@/components/button/Button";
+import Label from "@/components/common/Label";
+import Title from "@/components/common/Title";
+import Input from "@/components/input/Input";
+import MockForms from "@/components/mock/MockForms";
+import Select from "@/components/select/Select";
+import Textarea from "@/components/textarea/Textarea";
+import { useStyling } from "@/context/ContextStyling";
+import useApiRequest from "@/hooks/useApiRequest";
+import useForm from "@/hooks/useForm";
 import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { useRouter } from "next/navigation";
-import useApiRequest from "@/hooks/useApiRequest";
-import useForm from "@/hooks/useForm";
-import MockForms from "@/components/mock/MockForms";
-import Button from "@/components/button/Button";
-import Select from "@/components/select/Select";
-import Textarea from "@/components/textarea/Textarea";
-import Input from "@/components/input/Input";
-import { useStyling } from "@/context/ContextStyling";
-import Title from "@/components/common/Title";
-import Label from "@/components/common/Label";
 
 export default function FormCreate({ type, queryParams = {}, skipRefresh = false, customConfig = {} }) {
   const router = useRouter();

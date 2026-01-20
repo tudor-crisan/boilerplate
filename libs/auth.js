@@ -1,18 +1,17 @@
-import { loadAppEnv } from "./env";
+import { loadAppEnv } from "@/libs/env";
 
 loadAppEnv();
 
-import NextAuth from "next-auth";
-import Resend from "next-auth/providers/resend"
-import Google from "next-auth/providers/google"
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import { defaultSetting as settings } from "@/libs/defaults";
+import { QuickLinkEmail, sendEmail } from "@/libs/email";
 import clientPromise from "@/libs/mongo";
 import connectMongo from "@/libs/mongoose";
-import User from "@/models/User";
-import { QuickLinkEmail, sendEmail } from "@/libs/email";
-import { defaultSetting as settings } from "@/libs/defaults";
-
 import { validateEmail } from "@/libs/utils.server";
+import User from "@/models/User";
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google"
+import Resend from "next-auth/providers/resend"
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
 
 const providersConfig = {
   resend: () => Resend({
