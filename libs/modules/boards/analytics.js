@@ -11,17 +11,11 @@ const getTodayDate = () => {
   return d;
 };
 
-/**
- * Track an event for board analytics
- * @param {string} boardId 
- * @param {'VIEW' | 'POST' | 'VOTE' | 'COMMENT'} type 
- */
 export async function trackEvent(boardId, type) {
   try {
     await connectMongo();
     const today = getTodayDate();
     const update = { $inc: {} };
-    const boardObjectId = new mongoose.Types.ObjectId(boardId);
 
     if (type === 'VIEW') update.$inc.views = 1;
     else if (type === 'POST') update.$inc.posts = 1;
@@ -30,28 +24,25 @@ export async function trackEvent(boardId, type) {
     else return;
 
     await BoardAnalytics.updateOne(
-      { boardId: boardObjectId, date: today },
+      { boardId, date: today },
       update,
       { upsert: true }
     );
   } catch (e) {
-    console.error("Analytics Error:", e);
+    console.error("trackEvent Error:", e.message || e);
   }
 }
 
-/**
- * Create a notification for the board owner
- * @param {string} boardId 
- * @param {'POST' | 'VOTE' | 'COMMENT'} type 
- * @param {object} data 
- */
 export async function createNotification(boardId, type, data) {
   try {
     await connectMongo();
 
     // Find board owner and name
-    const board = await Board.findById(boardId).select("userId name");
-    if (!board || !board.userId) return;
+    const board = await Board.findById(boardId).select("userId name").lean();
+    if (!board || !board.userId) {
+      console.warn(`[Notification Warning] Board ${boardId} or owner not found.`);
+      return;
+    }
 
     await Notification.create({
       userId: board.userId,
@@ -63,6 +54,6 @@ export async function createNotification(boardId, type, data) {
       }
     });
   } catch (e) {
-    console.error("Notification Error:", e);
+    console.error("createNotification Error:", e.message || e);
   }
 }

@@ -7,17 +7,65 @@ import Board from "@/models/modules/boards/Board";
 import Post from "@/models/modules/boards/Post";
 import { cleanObject } from "@/libs/utils.server";
 
+const getPostsAggregation = async (boardId) => {
+  return await Post.aggregate([
+    {
+      $match: {
+        boardId: mongoose.Types.ObjectId.isValid(boardId) ? new mongoose.Types.ObjectId(boardId) : boardId
+      }
+    },
+    {
+      $lookup: {
+        from: "comments",
+        let: { postId: "$_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$postId", "$$postId"] },
+              isDeleted: { $ne: true }
+            }
+          }
+        ],
+        as: "comments"
+      }
+    },
+    {
+      $addFields: {
+        commentsCount: { $size: "$comments" }
+      }
+    },
+    {
+      $project: {
+        comments: 0
+      }
+    },
+    {
+      $sort: {
+        votesCounter: -1,
+        createdAt: -1
+      }
+    }
+  ]);
+};
+
+const serializePosts = (posts) => {
+  return posts.map(post => ({
+    ...post,
+    _id: post._id.toString(),
+    boardId: post.boardId.toString(),
+    userId: post.userId ? post.userId.toString() : null,
+    createdAt: post.createdAt.toISOString(),
+    updatedAt: post.updatedAt.toISOString()
+  }));
+};
+
 export async function getUser(populate = "") {
   const session = await auth();
-  if (!session?.user?.id) {
-    return null;
-  }
-
-  await connectMongo();
-
-  const userId = session.user.id;
+  if (!session?.user?.id) return null;
 
   try {
+    await connectMongo();
+    const userId = session.user.id;
     let user = await User.findById(userId).lean();
 
     if (!user) return null;
@@ -29,16 +77,18 @@ export async function getUser(populate = "") {
 
     return cleanObject(user);
   } catch (e) {
+    console.error("getUser error:", e.message);
     return null;
   }
 }
 
 export const getBoardPrivate = cache(async (boardId, populate = "") => {
   const session = await auth();
-  await connectMongo();
+  if (!session?.user?.id) return null;
 
   try {
-    const query = { userId: session?.user?.id };
+    await connectMongo();
+    const query = { userId: session.user.id };
     if (mongoose.Types.ObjectId.isValid(boardId)) {
       query._id = boardId;
     } else {
@@ -49,64 +99,20 @@ export const getBoardPrivate = cache(async (boardId, populate = "") => {
     if (!board) return null;
 
     if (populate && populate.includes("posts")) {
-      const posts = await Post.aggregate([
-        {
-          $match: {
-            boardId: board._id
-          }
-        },
-        {
-          $lookup: {
-            from: "comments",
-            let: { postId: "$_id" },
-            pipeline: [
-              {
-                $match: {
-                  $expr: { $eq: ["$postId", "$$postId"] },
-                  isDeleted: { $ne: true }
-                }
-              }
-            ],
-            as: "comments"
-          }
-        },
-        {
-          $addFields: {
-            commentsCount: { $size: "$comments" }
-          }
-        },
-        {
-          $project: {
-            comments: 0
-          }
-        },
-        {
-          $sort: {
-            votesCounter: -1,
-            createdAt: -1
-          }
-        }
-      ]);
-      board.posts = posts.map(post => ({
-        ...post,
-        _id: post._id.toString(),
-        boardId: post.boardId.toString(),
-        userId: post.userId ? post.userId.toString() : null,
-        createdAt: post.createdAt.toISOString(),
-        updatedAt: post.updatedAt.toISOString()
-      }));
+      const posts = await getPostsAggregation(board._id);
+      board.posts = serializePosts(posts);
     }
 
     return cleanObject(board);
   } catch (e) {
+    console.error("getBoardPrivate error:", e.message);
     return null;
   }
 });
 
 export const getBoardPublic = cache(async (boardId, populate = "") => {
-  await connectMongo();
-
   try {
+    await connectMongo();
     let query = {};
     if (mongoose.Types.ObjectId.isValid(boardId)) {
       query._id = boardId;
@@ -118,114 +124,24 @@ export const getBoardPublic = cache(async (boardId, populate = "") => {
     if (!board) return null;
 
     if (populate && populate.includes("posts")) {
-      const posts = await Post.aggregate([
-        {
-          $match: {
-            boardId: board._id
-          }
-        },
-        {
-          $lookup: {
-            from: "comments",
-            let: { postId: "$_id" },
-            pipeline: [
-              {
-                $match: {
-                  $expr: { $eq: ["$postId", "$$postId"] },
-                  isDeleted: { $ne: true }
-                }
-              }
-            ],
-            as: "comments"
-          }
-        },
-        {
-          $addFields: {
-            commentsCount: { $size: "$comments" }
-          }
-        },
-        {
-          $project: {
-            comments: 0
-          }
-        },
-        {
-          $sort: {
-            votesCounter: -1,
-            createdAt: -1
-          }
-        }
-      ]);
-      board.posts = posts.map(post => ({
-        ...post,
-        _id: post._id.toString(),
-        boardId: post.boardId.toString(),
-        userId: post.userId ? post.userId.toString() : null,
-        createdAt: post.createdAt.toISOString(),
-        updatedAt: post.updatedAt.toISOString()
-      }));
+      const posts = await getPostsAggregation(board._id);
+      board.posts = serializePosts(posts);
     }
 
     return cleanObject(board);
   } catch (e) {
+    console.error("getBoardPublic error:", e.message);
     return null;
   }
 });
 
 export const getPosts = async (boardId) => {
-  await connectMongo();
-
   try {
-    const posts = await Post.aggregate([
-      {
-        $match: {
-          boardId: mongoose.Types.ObjectId.isValid(boardId) ? new mongoose.Types.ObjectId(boardId) : boardId
-        }
-      },
-      {
-        $lookup: {
-          from: "comments",
-          let: { postId: "$_id" },
-          pipeline: [
-            {
-              $match: {
-                $expr: { $eq: ["$postId", "$$postId"] },
-                isDeleted: { $ne: true }
-              }
-            }
-          ],
-          as: "comments"
-        }
-      },
-      {
-        $addFields: {
-          commentsCount: { $size: "$comments" }
-        }
-      },
-      {
-        $project: {
-          comments: 0
-        }
-      },
-      {
-        $sort: {
-          votesCounter: -1,
-          createdAt: -1
-        }
-      }
-    ]);
-
-    const serializedPosts = posts.map(post => ({
-      ...post,
-      _id: post._id.toString(),
-      boardId: post.boardId.toString(),
-      userId: post.userId ? post.userId.toString() : null,
-      createdAt: post.createdAt.toISOString(),
-      updatedAt: post.updatedAt.toISOString()
-    }));
-
-    return cleanObject(serializedPosts);
+    await connectMongo();
+    const posts = await getPostsAggregation(boardId);
+    return cleanObject(serializePosts(posts));
   } catch (e) {
+    console.error("getPosts error:", e.message);
     return [];
   }
 };

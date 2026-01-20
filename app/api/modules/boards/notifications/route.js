@@ -1,19 +1,15 @@
-import { auth } from "@/libs/auth";
-import connectMongo from "@/libs/mongoose";
 import Notification from "@/models/modules/boards/Notification";
-import Board from "@/models/modules/boards/Board";
 import { NextResponse } from "next/server";
+import { withApiHandler } from "@/libs/apiHandler";
 
-export async function GET(req) {
-  const session = await auth();
-  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+const TYPE = "Notification";
 
+async function getHandler(req, { session }) {
   const { searchParams } = new URL(req.url);
-  const page = parseInt(searchParams.get("page") || "1");
-  const limit = parseInt(searchParams.get("limit") || "20");
+  const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
+  const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "20")));
   const skip = (page - 1) * limit;
 
-  await connectMongo();
   const notifications = await Notification.find({ userId: session.user.id })
     .sort({ createdAt: -1 })
     .skip(skip)
@@ -24,16 +20,24 @@ export async function GET(req) {
   const totalCount = await Notification.countDocuments({ userId: session.user.id });
   const hasMore = skip + notifications.length < totalCount;
 
-  return NextResponse.json({ data: { notifications, hasMore, totalCount } });
+  return NextResponse.json({
+    data: {
+      notifications,
+      hasMore,
+      totalCount,
+      page,
+      limit
+    }
+  });
 }
 
-export async function PUT(req) {
-  const session = await auth();
-  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
+async function putHandler(req, { session }) {
   const { notificationIds } = await req.json();
 
-  await connectMongo();
+  if (!Array.isArray(notificationIds)) {
+    return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+  }
+
   await Notification.updateMany(
     { _id: { $in: notificationIds }, userId: session.user.id },
     { $set: { isRead: true } }
@@ -41,3 +45,6 @@ export async function PUT(req) {
 
   return NextResponse.json({ data: { success: true } });
 }
+
+export const GET = withApiHandler(getHandler, { type: TYPE });
+export const PUT = withApiHandler(putHandler, { type: TYPE });

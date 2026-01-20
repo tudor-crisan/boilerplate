@@ -64,35 +64,39 @@ export const sendEmail = async ({
   }
 }
 
-export async function QuickLinkEmail({ host, url, styling, isTest = false }) {
+const renderTemplate = async (Template, props, styling) => {
   const { appName } = getEmailBranding(styling);
-  const { QuickLinkTemplate } = emailTemplates;
   const { renderToStaticMarkup } = (await import('react-dom/server')).default;
+  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<Template {...props} styling={styling} />);
+  return { html, appName };
+}
 
+const getSubject = (text, isTest) => {
+  return `${isTest ? `[TEST ${new Date().toLocaleTimeString()}] ` : ""}${text}`;
+}
+
+export async function QuickLinkEmail({ host, url, styling, isTest = false }) {
+  const { QuickLinkTemplate } = emailTemplates;
   const businessWebsite = settings.business?.website;
   const redirectUrl = businessWebsite + `?redirect=${encodeURIComponent(url)}`;
 
-  const subject = `${isTest ? `[TEST ${new Date().toLocaleTimeString()}] ` : ""}Sign in to ${appName}`;
-  const text = `Sign in to ${appName}\n\nIf you did not request this email you can safely ignore it.`;
+  const { html, appName } = await renderTemplate(QuickLinkTemplate, { host, url: redirectUrl }, styling);
 
-  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<QuickLinkTemplate host={host} url={redirectUrl} styling={styling} />);
+  const subject = getSubject(`Sign in to ${appName}`, isTest);
+  const text = `Sign in to ${appName}\n\nIf you did not request this email you can safely ignore it.`;
 
   return { subject, html, text };
 }
 
 export async function WeeklyDigestEmail({ baseUrl, userName, boards, styling, isTest = false }) {
-  const { appName } = getEmailBranding(styling);
   const { WeeklyDigestTemplate } = emailTemplates;
-  const { renderToStaticMarkup } = (await import('react-dom/server')).default;
-
   const businessWebsite = settings.business?.website;
   const redirectUrl = businessWebsite + `?redirect=${encodeURIComponent(baseUrl)}`;
 
-  const subject = `${isTest ? `[TEST ${new Date().toLocaleTimeString()}] ` : ""}Your Weekly Board Stats 📈`;
-  // Simple text fallback
-  const text = `Hi ${userName || 'there'}, here is your weekly summary for your boards. Please check the html version.\n${appName}`;
+  const { html, appName } = await renderTemplate(WeeklyDigestTemplate, { baseUrl: redirectUrl, userName, boards }, styling);
 
-  const html = "<!DOCTYPE html>" + renderToStaticMarkup(<WeeklyDigestTemplate baseUrl={redirectUrl} userName={userName} boards={boards} styling={styling} />);
+  const subject = getSubject(`Your Weekly Board Stats 📈`, isTest);
+  const text = `Hi ${userName || 'there'}, here is your weekly summary for your boards. Please check the html version.\n${appName}`;
 
   return { subject, html, text };
 }
