@@ -1,6 +1,6 @@
-- refactor existing boilerplate for current apps to be expandable on other micro-saas
 - give most well defined files to AI to draw specs folder explaining the software
 - new prompts to always be load-up with that contexts with reference to files, instead of loading project files
+- refactor existing boilerplate for current apps to be expandable on other micro-saas apps
 - test the app on desktop for opera, firefox, safari, edge
 
 - make a docs part somewhere at the bottom under support for loyalboards

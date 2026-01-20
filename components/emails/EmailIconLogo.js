@@ -10,9 +10,7 @@ export default function EmailIconLogo({ branding }) {
     ? `${website}${faviconHref}`
     : faviconHref;
 
-  // If no URL found, render nothing or a safe fallback? 
-  // User said "use the visual.favicon.href property ... and forget about ... implementation"
-  // If empty, nothing to show.
+  // Render logo if URL exists
   if (!logoUrl) return null;
 
   const containerSize = "32px";

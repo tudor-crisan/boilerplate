@@ -105,16 +105,6 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
           });
 
           // Show toast if the action wasn't performed by this client
-          // Note: clientId for comments might need to be sent from server if we want to filter own actions
-          // For now, simpler to just show it or better: don't show toast for comments to avoid spam?
-          // User asked for "with toast notification" presumably.
-          // Let's add it but try to filter? 
-          // We aren't sending clientId in comment-update event currently.
-          // Let's rely on the fact that if it works, they see the number change.
-          // If the user SPECIFICALLY asked for toast, I should add it.
-          // "it did not appear ... with toast notification". This implies they WANT toast.
-          // Or they saw one but item didn't update.
-          // I will add a generic toast.
           if (showVoteToast) {
             toast.success(data.action === "add" ? "New comment added" : "Comment deleted!");
           }
