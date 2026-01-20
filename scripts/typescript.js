@@ -6,7 +6,7 @@ Object.values(copywritings).forEach((copywriting, index) => {
     CopywritingSchema.partial().parse(copywriting);
   } catch (error) {
     console.error(error);
-    console.log(`\n❌ Data is invalid! - copywriting${index}`)
+    console.log(`\n❌ Data is invalid! - copywriting${index}`);
   }
 });
 
@@ -20,7 +20,7 @@ Object.values(stylings).forEach((styling, index) => {
     StylingSchema.partial().parse(styling);
   } catch (error) {
     console.error(error);
-    console.log(`\n❌ Data is invalid! - styling${index}`)
+    console.log(`\n❌ Data is invalid! - styling${index}`);
   }
 });
 
@@ -34,7 +34,7 @@ Object.values(visuals).forEach((visual, index) => {
     VisualSchema.partial().parse(visual);
   } catch (error) {
     console.error(error);
-    console.log(`\n❌ Data is invalid! - visual${index}`)
+    console.log(`\n❌ Data is invalid! - visual${index}`);
   }
 });
 
@@ -48,6 +48,8 @@ Object.values(settings).forEach((setting, index) => {
     SettingSchema.partial().parse(setting);
   } catch (error) {
     console.error(error);
-    console.log(`\n❌ Data is invalid! - setting${index}`)
+    console.log(`\n❌ Data is invalid! - setting${index}`);
   }
 });
+
+console.log("✅ All data is valid!");

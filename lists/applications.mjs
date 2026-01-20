@@ -1,3 +1,4 @@
+/* eslint-disable */
 const applications = {
   "loyalboards": {
     "copywriting": {
@@ -21,7 +22,6 @@ const applications = {
       "override": "loyalboards_blog"
     },
     "help": {
-      "default": "help",
       "override": "loyalboards_help"
     }
   },

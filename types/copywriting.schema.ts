@@ -1,4 +1,8 @@
-import { ButtonSchema, LinkSchema,MenuItemSchema } from "@/types/common.schema";
+import {
+  ButtonSchema,
+  LinkSchema,
+  MenuItemSchema,
+} from "@/types/common.schema";
 import { z } from "zod";
 
 /**
@@ -51,10 +55,12 @@ export const SectionPricingSchema = z.object({
     .string()
     .max(60, "Headline must be 60 characters or less.")
     .describe("Main headline for pricing."),
-  formattedPlans: z.object({
-    monthly: PricingPlanSchema.optional(),
-    lifetime: PricingPlanSchema.optional(),
-  }).describe("Configured pricing plans."),
+  formattedPlans: z
+    .object({
+      monthly: PricingPlanSchema.optional(),
+      lifetime: PricingPlanSchema.optional(),
+    })
+    .describe("Configured pricing plans."),
   button: ButtonSchema.optional().describe("Call to action button."),
   features: z
     .array(z.string())
@@ -69,7 +75,10 @@ export const SectionPricingSchema = z.object({
 export const SectionBlogSchema = z.object({
   label: z.string().describe("Section label."),
   headline: z.string().describe("Section headline."),
-  description: z.string().optional().describe("Supporting text for the blog section."),
+  description: z
+    .string()
+    .optional()
+    .describe("Supporting text for the blog section."),
   button: ButtonSchema.optional().describe("Link to the full blog."),
 });
 
@@ -138,8 +147,12 @@ export const CopywritingSchema = z.object({
 
 // Export inferred Types for usage in TypeScript code
 export type Copywriting = z.infer<typeof CopywritingSchema>;
-export type CopywritingSectionHeader = z.infer<typeof CopywritingSectionHeaderSchema>;
-export type CopywritingSectionHero = z.infer<typeof CopywritingSectionHeroSchema>;
+export type CopywritingSectionHeader = z.infer<
+  typeof CopywritingSectionHeaderSchema
+>;
+export type CopywritingSectionHero = z.infer<
+  typeof CopywritingSectionHeroSchema
+>;
 export type CopywritingSectionPricing = z.infer<typeof SectionPricingSchema>;
 export type CopywritingSectionBlog = z.infer<typeof SectionBlogSchema>;
 export type CopywritingSectionFAQ = z.infer<typeof CopywritingSectionFAQSchema>;

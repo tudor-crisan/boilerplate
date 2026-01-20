@@ -5,7 +5,10 @@ import { z } from "zod";
  * Zod Schema for Blog Category.
  */
 export const BlogCategorySchema = z.object({
-  slug: z.string().min(1, "Slug is required").describe("URL slug for the category."),
+  slug: z
+    .string()
+    .min(1, "Slug is required")
+    .describe("URL slug for the category."),
   title: z.string().describe("Full title of the category."),
   titleShort: z.string().describe("Short title for navigation/badges."),
   description: z.string().describe("Description of the category."),
@@ -16,7 +19,10 @@ export const BlogCategorySchema = z.object({
  * Zod Schema for Blog Article.
  */
 export const BlogArticleSchema = z.object({
-  slug: z.string().min(1, "Slug is required").describe("URL slug for the article."),
+  slug: z
+    .string()
+    .min(1, "Slug is required")
+    .describe("URL slug for the article."),
   title: z.string().describe("Title of the article."),
   description: z.string().describe("Brief description/excerpt of the article."),
   categorySlugs: z

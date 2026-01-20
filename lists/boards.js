@@ -1,3 +1,4 @@
+/* eslint-disable */
 import boards from "@/data/modules/boards.json";
 
 const boardss = {

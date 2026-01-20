@@ -43,7 +43,7 @@ export const DefaultExtraSettingsSchema = z.object({
         maxlength: z.number().optional(),
         showCharacterCount: z.boolean().optional(),
         rows: z.number().optional(),
-      })
+      }),
     ),
   }),
   emptyState: z.object({

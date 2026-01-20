@@ -13,7 +13,7 @@
     "start": "next start",
     "lint": "eslint",
     "lint:fix": "eslint --fix .",
-    "typescript": "npx tsx scripts/typescript.js",
+    "typescript": "npx tsx --tsconfig jsconfig.json scripts/typescript.js",
     "stripe": "stripe listen --forward-to localhost:3000/api/billing/webhook",
     "deploy": "node scripts/deploy.js",
     "deploy:fix": "node scripts/deploy.js --no-bump",

@@ -1,5 +1,3 @@
-- update the romanian and english CV with the loyalboards specifications inside a one page
-- have the documentation of the whole codebase also inside tudorcrisan.dev , and share that in CV (remove the testimonials from 2016)
 
 - give most well defined files to AI to draw specs folder explaining the software
 - new prompts to always be load-up with that contexts with reference to files, instead of loading project files
@@ -19,3 +17,6 @@
 - make a documentation explaining how to build from ground up using the codefast texts
 - use this as a mini-go-along free-course on tudorcrisan.dev
 - prepare also a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
+
+- have the documentation of the whole codebase also inside tudorcrisan.dev , and share that in CV (remove the testimonials from 2016)
+- update the romanian and english CV with the loyalboards specifications inside a one page

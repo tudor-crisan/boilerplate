@@ -9,7 +9,7 @@ const appsDataDir = path.join(rootDir, "data", "apps");
 const modulesDataDir = path.join(rootDir, "data", "modules");
 const listsDir = path.join(rootDir, "lists");
 
-const CONFIG_TYPES = ["copywriting", "styling", "visual", "setting", "blog", "boards"];
+const CONFIG_TYPES = ["copywriting", "styling", "visual", "setting", "blog", "boards", "help"];
 
 function getAppDirs() {
   if (!fs.existsSync(appsDataDir)) return [];
@@ -39,7 +39,7 @@ export function generateLists(options = {}) {
     // Add default modules
     const moduleFile = path.join(modulesDataDir, `${type}.json`);
     if (fs.existsSync(moduleFile)) {
-      configurations[type][type] = `../data/modules/${type}.json`;
+      configurations[type][type] = `@/data/modules/${type}.json`;
       allConfigsForNode[type] = `../data/modules/${type}.json`;
     }
   });
@@ -52,10 +52,12 @@ export function generateLists(options = {}) {
       const appConfigFile = path.join(appsDataDir, app, `${type}.json`);
       if (fs.existsSync(appConfigFile)) {
         const configId = `${app}_${type}`;
-        configurations[type][configId] = `../data/apps/${app}/${type}.json`;
+        configurations[type][configId] = `@/data/apps/${app}/${type}.json`;
         allConfigsForNode[configId] = `../data/apps/${app}/${type}.json`;
+        
+        const moduleFile = path.join(modulesDataDir, `${type}.json`);
         appManifest[app][type] = {
-          default: `${type}`,
+          default: fs.existsSync(moduleFile) ? `${type}` : undefined,
           override: configId
         };
       }
@@ -64,8 +66,11 @@ export function generateLists(options = {}) {
 
   // Write individual list files
   CONFIG_TYPES.forEach(type => {
-    let content = "";
+    let content = "/* eslint-disable */\n";
     const entries = Object.entries(configurations[type]);
+
+    // Sort alphabetically by path to satisfy potential manual inspection
+    entries.sort((a, b) => a[1].localeCompare(b[1]));
 
     entries.forEach(([id, filePath]) => {
       content += `import ${id} from "${filePath}";\n`;
@@ -93,7 +98,7 @@ export function generateLists(options = {}) {
   safeWrite(path.join(listsDir, "settings.node.mjs"), nodeContent);
 
   // Write applications.mjs
-  const appManifestContent = `const applications = ${JSON.stringify(appManifest, null, 2)};\n\nexport default applications;\n`;
+  const appManifestContent = `/* eslint-disable */\nconst applications = ${JSON.stringify(appManifest, null, 2)};\n\nexport default applications;\n`;
   safeWrite(path.join(listsDir, "applications.mjs"), appManifestContent);
 }
 
