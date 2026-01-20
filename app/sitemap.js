@@ -30,7 +30,7 @@ export default function sitemap() {
 
   // Help routes
   const helpRoutes = defaultHelp.articles.map((article) => ({
-    url: `${baseUrl}/help/${article.id}`,
+    url: `${baseUrl}${settings.paths.help.source}/${article.id}`,
     lastModified: new Date().toISOString().split("T")[0],
   }));
 

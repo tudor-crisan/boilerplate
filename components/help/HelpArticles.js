@@ -35,8 +35,8 @@ export default function HelpArticles() {
 
   return (
     <>
-      <div className={`${styling.flex.col_center} w-full`}>
-        <Title className="mb-4">Help Articles</Title>
+      <div className={`${styling.flex.col_center} w-full gap-4 pt-12`}>
+        <Title className={styling.section.title}>Help Articles</Title>
 
         <div className="w-full sm:w-1/2 mx-auto">
           <Input
@@ -62,15 +62,15 @@ export default function HelpArticles() {
         ) : null}
 
         {filteredArticles.length === 0 && (
-          <div className={`flex items-center justify-center gap-1 opacity-70 mt-12`}>
+          <div className={`${styling.flex.center} gap-1 opacity-70 mt-12`}>
             <SvgSearch className="opacity-50" size="size-8" />
             <Paragraph>No articles found matching &quot;{searchQuery}&quot;</Paragraph>
           </div>
         )}
 
         {/* Contact Support Link */}
-        <div className="text-center space-y-3 mb-10">
-          <Paragraph>Can&apos;t find what you&apos;re looking for?</Paragraph>
+        <div className={`${styling.flex.col_center} space-y-3 mb-10`}>
+          <Paragraph className={styling.section.paragraph}>Can&apos;t find what you&apos;re looking for?</Paragraph>
           <Button href={settings.paths.support.source} variant="btn-outline">
             Contact Support
           </Button>

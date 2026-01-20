@@ -1,23 +1,12 @@
-import { auth } from "@/libs/auth";
-import clientPromise from "@/libs/mongo";
 import User from "@/models/User";
-import { isResponseMock, responseMock, responseSuccess, responseError, generateLogoBase64 } from "@/libs/utils.server";
-import { checkReqRateLimit } from "@/libs/rateLimit";
-
-import setting from "@/data/modules/setting.json";
+import { responseSuccess, responseError, generateLogoBase64 } from "@/libs/utils.server";
+import { defaultSetting as setting } from "@/libs/defaults";
+import { withApiHandler } from "@/libs/apiHandler";
 
 const TYPE = "UserUpdate";
 
-export async function POST(req) {
-  if (isResponseMock(TYPE)) {
-    return responseMock(TYPE);
-  }
-
-  const error = await checkReqRateLimit(req, "user-update");
-  if (error) return error;
-
+async function handler(req, { session }) {
   const {
-    notAuthorized,
     serverError,
   } = setting.forms.general.backend.responses;
 
@@ -26,12 +15,6 @@ export async function POST(req) {
   } = setting.forms.User.backend.responses;
 
   try {
-    const session = await auth();
-
-    if (!session?.user) {
-      return responseError(notAuthorized.message, {}, notAuthorized.status);
-    }
-
     const { name, image, styling, visualConfig } = await req.json();
 
     // Generate logo server-side
@@ -44,7 +27,6 @@ export async function POST(req) {
       stylingData = { ...styling, logo };
     }
 
-    await clientPromise;
     await User.updateOne(
       { email: session.user.email },
       { $set: { name, image, styling: stylingData } }
@@ -56,3 +38,9 @@ export async function POST(req) {
     return responseError(serverError.message, {}, serverError.status);
   }
 }
+
+export const POST = withApiHandler(handler, {
+  type: TYPE,
+  rateLimitKey: "user-update",
+  needAccess: false // Profile update doesn't usually require paid access
+});

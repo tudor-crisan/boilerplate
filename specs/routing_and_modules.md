@@ -10,7 +10,8 @@ Routing is handled within the `/app` directory. The project distinguishes betwee
 - `/app/layout.js`: The root layout shared across all pages.
 - `/app/dashboard`: Routes for the user dashboard.
 - `/app/auth`: Authentication-related routes (SignIn, Verify Request, etc.).
-- `/app/tos` & `/app/privacy`: Legal documents and help articles.
+- `/app/tos/help`: Help articles and knowledge base.
+- `/app/tos/privacy` & `/app/tos/terms`: Legal documents.
 
 ## Module-Based Architecture
 A unique pattern in this project is the `/app/modules` directory, which organizes features by domain:
