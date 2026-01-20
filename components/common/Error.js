@@ -1,4 +1,5 @@
 
+"use client";
 import SvgError from "@/components/svg/SvgError";
 import { useStyling } from "@/context/ContextStyling";
 

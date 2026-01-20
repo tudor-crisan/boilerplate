@@ -1,3 +1,4 @@
+"use client";
 import { useStyling } from "@/context/ContextStyling";
 import { cn } from "@/libs/utils.client";
 

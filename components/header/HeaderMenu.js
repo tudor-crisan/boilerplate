@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
