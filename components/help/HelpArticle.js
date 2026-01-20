@@ -30,7 +30,11 @@ export default function HelpArticlePage() {
         <div className="space-y-6">
           {article.content?.map((block, index) => {
             if (block.type === 'paragraph') {
-              return <Paragraph key={index}>{block.text}</Paragraph>;
+              return (
+                <Paragraph key={index}>
+                  <span dangerouslySetInnerHTML={{ __html: block.text }} />
+                </Paragraph>
+              );
             }
             if (block.type === 'image') {
               return (

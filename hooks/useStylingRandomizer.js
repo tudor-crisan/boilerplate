@@ -31,7 +31,7 @@ export function useStylingRandomizer({ setStyling }) {
         const randomRadius = getRandomItem(radiusOptions);
 
         const newComponents = { ...newStyling.components };
-        const newPricing = { ...newStyling.blog };
+        const newPricing = { ...newStyling.pricing };
         const newBlog = { ...newStyling.blog };
 
         // Replace any rounded class with new radius
