@@ -13,7 +13,9 @@
 
 - make launch video of full app with obs / capcut template
 - make extension for posting on multiple directories
-
 - make a documentation page for tudorcrisan for the boilerplate
+
 - make a buy link with redirect to google drive with multiple versions
 - make a documentation explaining how to build from ground up using the codefast texts
+- use this as a mini-go-along free-course on tudorcrisan.dev
+- prepare also a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
