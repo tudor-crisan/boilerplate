@@ -16,7 +16,7 @@ export default function CommonDropdown({ label, items }) {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+        className={`dropdown-content menu p-2 bg-base-100 w-52 ${styling.components.dropdown}`}
       >
         {items.map((item, index) => (
           <li key={index}>
