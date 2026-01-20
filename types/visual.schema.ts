@@ -80,9 +80,6 @@ export const HeroVideoSchema = z.object({
 });
 
 /**
- * Main Visual Config Schema.
- */
-/**
  * Zod Schema for Show toggle configuration.
  */
 export const ShowSchema = z.object({
