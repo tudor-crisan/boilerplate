@@ -35,13 +35,25 @@ This document outlines the manual tests required to ensure the LoyalBoards appli
 - [ ] **Anonymous Posting**: Submit a new feedback post without being logged in. Ensure it appears on the board.
 - [ ] **Post Ranking**: Verify that posts with more upvotes rise to the top of the list.
 
-## 5. Moderation & Roadmap
-- [ ] **Change Status**: As an owner, change a post status (e.g., to 'In Progress' or 'Completed') and verify the label updates.
-- [ ] **Delete Post**: Delete a post and verify it is removed from the board.
+## 5. Moderation & Content Management
+- [ ] **Delete Post**: As an owner on the dashboard, delete a post and verify it is removed from the board.
 - [ ] **Comments**: Add a comment to a post and verify it displays correctly.
 
-## 6. Responsive Design & Browser Verification
-### 6.1 General Layout (Mobile vs Desktop)
+## 6. Legal & Support Pages
+Check the following routes for correct content and responsive behavior:
+- [ ] **Terms of Service (`/terms`)**:
+    - [ ] Verify "Last updated" date is pulled correctly from settings.
+    - [ ] Check that the support email and business address are correctly displayed and dynamic.
+    - [ ] Ensure layout is readable on both **Mobile and Desktop**.
+- [ ] **Privacy Policy (`/privacy`)**:
+    - [ ] Verify legal entity name and contact details match the project configuration.
+    - [ ] Ensure no horizontal scrolling on **Mobile**.
+- [ ] **Support (`/support`)**:
+    - [ ] Verify the "View Help Articles" button redirects correctly to `/help`.
+    - [ ] Check that contact details and the `HelpSupport` component render correctly.
+
+## 7. Responsive Design & Browser Verification
+### 7.1 General Layout (Mobile vs Desktop)
 - [ ] **SectionHero**: 
     - [ ] Desktop: Headlines and CTA are centered or side-by-side. 
     - [ ] Mobile: Headline stacks vertically; text size is legible; CTA button is full-width or appropriately sized.
@@ -58,13 +70,13 @@ This document outlines the manual tests required to ensure the LoyalBoards appli
     - [ ] Desktop: Header menu links are visible.
     - [ ] Mobile: Header menu transforms into a working Hamburger Menu.
 
-### 6.2 Browser Matrix
+### 7.2 Browser Matrix
 Check the following for layout shifts, broken buttons, or crashes:
 - [ ] **Chrome** (Latest)
 - [ ] **Firefox** (Latest)
 - [ ] **Safari** (macOS)
 - [ ] **Mobile Safari / Chrome** (iOS/Android) 
 
-## 7. Performance & Stability
+## 8. Performance & Stability
 - [ ] **Rapid Voting**: Click the upvote button multiple times quickly to ensure no race conditions or crashes.
 - [ ] **Large Datasets**: (If test data exists) Ensure the board list scrolls smoothly without lag.

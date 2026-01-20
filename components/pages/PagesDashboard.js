@@ -29,5 +29,5 @@ export default async function PagesDashboard({ children }) {
         <DashboardComponent />
       </DashboardMain>
     </DashboardWrapper>
-  )
+  );
 }

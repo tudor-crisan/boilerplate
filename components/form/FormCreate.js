@@ -139,11 +139,11 @@ export default function FormCreate({ type, queryParams = {}, skipRefresh = false
           )}
 
           {inputErrors[target] && (
-            <p className="label text-red-500">{inputErrors[target]}</p>
+            <p className="label text-error">{inputErrors[target]}</p>
           )}
         </div>
       ))}
-      <div className="flex">
+      <div className={styling.flex.start}>
         <Button
           type="submit"
           isLoading={loading}

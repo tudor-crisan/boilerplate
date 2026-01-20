@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { getNameInitials } from "@/libs/utils.client";
+import { getNameInitials, cn } from "@/libs/utils.client";
 import { useAuth } from "@/context/ContextAuth";
 import Title from "@/components/common/Title";
 import Paragraph from "@/components/common/Paragraph";
@@ -79,61 +79,59 @@ export default function DashboardProfile() {
     setIsModalOpen(true);
   };
 
-  if (isLoggedIn) {
-    const containerClass = `${styling.flex.responsive} ${styling.components.card} gap-4 ${styling.general.box} items-center`;
+  if (!isLoggedIn) return null;
 
-    return (
-      <div className={containerClass}>
-        <div className="space-y-3 text-center sm:text-left w-full sm:w-auto">
-          <div className="space-y-1">
-            <Title>
-              Profile
-            </Title>
-            <Paragraph>
-              Welcome <span className="font-bold">{name}</span>. <br className="hidden sm:block" /> You&apos;re logged in from <span className="font-bold">{email}</span>
-            </Paragraph>
-          </div>
-          <Button onClick={handleEditClick}>
-            Edit Profile
-          </Button>
+  const containerClass = cn(styling.flex.responsive, styling.components.card, "gap-4", styling.general.box, styling.flex.items_center);
+
+  return (
+    <div className={containerClass}>
+      <div className={cn(styling.flex.col, "space-y-3 text-center sm:text-left w-full sm:w-auto")}>
+        <div className="space-y-1">
+          <Title>
+            Profile
+          </Title>
+          <Paragraph>
+            Welcome <span className="font-bold">{name}</span>. <br className="hidden sm:block" /> You&apos;re logged in from <span className="font-bold">{email}</span>
+          </Paragraph>
         </div>
-
-        <div className="shrink-0 order-first sm:order-0">
-          <ProfileImage
-            initials={getNameInitials(name) || initials}
-            src={image}
-            size="xl"
-            className="border-4 border-base-200"
-          />
-        </div>
-
-        <DashboardProfileEditModal
-          isModalOpen={isModalOpen}
-          onClose={handleCancel}
-          isLoading={isLoading}
-          onSave={handleSave}
-          inputs={inputs}
-          handleChange={handleChange}
-          styling={styling}
-          setStyling={setStyling}
-          email={email}
-          initials={initials}
-          onFileSelect={handleFileSelect}
-          shuffleConfig={shuffleConfig}
-          setShuffleConfig={setShuffleConfig}
-          handleShuffle={handleShuffle}
-        />
-
-        {showCropper && tempImage && (
-          <ImageCropper
-            imageSrc={tempImage}
-            onCropComplete={handleCropComplete}
-            onCancel={handleCropCancel}
-          />
-        )}
+        <Button onClick={handleEditClick} className="w-fit self-center sm:self-start">
+          Edit Profile
+        </Button>
       </div>
-    );
-  }
 
-  return null;
+      <div className="shrink-0 order-first sm:order-0">
+        <ProfileImage
+          initials={getNameInitials(name) || initials}
+          src={image}
+          size="xl"
+          className="border-4 border-base-200"
+        />
+      </div>
+
+      <DashboardProfileEditModal
+        isModalOpen={isModalOpen}
+        onClose={handleCancel}
+        isLoading={isLoading}
+        onSave={handleSave}
+        inputs={inputs}
+        handleChange={handleChange}
+        styling={styling}
+        setStyling={setStyling}
+        email={email}
+        initials={initials}
+        onFileSelect={handleFileSelect}
+        shuffleConfig={shuffleConfig}
+        setShuffleConfig={setShuffleConfig}
+        handleShuffle={handleShuffle}
+      />
+
+      {showCropper && tempImage && (
+        <ImageCropper
+          imageSrc={tempImage}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCropCancel}
+        />
+      )}
+    </div>
+  );
 }

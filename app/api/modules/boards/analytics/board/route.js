@@ -1,22 +1,18 @@
-import { auth } from "@/libs/auth";
-import connectMongo from "@/libs/mongoose";
 import mongoose from "mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Board from "@/models/modules/boards/Board";
 import { NextResponse } from "next/server";
 import { getAnalyticsDateRange } from "@/libs/utils.server";
+import { withApiHandler } from "@/libs/apiHandler";
 
-export async function GET(req) {
-  const session = await auth();
-  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+const TYPE = "BoardAnalytics";
 
+async function handler(req, { session }) {
   const { searchParams } = req.nextUrl;
   const boardId = searchParams.get("boardId");
 
   if (!boardId) return NextResponse.json({ error: "Board ID required" }, { status: 400 });
   const range = searchParams.get("range") || "30d";
-
-  await connectMongo();
 
   // Verify ownership
   const board = await Board.findOne({ _id: boardId, userId: session.user.id });
@@ -33,3 +29,7 @@ export async function GET(req) {
 
   return NextResponse.json({ stats });
 }
+
+export const GET = withApiHandler(handler, {
+  type: TYPE
+});

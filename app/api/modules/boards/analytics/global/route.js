@@ -1,17 +1,13 @@
-import { auth } from "@/libs/auth";
-import connectMongo from "@/libs/mongoose";
 import mongoose from "mongoose";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 import Board from "@/models/modules/boards/Board";
 import { NextResponse } from "next/server";
 import { getAnalyticsDateRange } from "@/libs/utils.server";
+import { withApiHandler } from "@/libs/apiHandler";
 
-export async function GET(req) {
-  const session = await auth();
-  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+const TYPE = "GlobalAnalytics";
 
-  await connectMongo();
-
+async function handler(req, { session }) {
   const { searchParams } = req.nextUrl;
   const range = searchParams.get("range") || "30d";
 
@@ -75,3 +71,7 @@ export async function GET(req) {
 
   return NextResponse.json({ data: { boards: boardsData, timeline } });
 }
+
+export const GET = withApiHandler(handler, {
+  type: TYPE
+});

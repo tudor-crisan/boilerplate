@@ -48,9 +48,27 @@ export function baseUrl() {
 
 let clientId = null;
 export function getClientId() {
-  if (!clientId && typeof window !== 'undefined') {
-    clientId = Math.random().toString(36).substring(2, 15);
+  if (typeof window === 'undefined') return null;
+
+  if (clientId) return clientId;
+
+  // Try to get from localStorage
+  try {
+    clientId = window.localStorage.getItem("x-client-id");
+  } catch (e) {
+    console.error("Error reading client ID from localStorage", e);
   }
+
+  // If not found, generate and save
+  if (!clientId) {
+    clientId = Math.random().toString(36).substring(2, 15);
+    try {
+      window.localStorage.setItem("x-client-id", clientId);
+    } catch (e) {
+      console.error("Error saving client ID to localStorage", e);
+    }
+  }
+
   return clientId;
 }
 
