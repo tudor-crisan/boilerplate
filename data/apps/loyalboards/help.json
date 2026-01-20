@@ -1,57 +1,176 @@
 {
   "articles": [
     {
-      "id": "login",
-      "title": "Login",
-      "description": "Issues with signing in, password reset",
+      "id": "getting-started",
+      "title": "Getting Started",
+      "description": "Login, navigation, and dashboard overview",
       "content": [
         {
           "type": "paragraph",
-          "text": "If you are having trouble logging in, please check your credentials and try again. You can reset your password using the 'Forgot Password' link on the login page."
+          "text": "Welcome to LoyalBoards! This guide will help you get up and running quickly. To access your dashboard, simply log in using your email address."
+        },
+        {
+          "type": "heading",
+          "text": "Logging In"
+        },
+        {
+          "type": "paragraph",
+          "text": "We use a passwordless 'Magic Link' system for security and ease of use. Enter your email on the login page, and we'll send you a direct link to sign in."
+        },
+        {
+          "type": "image",
+          "src": "/assets/help/loyalboards/login_screen.png",
+          "alt": "Login Screen Example"
+        },
+        {
+          "type": "paragraph",
+          "text": "Once logged in, you'll see your main dashboard. This is your command center for managing boards, viewing analytics, and updating your profile."
+        },
+        {
+          "type": "image",
+          "src": "/assets/help/loyalboards/dashboard_overview.png",
+          "alt": "Dashboard Overview with Analytics and Create Form"
         }
       ]
     },
     {
-      "id": "editing-profile",
-      "title": "Editing Profile",
-      "description": "Change name, profile picture",
+      "id": "managing-profile",
+      "title": "Your Profile & Settings",
+      "description": "Edit profile, change appearance, account settings",
       "content": [
         {
           "type": "paragraph",
-          "text": "To edit your profile, go to the settings page and update your information. You can change your display name, profile picture, and bio."
+          "text": "You can personalize your profile and the app's appearance to suit your preferences."
+        },
+        {
+          "type": "heading",
+          "text": "Editing Profile"
+        },
+        {
+          "type": "paragraph",
+          "text": "Click on your avatar in the top right corner (or the menu on mobile) to access Profile Settings. Here you can update your Display Name and Profile Picture."
+        },
+        {
+          "type": "image",
+          "src": "/assets/help/loyalboards/profile_settings.png",
+          "alt": "Profile Settings Modal"
+        },
+        {
+          "type": "heading",
+          "text": "App Appearance"
+        },
+        {
+          "type": "paragraph",
+          "text": "LoyalBoards supports multiple themes and Dark Mode. You can toggle these from the settings menu to customize your viewing experience."
         }
       ]
     },
     {
-      "id": "appearance",
-      "title": "Appearance",
-      "description": "Themes, dark mode settings",
+      "id": "creating-boards",
+      "title": "Creating & Managing Boards",
+      "description": "Create boards, custom urls, and public settings",
       "content": [
         {
+          "type": "heading",
+          "text": "Creating a New Board"
+        },
+        {
           "type": "paragraph",
-          "text": "You can customize the appearance of the application by choosing different themes and toggling dark mode in the settings."
+          "text": "On your dashboard, you'll find the 'Create Board' form. Enter a name for your board to get started properly. It will instantly appear in your list."
+        },
+        {
+          "type": "heading",
+          "text": "Board Settings"
+        },
+        {
+          "type": "paragraph",
+          "text": "Click the 'Edit' button on any board to open advanced settings. Here you can configure:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Start by changing the Board Name and Description.",
+            "Custom URL (Slug): Choose a unique link for your board (e.g., /boards/feedback).",
+            "Appearance: Customize colors to match your brand.",
+            "Empty State: meaningful custom text shown when there are no posts."
+          ]
+        },
+        {
+          "type": "image",
+          "src": "/assets/help/loyalboards/board_edit_general.png",
+          "alt": "Board Edit Modal - General Settings"
+        },
+        {
+          "type": "image",
+          "src": "/assets/help/loyalboards/board_edit_appearance.png",
+          "alt": "Board Edit Modal - Appearance"
         }
       ]
     },
     {
-      "id": "creating-a-board",
-      "title": "Creating a Board",
-      "description": "Setup, permissions, initial content",
+      "id": "public-feedback",
+      "title": "Public Feedback & Voting",
+      "description": "How users interact with your boards",
       "content": [
         {
           "type": "paragraph",
-          "text": "Create a new board to organize your tasks and projects. You can set permissions and add initial content to get started."
+          "text": "Share your board's public URL with your users to collect feedback. Users can:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Post new feedback or feature requests.",
+            "Upvote existing posts to show support.",
+            "Comment on posts to add context."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "You can filter posts by 'Newest', 'Top Voted', or search for specific keywords."
+        },
+        {
+          "type": "image",
+          "src": "/assets/help/loyalboards/public_board_view.png",
+          "alt": "Public Board View"
         }
       ]
     },
     {
-      "id": "viewing-analytics",
-      "title": "Viewing Analytics",
-      "description": "Dashboards, metrics, reports",
+      "id": "analytics-notifications",
+      "title": "Analytics & Notifications",
+      "description": "Track views, votes, and recent activity",
       "content": [
         {
           "type": "paragraph",
-          "text": "Analyze your data with the built-in analytics dashboard. View key metrics and generate reports to track your progress."
+          "text": "Stay on top of your community with the Analytics Dashboard. We track Views, Posts, and Votes to give you insights into user engagement."
+        },
+        {
+          "type": "heading",
+          "text": "Notifications"
+        },
+        {
+          "type": "paragraph",
+          "text": "The dashboard also displays a list of recent activities, such as new votes or comments, so you never miss an update."
+        }
+      ]
+    },
+    {
+      "id": "billing",
+      "title": "Billing & Subscriptions",
+      "description": "Manage plans and payment methods",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "You can manage your subscription directly from the app. Click the 'Billing' button to access the customer portal."
+        },
+        {
+          "type": "paragraph",
+          "text": "In the portal, you can update your payment method, download invoices, or switch between Monthly and Lifetime plans."
+        },
+        {
+          "type": "image",
+          "src": "/assets/help/loyalboards/billing_portal.png",
+          "alt": "Billing & Subscription Portal"
         }
       ]
     }

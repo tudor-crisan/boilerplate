@@ -82,5 +82,6 @@ async function handler(req, { session, user }) {
 
 export const POST = withApiHandler(handler, {
   type: TYPE,
-  rateLimitKey: "billing-create-checkout"
+  rateLimitKey: "billing-create-checkout",
+  needAccess: false,
 });

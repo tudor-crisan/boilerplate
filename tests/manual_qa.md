@@ -137,3 +137,15 @@ Check the following for layout shifts, broken buttons, or crashes:
 ## 13. Performance & Stability
 - [ ] **Rapid Voting**: Click the upvote button multiple times quickly to ensure no race conditions or crashes.
 - [ ] **Large Datasets**: (If test data exists) Ensure the board list scrolls smoothly without lag.
+
+## 14. Access Control (No Subscription)
+Tests to verify behavior when a user exists but `hasAccess` is set to `false` (e.g. subscription cancelled or expired).
+- [ ] **Dashboard State**:
+    - [ ] Log in as a user with `hasAccess: false`.
+    - [ ] Verify the header displays a **"Subscribe"** (`ButtonCheckout`) button instead of "Billing" (`ButtonPortal`).
+    - [ ] Verify the user can still access their profile settings.
+- [ ] **API Restrictions**:
+    - [ ] Attempt to perform an action requiring access (e.g. creating a board).
+    - [ ] Verify the server responds with a "No Access" error (or redirects to pricing).
+- [ ] **Logout**:
+    - [ ] Verify the user can still log out successfully.

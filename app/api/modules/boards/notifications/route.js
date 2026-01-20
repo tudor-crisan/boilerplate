@@ -46,5 +46,5 @@ async function putHandler(req, { session }) {
   return NextResponse.json({ data: { success: true } });
 }
 
-export const GET = withApiHandler(getHandler, { type: TYPE });
-export const PUT = withApiHandler(putHandler, { type: TYPE });
+export const GET = withApiHandler(getHandler, { type: TYPE, needAccess: false });
+export const PUT = withApiHandler(putHandler, { type: TYPE, needAccess: false });
