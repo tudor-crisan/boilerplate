@@ -35,37 +35,41 @@ export default function HelpArticles() {
 
   return (
     <>
-      <div className={`${styling.flex.col_center} space-y-3 w-full`}>
-        <Title>Help Articles</Title>
+      <div className={`${styling.flex.col_center} w-full`}>
+        <Title className="mb-4">Help Articles</Title>
 
-        <Input
-          placeholder="Search the knowledge base"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          icon={<SvgSearch />}
-          allowClear={true}
-        />
+        <div className="w-full sm:w-1/2 mx-auto">
+          <Input
+            placeholder="Search the knowledge base"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            icon={<SvgSearch />}
+            allowClear={true}
+          />
+        </div>
       </div>
 
-      <TosContent className="space-y-6 mt-12">
+      <TosContent>
         {/* Articles Grid */}
-        <Grid>
-          {filteredArticles.map((article, index) => (
-            <div key={index}>
-              <ArticleCard {...article} />
-            </div>
-          ))}
-        </Grid>
+        {filteredArticles.length ? (
+          <Grid className="my-12">
+            {filteredArticles.map((article, index) => (
+              <div key={index}>
+                <ArticleCard {...article} />
+              </div>
+            ))}
+          </Grid>
+        ) : null}
 
         {filteredArticles.length === 0 && (
-          <div className={`${styling.flex.col_center} opacity-70 space-y-3`}>
-            <SvgSearch className="opacity-50" size="size-12" />
+          <div className={`flex items-center justify-center gap-1 opacity-70 mt-12`}>
+            <SvgSearch className="opacity-50" size="size-8" />
             <Paragraph>No articles found matching &quot;{searchQuery}&quot;</Paragraph>
           </div>
         )}
 
         {/* Contact Support Link */}
-        <div className="text-center space-y-3 my-10">
+        <div className="text-center space-y-3 mb-10">
           <Paragraph>Can&apos;t find what you&apos;re looking for?</Paragraph>
           <Button href={settings.paths.support.source} variant="btn-outline">
             Contact Support

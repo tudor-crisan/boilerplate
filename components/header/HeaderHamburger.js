@@ -6,6 +6,7 @@ import HeaderButton from "@/components/header/HeaderButton";
 import { useVisual } from "@/context/ContextVisual";
 import SvgHamburger from "@/components/svg/SvgHamburger";
 import SvgClose from "@/components/svg/SvgClose";
+import SvgChevronRight from "@/components/svg/SvgChevronRight";
 import IconLogo from "@/components/icon/IconLogo";
 import { defaultSetting as settings } from "@/libs/defaults";
 
@@ -14,6 +15,7 @@ export default function HeaderHamburger() {
   const { copywriting } = useCopywriting();
   const { visual } = useVisual();
   const [isOpen, setIsOpen] = useState(false);
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   // If no menus defined, don't render anything
   if (!copywriting.SectionHeader.menus || copywriting.SectionHeader.menus.length === 0) {
@@ -66,6 +68,36 @@ export default function HeaderHamburger() {
                 {menu.label}
               </Link>
             ))}
+
+            {/* Mobile Help Menu */}
+            <div className="w-full flex flex-col items-center">
+              <button
+                className="btn btn-ghost text-lg w-full flex items-center justify-center gap-2"
+                onClick={() => setIsHelpOpen(!isHelpOpen)}
+              >
+                Help
+                <SvgChevronRight
+                  className={`w-5 h-5 transition-transform duration-200 ${isHelpOpen ? "rotate-90" : ""}`}
+                />
+              </button>
+
+              {isHelpOpen && (
+                <div className="flex flex-col gap-2 items-center w-full mt-2 animate-fade-in-up">
+                  {copywriting.SectionFooter.menus
+                    .find((m) => m.title === "Support")
+                    ?.links.map((link, index) => (
+                      <Link
+                        key={index}
+                        href={link.href}
+                        className="btn btn-ghost text-base w-full opacity-80 hover:opacity-100"
+                        onClick={toggleMenu}
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                </div>
+              )}
+            </div>
             {visual.show.SectionHeader.button && (
               <div className="mt-4">
                 <HeaderButton />

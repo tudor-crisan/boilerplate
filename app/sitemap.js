@@ -1,10 +1,17 @@
-import { defaultBlog, defaultSetting as settings } from "@/libs/defaults";
+import { defaultBlog, defaultHelp, defaultSetting as settings } from "@/libs/defaults";
 
 export default function sitemap() {
   const baseUrl = `https://${settings.website}`;
 
   // Base routes
-  const routes = ["", "/blog"].map((route) => ({
+  const routes = [
+    "",
+    "/blog",
+    "/help",
+    "/privacy",
+    "/support",
+    "/terms",
+  ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString().split("T")[0],
   }));
@@ -21,5 +28,11 @@ export default function sitemap() {
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
-  return [...routes, ...articleRoutes, ...categoryRoutes];
+  // Help routes
+  const helpRoutes = defaultHelp.articles.map((article) => ({
+    url: `${baseUrl}/help/${article.id}`,
+    lastModified: new Date().toISOString().split("T")[0],
+  }));
+
+  return [...routes, ...articleRoutes, ...categoryRoutes, ...helpRoutes];
 }

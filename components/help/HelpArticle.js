@@ -22,10 +22,11 @@ export default function HelpArticlePage() {
 
   return (
     <TosWrapper>
+
       <TosContent>
-        <div className="mb-8">
-          <Title className="text-3xl sm:text-4xl font-extrabold mb-4">{article.title}</Title>
-          <Paragraph className="text-lg opacity-70">{article.description}</Paragraph>
+        <div className="space-y-1">
+          <Title>{article.title}</Title>
+          <Paragraph>{article.description}</Paragraph>
         </div>
 
         <div className="space-y-6">

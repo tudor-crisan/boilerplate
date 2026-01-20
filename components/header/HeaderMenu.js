@@ -24,6 +24,29 @@ export default function HeaderMenu() {
             {menu.label}
           </Link>
         ))}
+
+        {/* Help Dropdown */}
+        <div className="dropdown dropdown-end dropdown-hover">
+          <div
+            tabIndex={0}
+            role="button"
+            className={`${styling.components.element} btn btn-ghost shadow-none!`}
+          >
+            Help
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            {copywriting.SectionFooter.menus
+              .find((m) => m.title === "Support")
+              ?.links.map((link, index) => (
+                <li key={index}>
+                  <Link href={link.href}>{link.label}</Link>
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
     </>
   );
