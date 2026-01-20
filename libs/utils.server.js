@@ -7,9 +7,12 @@ import logos from "@/lists/logos";
 import { oklchToHex } from "@/libs/colors";
 
 export const getBaseUrl = () => {
-  return process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://" + process.env.NEXT_PUBLIC_DOMAIN;
+  if (process.env.NODE_ENV === "development") return "http://localhost:3000";
+  if (!process.env.NEXT_PUBLIC_DOMAIN) {
+    console.error("Critical: NEXT_PUBLIC_DOMAIN is not defined in the environment.");
+    return "";
+  }
+  return "https://" + process.env.NEXT_PUBLIC_DOMAIN;
 };
 
 export function formatWebsiteUrl(url = "") {

@@ -41,9 +41,9 @@ export function pluralize(word = '', count = 0) {
 }
 
 export function baseUrl() {
-  return process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://" + process.env.NEXT_PUBLIC_DOMAIN
+  if (process.env.NODE_ENV === "development") return "http://localhost:3000";
+  if (!process.env.NEXT_PUBLIC_DOMAIN) return "";
+  return "https://" + process.env.NEXT_PUBLIC_DOMAIN;
 }
 
 let clientId = null;
