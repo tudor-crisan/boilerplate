@@ -3,7 +3,7 @@ import { z } from "zod";
 /**
  * Zod Schema for General configuration.
  */
-export const GeneralSchema = z.object({
+export const StylingGeneralSchema = z.object({
   language: z.string().describe("HTML lang attribute."),
   html: z.string().describe("CSS classes for html element."),
   body: z.string().describe("CSS classes for body element."),
@@ -18,7 +18,7 @@ export const GeneralSchema = z.object({
 /**
  * Zod Schema for SectionHero.
  */
-export const SectionHeroSchema = z.object({
+export const StylingSectionHeroSchema = z.object({
   headline: z.string().describe("CSS classes for hero headline."),
   paragraph: z.string().describe("CSS classes for hero paragraph."),
   textalign: z.string().describe("CSS classes for text alignment."),
@@ -27,7 +27,7 @@ export const SectionHeroSchema = z.object({
 /**
  * Zod Schema for SectionFAQ.
  */
-export const SectionFAQSchema = z.object({
+export const StylingSectionFAQSchema = z.object({
   positioning: z
     .string()
     .optional()
@@ -38,7 +38,7 @@ export const SectionFAQSchema = z.object({
 /**
  * Zod Schema for SectionFooter.
  */
-export const SectionFooterSchema = z.object({
+export const StylingSectionFooterSchema = z.object({
   section: z.string().describe("CSS classes for footer section background/text."),
   container: z.string().describe("CSS classes for footer container."),
   spacing: z.string().describe("CSS classes for footer spacing."),
@@ -51,7 +51,7 @@ export const SectionFooterSchema = z.object({
 /**
  * Zod Schema for SectionHeader.
  */
-export const SectionHeaderSchema = z.object({
+export const StylingSectionHeaderSchema = z.object({
   spacing: z.string().describe("CSS classes for header spacing."),
 });
 
@@ -65,16 +65,16 @@ export const StylingSchema = z.object({
   shadows: z.array(z.string()).describe("Shadow utility classes."),
   borders: z.array(z.string()).describe("Border utility classes."),
   links: z.array(z.string()).describe("Link utility classes."),
-  general: GeneralSchema.partial(),
-  SectionHeader: SectionHeaderSchema.partial(),
-  SectionHero: SectionHeroSchema.partial(),
-  SectionFAQ: SectionFAQSchema.partial(),
-  SectionFooter: SectionFooterSchema.partial(),
+  general: StylingGeneralSchema.partial(),
+  SectionHeader: StylingSectionHeaderSchema.partial(),
+  SectionHero: StylingSectionHeroSchema.partial(),
+  SectionFAQ: StylingSectionFAQSchema.partial(),
+  SectionFooter: StylingSectionFooterSchema.partial(),
 });
 
 // Export inferred Types for usage in TypeScript code
 export type Styling = z.infer<typeof StylingSchema>;
 
-export type General = z.infer<typeof GeneralSchema>;
-export type SectionHero = z.infer<typeof SectionHeroSchema>;
-export type SectionFAQ = z.infer<typeof SectionFAQSchema>;
+export type StylingGeneral = z.infer<typeof StylingGeneralSchema>;
+export type StylingSectionHero = z.infer<typeof StylingSectionHeroSchema>;
+export type StylingSectionFAQ = z.infer<typeof StylingSectionFAQSchema>;
