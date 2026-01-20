@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
+import CommonDropdown from "@/components/common/CommonDropdown";
 
 export default function HeaderMenu() {
   const { copywriting } = useCopywriting();
@@ -26,27 +27,13 @@ export default function HeaderMenu() {
         ))}
 
         {/* Help Dropdown */}
-        <div className="dropdown dropdown-end dropdown-hover">
-          <div
-            tabIndex={0}
-            role="button"
-            className={`${styling.components.element} btn btn-ghost shadow-none!`}
-          >
-            Help
-          </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            {copywriting.SectionFooter.menus
-              .find((m) => m.title === "Support")
-              ?.links.map((link, index) => (
-                <li key={index}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
-          </ul>
-        </div>
+        <CommonDropdown
+          label="Help"
+          items={
+            copywriting.SectionFooter.menus.find((m) => m.title === "Support")
+              ?.links || []
+          }
+        />
       </div>
     </>
   );
