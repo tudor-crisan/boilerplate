@@ -31,5 +31,6 @@ async function handler(req, { session }) {
 }
 
 export const GET = withApiHandler(handler, {
-  type: TYPE
+  type: TYPE,
+  needAccess: false
 });
