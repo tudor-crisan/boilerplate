@@ -142,20 +142,11 @@ export const generateLogoBase64 = (styling, visual) => {
   const primaryColor = oklchToHex(colors["--color-primary"]); // fallback violet
 
   const shape = visual.logo.shape || "star";
-  // We use the local logoShapes object to avoid importing the large list if unnecessary, 
-  // or we can import @/lists/logos if we want full support.
-  // For now, I'll update it to import full logos if needed, but keeping it minimal is faster.
-  // Wait, I should import the real logos list to support all shapes.
-  // Re-importing logos inside the function or at top? Top is better.
-
-  // Since I defined logoShapes locally with just star, I should probably stick to that or import.
-  // The 'logos' list is in @/lists/logos. I should use that.
+  // Use the 'logos' list from @/lists/logos to support all shapes.
   return internalGenerate(styling, shape, primaryColor);
 };
 
-// Moving implementation to use imported logos would be better but requires top validation.
-// Let's rely on the internal simplified version for now, or update validation.
-// Actually, I'll import 'logos' at the top of the replacement block to be safe.
+
 function internalGenerate(styling, shape, primaryColor) {
   const logoData = logos[shape] || logos["star"]; // Fallback to star
   const radiusMap = {

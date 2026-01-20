@@ -54,7 +54,6 @@ export function withApiHandler(handler, options = {}) {
       let user = null;
 
       // 4. Authentication and Access Checks
-      // 4. Authentication and Access Checks
       session = await auth();
 
       if (needAuth && !session) {
