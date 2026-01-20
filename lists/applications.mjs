@@ -19,6 +19,10 @@ const applications = {
     "blog": {
       "default": "blog",
       "override": "loyalboards_blog"
+    },
+    "help": {
+      "default": "help",
+      "override": "loyalboards_help"
     }
   },
   "taskflow": {

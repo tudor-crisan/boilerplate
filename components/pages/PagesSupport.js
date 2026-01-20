@@ -1,68 +1,31 @@
 "use client";
-import { defaultSetting as settings } from "@/libs/defaults";
 import TosWrapper from "@/components/tos/TosWrapper";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
 import TosContent from "@/components/tos/TosContent";
-import { useStyling } from "@/context/ContextStyling";
-import Link from "next/link";
-import Grid from "@/components/common/Grid";
+import Button from "@/components/button/Button";
+import HelpSupport from "@/components/help/HelpSupport";
+import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function PagesSupport() {
-  const { styling } = useStyling();
 
   return (
     <TosWrapper>
-      <Title className="text-2xl sm:text-2xl">Support</Title>
-      <TosContent>
-        <Paragraph>
-          Need help? We are here for you. Please reach out to us using the contact details below.
-        </Paragraph>
-        <div className={`${styling.components.card} mt-8 bg-base-200 ${styling.general.box}`}>
-          <Grid>
-            <div>
-              <Title>Contact Information</Title>
-              <div className="space-y-4 mt-4">
-                <div>
-                  <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Email&nbsp;</span>
-                  <Link href={`mailto:${settings.business.support_email}`} className={styling.components.link}>
-                    {settings.business.support_email}
-                  </Link>
-                </div>
-                {settings.business.phone && (
-                  <div>
-                    <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Phone</span>
-                    <Link href={`tel:${settings.business.phone}`} className={styling.components.link}>
-                      {settings.business.phone_display}
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div>
-              <Title>Business Details</Title>
-              <div className="space-y-4 mt-4">
-                <div>
-                  <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Entity Name</span>
-                  <p className="text-lg">{settings.business.entity_name}</p>
-                </div>
-                <div>
-                  <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Address</span>
-                  <p>
-                    {settings.business.address_line1}<br />
-                    {settings.business.address_line2}<br />
-                    {settings.business.country}
-                  </p>
-                </div>
-                <div>
-                  <span className="font-bold block text-xs opacity-70 uppercase tracking-wider mb-1">Main Website</span>
-                  <Link href={settings.business.website} className={styling.components.link}>
-                    {settings.business.website_display}
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </Grid>
+      <TosContent className="text-center sm:text-left">
+        <div className="space-y-1">
+          <Title>Support</Title>
+          <Paragraph>
+            Need help? We are here for you. Please reach out to us using the contact details below.
+          </Paragraph>
+        </div>
+
+        <HelpSupport />
+
+        <div className="space-y-3 my-10">
+          <Paragraph>Looking for quick answers?</Paragraph>
+          <Button href={settings.paths.help.source} variant="btn-outline">
+            View Help Articles
+          </Button>
         </div>
       </TosContent>
     </TosWrapper>

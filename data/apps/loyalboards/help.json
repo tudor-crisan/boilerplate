@@ -1,0 +1,59 @@
+{
+  "articles": [
+    {
+      "id": "login",
+      "title": "Login",
+      "description": "Issues with signing in, password reset",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "If you are having trouble logging in, please check your credentials and try again. You can reset your password using the 'Forgot Password' link on the login page."
+        }
+      ]
+    },
+    {
+      "id": "editing-profile",
+      "title": "Editing Profile",
+      "description": "Change name, profile picture",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "To edit your profile, go to the settings page and update your information. You can change your display name, profile picture, and bio."
+        }
+      ]
+    },
+    {
+      "id": "appearance",
+      "title": "Appearance",
+      "description": "Themes, dark mode settings",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "You can customize the appearance of the application by choosing different themes and toggling dark mode in the settings."
+        }
+      ]
+    },
+    {
+      "id": "creating-a-board",
+      "title": "Creating a Board",
+      "description": "Setup, permissions, initial content",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Create a new board to organize your tasks and projects. You can set permissions and add initial content to get started."
+        }
+      ]
+    },
+    {
+      "id": "viewing-analytics",
+      "title": "Viewing Analytics",
+      "description": "Dashboards, metrics, reports",
+      "content": [
+        {
+          "type": "paragraph",
+          "text": "Analyze your data with the built-in analytics dashboard. View key metrics and generate reports to track your progress."
+        }
+      ]
+    }
+  ]
+}

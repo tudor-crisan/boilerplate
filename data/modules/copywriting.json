@@ -67,6 +67,10 @@
           {
             "label": "Contact Support",
             "href": "/support"
+          },
+          {
+            "label": "Help Articles",
+            "href": "/help"
           }
         ]
       }

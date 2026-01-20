@@ -84,6 +84,14 @@
       "source": "/support",
       "destination": "/tos/support"
     },
+    "help": {
+      "source": "/help",
+      "destination": "/tos/help"
+    },
+    "helpArticle": {
+      "source": "/help/:articleId",
+      "destination": "/tos/help/:articleId"
+    },
     "dashboard": {
       "source": "/dashboard",
       "destination": "/dashboard"
@@ -146,6 +154,10 @@
     "support": {
       "title": "Support - {appName}",
       "description": "Contact our support team."
+    },
+    "help": {
+      "title": "Help Articles - {appName}",
+      "description": "Find helpful articles and guides for using our application."
     }
   },
   "forms": {
