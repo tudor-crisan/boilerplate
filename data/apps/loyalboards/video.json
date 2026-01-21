@@ -13,8 +13,8 @@
           "type": "title",
           "title": "Feedback made simple.",
           "voiceover": "Building a great product is hard. Knowing what your users want shouldn't be.",
-          "bg": "bg-neutral-900",
-          "textColor": "text-white",
+          "bg": "bg-neutral",
+          "textColor": "text-neutral-content",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_1_1768980232911.mp3"
         },
         {
@@ -23,9 +23,9 @@
           "title": "Magic Link Login",
           "subtitle": "No passwords. Just magic.",
           "voiceover": "Secure, passwordless login. Just a magic link away.",
-          "image": "/assets/video/loyalboards/mobile_friendly_available.png",
-          "bg": "bg-blue-50",
-          "textColor": "text-blue-900"
+          "image": "/assets/help/loyalboards/login_screen.png",
+          "bg": "bg-base-100",
+          "textColor": "text-base-content"
         },
         {
           "id": 3,
@@ -33,9 +33,9 @@
           "title": "Main Dashboard",
           "subtitle": "Everything at a glance.",
           "voiceover": "Manage all your boards from one central hub.",
-          "image": "/assets/video/loyalboards/main_dashboard.png",
-          "bg": "bg-white",
-          "textColor": "text-neutral-900"
+          "image": "/assets/video/loyalboards/complete_dashboard.png",
+          "bg": "bg-base-100",
+          "textColor": "text-base-content"
         },
         {
           "id": 4,
@@ -43,9 +43,9 @@
           "title": "Analytics Dashboard",
           "subtitle": "Real-time metrics.",
           "voiceover": "Track views, posts, votes, and comments in real-time.",
-          "image": "/assets/video/loyalboards/analytics_dashboard.png",
-          "bg": "bg-indigo-900",
-          "textColor": "text-white"
+          "image": "/assets/help/loyalboards/analytics_detail.png",
+          "bg": "bg-primary",
+          "textColor": "text-primary-content"
         },
         {
           "id": 5,
@@ -54,8 +54,8 @@
           "subtitle": "Deep dive into data.",
           "voiceover": "See which boards are driving the most engagement.",
           "image": "/assets/video/loyalboards/board_performance.png",
-          "bg": "bg-purple-100",
-          "textColor": "text-purple-900"
+          "bg": "bg-secondary",
+          "textColor": "text-secondary-content"
         },
         {
           "id": 6,
@@ -63,9 +63,9 @@
           "title": "Fully Customizable",
           "subtitle": "Your brand, your rules.",
           "voiceover": "Customize colors, fonts, and styles to match your brand.",
-          "image": "/assets/video/loyalboards/fully_customizable_boards.png",
-          "bg": "bg-green-50",
-          "textColor": "text-green-900"
+          "image": "/assets/help/loyalboards/board_edit_appearance.png",
+          "bg": "bg-accent",
+          "textColor": "text-accent-content"
         },
         {
           "id": 7,
@@ -73,9 +73,9 @@
           "title": "Real-time Notifications",
           "subtitle": "Never miss a beat.",
           "voiceover": "Get instant updates as users interact with your boards.",
-          "image": "/assets/video/loyalboards/realtime_notifications.png",
-          "bg": "bg-yellow-50",
-          "textColor": "text-yellow-900"
+          "image": "/assets/help/loyalboards/board_notifications.png",
+          "bg": "bg-base-200",
+          "textColor": "text-base-content"
         },
         {
           "id": 8,
@@ -84,8 +84,8 @@
           "subtitle": "Feedback on the go.",
           "voiceover": "Your boards look great on any device, anywhere.",
           "image": "/assets/video/loyalboards/mobile_dashboard_also.png",
-          "bg": "bg-red-50",
-          "textColor": "text-red-900"
+          "bg": "bg-neutral",
+          "textColor": "text-neutral-content"
         },
         {
           "id": 9,
@@ -93,8 +93,8 @@
           "title": "LoyalBoards",
           "subtitle": "Build better. Together.",
           "voiceover": "Turn feedback into your unfair advantage. Start today.",
-          "bg": "bg-neutral-900",
-          "textColor": "text-white"
+          "bg": "bg-base-content",
+          "textColor": "text-base-100"
         }
       ]
     },
@@ -110,8 +110,8 @@
           "type": "title",
           "title": "Feedback\nmade simple.",
           "voiceover": "Knowing what your users want shouldn't be hard.",
-          "bg": "bg-neutral-900",
-          "textColor": "text-white"
+          "bg": "bg-neutral",
+          "textColor": "text-neutral-content"
         },
         {
           "id": 2,
@@ -120,8 +120,8 @@
           "subtitle": "Built for you.",
           "voiceover": "Highly personalizable feedback boards.",
           "image": "/assets/video/loyalboards/different_theme_1.png",
-          "bg": "bg-white",
-          "textColor": "text-neutral-900"
+          "bg": "bg-base-100",
+          "textColor": "text-base-content"
         },
         {
           "id": 3,
@@ -129,9 +129,9 @@
           "title": "Smart Analytics",
           "subtitle": "Data-driven decisions.",
           "voiceover": "Real-time insights into user needs.",
-          "image": "/assets/video/loyalboards/analytics_dashboard.png",
-          "bg": "bg-indigo-900",
-          "textColor": "text-white"
+          "image": "/assets/help/loyalboards/analytics_boards.png",
+          "bg": "bg-primary",
+          "textColor": "text-primary-content"
         },
         {
           "id": 4,
@@ -139,9 +139,9 @@
           "title": "Profile Sync",
           "subtitle": "Your identity everywhere.",
           "voiceover": "Sync your appearance across the platform.",
-          "image": "/assets/video/loyalboards/change_profile_appearance.png",
-          "bg": "bg-purple-100",
-          "textColor": "text-purple-900"
+          "image": "/assets/help/loyalboards/profile_appearance.png",
+          "bg": "bg-secondary",
+          "textColor": "text-secondary-content"
         },
         {
           "id": 5,
@@ -149,8 +149,8 @@
           "title": "LoyalBoards",
           "subtitle": "Build better.",
           "voiceover": "LoyalBoards. Build better, together.",
-          "bg": "bg-neutral-900",
-          "textColor": "text-white"
+          "bg": "bg-base-content",
+          "textColor": "text-base-100"
         }
       ]
     }
