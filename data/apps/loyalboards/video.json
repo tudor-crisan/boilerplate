@@ -334,7 +334,8 @@
           "animation": "bounce",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_30_1768987015981.mp3"
         }
-      ]
+      ],
+      "music": "/uploads/music/loyalboards_promo-main-16-9_music_1768990891285.mp3"
     },
     {
       "id": "promo-short-9-16",
@@ -414,7 +415,8 @@
           "textColor": "text-neutral-content",
           "animation": "bounce"
         }
-      ]
+      ],
+      "music": "/uploads/music/loyalboards_promo-short-9-16_music_1768990877678.mp3"
     }
   ]
 }

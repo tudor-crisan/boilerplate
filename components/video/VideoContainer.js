@@ -47,6 +47,12 @@ export default function VideoContainer({ video }) {
   const [isVoMuted, setIsVoMuted] = useState(false);
   const [isMusicMuted, setIsMusicMuted] = useState(false);
 
+  // Sync state with video prop for gallery navigation
+  useEffect(() => {
+    setMusicUrl(video.music || "");
+    setMusicOffset(video.musicOffset || 0);
+  }, [video]);
+
   // Default duration from video config or 2000ms
   const defaultDuration = video.defaultDuration || 2000;
 
@@ -63,7 +69,7 @@ export default function VideoContainer({ video }) {
     setCurrentSlideIndex(0);
     setReplayKey((prev) => prev + 1);
     setIsPlaying(true);
-    
+
     // Reset VO
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
@@ -74,7 +80,6 @@ export default function VideoContainer({ video }) {
     // Reset Music
     if (musicRef.current) {
       musicRef.current.currentTime = musicOffset;
-      musicRef.current.play().catch(() => {});
     }
   }, [playbackSpeed, musicOffset]);
 
@@ -106,14 +111,6 @@ export default function VideoContainer({ video }) {
         audioRef.current.pause();
       }
     }
-
-    if (musicRef.current) {
-      if (nextState) {
-        musicRef.current.play().catch(() => {});
-      } else {
-        musicRef.current.pause();
-      }
-    }
   };
 
   const handleAudioEnded = () => {
@@ -143,6 +140,23 @@ export default function VideoContainer({ video }) {
       musicRef.current.currentTime = musicOffset;
     }
   }, [musicOffset, isPlaying]);
+
+  // Centralized Music Playback Control
+  useEffect(() => {
+    if (!musicRef.current) return;
+
+    if (isPlaying) {
+      if (musicRef.current.paused) {
+        // Ensure starting at offset if it's the beginning
+        if (musicRef.current.currentTime === 0 && musicOffset > 0) {
+          musicRef.current.currentTime = musicOffset;
+        }
+        musicRef.current.play().catch(() => {});
+      }
+    } else {
+      musicRef.current.pause();
+    }
+  }, [isPlaying, musicUrl, musicOffset]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -262,7 +276,7 @@ export default function VideoContainer({ video }) {
     formData.append("file", file);
     formData.append("appId", appId || "loyalboards");
     formData.append("videoId", videoId);
-    formData.append("isGlobal", "true"); 
+    formData.append("isGlobal", "true");
 
     try {
       const res = await fetch("/api/video/music", {
@@ -276,7 +290,6 @@ export default function VideoContainer({ video }) {
         setMusicInputKey((prev) => prev + 1);
         if (musicRef.current) {
           musicRef.current.src = data.path;
-          if (isPlaying) musicRef.current.play();
         }
       } else {
         toast.error("Failed to upload music");
@@ -428,7 +441,9 @@ export default function VideoContainer({ video }) {
                 Voiceover Settings
               </Paragraph>
               <div className="flex items-center gap-2 bg-base-100 px-3 py-1 border border-base-200 rounded-lg">
-                <TextSmall className="font-semibold opacity-60">VO Mute</TextSmall>
+                <TextSmall className="font-semibold opacity-60">
+                  VO Mute
+                </TextSmall>
                 <InputToggle
                   value={isVoMuted}
                   onChange={setIsVoMuted}
@@ -466,15 +481,20 @@ export default function VideoContainer({ video }) {
               <TextSmall className="font-bold opacity-40 uppercase mb-1">
                 Current Script
               </TextSmall>
-              <InputCopy value={currentSlide.voiceover} tooltipCopy="Copy Script">
+              <InputCopy
+                value={currentSlide.voiceover}
+                tooltipCopy="Copy Script"
+              >
                 <div className="flex items-center gap-1 border-l border-base-300 pl-2 ml-2">
-                  <Button
-                    onClick={handleReplay}
-                    variant="btn-square btn-ghost btn-sm text-primary"
-                    title="Replay slide"
-                  >
-                    <SvgReplay size="size-5" />
-                  </Button>
+                  {currentSlide.audio && (
+                    <Button
+                      onClick={handleReplay}
+                      variant="btn-square btn-ghost btn-sm text-primary"
+                      title="Replay slide"
+                    >
+                      <SvgReplay size="size-5" />
+                    </Button>
+                  )}
                   {currentSlide.audio && (
                     <Button
                       onClick={togglePlay}
@@ -517,7 +537,9 @@ export default function VideoContainer({ video }) {
                 accept="audio/*"
                 onChange={handleMusicUpload}
                 disabled={isMusicUploading}
-                placeholder={isMusicUploading ? "Uploading..." : "Choose Music Track"}
+                placeholder={
+                  isMusicUploading ? "Uploading..." : "Choose Music Track"
+                }
                 className="m-0"
               />
 
