@@ -1,4 +1,4 @@
-import { oklchToHex } from "@/libs/colors";
+import { isThemeDark, oklchToHex } from "@/libs/colors";
 import { defaultSetting, defaultStyling, defaultVisual } from "@/libs/defaults";
 import { fontMap } from "@/lists/fonts";
 import themeColors from "@/lists/themeColors";
@@ -67,24 +67,8 @@ export const getEmailBranding = (styling) => {
   const font = `${fontName}, sans-serif`;
 
   // Determine divider color based on theme (dark vs light)
-  const isDark = [
-    "dracula",
-    "dark",
-    "night",
-    "synthwave",
-    "halloween",
-    "forest",
-    "luxury",
-    "abyss",
-    "dim",
-    "business",
-    "sunset",
-    "coffee",
-    "aqua",
-    "black",
-    "luxury",
-    "abyss",
-  ].includes(theme);
+  // Determine divider color based on theme (dark vs light)
+  const isDark = isThemeDark(theme);
   const dividerColor = isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)";
 
   const cardClasses = activeStyling.components?.card || "";

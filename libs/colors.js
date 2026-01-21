@@ -44,3 +44,23 @@ export function oklchToHex(oklchStr) {
 
   return `#${toHex(r)}${toHex(g)}${toHex(bl)}`;
 }
+
+export const isThemeDark = (theme) => {
+  const darkThemes = [
+    "dracula",
+    "dark",
+    "night",
+    "synthwave",
+    "halloween",
+    "forest",
+    "luxury",
+    "abyss",
+    "dim",
+    "business",
+    "sunset",
+    "coffee",
+    "aqua",
+    "black",
+  ];
+  return darkThemes.includes(theme);
+};

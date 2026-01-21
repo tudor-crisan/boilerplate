@@ -4,12 +4,14 @@ import Title from "@/components/common/Title";
 import HelpContactSupport from "@/components/help/HelpContactSupport";
 import TosContent from "@/components/tos/TosContent";
 import TosWrapper from "@/components/tos/TosWrapper";
+import { useStyling } from "@/context/ContextStyling";
 import { defaultHelp } from "@/libs/defaults";
 import React from "react";
 import Image from "next/image";
 import { notFound, useParams } from "next/navigation";
 
 export default function HelpArticlePage() {
+  const { styling } = useStyling();
   const params = useParams();
   const articleId = params.articleId;
 
@@ -63,7 +65,9 @@ export default function HelpArticlePage() {
               return (
                 <div
                   key={index}
-                  className="relative w-full h-64 md:h-96 rounded-xl overflow-hidden my-6"
+                  className={`relative w-full h-64 md:h-96 overflow-hidden my-6 ${
+                    styling.components.image || ""
+                  }`}
                 >
                   <Image
                     src={block.src}

@@ -1,43 +1,119 @@
 "use client";
-import HelpContactSupport from "@/components/help/HelpContactSupport";
 import Grid from "@/components/common/Grid";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
+import HelpContactSupport from "@/components/help/HelpContactSupport";
 import Input from "@/components/input/Input";
 import SvgSearch from "@/components/svg/SvgSearch";
 import TosContent from "@/components/tos/TosContent";
 import { useStyling } from "@/context/ContextStyling";
+import { isThemeDark } from "@/libs/colors";
 import { defaultHelp, defaultSetting as settings } from "@/libs/defaults";
 import React, { useState } from "react";
 import Link from "next/link";
 
-// Helper component for Article Card
-const ArticleCard = ({ id, title, description }) => {
-  const { styling } = useStyling();
-  return (
-    <Link
-      href={`${settings.paths.help.source}/${id}`}
-      className={`${styling.components.card} bg-base-200 ${styling.general.box} hover:bg-base-300 transition-colors flex flex-col items-center text-center cursor-pointer h-full`}
-    >
-      <Title tag="h3" className="mb-2 text-lg">
-        {title}
-      </Title>
-      <Paragraph className="text-sm border-none!">{description}</Paragraph>
-    </Link>
-  );
-};
-
 export default function HelpArticles() {
   const { styling } = useStyling();
   const [searchQuery, setSearchQuery] = useState("");
-
+  const isDark = isThemeDark(styling.theme);
   const articles = defaultHelp.articles || [];
 
-  const filteredArticles = articles.filter(
-    (article) =>
-      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.description.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  // Helper to escape regex special characters
+  const escapeRegExp = (string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+  };
+
+  // Helper to strip HTML tags
+  const stripHtml = (html) => {
+    if (!html) return "";
+    return html.replace(/<[^>]*>?/gm, "");
+  };
+
+  const getMatches = (article, query) => {
+    if (!query) return [];
+    const matches = [];
+    const lowerQuery = query.toLowerCase();
+
+    // Check content
+    article.content.forEach((item) => {
+      let textToCheck = "";
+      if (item.type === "paragraph" || item.type === "heading") {
+        textToCheck = stripHtml(item.text);
+      } else if (item.type === "list") {
+        textToCheck = stripHtml(item.items.join(" "));
+      } else if (item.type === "image") {
+        textToCheck = item.alt;
+      }
+
+      if (textToCheck && textToCheck.toLowerCase().includes(lowerQuery)) {
+        // Find distinct matches in this block
+        const regex = new RegExp(escapeRegExp(query), "gi");
+        let match;
+        while ((match = regex.exec(textToCheck)) !== null) {
+          // Extract snippet found
+          const start = Math.max(0, match.index - 30);
+          const end = Math.min(
+            textToCheck.length,
+            match.index + query.length + 30,
+          );
+          let snippet = textToCheck.substring(start, end);
+
+          if (start > 0) snippet = "..." + snippet;
+          if (end < textToCheck.length) snippet = snippet + "...";
+
+          matches.push(snippet);
+          if (matches.length >= 2) break; // Limit per content block
+        }
+      }
+    });
+
+    return matches.slice(0, 3); // Return top 3 matches overall
+  };
+
+  const filteredArticles = articles
+    .map((article) => {
+      const matches = getMatches(article, searchQuery);
+      const isContentMatch = matches.length > 0;
+      const isTitleMatch = article.title
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const isDescMatch = article.description
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+      if (searchQuery && (isTitleMatch || isDescMatch || isContentMatch)) {
+        return { ...article, matches };
+      } else if (!searchQuery) {
+        return { ...article, matches: [] };
+      }
+      return null;
+    })
+    .filter(Boolean);
+
+  // Improved highlighting component
+  const HighlightedText = ({ text, highlight }) => {
+    if (!highlight || !text) return <span>{text}</span>;
+
+    const parts = text.split(new RegExp(`(${escapeRegExp(highlight)})`, "gi"));
+    return (
+      <span>
+        {parts.map((part, i) =>
+          part.toLowerCase() === highlight.toLowerCase() ? (
+            <span
+              key={i}
+              className={`${
+                isDark ? "bg-yellow-600 text-white" : "bg-yellow-200 text-black"
+              } rounded-sm px-0.5`}
+            >
+              {part}
+            </span>
+          ) : (
+            <span key={i}>{part}</span>
+          ),
+        )}
+      </span>
+    );
+  };
 
   return (
     <>
@@ -60,9 +136,37 @@ export default function HelpArticles() {
         {filteredArticles.length ? (
           <Grid className="my-12">
             {filteredArticles.map((article, index) => (
-              <div key={index}>
-                <ArticleCard {...article} />
-              </div>
+              <Link
+                key={index}
+                href={`${settings.paths.help.source}/${article.id}`}
+                className={`${styling.components.card} bg-base-200 ${styling.general.box} hover:bg-base-300 transition-colors flex flex-col items-center text-center cursor-pointer h-full`}
+              >
+                <Title tag="h3" className="mb-2 text-lg">
+                  <HighlightedText
+                    text={article.title}
+                    highlight={searchQuery}
+                  />
+                </Title>
+                <Paragraph className="text-sm border-none!">
+                  <HighlightedText
+                    text={article.description}
+                    highlight={searchQuery}
+                  />
+                </Paragraph>
+
+                {/* Search Matches from Content */}
+                {article.matches && article.matches.length > 0 && (
+                  <div className="mt-4 pt-4 border-t border-base-content/10 w-full text-xs text-base-content/70 italic">
+                    {article.matches.map((match, idx) => (
+                      <div key={idx} className="mb-1">
+                        &quot;
+                        <HighlightedText text={match} highlight={searchQuery} />
+                        &quot;
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </Link>
             ))}
           </Grid>
         ) : null}
