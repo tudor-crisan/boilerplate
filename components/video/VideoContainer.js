@@ -43,7 +43,7 @@ export default function VideoContainer({ video }) {
   // Music state
   const [musicUrl, setMusicUrl] = useState(video.music || "");
   const [musicOffset, setMusicOffset] = useState(video.musicOffset || 0);
-  const [musicVolume, setMusicVolume] = useState(0.5);
+  const [musicVolume, setMusicVolume] = useState(0.3); // Lowered from 0.5 to 0.3
   const [isVoMuted, setIsVoMuted] = useState(false);
   const [isMusicMuted, setIsMusicMuted] = useState(false);
 
@@ -114,9 +114,11 @@ export default function VideoContainer({ video }) {
   };
 
   const handleAudioEnded = () => {
-    setIsPlaying(false);
     if (isAutoplay && currentSlideIndex < slides.length - 1) {
+      // Keep isPlaying true and move to next
       nextSlide();
+    } else {
+      setIsPlaying(false);
     }
   };
 
@@ -185,7 +187,9 @@ export default function VideoContainer({ video }) {
 
     if (audioRef.current) {
       audioRef.current.pause();
-      setIsPlaying(false);
+      // Only set to false if we're not currently playing (prevents music flicker)
+      if (!isPlaying) setIsPlaying(false);
+
       audioRef.current.currentTime = 0;
       audioRef.current.playbackRate = playbackSpeed;
 
@@ -193,18 +197,18 @@ export default function VideoContainer({ video }) {
         audioRef.current.src = currentSlide.audio;
         audioRef.current.load();
 
-        if (isAutoplay) {
+        if (isAutoplay || isPlaying) {
           const playPromise = audioRef.current.play();
           if (playPromise !== undefined) {
             playPromise
               .then(() => setIsPlaying(true))
               .catch((e) => {
                 console.log("Audio play failed or was interrupted", e);
-                setIsPlaying(false);
+                // Don't forcefully set to false here to keep music playing if it was
               });
           }
         }
-      } else if (isAutoplay) {
+      } else if (isAutoplay || isPlaying) {
         // Fallback for slides without audio: advance after default duration / speed
         const duration = defaultDuration / playbackSpeed;
         timeoutId = setTimeout(() => {
@@ -471,7 +475,13 @@ export default function VideoContainer({ video }) {
                   accept="audio/*"
                   onChange={handleFileUpload}
                   disabled={isUploading}
-                  placeholder={isUploading ? "Uploading..." : "Replace VO"}
+                  placeholder={
+                    isUploading
+                      ? "Uploading..."
+                      : currentSlide.audio
+                        ? currentSlide.audio.split("/").pop()
+                        : "Replace VO"
+                  }
                   className="m-0"
                 />
               </div>
@@ -536,7 +546,11 @@ export default function VideoContainer({ video }) {
                 onChange={handleMusicUpload}
                 disabled={isMusicUploading}
                 placeholder={
-                  isMusicUploading ? "Uploading..." : "Choose Music Track"
+                  isMusicUploading
+                    ? "Uploading..."
+                    : musicUrl
+                      ? musicUrl.split("/").pop()
+                      : "Choose Music Track"
                 }
                 className="m-0"
               />
