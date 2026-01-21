@@ -1,5 +1,5 @@
 "use client";
-import CommonPopover from "@/components/common/CommonPopover";
+import Popover from "@/components/common/Popover";
 import HeaderButton from "@/components/header/HeaderButton";
 import IconLogo from "@/components/icon/IconLogo";
 import SvgClose from "@/components/svg/SvgClose";
@@ -73,7 +73,7 @@ export default function HeaderHamburger() {
             ))}
 
             {/* Mobile Help Menu */}
-            <CommonPopover
+            <Popover
               label="Help"
               items={
                 copywriting.SectionFooter.menus.find(

@@ -2,7 +2,7 @@
 import { useStyling } from "@/context/ContextStyling";
 import Link from "next/link";
 
-export default function CommonDropdown({ label, items }) {
+export default function Dropdown({ label, items }) {
   const { styling } = useStyling();
 
   return (

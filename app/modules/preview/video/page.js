@@ -6,12 +6,13 @@ import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import Title from "@/components/common/Title";
 import VideoContainer from "@/components/video/VideoContainer";
-import styling from "@/data/modules/styling.json";
+import { useStyling } from "@/context/ContextStyling";
 import applications from "@/lists/applications";
 import videos from "@/lists/videos";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function VideoModulePage() {
+  const { styling } = useStyling();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();

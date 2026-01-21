@@ -1,5 +1,5 @@
 "use client";
-import CommonDropdown from "@/components/common/CommonDropdown";
+import Dropdown from "@/components/common/Dropdown";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
 import Link from "next/link";
@@ -31,7 +31,7 @@ export default function HeaderMenu() {
         ))}
 
         {/* Help Dropdown */}
-        <CommonDropdown
+        <Dropdown
           label="Help"
           items={
             copywriting.SectionFooter.menus.find((m) => m.title === "Support")

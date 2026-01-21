@@ -7,13 +7,14 @@ import InputToggle from "@/components/input/InputToggle";
 import SvgPause from "@/components/svg/SvgPause";
 import SvgPlay from "@/components/svg/SvgPlay";
 import VideoSlide from "@/components/video/VideoSlide";
-import styling from "@/data/modules/styling.json";
+import { useStyling } from "@/context/ContextStyling";
 import { toast } from "@/libs/toast";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 
 export default function VideoContainer({ video }) {
+  const { styling } = useStyling();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -164,18 +165,14 @@ export default function VideoContainer({ video }) {
   if (!currentSlide)
     return <div className="p-10">No slides found in this video config.</div>;
 
-  const roundedClass = styling.components.card.includes("rounded-2xl")
-    ? "rounded-2xl"
-    : "rounded-md";
-
   return (
     <div className="w-full flex flex-col items-center justify-center p-8 gap-8">
       <audio ref={audioRef} className="hidden" onEnded={handleAudioEnded} />
 
       {/* Video Player */}
       <div
-        className={`relative overflow-hidden bg-gray-900 shadow-md transition-all duration-300 border border-base-300 ${roundedClass}
-          ${isVertical ? "aspect-9/16 h-[80vh]" : "aspect-video w-full max-w-6xl"}
+        className={`relative overflow-hidden bg-gray-900 shadow-xl transition-all duration-300 border border-base-300 ${styling.components.card}
+          ${isVertical ? "aspect-9/16 h-[80vh]" : "aspect-video w-full max-w-4xl"}
         `}
       >
         <AnimatePresence mode="wait">
@@ -192,19 +189,17 @@ export default function VideoContainer({ video }) {
       <div
         className={`w-full max-w-3xl flex items-center justify-between bg-base-100 p-4 shadow-md border border-base-300 ${styling.components.element}`}
       >
-        <Button
-          onClick={() => router.push(pathname)}
-          variant="btn-ghost hover:bg-base-200"
-          size="btn-sm"
-        >
+        <Button onClick={() => router.push(pathname)} size="btn-sm">
           ← Back to Gallery
         </Button>
 
-        <div className="flex bg-base-200 rounded-lg p-1 gap-1">
+        <div
+          className={`${styling.components.element} flex bg-base-200 p-1 gap-1`}
+        >
           <Button
             onClick={prevSlide}
             disabled={currentSlideIndex <= 0}
-            variant="btn-ghost hover:bg-base-300"
+            variant="btn-outline"
             size="btn-sm"
           >
             Prev
@@ -215,14 +210,14 @@ export default function VideoContainer({ video }) {
           <Button
             onClick={nextSlide}
             disabled={currentSlideIndex >= slides.length - 1}
-            variant="btn-ghost hover:bg-base-300"
+            variant="btn-outline"
             size="btn-sm"
           >
             Next
           </Button>
         </div>
 
-        <Button onClick={handleReplay} variant="btn-outline" size="btn-sm">
+        <Button onClick={handleReplay} variant="btn-white" size="btn-sm">
           Replay Slide
         </Button>
       </div>
@@ -251,20 +246,20 @@ export default function VideoContainer({ video }) {
 
         {/* Upload & Autoplay Controls */}
         <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="w-[300px]">
-              <InputFile
-                accept="audio/*"
-                onChange={handleFileUpload}
-                disabled={isUploading}
-                placeholder={isUploading ? "Uploading..." : "Upload New VO"}
-                className="m-0"
-              />
-            </div>
+          <div className="flex-1 max-w-[300px]">
+            <InputFile
+              accept="audio/*"
+              onChange={handleFileUpload}
+              disabled={isUploading}
+              placeholder={isUploading ? "Uploading..." : "Upload New VO"}
+              className="m-0"
+            />
           </div>
 
-          <div className="flex items-center gap-2 bg-base-100 px-4 py-2 rounded-lg border border-base-200">
-            <span className="text-sm font-medium opacity-70">
+          <div
+            className={`flex items-center gap-2 bg-base-100 px-4 py-2 border border-base-200 ${styling.components.element}`}
+          >
+            <span className="text-sm font-medium opacity-70 whitespace-nowrap">
               Autoplay Slides
             </span>
             <InputToggle
