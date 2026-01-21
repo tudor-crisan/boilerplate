@@ -132,11 +132,15 @@ export default function VideoSlide({ slide, isVertical }) {
             src={slide.image}
             alt={slide.title || "Slide Image"}
             fill
-            className="object-cover object-top"
+            className={`
+              ${slide.imageFit === "contain" ? "object-contain object-center" : "object-cover object-top"}
+            `}
             priority
           />
           {/* Subtle overlay to make text pop if image is too bright */}
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/20 to-transparent pointer-events-none" />
+          {slide.imageFit !== "contain" && (
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/20 to-transparent pointer-events-none" />
+          )}
         </motion.div>
       )}
 

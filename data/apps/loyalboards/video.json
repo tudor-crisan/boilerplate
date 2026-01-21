@@ -1,5 +1,5 @@
 {
-  "defaultDuration": 2000,
+  "defaultDuration": 1500,
   "videos": [
     {
       "id": "promo-main-16-9",
@@ -11,102 +11,328 @@
         {
           "id": 1,
           "type": "title",
-          "title": "Feedback made simple.",
-          "voiceover": "Building a great product is hard. Knowing what your users want shouldn't be.",
+          "title": "LoyalBoards",
+          "voiceover": "LoyalBoards.",
           "bg": "bg-neutral",
           "textColor": "text-neutral-content",
           "animation": "zoom",
-          "audio": "/uploads/vo/loyalboards_promo-main-16-9_1_1768980232911.mp3"
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_1_1768986585491.mp3"
         },
         {
           "id": 2,
           "type": "feature",
-          "title": "Magic Link Login",
-          "subtitle": "No passwords. Just magic.",
-          "voiceover": "Secure, passwordless login. Just a magic link away.",
-          "image": "/assets/video/loyalboards/main_dashboard.png",
+          "title": "Building is hard.",
+          "voiceover": "Building a great product is hard.",
           "bg": "bg-base-100",
-          "textColor": "text-primary",
-          "animation": "slide-left"
+          "textColor": "text-neutral",
+          "animation": "fade",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_2_1768986614867.mp3"
         },
         {
           "id": 3,
           "type": "feature",
-          "title": "Main Dashboard",
-          "subtitle": "Everything at a glance.",
-          "voiceover": "Manage all your boards from one central hub.",
-          "image": "/assets/video/loyalboards/complete_dashboard.png",
+          "title": "Stop guessing.",
+          "voiceover": "Stop guessing what users want.",
           "bg": "bg-primary",
           "textColor": "text-primary-content",
-          "animation": "slide-right"
+          "animation": "slide-left",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_3_1768986630173.mp3"
         },
         {
           "id": 4,
-          "type": "transition",
-          "title": "All-in-one Solution",
-          "subtitle": "From feedback to roadmap.",
-          "voiceover": "A complete suite to handle your product lifecycle.",
-          "images": [
-            "/assets/video/loyalboards/analytics_dashboard.png",
-            "/assets/video/loyalboards/board_performance.png"
-          ],
+          "type": "feature",
+          "title": "Start listening.",
+          "voiceover": "Start listening to them.",
           "bg": "bg-base-100",
-          "textColor": "text-secondary",
-          "animation": "fade"
+          "textColor": "text-primary",
+          "animation": "slide-right",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_4_1768986641653.mp3"
         },
         {
           "id": 5,
           "type": "feature",
-          "title": "Smart Analytics",
-          "subtitle": "Real-time metrics.",
-          "voiceover": "Track views, posts, votes, and comments in real-time.",
-          "image": "/assets/video/loyalboards/analytics_dashboard.png",
+          "title": "One central hub.",
+          "voiceover": "All feedback in one central hub.",
+          "image": "/assets/video/loyalboards/complete_dashboard.png",
+          "imageFit": "contain",
           "bg": "bg-secondary",
           "textColor": "text-secondary-content",
-          "animation": "bounce"
+          "animation": "zoom",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_5_1768986657579.mp3"
         },
         {
           "id": 6,
           "type": "feature",
-          "title": "Fully Customizable",
-          "subtitle": "Your brand, your rules.",
-          "voiceover": "Customize colors, fonts, and styles to match your brand.",
-          "image": "/assets/video/loyalboards/fully_customizable_boards.png",
+          "title": "Clean UI.",
+          "voiceover": "Clean, intuitive interface.",
+          "image": "/assets/video/loyalboards/main_dashboard.png",
           "bg": "bg-base-100",
-          "textColor": "text-accent",
-          "animation": "zoom"
+          "textColor": "text-neutral",
+          "animation": "fade",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_6_1768986701483.mp3"
         },
         {
           "id": 7,
           "type": "feature",
-          "title": "Real-time Notifications",
-          "subtitle": "Never miss a beat.",
-          "voiceover": "Get instant updates as users interact with your boards.",
-          "image": "/assets/video/loyalboards/realtime_notifications.png",
+          "title": "Capture ideas.",
+          "voiceover": "Capture every brilliant idea.",
+          "image": "/assets/video/loyalboards/preview_board.png",
           "bg": "bg-accent",
           "textColor": "text-accent-content",
-          "animation": "slide-left"
+          "animation": "slide-left",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_7_1768986710217.mp3"
         },
         {
           "id": 8,
           "type": "feature",
-          "title": "Mobile Friendly",
-          "subtitle": "Feedback on the go.",
-          "voiceover": "Your boards look great on any device, anywhere.",
-          "image": "/assets/video/loyalboards/mobile_friendly_available.png",
+          "title": "Organize fast.",
+          "voiceover": "Organize your roadmap fast.",
+          "image": "/assets/video/loyalboards/board_performance.png",
           "bg": "bg-base-100",
-          "textColor": "text-neutral",
-          "animation": "slide-right"
+          "textColor": "text-accent",
+          "animation": "slide-right",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_8_1768986726101.mp3"
         },
         {
           "id": 9,
-          "type": "end",
-          "title": "LoyalBoards",
-          "subtitle": "Build better. Together.",
-          "voiceover": "Turn feedback into your unfair advantage. Start today.",
+          "type": "feature",
+          "title": "Live Updates.",
+          "voiceover": "See results in real-time.",
+          "image": "/assets/video/loyalboards/analytics_dashboard.png",
+          "imageFit": "contain",
           "bg": "bg-neutral",
           "textColor": "text-neutral-content",
-          "animation": "bounce"
+          "animation": "bounce",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_9_1768986735107.mp3"
+        },
+        {
+          "id": 10,
+          "type": "feature",
+          "title": "Total Control.",
+          "voiceover": "You're in total control.",
+          "image": "/assets/video/loyalboards/fully_customizable_boards.png",
+          "bg": "bg-base-100",
+          "textColor": "text-primary",
+          "animation": "zoom",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_10_1768986746484.mp3"
+        },
+        {
+          "id": 11,
+          "type": "feature",
+          "title": "Mobile First.",
+          "voiceover": "Built for mobile first.",
+          "image": "/assets/video/loyalboards/mobile_friendly_available.png",
+          "bg": "bg-primary",
+          "textColor": "text-primary-content",
+          "animation": "slide-left",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_11_1768986761868.mp3"
+        },
+        {
+          "id": 12,
+          "type": "feature",
+          "title": "Everywhere.",
+          "voiceover": "Access from anywhere.",
+          "image": "/assets/video/loyalboards/mobile_dashboard_also.png",
+          "imageFit": "contain",
+          "bg": "bg-base-100",
+          "textColor": "text-secondary",
+          "animation": "fade",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_12_1768986774355.mp3"
+        },
+        {
+          "id": 13,
+          "type": "feature",
+          "title": "Custom Themes.",
+          "voiceover": "Styles that match your brand.",
+          "image": "/assets/video/loyalboards/different_theme_3.png",
+          "imageFit": "contain",
+          "bg": "bg-secondary",
+          "textColor": "text-secondary-content",
+          "animation": "zoom",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_13_1768986785835.mp3"
+        },
+        {
+          "id": 14,
+          "type": "feature",
+          "title": "Vibrant Colors.",
+          "voiceover": "Beautiful, vibrant themes.",
+          "image": "/assets/video/loyalboards/different_theme_2.png",
+          "imageFit": "contain",
+          "bg": "bg-base-100",
+          "textColor": "text-accent",
+          "animation": "slide-right",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_14_1768986798258.mp3"
+        },
+        {
+          "id": 15,
+          "type": "feature",
+          "title": "Dark Mode.",
+          "voiceover": "Elegant dark mode support.",
+          "image": "/assets/video/loyalboards/different_theme_1.png",
+          "imageFit": "contain",
+          "bg": "bg-neutral",
+          "textColor": "text-neutral-content",
+          "animation": "fade",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_15_1768986813035.mp3"
+        },
+        {
+          "id": 16,
+          "type": "feature",
+          "title": "Modern Look.",
+          "voiceover": "Sleek, modern design.",
+          "image": "/assets/video/loyalboards/different_theme_4.png",
+          "imageFit": "contain",
+          "bg": "bg-base-100",
+          "textColor": "text-primary",
+          "animation": "zoom",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_16_1768986824939.mp3"
+        },
+        {
+          "id": 17,
+          "type": "feature",
+          "title": "Professional.",
+          "voiceover": "Professional tools for pro teams.",
+          "image": "/assets/video/loyalboards/different_theme_5.png",
+          "imageFit": "contain",
+          "bg": "bg-primary",
+          "textColor": "text-primary-content",
+          "animation": "slide-left",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_17_1768986839588.mp3"
+        },
+        {
+          "id": 18,
+          "type": "feature",
+          "title": "Instant Notifications.",
+          "voiceover": "Get notified instantly.",
+          "image": "/assets/video/loyalboards/realtime_notifications.png",
+          "bg": "bg-base-100",
+          "textColor": "text-secondary",
+          "animation": "bounce",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_18_1768986851865.mp3"
+        },
+        {
+          "id": 19,
+          "type": "feature",
+          "title": "Stay Connected.",
+          "voiceover": "Stay connected with your users.",
+          "bg": "bg-secondary",
+          "textColor": "text-secondary-content",
+          "animation": "fade",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_19_1768986863018.mp3"
+        },
+        {
+          "id": 20,
+          "type": "feature",
+          "title": "Deep Insights.",
+          "voiceover": "Powerful analytics at your fingertips.",
+          "image": "/assets/video/loyalboards/analytics_dashboard.png",
+          "imageFit": "contain",
+          "bg": "bg-base-100",
+          "textColor": "text-accent",
+          "animation": "zoom",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_20_1768986874948.mp3"
+        },
+        {
+          "id": 21,
+          "type": "feature",
+          "title": "Smart Data.",
+          "voiceover": "Data-driven decisions.",
+          "image": "/assets/video/loyalboards/board_performance.png",
+          "bg": "bg-accent",
+          "textColor": "text-accent-content",
+          "animation": "slide-right",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_21_1768986890587.mp3"
+        },
+        {
+          "id": 22,
+          "type": "feature",
+          "title": "User Profiles.",
+          "voiceover": "Express your identity.",
+          "image": "/assets/video/loyalboards/change_profile_appearance.png",
+          "bg": "bg-base-100",
+          "textColor": "text-neutral",
+          "animation": "fade",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_22_1768986902763.mp3"
+        },
+        {
+          "id": 23,
+          "type": "feature",
+          "title": "Collaborate.",
+          "voiceover": "Build better, together.",
+          "bg": "bg-neutral",
+          "textColor": "text-neutral-content",
+          "animation": "slide-left",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_23_1768986919453.mp3"
+        },
+        {
+          "id": 24,
+          "type": "feature",
+          "title": "Scalable.",
+          "voiceover": "Scales with your business.",
+          "bg": "bg-base-100",
+          "textColor": "text-primary",
+          "animation": "zoom",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_24_1768986931585.mp3"
+        },
+        {
+          "id": 25,
+          "type": "feature",
+          "title": "Secure.",
+          "voiceover": "Enterprise-grade security.",
+          "bg": "bg-primary",
+          "textColor": "text-primary-content",
+          "animation": "fade",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_25_1768986943233.mp3"
+        },
+        {
+          "id": 26,
+          "type": "feature",
+          "title": "Simple.",
+          "voiceover": "Unmatched simplicity.",
+          "bg": "bg-base-100",
+          "textColor": "text-secondary",
+          "animation": "bounce",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_26_1768986955894.mp3"
+        },
+        {
+          "id": 27,
+          "type": "feature",
+          "title": "Fast.",
+          "voiceover": "Blazing fast performance.",
+          "bg": "bg-secondary",
+          "textColor": "text-secondary-content",
+          "animation": "slide-right",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_27_1768986969705.mp3"
+        },
+        {
+          "id": 28,
+          "type": "feature",
+          "title": "Best Choice.",
+          "voiceover": "The better way to manage feedback.",
+          "bg": "bg-base-100",
+          "textColor": "text-accent",
+          "animation": "zoom",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_28_1768986983771.mp3"
+        },
+        {
+          "id": 29,
+          "type": "feature",
+          "title": "Ready?",
+          "voiceover": "Are you ready to grow?",
+          "bg": "bg-accent",
+          "textColor": "text-accent-content",
+          "animation": "fade",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_29_1768987003370.mp3"
+        },
+        {
+          "id": 30,
+          "type": "end",
+          "title": "Start Now.",
+          "voiceover": "Start your journey today.",
+          "bg": "bg-neutral",
+          "textColor": "text-neutral-content",
+          "animation": "bounce",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_30_1768987015981.mp3"
         }
       ]
     },
@@ -120,8 +346,8 @@
         {
           "id": 1,
           "type": "title",
-          "title": "Feedback\nmade simple.",
-          "voiceover": "Knowing what your users want shouldn't be hard.",
+          "title": "Listen.",
+          "voiceover": "Listen to your users.",
           "bg": "bg-neutral",
           "textColor": "text-neutral-content",
           "animation": "zoom"
@@ -129,10 +355,10 @@
         {
           "id": 2,
           "type": "feature",
-          "title": "Custom Boards",
-          "subtitle": "Built for you.",
-          "voiceover": "Highly personalizable feedback boards.",
+          "title": "Capture.",
+          "voiceover": "Capture every idea.",
           "image": "/assets/video/loyalboards/different_theme_1.png",
+          "imageFit": "contain",
           "bg": "bg-base-100",
           "textColor": "text-primary",
           "animation": "slide-left"
@@ -140,10 +366,10 @@
         {
           "id": 3,
           "type": "feature",
-          "title": "Smart Analytics",
-          "subtitle": "Data-driven decisions.",
-          "voiceover": "Real-time insights into user needs.",
+          "title": "Build.",
+          "voiceover": "Build what matters.",
           "image": "/assets/video/loyalboards/analytics_dashboard.png",
+          "imageFit": "contain",
           "bg": "bg-primary",
           "textColor": "text-primary-content",
           "animation": "bounce"
@@ -151,20 +377,39 @@
         {
           "id": 4,
           "type": "feature",
-          "title": "Profile Sync",
-          "subtitle": "Your identity everywhere.",
-          "voiceover": "Sync your appearance across the platform.",
+          "title": "Personalize.",
+          "voiceover": "Make it yours.",
           "image": "/assets/video/loyalboards/change_profile_appearance.png",
+          "imageFit": "contain",
           "bg": "bg-base-100",
           "textColor": "text-secondary",
           "animation": "zoom"
         },
         {
           "id": 5,
+          "type": "feature",
+          "title": "Anywhere.",
+          "voiceover": "Access everywhere.",
+          "image": "/assets/video/loyalboards/mobile_dashboard_also.png",
+          "imageFit": "contain",
+          "bg": "bg-secondary",
+          "textColor": "text-secondary-content",
+          "animation": "slide-right"
+        },
+        {
+          "id": 6,
+          "type": "feature",
+          "title": "Start Free.",
+          "voiceover": "Start building for free.",
+          "bg": "bg-base-100",
+          "textColor": "text-accent",
+          "animation": "fade"
+        },
+        {
+          "id": 7,
           "type": "end",
           "title": "LoyalBoards",
-          "subtitle": "Build better.",
-          "voiceover": "LoyalBoards. Build better, together.",
+          "voiceover": "LoyalBoards. Build better.",
           "bg": "bg-neutral",
           "textColor": "text-neutral-content",
           "animation": "bounce"
