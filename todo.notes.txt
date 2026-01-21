@@ -1,17 +1,12 @@
 
 - test the app on desktop for opera, firefox, safari, edge
-- make screenshots of the app for the help articles
-- use the documentation to create a video script, and what to show on screen
-
 - make launch video of full app with obs / capcut template
-- make extension for posting on multiple directories
 
 - make a documentation page for tudorcrisan for the boilerplate (from specs)
 - make a buy link with redirect to google drive with multiple versions
 - make a documentation explaining how to build from ground up using the codefast texts
 - use this as a mini-go-along free-course on tudorcrisan.dev
 - prepare also a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
-
 - have the documentation of the whole codebase also inside tudorcrisan.dev , and share that in CV (remove the testimonials from 2016)
 - update the romanian and english CV with the loyalboards specifications inside a one page
 
@@ -19,5 +14,6 @@
 - list all 3, adeverinta, buletin, diploma, prepare them in a file cabinet, and a mini-backpack
 - prepare for the train at 2:40am to Arad, have money for road, and find-out the location
 
+- make extension for posting on multiple directories
 - think maybe of a way to log-in into users dashboards to debug if problems arrise
 - think of having a daily backup of the mongodb database for loyalboards
