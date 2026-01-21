@@ -5,52 +5,104 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function VideoSlide({ slide, isVertical }) {
-  // Configurable transition/animation constants could go here
+  const animation = slide.animation || "fade";
 
   const getTextSize = (size) => {
-    // Adjust text sizes based on isVertical format
     if (isVertical) {
-      if (size === "title") return "text-6xl";
-      if (size === "subtitle") return "text-3xl";
-      return "text-base";
+      if (size === "title") return "text-5xl";
+      if (size === "subtitle") return "text-2xl";
+      return "text-sm";
     }
-    // Default 16:9
     if (size === "title") return "text-7xl";
     if (size === "subtitle") return "text-4xl";
     return "text-lg";
   };
 
+  const getVariants = (type) => {
+    switch (type) {
+      case "zoom":
+        return {
+          initial: { scale: 0.8, opacity: 0 },
+          animate: { scale: 1, opacity: 1 },
+          exit: { scale: 1.2, opacity: 0 },
+        };
+      case "slide-left":
+        return {
+          initial: { x: 100, opacity: 0 },
+          animate: { x: 0, opacity: 1 },
+          exit: { x: -100, opacity: 0 },
+        };
+      case "slide-right":
+        return {
+          initial: { x: -100, opacity: 0 },
+          animate: { x: 0, opacity: 1 },
+          exit: { x: 100, opacity: 0 },
+        };
+      case "bounce":
+        return {
+          initial: { y: 50, opacity: 0 },
+          animate: {
+            y: 0,
+            opacity: 1,
+            transition: { type: "spring", stiffness: 300, damping: 20 },
+          },
+          exit: { y: -50, opacity: 0 },
+        };
+      default: // fade
+        return {
+          initial: { scale: 0.95, opacity: 0 },
+          animate: { scale: 1, opacity: 1 },
+          exit: { opacity: 0 },
+        };
+    }
+  };
+
+  const variants = getVariants(animation);
+
   return (
     <div
-      className={`w-full h-full relative overflow-hidden font-sans transition-colors duration-500 ${slide.bg} ${slide.textColor} flex flex-col items-center justify-center p-8`}
+      className={`w-full h-full relative overflow-hidden font-sans transition-all duration-700 ${slide.bg} ${slide.textColor} flex flex-col items-center justify-center p-8`}
     >
+      {/* Background Decorative Element */}
+      <motion.div
+        className="absolute -top-20 -left-20 w-64 h-64 rounded-full bg-white/5 blur-3xl"
+        animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      />
+      <motion.div
+        className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-white/5 blur-3xl"
+        animate={{ scale: [1.2, 1, 1.2], rotate: [90, 0, 90] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+      />
+
       {/* Title & Subtitle */}
       <div
-        className={`z-10 text-center ${isVertical ? "mb-12" : "mb-8"} relative`}
+        className={`z-10 text-center ${isVertical ? "mb-10" : "mb-8"} relative`}
       >
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 1.1, opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={variants.initial}
+          animate={variants.animate}
+          exit={variants.exit}
+          transition={{ duration: 0.6 }}
         >
           <Title
             tag="h1"
-            className={`${getTextSize("title")} mb-4 drop-shadow-sm whitespace-pre-wrap`}
+            className={`${getTextSize("title")} mb-4 drop-shadow-lg font-black tracking-tight whitespace-pre-wrap`}
           >
             {slide.title}
           </Title>
         </motion.div>
+
         {slide.subtitle && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
           >
             <Title
               tag="h2"
-              className={`${getTextSize("subtitle")} font-light opacity-90`}
+              className={`${getTextSize("subtitle")} font-medium opacity-80 max-w-2xl mx-auto`}
             >
               {slide.subtitle}
             </Title>
@@ -61,12 +113,17 @@ export default function VideoSlide({ slide, isVertical }) {
       {/* Media Content */}
       {slide.image && (
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ delay: 0.2 }}
-          className={`relative rounded-2xl overflow-hidden shadow-md border-4 border-white/20
-                ${isVertical ? "w-full aspect-9/16 max-h-[60vh]" : "max-w-5xl w-full h-[60vh]"}
+          key={slide.image}
+          initial={
+            animation === "zoom" ? { scale: 0.5, opacity: 0 } : variants.initial
+          }
+          animate={
+            animation === "zoom" ? { scale: 1, opacity: 1 } : variants.animate
+          }
+          exit={variants.exit}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className={`relative rounded-3xl overflow-hidden shadow-2xl border-2 border-white/10
+                ${isVertical ? "w-full aspect-9/16 max-h-[55vh]" : "max-w-4xl w-full h-[55vh]"}
             `}
         >
           <Image
@@ -74,7 +131,10 @@ export default function VideoSlide({ slide, isVertical }) {
             alt={slide.title || "Slide Image"}
             fill
             className="object-cover object-top"
+            priority
           />
+          {/* Subtle overlay to make text pop if image is too bright */}
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/20 to-transparent pointer-events-none" />
         </motion.div>
       )}
 
@@ -84,30 +144,30 @@ export default function VideoSlide({ slide, isVertical }) {
           className={`relative w-full ${isVertical ? "h-[50vh]" : "h-[50vh] max-w-4xl"} flex items-center justify-center`}
         >
           <motion.div
-            className="absolute inset-0 z-10 origin-bottom-left shadow-md rounded-xl overflow-hidden border-2 border-slate-200 w-3/4 h-3/4 top-0 left-0"
-            initial={{ x: "-50%", opacity: 0, rotate: -5 }}
-            animate={{ x: isVertical ? "0%" : "-20%", opacity: 1, rotate: -5 }}
-            transition={{ duration: 1 }}
+            className="absolute inset-0 z-10 origin-bottom-left shadow-2xl rounded-2xl overflow-hidden border border-white/10 w-3/4 h-3/4 top-0 left-0"
+            initial={{ x: "-50%", opacity: 0, rotate: -8 }}
+            animate={{ x: isVertical ? "0%" : "-15%", opacity: 1, rotate: -8 }}
+            transition={{ duration: 1, type: "spring" }}
           >
             <Image
               src={slide.images[0]}
               alt="Display 1"
               fill
-              className="object-cover object-top-left"
+              className="object-cover object-top"
             />
           </motion.div>
 
           <motion.div
-            className="absolute inset-0 z-20 origin-bottom-right shadow-md rounded-xl overflow-hidden border-2 border-slate-200 w-3/4 h-3/4 bottom-0 right-0"
-            initial={{ x: "50%", opacity: 0, rotate: 5 }}
-            animate={{ x: isVertical ? "0%" : "20%", opacity: 1, rotate: 5 }}
-            transition={{ duration: 1, delay: 0.5 }}
+            className="absolute inset-0 z-20 origin-bottom-right shadow-2xl rounded-2xl overflow-hidden border border-white/10 w-3/4 h-3/4 bottom-0 right-0"
+            initial={{ x: "50%", opacity: 0, rotate: 8 }}
+            animate={{ x: isVertical ? "0%" : "15%", opacity: 1, rotate: 8 }}
+            transition={{ duration: 1, delay: 0.4, type: "spring" }}
           >
             <Image
               src={slide.images[1]}
               alt="Display 2"
               fill
-              className="object-cover object-top-left"
+              className="object-cover object-top"
             />
           </motion.div>
         </div>

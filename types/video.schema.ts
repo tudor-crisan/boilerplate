@@ -13,6 +13,7 @@ export const VideoSlideSchema = z.object({
   image: z.string().optional(),
   images: z.array(z.string()).optional(),
   audio: z.string().optional(),
+  animation: z.enum(["fade", "zoom", "slide-left", "slide-right", "bounce"]).default("fade"),
 });
 
 export const VideoSchema = z.object({

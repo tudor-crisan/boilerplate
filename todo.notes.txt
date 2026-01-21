@@ -1,14 +1,11 @@
 
-- test the app on desktop for opera, firefox, safari, edge
 - make launch video of full app with obs / capcut template
 
 - make a documentation page for tudorcrisan for the boilerplate (from specs)
 - make a buy link with redirect to google drive with multiple versions
-- make a documentation explaining how to build from ground up using the codefast texts
-- use this as a mini-go-along free-course on tudorcrisan.dev
 - prepare also a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
-- have the documentation of the whole codebase also inside tudorcrisan.dev , and share that in CV (remove the testimonials from 2016)
-- update the romanian and english CV with the loyalboards specifications inside a one page
+- have the documentation of the whole codebase also inside tudorcrisan.dev
+- share in CV (remove the testimonials from 2016) update with the loyalboards specifications inside a one page
 
 - show Cristina how to list with printer, and install windows 10, and how to backup
 - list all 3, adeverinta, buletin, diploma, prepare them in a file cabinet, and a mini-backpack
