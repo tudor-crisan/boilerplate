@@ -206,7 +206,7 @@ export default function VideoContainer({ video }) {
       {/* Video Player */}
       <div
         className={`relative overflow-hidden bg-gray-900 shadow-xl transition-all duration-300 border border-base-300 ${styling.components.card}
-          ${isVertical ? "aspect-9/16 h-[80vh]" : "aspect-video w-full max-w-6xl"}
+          ${isVertical ? "aspect-9/16 h-[80vh]" : "aspect-video w-full sm:w-6xl"}
         `}
       >
         <AnimatePresence mode="wait">
@@ -229,7 +229,7 @@ export default function VideoContainer({ video }) {
 
       {/* Control Bar */}
       <div
-        className={`w-full max-w-6xl flex flex-col md:flex-row items-center justify-between bg-base-100 p-4 gap-4 sm:gap-6 shadow-md border border-base-300 ${styling.components.element}`}
+        className={`w-full sm:w-6xl flex flex-col md:flex-row items-center justify-between bg-base-100 p-4 gap-4 sm:gap-6 shadow-md border border-base-300 ${styling.components.element}`}
       >
         {/* Left: Action Group */}
         <div className="flex items-center justify-center gap-2 w-full md:w-auto">
@@ -318,8 +318,31 @@ export default function VideoContainer({ video }) {
       </div>
 
       {/* Voiceover Section */}
-      <div className="w-full max-w-xl space-y-6">
-        <div>
+      <div className="flex flex-col sm:flex-row items-center w-full sm:w-6xl gap-4 sm:gap-8">
+        <div className="flex flex-col sm:flex-row items-stretch justify-between gap-4 w-full sm:w-1/2">
+          <div
+            className={`flex items-center justify-between sm:justify-center gap-3 bg-base-100 px-4 py-2 border border-base-200 w-full sm:w-auto ${styling.components.element}`}
+          >
+            <span className="text-sm font-medium opacity-70 whitespace-nowrap">
+              Autoplay
+            </span>
+            <InputToggle
+              value={isAutoplay}
+              onChange={setIsAutoplay}
+              size="toggle-sm"
+            />
+          </div>
+          <div className="w-full sm:flex-1">
+            <InputFile
+              accept="audio/*"
+              onChange={handleFileUpload}
+              disabled={isUploading}
+              placeholder={isUploading ? "Uploading..." : "Upload New VO"}
+              className="m-0"
+            />
+          </div>
+        </div>
+        <div className="w-full sm:w-1/2">
           <Paragraph className="font-bold mb-1">Voiceover Script</Paragraph>
           <InputCopy value={currentSlide.voiceover} tooltipCopy="Copy Script">
             <div className="flex items-center gap-1 border-l border-base-300 pl-2 ml-2">
@@ -346,31 +369,6 @@ export default function VideoContainer({ video }) {
               )}
             </div>
           </InputCopy>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-stretch justify-between gap-4">
-          <div className="w-full sm:flex-1">
-            <InputFile
-              accept="audio/*"
-              onChange={handleFileUpload}
-              disabled={isUploading}
-              placeholder={isUploading ? "Uploading..." : "Upload New VO"}
-              className="m-0"
-            />
-          </div>
-
-          <div
-            className={`flex items-center justify-between sm:justify-center gap-3 bg-base-100 px-4 py-2 border border-base-200 w-full sm:w-auto ${styling.components.element}`}
-          >
-            <span className="text-sm font-medium opacity-70 whitespace-nowrap">
-              Autoplay
-            </span>
-            <InputToggle
-              value={isAutoplay}
-              onChange={setIsAutoplay}
-              size="toggle-sm"
-            />
-          </div>
         </div>
       </div>
     </div>
