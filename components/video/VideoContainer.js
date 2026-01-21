@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/button/Button";
+import Loading from "@/components/common/Loading";
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import InputCopy from "@/components/input/InputCopy";
@@ -475,15 +476,19 @@ export default function VideoContainer({ video }) {
                   accept="audio/*"
                   onChange={handleFileUpload}
                   disabled={isUploading}
-                  placeholder={
-                    isUploading
-                      ? "Uploading..."
-                      : currentSlide.audio
-                        ? currentSlide.audio.split("/").pop()
-                        : "Replace VO"
-                  }
                   className="m-0"
                 />
+                {!isUploading && currentSlide.audio && (
+                  <TextSmall className="mt-2 opacity-40 italic truncate block">
+                    File: {currentSlide.audio.split("/").pop()}
+                  </TextSmall>
+                )}
+                {isUploading && (
+                  <Loading
+                    text="Uploading VO..."
+                    className="mt-2 text-primary"
+                  />
+                )}
               </div>
             </div>
 
@@ -545,15 +550,19 @@ export default function VideoContainer({ video }) {
                 accept="audio/*"
                 onChange={handleMusicUpload}
                 disabled={isMusicUploading}
-                placeholder={
-                  isMusicUploading
-                    ? "Uploading..."
-                    : musicUrl
-                      ? musicUrl.split("/").pop()
-                      : "Choose Music Track"
-                }
                 className="m-0"
               />
+              {!isMusicUploading && musicUrl && (
+                <TextSmall className="mt-1 opacity-40 italic truncate block">
+                  File: {musicUrl.split("/").pop()}
+                </TextSmall>
+              )}
+              {isMusicUploading && (
+                <Loading
+                  text="Uploading Music..."
+                  className="mt-1 text-primary"
+                />
+              )}
 
               {/* Music Offset Slider - Now Inside Group */}
               <div
