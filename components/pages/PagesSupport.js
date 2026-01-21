@@ -8,14 +8,14 @@ import TosWrapper from "@/components/tos/TosWrapper";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function PagesSupport() {
-
   return (
     <TosWrapper>
       <TosContent className="text-center sm:text-left">
         <div className="space-y-1">
           <Title>Support</Title>
           <Paragraph>
-            Need help? We are here for you. Please reach out to us using the contact details below.
+            Need help? We are here for you. Please reach out to us using the
+            contact details below.
           </Paragraph>
         </div>
 
@@ -29,5 +29,5 @@ export default function PagesSupport() {
         </div>
       </TosContent>
     </TosWrapper>
-  )
+  );
 }

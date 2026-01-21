@@ -18,18 +18,13 @@ function ErrorContent() {
       description={message}
       icon={<SvgError className="size-16 text-error" />}
     >
-      {error !== 'RateLimit' && (
-        <Button
-          href={SIGNIN_URL}
-          className="w-full"
-        >
+      {error !== "RateLimit" && (
+        <Button href={SIGNIN_URL} className="w-full">
           Try Again
         </Button>
       )}
       <div className="mx-auto mt-2">
-        <ButtonBack
-          className="btn-ghost btn-md! shadow-none!"
-        />
+        <ButtonBack className="btn-ghost btn-md! shadow-none!" />
       </div>
     </PagesAuth>
   );
@@ -38,7 +33,11 @@ function ErrorContent() {
 export default function AuthErrorPage() {
   const { styling } = useStyling();
   return (
-    <Suspense fallback={<div className={`min-h-screen ${styling.flex.center}`}>Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className={`min-h-screen ${styling.flex.center}`}>Loading...</div>
+      }
+    >
       <ErrorContent />
     </Suspense>
   );

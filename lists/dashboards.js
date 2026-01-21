@@ -3,7 +3,7 @@ import TaskFlowDashboard from "@/components/apps/taskflow/TaskFlowDashboard";
 
 const dashboards = {
   LoyalBoardsDashboard,
-  TaskFlowDashboard
+  TaskFlowDashboard,
 };
 
 export default dashboards;

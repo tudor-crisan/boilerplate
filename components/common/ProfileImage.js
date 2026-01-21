@@ -9,14 +9,21 @@ const ProfileImage = ({ src, initials, size = "md", className }) => {
     sm: "size-8 text-xs",
     md: "size-12 text-base",
     lg: "size-16 text-2xl",
-    xl: "size-24 text-3xl"
+    xl: "size-24 text-3xl",
   };
 
   // Extract base component style from json if available, or fallback
   const baseStyle = styling.components?.element || "";
 
   return (
-    <div className={cn("relative overflow-hidden shrink-0", sizeClasses[size], baseStyle, className)}>
+    <div
+      className={cn(
+        "relative overflow-hidden shrink-0",
+        sizeClasses[size],
+        baseStyle,
+        className,
+      )}
+    >
       {src ? (
         <img
           src={src}
@@ -24,7 +31,9 @@ const ProfileImage = ({ src, initials, size = "md", className }) => {
           className={`w-full h-full object-cover ${baseStyle}`}
         />
       ) : (
-        <div className={`w-full h-full bg-primary text-primary-content ${styling.flex.center} font-extrabold uppercase select-none`}>
+        <div
+          className={`w-full h-full bg-primary text-primary-content ${styling.flex.center} font-extrabold uppercase select-none`}
+        >
           {initials || "?"}
         </div>
       )}

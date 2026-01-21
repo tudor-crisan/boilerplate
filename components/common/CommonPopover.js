@@ -13,8 +13,9 @@ export default function CommonPopover({ label, items, onItemClick }) {
       >
         {label}
         <SvgChevronRight
-          className={`w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-90" : ""
-            }`}
+          className={`w-5 h-5 transition-transform duration-200 ${
+            isOpen ? "rotate-90" : ""
+          }`}
         />
       </button>
 

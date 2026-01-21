@@ -16,15 +16,9 @@ export default function SectionFooter() {
   return (
     <section id="footer" className={cn(styling.SectionFooter.section)}>
       <WrapperFooter>
-        {showFooter.brand && (
-          <FooterBrand />
-        )}
-        {showFooter.menus && (
-          <FooterMenu />
-        )}
-        {showFooter.socials && (
-          <FooterSocial />
-        )}
+        {showFooter.brand && <FooterBrand />}
+        {showFooter.menus && <FooterMenu />}
+        {showFooter.socials && <FooterSocial />}
       </WrapperFooter>
     </section>
   );

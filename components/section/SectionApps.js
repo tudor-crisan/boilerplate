@@ -20,10 +20,15 @@ const SectionAppsContent = () => {
     const { title, description, favicon, website, appName } = details;
 
     return (
-      <div key={app} className={cn("card w-full max-w-sm", styling.components.card)}>
+      <div
+        key={app}
+        className={cn("card w-full max-w-sm", styling.components.card)}
+      >
         <div className={cn("card-body space-y-6", styling.general.box)}>
           {(favicon || appName) && (
-            <div className={`${styling.flex.items_center} gap-2 font-extrabold`}>
+            <div
+              className={`${styling.flex.items_center} gap-2 font-extrabold`}
+            >
               {favicon && (
                 <Image
                   src={favicon}
@@ -44,16 +49,12 @@ const SectionAppsContent = () => {
             </div>
           )}
 
-          {website && (
-            <Button href={website}>
-              View App
-            </Button>
-          )}
+          {website && <Button href={website}>View App</Button>}
         </div>
       </div>
     );
   });
-}
+};
 
 export default function SectionApps() {
   return (

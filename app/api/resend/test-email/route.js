@@ -15,7 +15,7 @@ export async function POST(req) {
   if (error) return error;
 
   try {
-    const { template, subject, data, styling } = await req.json();
+    const { template, data, styling } = await req.json();
 
     let emailContent;
 
@@ -24,21 +24,36 @@ export async function POST(req) {
     const to = session.user.email;
     const from = settings.business?.support_email || "noreply@example.com";
 
-    if (template === 'Quick Link') {
+    if (template === "Quick Link") {
       const { host, url } = data;
       emailContent = await QuickLinkEmail({ host, url, styling, isTest: true });
-    } else if (template === 'Weekly Digest') {
+    } else if (template === "Weekly Digest") {
       const { baseUrl, userName, boards } = data;
-      emailContent = await WeeklyDigestEmail({ baseUrl, userName, boards, styling, isTest: true });
+      emailContent = await WeeklyDigestEmail({
+        baseUrl,
+        userName,
+        boards,
+        styling,
+        isTest: true,
+      });
     } else {
-      return NextResponse.json({ error: "Template not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Template not found" },
+        { status: 404 },
+      );
     }
 
     if (!emailContent) {
-      return NextResponse.json({ error: "Error generating email content" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Error generating email content" },
+        { status: 500 },
+      );
     }
 
-    console.log("Sending test email:", { template, subject: emailContent.subject });
+    console.log("Sending test email:", {
+      template,
+      subject: emailContent.subject,
+    });
 
     await sendEmail({
       from,
@@ -52,6 +67,9 @@ export async function POST(req) {
     return NextResponse.json({ success: true, to });
   } catch (error) {
     console.error("Error sending test email:", error);
-    return NextResponse.json({ error: error.message || JSON.stringify(error) }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message || JSON.stringify(error) },
+      { status: 500 },
+    );
   }
 }

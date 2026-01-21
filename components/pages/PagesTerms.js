@@ -17,12 +17,16 @@ export default function PagesTerms() {
         <Paragraph>Last updated: {settings.business.last_updated}</Paragraph>
         <Title>1. Introduction</Title>
         <p>
-          Welcome to {settings.business.website_display} (&quot;Company&quot;, &quot;we&quot;, &quot;our&quot;, &quot;us&quot;). By accessing or using our website,
-          you agree to be bound by these Terms of Service and all applicable laws and regulations.
+          Welcome to {settings.business.website_display} (&quot;Company&quot;,
+          &quot;we&quot;, &quot;our&quot;, &quot;us&quot;). By accessing or
+          using our website, you agree to be bound by these Terms of Service and
+          all applicable laws and regulations.
         </p>
         <Title>2. Governing Law</Title>
         <p>
-          These Terms shall be governed and construed in accordance with the laws of {settings.business.country}, without regard to its conflict of law provisions.
+          These Terms shall be governed and construed in accordance with the
+          laws of {settings.business.country}, without regard to its conflict of
+          law provisions.
         </p>
         <Title>3. Contact Us</Title>
         <p>
@@ -30,17 +34,23 @@ export default function PagesTerms() {
         </p>
         <p>
           <strong>Email:&nbsp;</strong>
-          <Link href={`mailto:${settings.business.support_email}`} className={styling.components.link}>
+          <Link
+            href={`mailto:${settings.business.support_email}`}
+            className={styling.components.link}
+          >
             {settings.business.support_email}
           </Link>
         </p>
         <p>
-          <strong>Address:</strong><br />
-          {settings.business.entity_name}<br />
-          {settings.business.address_line1}, {settings.business.address_line2}<br />
+          <strong>Address:</strong>
+          <br />
+          {settings.business.entity_name}
+          <br />
+          {settings.business.address_line1}, {settings.business.address_line2}
+          <br />
           {settings.business.country}
         </p>
       </TosContent>
     </TosWrapper>
-  )
+  );
 }

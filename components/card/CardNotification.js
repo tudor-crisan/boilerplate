@@ -1,9 +1,9 @@
 "use client";
-import Button from '@/components/button/Button';
+import Button from "@/components/button/Button";
 import TextSmall from "@/components/common/TextSmall";
 import { useStyling } from "@/context/ContextStyling";
-import React, { useState } from 'react';
-import clsx from 'clsx';
+import React, { useState } from "react";
+import clsx from "clsx";
 
 export default function CardNotification({
   isRead,
@@ -14,7 +14,7 @@ export default function CardNotification({
   title,
   content,
   children,
-  className = ""
+  className = "",
 }) {
   const { styling } = useStyling();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -22,22 +22,30 @@ export default function CardNotification({
   const isContentLong = content && content.length > 70;
 
   return (
-    <div className={clsx(`${styling.components.element} ${styling.flex.between} alert opacity-70 items-start ${className}`,
-      (!isRead || isLoading) && "border-primary alert-outline opacity-100"
-    )}>
+    <div
+      className={clsx(
+        `${styling.components.element} ${styling.flex.between} alert opacity-70 items-start ${className}`,
+        (!isRead || isLoading) && "border-primary alert-outline opacity-100",
+      )}
+    >
       <div className={`${styling.flex.col} space-y-1 pt-1 min-w-0 flex-1`}>
         <div className={`${styling.flex.items_center} gap-2`}>
-          <TextSmall>
-            {dateFormatted}
-          </TextSmall>
+          <TextSmall>{dateFormatted}</TextSmall>
           {badge && (
-            <span className="badge badge-xs badge-primary font-bold">{badge}</span>
+            <span className="badge badge-xs badge-primary font-bold">
+              {badge}
+            </span>
           )}
         </div>
 
         <div className="text-sm">
           {title && <span className="font-bold mr-2">{title}</span>}
-          <span className={clsx("opacity-80 wrap-break-words", !isExpanded && "line-clamp-1 inline")}>
+          <span
+            className={clsx(
+              "opacity-80 wrap-break-words",
+              !isExpanded && "line-clamp-1 inline",
+            )}
+          >
             {content}
           </span>
         </div>

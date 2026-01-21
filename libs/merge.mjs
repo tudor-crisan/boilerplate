@@ -5,7 +5,7 @@
  * @returns {Object}
  */
 export function deepMerge(target, source) {
-  const isObject = (obj) => obj && typeof obj === 'object';
+  const isObject = (obj) => obj && typeof obj === "object";
 
   if (!isObject(target) || !isObject(source)) {
     return source;
@@ -62,8 +62,12 @@ export const getMergedConfig = (configType, configValue, list) => {
  * @returns {object} - The merged configuration
  */
 export const getMergedConfigWithModules = (configType, configValue, list) => {
-  const baseKey = typeof configValue === 'object' ? (configValue.default || `${configType}`) : `${configType}`;
-  const appSettingKey = typeof configValue === 'object' ? configValue.override : configValue;
+  const baseKey =
+    typeof configValue === "object"
+      ? configValue.default || `${configType}`
+      : `${configType}`;
+  const appSettingKey =
+    typeof configValue === "object" ? configValue.override : configValue;
 
   let mergedConfig = list[baseKey] || {};
   const appConfig = list[appSettingKey] || {};
@@ -72,7 +76,7 @@ export const getMergedConfigWithModules = (configType, configValue, list) => {
   const modules = appConfig.modules || mergedConfig.modules || [];
 
   if (Array.isArray(modules)) {
-    modules.forEach(moduleName => {
+    modules.forEach((moduleName) => {
       const moduleConfig = list[moduleName];
       if (moduleConfig) {
         mergedConfig = deepMerge(mergedConfig, moduleConfig);

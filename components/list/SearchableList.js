@@ -9,7 +9,7 @@ const SearchableList = ({
   type = "Item",
   filterKey = "name", // The key to search by in the item object
   placeholder,
-  children // Optional filter overrides or additional content
+  children, // Optional filter overrides or additional content
 }) => {
   const [search, setSearch] = useState("");
 
@@ -20,10 +20,7 @@ const SearchableList = ({
 
   return (
     <div>
-      <ListDisplay
-        type={type}
-        list={filteredItems}
-      >
+      <ListDisplay type={type} list={filteredItems}>
         {items.length > 0 && (
           <FilterBar
             search={search}

@@ -18,7 +18,10 @@ export default function HeaderHamburger() {
   const [isOpen, setIsOpen] = useState(false);
 
   // If no menus defined, don't render anything
-  if (!copywriting.SectionHeader.menus || copywriting.SectionHeader.menus.length === 0) {
+  if (
+    !copywriting.SectionHeader.menus ||
+    copywriting.SectionHeader.menus.length === 0
+  ) {
     return null;
   }
 
@@ -39,14 +42,14 @@ export default function HeaderHamburger() {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className={`fixed inset-0 z-50 bg-base-100 ${styling.flex.col} p-4 sm:hidden animate-fade-in-up overflow-y-auto`}>
+        <div
+          className={`fixed inset-0 z-50 bg-base-100 ${styling.flex.col} p-4 sm:hidden animate-fade-in-up overflow-y-auto`}
+        >
           <div className={`${styling.flex.between} mb-8`}>
             <div className={`${styling.flex.items_center} gap-2`}>
               <IconLogo />
               {visual.show.SectionHeader.appName && (
-                <span className="font-bold text-md">
-                  {settings.appName}
-                </span>
+                <span className="font-bold text-md">{settings.appName}</span>
               )}
             </div>
             <button
@@ -73,8 +76,9 @@ export default function HeaderHamburger() {
             <CommonPopover
               label="Help"
               items={
-                copywriting.SectionFooter.menus.find((m) => m.title === "Support")
-                  ?.links || []
+                copywriting.SectionFooter.menus.find(
+                  (m) => m.title === "Support",
+                )?.links || []
               }
               onItemClick={toggleMenu}
             />

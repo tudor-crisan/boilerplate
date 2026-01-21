@@ -6,7 +6,11 @@ import ButtonBack from "@/components/button/ButtonBack";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
 import PagesBlog from "@/components/pages/PagesBlog";
-import { defaultBlog, defaultSetting as settings, defaultStyling } from "@/libs/defaults";
+import {
+  defaultBlog,
+  defaultSetting as settings,
+  defaultStyling,
+} from "@/libs/defaults";
 import { getMetadata } from "@/libs/seo";
 import { notFound } from "next/navigation";
 
@@ -15,7 +19,6 @@ const { articles, categories } = defaultBlog;
 export async function generateMetadata({ params }) {
   const { articleId } = await params;
   const article = articles.find((article) => article.slug === articleId);
-
 
   if (!article) return {};
 
@@ -27,7 +30,9 @@ export async function generateMetadata({ params }) {
     ogType: "article",
     publishedTime: article.publishedAt,
     author: settings.business?.name || settings.appName,
-    tags: article.categorySlugs.map(slug => categories.find(c => c.slug === slug)?.title).filter(Boolean),
+    tags: article.categorySlugs
+      .map((slug) => categories.find((c) => c.slug === slug)?.title)
+      .filter(Boolean),
   });
 }
 
@@ -37,14 +42,17 @@ export default async function Article({ params }) {
 
   if (!articleRaw) {
     console.log("Article NOT FOUND for slug:", articleId);
-    console.log("Available slugs:", articles.map(a => a.slug));
+    console.log(
+      "Available slugs:",
+      articles.map((a) => a.slug),
+    );
     return notFound();
   }
 
   const article = {
     ...articleRaw,
     categories: articleRaw.categorySlugs.map((slug) =>
-      categories.find((c) => c.slug === slug)
+      categories.find((c) => c.slug === slug),
     ),
   };
 
@@ -52,16 +60,14 @@ export default async function Article({ params }) {
     .filter(
       (a) =>
         a.slug !== articleId &&
-        a.categorySlugs.some((c) =>
-          articleRaw.categorySlugs.includes(c)
-        )
+        a.categorySlugs.some((c) => articleRaw.categorySlugs.includes(c)),
     )
     .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
     .slice(0, 3)
     .map((a) => ({
       ...a,
       categories: a.categorySlugs.map((slug) =>
-        categories.find((c) => c.slug === slug)
+        categories.find((c) => c.slug === slug),
       ),
     }));
 
@@ -69,7 +75,9 @@ export default async function Article({ params }) {
     <PagesBlog>
       <BlogSchemaArticle article={article} />
 
-      <article className={`${defaultStyling.general.container} ${defaultStyling.components.header} pt-4 sm:pt-12 pb-8`}>
+      <article
+        className={`${defaultStyling.general.container} ${defaultStyling.components.header} pt-4 sm:pt-12 pb-8`}
+      >
         <BlogDisclaimer />
         <div className="mt-6 mb-4 sm:mb-6">
           <Title className={`${defaultStyling.section.title} mb-4`}>
@@ -82,10 +90,7 @@ export default async function Article({ params }) {
           <div className={`${defaultStyling.flex.between} gap-4 mt-4`}>
             <div className="flex items-center gap-4">
               {article.categories.map((category) => (
-                <BlogBadgeCategory
-                  category={category}
-                  key={category.slug}
-                />
+                <BlogBadgeCategory category={category} key={category.slug} />
               ))}
               <span className="text-base-content/80" itemProp="datePublished">
                 {new Date(article.publishedAt).toLocaleDateString("en-US", {

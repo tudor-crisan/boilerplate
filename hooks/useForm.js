@@ -39,6 +39,6 @@ export default function useForm(initialInputs = {}) {
     setInputErrors,
     handleChange,
     handleFocus,
-    resetInputs
+    resetInputs,
   };
 }

@@ -13,14 +13,14 @@ export default function SectionHeading({
   align = "center",
   labelClassName,
   headlineClassName,
-  paragraphClassName
+  paragraphClassName,
 }) {
   const { styling } = useStyling();
 
   const alignments = {
     left: "text-left items-start",
     center: "text-center items-center mx-auto",
-    right: "text-right items-end ml-auto"
+    right: "text-right items-end ml-auto",
   };
 
   const getResponsiveAlignment = (value) => {
@@ -35,14 +35,23 @@ export default function SectionHeading({
   };
 
   return (
-    <div className={cn("space-y-4 max-w-2xl", getResponsiveAlignment(align), className)}>
+    <div
+      className={cn(
+        "space-y-4 max-w-2xl",
+        getResponsiveAlignment(align),
+        className,
+      )}
+    >
       {label && (
         <Label className={cn(styling.section.label, labelClassName)}>
           {label}
         </Label>
       )}
       {headline && (
-        <Title tag="h2" className={cn(styling.section.title, headlineClassName)}>
+        <Title
+          tag="h2"
+          className={cn(styling.section.title, headlineClassName)}
+        >
           {headline}
         </Title>
       )}

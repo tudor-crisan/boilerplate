@@ -23,23 +23,30 @@ const PricingPlanCard = ({
         "relative transition-all text-left",
         isFeatured && styling.pricing.card_featured,
         !isFeatured && styling.pricing.card_simple,
-        onClick && !disabled && isFeatured && styling.pricing.card_featured_interactive,
-        onClick && !disabled && !isFeatured && styling.pricing.card_simple_interactive,
+        onClick &&
+          !disabled &&
+          isFeatured &&
+          styling.pricing.card_featured_interactive,
+        onClick &&
+          !disabled &&
+          !isFeatured &&
+          styling.pricing.card_simple_interactive,
         disabled && "opacity-60 cursor-not-allowed",
-        className
+        className,
       )}
       onClick={!disabled && onClick ? onClick : undefined}
     >
-      {isBestOffer && (
-        <div className={styling.pricing.label}>
-          Best Offer
-        </div>
-      )}
+      {isBestOffer && <div className={styling.pricing.label}>Best Offer</div>}
 
       <div className={styling.flex.between}>
         <div>
           <div className="flex items-baseline">
-            <div className={cn("text-3xl font-black", isFeatured && "text-primary")}>
+            <div
+              className={cn(
+                "text-3xl font-black",
+                isFeatured && "text-primary",
+              )}
+            >
               {price}
             </div>
             {period && (
@@ -48,7 +55,12 @@ const PricingPlanCard = ({
               </div>
             )}
           </div>
-          <div className={cn("text-xs font-bold", isFeatured ? "text-primary" : "opacity-60")}>
+          <div
+            className={cn(
+              "text-xs font-bold",
+              isFeatured ? "text-primary" : "opacity-60",
+            )}
+          >
             {label}
           </div>
         </div>

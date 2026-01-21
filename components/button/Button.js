@@ -25,7 +25,8 @@ export default function Button({
   const isButtonLoading = isLoading || internalLoading;
   const isDisabled = disabled || isButtonLoading;
 
-  const isIcon = variant.includes("btn-square") || variant.includes("btn-circle");
+  const isIcon =
+    variant.includes("btn-square") || variant.includes("btn-circle");
   const sizingClass = isIcon ? "" : styling.general.element;
 
   const baseClasses = cn(
@@ -35,12 +36,18 @@ export default function Button({
     size,
     sizingClass,
     isButtonLoading && "cursor-wait! pointer-events-auto!",
-    className
+    className,
   );
 
   const handleClick = async (e) => {
     // Check if modifiers are pressed to skip internal handling
-    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || (e.button && e.button !== 0)) {
+    if (
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey ||
+      (e.button && e.button !== 0)
+    ) {
       return;
     }
 
@@ -89,7 +96,12 @@ export default function Button({
       );
     }
     return (
-      <Link href={href} className={baseClasses} onClick={handleClick} {...props}>
+      <Link
+        href={href}
+        className={baseClasses}
+        onClick={handleClick}
+        {...props}
+      >
         {content}
       </Link>
     );

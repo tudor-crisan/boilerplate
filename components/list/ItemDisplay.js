@@ -2,7 +2,7 @@
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
 import { useStyling } from "@/context/ContextStyling";
-import { AnimatePresence,motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const SingleItem = ({ item, styling, itemAction }) => {
   return (
@@ -13,7 +13,7 @@ const SingleItem = ({ item, styling, itemAction }) => {
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{
         layout: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 }
+        opacity: { duration: 0.2 },
       }}
       className={`${styling.components.card} ${styling.general.box} flex justify-between items-start`}
     >
@@ -38,14 +38,15 @@ export default function ItemDisplay({ items, itemAction }) {
   return (
     <ul className="space-y-4 grow">
       <AnimatePresence mode="popLayout">
-        {items && items.map((item) => (
-          <SingleItem
-            key={item._id}
-            item={item}
-            styling={styling}
-            itemAction={itemAction}
-          />
-        ))}
+        {items &&
+          items.map((item) => (
+            <SingleItem
+              key={item._id}
+              item={item}
+              styling={styling}
+              itemAction={itemAction}
+            />
+          ))}
       </AnimatePresence>
     </ul>
   );

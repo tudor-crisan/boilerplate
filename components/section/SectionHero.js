@@ -17,11 +17,16 @@ export default function SectionHero() {
   const showHero = visual.show.SectionHero;
 
   return (
-    <SectionWrapper id="hero" containerClassName={cn(styling.SectionHero.container)}>
-      <div className={cn(showHero.button ? 'space-y-6' : 'space-y-3')}>
+    <SectionWrapper
+      id="hero"
+      containerClassName={cn(styling.SectionHero.container)}
+    >
+      <div className={cn(showHero.button ? "space-y-6" : "space-y-3")}>
         <SectionHeading
           headline={showHero.headline ? copywriting.SectionHero.headline : null}
-          paragraph={showHero.paragraph ? copywriting.SectionHero.paragraph : null}
+          paragraph={
+            showHero.paragraph ? copywriting.SectionHero.paragraph : null
+          }
           align={styling.SectionHero.textalign}
           headlineClassName={styling.SectionHero.headline}
           paragraphClassName={styling.SectionHero.paragraph}

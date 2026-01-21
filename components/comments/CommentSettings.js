@@ -4,13 +4,17 @@ import Label from "@/components/common/Label";
 import TextSmall from "@/components/common/TextSmall";
 import Input from "@/components/input/Input";
 import InputCheckbox from "@/components/input/InputCheckbox";
-import { SettingsContainer, SettingsItem, SettingsRow } from "@/components/settings/SettingsLayout";
+import {
+  SettingsContainer,
+  SettingsItem,
+  SettingsRow,
+} from "@/components/settings/SettingsLayout";
 
 const CommentSettings = ({
   getVal,
   handleChange,
   disabled,
-  prefix = "comments" // Default prefix for comment settings
+  prefix = "comments", // Default prefix for comment settings
 }) => {
   return (
     <SettingsContainer>
@@ -24,7 +28,9 @@ const CommentSettings = ({
         <InputCheckbox
           label="Allow Deletion"
           value={getVal(`${prefix}.allowDeletion`, true)}
-          onChange={(checked) => handleChange(`${prefix}.allowDeletion`, checked)}
+          onChange={(checked) =>
+            handleChange(`${prefix}.allowDeletion`, checked)
+          }
           disabled={disabled}
         />
       </SettingsRow>
@@ -33,7 +39,9 @@ const CommentSettings = ({
         <Label>Owner Badge Text</Label>
         <Input
           value={getVal(`${prefix}.ownerBadgeText`, "Owner")}
-          onChange={(e) => handleChange(`${prefix}.ownerBadgeText`, e.target.value)}
+          onChange={(e) =>
+            handleChange(`${prefix}.ownerBadgeText`, e.target.value)
+          }
           placeholder="Owner"
           disabled={disabled}
           maxLength={20}
@@ -45,7 +53,9 @@ const CommentSettings = ({
         <Label>Empty State Text</Label>
         <Input
           value={getVal(`${prefix}.emptyStateText`, "Be the first to comment")}
-          onChange={(e) => handleChange(`${prefix}.emptyStateText`, e.target.value)}
+          onChange={(e) =>
+            handleChange(`${prefix}.emptyStateText`, e.target.value)
+          }
           placeholder="Be the first to comment"
           disabled={disabled}
           maxLength={50}
@@ -69,7 +79,9 @@ const CommentSettings = ({
         <Label>Placeholder</Label>
         <Input
           value={getVal(`${prefix}.placeholder`, "What do you think?")}
-          onChange={(e) => handleChange(`${prefix}.placeholder`, e.target.value)}
+          onChange={(e) =>
+            handleChange(`${prefix}.placeholder`, e.target.value)
+          }
           placeholder="What do you think?"
           disabled={disabled}
           maxLength={100}

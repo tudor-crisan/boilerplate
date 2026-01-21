@@ -1,8 +1,5 @@
-
 // https://lucide.dev/icons/
 // Click on "Copy SVG"
-
-
 
 // const icons = {
 //   "name": `<svg...>`

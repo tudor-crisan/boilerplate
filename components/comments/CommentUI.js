@@ -21,9 +21,8 @@ const CommentUI = ({
   onSubmit,
   onDelete, // (commentId) => void
   localCommentIds = [],
-  styling // Dictionary having { components: { element: ... } }
+  styling, // Dictionary having { components: { element: ... } }
 }) => {
-
   // Fallback defaults if settings are partial
   const config = {
     showDate: true,
@@ -36,30 +35,31 @@ const CommentUI = ({
     rows: 3,
     buttonText: "Post Comment",
     showCharacterCount: true,
-    ...settings
+    ...settings,
   };
 
   const formConfig = {
     inputsConfig: {
       name: {
         label: "Name",
-        maxlength: 20
+        maxlength: 20,
       },
       text: {
         label: config.label,
-        maxlength: config.maxLength
-      }
+        maxlength: config.maxLength,
+      },
     },
     formConfig: {
-      button: config.buttonText
-    }
+      button: config.buttonText,
+    },
   };
 
-  if (isLoading) return (
-    <div className="py-4">
-      <Loading text="Loading comments ..." className="mt-2" />
-    </div>
-  );
+  if (isLoading)
+    return (
+      <div className="py-4">
+        <Loading text="Loading comments ..." className="mt-2" />
+      </div>
+    );
 
   return (
     <div className="mt-4 border-t border-base-200 pt-4 space-y-4">
@@ -77,7 +77,9 @@ const CommentUI = ({
         ))}
 
         {comments.length === 0 && (
-          <div className="text-sm opacity-50 italic">{config.emptyStateText || "Be the first to comment."}</div>
+          <div className="text-sm opacity-50 italic">
+            {config.emptyStateText || "Be the first to comment."}
+          </div>
         )}
       </div>
 
@@ -86,7 +88,9 @@ const CommentUI = ({
           <div className="space-y-1">
             <Label>{formConfig.inputsConfig.name.label}</Label>
             <Tooltip
-              text={isNameSaved ? "Name can't be changed once it has been set" : ""}
+              text={
+                isNameSaved ? "Name can't be changed once it has been set" : ""
+              }
             >
               <Input
                 maxLength={formConfig.inputsConfig.name.maxlength}

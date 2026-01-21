@@ -9,11 +9,21 @@ const appsDataDir = path.join(rootDir, "data", "apps");
 const modulesDataDir = path.join(rootDir, "data", "modules");
 const listsDir = path.join(rootDir, "lists");
 
-const CONFIG_TYPES = ["copywriting", "styling", "visual", "setting", "blog", "boards", "help"];
+const CONFIG_TYPES = [
+  "copywriting",
+  "styling",
+  "visual",
+  "setting",
+  "blog",
+  "boards",
+  "help",
+];
 
 function getAppDirs() {
   if (!fs.existsSync(appsDataDir)) return [];
-  return fs.readdirSync(appsDataDir).filter(f => fs.statSync(path.join(appsDataDir, f)).isDirectory());
+  return fs
+    .readdirSync(appsDataDir)
+    .filter((f) => fs.statSync(path.join(appsDataDir, f)).isDirectory());
 }
 
 export function generateLists(options = {}) {
@@ -34,7 +44,7 @@ export function generateLists(options = {}) {
   const configurations = {};
   const allConfigsForNode = {};
 
-  CONFIG_TYPES.forEach(type => {
+  CONFIG_TYPES.forEach((type) => {
     configurations[type] = {};
     // Add default modules
     const moduleFile = path.join(modulesDataDir, `${type}.json`);
@@ -46,26 +56,26 @@ export function generateLists(options = {}) {
 
   const appManifest = {};
 
-  apps.forEach(app => {
+  apps.forEach((app) => {
     appManifest[app] = {};
-    CONFIG_TYPES.forEach(type => {
+    CONFIG_TYPES.forEach((type) => {
       const appConfigFile = path.join(appsDataDir, app, `${type}.json`);
       if (fs.existsSync(appConfigFile)) {
         const configId = `${app}_${type}`;
         configurations[type][configId] = `@/data/apps/${app}/${type}.json`;
         allConfigsForNode[configId] = `../data/apps/${app}/${type}.json`;
-        
+
         const moduleFile = path.join(modulesDataDir, `${type}.json`);
         appManifest[app][type] = {
           default: fs.existsSync(moduleFile) ? `${type}` : undefined,
-          override: configId
+          override: configId,
         };
       }
     });
   });
 
   // Write individual list files
-  CONFIG_TYPES.forEach(type => {
+  CONFIG_TYPES.forEach((type) => {
     let content = "/* eslint-disable */\n";
     const entries = Object.entries(configurations[type]);
 

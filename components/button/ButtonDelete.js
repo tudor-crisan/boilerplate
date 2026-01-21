@@ -34,21 +34,18 @@ export default function ButtonDelete({
   };
 
   const confirmDelete = async () => {
-    await request(
-      () => clientApi.delete(url),
-      {
-        onSuccess: () => {
-          if (refreshOnSuccess) {
-            router.refresh();
-          } else if (withRedirect) {
-            router.push(redirectUrl);
-          }
-          setIsModalOpen(false);
-        },
-        keepLoadingOnSuccess: withRedirect,
-        showToast: withToast
-      }
-    );
+    await request(() => clientApi.delete(url), {
+      onSuccess: () => {
+        if (refreshOnSuccess) {
+          router.refresh();
+        } else if (withRedirect) {
+          router.push(redirectUrl);
+        }
+        setIsModalOpen(false);
+      },
+      keepLoadingOnSuccess: withRedirect,
+      showToast: withToast,
+    });
   };
 
   return (

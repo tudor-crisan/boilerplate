@@ -4,7 +4,7 @@ import { defaultStyling } from "@/libs/defaults";
 import { deepMerge } from "@/libs/merge.mjs";
 import shuffle from "@/libs/shuffle";
 import stylings from "@/lists/stylings";
-import { useEffect, useLayoutEffect,useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 export default function WrapperStyling({ children }) {
   const [styling, setStyling] = useState(defaultStyling);
@@ -37,7 +37,7 @@ export default function WrapperStyling({ children }) {
         return;
       }
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("shuffle-styling", shuffleStyling);

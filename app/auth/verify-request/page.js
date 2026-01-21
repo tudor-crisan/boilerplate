@@ -12,9 +12,7 @@ export default function VerifyRequestPage() {
       maxWidth="max-w-sm"
     >
       <div className="mx-auto w-full">
-        <ButtonBack
-          className="btn-ghost btn-md! shadow-none!"
-        />
+        <ButtonBack className="btn-ghost btn-md! shadow-none!" />
       </div>
     </PagesAuth>
   );

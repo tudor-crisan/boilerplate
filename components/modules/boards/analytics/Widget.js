@@ -1,14 +1,13 @@
-
 "use client";
-import AnalyticsChart from '@/components/analytics/AnalyticsChart';
-import AnalyticsStats from '@/components/analytics/AnalyticsStats';
+import AnalyticsChart from "@/components/analytics/AnalyticsChart";
+import AnalyticsStats from "@/components/analytics/AnalyticsStats";
 import Label from "@/components/common/Label";
-import Loading from '@/components/common/Loading';
+import Loading from "@/components/common/Loading";
 import { useStyling } from "@/context/ContextStyling";
 import { useAnalyticsRange } from "@/hooks/useAnalyticsRange";
-import { clientApi } from '@/libs/api';
+import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 export default function BoardAnalyticsWidget({ boardId }) {
   const { styling } = useStyling();
@@ -16,32 +15,39 @@ export default function BoardAnalyticsWidget({ boardId }) {
   const { range, setRange, ranges, startLabel, endLabel } = useAnalyticsRange();
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchAnalytics = React.useCallback((showLoading = true) => {
-    if (showLoading) setIsLoading(true);
-    clientApi.get(settings.paths.api.analyticsBoard, { params: { boardId, range } })
-      .then(res => setData(res.data.stats || []))
-      .catch(err => console.error(err))
-      .finally(() => setIsLoading(false));
-  }, [boardId, range]);
+  const fetchAnalytics = React.useCallback(
+    (showLoading = true) => {
+      if (showLoading) setIsLoading(true);
+      clientApi
+        .get(settings.paths.api.analyticsBoard, { params: { boardId, range } })
+        .then((res) => setData(res.data.stats || []))
+        .catch((err) => console.error(err))
+        .finally(() => setIsLoading(false));
+    },
+    [boardId, range],
+  );
 
   useEffect(() => {
     fetchAnalytics();
 
     const handleRefresh = () => fetchAnalytics(false);
-    window.addEventListener('analytics-refresh', handleRefresh);
+    window.addEventListener("analytics-refresh", handleRefresh);
 
     return () => {
-      window.removeEventListener('analytics-refresh', handleRefresh);
+      window.removeEventListener("analytics-refresh", handleRefresh);
     };
   }, [fetchAnalytics]);
 
   // Calculate totals from data
-  const totals = (data || []).reduce((acc, curr) => ({
-    views: acc.views + (curr.views || 0),
-    posts: acc.posts + (curr.posts || 0),
-    votes: acc.votes + (curr.votes || 0),
-    comments: acc.comments + (curr.comments || 0),
-  }), { views: 0, posts: 0, votes: 0, comments: 0 });
+  const totals = (data || []).reduce(
+    (acc, curr) => ({
+      views: acc.views + (curr.views || 0),
+      posts: acc.posts + (curr.posts || 0),
+      votes: acc.votes + (curr.votes || 0),
+      comments: acc.comments + (curr.comments || 0),
+    }),
+    { views: 0, posts: 0, votes: 0, comments: 0 },
+  );
 
   const statsItems = [
     { label: "Views", value: totals.views, color: "text-primary" },
@@ -61,7 +67,11 @@ export default function BoardAnalyticsWidget({ boardId }) {
         value={range}
         onChange={(e) => setRange(e.target.value)}
       >
-        {ranges.map(r => <option key={r.value} value={r.value}>{r.label}</option>)}
+        {ranges.map((r) => (
+          <option key={r.value} value={r.value}>
+            {r.label}
+          </option>
+        ))}
       </select>
 
       {isLoading ? (
@@ -76,7 +86,12 @@ export default function BoardAnalyticsWidget({ boardId }) {
             startLabel={startLabel}
             endLabel={endLabel}
             title="Activity Trend"
-            getValue={(item) => (item.views || 0) + (item.posts || 0) + (item.votes || 0) + (item.comments || 0)}
+            getValue={(item) =>
+              (item.views || 0) +
+              (item.posts || 0) +
+              (item.votes || 0) +
+              (item.comments || 0)
+            }
           />
         </>
       )}

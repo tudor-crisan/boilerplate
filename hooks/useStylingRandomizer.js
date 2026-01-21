@@ -1,6 +1,6 @@
 import { fontMap } from "@/lists/fonts";
 import themes from "@/lists/themes";
-import { useCallback, useEffect,useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export function useStylingRandomizer({ setStyling }) {
   // Shuffle Configuration
@@ -8,7 +8,7 @@ export function useStylingRandomizer({ setStyling }) {
     theme: true,
     font: true,
     styling: true,
-    auto: false
+    auto: false,
   });
 
   const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -36,22 +36,33 @@ export function useStylingRandomizer({ setStyling }) {
 
         // Replace any rounded class with new radius
         const replaceRadius = (str) =>
-          str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() + " " + randomRadius;
+          str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() +
+          " " +
+          randomRadius;
 
         Object.keys(newComponents).forEach((key) => {
-          if (typeof newComponents[key] === "string" && newComponents[key].includes("rounded")) {
+          if (
+            typeof newComponents[key] === "string" &&
+            newComponents[key].includes("rounded")
+          ) {
             newComponents[key] = replaceRadius(newComponents[key]);
           }
         });
 
         Object.keys(newPricing).forEach((key) => {
-          if (typeof newPricing[key] === "string" && newPricing[key].includes("rounded")) {
+          if (
+            typeof newPricing[key] === "string" &&
+            newPricing[key].includes("rounded")
+          ) {
             newPricing[key] = replaceRadius(newPricing[key]);
           }
         });
 
         Object.keys(newBlog).forEach((key) => {
-          if (typeof newBlog[key] === "string" && newBlog[key].includes("rounded")) {
+          if (
+            typeof newBlog[key] === "string" &&
+            newBlog[key].includes("rounded")
+          ) {
             newBlog[key] = replaceRadius(newBlog[key]);
           }
         });
@@ -77,6 +88,6 @@ export function useStylingRandomizer({ setStyling }) {
   return {
     shuffleConfig,
     setShuffleConfig,
-    handleShuffle
+    handleShuffle,
   };
 }

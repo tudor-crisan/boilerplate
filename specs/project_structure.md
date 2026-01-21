@@ -3,6 +3,7 @@
 Overview of the project's directory hierarchy and the purpose of each major folder.
 
 ## Root Directory
+
 - `/app`: The heart of the application, containing all routes, layouts, and feature modules.
 - `/components`: Reusable UI components organized by category (e.g., UI elements, layout components, module-specific components).
 - `/context`: React Context providers for global state management (e.g., Theme, Auth).
@@ -16,6 +17,7 @@ Overview of the project's directory hierarchy and the purpose of each major fold
 - `/specs`: (This folder) Documentation for AI and developers to understand the codebase.
 
 ## Key Files
+
 - `package.json`: Dependency and script management.
 - `next.config.mjs`: Next.js specific configuration.
 - `app/globals.css`: Tailwind CSS v4 and DaisyUI v5 configuration entry point.

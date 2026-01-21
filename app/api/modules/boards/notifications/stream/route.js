@@ -33,7 +33,9 @@ export async function GET(req) {
       // For simplicity and standard support, we watch all and filter in app unless volume is huge.
       // Given this is a boiler plate, we'll watch and filter.
 
-      const changeStream = Notification.watch([], { fullDocument: 'updateLookup' });
+      const changeStream = Notification.watch([], {
+        fullDocument: "updateLookup",
+      });
 
       changeStream.on("change", async (change) => {
         if (!change.fullDocument) return;
@@ -41,14 +43,19 @@ export async function GET(req) {
         // Strictly filter by userId
         if (change.fullDocument.userId.toString() !== userId) return;
 
-        console.log(`Notification event for user ${userId}:`, change.operationType);
+        console.log(
+          `Notification event for user ${userId}:`,
+          change.operationType,
+        );
 
         // Handle New Notification (Insert)
         if (change.operationType === "insert") {
           // Manual population for SSE because simple watch doesn't populate
           const fullDoc = change.fullDocument;
           if (fullDoc.boardId) {
-            const board = await Board.findById(fullDoc.boardId).select("name slug").lean();
+            const board = await Board.findById(fullDoc.boardId)
+              .select("name slug")
+              .lean();
             fullDoc.boardId = board;
           }
 
@@ -63,7 +70,7 @@ export async function GET(req) {
           sendEvent({
             type: "notification-update",
             notificationId: change.documentKey._id.toString(),
-            updatedFields: change.updateDescription.updatedFields
+            updatedFields: change.updateDescription.updatedFields,
           });
         }
       });
@@ -95,9 +102,8 @@ export async function GET(req) {
         changeStream.close();
         try {
           controller.close();
-        } catch (e) { }
+        } catch (e) {}
       });
-
     },
   });
 
@@ -105,7 +111,7 @@ export async function GET(req) {
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
-      "Connection": "keep-alive",
+      Connection: "keep-alive",
     },
   });
 }

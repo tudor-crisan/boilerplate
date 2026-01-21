@@ -7,7 +7,6 @@ export default function FooterSocial() {
   const { copywriting } = useCopywriting();
   const { styling } = useStyling();
 
-
   if (!settings.business.socials || settings.business.socials.length === 0) {
     return null;
   }
@@ -17,7 +16,9 @@ export default function FooterSocial() {
       <h3 className="font-bold text-base-content/90">
         {copywriting.SectionFooter.socials.label}
       </h3>
-      <div className={`${styling.flex.col} ${styling.SectionFooter.positioning} gap-1 text-sm text-base-content/70`}>
+      <div
+        className={`${styling.flex.col} ${styling.SectionFooter.positioning} gap-1 text-sm text-base-content/70`}
+      >
         {settings.business.socials.map((social) => (
           <a
             key={social.name}

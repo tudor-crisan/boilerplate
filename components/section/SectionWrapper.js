@@ -8,11 +8,13 @@ export default function SectionWrapper({
   containerClassName,
   children,
   background = "bg-base-100",
-  padding
+  padding,
 }) {
   const { styling } = useStyling();
 
-  const defaultPadding = styling?.[`Section${id?.charAt(0).toUpperCase()}${id?.slice(1)}`]?.padding || "";
+  const defaultPadding =
+    styling?.[`Section${id?.charAt(0).toUpperCase()}${id?.slice(1)}`]
+      ?.padding || "";
 
   return (
     <section
@@ -21,7 +23,7 @@ export default function SectionWrapper({
         styling.general.box,
         background,
         padding || defaultPadding,
-        className
+        className,
       )}
     >
       <div className={cn(styling.general.container, containerClassName)}>

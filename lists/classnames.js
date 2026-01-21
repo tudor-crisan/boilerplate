@@ -1,4 +1,3 @@
-
 const classnames = [
   "grayscale",
   "invert",
@@ -8,7 +7,7 @@ const classnames = [
   "blur-sm", // sm | md | lg | xl
   "opacity-75", // 0.75
   "hue-rotate-90", // 90deg
-  "sepia"
-]
+  "sepia",
+];
 
 export default classnames;

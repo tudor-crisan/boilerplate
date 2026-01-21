@@ -1,6 +1,9 @@
 import Label from "@/components/common/Label";
 import Input from "@/components/input/Input";
-import { SettingsContainer, SettingsItem } from "@/components/settings/SettingsLayout";
+import {
+  SettingsContainer,
+  SettingsItem,
+} from "@/components/settings/SettingsLayout";
 
 export const BoardSettingsEmptyState = ({ getVal, handleChange, disabled }) => (
   <SettingsContainer>

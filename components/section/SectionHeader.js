@@ -22,9 +22,7 @@ export default function SectionHeader() {
   return (
     <section id="header" className={cn(styling.SectionHeader.colors)}>
       <WrapperHeader>
-        {showHeader.top && (
-          <HeaderTop url={settings.paths.home.source} />
-        )}
+        {showHeader.top && <HeaderTop url={settings.paths.home.source} />}
         {hasMenu && (
           <>
             <HeaderMenu />

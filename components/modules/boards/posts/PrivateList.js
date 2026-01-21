@@ -12,20 +12,14 @@ import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
 import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { formatCommentDate } from "@/libs/utils.client";
-import { AnimatePresence,motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const BoardPrivatePostsList = ({ posts, boardId }) => {
   const { styling } = useStyling();
   const { posts: postsState } = useBoardPosts(boardId, posts);
 
-  const {
-    search,
-    setSearch,
-    sort,
-    setSort,
-    filteredPosts,
-    sortOptions
-  } = useBoardFiltering(postsState);
+  const { search, setSearch, sort, setSort, filteredPosts, sortOptions } =
+    useBoardFiltering(postsState);
 
   return (
     <div className="space-y-4 w-full min-w-0">
@@ -53,12 +47,14 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{
                   layout: { type: "spring", stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 }
+                  opacity: { duration: 0.2 },
                 }}
                 className={`${styling.components.card} ${styling.general.box} block`}
               >
                 <div className="space-y-1 mb-4">
-                  <Title className="wrap-break-word line-clamp-2 mb-4">{item.title}</Title>
+                  <Title className="wrap-break-word line-clamp-2 mb-4">
+                    {item.title}
+                  </Title>
                   <Paragraph className="max-h-32 wrap-break-word">
                     {item.description}
                   </Paragraph>
@@ -70,7 +66,8 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
                       {formatCommentDate(item.createdAt)}
                     </TextSmall>
                     <TextSmall>
-                      {item.votesCounter || 0} votes • {item.commentsCount || 0} comments
+                      {item.votesCounter || 0} votes • {item.commentsCount || 0}{" "}
+                      comments
                     </TextSmall>
                   </div>
 
@@ -88,22 +85,19 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
             ))}
           </AnimatePresence>
         </ul>
+      ) : search ? (
+        <EmptyState
+          title="No posts found"
+          description="There are no posts for your search"
+          icon={<SvgSearch size="size-16" />}
+        />
       ) : (
-        search ? (
-          <EmptyState
-            title="No posts found"
-            description="There are no posts for your search"
-            icon={<SvgSearch size="size-16" />}
-          />
-        ) : (
-          <EmptyState
-            title="No posts yet"
-            description="Here will be the new posts created"
-            icon={<SvgPost size="size-16" />}
-          />
-        )
+        <EmptyState
+          title="No posts yet"
+          description="Here will be the new posts created"
+          icon={<SvgPost size="size-16" />}
+        />
       )}
-
     </div>
   );
 };

@@ -13,5 +13,5 @@ export default function IconFavicon() {
       sizes={visual.favicon.sizes}
       href={visual.favicon.href}
     />
-  )
+  );
 }

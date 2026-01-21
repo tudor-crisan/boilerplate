@@ -7,14 +7,20 @@ import { defaultSetting as settings } from "@/libs/defaults";
 
 const RETURN_URL_REDIRECT = settings.paths.dashboard.source;
 
-const ButtonPortal = ({ className = "", variant = "btn-primary", children = "Billing", ...props }) => {
+const ButtonPortal = ({
+  className = "",
+  variant = "btn-primary",
+  children = "Billing",
+  ...props
+}) => {
   const { loading, request } = useApiRequest();
 
   const handleBilling = async () => {
     await request(
-      () => clientApi.post(settings.paths.api.billingCreatePortal, {
-        returnUrl: window.location.origin + RETURN_URL_REDIRECT,
-      }),
+      () =>
+        clientApi.post(settings.paths.api.billingCreatePortal, {
+          returnUrl: window.location.origin + RETURN_URL_REDIRECT,
+        }),
       {
         keepLoadingOnSuccess: true,
         onSuccess: (message, data) => {
@@ -22,8 +28,8 @@ const ButtonPortal = ({ className = "", variant = "btn-primary", children = "Bil
           if (portalUrl) {
             window.location.href = portalUrl;
           }
-        }
-      }
+        },
+      },
     );
   };
 

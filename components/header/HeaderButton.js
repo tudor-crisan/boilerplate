@@ -9,5 +9,5 @@ export default function HeaderButton({ className = "" }) {
         loggedOutText="Login"
       />
     </div>
-  )
+  );
 }

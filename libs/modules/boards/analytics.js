@@ -16,17 +16,15 @@ export async function trackEvent(boardId, type) {
     const today = getTodayDate();
     const update = { $inc: {} };
 
-    if (type === 'VIEW') update.$inc.views = 1;
-    else if (type === 'POST') update.$inc.posts = 1;
-    else if (type === 'VOTE') update.$inc.votes = 1;
-    else if (type === 'COMMENT') update.$inc.comments = 1;
+    if (type === "VIEW") update.$inc.views = 1;
+    else if (type === "POST") update.$inc.posts = 1;
+    else if (type === "VOTE") update.$inc.votes = 1;
+    else if (type === "COMMENT") update.$inc.comments = 1;
     else return;
 
-    await BoardAnalytics.updateOne(
-      { boardId, date: today },
-      update,
-      { upsert: true }
-    );
+    await BoardAnalytics.updateOne({ boardId, date: today }, update, {
+      upsert: true,
+    });
   } catch (e) {
     console.error("trackEvent Error:", e.message || e);
   }
@@ -39,7 +37,9 @@ export async function createNotification(boardId, type, data) {
     // Find board owner and name
     const board = await Board.findById(boardId).select("userId name").lean();
     if (!board || !board.userId) {
-      console.warn(`[Notification Warning] Board ${boardId} or owner not found.`);
+      console.warn(
+        `[Notification Warning] Board ${boardId} or owner not found.`,
+      );
       return;
     }
 
@@ -49,8 +49,8 @@ export async function createNotification(boardId, type, data) {
       type,
       data: {
         ...data,
-        boardName: board.name
-      }
+        boardName: board.name,
+      },
     });
   } catch (e) {
     console.error("createNotification Error:", e.message || e);

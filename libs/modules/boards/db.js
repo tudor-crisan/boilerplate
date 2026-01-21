@@ -11,8 +11,10 @@ const getPostsAggregation = async (boardId) => {
   return await Post.aggregate([
     {
       $match: {
-        boardId: mongoose.Types.ObjectId.isValid(boardId) ? new mongoose.Types.ObjectId(boardId) : boardId
-      }
+        boardId: mongoose.Types.ObjectId.isValid(boardId)
+          ? new mongoose.Types.ObjectId(boardId)
+          : boardId,
+      },
     },
     {
       $lookup: {
@@ -22,40 +24,40 @@ const getPostsAggregation = async (boardId) => {
           {
             $match: {
               $expr: { $eq: ["$postId", "$$postId"] },
-              isDeleted: { $ne: true }
-            }
-          }
+              isDeleted: { $ne: true },
+            },
+          },
         ],
-        as: "comments"
-      }
+        as: "comments",
+      },
     },
     {
       $addFields: {
-        commentsCount: { $size: "$comments" }
-      }
+        commentsCount: { $size: "$comments" },
+      },
     },
     {
       $project: {
-        comments: 0
-      }
+        comments: 0,
+      },
     },
     {
       $sort: {
         votesCounter: -1,
-        createdAt: -1
-      }
-    }
+        createdAt: -1,
+      },
+    },
   ]);
 };
 
 const serializePosts = (posts) => {
-  return posts.map(post => ({
+  return posts.map((post) => ({
     ...post,
     _id: post._id.toString(),
     boardId: post.boardId.toString(),
     userId: post.userId ? post.userId.toString() : null,
     createdAt: post.createdAt.toISOString(),
-    updatedAt: post.updatedAt.toISOString()
+    updatedAt: post.updatedAt.toISOString(),
   }));
 };
 
@@ -71,7 +73,9 @@ export async function getUser(populate = "") {
     if (!user) return null;
 
     if (populate && populate.includes("boards")) {
-      const boards = await Board.find({ userId: userId }).sort({ createdAt: -1 }).lean();
+      const boards = await Board.find({ userId: userId })
+        .sort({ createdAt: -1 })
+        .lean();
       user.boards = boards;
     }
 

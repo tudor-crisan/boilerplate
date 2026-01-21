@@ -14,7 +14,7 @@ const BoardPostItem = ({ item, itemAction, boardSettings }) => {
       <CardPost
         title={item.title}
         description={item.description}
-        onClick={() => { }}
+        onClick={() => {}}
         actions={
           <>
             <Button
@@ -25,12 +25,16 @@ const BoardPostItem = ({ item, itemAction, boardSettings }) => {
               className="btn-ghost btn-sm opacity-70 hover:opacity-100 gap-1.5 px-2"
             >
               <SvgComment size="size-5" />
-              <span className="text-xs font-normal">{item.commentsCount || 0}</span>
+              <span className="text-xs font-normal">
+                {item.commentsCount || 0}
+              </span>
             </Button>
 
             {(itemAction || item.action) && (
               <div onClick={(e) => e.stopPropagation()}>
-                {typeof itemAction === "function" ? itemAction(item) : item.action}
+                {typeof itemAction === "function"
+                  ? itemAction(item)
+                  : item.action}
               </div>
             )}
           </>
@@ -40,7 +44,7 @@ const BoardPostItem = ({ item, itemAction, boardSettings }) => {
           <BoardCommentSection postId={item._id} settings={boardSettings} />
         )}
       </CardPost>
-    </li >
+    </li>
   );
 };
 

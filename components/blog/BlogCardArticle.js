@@ -21,7 +21,9 @@ const BlogCardArticle = ({ article, showCategory = true }) => {
           title={article.title}
           rel="bookmark"
         >
-          <figure className={`aspect-video ${styling.flex.center} bg-base-200 overflow-hidden`}>
+          <figure
+            className={`aspect-video ${styling.flex.center} bg-base-200 overflow-hidden`}
+          >
             <div
               className="w-full h-full bg-primary"
               style={{
@@ -38,7 +40,6 @@ const BlogCardArticle = ({ article, showCategory = true }) => {
         </Link>
       )}
       <div className="card-body">
-
         {showCategory && (
           <div className="flex flex-wrap gap-2">
             {article.categories.map((category) => (
@@ -59,9 +60,7 @@ const BlogCardArticle = ({ article, showCategory = true }) => {
         </Title>
 
         <div className="space-y-4">
-          <Paragraph>
-            {article.description}
-          </Paragraph>
+          <Paragraph>{article.description}</Paragraph>
 
           <div className={`${styling.flex.items_center} gap-3 text-sm`}>
             <div
@@ -77,7 +76,9 @@ const BlogCardArticle = ({ article, showCategory = true }) => {
                     {config.business.name}
                   </TextSmall>
                 </span>
-                <div className={`${styling.flex.items_center} gap-1.5 text-xs opacity-60`}>
+                <div
+                  className={`${styling.flex.items_center} gap-1.5 text-xs opacity-60`}
+                >
                   <span itemProp="datePublished">
                     {new Date(article.publishedAt).toLocaleDateString("en-US", {
                       month: "long",
@@ -88,7 +89,8 @@ const BlogCardArticle = ({ article, showCategory = true }) => {
                     <>
                       <span>•</span>
                       <span>
-                        {Math.ceil(article.content.split(/\s+/).length / 200)} min read
+                        {Math.ceil(article.content.split(/\s+/).length / 200)}{" "}
+                        min read
                       </span>
                     </>
                   )}

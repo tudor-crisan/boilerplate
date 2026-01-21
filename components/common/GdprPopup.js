@@ -50,6 +50,9 @@ export default function GdprPopup() {
         return;
       }
 
+      // 3. Skip if on localhost
+      if (process.env.NODE_ENV === "development") return;
+
       try {
         // 2. Check IP location
         const response = await fetch("https://ipapi.co/json/");

@@ -22,7 +22,7 @@ export default function SectionBlog() {
     .map((article) => ({
       ...article,
       categories: article.categorySlugs.map((slug) =>
-        categories.find((c) => c.slug === slug)
+        categories.find((c) => c.slug === slug),
       ),
     }));
 

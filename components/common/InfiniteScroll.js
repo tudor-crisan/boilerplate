@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
 const InfiniteScroll = ({
   children,
@@ -7,7 +7,7 @@ const InfiniteScroll = ({
   hasMore,
   isLoading,
   className = "",
-  threshold = 30 // distance from bottom to trigger load
+  threshold = 30, // distance from bottom to trigger load
 }) => {
   const scrollContainerRef = useRef(null);
 
@@ -23,11 +23,7 @@ const InfiniteScroll = ({
   };
 
   return (
-    <div
-      ref={scrollContainerRef}
-      onScroll={handleScroll}
-      className={className}
-    >
+    <div ref={scrollContainerRef} onScroll={handleScroll} className={className}>
       {children}
     </div>
   );

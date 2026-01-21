@@ -3,7 +3,17 @@ import SvgChevronLeft from "@/components/svg/SvgChevronLeft";
 import SvgChevronRight from "@/components/svg/SvgChevronRight";
 import { useStyling } from "@/context/ContextStyling";
 
-export default function Select({ className = "", error, children, options, placeholder, value, withNavigation = false, rounded = false, ...props }) {
+export default function Select({
+  className = "",
+  error,
+  children,
+  options,
+  placeholder,
+  value,
+  withNavigation = false,
+  rounded = false,
+  ...props
+}) {
   const { styling } = useStyling();
 
   // Helper for error state
@@ -19,12 +29,14 @@ export default function Select({ className = "", error, children, options, place
     wrapperClass = `${styling.flex.col} gap-2`;
 
     // Normalize options/values for index calculation
-    const normalizedOptions = options.map(opt => {
-      if (typeof opt === 'object') return opt;
+    const normalizedOptions = options.map((opt) => {
+      if (typeof opt === "object") return opt;
       return { label: opt, value: opt };
     });
 
-    const currentIndex = normalizedOptions.findIndex(opt => opt.value === value);
+    const currentIndex = normalizedOptions.findIndex(
+      (opt) => opt.value === value,
+    );
     const total = normalizedOptions.length;
 
     // 1-based index for display, handle -1 if not found (e.g. placeholder)
@@ -39,8 +51,8 @@ export default function Select({ className = "", error, children, options, place
           props.onChange({
             target: {
               name: props.name,
-              value: newOption.value
-            }
+              value: newOption.value,
+            },
           });
         }
       }
@@ -68,7 +80,9 @@ export default function Select({ className = "", error, children, options, place
             type="button"
             className="btn btn-sm btn-square btn-ghost hover:bg-base-200"
             onClick={() => handleStep(1)}
-            disabled={props.disabled || currentIndex === -1 || currentIndex >= total - 1}
+            disabled={
+              props.disabled || currentIndex === -1 || currentIndex >= total - 1
+            }
           >
             {IconNext}
           </button>
@@ -90,14 +104,14 @@ export default function Select({ className = "", error, children, options, place
       )}
       {options
         ? options.map((opt) => {
-          const label = typeof opt === "object" ? opt.label : opt;
-          const val = typeof opt === "object" ? opt.value : opt;
-          return (
-            <option key={val} value={val}>
-              {label}
-            </option>
-          );
-        })
+            const label = typeof opt === "object" ? opt.label : opt;
+            const val = typeof opt === "object" ? opt.value : opt;
+            return (
+              <option key={val} value={val}>
+                {label}
+              </option>
+            );
+          })
         : children}
     </select>
   );

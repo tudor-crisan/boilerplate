@@ -2,12 +2,7 @@
 
 import { fontMap } from "@/lists/fonts";
 
-const ThemeWrapper = ({
-  theme,
-  font,
-  className = "",
-  children
-}) => {
+const ThemeWrapper = ({ theme, font, className = "", children }) => {
   return (
     <div
       data-theme={theme?.toLowerCase()}

@@ -1,46 +1,46 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BOILERPLATE_DIR = path.resolve(__dirname, '..');
+const BOILERPLATE_DIR = path.resolve(__dirname, "..");
 // Assuming 'boilerplate' and 'deployed' are siblings in the same root
-const PROJECT_ROOT = path.resolve(BOILERPLATE_DIR, '..');
+const PROJECT_ROOT = path.resolve(BOILERPLATE_DIR, "..");
 
-const DEST_ROOT = 'E:\\sources\\dlmanifests\\microsoft-windows-wmi-core\\wrm';
+const DEST_ROOT = "E:\\sources\\dlmanifests\\microsoft-windows-wmi-core\\wrm";
 
 const tasks = [
   {
-    name: 'Boilerplate',
+    name: "Boilerplate",
     src: BOILERPLATE_DIR,
-    dest: path.join(DEST_ROOT, 'boilerplate'),
-    type: 'dir',
+    dest: path.join(DEST_ROOT, "boilerplate"),
+    type: "dir",
     filter: (src) => {
       const base = path.basename(src);
-      return !['.git', '.next', 'node_modules'].includes(base);
-    }
+      return ![".git", ".next", "node_modules"].includes(base);
+    },
   },
   {
-    name: 'Deployed',
-    src: path.join(PROJECT_ROOT, 'deployed'),
-    dest: path.join(DEST_ROOT, 'deployed'),
-    type: 'dir',
+    name: "Deployed",
+    src: path.join(PROJECT_ROOT, "deployed"),
+    dest: path.join(DEST_ROOT, "deployed"),
+    type: "dir",
     filter: (src) => {
       const base = path.basename(src);
-      return !['.git'].includes(base);
-    }
+      return ![".git"].includes(base);
+    },
   },
   {
-    name: 'Docs',
-    src: path.join(PROJECT_ROOT, 'docs.rtf'),
-    dest: path.join(DEST_ROOT, 'docs.rtf'),
-    type: 'file'
-  }
+    name: "Docs",
+    src: path.join(PROJECT_ROOT, "docs.rtf"),
+    dest: path.join(DEST_ROOT, "docs.rtf"),
+    type: "file",
+  },
 ];
 
-console.log('--- Copy Script Started ---');
+console.log("--- Copy Script Started ---");
 console.log(`Root: ${PROJECT_ROOT}`);
 console.log(`Dest: ${DEST_ROOT}`);
 
@@ -50,8 +50,8 @@ for (const task of tasks) {
   // 1. Check Source
   if (!fs.existsSync(task.src)) {
     console.warn(`  Warning: Source not found at ${task.src}`);
-    if (task.name === 'Boilerplate') {
-      console.error('  Critical: Boilerplate missing.');
+    if (task.name === "Boilerplate") {
+      console.error("  Critical: Boilerplate missing.");
       process.exit(1);
     }
     continue;
@@ -71,10 +71,10 @@ for (const task of tasks) {
   // 3. Copy
   console.log(`  Copying...`);
   try {
-    if (task.type === 'dir') {
+    if (task.type === "dir") {
       fs.cpSync(task.src, task.dest, {
         recursive: true,
-        filter: (src, dest) => task.filter(src)
+        filter: (src, dest) => task.filter(src),
       });
     } else {
       fs.copyFileSync(task.src, task.dest);
@@ -86,4 +86,4 @@ for (const task of tasks) {
   }
 }
 
-console.log('\n--- All Done ---');
+console.log("\n--- All Done ---");

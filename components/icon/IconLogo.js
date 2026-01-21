@@ -20,7 +20,7 @@ export default function IconLogo() {
         return;
       }
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("shuffle-logo", shuffleLogo);
@@ -28,7 +28,11 @@ export default function IconLogo() {
   }, []);
 
   return (
-    <Link href="/" title="Home" className={`${styling.components.element} ${visual.logo.container} ${styling.flex.inline_center}`}>
+    <Link
+      href="/"
+      title="Home"
+      className={`${styling.components.element} ${visual.logo.container} ${styling.flex.inline_center}`}
+    >
       <svg
         className={visual.logo.svg.classname}
         viewBox={visual.logo.svg.viewbox}
@@ -42,10 +46,22 @@ export default function IconLogo() {
           <path key={dIndex} d={d} />
         ))}
         {logoSettings.circle.map((circle, circleIndex) => (
-          <circle key={circleIndex} cx={circle[0]} cy={circle[1]} r={circle[2]} />
+          <circle
+            key={circleIndex}
+            cx={circle[0]}
+            cy={circle[1]}
+            r={circle[2]}
+          />
         ))}
         {logoSettings.rect.map((rect, rectIndex) => (
-          <rect key={rectIndex} x={rect[0]} y={rect[1]} width={rect[2]} height={rect[3]} rx={rect[4]} />
+          <rect
+            key={rectIndex}
+            x={rect[0]}
+            y={rect[1]}
+            width={rect[2]}
+            height={rect[3]}
+            rx={rect[4]}
+          />
         ))}
       </svg>
     </Link>

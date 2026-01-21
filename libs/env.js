@@ -12,7 +12,12 @@ export function loadAppEnv() {
   const appName = process.env.APP || process.env.NEXT_PUBLIC_APP;
   if (!appName) return;
 
-  const envPath = path.join(process.cwd(), 'env', 'env-dev', `.env.dev.${appName}`);
+  const envPath = path.join(
+    process.cwd(),
+    "env",
+    "env-dev",
+    `.env.dev.${appName}`,
+  );
   if (fs.existsSync(envPath)) {
     dotenv.config({ path: envPath, quiet: true });
   }

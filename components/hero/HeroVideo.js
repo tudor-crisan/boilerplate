@@ -1,7 +1,7 @@
 "use client";
 import { useStyling } from "@/context/ContextStyling";
 import { useVisual } from "@/context/ContextVisual";
-import { Suspense } from 'react'
+import { Suspense } from "react";
 
 export default function HeroVideo() {
   const { styling } = useStyling();
@@ -16,9 +16,12 @@ export default function HeroVideo() {
           height={visual.HeroVideo.video.height}
           className={`${styling.components.card_featured} ${visual.HeroVideo.video.classname}`}
         >
-          <source src={visual.HeroVideo.source.src} type={visual.HeroVideo.source.type} />
+          <source
+            src={visual.HeroVideo.source.src}
+            type={visual.HeroVideo.source.type}
+          />
         </video>
       </div>
     </Suspense>
-  )
+  );
 }

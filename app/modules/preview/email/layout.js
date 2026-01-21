@@ -9,9 +9,5 @@ export default async function Layout({ children }) {
     redirect("/");
   }
 
-  return (
-    <SessionProvider session={session}>
-      {children}
-    </SessionProvider>
-  );
+  return <SessionProvider session={session}>{children}</SessionProvider>;
 }

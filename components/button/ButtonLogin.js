@@ -4,17 +4,17 @@ import { useAuth } from "@/context/ContextAuth";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { signIn } from "next-auth/react";
 
-export default function ButtonLogin({ className = "", loggedInText = "Go to dashboard", loggedOutText = "Get started" }) {
+export default function ButtonLogin({
+  className = "",
+  loggedInText = "Go to dashboard",
+  loggedOutText = "Get started",
+}) {
   const { isLoggedIn } = useAuth();
   const dashboardUrl = settings.paths.dashboard.source;
 
   if (isLoggedIn) {
     return (
-      <Button
-        href={dashboardUrl}
-        className={className}
-        variant="btn-primary"
-      >
+      <Button href={dashboardUrl} className={className} variant="btn-primary">
         {loggedInText}
       </Button>
     );
@@ -26,10 +26,10 @@ export default function ButtonLogin({ className = "", loggedInText = "Go to dash
       variant="btn-primary"
       onClick={async () => {
         await signIn(undefined, { callbackUrl: dashboardUrl });
-        await new Promise(resolve => setTimeout(resolve, 60000));
+        await new Promise((resolve) => setTimeout(resolve, 60000));
       }}
     >
       {loggedOutText}
     </Button>
-  )
+  );
 }

@@ -1,4 +1,3 @@
-
 class ToastManager {
   constructor() {
     this.listeners = [];
@@ -47,10 +46,10 @@ class ToastManager {
   error(message, options) {
     return this.create(message, "error", options);
   }
-  
+
   // mimic other react-hot-toast methods if needed
-  custom(jsx, options) { 
-      return this.create(jsx, "custom", options);
+  custom(jsx, options) {
+    return this.create(jsx, "custom", options);
   }
 }
 

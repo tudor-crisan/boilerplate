@@ -1,45 +1,43 @@
-import { execSync } from 'child_process';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { execSync } from "child_process";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // CONFIGURATION
-const BOILERPLATE_DIR = path.resolve(__dirname, '..');
-const DEPLOYED_ROOT = 'C:/twain_32/deployed'; // Adjust if needed
-// List of folders in DEPLOYED_ROOT to deploy to. 
+const BOILERPLATE_DIR = path.resolve(__dirname, "..");
+const DEPLOYED_ROOT = "C:/twain_32/deployed"; // Adjust if needed
+// List of folders in DEPLOYED_ROOT to deploy to.
 // If empty, it could potentially scan the directory, but for safety, please list them.
 // Example: ['my-app', 'another-app']
-const TARGET_FOLDERS = [
-  'loyalboards',
-  'tudorcrisan.dev'
-];
+const TARGET_FOLDERS = ["loyalboards", "tudorcrisan.dev"];
 
 // Configuration for app-specific folders to KEEP.
 // Standardizes "tudorcrisan" (folder) vs "tudorcrisan.dev" (target)
 const APP_CONFIG = {
-  'loyalboards': ['loyalboards'],
-  'tudorcrisan.dev': [
-    'tudorcrisan', 'tudorcrisan.dev',
-    'loyalboards',
-    'taskflow'
-  ]
+  loyalboards: ["loyalboards"],
+  "tudorcrisan.dev": [
+    "tudorcrisan",
+    "tudorcrisan.dev",
+    "loyalboards",
+    "taskflow",
+  ],
 };
 
 const EXCLUDED_FILES = [
-  '.next',
-  'node_modules',
-  '.vscode',
-  '.env',
-  'env',
-  '.git', // Always exclude .git from source copy to avoid overwriting target repo
-  'scripts', // Maybe exclude scripts too? User didn't specify, but often good practice. Keeping as per request: only .next, node_modules, .vscode, .env
-  'todo.notes.txt',
-  'README.md',
-  '.env.example',
-  '.editorconfig'
+  ".next",
+  "node_modules",
+  ".vscode",
+  ".env",
+  "env",
+  ".git", // Always exclude .git from source copy to avoid overwriting target repo
+  "scripts", // Maybe exclude scripts too? User didn't specify, but often good practice. Keeping as per request: only .next, node_modules, .vscode, .env
+  "todo.notes.txt",
+  "README.md",
+  ".env.example",
+  ".editorconfig",
 ];
 
 // Helper to copy directory recursively with exclusions
@@ -64,7 +62,7 @@ function copyDir(src, dest, exclusions) {
     } else {
       fs.copyFileSync(srcPath, destPath);
       // Optional: verbose log for critical files to reassure user
-      if (entry.name === 'next.config.mjs') {
+      if (entry.name === "next.config.mjs") {
         console.log(`      ✅ Copied next.config.mjs`);
       }
     }
@@ -76,7 +74,7 @@ function cleanDir(dir) {
   if (!fs.existsSync(dir)) return;
   const entries = fs.readdirSync(dir);
   for (const entry of entries) {
-    if (entry === '.git') continue;
+    if (entry === ".git") continue;
     const fullPath = path.join(dir, entry);
     fs.rmSync(fullPath, { recursive: true, force: true });
   }
@@ -84,7 +82,7 @@ function cleanDir(dir) {
 
 // Helper to filter lists/*.js files to only include relevant app content
 function filterListFiles(targetDir, appName) {
-  const listsDir = path.join(targetDir, 'lists');
+  const listsDir = path.join(targetDir, "lists");
   if (!fs.existsSync(listsDir)) return;
 
   const allowedApps = APP_CONFIG[appName] || [appName];
@@ -93,11 +91,11 @@ function filterListFiles(targetDir, appName) {
   console.log(`   🧹 Filtering list files for ${appName}...`);
 
   for (const file of files) {
-    if (!file.endsWith('.js')) continue;
+    if (!file.endsWith(".js")) continue;
 
     const filePath = path.join(listsDir, file);
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const lines = content.split('\n');
+    const content = fs.readFileSync(filePath, "utf-8");
+    const lines = content.split("\n");
     const newLines = [];
     const forbiddenVars = new Set();
 
@@ -107,11 +105,17 @@ function filterListFiles(targetDir, appName) {
 
     for (const line of lines) {
       // 1. Handle apps.js object keys
-      if (file === 'apps.js') {
+      if (file === "apps.js") {
         const keyMatch = line.match(/^\s*["']?([\w-]+)["']?:\s*\{/);
         if (keyMatch) {
           const key = keyMatch[1];
-          const standardProps = ['copywriting', 'styling', 'visual', 'setting', 'paths'];
+          const standardProps = [
+            "copywriting",
+            "styling",
+            "visual",
+            "setting",
+            "paths",
+          ];
           if (!standardProps.includes(key) && !allowedApps.includes(key)) {
             isSkippingBlock = true;
             blockBraceCount = 0;
@@ -122,7 +126,7 @@ function filterListFiles(targetDir, appName) {
           // Track braces to know when block ends
           const openBraces = (line.match(/\{/g) || []).length;
           const closeBraces = (line.match(/\}/g) || []).length;
-          blockBraceCount += (openBraces - closeBraces);
+          blockBraceCount += openBraces - closeBraces;
 
           if (blockBraceCount <= 0) {
             isSkippingBlock = false;
@@ -133,7 +137,9 @@ function filterListFiles(targetDir, appName) {
 
       // 2. Handle Imports or loadJSON calls pointing to other apps
       // Regex looks for paths like: .../data/apps/appName/... or .../components/apps/appName/...
-      const appPathMatch = line.match(/(?:data|components|public)\/apps\/([^/]+)\//);
+      const appPathMatch = line.match(
+        /(?:data|components|public)\/apps\/([^/]+)\//,
+      );
       if (appPathMatch) {
         const folderName = appPathMatch[1];
         if (!allowedApps.includes(folderName)) {
@@ -164,7 +170,7 @@ function filterListFiles(targetDir, appName) {
       newLines.push(line);
     }
 
-    fs.writeFileSync(filePath, newLines.join('\n'));
+    fs.writeFileSync(filePath, newLines.join("\n"));
   }
 }
 
@@ -173,13 +179,11 @@ function cleanAppSpecificFiles(targetDir, appName) {
   const allowedApps = APP_CONFIG[appName] || [];
 
   // Directories that contain app-specific subfolders
-  const directoriesToClean = [
-    'public/apps',
-    'data/apps',
-    'components/apps'
-  ];
+  const directoriesToClean = ["public/apps", "data/apps", "components/apps"];
 
-  console.log(`   🧹 Cleaning app-specific files for ${appName} (Allowing: ${allowedApps.join(', ')})...`);
+  console.log(
+    `   🧹 Cleaning app-specific files for ${appName} (Allowing: ${allowedApps.join(", ")})...`,
+  );
 
   for (const relativeDir of directoriesToClean) {
     const fullDir = path.join(targetDir, relativeDir);
@@ -194,8 +198,10 @@ function cleanAppSpecificFiles(targetDir, appName) {
       // If the folder name is NOT in the allowed list for this app, delete it.
       if (!allowedApps.includes(entry.name)) {
         // EXCEPTION: Always keep tudorcrisan in public/apps
-        if (relativeDir === 'public/apps' && entry.name === 'tudorcrisan.dev') {
-          console.log(`      Found public/apps/tudorcrisan.dev, preserving it (shared assets).`);
+        if (relativeDir === "public/apps" && entry.name === "tudorcrisan.dev") {
+          console.log(
+            `      Found public/apps/tudorcrisan.dev, preserving it (shared assets).`,
+          );
           continue;
         }
 
@@ -208,10 +214,12 @@ function cleanAppSpecificFiles(targetDir, appName) {
 
   // NEW: Remove webhooks for apps that don't need them (specifically `resend` webhook for `tudorcrisan.dev` only)
   // If we had more webhooks, we would make this more granular, but for now:
-  if (appName !== 'tudorcrisan.dev') {
-    const resendDir = path.join(targetDir, 'app/api/resend');
+  if (appName !== "tudorcrisan.dev") {
+    const resendDir = path.join(targetDir, "app/api/resend");
     if (fs.existsSync(resendDir)) {
-      console.log(`      Running rmSync on app/api/resend (only for tudorcrisan.dev)`);
+      console.log(
+        `      Running rmSync on app/api/resend (only for tudorcrisan.dev)`,
+      );
       fs.rmSync(resendDir, { recursive: true, force: true });
     }
   }
@@ -219,27 +227,31 @@ function cleanAppSpecificFiles(targetDir, appName) {
 
 // Helper to configure vercel.json specific to the app
 function configureVercelJson(targetDir, appName) {
-  const vercelPath = path.join(targetDir, 'vercel.json');
+  const vercelPath = path.join(targetDir, "vercel.json");
   let vercelConfig = {};
 
   // Read existing valid json or start fresh
   if (fs.existsSync(vercelPath)) {
     try {
-      vercelConfig = JSON.parse(fs.readFileSync(vercelPath, 'utf-8'));
+      vercelConfig = JSON.parse(fs.readFileSync(vercelPath, "utf-8"));
     } catch (e) {
-      console.warn('   ⚠️ Invalid vercel.json found, starting with empty object.');
+      console.warn(
+        "   ⚠️ Invalid vercel.json found, starting with empty object.",
+      );
       vercelConfig = {};
     }
   }
 
   // Inject crons for loyalboards
-  if (appName === 'loyalboards') {
-    console.log('   ⚙️ Configuring vercel.json for loyalboards (injecting cron)...');
+  if (appName === "loyalboards") {
+    console.log(
+      "   ⚙️ Configuring vercel.json for loyalboards (injecting cron)...",
+    );
     vercelConfig.crons = [
       {
-        "path": "/api/modules/boards/weekly-digest",
-        "schedule": "0 8 * * 1"
-      }
+        path: "/api/modules/boards/weekly-digest",
+        schedule: "0 8 * * 1",
+      },
     ];
     fs.writeFileSync(vercelPath, JSON.stringify(vercelConfig, null, 2));
   }
@@ -249,25 +261,28 @@ async function main() {
   try {
     // 0. Parse arguments
     const args = process.argv.slice(2);
-    const shouldIncrement = !args.includes('--no-bump');
+    const shouldIncrement = !args.includes("--no-bump");
 
     // 1. Bump Version in package.json
-    const packageJsonPath = path.join(BOILERPLATE_DIR, 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+    const packageJsonPath = path.join(BOILERPLATE_DIR, "package.json");
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
 
     const currentVersion = packageJson.version;
     let newVersion = currentVersion;
 
     if (shouldIncrement) {
-      const versionParts = currentVersion.split('.').map(Number);
+      const versionParts = currentVersion.split(".").map(Number);
       versionParts[2] += 1;
-      newVersion = versionParts.join('.');
+      newVersion = versionParts.join(".");
 
       console.log(`ℹ️  Current version: ${currentVersion}`);
       console.log(`✅ Bumping version to: ${newVersion}`);
 
       packageJson.version = newVersion;
-      fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+      fs.writeFileSync(
+        packageJsonPath,
+        JSON.stringify(packageJson, null, 2) + "\n",
+      );
     } else {
       console.log(`ℹ️  Current version: ${currentVersion}`);
       console.log(`⚠️  Skipping version bump (--no-bump flag detected)`);
@@ -276,17 +291,19 @@ async function main() {
     // 1b. Commit and Push Source Repo (Boilerplate)
     console.log(`\n💾 Committing and pushing source repo (${newVersion})...`);
     try {
-      const sourceExecOptions = { cwd: BOILERPLATE_DIR, stdio: 'inherit' };
-      execSync('git add .', sourceExecOptions);
+      const sourceExecOptions = { cwd: BOILERPLATE_DIR, stdio: "inherit" };
+      execSync("git add .", sourceExecOptions);
       execSync(`git commit -am "${newVersion}"`, sourceExecOptions);
-      execSync('git push', sourceExecOptions);
+      execSync("git push", sourceExecOptions);
       console.log(`   ✅ Source repo updated.`);
     } catch (e) {
       console.error(`   ❌ Source repo git operations failed:`, e.message);
     }
 
     if (TARGET_FOLDERS.length === 0) {
-      console.warn('⚠️  No target folders defined in scripts/deploy.js. Please update TARGET_FOLDERS array.');
+      console.warn(
+        "⚠️  No target folders defined in scripts/deploy.js. Please update TARGET_FOLDERS array.",
+      );
       // Optionally scan directory if user prefers, but safety first.
     }
 
@@ -295,18 +312,20 @@ async function main() {
       const targetDir = path.join(DEPLOYED_ROOT, folder);
 
       if (!fs.existsSync(targetDir)) {
-        console.warn(`⚠️  Target directory not found: ${targetDir}. Skipping...`);
+        console.warn(
+          `⚠️  Target directory not found: ${targetDir}. Skipping...`,
+        );
         continue;
       }
 
       console.log(`\n🚀 Deploying to ${folder}...`);
 
       // Clean target
-      console.log('   🧹 Cleaning target directory...');
+      console.log("   🧹 Cleaning target directory...");
       cleanDir(targetDir);
 
       // Copy files
-      console.log('   📂 Copying files...');
+      console.log("   📂 Copying files...");
       copyDir(BOILERPLATE_DIR, targetDir, EXCLUDED_FILES);
 
       // Filter app-specific files
@@ -319,22 +338,21 @@ async function main() {
       configureVercelJson(targetDir, folder);
 
       // Git operations
-      console.log('   💾 Committing and pushing target...');
+      console.log("   💾 Committing and pushing target...");
       try {
-        const execOptions = { cwd: targetDir, stdio: 'inherit' };
-        execSync('git add .', execOptions);
+        const execOptions = { cwd: targetDir, stdio: "inherit" };
+        execSync("git add .", execOptions);
         execSync(`git commit -am "${newVersion}"`, execOptions);
-        execSync('git push', execOptions);
+        execSync("git push", execOptions);
         console.log(`   ✅ Deployed ${folder}`);
       } catch (e) {
         console.error(`   ❌ Git operations failed for ${folder}:`, e.message);
       }
     }
 
-    console.log('\n✨ Deployment complete!');
-
+    console.log("\n✨ Deployment complete!");
   } catch (error) {
-    console.error('❌ Deployment failed:', error);
+    console.error("❌ Deployment failed:", error);
     process.exit(1);
   }
 }

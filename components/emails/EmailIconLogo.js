@@ -1,14 +1,16 @@
-import { defaultSetting,defaultVisual } from "@/libs/defaults";
+import { defaultSetting, defaultVisual } from "@/libs/defaults";
 
 export default function EmailIconLogo({ branding }) {
   // Use the favicon logic as requested, ignoring complex SVG implementation.
   const faviconHref = defaultVisual.favicon?.href || "";
-  const website = defaultSetting.business?.website || defaultSetting.appUrl || "";
+  const website =
+    defaultSetting.business?.website || defaultSetting.appUrl || "";
 
   // Construct absolute URL
-  const logoUrl = (faviconHref.startsWith("/") && website)
-    ? `${website}${faviconHref}`
-    : faviconHref;
+  const logoUrl =
+    faviconHref.startsWith("/") && website
+      ? `${website}${faviconHref}`
+      : faviconHref;
 
   // Render logo if URL exists
   if (!logoUrl) return null;
@@ -22,7 +24,7 @@ export default function EmailIconLogo({ branding }) {
     borderRadius: branding?.btnRoundness || "4px",
     verticalAlign: "middle",
     marginRight: "12px",
-    backgroundColor: "transparent" // Ensure no background conflict
+    backgroundColor: "transparent", // Ensure no background conflict
   };
 
   const imgStyle = {
@@ -33,18 +35,12 @@ export default function EmailIconLogo({ branding }) {
     objectFit: "contain",
     // Ensure image is fully visible
     border: "none",
-    outline: "none"
+    outline: "none",
   };
 
   return (
     <div style={containerStyle}>
-      <img
-        src={logoUrl}
-        alt="Logo"
-        width="32"
-        height="32"
-        style={imgStyle}
-      />
+      <img src={logoUrl} alt="Logo" width="32" height="32" style={imgStyle} />
     </div>
   );
 }

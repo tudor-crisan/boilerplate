@@ -4,14 +4,18 @@ import Label from "@/components/common/Label";
 import TextSmall from "@/components/common/TextSmall";
 import Input from "@/components/input/Input";
 import InputCheckbox from "@/components/input/InputCheckbox";
-import { SettingsContainer, SettingsItem, SettingsRow } from "@/components/settings/SettingsLayout";
+import {
+  SettingsContainer,
+  SettingsItem,
+  SettingsRow,
+} from "@/components/settings/SettingsLayout";
 
 const SettingsFormField = ({
   getVal,
   handleChange,
   disabled,
   prefix,
-  config = {}
+  config = {},
 }) => {
   // Config defaults
   const {
@@ -20,7 +24,7 @@ const SettingsFormField = ({
     maxLengthConfig = { min: 10, max: 100, default: 60 },
     rowsConfig = { min: 2, max: 10, default: 4 },
     labelConfig = { maxLength: 50 },
-    placeholderConfig = { maxLength: 100 }
+    placeholderConfig = { maxLength: 100 },
   } = config;
 
   return (
@@ -39,7 +43,9 @@ const SettingsFormField = ({
         <Label>Placeholder</Label>
         <Input
           value={getVal(`${prefix}.placeholder`, "")}
-          onChange={(e) => handleChange(`${prefix}.placeholder`, e.target.value)}
+          onChange={(e) =>
+            handleChange(`${prefix}.placeholder`, e.target.value)
+          }
           disabled={disabled}
           maxLength={placeholderConfig.maxLength}
           showCharacterCount={true}
@@ -60,7 +66,9 @@ const SettingsFormField = ({
             max={maxLengthConfig.max}
             disabled={disabled}
           />
-          <TextSmall className="mt-1">Min: {maxLengthConfig.min}, Max: {maxLengthConfig.max}</TextSmall>
+          <TextSmall className="mt-1">
+            Min: {maxLengthConfig.min}, Max: {maxLengthConfig.max}
+          </TextSmall>
         </SettingsItem>
 
         {showRows && (
@@ -78,7 +86,9 @@ const SettingsFormField = ({
               max={rowsConfig.max}
               disabled={disabled}
             />
-            <TextSmall className="mt-1">Min: {rowsConfig.min}, Max: {rowsConfig.max}</TextSmall>
+            <TextSmall className="mt-1">
+              Min: {rowsConfig.min}, Max: {rowsConfig.max}
+            </TextSmall>
           </SettingsItem>
         )}
 
@@ -86,7 +96,9 @@ const SettingsFormField = ({
           <InputCheckbox
             label="Show Count"
             value={getVal(`${prefix}.showCharacterCount`, true)}
-            onChange={(checked) => handleChange(`${prefix}.showCharacterCount`, checked)}
+            onChange={(checked) =>
+              handleChange(`${prefix}.showCharacterCount`, checked)
+            }
             className="pb-3"
             disabled={disabled}
           />
@@ -97,7 +109,9 @@ const SettingsFormField = ({
         <InputCheckbox
           label="Show Character Count"
           value={getVal(`${prefix}.showCharacterCount`, true)}
-          onChange={(checked) => handleChange(`${prefix}.showCharacterCount`, checked)}
+          onChange={(checked) =>
+            handleChange(`${prefix}.showCharacterCount`, checked)
+          }
           className="pt-2"
           disabled={disabled}
         />

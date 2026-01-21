@@ -8,5 +8,5 @@ export default function WrapperHead({ children }) {
       <ThemeScript />
       {children}
     </head>
-  )
+  );
 }

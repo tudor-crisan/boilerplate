@@ -16,7 +16,7 @@ export default function WrapperVisual({ children }) {
         return;
       }
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("shuffle-visual", shuffleVisual);

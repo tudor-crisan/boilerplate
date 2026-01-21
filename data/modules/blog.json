@@ -16,9 +16,7 @@
       "slug": "example-article",
       "title": "Introducing Article",
       "description": "Article description etc",
-      "categorySlugs": [
-        "example"
-      ],
+      "categorySlugs": ["example"],
       "publishedAt": "2025-01-17",
       "image": {
         "src": "",

@@ -1,4 +1,3 @@
-
 const domains = [
   [".xyz", "$1.28"],
   [".cyou", "$1.39"],
@@ -41,6 +40,6 @@ const domains = [
   [".tattoo", "$2.98"],
   [".wiki", "$2.98"],
   [".pro", "$3.48"],
-]
+];
 
 export default domains;

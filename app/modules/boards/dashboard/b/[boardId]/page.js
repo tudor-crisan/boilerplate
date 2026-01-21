@@ -1,4 +1,3 @@
-
 import ButtonBack from "@/components/button/ButtonBack";
 import ButtonDelete from "@/components/button/ButtonDelete";
 import Columns from "@/components/common/Columns";
@@ -50,9 +49,7 @@ export default async function PrivateFeedbackBoard({ params }) {
         <Columns>
           <Sidebar>
             <div className="space-y-4">
-              <Title className="line-clamp-2 break-all">
-                {board.name}
-              </Title>
+              <Title className="line-clamp-2 break-all">{board.name}</Title>
               <Vertical>
                 <Label>Public link</Label>
                 <InputCopy
@@ -81,12 +78,9 @@ export default async function PrivateFeedbackBoard({ params }) {
               </div>
             </div>
           </Sidebar>
-          <BoardPrivatePostsList
-            posts={board.posts}
-            boardId={boardId}
-          />
+          <BoardPrivatePostsList posts={board.posts} boardId={boardId} />
         </Columns>
       </DashboardMain>
     </DashboardWrapper>
-  )
+  );
 }

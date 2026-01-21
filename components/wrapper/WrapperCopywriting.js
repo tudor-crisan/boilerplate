@@ -10,17 +10,19 @@ export default function WrapperCopywriting({ children }) {
 
   const shuffleCopywriting = () => {
     if (shuffle.copywriting.isEnabled) {
-      const shuffleCopywriting = localStorage.getItem("shuffle-copywriting") || "";
+      const shuffleCopywriting =
+        localStorage.getItem("shuffle-copywriting") || "";
       if (shuffleCopywriting && copywritings[shuffleCopywriting]) {
         setCopywriting(copywritings[shuffleCopywriting]);
         return;
       }
     }
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("shuffle-copywriting", shuffleCopywriting);
-    return () => window.removeEventListener("shuffle-copywriting", shuffleCopywriting);
+    return () =>
+      window.removeEventListener("shuffle-copywriting", shuffleCopywriting);
   }, []);
 
   return (

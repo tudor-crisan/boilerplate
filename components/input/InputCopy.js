@@ -5,26 +5,22 @@ import Tooltip from "@/components/common/Tooltip";
 import SvgExternal from "@/components/svg/SvgExternal";
 import { useStyling } from "@/context/ContextStyling";
 
-
 export default function InputCopy({
   value = "",
   openUrl = null,
   tooltipCopy = "",
-  tooltipOpen = ""
+  tooltipOpen = "",
 }) {
   const { styling } = useStyling();
 
-
   return (
-    <div className={`${styling.components.input_copy} ${styling.general.element} `}>
-      <p className="truncate mr-auto">
-        {value}
-      </p>
+    <div
+      className={`${styling.components.input_copy} ${styling.general.element} `}
+    >
+      <p className="truncate mr-auto">{value}</p>
       <div className={`${styling.flex.items_center} gap-2 shrink-0 ml-4`}>
         <Tooltip text={tooltipCopy}>
-          <ButtonCopy
-            copyText={value}
-          />
+          <ButtonCopy copyText={value} />
         </Tooltip>
         {openUrl && (
           <Tooltip text={tooltipOpen}>
@@ -40,5 +36,5 @@ export default function InputCopy({
         )}
       </div>
     </div>
-  )
+  );
 }

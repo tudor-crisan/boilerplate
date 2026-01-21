@@ -1,16 +1,23 @@
 import { defaultStyling } from "@/libs/defaults";
 import { fontMap } from "@/lists/fonts";
 import themes from "@/lists/themes";
-import { useCallback,useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
-export function useBoardRandomizer({ settings, handleChange, getVal }) {
+export function useBoardRandomizer({ handleChange, getVal }) {
   const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
   const handleShuffle = useCallback(() => {
-    const config = getVal("randomizer", { theme: true, font: true, styling: true });
+    const config = getVal("randomizer", {
+      theme: true,
+      font: true,
+      styling: true,
+    });
 
     // Start with current appearance or default styling if empty
-    let newAppearance = getVal("appearance", JSON.parse(JSON.stringify(defaultStyling)));
+    let newAppearance = getVal(
+      "appearance",
+      JSON.parse(JSON.stringify(defaultStyling)),
+    );
 
     if (config.theme !== false) {
       newAppearance.theme = getRandomItem(themes);
@@ -26,31 +33,49 @@ export function useBoardRandomizer({ settings, handleChange, getVal }) {
       const randomRadius = getRandomItem(radiusOptions);
 
       // Ensure objects exist
-      if (!newAppearance.components) newAppearance.components = JSON.parse(JSON.stringify(defaultStyling.components));
-      if (!newAppearance.pricing) newAppearance.pricing = JSON.parse(JSON.stringify(defaultStyling.pricing));
-      if (!newAppearance.blog) newAppearance.blog = JSON.parse(JSON.stringify(defaultStyling.blog));
+      if (!newAppearance.components)
+        newAppearance.components = JSON.parse(
+          JSON.stringify(defaultStyling.components),
+        );
+      if (!newAppearance.pricing)
+        newAppearance.pricing = JSON.parse(
+          JSON.stringify(defaultStyling.pricing),
+        );
+      if (!newAppearance.blog)
+        newAppearance.blog = JSON.parse(JSON.stringify(defaultStyling.blog));
 
       const newComponents = { ...newAppearance.components };
       const newPricing = { ...newAppearance.pricing };
       const newBlog = { ...newAppearance.blog };
 
       const replaceRadius = (str) =>
-        str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() + " " + randomRadius;
+        str.replace(/rounded-(none|md|full|lg|xl|2xl|3xl|sm)/g, "").trim() +
+        " " +
+        randomRadius;
 
       Object.keys(newComponents).forEach((key) => {
-        if (typeof newComponents[key] === "string" && newComponents[key].includes("rounded")) {
+        if (
+          typeof newComponents[key] === "string" &&
+          newComponents[key].includes("rounded")
+        ) {
           newComponents[key] = replaceRadius(newComponents[key]);
         }
       });
 
       Object.keys(newPricing).forEach((key) => {
-        if (typeof newPricing[key] === "string" && newPricing[key].includes("rounded")) {
+        if (
+          typeof newPricing[key] === "string" &&
+          newPricing[key].includes("rounded")
+        ) {
           newPricing[key] = replaceRadius(newPricing[key]);
         }
       });
 
       Object.keys(newBlog).forEach((key) => {
-        if (typeof newBlog[key] === "string" && newBlog[key].includes("rounded")) {
+        if (
+          typeof newBlog[key] === "string" &&
+          newBlog[key].includes("rounded")
+        ) {
           newBlog[key] = replaceRadius(newBlog[key]);
         }
       });

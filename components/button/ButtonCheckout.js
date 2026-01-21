@@ -14,7 +14,11 @@ import { useState } from "react";
 const SUCCESS_URL_REDIRECT = settings.paths.billingSuccess.source;
 const CANCEL_URL_REDIRECT = settings.paths.dashboard.source;
 
-const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "Subscribe", ...props }) => {
+const ButtonCheckout = ({
+  className = "",
+  variant = "btn-primary",
+  ...props
+}) => {
   const { styling } = useStyling();
   const { loading, request } = useApiRequest();
   const { copywriting } = useCopywriting();
@@ -24,11 +28,12 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
   const handleSubscribe = async (type = "monthly") => {
     setSelectedPlan(type);
     await request(
-      () => clientApi.post(settings.paths.api.billingCreateCheckout, {
-        successUrl: window.location.origin + SUCCESS_URL_REDIRECT,
-        cancelUrl: window.location.origin + CANCEL_URL_REDIRECT,
-        type,
-      }),
+      () =>
+        clientApi.post(settings.paths.api.billingCreateCheckout, {
+          successUrl: window.location.origin + SUCCESS_URL_REDIRECT,
+          cancelUrl: window.location.origin + CANCEL_URL_REDIRECT,
+          type,
+        }),
       {
         keepLoadingOnSuccess: true,
         onSuccess: (message, data) => {
@@ -39,8 +44,8 @@ const ButtonCheckout = ({ className = "", variant = "btn-primary", children = "S
         },
         onError: () => {
           setSelectedPlan(null);
-        }
-      }
+        },
+      },
     );
   };
 

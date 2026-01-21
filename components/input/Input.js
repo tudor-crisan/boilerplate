@@ -29,39 +29,44 @@ export default function Input({
       props.onChange({
         target: {
           name: props.name,
-          value: ""
-        }
+          value: "",
+        },
       });
     } else if (onClear) {
       onClear();
     }
   };
 
-  const ClearButton = (allowClear && props.value) ? (
-    <button
-      type="button"
-      onClick={handleClear}
-      className={`absolute inset-y-0 right-0 pr-3 ${styling.flex.items_center} text-base-content/50 hover:text-base-content cursor-pointer`}
-    >
-      <SvgClose />
-    </button>
-  ) : null;
+  const ClearButton =
+    allowClear && props.value ? (
+      <button
+        type="button"
+        onClick={handleClear}
+        className={`absolute inset-y-0 right-0 pr-3 ${styling.flex.items_center} text-base-content/50 hover:text-base-content cursor-pointer`}
+      >
+        <SvgClose />
+      </button>
+    ) : null;
 
   const inputClasses = cn(
     defaultClasses,
     errorClass,
     icon && "pl-11!",
     allowClear && "pr-10",
-    className
+    className,
   );
 
   const inputElement = (
     <input
       className={inputClasses}
       {...props}
-      style={showCharacterCount && props.maxLength ? {
-        paddingRight: `${(props.maxLength.toString().length * 2 + 3) * 9}px`
-      } : props.style}
+      style={
+        showCharacterCount && props.maxLength
+          ? {
+              paddingRight: `${(props.maxLength.toString().length * 2 + 3) * 9}px`,
+            }
+          : props.style
+      }
     />
   );
 
@@ -70,7 +75,9 @@ export default function Input({
       <div className="relative w-full">
         {inputElement}
         {icon && (
-          <div className={`absolute inset-y-0 left-0 pl-3 ${styling.flex.items_center} pointer-events-none text-base-content/50`}>
+          <div
+            className={`absolute inset-y-0 left-0 pl-3 ${styling.flex.items_center} pointer-events-none text-base-content/50`}
+          >
             {icon}
           </div>
         )}

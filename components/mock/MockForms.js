@@ -9,7 +9,7 @@ function textMockForms(type = "") {
     return "";
   }
 
-  const { isError, isSuccess } = settings.forms[type].mockConfig;
+  const { isError } = settings.forms[type].mockConfig;
 
   if (isError) {
     return `Mock is enabled for "${type}" to respond with errors ❌`;
@@ -22,12 +22,9 @@ export default function MockForms({ type }) {
   if (isMockForms(type)) {
     return (
       <div role="alert" className="alert">
-        <span>
-          {textMockForms(type)}
-        </span>
+        <span>{textMockForms(type)}</span>
       </div>
-
-    )
+    );
   }
   return null;
 }

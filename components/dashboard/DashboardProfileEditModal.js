@@ -8,7 +8,7 @@ import Upload from "@/components/common/Upload";
 import Input from "@/components/input/Input";
 import SettingsAppearance from "@/components/settings/SettingsAppearance";
 import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
-import { appStyling,defaultStyling } from "@/libs/defaults";
+import { appStyling, defaultStyling } from "@/libs/defaults";
 import { deepMerge } from "@/libs/merge.mjs";
 import { getNameInitials } from "@/libs/utils.client";
 
@@ -26,7 +26,7 @@ export default function DashboardProfileEditModal({
   onFileSelect,
   shuffleConfig,
   setShuffleConfig,
-  handleShuffle
+  handleShuffle,
 }) {
   return (
     <Modal
@@ -35,17 +35,10 @@ export default function DashboardProfileEditModal({
       title="Edit Profile"
       actions={
         <>
-          <Button
-            className="btn-ghost"
-            onClick={onClose}
-            disabled={isLoading}
-          >
+          <Button className="btn-ghost" onClick={onClose} disabled={isLoading}>
             Cancel
           </Button>
-          <Button
-            onClick={onSave}
-            isLoading={isLoading}
-          >
+          <Button onClick={onSave} isLoading={isLoading}>
             Save
           </Button>
         </>
@@ -60,9 +53,7 @@ export default function DashboardProfileEditModal({
           />
         </div>
 
-        <Upload
-          onFileSelect={onFileSelect}
-        />
+        <Upload onFileSelect={onFileSelect} />
 
         {inputs.image && (
           <div className={styling.flex.center}>
@@ -78,9 +69,7 @@ export default function DashboardProfileEditModal({
 
         <div className="w-full space-y-3">
           <div className="space-y-1">
-            <Label>
-              Email
-            </Label>
+            <Label>Email</Label>
             <Tooltip text="Email address can't be edited">
               <Input
                 type="email"
@@ -94,9 +83,7 @@ export default function DashboardProfileEditModal({
 
         <div className="w-full space-y-3">
           <div className="space-y-1">
-            <Label>
-              Display Name
-            </Label>
+            <Label>Display Name</Label>
             <Input
               required
               type="text"
@@ -132,7 +119,9 @@ export default function DashboardProfileEditModal({
           <SettingsRandomizer
             title={<Title>Randomizer</Title>}
             config={shuffleConfig}
-            onConfigChange={(key, val) => setShuffleConfig(prev => ({ ...prev, [key]: val }))}
+            onConfigChange={(key, val) =>
+              setShuffleConfig((prev) => ({ ...prev, [key]: val }))
+            }
             onShuffle={handleShuffle}
             isLoading={isLoading}
           />

@@ -2,7 +2,15 @@ import SettingsAppearance from "@/components/settings/SettingsAppearance";
 import { SettingsContainer } from "@/components/settings/SettingsLayout";
 import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
 
-export const BoardSettingsAppearance = ({ getVal, handleChange, disabled, defaultStyling, appStyling, handleShuffle, styling, children }) => (
+export const BoardSettingsAppearance = ({
+  getVal,
+  handleChange,
+  disabled,
+  defaultStyling,
+  appStyling,
+  handleShuffle,
+  styling,
+}) => (
   <SettingsContainer>
     <SettingsAppearance
       styling={getVal("appearance", defaultStyling)}
@@ -13,7 +21,12 @@ export const BoardSettingsAppearance = ({ getVal, handleChange, disabled, defaul
     <div className="pt-4 border-t border-base-200">
       <div className="font-bold text-sm mb-4">Randomizer</div>
       <SettingsRandomizer
-        config={getVal("randomizer", { theme: true, font: true, styling: true, auto: false })}
+        config={getVal("randomizer", {
+          theme: true,
+          font: true,
+          styling: true,
+          auto: false,
+        })}
         onConfigChange={(key, val) => handleChange(`randomizer.${key}`, val)}
         onShuffle={handleShuffle}
         isLoading={disabled}

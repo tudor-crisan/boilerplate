@@ -1,4 +1,3 @@
-/* eslint-disable */
 import loyalboards_visual from "@/data/apps/loyalboards/visual.json";
 import taskflow_visual from "@/data/apps/taskflow/visual.json";
 import tudorcrisan_visual from "@/data/apps/tudorcrisan/visual.json";

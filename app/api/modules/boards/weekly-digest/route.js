@@ -1,17 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
-import { sendEmail, WeeklyDigestEmail } from '@/libs/email';
+import { sendEmail, WeeklyDigestEmail } from "@/libs/email";
 import connectMongo from "@/libs/mongoose";
 import { getBaseUrl } from "@/libs/utils.server";
 import Board from "@/models/modules/boards/Board";
 import BoardAnalytics from "@/models/modules/boards/BoardAnalytics";
 
 export async function GET(req) {
-  const authHeader = req.headers.get('authorization');
+  const authHeader = req.headers.get("authorization");
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return new Response('Unauthorized', { status: 401 });
+    return new Response("Unauthorized", { status: 401 });
   }
 
   try {
@@ -30,24 +30,26 @@ export async function GET(req) {
           views: { $sum: "$views" },
           posts: { $sum: "$posts" },
           votes: { $sum: "$votes" },
-          comments: { $sum: "$comments" }
-        }
-      }
+          comments: { $sum: "$comments" },
+        },
+      },
     ]);
 
     if (stats.length === 0) return NextResponse.json({ processed: 0 });
 
     // Map stats to object for lookup
     const statsMap = {};
-    stats.forEach(s => statsMap[s._id.toString()] = s);
+    stats.forEach((s) => (statsMap[s._id.toString()] = s));
 
     // Find boards that have activity
-    const activeBoardIds = stats.map(s => s._id);
-    const boards = await Board.find({ _id: { $in: activeBoardIds } }).populate('userId');
+    const activeBoardIds = stats.map((s) => s._id);
+    const boards = await Board.find({ _id: { $in: activeBoardIds } }).populate(
+      "userId",
+    );
 
     // Group boards by user
     const userBoards = {};
-    boards.forEach(board => {
+    boards.forEach((board) => {
       if (!board.userId || !board.userId.email) return;
       const userId = board.userId._id.toString();
       if (!userBoards[userId]) {
@@ -55,12 +57,12 @@ export async function GET(req) {
           email: board.userId.email,
           name: board.userId.name,
           styling: board.userId.styling,
-          boards: []
+          boards: [],
         };
       }
       userBoards[userId].boards.push({
         name: board.name,
-        stats: statsMap[board._id.toString()]
+        stats: statsMap[board._id.toString()],
       });
     });
 
@@ -76,24 +78,29 @@ export async function GET(req) {
           baseUrl,
           userName: data.name,
           boards: data.boards,
-          styling: data.styling
+          styling: data.styling,
         });
 
         await sendEmail({
-          from: process.env.RESEND_EMAIL_FROM || '',
+          from: process.env.RESEND_EMAIL_FROM || "",
           email: data.email,
           subject,
           html,
-          text
+          text,
         });
         emailsSent++;
       } catch (e) {
-        console.error(`[CRON ERROR] Failed to send email to ${data.email}:`, e.message || e);
+        console.error(
+          `[CRON ERROR] Failed to send email to ${data.email}:`,
+          e.message || e,
+        );
       }
     }
 
     if (emailsSent === 0 && Object.keys(userBoards).length > 0) {
-      console.warn("[CRON WARNING] No emails were successfully sent despite having active users/boards. Check email service configuration.");
+      console.warn(
+        "[CRON WARNING] No emails were successfully sent despite having active users/boards. Check email service configuration.",
+      );
     }
 
     return NextResponse.json({ success: true, emailsSent });

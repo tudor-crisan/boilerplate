@@ -16,8 +16,14 @@ export default function InputToggle({
   // Note: DaisyUI toggle is a checkbox input
   return (
     <div className={`form-control ${className}`}>
-      <label className={`label cursor-pointer gap-2 ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}>
-        {label && <span className="label-text text-xs uppercase font-bold opacity-50">{label}</span>}
+      <label
+        className={`label cursor-pointer gap-2 ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+      >
+        {label && (
+          <span className="label-text text-xs uppercase font-bold opacity-50">
+            {label}
+          </span>
+        )}
         <input
           type="checkbox"
           className={`${styling?.components?.element || ""} toggle ${size}`}

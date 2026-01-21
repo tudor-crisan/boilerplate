@@ -16,12 +16,14 @@ import WrapperShuffle from "@/components/wrapper/WrapperShuffle";
 import WrapperStyling from "@/components/wrapper/WrapperStyling";
 import WrapperVisual from "@/components/wrapper/WrapperVisual";
 import { getMetadata } from "@/libs/seo";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 
 export const metadata = {
   ...getMetadata("home"),
-  metadataBase: new URL(`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME || "localhost:3000"}`),
+  metadataBase: new URL(
+    `https://${process.env.NEXT_PUBLIC_DOMAIN_NAME || "localhost:3000"}`,
+  ),
 };
 
 export const viewport = {
@@ -42,10 +44,10 @@ export default function RootLayout({ children }) {
             <WrapperCopywriting>
               <WrapperFont>
                 {process.env.MONGO_DB ? (
-                  <WrapperAuth>
-                    {children}
-                  </WrapperAuth>
-                ) : children}
+                  <WrapperAuth>{children}</WrapperAuth>
+                ) : (
+                  children
+                )}
               </WrapperFont>
             </WrapperCopywriting>
             <WrapperShuffle>
@@ -61,6 +63,6 @@ export default function RootLayout({ children }) {
           </WrapperBody>
         </WrapperHtml>
       </WrapperVisual>
-    </WrapperStyling >
+    </WrapperStyling>
   );
 }

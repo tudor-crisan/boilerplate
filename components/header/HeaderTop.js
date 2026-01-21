@@ -11,17 +11,13 @@ export default function HeaderTop({ url = "" }) {
 
   return (
     <div
-      className={`${styling.flex.items_center} gap-2 ${url && 'cursor-pointer'}`}
-      onClick={() => url ? redirect(url) : null}
+      className={`${styling.flex.items_center} gap-2 ${url && "cursor-pointer"}`}
+      onClick={() => (url ? redirect(url) : null)}
     >
-      {visual.show.SectionHeader.logo && (
-        <IconLogo />
-      )}
+      {visual.show.SectionHeader.logo && <IconLogo />}
       {visual.show.SectionHeader.appName && (
-        <span className="font-bold text-md sm:text-lg">
-          {settings.appName}
-        </span>
+        <span className="font-bold text-md sm:text-lg">{settings.appName}</span>
       )}
     </div>
-  )
+  );
 }

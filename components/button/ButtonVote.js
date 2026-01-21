@@ -17,19 +17,18 @@ const ButtonVote = ({
   return (
     <Button
       variant={hasVoted ? "btn-primary" : "btn-ghost"}
-      className={`${styling.components.element} group text-lg gap-2 ${hasVoted
-        ? "border-transparent"
-        : "bg-base-100 text-base-content border-base-200 hover:border-base-content/25"
-        } ${className}`}
+      className={`${styling.components.element} group text-lg gap-2 ${
+        hasVoted
+          ? "border-transparent"
+          : "bg-base-100 text-base-content border-base-200 hover:border-base-content/25"
+      } ${className}`}
       onClick={onClick}
       isLoading={isLoading}
       disabled={disabled}
       startIcon={<SvgVote />}
       {...props}
     >
-      <span className="text-sm font-medium">
-        {count}
-      </span>
+      <span className="text-sm font-medium">{count}</span>
     </Button>
   );
 };

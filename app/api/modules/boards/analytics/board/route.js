@@ -11,12 +11,14 @@ async function handler(req, { session }) {
   const { searchParams } = req.nextUrl;
   const boardId = searchParams.get("boardId");
 
-  if (!boardId) return NextResponse.json({ error: "Board ID required" }, { status: 400 });
+  if (!boardId)
+    return NextResponse.json({ error: "Board ID required" }, { status: 400 });
   const range = searchParams.get("range") || "30d";
 
   // Verify ownership
   const board = await Board.findOne({ _id: boardId, userId: session.user.id });
-  if (!board) return NextResponse.json({ error: "Access denied" }, { status: 403 });
+  if (!board)
+    return NextResponse.json({ error: "Access denied" }, { status: 403 });
 
   // Date Filtering
   const { startDate, endDate } = getAnalyticsDateRange(range);
@@ -24,7 +26,7 @@ async function handler(req, { session }) {
   // Get stats
   const stats = await BoardAnalytics.find({
     boardId: new mongoose.Types.ObjectId(boardId),
-    date: { $gte: startDate, $lte: endDate }
+    date: { $gte: startDate, $lte: endDate },
   }).sort({ date: 1 });
 
   return NextResponse.json({ stats });
@@ -32,5 +34,5 @@ async function handler(req, { session }) {
 
 export const GET = withApiHandler(handler, {
   type: TYPE,
-  needAccess: false
+  needAccess: false,
 });

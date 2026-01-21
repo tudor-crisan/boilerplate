@@ -22,7 +22,9 @@ const settings = {
   setting: loadJSON("../data/modules/setting.json"),
   blog: loadJSON("../data/modules/blog.json"),
   boards: loadJSON("../data/modules/boards.json"),
-  loyalboards_copywriting: loadJSON("../data/apps/loyalboards/copywriting.json"),
+  loyalboards_copywriting: loadJSON(
+    "../data/apps/loyalboards/copywriting.json",
+  ),
   loyalboards_styling: loadJSON("../data/apps/loyalboards/styling.json"),
   loyalboards_visual: loadJSON("../data/apps/loyalboards/visual.json"),
   loyalboards_setting: loadJSON("../data/apps/loyalboards/setting.json"),
@@ -32,7 +34,9 @@ const settings = {
   taskflow_styling: loadJSON("../data/apps/taskflow/styling.json"),
   taskflow_visual: loadJSON("../data/apps/taskflow/visual.json"),
   taskflow_setting: loadJSON("../data/apps/taskflow/setting.json"),
-  tudorcrisan_copywriting: loadJSON("../data/apps/tudorcrisan/copywriting.json"),
+  tudorcrisan_copywriting: loadJSON(
+    "../data/apps/tudorcrisan/copywriting.json",
+  ),
   tudorcrisan_styling: loadJSON("../data/apps/tudorcrisan/styling.json"),
   tudorcrisan_visual: loadJSON("../data/apps/tudorcrisan/visual.json"),
   tudorcrisan_setting: loadJSON("../data/apps/tudorcrisan/setting.json"),

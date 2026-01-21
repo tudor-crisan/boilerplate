@@ -1,5 +1,5 @@
 "use client";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 export function useError(initialMessage = null) {
   const [error, setError] = useState(initialMessage);

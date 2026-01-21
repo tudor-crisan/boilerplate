@@ -16,5 +16,5 @@ export default function HeroImage() {
         height={visual.HeroImage.image.height}
       />
     </div>
-  )
+  );
 }

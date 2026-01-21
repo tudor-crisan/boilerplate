@@ -1,5 +1,5 @@
 const themeColors = {
-  "retro": {
+  retro: {
     "color-scheme": "light",
     "--color-base-100": "oklch(91.637% 0.034 90.515)",
     "--color-base-200": "oklch(88.272% 0.049 91.774)",
@@ -28,9 +28,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "bumblebee": {
+  bumblebee: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(97% 0 0)",
@@ -59,9 +59,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "fantasy": {
+  fantasy: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(93% 0 0)",
@@ -90,9 +90,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "aqua": {
+  aqua: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(37% 0.146 265.522)",
     "--color-base-200": "oklch(28% 0.091 267.935)",
@@ -121,9 +121,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "garden": {
+  garden: {
     "color-scheme": "light",
     "--color-base-100": "oklch(92.951% 0.002 17.197)",
     "--color-base-200": "oklch(86.445% 0.002 17.197)",
@@ -152,9 +152,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "coffee": {
+  coffee: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(24% 0.023 329.708)",
     "--color-base-200": "oklch(21% 0.021 329.708)",
@@ -183,9 +183,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "pastel": {
+  pastel: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(98.462% 0.001 247.838)",
@@ -214,9 +214,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "2px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "halloween": {
+  halloween: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(21% 0.006 56.043)",
     "--color-base-200": "oklch(14% 0.004 49.25)",
@@ -245,9 +245,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "cupcake": {
+  cupcake: {
     "color-scheme": "light",
     "--color-base-100": "oklch(97.788% 0.004 56.375)",
     "--color-base-200": "oklch(93.982% 0.007 61.449)",
@@ -276,9 +276,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "2px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "lofi": {
+  lofi: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(97% 0 0)",
@@ -307,9 +307,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "emerald": {
+  emerald: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(93% 0 0)",
@@ -338,9 +338,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "night": {
+  night: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(20.768% 0.039 265.754)",
     "--color-base-200": "oklch(19.314% 0.037 265.754)",
@@ -369,9 +369,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "dark": {
+  dark: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(25.33% 0.016 252.42)",
     "--color-base-200": "oklch(23.26% 0.014 253.1)",
@@ -400,9 +400,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "synthwave": {
+  synthwave: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(15% 0.09 281.288)",
     "--color-base-200": "oklch(20% 0.09 281.288)",
@@ -431,9 +431,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "light": {
+  light: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(98% 0 0)",
@@ -462,9 +462,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "silk": {
+  silk: {
     "color-scheme": "light",
     "--color-base-100": "oklch(97% 0.0035 67.78)",
     "--color-base-200": "oklch(95% 0.0081 61.42)",
@@ -493,9 +493,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "2px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "nord": {
+  nord: {
     "color-scheme": "light",
     "--color-base-100": "oklch(95.127% 0.007 260.731)",
     "--color-base-200": "oklch(93.299% 0.01 261.788)",
@@ -524,9 +524,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "dim": {
+  dim: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(30.857% 0.023 264.149)",
     "--color-base-200": "oklch(28.036% 0.019 264.182)",
@@ -555,9 +555,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "business": {
+  business: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(24.353% 0 0)",
     "--color-base-200": "oklch(22.648% 0 0)",
@@ -586,9 +586,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "corporate": {
+  corporate: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(93% 0 0)",
@@ -617,9 +617,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "acid": {
+  acid: {
     "color-scheme": "light",
     "--color-base-100": "oklch(98% 0 0)",
     "--color-base-200": "oklch(95% 0 0)",
@@ -648,9 +648,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "caramellatte": {
+  caramellatte: {
     "color-scheme": "light",
     "--color-base-100": "oklch(98% 0.016 73.684)",
     "--color-base-200": "oklch(95% 0.038 75.164)",
@@ -679,9 +679,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "2px",
     "--depth": "1",
-    "--noise": "1"
+    "--noise": "1",
   },
-  "sunset": {
+  sunset: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(22% 0.019 237.69)",
     "--color-base-200": "oklch(20% 0.019 237.69)",
@@ -710,9 +710,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "forest": {
+  forest: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(20.84% 0.008 17.911)",
     "--color-base-200": "oklch(18.522% 0.007 17.911)",
@@ -741,9 +741,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "dracula": {
+  dracula: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(28.822% 0.022 277.508)",
     "--color-base-200": "oklch(26.805% 0.02 277.508)",
@@ -772,9 +772,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "autumn": {
+  autumn: {
     "color-scheme": "light",
     "--color-base-100": "oklch(95.814% 0 0)",
     "--color-base-200": "oklch(89.107% 0 0)",
@@ -803,9 +803,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "wireframe": {
+  wireframe: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(97% 0 0)",
@@ -834,9 +834,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "luxury": {
+  luxury: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(14.076% 0.004 285.822)",
     "--color-base-200": "oklch(20.219% 0.004 308.229)",
@@ -865,9 +865,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "abyss": {
+  abyss: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(20% 0.08 209)",
     "--color-base-200": "oklch(15% 0.08 209)",
@@ -896,9 +896,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "1",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "valentine": {
+  valentine: {
     "color-scheme": "light",
     "--color-base-100": "oklch(97% 0.014 343.198)",
     "--color-base-200": "oklch(94% 0.028 342.258)",
@@ -927,9 +927,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "cyberpunk": {
+  cyberpunk: {
     "color-scheme": "light",
     "--color-base-100": "oklch(94.51% 0.179 104.32)",
     "--color-base-200": "oklch(91.51% 0.179 104.32)",
@@ -958,9 +958,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "lemonade": {
+  lemonade: {
     "color-scheme": "light",
     "--color-base-100": "oklch(98.71% 0.02 123.72)",
     "--color-base-200": "oklch(91.8% 0.018 123.72)",
@@ -989,9 +989,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "winter": {
+  winter: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(97.466% 0.011 259.822)",
@@ -1020,9 +1020,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "black": {
+  black: {
     "color-scheme": "dark",
     "--color-base-100": "oklch(0% 0 0)",
     "--color-base-200": "oklch(19% 0 0)",
@@ -1051,9 +1051,9 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
+    "--noise": "0",
   },
-  "cmyk": {
+  cmyk: {
     "color-scheme": "light",
     "--color-base-100": "oklch(100% 0 0)",
     "--color-base-200": "oklch(95% 0 0)",
@@ -1082,8 +1082,8 @@ const themeColors = {
     "--size-field": "0.25rem",
     "--border": "1px",
     "--depth": "0",
-    "--noise": "0"
-  }
-}
+    "--noise": "0",
+  },
+};
 
 export default themeColors;

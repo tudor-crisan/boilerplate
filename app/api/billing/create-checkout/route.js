@@ -1,18 +1,18 @@
 import { withApiHandler } from "@/libs/apiHandler";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { getBaseUrl,responseError, responseSuccess } from "@/libs/utils.server";
+import {
+  getBaseUrl,
+  responseError,
+  responseSuccess,
+} from "@/libs/utils.server";
 import Stripe from "stripe";
 
 const TYPE = "Billing";
 
-async function handler(req, { session, user }) {
-  const {
-    serverError,
-  } = settings.forms.general.backend.responses;
+async function handler(req, { user }) {
+  const { serverError } = settings.forms.general.backend.responses;
 
-  const {
-    checkoutCreated,
-  } = settings.forms[TYPE].backend.responses;
+  const { checkoutCreated } = settings.forms[TYPE].backend.responses;
 
   try {
     const body = await req.json();
@@ -71,9 +71,14 @@ async function handler(req, { session, user }) {
       }
     }
 
-    const stripeCheckoutSession = await stripe.checkout.sessions.create(stripeSessionConfig);
+    const stripeCheckoutSession =
+      await stripe.checkout.sessions.create(stripeSessionConfig);
 
-    return responseSuccess(checkoutCreated.message, { url: stripeCheckoutSession.url }, checkoutCreated.status);
+    return responseSuccess(
+      checkoutCreated.message,
+      { url: stripeCheckoutSession.url },
+      checkoutCreated.status,
+    );
   } catch (e) {
     console.error("Stripe checkout creation error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);

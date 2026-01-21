@@ -6,9 +6,11 @@ export default function WrapperFooter({ children }) {
 
   return (
     <footer id="footer" className={styling.SectionFooter.colors}>
-      <div className={`${styling.general.box} ${styling.flex.responsive} ${styling.general.container} ${styling.SectionFooter.className} ${styling.SectionFooter.positioning}`}>
+      <div
+        className={`${styling.general.box} ${styling.flex.responsive} ${styling.general.container} ${styling.SectionFooter.className} ${styling.SectionFooter.positioning}`}
+      >
         {children}
       </div>
     </footer>
-  )
+  );
 }

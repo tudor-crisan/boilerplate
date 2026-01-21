@@ -116,21 +116,21 @@
           "text": "Key Metrics Defined"
         },
         {
-           "type": "list",
-           "items": [
-             "<b>Views</b>: The total number of times your boards have been visited by users.",
-             "<b>Posts</b>: The total count of feedback items or feature requests submitted.",
-             "<b>Votes</b>: A measure of community engagement, summing up all upvotes across all posts.",
-             "<b>Comments</b>: The total number of discussion replies on your posts."
-           ]
+          "type": "list",
+          "items": [
+            "<b>Views</b>: The total number of times your boards have been visited by users.",
+            "<b>Posts</b>: The total count of feedback items or feature requests submitted.",
+            "<b>Votes</b>: A measure of community engagement, summing up all upvotes across all posts.",
+            "<b>Comments</b>: The total number of discussion replies on your posts."
+          ]
         },
         {
-           "type": "heading",
-           "text": "Live Updates"
+          "type": "heading",
+          "text": "Live Updates"
         },
         {
-           "type": "paragraph",
-           "text": "These numbers update automatically every few seconds, so you can watch your community grow in real-time during a launch or announcement."
+          "type": "paragraph",
+          "text": "These numbers update automatically every few seconds, so you can watch your community grow in real-time during a launch or announcement."
         },
         {
           "type": "image",
@@ -161,7 +161,7 @@
           "type": "paragraph",
           "text": "To access these, click the <b>Edit</b> icon on any board card."
         },
-         {
+        {
           "type": "list",
           "items": [
             "<b>Slug (URL)</b>: You can customize the link to your board (e.g., <code>/boards/roadmap</code>). Verified owners can change this once every 24 hours.",
@@ -182,46 +182,46 @@
       "description": "Deep dive into Form settings, Comment toggles, and Input constraints.",
       "content": [
         {
-            "type": "paragraph",
-            "text": "Take full control of how users interact with your board using the <b>Extra Settings</b> panel."
+          "type": "paragraph",
+          "text": "Take full control of how users interact with your board using the <b>Extra Settings</b> panel."
         },
         {
-            "type": "heading",
-            "text": "Form & Input Customization"
+          "type": "heading",
+          "text": "Form & Input Customization"
         },
         {
-            "type": "paragraph",
-            "text": "You can tailor the submission form to match your specific use case (e.g., bug reporting vs feature requests)."
+          "type": "paragraph",
+          "text": "You can tailor the submission form to match your specific use case (e.g., bug reporting vs feature requests)."
         },
         {
-            "type": "list",
-            "items": [
-                "<b>Form Title</b>: Change the header above the input fields (e.g., 'Submit a Bug').",
-                "<b>Input Placeholders</b>: Guide your users with custom placeholder text.",
-                "<b>Character Limits</b>: Set minimum/maximum lengths for titles and descriptions to ensure quality submissions."
-            ]
+          "type": "list",
+          "items": [
+            "<b>Form Title</b>: Change the header above the input fields (e.g., 'Submit a Bug').",
+            "<b>Input Placeholders</b>: Guide your users with custom placeholder text.",
+            "<b>Character Limits</b>: Set minimum/maximum lengths for titles and descriptions to ensure quality submissions."
+          ]
         },
         {
-            "type": "image",
-            "src": "/assets/help/loyalboards/board_edit_form_settings.png",
-            "alt": "Form Settings Panel",
-            "comment": "Screenshot of the 'General Form Settings' or 'Input: Title' accordion section expanded."
+          "type": "image",
+          "src": "/assets/help/loyalboards/board_edit_form_settings.png",
+          "alt": "Form Settings Panel",
+          "comment": "Screenshot of the 'General Form Settings' or 'Input: Title' accordion section expanded."
         },
         {
-            "type": "heading",
-            "text": "Comment Settings"
+          "type": "heading",
+          "text": "Comment Settings"
         },
         {
-            "type": "paragraph",
-            "text": "Decide whether users can discuss posts. You can <b>Toggle Comments</b> on or off for the entire board. This is useful for announcement-only boards."
+          "type": "paragraph",
+          "text": "Decide whether users can discuss posts. You can <b>Toggle Comments</b> on or off for the entire board. This is useful for announcement-only boards."
         },
         {
-            "type": "heading",
-            "text": "Real-time Preview"
+          "type": "heading",
+          "text": "Real-time Preview"
         },
         {
-            "type": "paragraph",
-            "text": "As you make changes to any setting, the <b>Live Preview</b> on the right side of the screen updates instantly, showing you exactly what your users will experience."
+          "type": "paragraph",
+          "text": "As you make changes to any setting, the <b>Live Preview</b> on the right side of the screen updates instantly, showing you exactly what your users will experience."
         }
       ]
     },
@@ -230,38 +230,38 @@
       "title": "Notifications & Weekly Digest",
       "description": "Stay updated on your community's activity in real-time.",
       "content": [
-          {
-              "type": "paragraph",
-              "text": "LoyalBoards keeps you connected without overwhelming you."
-          },
-          {
-              "type": "heading",
-              "text": "Real-time Dashboard Notifications"
-          },
-          {
-              "type": "paragraph",
-              "text": "While looking at your dashboard or a board, new upvotes, posts, and comments appear <b>instantly</b> without needing to refresh the page. You will see live counters tick up as users interact."
-          },
-          {
-              "type": "heading",
-              "text": "The Weekly Digest"
-          },
-          {
-              "type": "paragraph",
-              "text": "Every week, we send a summary to your inbox containing high-level metrics:"
-          },
-          {
-              "type": "list",
-              "items": [
-                  "Total Views for the week.",
-                  "Number of new Posts and Comments.",
-                  "Top trending ideas."
-              ]
-          },
-          {
-              "type": "paragraph",
-              "text": "This helps you keep a pulse on your product's feedback loop even if you don't log in every day."
-          }
+        {
+          "type": "paragraph",
+          "text": "LoyalBoards keeps you connected without overwhelming you."
+        },
+        {
+          "type": "heading",
+          "text": "Real-time Dashboard Notifications"
+        },
+        {
+          "type": "paragraph",
+          "text": "While looking at your dashboard or a board, new upvotes, posts, and comments appear <b>instantly</b> without needing to refresh the page. You will see live counters tick up as users interact."
+        },
+        {
+          "type": "heading",
+          "text": "The Weekly Digest"
+        },
+        {
+          "type": "paragraph",
+          "text": "Every week, we send a summary to your inbox containing high-level metrics:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Total Views for the week.",
+            "Number of new Posts and Comments.",
+            "Top trending ideas."
+          ]
+        },
+        {
+          "type": "paragraph",
+          "text": "This helps you keep a pulse on your product's feedback loop even if you don't log in every day."
+        }
       ]
     },
     {
@@ -307,28 +307,28 @@
       "description": "Magic Links, Data Privacy, and Account settings.",
       "content": [
         {
-           "type": "heading",
-           "text": "Why Magic Links?"
+          "type": "heading",
+          "text": "Why Magic Links?"
         },
         {
-           "type": "paragraph",
-           "text": "We chose Magic Links over passwords because they are inherently more secure. There is no password to be stolen or guessed. Access is granted solely through control of your email account."
+          "type": "paragraph",
+          "text": "We chose Magic Links over passwords because they are inherently more secure. There is no password to be stolen or guessed. Access is granted solely through control of your email account."
         },
         {
-           "type": "heading",
-           "text": "Account Data"
+          "type": "heading",
+          "text": "Account Data"
         },
         {
-           "type": "paragraph",
-           "text": "Your data is stored securely. We do not sell your personal information. All payment processing is handled by Stripe, a certified PCI Service Provider Level 1."
+          "type": "paragraph",
+          "text": "Your data is stored securely. We do not sell your personal information. All payment processing is handled by Stripe, a certified PCI Service Provider Level 1."
         },
         {
-           "type": "heading",
-           "text": "Account Deletion"
+          "type": "heading",
+          "text": "Account Deletion"
         },
         {
-           "type": "paragraph",
-           "text": "If you wish to delete your account and all associated data, please contact our support team at support@loyalboards.io. We process these requests within 48 hours."
+          "type": "paragraph",
+          "text": "If you wish to delete your account and all associated data, please contact our support team at support@loyalboards.io. We process these requests within 48 hours."
         }
       ]
     },
@@ -373,7 +373,7 @@
         }
       ]
     },
-     {
+    {
       "id": "moderation",
       "title": "Moderation & Content",
       "description": "Keeping your boards clean and relevant.",
@@ -383,18 +383,18 @@
           "text": "As a board owner, you have full control over the content."
         },
         {
-            "type": "heading",
-            "text": "Deleting Posts"
+          "type": "heading",
+          "text": "Deleting Posts"
         },
         {
-            "type": "paragraph",
-            "text": "To remove a post, simply find the <b>Trash Icon</b> on the post card. Confiming the deletion will permanently remove the post and all associated comments."
+          "type": "paragraph",
+          "text": "To remove a post, simply find the <b>Trash Icon</b> on the post card. Confiming the deletion will permanently remove the post and all associated comments."
         },
         {
-            "type": "image",
-            "src": "/assets/help/loyalboards/moderation_delete.png",
-            "alt": "Deleting a post",
-            "comment": "Screenshot of a post card. Circle the trash/delete icon."
+          "type": "image",
+          "src": "/assets/help/loyalboards/moderation_delete.png",
+          "alt": "Deleting a post",
+          "comment": "Screenshot of a post card. Circle the trash/delete icon."
         }
       ]
     },
@@ -403,25 +403,25 @@
       "title": "Legal & Privacy",
       "description": "Terms of Service, Privacy Policy, and Support Contacts.",
       "content": [
-          {
-              "type": "paragraph",
-              "text": "We take your data privacy seriously. You can find our comprehensive legal documents here:"
-          },
-          {
-              "type": "list",
-              "items": [
-                  "<b>Privacy Policy</b>: <a href='/privacy'>/privacy</a> - Details on how we handle your data.",
-                  "<b>Terms of Service</b>: <a href='/terms'>/terms</a> - The rules governing the use of our platform."
-              ]
-          },
-          {
-              "type": "heading",
-              "text": "Address & Contact"
-          },
-          {
-            "type": "paragraph",
-            "text": "Our business address and contact details are always kept up-to-date on our support page. If you have specific legal questions, please email them to privacy@loyalboards.io."
-          }
+        {
+          "type": "paragraph",
+          "text": "We take your data privacy seriously. You can find our comprehensive legal documents here:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "<b>Privacy Policy</b>: <a href='/privacy'>/privacy</a> - Details on how we handle your data.",
+            "<b>Terms of Service</b>: <a href='/terms'>/terms</a> - The rules governing the use of our platform."
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Address & Contact"
+        },
+        {
+          "type": "paragraph",
+          "text": "Our business address and contact details are always kept up-to-date on our support page. If you have specific legal questions, please email them to privacy@loyalboards.io."
+        }
       ]
     },
     {

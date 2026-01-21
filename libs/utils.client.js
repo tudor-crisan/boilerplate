@@ -1,8 +1,8 @@
-import { clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export function getEmailHandle(email = "", fallback = "") {
@@ -36,8 +36,8 @@ export function isMobile() {
   return window.matchMedia("(max-width: 768px)").matches;
 }
 
-export function pluralize(word = '', count = 0) {
-  return word + ((count > 1 || count === 0) ? 's' : '')
+export function pluralize(word = "", count = 0) {
+  return word + (count > 1 || count === 0 ? "s" : "");
 }
 
 export function baseUrl() {
@@ -48,7 +48,7 @@ export function baseUrl() {
 
 let clientId = null;
 export function getClientId() {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === "undefined") return null;
 
   if (clientId) return clientId;
 
@@ -73,8 +73,11 @@ export function getClientId() {
 }
 
 export function createSlug(name = "", trim = true) {
-  const slug = name.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-');
-  const cleaned = trim ? slug.replace(/^-+|-+$/g, '') : slug;
+  const slug = name
+    .toString()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-");
+  const cleaned = trim ? slug.replace(/^-+|-+$/g, "") : slug;
   return cleaned.slice(0, 30);
 }
 

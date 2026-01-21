@@ -1,4 +1,3 @@
-/* eslint-disable */
 import loyalboards_blog from "@/data/apps/loyalboards/blog.json";
 import blog from "@/data/modules/blog.json";
 

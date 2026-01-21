@@ -1,13 +1,18 @@
 import CardNotification from "@/components/card/CardNotification";
 import { formatCommentDate } from "@/libs/utils.client";
 
-
-
-export default function BoardNotificationItem({ notification, loadingIds, markAsRead, styling }) {
+export default function BoardNotificationItem({
+  notification,
+  loadingIds,
+  markAsRead,
+}) {
   // Logic to determine content
-  const content = notification.type === 'POST' ? notification.data?.postTitle :
-    notification.type === 'COMMENT' ? notification.data?.commentText :
-      notification.data?.postTitle;
+  const content =
+    notification.type === "POST"
+      ? notification.data?.postTitle
+      : notification.type === "COMMENT"
+        ? notification.data?.commentText
+        : notification.data?.postTitle;
 
   return (
     <CardNotification
@@ -16,9 +21,13 @@ export default function BoardNotificationItem({ notification, loadingIds, markAs
       onMarkRead={() => markAsRead([notification._id])}
       dateFormatted={formatCommentDate(notification.createdAt)}
       badge={notification.type}
-      title={`[${notification.boardId?.name || notification.data?.boardName || 'Board'}]`}
+      title={`[${notification.boardId?.name || notification.data?.boardName || "Board"}]`}
       content={content}
-      className={(!notification.isRead || loadingIds.includes(notification._id)) ? "border-primary alert-outline opacity-100" : ""}
+      className={
+        !notification.isRead || loadingIds.includes(notification._id)
+          ? "border-primary alert-outline opacity-100"
+          : ""
+      }
     />
   );
 }

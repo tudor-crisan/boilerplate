@@ -1,11 +1,7 @@
 "use client";
-import { useStyling } from "@/context/ContextStyling"
+import { useStyling } from "@/context/ContextStyling";
 
 export default function WrapperBody({ children }) {
   const { styling } = useStyling();
-  return (
-    <body className={styling.general.body}>
-      {children}
-    </body>
-  )
+  return <body className={styling.general.body}>{children}</body>;
 }

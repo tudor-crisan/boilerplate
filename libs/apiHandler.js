@@ -2,12 +2,16 @@ import { auth } from "@/libs/auth";
 import { defaultSetting as settings } from "@/libs/defaults";
 import connectMongo from "@/libs/mongoose";
 import { checkReqRateLimit } from "@/libs/rateLimit";
-import { isResponseMock, responseError, responseMock } from "@/libs/utils.server";
+import {
+  isResponseMock,
+  responseError,
+  responseMock,
+} from "@/libs/utils.server";
 import User from "@/models/User";
 
 /**
  * Higher-order function to wrap API handlers with common logic.
- * 
+ *
  * @param {Function} handler - The actual logic for the API route.
  * @param {Object} options - Configuration for the handler.
  * @param {string} options.type - The key in settings.forms for this handler (e.g. 'Board', 'Post').
@@ -22,7 +26,7 @@ export function withApiHandler(handler, options = {}) {
     needAuth = true,
     needAccess = true,
     rateLimitKey = null,
-    connectDb = true
+    connectDb = true,
   } = options;
 
   return async (req, ...args) => {
@@ -31,12 +35,8 @@ export function withApiHandler(handler, options = {}) {
       return responseMock(type);
     }
 
-    const {
-      notAuthorized,
-      sessionLost,
-      serverError,
-      noAccess,
-    } = settings.forms.general.backend.responses;
+    const { notAuthorized, sessionLost, serverError, noAccess } =
+      settings.forms.general.backend.responses;
 
     // 2. Rate Limiting
     if (rateLimitKey) {
@@ -75,9 +75,8 @@ export function withApiHandler(handler, options = {}) {
       // 5. Execute actual handler
       // Pass session and user for convenience
       return await handler(req, { session, user, ...args });
-
     } catch (e) {
-      console.error(`API Error [${type || 'Unknown'}]: ${e?.message}`, e);
+      console.error(`API Error [${type || "Unknown"}]: ${e?.message}`, e);
       return responseError(serverError.message, {}, serverError.status);
     }
   };

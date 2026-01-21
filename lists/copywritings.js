@@ -1,4 +1,3 @@
-/* eslint-disable */
 import loyalboards_copywriting from "@/data/apps/loyalboards/copywriting.json";
 import taskflow_copywriting from "@/data/apps/taskflow/copywriting.json";
 import tudorcrisan_copywriting from "@/data/apps/tudorcrisan/copywriting.json";

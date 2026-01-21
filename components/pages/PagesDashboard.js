@@ -1,4 +1,3 @@
-
 import ButtonCheckout from "@/components/button/ButtonCheckout";
 import ButtonLogout from "@/components/button/ButtonLogout";
 import ButtonPortal from "@/components/button/ButtonPortal";
@@ -11,7 +10,7 @@ import { defaultSetting as settings } from "@/libs/defaults";
 import { getUser } from "@/libs/modules/boards/db";
 import dashboards from "@/lists/dashboards";
 
-export default async function PagesDashboard({ children }) {
+export default async function PagesDashboard() {
   const DashboardComponent = dashboards[settings.components.dashboard];
   const { hasAccess } = await getUser();
 

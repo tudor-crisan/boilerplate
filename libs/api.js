@@ -12,18 +12,18 @@ clientApi.interceptors.request.use((config) => {
   return config;
 });
 
-
-const {
-  serverError,
-  requestSuccessful,
-  noInternetConnection,
-} = settings.forms.general.backend.responses;
+const { serverError, requestSuccessful, noInternetConnection } =
+  settings.forms.general.backend.responses;
 
 export const setDataError = (response = null, errorCallback = null) => {
   if (response?.code === "ERR_NETWORK") {
-    errorCallback(noInternetConnection.message, {}, noInternetConnection.status);
+    errorCallback(
+      noInternetConnection.message,
+      {},
+      noInternetConnection.status,
+    );
     return;
-  };
+  }
 
   const { data, status, statusText } = response;
   if ([400, 401, 402, 403, 404, 429, 500].includes(status)) {
@@ -35,7 +35,7 @@ export const setDataError = (response = null, errorCallback = null) => {
     return true;
   }
   return false;
-}
+};
 
 export const setDataSuccess = (response = null, successCallback = null) => {
   if (!response) return;
@@ -49,6 +49,4 @@ export const setDataSuccess = (response = null, successCallback = null) => {
     return true;
   }
   return false;
-}
-
-
+};

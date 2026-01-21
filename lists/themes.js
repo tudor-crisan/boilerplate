@@ -33,7 +33,7 @@ const themes = [
   "sunset",
   "caramellatte",
   "abyss",
-  "silk"
-]
+  "silk",
+];
 
 export default themes;

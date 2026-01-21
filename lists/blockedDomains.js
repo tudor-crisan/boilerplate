@@ -1,4 +1,3 @@
-
 const blockedDomains = [
   "tempmail.com",
   "throwawaymail.com",

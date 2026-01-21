@@ -28,7 +28,7 @@ export const InputConfigSchema = z.object({
       z.object({
         label: z.string(),
         value: z.string(),
-      })
+      }),
     )
     .optional(),
   rows: z.number().optional(),
@@ -120,7 +120,7 @@ export const MetadataItemSchema = z.object({
 
 export const MetadataSchema = z.record(
   z.string(),
-  z.union([MetadataItemSchema, z.record(z.string(), MetadataItemSchema)])
+  z.union([MetadataItemSchema, z.record(z.string(), MetadataItemSchema)]),
 );
 
 /**

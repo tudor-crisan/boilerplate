@@ -7,7 +7,7 @@ import Input from "@/components/input/Input";
 import SvgSearch from "@/components/svg/SvgSearch";
 import TosContent from "@/components/tos/TosContent";
 import { useStyling } from "@/context/ContextStyling";
-import { defaultHelp,defaultSetting as settings } from "@/libs/defaults";
+import { defaultHelp, defaultSetting as settings } from "@/libs/defaults";
 import React, { useState } from "react";
 import Link from "next/link";
 
@@ -15,8 +15,13 @@ import Link from "next/link";
 const ArticleCard = ({ id, title, description }) => {
   const { styling } = useStyling();
   return (
-    <Link href={`${settings.paths.help.source}/${id}`} className={`${styling.components.card} bg-base-200 ${styling.general.box} hover:bg-base-300 transition-colors flex flex-col items-center text-center cursor-pointer h-full`}>
-      <Title tag="h3" className="mb-2 text-lg">{title}</Title>
+    <Link
+      href={`${settings.paths.help.source}/${id}`}
+      className={`${styling.components.card} bg-base-200 ${styling.general.box} hover:bg-base-300 transition-colors flex flex-col items-center text-center cursor-pointer h-full`}
+    >
+      <Title tag="h3" className="mb-2 text-lg">
+        {title}
+      </Title>
       <Paragraph className="text-sm border-none!">{description}</Paragraph>
     </Link>
   );
@@ -28,9 +33,10 @@ export default function HelpArticles() {
 
   const articles = defaultHelp.articles || [];
 
-  const filteredArticles = articles.filter(article =>
-    article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    article.description.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredArticles = articles.filter(
+    (article) =>
+      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      article.description.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
@@ -64,13 +70,17 @@ export default function HelpArticles() {
         {filteredArticles.length === 0 && (
           <div className={`${styling.flex.center} gap-1 opacity-70 mt-12`}>
             <SvgSearch className="opacity-50" size="size-8" />
-            <Paragraph>No articles found matching &quot;{searchQuery}&quot;</Paragraph>
+            <Paragraph>
+              No articles found matching &quot;{searchQuery}&quot;
+            </Paragraph>
           </div>
         )}
 
         {/* Contact Support Link */}
         <div className={`${styling.flex.col_center} space-y-3 mb-10`}>
-          <Paragraph className={styling.section.paragraph}>Can&apos;t find what you&apos;re looking for?</Paragraph>
+          <Paragraph className={styling.section.paragraph}>
+            Can&apos;t find what you&apos;re looking for?
+          </Paragraph>
           <Button href={settings.paths.support.source} variant="btn-outline">
             Contact Support
           </Button>

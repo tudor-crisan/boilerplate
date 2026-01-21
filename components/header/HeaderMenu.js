@@ -9,7 +9,10 @@ export default function HeaderMenu() {
   const { styling } = useStyling();
 
   // If no menus defined, don't render anything
-  if (!copywriting.SectionHeader.menus || copywriting.SectionHeader.menus.length === 0) {
+  if (
+    !copywriting.SectionHeader.menus ||
+    copywriting.SectionHeader.menus.length === 0
+  ) {
     return null;
   }
 

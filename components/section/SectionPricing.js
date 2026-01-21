@@ -51,16 +51,17 @@ export default function SectionPricing() {
         </div>
         <ul className="space-y-1">
           {pricing.features.map((feature, index) => (
-            <li key={index} className={cn(styling.flex.items_center, "text-sm gap-1")}>
+            <li
+              key={index}
+              className={cn(styling.flex.items_center, "text-sm gap-1")}
+            >
               <SvgCheck />
-              <p>
-                {feature}
-              </p>
+              <p>{feature}</p>
             </li>
           ))}
         </ul>
         <PricingButton />
       </PricingCard>
     </SectionWrapper>
-  )
+  );
 }

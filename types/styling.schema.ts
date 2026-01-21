@@ -39,7 +39,9 @@ export const StylingSectionFAQSchema = z.object({
  * Zod Schema for SectionFooter.
  */
 export const StylingSectionFooterSchema = z.object({
-  section: z.string().describe("CSS classes for footer section background/text."),
+  section: z
+    .string()
+    .describe("CSS classes for footer section background/text."),
   container: z.string().describe("CSS classes for footer container."),
   spacing: z.string().describe("CSS classes for footer spacing."),
   textalign: z.string().describe("CSS classes for footer text alignment."),

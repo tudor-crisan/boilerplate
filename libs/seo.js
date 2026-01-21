@@ -1,9 +1,7 @@
 import { defaultSetting as settings } from "@/libs/defaults";
 
 const getByPath = (obj = {}, path) => {
-  return path
-    .split(".")
-    .reduce((acc, key) => acc?.[key], obj);
+  return path.split(".").reduce((acc, key) => acc?.[key], obj);
 };
 
 export const getMetadata = (target = "", variables = {}) => {
@@ -15,21 +13,25 @@ export const getMetadata = (target = "", variables = {}) => {
 
   if (settings?.seo) {
     variables.seoTitle = variables.seoTitle || settings.seo.title;
-    variables.seoDescription = variables.seoDescription || settings.seo.description;
+    variables.seoDescription =
+      variables.seoDescription || settings.seo.description;
     variables.seoTagline = variables.seoTagline || settings.seo.tagline;
     variables.seoImage = variables.seoImage || settings.seo.image;
   }
 
   if (!metadata) {
-    return {}
-  };
+    return {};
+  }
 
   let title = metadata?.title;
   let description = metadata?.description;
 
   Object.keys(variables).forEach((key) => {
     title = title?.replace(new RegExp(`{${key}}`, "g"), variables[key]);
-    description = description?.replace(new RegExp(`{${key}}`, "g"), variables[key]);
+    description = description?.replace(
+      new RegExp(`{${key}}`, "g"),
+      variables[key],
+    );
   });
 
   return {
@@ -68,9 +70,9 @@ export const getMetadata = (target = "", variables = {}) => {
       googleBot: {
         index: true,
         follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
     },
   };

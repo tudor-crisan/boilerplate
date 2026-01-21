@@ -17,15 +17,23 @@ export async function GET(req) {
 
       await connectMongo();
 
-      const changeStream = Post.watch([], { fullDocument: 'updateLookup' });
-      const boardChangeStream = Board.watch([], { fullDocument: 'updateLookup' });
+      const changeStream = Post.watch([], { fullDocument: "updateLookup" });
+      const boardChangeStream = Board.watch([], {
+        fullDocument: "updateLookup",
+      });
 
       changeStream.on("change", (change) => {
         // Handle Vote (Update)
         if (change.operationType === "update") {
           const updatedFields = change.updateDescription.updatedFields;
-          if (updatedFields && typeof updatedFields.votesCounter !== 'undefined') {
-            console.log("SERVER: Stream sending vote event. LastActionBy:", change.fullDocument.lastActionByClientId);
+          if (
+            updatedFields &&
+            typeof updatedFields.votesCounter !== "undefined"
+          ) {
+            console.log(
+              "SERVER: Stream sending vote event. LastActionBy:",
+              change.fullDocument.lastActionByClientId,
+            );
             sendEvent({
               type: "vote",
               postId: change.documentKey._id.toString(),
@@ -50,7 +58,7 @@ export async function GET(req) {
         if (change.operationType === "delete") {
           sendEvent({
             type: "post-delete",
-            postId: change.documentKey._id.toString()
+            postId: change.documentKey._id.toString(),
           });
         }
       });
@@ -59,12 +67,14 @@ export async function GET(req) {
         if (change.operationType === "delete") {
           sendEvent({
             type: "board-delete",
-            boardId: change.documentKey._id.toString()
+            boardId: change.documentKey._id.toString(),
           });
         }
       });
 
-      const commentChangeStream = Comment.watch([], { fullDocument: 'updateLookup' });
+      const commentChangeStream = Comment.watch([], {
+        fullDocument: "updateLookup",
+      });
 
       commentChangeStream.on("change", (change) => {
         if (change.operationType === "insert") {
@@ -73,7 +83,7 @@ export async function GET(req) {
             postId: change.fullDocument.postId.toString(),
             boardId: change.fullDocument.boardId.toString(),
             action: "add",
-            comment: change.fullDocument
+            comment: change.fullDocument,
           });
         }
         if (change.operationType === "update") {
@@ -85,7 +95,7 @@ export async function GET(req) {
               postId: change.fullDocument.postId.toString(),
               boardId: change.fullDocument.boardId.toString(),
               action: "remove",
-              commentId: change.documentKey._id.toString()
+              commentId: change.documentKey._id.toString(),
             });
           }
         }
@@ -103,7 +113,6 @@ export async function GET(req) {
         commentChangeStream.close();
         controller.close();
       });
-
     },
   });
 
@@ -111,7 +120,7 @@ export async function GET(req) {
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache",
-      "Connection": "keep-alive",
+      Connection: "keep-alive",
     },
   });
 }

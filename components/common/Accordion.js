@@ -2,14 +2,20 @@
 import { useStyling } from "@/context/ContextStyling";
 import { useState } from "react";
 
-export default function Accordion({ items, allowMultiple = true, className = "" }) {
+export default function Accordion({
+  items,
+  allowMultiple = true,
+  className = "",
+}) {
   const { styling } = useStyling();
   const [openIndices, setOpenIndices] = useState([0]);
 
   const handleToggle = (index) => {
     if (allowMultiple) {
       setOpenIndices((prev) =>
-        prev.includes(index) ? prev.filter((i) => i !== index) : [...prev, index]
+        prev.includes(index)
+          ? prev.filter((i) => i !== index)
+          : [...prev, index],
       );
     } else {
       setOpenIndices((prev) => (prev.includes(index) ? [] : [index]));
@@ -32,9 +38,7 @@ export default function Accordion({ items, allowMultiple = true, className = "" 
           <div className="collapse-title font-semibold text-base-content cursor-pointer">
             {item.title}
           </div>
-          <div className="collapse-content text-sm">
-            {item.content}
-          </div>
+          <div className="collapse-content text-sm">{item.content}</div>
         </div>
       ))}
     </div>

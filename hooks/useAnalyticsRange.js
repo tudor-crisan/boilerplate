@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState } from "react";
 
 export const ranges = [
   { label: "Today", value: "today" },
@@ -16,14 +16,22 @@ export function useAnalyticsRange(initialRange = "30d") {
 
   const getRangeLabel = () => {
     switch (range) {
-      case 'today': return ['Today', 'Now'];
-      case 'yesterday': return ['Yesterday', 'End of day'];
-      case '7d': return ['7 days ago', 'Today'];
-      case '30d': return ['30 days ago', 'Today'];
-      case '3m': return ['3 months ago', 'Today'];
-      case 'thisYear': return ['Jan 1', 'Today'];
-      case 'lastYear': return ['Jan 1', 'Dec 31'];
-      default: return ['Start', 'End'];
+      case "today":
+        return ["Today", "Now"];
+      case "yesterday":
+        return ["Yesterday", "End of day"];
+      case "7d":
+        return ["7 days ago", "Today"];
+      case "30d":
+        return ["30 days ago", "Today"];
+      case "3m":
+        return ["3 months ago", "Today"];
+      case "thisYear":
+        return ["Jan 1", "Today"];
+      case "lastYear":
+        return ["Jan 1", "Dec 31"];
+      default:
+        return ["Start", "End"];
     }
   };
 
@@ -34,6 +42,6 @@ export function useAnalyticsRange(initialRange = "30d") {
     setRange,
     ranges,
     startLabel,
-    endLabel
+    endLabel,
   };
 }

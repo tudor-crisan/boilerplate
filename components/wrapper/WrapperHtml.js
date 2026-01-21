@@ -1,5 +1,5 @@
-"use client"
-import { useStyling } from "@/context/ContextStyling"
+"use client";
+import { useStyling } from "@/context/ContextStyling";
 import shuffle from "@/libs/shuffle";
 import fonts from "@/lists/fonts";
 import { useEffect, useState } from "react";
@@ -22,7 +22,8 @@ export default function WrapperHtml({ children }) {
     return () => window.removeEventListener("shuffle-font", handleShuffle);
   }, []);
 
-  const activeFontClass = shuffledFont || fonts[styling.font]?.className || fonts["sen"].className;
+  const activeFontClass =
+    shuffledFont || fonts[styling.font]?.className || fonts["sen"].className;
 
   return (
     <html
@@ -33,5 +34,5 @@ export default function WrapperHtml({ children }) {
     >
       {children}
     </html>
-  )
+  );
 }

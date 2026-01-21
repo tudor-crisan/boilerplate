@@ -6,13 +6,13 @@ import TosWrapper from "@/components/tos/TosWrapper";
 import { defaultHelp } from "@/libs/defaults";
 import React from "react";
 import Image from "next/image";
-import { notFound,useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 
 export default function HelpArticlePage() {
   const params = useParams();
   const articleId = params.articleId;
 
-  const article = defaultHelp?.articles?.find(a => a.id === articleId);
+  const article = defaultHelp?.articles?.find((a) => a.id === articleId);
 
   if (!article) {
     return notFound();
@@ -20,7 +20,6 @@ export default function HelpArticlePage() {
 
   return (
     <TosWrapper>
-
       <TosContent>
         <div className="space-y-1">
           <Title>{article.title}</Title>
@@ -29,16 +28,42 @@ export default function HelpArticlePage() {
 
         <div className="space-y-6">
           {article.content?.map((block, index) => {
-            if (block.type === 'paragraph') {
+            if (block.type === "paragraph") {
               return (
                 <Paragraph key={index}>
                   <span dangerouslySetInnerHTML={{ __html: block.text }} />
                 </Paragraph>
               );
             }
-            if (block.type === 'image') {
+            if (block.type === "heading") {
               return (
-                <div key={index} className="relative w-full h-64 md:h-96 rounded-xl overflow-hidden my-6">
+                <Title
+                  key={index}
+                  tag="h3"
+                  className="mt-6 mb-2 text-xl font-bold"
+                >
+                  {block.text}
+                </Title>
+              );
+            }
+            if (block.type === "list") {
+              return (
+                <ul
+                  key={index}
+                  className="list-disc list-outside ml-6 space-y-2 mb-4"
+                >
+                  {block.items.map((item, i) => (
+                    <li key={i} dangerouslySetInnerHTML={{ __html: item }} />
+                  ))}
+                </ul>
+              );
+            }
+            if (block.type === "image") {
+              return (
+                <div
+                  key={index}
+                  className="relative w-full h-64 md:h-96 rounded-xl overflow-hidden my-6"
+                >
                   <Image
                     src={block.src}
                     alt={block.alt || article.title}
@@ -46,7 +71,7 @@ export default function HelpArticlePage() {
                     className="object-cover"
                   />
                 </div>
-              )
+              );
             }
             return null;
           })}

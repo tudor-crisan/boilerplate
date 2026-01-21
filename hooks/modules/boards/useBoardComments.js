@@ -3,32 +3,42 @@
 import useApiRequest from "@/hooks/useApiRequest";
 import { clientApi } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { useCallback,useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const useBoardComments = (postId) => {
   const [comments, setComments] = useState([]);
 
   const { request: fetchRequest, loading: isLoading } = useApiRequest();
   const { request: silentFetchRequest } = useApiRequest(); // New request handler for background fetches
-  const { request: actionRequest, loading: isSubmitting, inputErrors } = useApiRequest();
+  const {
+    request: actionRequest,
+    loading: isSubmitting,
+    inputErrors,
+  } = useApiRequest();
 
-  const fetchComments = useCallback(async (isBackground = false) => {
-    if (!postId) return;
+  const fetchComments = useCallback(
+    async (isBackground = false) => {
+      if (!postId) return;
 
-    const requestHandler = isBackground ? silentFetchRequest : fetchRequest;
+      const requestHandler = isBackground ? silentFetchRequest : fetchRequest;
 
-    await requestHandler(
-      () => clientApi.get(settings.forms.Comment.formConfig.apiUrl + "?postId=" + postId),
-      {
-        onSuccess: (message, data) => {
-          if (data?.comments) {
-            setComments(data.comments);
-          }
+      await requestHandler(
+        () =>
+          clientApi.get(
+            settings.forms.Comment.formConfig.apiUrl + "?postId=" + postId,
+          ),
+        {
+          onSuccess: (message, data) => {
+            if (data?.comments) {
+              setComments(data.comments);
+            }
+          },
+          showToast: false,
         },
-        showToast: false
-      }
-    );
-  }, [postId, fetchRequest, silentFetchRequest]);
+      );
+    },
+    [postId, fetchRequest, silentFetchRequest],
+  );
 
   useEffect(() => {
     fetchComments();
@@ -60,36 +70,40 @@ const useBoardComments = (postId) => {
 
   const addComment = async (payload, onSuccess) => {
     await actionRequest(
-      () => clientApi.post(settings.forms.Comment.formConfig.apiUrl, {
-        ...payload,
-        postId
-      }),
+      () =>
+        clientApi.post(settings.forms.Comment.formConfig.apiUrl, {
+          ...payload,
+          postId,
+        }),
       {
         onSuccess: (message, data) => {
           if (data?.comment) {
             // Optimistic update - safely check for duplicates
-            setComments(prev => {
-              if (prev.some(c => c._id === data.comment._id)) return prev;
+            setComments((prev) => {
+              if (prev.some((c) => c._id === data.comment._id)) return prev;
               return [...prev, data.comment]; // Add to end of list
             });
             if (onSuccess) onSuccess(data.comment);
           }
         },
-        showToast: false // Suppress API toast, rely on SSE toast or just UI update
-      }
+        showToast: false, // Suppress API toast, rely on SSE toast or just UI update
+      },
     );
   };
 
   const deleteComment = async (commentId) => {
     await actionRequest(
-      () => clientApi.delete(settings.forms.Comment.formConfig.apiUrl + "?commentId=" + commentId),
+      () =>
+        clientApi.delete(
+          settings.forms.Comment.formConfig.apiUrl + "?commentId=" + commentId,
+        ),
       {
         onSuccess: (message) => {
           // Optimistic update
-          setComments(prev => prev.filter(c => c._id !== commentId));
+          setComments((prev) => prev.filter((c) => c._id !== commentId));
         },
-        showToast: false // Suppress API toast
-      }
+        showToast: false, // Suppress API toast
+      },
     );
   };
 
@@ -99,7 +113,7 @@ const useBoardComments = (postId) => {
     isSubmitting,
     inputErrors,
     addComment,
-    deleteComment
+    deleteComment,
   };
 };
 

@@ -12,7 +12,9 @@ export default function FooterMenu() {
       {copywriting.SectionFooter.menus.map((menu, index) => (
         <div key={index} className={`${styling.flex.col} gap-2`}>
           <h3 className="font-bold text-base-content/90">{menu.title}</h3>
-          <div className={`${styling.flex.col} gap-1 text-sm text-base-content/70`}>
+          <div
+            className={`${styling.flex.col} gap-1 text-sm text-base-content/70`}
+          >
             {menu.links.map((link, linkIndex) => (
               <Link
                 key={linkIndex}

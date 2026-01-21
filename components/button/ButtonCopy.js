@@ -15,5 +15,5 @@ export default function ButtonCopy({ copyText = "", ...props }) {
     >
       <SvgCopy />
     </Button>
-  )
+  );
 }

@@ -1,4 +1,3 @@
-
 import { formatWebsiteUrl } from "@/libs/utils.server.js";
 import apps from "@/lists/applications.mjs";
 import copywritings from "@/lists/copywritings.js";

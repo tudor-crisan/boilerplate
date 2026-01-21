@@ -12,8 +12,12 @@ export default function InputCheckbox({
   const { styling } = useStyling();
 
   return (
-    <div className={`${styling.flex.items_center} gap-2 ${disabled ? "opacity-50 cursor-not-allowed" : ""} ${className}`}>
-      <label className={`${styling.flex.items_center} gap-2 cursor-pointer touch-action-manipulation w-full h-full ${disabled ? "cursor-not-allowed" : ""}`}>
+    <div
+      className={`${styling.flex.items_center} gap-2 ${disabled ? "opacity-50 cursor-not-allowed" : ""} ${className}`}
+    >
+      <label
+        className={`${styling.flex.items_center} gap-2 cursor-pointer touch-action-manipulation w-full h-full ${disabled ? "cursor-not-allowed" : ""}`}
+      >
         <input
           type="checkbox"
           className={`${styling.components.element} checkbox checkbox-primary`}

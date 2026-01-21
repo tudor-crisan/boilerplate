@@ -11,11 +11,13 @@ export default function FilterBar({
   setSort,
   sortOptions = [],
   placeholder = "Search...",
-  className = ""
+  className = "",
 }) {
   const { styling } = useStyling();
   return (
-    <div className={`${styling.flex.col} sm:flex-row gap-4 mb-6 z-0 relative ${className}`}>
+    <div
+      className={`${styling.flex.col} sm:flex-row gap-4 mb-6 z-0 relative ${className}`}
+    >
       {/* Search Input */}
       <div className="flex-1 min-w-0">
         <Input

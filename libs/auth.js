@@ -9,54 +9,63 @@ import connectMongo from "@/libs/mongoose";
 import { validateEmail } from "@/libs/utils.server";
 import User from "@/models/User";
 import NextAuth from "next-auth";
-import Google from "next-auth/providers/google"
-import Resend from "next-auth/providers/resend"
+import Google from "next-auth/providers/google";
+import Resend from "next-auth/providers/resend";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 
 const providersConfig = {
-  resend: () => Resend({
-    id: "email",
-    apiKey: process.env.RESEND_API_KEY,
-    from: process.env.RESEND_EMAIL_FROM,
-    name: "email",
-    ...(settings.auth.hasThemeEmails && {
-      async sendVerificationRequest({ identifier: email, url, provider }) {
-        const { host } = new URL(url);
-        let styling;
-        try {
-          await connectMongo();
-          const user = await User.findOne({ email });
-          if (user && user.styling) {
-            styling = user.styling;
+  resend: () =>
+    Resend({
+      id: "email",
+      apiKey: process.env.RESEND_API_KEY,
+      from: process.env.RESEND_EMAIL_FROM,
+      name: "email",
+      ...(settings.auth.hasThemeEmails && {
+        async sendVerificationRequest({ identifier: email, url, provider }) {
+          const { host } = new URL(url);
+          let styling;
+          try {
+            await connectMongo();
+            const user = await User.findOne({ email });
+            if (user && user.styling) {
+              styling = user.styling;
+            }
+          } catch (e) {
+            console.error("Error fetching user styling for email:", e);
           }
-        } catch (e) {
-          console.error("Error fetching user styling for email:", e);
-        }
-        const { subject, html, text } = await QuickLinkEmail({ host, url, styling });
+          const { subject, html, text } = await QuickLinkEmail({
+            host,
+            url,
+            styling,
+          });
 
-        sendEmail({
-          apiKey: provider.apiKey,
-          from: provider.from,
-          email, subject, html, text
-        })
-      }
-    })
-  }),
-  google: () => Google({
-    clientId: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET
-  })
-}
+          sendEmail({
+            apiKey: provider.apiKey,
+            from: provider.from,
+            email,
+            subject,
+            html,
+            text,
+          });
+        },
+      }),
+    }),
+  google: () =>
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+};
 
 const getProviders = () => {
   if (!settings.auth.providers.length) {
     return [];
   }
 
-  return settings.auth.providers.map(provider => {
-    return providersConfig[provider]()
+  return settings.auth.providers.map((provider) => {
+    return providersConfig[provider]();
   });
-}
+};
 
 const getPages = () => {
   if (settings.auth.hasThemePages) {
@@ -64,11 +73,11 @@ const getPages = () => {
       signIn: "/auth/signin",
       verifyRequest: "/auth/verify-request",
       error: "/auth/error",
-    }
+    };
   }
 
   return {};
-}
+};
 
 const config = {
   providers: getProviders(),
@@ -77,7 +86,9 @@ const config = {
       if (user?.email) {
         const { isValid, error } = validateEmail(user.email);
         if (!isValid) {
-          console.warn(`Blocked sign-in attempt for invalid email: ${user.email}. Reason: ${error}`);
+          console.warn(
+            `Blocked sign-in attempt for invalid email: ${user.email}. Reason: ${error}`,
+          );
           return `/auth/error?error=EmailValidation`;
         }
       }
@@ -91,7 +102,7 @@ const config = {
     },
   },
   ...(clientPromise && { adapter: MongoDBAdapter(clientPromise) }),
-  pages: getPages()
+  pages: getPages(),
 };
 
 export const { handlers, signIn, signOut, auth } = NextAuth(config);

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import loyalboards_styling from "@/data/apps/loyalboards/styling.json";
 import taskflow_styling from "@/data/apps/taskflow/styling.json";
 import tudorcrisan_styling from "@/data/apps/tudorcrisan/styling.json";

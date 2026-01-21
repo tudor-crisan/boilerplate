@@ -12,12 +12,14 @@ const CommentItem = ({
   onDelete,
   localCommentIds = [],
 }) => {
-  const isOwner = comment.userId?._id && comment.boardId?.userId === comment.userId._id;
+  const isOwner =
+    comment.userId?._id && comment.boardId?.userId === comment.userId._id;
   const isAuthor = user?.id && comment.userId?._id === user.id;
   const isBoardOwner = user?.id && comment.boardId?.userId === user.id;
   const isLocal = localCommentIds.includes(comment._id);
 
-  const canDelete = config.allowDeletion && (isAuthor || isBoardOwner || isLocal);
+  const canDelete =
+    config.allowDeletion && (isAuthor || isBoardOwner || isLocal);
 
   return (
     <div className="flex gap-3 items-start">
@@ -32,7 +34,9 @@ const CommentItem = ({
             {comment.userId?.name || comment.name || "Anonymous"}
             {/* Owner Badge */}
             {isOwner && (
-              <span className={`${styling?.components?.element || ""} badge badge-outline badge-xs h-5 pointer-events-none select-none ml-2`}>
+              <span
+                className={`${styling?.components?.element || ""} badge badge-outline badge-xs h-5 pointer-events-none select-none ml-2`}
+              >
                 {config.ownerBadgeText || "Owner"}
               </span>
             )}

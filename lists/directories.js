@@ -31,7 +31,7 @@ const directories = [
   "https://esidehustles.com/",
   "https://madewithlovable.com/",
   "https://producthunt.com",
-  "https://foundrlist.com"
-]
+  "https://foundrlist.com",
+];
 
 export default directories;

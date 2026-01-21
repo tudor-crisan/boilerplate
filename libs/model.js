@@ -4,31 +4,31 @@ export const userSchemaConfig = {
   name: {
     type: String,
     trim: true,
-    maxlength: 30
+    maxlength: 30,
   },
   email: {
     type: String,
     trim: true,
-    lowercase: true
+    lowercase: true,
   },
   image: {
-    type: String
+    type: String,
   },
   hasAccess: {
     type: Boolean,
-    default: false
+    default: false,
   },
   customerId: {
-    type: String
+    type: String,
   },
   planId: {
-    type: String
+    type: String,
   },
   styling: {
-    type: Object
-  }
-}
+    type: Object,
+  },
+};
 
 export const getUserModel = (schema) => {
   return mongoose.models.User || mongoose.model("User", schema);
-}
+};

@@ -15,14 +15,13 @@ export async function POST(req) {
 
     let event;
     try {
-      event = stripe.webhooks.constructEvent(
-        body,
-        signature,
-        webhookSecret
-      );
+      event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
     } catch (err) {
       console.error(`Webhook signature verification failed: ${err.message}`);
-      return NextResponse.json({ error: `Webhook Error: ${err.message}` }, { status: 400 });
+      return NextResponse.json(
+        { error: `Webhook Error: ${err.message}` },
+        { status: 400 },
+      );
     }
 
     const { data, type } = event;
@@ -37,7 +36,9 @@ export async function POST(req) {
       const clientReferenceId = data.object.client_reference_id;
       const customerId = data.object.customer;
 
-      console.log(`Processing checkout.session.completed. ClientRefID: ${clientReferenceId}, CustomerID: ${customerId}`);
+      console.log(
+        `Processing checkout.session.completed. ClientRefID: ${clientReferenceId}, CustomerID: ${customerId}`,
+      );
 
       if (!clientReferenceId) {
         console.error("Missing client_reference_id in webhook payload");
@@ -54,11 +55,14 @@ export async function POST(req) {
         // For now just focusing on customerId
 
         await user.save();
-        console.log(`Successfully updated user ${clientReferenceId}: hasAccess=true, customerId=${customerId}`);
+        console.log(
+          `Successfully updated user ${clientReferenceId}: hasAccess=true, customerId=${customerId}`,
+        );
       } else {
-        console.error(`User not found for client_reference_id: ${clientReferenceId}`);
+        console.error(
+          `User not found for client_reference_id: ${clientReferenceId}`,
+        );
       }
-
     } else if (type === "customer.subscription.deleted") {
       // ❌ Revoke access to the product (subscription cancelled or non-payment)
 
@@ -71,19 +75,22 @@ export async function POST(req) {
       if (user) {
         user.hasAccess = false;
         await user.save();
-        console.log(`Revoked access for user with customerId: ${data.object.customer}`);
+        console.log(
+          `Revoked access for user with customerId: ${data.object.customer}`,
+        );
       } else {
-        console.warn(`User not found to revoke access for customerId: ${data.object.customer}`);
+        console.warn(
+          `User not found to revoke access for customerId: ${data.object.customer}`,
+        );
       }
     }
 
     return NextResponse.json({ received: true });
-
   } catch (e) {
     console.error("Stripe webhook handler error: " + e?.message);
     return NextResponse.json(
       { error: "Webhook handler failed" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }

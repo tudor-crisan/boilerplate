@@ -7,13 +7,7 @@ import unusedImports from "eslint-plugin-unused-imports";
 const eslintConfig = defineConfig([
   ...nextVitals,
   // Override default ignores of eslint-config-next.
-  globalIgnores([
-
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-  ]),
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
@@ -21,9 +15,9 @@ const eslintConfig = defineConfig([
       "unused-imports": unusedImports,
     },
     rules: {
-      '@next/next/no-head-element': 'off',
-      '@next/next/no-img-element': 'off',
-      'react-hooks/set-state-in-effect': 'off',
+      "@next/next/no-head-element": "off",
+      "@next/next/no-img-element": "off",
+      "react-hooks/set-state-in-effect": "off",
       "simple-import-sort/imports": [
         "error",
         {
@@ -41,7 +35,7 @@ const eslintConfig = defineConfig([
               "^\\.\\./?$",
               "^\\./(?![^/]*components)(?!/?$)",
               "^\\./?$",
-              "^.+\\.?(css)$"
+              "^.+\\.?(css)$",
             ],
           ],
         },
@@ -49,15 +43,20 @@ const eslintConfig = defineConfig([
       "simple-import-sort/exports": "error",
       "no-relative-import-paths/no-relative-import-paths": [
         "error",
-        { "allowSameFolder": false, "rootDir": ".", "prefix": "@" }
+        { allowSameFolder: false, rootDir: ".", prefix: "@" },
       ],
       "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-vars": [
         "warn",
-        { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+        {
+          vars: "all",
+          varsIgnorePattern: "^_",
+          args: "after-used",
+          argsIgnorePattern: "^_",
+        },
       ],
-    }
-  }
+    },
+  },
 ]);
 
 export default eslintConfig;

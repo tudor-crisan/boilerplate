@@ -19,13 +19,20 @@ async function connectMongo() {
     return cached.conn;
   }
 
-  if (!process.env.MONGO_URI || !process.env.MONGO_DB || !process.env.MONGO_QUERY) {
-    console.warn('Invalid/Missing environment variable: "MONGO_URI". MongoDB connection will be skipped.');
+  if (
+    !process.env.MONGO_URI ||
+    !process.env.MONGO_DB ||
+    !process.env.MONGO_QUERY
+  ) {
+    console.warn(
+      'Invalid/Missing environment variable: "MONGO_URI". MongoDB connection will be skipped.',
+    );
     return;
   }
 
   if (!cached.promise) {
-    const uri = process.env.MONGO_URI + process.env.MONGO_DB + process.env.MONGO_QUERY;
+    const uri =
+      process.env.MONGO_URI + process.env.MONGO_DB + process.env.MONGO_QUERY;
     const opts = {
       bufferCommands: false,
     };

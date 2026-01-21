@@ -17,7 +17,10 @@ export default function SectionFAQ() {
   }));
 
   return (
-    <SectionWrapper id="faq" containerClassName={cn(styling.flex.col, "space-y-6 justify-center")}>
+    <SectionWrapper
+      id="faq"
+      containerClassName={cn(styling.flex.col, "space-y-6 justify-center")}
+    >
       <SectionHeading
         label={faq.label}
         headline={faq.headline}

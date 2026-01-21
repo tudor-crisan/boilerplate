@@ -1,8 +1,8 @@
-import useApiRequest from '@/hooks/useApiRequest';
-import { clientApi } from '@/libs/api';
+import useApiRequest from "@/hooks/useApiRequest";
+import { clientApi } from "@/libs/api";
 import { setDataError, setDataSuccess } from "@/libs/api";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { useCallback,useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function useBoardNotifications() {
   const [notifications, setNotifications] = useState([]);
@@ -14,23 +14,34 @@ export default function useBoardNotifications() {
   const [isMarkingAll, setIsMarkingAll] = useState(false);
   const prevLoadingIdsRef = useRef(loadingIds);
 
-  const fetchNotifications = useCallback((pageNumber = 1) => {
-    fetchReq(() => clientApi.get(`${settings.paths.api.boardsNotifications}?page=${pageNumber}&limit=20`), {
-      onSuccess: (msg, data) => {
-        setNotifications(prev => {
-          if (pageNumber === 1) return data.notifications || [];
-          const newNotifications = data.notifications || [];
-          const existingIds = new Set(prev.map(n => n._id));
-          const filteredNew = newNotifications.filter(n => !existingIds.has(n._id));
-          return [...prev, ...filteredNew];
-        });
-        setHasMore(data.hasMore);
-        setPage(pageNumber);
-        if (pageNumber === 1) setLoadingInitial(false);
-      },
-      showToast: false
-    });
-  }, [fetchReq]);
+  const fetchNotifications = useCallback(
+    (pageNumber = 1) => {
+      fetchReq(
+        () =>
+          clientApi.get(
+            `${settings.paths.api.boardsNotifications}?page=${pageNumber}&limit=20`,
+          ),
+        {
+          onSuccess: (msg, data) => {
+            setNotifications((prev) => {
+              if (pageNumber === 1) return data.notifications || [];
+              const newNotifications = data.notifications || [];
+              const existingIds = new Set(prev.map((n) => n._id));
+              const filteredNew = newNotifications.filter(
+                (n) => !existingIds.has(n._id),
+              );
+              return [...prev, ...filteredNew];
+            });
+            setHasMore(data.hasMore);
+            setPage(pageNumber);
+            if (pageNumber === 1) setLoadingInitial(false);
+          },
+          showToast: false,
+        },
+      );
+    },
+    [fetchReq],
+  );
 
   // Initial fetch
   useEffect(() => {
@@ -53,23 +64,24 @@ export default function useBoardNotifications() {
         console.log("SSE message received:", data.type);
 
         if (data.type === "notification-create") {
-          setNotifications(prev => {
-            if (prev.some(n => n._id === data.notification._id)) return prev;
+          setNotifications((prev) => {
+            if (prev.some((n) => n._id === data.notification._id)) return prev;
             return [data.notification, ...prev];
           });
-          window.dispatchEvent(new CustomEvent('analytics-refresh'));
+          window.dispatchEvent(new CustomEvent("analytics-refresh"));
         }
 
         if (data.type === "notification-update") {
-          setNotifications(prev => prev.map(n => {
-            if (n._id === data.notificationId && data.updatedFields) {
-              return { ...n, ...data.updatedFields };
-            }
-            return n;
-          }));
-          window.dispatchEvent(new CustomEvent('analytics-refresh'));
+          setNotifications((prev) =>
+            prev.map((n) => {
+              if (n._id === data.notificationId && data.updatedFields) {
+                return { ...n, ...data.updatedFields };
+              }
+              return n;
+            }),
+          );
+          window.dispatchEvent(new CustomEvent("analytics-refresh"));
         }
-
       } catch (error) {
         console.error("SSE parse error", error);
       }
@@ -94,46 +106,53 @@ export default function useBoardNotifications() {
   }, [loadingIds, fetchNotifications]);
 
   const markAsRead = async (ids) => {
-    setLoadingIds(prev => [...new Set([...prev, ...ids])]);
+    setLoadingIds((prev) => [...new Set([...prev, ...ids])]);
     if (ids.length > 1) {
       setIsMarkingAll(true);
     }
 
     // Optimistic Update
-    setNotifications(prev => prev.map(notification =>
-      ids.includes(notification._id) ? { ...notification, isRead: true } : notification
-    ));
+    setNotifications((prev) =>
+      prev.map((notification) =>
+        ids.includes(notification._id)
+          ? { ...notification, isRead: true }
+          : notification,
+      ),
+    );
 
     try {
-      const res = await clientApi.put(settings.paths.api.boardsNotifications, { notificationIds: ids });
+      const res = await clientApi.put(settings.paths.api.boardsNotifications, {
+        notificationIds: ids,
+      });
 
       const onCompletion = () => {
-        setLoadingIds(prev => prev.filter(id => !ids.includes(id)));
+        setLoadingIds((prev) => prev.filter((id) => !ids.includes(id)));
         setIsMarkingAll(false);
-      }
+      };
 
       if (setDataSuccess(res, onCompletion)) return;
       if (setDataError(res, onCompletion)) return;
-
     } catch (error) {
       console.error(error);
-      setLoadingIds(prev => prev.filter(id => !ids.includes(id)));
+      setLoadingIds((prev) => prev.filter((id) => !ids.includes(id)));
       setIsMarkingAll(false);
     }
   };
 
   const markAllRead = () => {
-    const unreadIds = notifications.filter(notification => !notification.isRead).map(notification => notification._id);
+    const unreadIds = notifications
+      .filter((notification) => !notification.isRead)
+      .map((notification) => notification._id);
     if (unreadIds.length > 0) {
       markAsRead(unreadIds);
     }
   };
 
   const loadMore = () => {
-      if (!isFetching && hasMore) {
-          fetchNotifications(page + 1);
-      }
-  }
+    if (!isFetching && hasMore) {
+      fetchNotifications(page + 1);
+    }
+  };
 
   return {
     notifications,
@@ -144,6 +163,6 @@ export default function useBoardNotifications() {
     isMarkingAll,
     markAsRead,
     markAllRead,
-    loadMore
+    loadMore,
   };
 }

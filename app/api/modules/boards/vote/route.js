@@ -1,21 +1,19 @@
 import { withApiHandler } from "@/libs/apiHandler";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { createNotification,trackEvent } from "@/libs/modules/boards/analytics";
-import { responseError,responseSuccess } from "@/libs/utils.server";
+import {
+  createNotification,
+  trackEvent,
+} from "@/libs/modules/boards/analytics";
+import { responseError, responseSuccess } from "@/libs/utils.server";
 import Post from "@/models/modules/boards/Post";
 
 const TYPE = "Vote";
 
 async function postHandler(req, { user }) {
-  const {
-    serverError,
-  } = settings.forms.general.backend.responses;
+  const { serverError } = settings.forms.general.backend.responses;
 
-  const {
-    voteRecorded,
-    postNotFound,
-    postIdRequired,
-  } = settings.forms[TYPE].backend.responses;
+  const { voteRecorded, postNotFound, postIdRequired } =
+    settings.forms[TYPE].backend.responses;
 
   try {
     const { searchParams } = req.nextUrl;
@@ -44,7 +42,7 @@ async function postHandler(req, { user }) {
       postTitle: post.title,
     });
 
-    return responseSuccess(voteRecorded.message, {}, voteRecorded.status)
+    return responseSuccess(voteRecorded.message, {}, voteRecorded.status);
   } catch (e) {
     console.error("Vote error: " + e?.message);
     return responseError(serverError.message, {}, serverError.status);
@@ -52,15 +50,10 @@ async function postHandler(req, { user }) {
 }
 
 async function deleteHandler(req, { user }) {
-  const {
-    serverError,
-  } = settings.forms.general.backend.responses;
+  const { serverError } = settings.forms.general.backend.responses;
 
-  const {
-    voteRemoved,
-    postNotFound,
-    postIdRequired,
-  } = settings.forms[TYPE].backend.responses;
+  const { voteRemoved, postNotFound, postIdRequired } =
+    settings.forms[TYPE].backend.responses;
 
   try {
     const { searchParams } = req.nextUrl;
@@ -93,12 +86,12 @@ export const POST = withApiHandler(postHandler, {
   type: TYPE,
   rateLimitKey: "vote-toggle",
   needAuth: false,
-  needAccess: false
+  needAccess: false,
 });
 
 export const DELETE = withApiHandler(deleteHandler, {
   type: TYPE,
   rateLimitKey: "vote-toggle",
   needAuth: false,
-  needAccess: false
+  needAccess: false,
 });

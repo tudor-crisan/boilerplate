@@ -26,7 +26,7 @@ export async function checkRateLimit(ip, route, limit = 5, windowSeconds = 60) {
         route,
         requests: 1,
         firstRequest: now,
-        lastRequest: now
+        lastRequest: now,
       });
       return { allowed: true };
     }
@@ -44,10 +44,12 @@ export async function checkRateLimit(ip, route, limit = 5, windowSeconds = 60) {
     } else {
       // Window active
       if (record.requests >= limit) {
-        const remainingSeconds = Math.ceil((windowEnd.getTime() - now.getTime()) / 1000);
+        const remainingSeconds = Math.ceil(
+          (windowEnd.getTime() - now.getTime()) / 1000,
+        );
         return {
           allowed: false,
-          message: `Too many requests. Please try again in ${remainingSeconds} seconds.`
+          message: `Too many requests. Please try again in ${remainingSeconds} seconds.`,
         };
       }
 
@@ -57,7 +59,6 @@ export async function checkRateLimit(ip, route, limit = 5, windowSeconds = 60) {
       await record.save();
       return { allowed: true };
     }
-
   } catch (error) {
     console.error("Rate limit check error:", error);
     // Fail open (allow) if DB error to avoid outage
@@ -76,7 +77,12 @@ export async function checkReqRateLimit(req, type) {
   const ip = req.headers.get("x-forwarded-for") || "0.0.0.0";
   const config = settings.rateLimits?.[type] || { limit: 10, window: 60 };
 
-  const { allowed, message } = await checkRateLimit(ip, type, config.limit, config.window);
+  const { allowed, message } = await checkRateLimit(
+    ip,
+    type,
+    config.limit,
+    config.window,
+  );
 
   if (!allowed) {
     return responseError(message, {}, 429);
