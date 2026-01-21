@@ -46,8 +46,20 @@ export default function BoardPublicClient({ board }) {
         className="min-h-screen bg-base-200 text-base-content"
       >
         <Main className={`bg-transparent! ${defaultStyling.general.box}`}>
-          <div className="max-w-5xl space-y-4 mx-auto w-full">
-            <Title>{board.name}</Title>
+          <div className="max-w-5xl space-y-8 mx-auto w-full">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <Title className="mb-0! text-2xl sm:text-3xl">{board.name}</Title>
+              {board.posts?.length > 0 && (
+                <FilterBar
+                  search={search}
+                  setSearch={setSearch}
+                  sort={sort}
+                  setSort={setSort}
+                  sortOptions={sortOptions}
+                  className="mb-0! flex-1 sm:max-w-md sm:justify-end"
+                />
+              )}
+            </div>
             <Columns>
               <Sidebar>
                 <FormCreate
@@ -58,15 +70,6 @@ export default function BoardPublicClient({ board }) {
                 />
               </Sidebar>
               <div className="flex-1 w-full min-w-0">
-                {board.posts?.length > 0 && (
-                  <FilterBar
-                    search={search}
-                    setSearch={setSearch}
-                    sort={sort}
-                    setSort={setSort}
-                    sortOptions={sortOptions}
-                  />
-                )}
                 <BoardPublicPostsList
                   posts={board.posts}
                   boardId={board._id.toString()}
