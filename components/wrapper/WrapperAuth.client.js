@@ -5,8 +5,8 @@ import { useStyling } from "@/context/ContextStyling";
 import { clientApi, setDataError, setDataSuccess } from "@/libs/api";
 import { defaultStyling } from "@/libs/defaults";
 import { deepMerge } from "@/libs/merge.mjs";
-import { useEffect,useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "@/libs/toast";
+import { useEffect, useState } from "react";
 
 export default function WrapperAuthClient({ authSession, children }) {
   const [session, setSession] = useState(authSession);
@@ -21,23 +21,23 @@ export default function WrapperAuthClient({ authSession, children }) {
 
   const updateProfile = async (data) => {
     // Optimistic update
-    setSession(prev => ({ ...prev, ...data }));
+    setSession((prev) => ({ ...prev, ...data }));
 
-    // Update styling context if present in data, 
+    // Update styling context if present in data,
     // because components like IconFavicon rely on useStyling()
     if (data.styling) {
       setStyling(deepMerge(defaultStyling, data.styling));
     }
 
     try {
-      // The data object already contains everything we need including logo 
+      // The data object already contains everything we need including logo
       // because we're passing { ...inputs, styling, logo } from DashboardProfile
       const res = await clientApi.post("/api/user/update", data);
 
       // If server returns updated data (e.g. with server-generated logo), update local state again
       if (res.data?.styling) {
         setStyling(deepMerge(defaultStyling, res.data.styling));
-        setSession(prev => ({ ...prev, styling: res.data.styling }));
+        setSession((prev) => ({ ...prev, styling: res.data.styling }));
       }
 
       setDataSuccess(res, (msg) => {
@@ -65,12 +65,8 @@ export default function WrapperAuthClient({ authSession, children }) {
 
   const value = {
     ...session,
-    updateProfile
+    updateProfile,
   };
 
-  return (
-    <ContextAuth.Provider value={value}>
-      {children}
-    </ContextAuth.Provider>
-  );
+  return <ContextAuth.Provider value={value}>{children}</ContextAuth.Provider>;
 }

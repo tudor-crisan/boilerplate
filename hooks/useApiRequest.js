@@ -1,7 +1,7 @@
 "use client";
 import { setDataError, setDataSuccess } from "@/libs/api";
-import { useCallback, useEffect,useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "@/libs/toast";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function useApiRequest() {
   const [loading, _setLoading] = useState(false);
@@ -29,66 +29,70 @@ export default function useApiRequest() {
     }
   }, [error]);
 
-  const request = useCallback(async (requestFn, {
-    onSuccess = () => { },
-    onError = () => { },
-    keepLoadingOnSuccess = false,
-    showToast = true,
-  } = {}
-  ) => {
-    if (loadingRef.current) return;
+  const request = useCallback(
+    async (
+      requestFn,
+      {
+        onSuccess = () => {},
+        onError = () => {},
+        keepLoadingOnSuccess = false,
+        showToast = true,
+      } = {},
+    ) => {
+      if (loadingRef.current) return;
 
-    setLoading(true);
-    setInputErrors({});
-    setError("");
-    setMessage("");
+      setLoading(true);
+      setInputErrors({});
+      setError("");
+      setMessage("");
 
-    try {
-      const response = await requestFn();
+      try {
+        const response = await requestFn();
 
-      const errorCallback = (errMsg, validationErrors, status) => {
-        if (status !== 401) {
-          setError(errMsg);
-        }
-        setInputErrors(validationErrors || {});
-        onError(errMsg, validationErrors);
-        setLoading(false);
-      };
-
-      const successCallback = (msg, data) => {
-        if (showToast) {
-          setMessage(msg);
-        }
-        onSuccess(msg, data);
-        if (!keepLoadingOnSuccess) {
+        const errorCallback = (errMsg, validationErrors, status) => {
+          if (status !== 401) {
+            setError(errMsg);
+          }
+          setInputErrors(validationErrors || {});
+          onError(errMsg, validationErrors);
           setLoading(false);
+        };
+
+        const successCallback = (msg, data) => {
+          if (showToast) {
+            setMessage(msg);
+          }
+          onSuccess(msg, data);
+          if (!keepLoadingOnSuccess) {
+            setLoading(false);
+          }
+        };
+
+        if (setDataError(response, errorCallback)) {
+          return;
         }
-      };
 
-      if (setDataError(response, errorCallback)) {
-        return;
-      }
-
-      if (setDataSuccess(response, successCallback)) {
-        return;
-      }
-
-      // Fallback if neither helper handled it (e.g. status 200 but weird body)
-      setLoading(false);
-
-    } catch (err) {
-      const errorCallback = (errMsg, validationErrors, status) => {
-        if (status !== 401) {
-          setError(errMsg);
+        if (setDataSuccess(response, successCallback)) {
+          return;
         }
-        setInputErrors(validationErrors || {});
-        onError(errMsg, validationErrors);
-      };
 
-      setDataError(err?.response || err, errorCallback);
-      setLoading(false);
-    }
-  }, []);
+        // Fallback if neither helper handled it (e.g. status 200 but weird body)
+        setLoading(false);
+      } catch (err) {
+        const errorCallback = (errMsg, validationErrors, status) => {
+          if (status !== 401) {
+            setError(errMsg);
+          }
+          setInputErrors(validationErrors || {});
+          onError(errMsg, validationErrors);
+        };
+
+        setDataError(err?.response || err, errorCallback);
+        setLoading(false);
+      }
+    },
+    [],
+  );
 
   return {
     loading,
@@ -97,6 +101,6 @@ export default function useApiRequest() {
     message,
     inputErrors,
     setInputErrors,
-    request
+    request,
   };
 }

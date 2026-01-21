@@ -1,6 +1,6 @@
 "use client";
+import { toast } from "@/libs/toast";
 import { useState } from "react";
-import toast from "react-hot-toast";
 
 export default function useCopyToClipboard() {
   const [isCopied, setIsCopied] = useState(false);

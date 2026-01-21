@@ -1,9 +1,9 @@
 "use client";
 
 import { defaultSetting as settings } from "@/libs/defaults";
+import { toast } from "@/libs/toast";
 import { getClientId } from "@/libs/utils.client";
-import { useCallback, useEffect, useRef,useState } from "react";
-import toast from "react-hot-toast";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Common sorting function for board posts
@@ -21,13 +21,17 @@ const sortPosts = (posts) => {
 
 /**
  * Hook to manage board posts state and real-time updates via SSE
- * 
+ *
  * @param {string} boardId - The ID of the board
  * @param {Array} initialPosts - Initial list of posts
  * @param {Object} options - Configuration options
  * @param {boolean} options.showVoteToast - Whether to show a toast message when someone votes
  */
-export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } = {}) => {
+export const useBoardPosts = (
+  boardId,
+  initialPosts,
+  { showVoteToast = false } = {},
+) => {
   const [posts, setPosts] = useState(sortPosts(initialPosts));
   const [isBoardDeleted, setIsBoardDeleted] = useState(false);
   const isBoardDeletedRef = useRef(false);
@@ -73,7 +77,8 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
         if (data.type === "post-create") {
           setPosts((prevPosts) => {
             // Avoid duplicates
-            if (prevPosts.some(p => p._id === data.post._id)) return prevPosts;
+            if (prevPosts.some((p) => p._id === data.post._id))
+              return prevPosts;
 
             return sortPosts([...prevPosts, data.post]);
           });
@@ -84,7 +89,9 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
         }
 
         if (data.type === "post-delete") {
-          setPosts((prevPosts) => prevPosts.filter(p => p._id !== data.postId));
+          setPosts((prevPosts) =>
+            prevPosts.filter((p) => p._id !== data.postId),
+          );
 
           if (!isBoardDeletedRef.current) {
             toast.success("Post removed!");
@@ -93,11 +100,15 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
 
         if (data.type === "comment-update" && data.boardId === boardId) {
           setPosts((prevPosts) => {
-            return prevPosts.map(post => {
+            return prevPosts.map((post) => {
               if (post._id === data.postId) {
                 return {
                   ...post,
-                  commentsCount: Math.max(0, (post.commentsCount || 0) + (data.action === "add" ? 1 : -1))
+                  commentsCount: Math.max(
+                    0,
+                    (post.commentsCount || 0) +
+                      (data.action === "add" ? 1 : -1),
+                  ),
                 };
               }
               return post;
@@ -106,7 +117,9 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
 
           // Show toast if the action wasn't performed by this client
           if (showVoteToast) {
-            toast.success(data.action === "add" ? "New comment added" : "Comment deleted!");
+            toast.success(
+              data.action === "add" ? "New comment added" : "Comment deleted!",
+            );
           }
         }
 
@@ -133,7 +146,7 @@ export const useBoardPosts = (boardId, initialPosts, { showVoteToast = false } =
     posts,
     setPosts,
     handleVote,
-    isBoardDeleted
+    isBoardDeleted,
   };
 };
 

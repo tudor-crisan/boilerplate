@@ -2,6 +2,7 @@
 
 import Columns from "@/components/common/Columns";
 import FilterBar from "@/components/common/FilterBar";
+import GdprPopup from "@/components/common/GdprPopup";
 import Main from "@/components/common/Main";
 import Sidebar from "@/components/common/Sidebar";
 import Title from "@/components/common/Title";
@@ -22,26 +23,20 @@ export default function BoardPublicClient({ board }) {
     ...appearance,
     components: {
       ...defaultStyling.components,
-      ...(appearance.components || {})
+      ...(appearance.components || {}),
     },
     // We can also merge pricing if needed, though not used here
     pricing: {
       ...defaultStyling.pricing,
-      ...(appearance.pricing || {})
-    }
+      ...(appearance.pricing || {}),
+    },
   };
 
   const themeName = (customStyling.theme || "light").toLowerCase();
   const fontName = customStyling.font || "Inter";
   const fontFamilyValue = fontMap[fontName] || fontMap["Inter"];
 
-  const {
-    search,
-    setSearch,
-    sort,
-    setSort,
-    sortOptions
-  } = useBoardFiltering();
+  const { search, setSearch, sort, setSort, sortOptions } = useBoardFiltering();
 
   return (
     <ContextStyling.Provider value={{ styling: customStyling }}>
@@ -52,10 +47,7 @@ export default function BoardPublicClient({ board }) {
       >
         <Main className={`bg-transparent! ${defaultStyling.general.box}`}>
           <div className="max-w-5xl space-y-4 mx-auto w-full">
-            <Title>
-              {board.name}
-            </Title>
-
+            <Title>{board.name}</Title>
             <Columns>
               <Sidebar>
                 <FormCreate
@@ -87,7 +79,8 @@ export default function BoardPublicClient({ board }) {
             </Columns>
           </div>
         </Main>
+        <GdprPopup />
       </div>
     </ContextStyling.Provider>
-  )
+  );
 }

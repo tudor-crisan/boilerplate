@@ -14,8 +14,8 @@ import { useStyling } from "@/context/ContextStyling";
 import { useAuthError } from "@/hooks/useAuthError";
 import { useError } from "@/hooks/useError";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { Suspense, useEffect,useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "@/libs/toast";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
@@ -47,7 +47,11 @@ function SignInContent() {
   const handleSignIn = async (provider, options, setLoading) => {
     setLoading(true);
     try {
-      const res = await signIn(provider, { ...options, callbackUrl: CALLBACK_URL, redirect: false });
+      const res = await signIn(provider, {
+        ...options,
+        callbackUrl: CALLBACK_URL,
+        redirect: false,
+      });
 
       if (res?.error) {
         setLoading(false);
@@ -87,38 +91,38 @@ function SignInContent() {
             <Error message={errorMessage} />
 
             {!settings.auth.providers.length && (
-              <p className="text-center">No sign-in methods available at this time</p>
+              <p className="text-center">
+                No sign-in methods available at this time
+              </p>
             )}
-            {settings.auth.providers.includes("resend") && <>
-              <Form onSubmit={handleEmailSignIn} className="space-y-3">
-                <div className="space-y-1">
-                  <Label>
-                    Email Address
-                  </Label>
-                  <Input
-                    required
-                    type="email"
-                    placeholder="email@example.com"
-                    className={styling.components.input}
-                    value={email}
+            {settings.auth.providers.includes("resend") && (
+              <>
+                <Form onSubmit={handleEmailSignIn} className="space-y-3">
+                  <div className="space-y-1">
+                    <Label>Email Address</Label>
+                    <Input
+                      required
+                      type="email"
+                      placeholder="email@example.com"
+                      className={styling.components.input}
+                      value={email}
+                      disabled={disabled}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <Button
+                    type="submit"
+                    variant="btn-primary w-full"
+                    className="btn-md!"
+                    isLoading={loadingEmail}
                     disabled={disabled}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <Button
-                  type="submit"
-                  variant="btn-primary w-full"
-                  className="btn-md!"
-                  isLoading={loadingEmail}
-                  disabled={disabled}
-                >
-                  Sign in with Email
-                </Button>
-              </Form>
-              {settings.auth.providers.length > 1 && (
-                <Divider />
-              )}
-            </>}
+                  >
+                    Sign in with Email
+                  </Button>
+                </Form>
+                {settings.auth.providers.length > 1 && <Divider />}
+              </>
+            )}
             {settings.auth.providers.includes("google") && (
               <Button
                 onClick={handleGoogleSignIn}
@@ -139,23 +143,20 @@ function SignInContent() {
             </div>
           </div>
         </div>
-        {settings.auth.providers.length > 0 && (
-          <FooterAuth />
-        )}
+        {settings.auth.providers.length > 0 && <FooterAuth />}
       </div>
     </div>
-
   );
 }
 
 export default function SignInPage() {
   const { styling } = useStyling();
   return (
-    <Suspense fallback={(
-      <div className={`min-h-screen ${styling.flex.center}`}>
-        Loading...
-      </div>
-    )}>
+    <Suspense
+      fallback={
+        <div className={`min-h-screen ${styling.flex.center}`}>Loading...</div>
+      }
+    >
       <SignInContent />
     </Suspense>
   );
