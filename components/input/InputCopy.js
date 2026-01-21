@@ -10,6 +10,7 @@ export default function InputCopy({
   openUrl = null,
   tooltipCopy = "",
   tooltipOpen = "",
+  children,
 }) {
   const { styling } = useStyling();
 
@@ -34,6 +35,7 @@ export default function InputCopy({
             </Button>
           </Tooltip>
         )}
+        {children}
       </div>
     </div>
   );

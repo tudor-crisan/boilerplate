@@ -1,10 +1,12 @@
 "use client";
 
 import Button from "@/components/button/Button";
+import Grid from "@/components/common/Grid";
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import Title from "@/components/common/Title";
 import VideoContainer from "@/components/video/VideoContainer";
+import styling from "@/data/modules/styling.json";
 import applications from "@/lists/applications";
 import videos from "@/lists/videos";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -39,17 +41,7 @@ export default function VideoModulePage() {
   // If a video is selected and found, render the player
   if (activeVideo) {
     return (
-      <div className="relative">
-        {/* Back Button Overlay */}
-        <div className="fixed top-4 left-4 z-[100]">
-          <Button
-            onClick={() => router.push(pathname)}
-            variant="btn-ghost bg-white/10 hover:bg-white/20 text-white backdrop-blur-md rounded-full"
-            size="btn-sm"
-          >
-            ← Back to Gallery
-          </Button>
-        </div>
+      <div className="relative min-h-screen bg-base-200">
         <VideoContainer video={activeVideo} />
       </div>
     );
@@ -63,12 +55,16 @@ export default function VideoModulePage() {
 
   // Dashboard / Gallery View
   return (
-    <div className="min-h-screen bg-base-200 p-8">
-      <div className="max-w-5xl mx-auto">
-        <Title className="text-4xl font-bold mb-2">Video Generator</Title>
-        <Paragraph className="mb-8">
-          Select a video script to visualize and record.
-        </Paragraph>
+    <div
+      className={`min-h-screen bg-base-200 px-4 ${styling.general.section_padding || ""}`}
+    >
+      <div className={styling.general.container}>
+        <div className="text-center mb-12">
+          <Title className={styling.section.title}>Video Generator</Title>
+          <Paragraph className={styling.section.paragraph}>
+            Select a video script to visualize and record.
+          </Paragraph>
+        </div>
 
         {appsWithVideo.length === 0 && (
           <div className="alert alert-warning">
@@ -85,11 +81,11 @@ export default function VideoModulePage() {
               <div key={appId}>
                 <Title
                   tag="h2"
-                  className="text-2xl font-bold capitalize mb-4 border-b border-base-300 pb-2"
+                  className={`text-2xl font-bold capitalize mb-4 border-b border-base-300 pb-2 ${styling.components.header}`}
                 >
                   {appId}
                 </Title>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Grid>
                   {appVideos.map((video) => (
                     <div
                       key={video.id}
@@ -98,7 +94,7 @@ export default function VideoModulePage() {
                           `${pathname}?appId=${appId}&videoId=${video.id}`,
                         )
                       }
-                      className="card bg-base-100 shadow-xl hover:shadow-2xl transition-all hover:scale-[1.02] text-left cursor-pointer"
+                      className={`${styling.components.card} cursor-pointer hover:scale-[1.02] transition-transform`}
                       role="button"
                       tabIndex={0}
                     >
@@ -124,7 +120,7 @@ export default function VideoModulePage() {
                       </div>
                     </div>
                   ))}
-                </div>
+                </Grid>
               </div>
             );
           })}

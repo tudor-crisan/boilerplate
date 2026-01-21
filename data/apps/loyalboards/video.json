@@ -13,7 +13,8 @@
           "title": "Feedback made simple.",
           "voiceover": "Building a great product is hard. Knowing what your users want shouldn't be.",
           "bg": "bg-neutral-900",
-          "textColor": "text-white"
+          "textColor": "text-white",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_1_1768980232911.mp3"
         },
         {
           "id": 2,
