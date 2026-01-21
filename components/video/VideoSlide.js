@@ -141,12 +141,12 @@ export default function VideoSlide({ slide, isVertical }) {
       {/* Transition Slide Specifics */}
       {slide.type === "transition" && slide.images && (
         <div
-          className={`relative w-full ${isVertical ? "h-[50vh]" : "h-[50vh] max-w-4xl"} flex items-center justify-center`}
+          className={`relative w-full ${isVertical ? "h-[50vh] mt-4" : "h-[45vh] max-w-4xl mt-12"} flex items-center justify-center`}
         >
           <motion.div
             className="absolute inset-0 z-10 origin-bottom-left shadow-2xl rounded-2xl overflow-hidden border border-white/10 w-3/4 h-3/4 top-0 left-0"
             initial={{ x: "-50%", opacity: 0, rotate: -8 }}
-            animate={{ x: isVertical ? "0%" : "-15%", opacity: 1, rotate: -8 }}
+            animate={{ x: isVertical ? "0%" : "-15%", y: "15%", opacity: 1, rotate: -8 }}
             transition={{ duration: 1, type: "spring" }}
           >
             <Image
@@ -160,7 +160,7 @@ export default function VideoSlide({ slide, isVertical }) {
           <motion.div
             className="absolute inset-0 z-20 origin-bottom-right shadow-2xl rounded-2xl overflow-hidden border border-white/10 w-3/4 h-3/4 bottom-0 right-0"
             initial={{ x: "50%", opacity: 0, rotate: 8 }}
-            animate={{ x: isVertical ? "0%" : "15%", opacity: 1, rotate: 8 }}
+            animate={{ x: isVertical ? "0%" : "15%", y: "-5%", opacity: 1, rotate: 8 }}
             transition={{ duration: 1, delay: 0.4, type: "spring" }}
           >
             <Image
