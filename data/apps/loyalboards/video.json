@@ -88,6 +88,7 @@
           "title": "Organize fast.",
           "voiceover": "Organize your roadmap fast.",
           "image": "/assets/video/loyalboards/board_performance.png",
+          "imageFit": "contain",
           "bg": "bg-base-100",
           "textColor": "text-accent",
           "animation": "slide-right",
@@ -335,7 +336,7 @@
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_30_1768987015981.mp3"
         }
       ],
-      "music": "/uploads/music/loyalboards_promo-main-16-9_music_1768991910779.mp3"
+      "music": "/uploads/music/loyalboards_promo-main-16-9_music_1768996350429.mp3"
     },
     {
       "id": "promo-short-9-16",
