@@ -18,3 +18,6 @@
 - show Cristina how to list with printer, and install windows 10, and how to backup
 - list all 3, adeverinta, buletin, diploma, prepare them in a file cabinet, and a mini-backpack
 - prepare for the train at 2:40am to Arad, have money for road, and find-out the location
+
+- think maybe of a way to log-in into users dashboards to debug if problems arrise
+- think of having a daily backup of the mongodb database for loyalboards
