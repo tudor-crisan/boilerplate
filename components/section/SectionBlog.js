@@ -7,6 +7,7 @@ import SectionWrapper from "@/components/section/SectionWrapper";
 import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
 import { defaultBlog } from "@/libs/defaults";
+import { useEffect, useState } from "react";
 
 export default function SectionBlog() {
   const { styling } = useStyling();
@@ -15,16 +16,21 @@ export default function SectionBlog() {
   const blog = copywriting.SectionBlog;
   const { articles, categories } = defaultBlog;
 
-  // Sort by date and take the first 3 (actually 2 as per original code)
-  const latestArticles = articles
-    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
-    .slice(0, 2)
-    .map((article) => ({
-      ...article,
-      categories: article.categorySlugs.map((slug) =>
-        categories.find((c) => c.slug === slug),
-      ),
-    }));
+  const [displayedArticles, setDisplayedArticles] = useState([]);
+
+  useEffect(() => {
+    // Randomize articles on the client side
+    setDisplayedArticles(
+      [...articles].sort(() => 0.5 - Math.random()).slice(0, 2),
+    );
+  }, [articles]);
+
+  const latestArticles = displayedArticles.map((article) => ({
+    ...article,
+    categories: article.categorySlugs.map((slug) =>
+      categories.find((c) => c.slug === slug),
+    ),
+  }));
 
   return (
     <SectionWrapper id="blog" containerClassName="space-y-12">
