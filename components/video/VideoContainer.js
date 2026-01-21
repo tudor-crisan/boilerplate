@@ -485,8 +485,8 @@ export default function VideoContainer({ video }) {
                 value={currentSlide.voiceover}
                 tooltipCopy="Copy Script"
               >
-                <div className="flex items-center gap-1 border-l border-base-300 pl-2 ml-2">
-                  {currentSlide.audio && (
+                {currentSlide.audio && (
+                  <div className="flex items-center gap-1 border-l border-base-300 pl-2 ml-2">
                     <Button
                       onClick={handleReplay}
                       variant="btn-square btn-ghost btn-sm text-primary"
@@ -494,8 +494,6 @@ export default function VideoContainer({ video }) {
                     >
                       <SvgReplay size="size-5" />
                     </Button>
-                  )}
-                  {currentSlide.audio && (
                     <Button
                       onClick={togglePlay}
                       variant="btn-square btn-ghost btn-sm text-primary"
@@ -507,8 +505,8 @@ export default function VideoContainer({ video }) {
                         <SvgPlay size="size-5" />
                       )}
                     </Button>
-                  )}
-                </div>
+                  </div>
+                )}
               </InputCopy>
             </div>
           </div>
