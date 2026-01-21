@@ -2,8 +2,10 @@
 
 import Button from "@/components/button/Button";
 import Paragraph from "@/components/common/Paragraph";
+import TextSmall from "@/components/common/TextSmall";
 import InputCopy from "@/components/input/InputCopy";
 import InputFile from "@/components/input/InputFile";
+import InputRange from "@/components/input/InputRange";
 import InputToggle from "@/components/input/InputToggle";
 import SvgPause from "@/components/svg/SvgPause";
 import SvgPlay from "@/components/svg/SvgPlay";
@@ -25,15 +27,24 @@ export default function VideoContainer({ video }) {
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const audioRef = useRef(null);
+  const musicRef = useRef(null);
   const slides = video.slides || [];
   const currentSlide = slides[currentSlideIndex];
   const isVertical = video.format === "9:16";
   const [isUploading, setIsUploading] = useState(false);
+  const [isMusicUploading, setIsMusicUploading] = useState(false);
   const [isAutoplay, setIsAutoplay] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [replayKey, setReplayKey] = useState(0);
   const [fileInputKey, setFileInputKey] = useState(0);
+  const [musicInputKey, setMusicInputKey] = useState(0);
+
+  // Music state
+  const [musicUrl, setMusicUrl] = useState(video.music || "");
+  const [musicOffset, setMusicOffset] = useState(video.musicOffset || 0);
+  const [isVoMuted, setIsVoMuted] = useState(false);
+  const [isMusicMuted, setIsMusicMuted] = useState(false);
 
   // Default duration from video config or 2000ms
   const defaultDuration = video.defaultDuration || 2000;
@@ -51,12 +62,20 @@ export default function VideoContainer({ video }) {
     setCurrentSlideIndex(0);
     setReplayKey((prev) => prev + 1);
     setIsPlaying(true);
+    
+    // Reset VO
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
       audioRef.current.playbackRate = playbackSpeed;
-      audioRef.current.play().catch(() => setIsPlaying(false));
+      audioRef.current.play().catch(() => {});
     }
-  }, [playbackSpeed]);
+
+    // Reset Music
+    if (musicRef.current) {
+      musicRef.current.currentTime = musicOffset;
+      musicRef.current.play().catch(() => {});
+    }
+  }, [playbackSpeed, musicOffset]);
 
   const handleReplay = () => {
     setReplayKey((prev) => prev + 1);
@@ -68,18 +87,31 @@ export default function VideoContainer({ video }) {
     }
   };
 
-  const goToFirst = () => setCurrentSlideIndex(0);
+  const goToFirst = () => {
+    setCurrentSlideIndex(0);
+    if (musicRef.current) musicRef.current.currentTime = musicOffset;
+  };
   const goToLast = () => setCurrentSlideIndex(slides.length - 1);
 
   const togglePlay = () => {
+    const nextState = !isPlaying;
+    setIsPlaying(nextState);
+
     if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
+      if (nextState) {
         audioRef.current.playbackRate = playbackSpeed;
         audioRef.current.play().catch(() => setIsPlaying(false));
+      } else {
+        audioRef.current.pause();
       }
-      setIsPlaying(!isPlaying);
+    }
+
+    if (musicRef.current) {
+      if (nextState) {
+        musicRef.current.play().catch(() => {});
+      } else {
+        musicRef.current.pause();
+      }
     }
   };
 
@@ -89,6 +121,26 @@ export default function VideoContainer({ video }) {
       nextSlide();
     }
   };
+
+  // Sync music volume/mute
+  useEffect(() => {
+    if (musicRef.current) {
+      musicRef.current.muted = isMusicMuted;
+    }
+  }, [isMusicMuted]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.muted = isVoMuted;
+    }
+  }, [isVoMuted]);
+
+  // Sync music offset when it changes manually
+  useEffect(() => {
+    if (musicRef.current && !isPlaying) {
+      musicRef.current.currentTime = musicOffset;
+    }
+  }, [musicOffset, isPlaying]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -199,12 +251,57 @@ export default function VideoContainer({ video }) {
     }
   };
 
+  const handleMusicUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setIsMusicUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("appId", appId || "loyalboards");
+    formData.append("videoId", videoId);
+    formData.append("isGlobal", "true"); 
+
+    try {
+      const res = await fetch("/api/video/music", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success("Music uploaded successfully!");
+        setMusicUrl(data.path);
+        setMusicInputKey((prev) => prev + 1);
+        if (musicRef.current) {
+          musicRef.current.src = data.path;
+          if (isPlaying) musicRef.current.play();
+        }
+      } else {
+        toast.error("Failed to upload music");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error uploading music");
+    } finally {
+      setIsMusicUploading(false);
+    }
+  };
+
   if (!currentSlide)
     return <div className="p-10">No slides found in this video config.</div>;
 
   return (
     <div className="w-full flex flex-col items-center justify-center p-8 gap-8">
       <audio ref={audioRef} className="hidden" onEnded={handleAudioEnded} />
+      {musicUrl && (
+        <audio
+          ref={musicRef}
+          src={musicUrl}
+          className="hidden"
+          loop
+          muted={isMusicMuted}
+        />
+      )}
 
       {/* Video Player */}
       <div
@@ -262,14 +359,13 @@ export default function VideoContainer({ video }) {
           <span className="text-[10px] font-bold uppercase opacity-50">
             Speed
           </span>
-          <input
-            type="range"
+          <InputRange
             min="0.5"
             max="2"
             step="0.1"
             value={playbackSpeed}
             onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
-            className="range range-xs range-primary w-20 sm:w-28"
+            className="w-20 sm:w-28"
           />
           <span className="text-xs font-mono w-8">{playbackSpeed}x</span>
         </div>
@@ -320,58 +416,135 @@ export default function VideoContainer({ video }) {
         </div>
       </div>
 
-      {/* Voiceover Section */}
-      <div className="flex flex-col sm:flex-row items-center w-full sm:w-6xl gap-4 sm:gap-8">
-        <div className="flex flex-col sm:flex-row items-stretch justify-between gap-4 w-full sm:w-1/2">
-          <div
-            className={`flex items-center justify-between sm:justify-center gap-3 bg-base-100 px-4 py-2 border border-base-200 w-full sm:w-auto ${styling.components.element}`}
-          >
-            <span className="text-sm font-medium opacity-70 whitespace-nowrap">
-              Autoplay
-            </span>
-            <InputToggle
-              value={isAutoplay}
-              onChange={setIsAutoplay}
-              size="toggle-sm"
-            />
-          </div>
-          <div className="w-full sm:flex-1">
-            <InputFile
-              key={fileInputKey}
-              accept="audio/*"
-              onChange={handleFileUpload}
-              disabled={isUploading}
-              placeholder={isUploading ? "Uploading..." : "Upload New VO"}
-              className="m-0"
-            />
-          </div>
-        </div>
-        <div className="w-full sm:w-1/2">
-          <Paragraph className="font-bold mb-1">Voiceover Script</Paragraph>
-          <InputCopy value={currentSlide.voiceover} tooltipCopy="Copy Script">
-            <div className="flex items-center gap-1 border-l border-base-300 pl-2 ml-2">
-              <Button
-                onClick={handleReplay}
-                variant="btn-square btn-ghost btn-sm text-primary"
-                title="Replay slide"
-              >
-                <SvgReplay size="size-5" />
-              </Button>
-              {currentSlide.audio && (
-                <Button
-                  onClick={togglePlay}
-                  variant="btn-square btn-ghost btn-sm text-primary"
-                  title={isPlaying ? "Pause Audio" : "Play Audio"}
-                >
-                  {isPlaying ? (
-                    <SvgPause size="size-5" />
-                  ) : (
-                    <SvgPlay size="size-5" />
-                  )}
-                </Button>
-              )}
+      {/* Voiceover & Music Selection */}
+      <div className="w-full sm:w-6xl flex flex-col gap-8">
+        <div className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16">
+          {/* Voiceover Group */}
+          <div className="flex flex-col gap-4 w-full sm:w-1/2">
+            <div className="flex items-center justify-between">
+              <Paragraph className="font-bold opacity-70">
+                Voiceover Settings
+              </Paragraph>
+              <div className="flex items-center gap-2 bg-base-100 px-3 py-1 border border-base-200 rounded-lg">
+                <TextSmall className="font-semibold opacity-60">VO Mute</TextSmall>
+                <InputToggle
+                  value={isVoMuted}
+                  onChange={setIsVoMuted}
+                  size="toggle-xs"
+                />
+              </div>
             </div>
-          </InputCopy>
+
+            <div className="flex flex-col sm:flex-row items-stretch gap-4">
+              <div
+                className={`flex items-center justify-between sm:justify-center gap-3 bg-base-100 px-4 py-2 border border-base-200 w-full sm:w-auto ${styling.components.element}`}
+              >
+                <span className="text-sm font-medium opacity-70 whitespace-nowrap">
+                  Autoplay
+                </span>
+                <InputToggle
+                  value={isAutoplay}
+                  onChange={setIsAutoplay}
+                  size="toggle-sm"
+                />
+              </div>
+              <div className="w-full sm:flex-1">
+                <InputFile
+                  key={fileInputKey}
+                  accept="audio/*"
+                  onChange={handleFileUpload}
+                  disabled={isUploading}
+                  placeholder={isUploading ? "Uploading..." : "Replace VO"}
+                  className="m-0"
+                />
+              </div>
+            </div>
+
+            <div>
+              <TextSmall className="font-bold opacity-40 uppercase mb-1">
+                Current Script
+              </TextSmall>
+              <InputCopy value={currentSlide.voiceover} tooltipCopy="Copy Script">
+                <div className="flex items-center gap-1 border-l border-base-300 pl-2 ml-2">
+                  <Button
+                    onClick={handleReplay}
+                    variant="btn-square btn-ghost btn-sm text-primary"
+                    title="Replay slide"
+                  >
+                    <SvgReplay size="size-5" />
+                  </Button>
+                  {currentSlide.audio && (
+                    <Button
+                      onClick={togglePlay}
+                      variant="btn-square btn-ghost btn-sm text-primary"
+                      title={isPlaying ? "Pause Audio" : "Play Audio"}
+                    >
+                      {isPlaying ? (
+                        <SvgPause size="size-5" />
+                      ) : (
+                        <SvgPlay size="size-5" />
+                      )}
+                    </Button>
+                  )}
+                </div>
+              </InputCopy>
+            </div>
+          </div>
+
+          {/* Background Music Group */}
+          <div className="flex flex-col gap-4 w-full sm:w-1/2">
+            <div className="flex items-center justify-between">
+              <Paragraph className="font-bold opacity-70">
+                Background Music
+              </Paragraph>
+              <div className="flex items-center gap-2 bg-base-100 px-3 py-1 border border-base-200 rounded-lg">
+                <TextSmall className="font-semibold opacity-60">
+                  Music Mute
+                </TextSmall>
+                <InputToggle
+                  value={isMusicMuted}
+                  onChange={setIsMusicMuted}
+                  size="toggle-xs"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <InputFile
+                key={musicInputKey}
+                accept="audio/*"
+                onChange={handleMusicUpload}
+                disabled={isMusicUploading}
+                placeholder={isMusicUploading ? "Uploading..." : "Choose Music Track"}
+                className="m-0"
+              />
+
+              {/* Music Offset Slider - Now Inside Group */}
+              <div
+                className={`flex flex-col gap-2 bg-base-100 p-3 border border-base-200 ${styling.components.element}`}
+              >
+                <div className="flex justify-between items-center">
+                  <TextSmall className="font-bold opacity-40 uppercase">
+                    Music Start Point
+                  </TextSmall>
+                  <span className="text-xs font-mono opacity-60 bg-base-200 px-2 py-0.5 rounded">
+                    {musicOffset}s
+                  </span>
+                </div>
+                <InputRange
+                  min="0"
+                  max="120"
+                  step="1"
+                  value={musicOffset}
+                  onChange={(e) => setMusicOffset(parseInt(e.target.value))}
+                  className="w-full"
+                />
+                <TextSmall className="opacity-40 text-center">
+                  Select where in the track to start (0 - 120s)
+                </TextSmall>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

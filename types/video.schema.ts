@@ -24,6 +24,8 @@ export const VideoSchema = z.object({
   width: z.number(),
   height: z.number(),
   slides: z.array(VideoSlideSchema),
+  music: z.string().optional(),
+  musicOffset: z.number().default(0),
 });
 
 export const VideoAppConfigSchema = z.object({
