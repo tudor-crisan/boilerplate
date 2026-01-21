@@ -26,8 +26,8 @@ const ToastItem = ({ t, styling }) => {
       : "bg-white text-gray-900 border-base-200";
 
   const iconClasses = styling.components.toaster_icons || "";
-  const successIconClasses = `${iconClasses} border-primary text-primary`;
-  const errorIconClasses = `${iconClasses} border-red-500 text-red-500`;
+  const successIconClasses = `${iconClasses} bg-primary border-primary text-primary-content`;
+  const errorIconClasses = `${iconClasses} bg-error border-error text-error-content`;
 
   return (
     <motion.div
