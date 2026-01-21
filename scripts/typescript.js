@@ -52,4 +52,18 @@ Object.values(settings).forEach((setting, index) => {
   }
 });
 
+/***************************************************************/
+
+import videos from "@/lists/videos.js";
+import { VideoAppConfigSchema } from "@/types/video.schema";
+
+Object.values(videos).forEach((video, index) => {
+  try {
+    VideoAppConfigSchema.parse(video);
+  } catch (error) {
+    console.error(error);
+    console.log(`\n❌ Data is invalid! - video${index}`);
+  }
+});
+
 console.log("✅ All data is valid!");

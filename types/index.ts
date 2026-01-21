@@ -4,4 +4,5 @@ export * from "./common.schema";
 export * from "./copywriting.schema";
 export * from "./setting.schema";
 export * from "./styling.schema";
+export * from "./video.schema";
 export * from "./visual.schema";

@@ -29,8 +29,11 @@ export default function VideoContainer({ video }) {
   const [isUploading, setIsUploading] = useState(false);
   const [isAutoplay, setIsAutoplay] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
-  // Key to force re-render of slide for replay
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [replayKey, setReplayKey] = useState(0);
+
+  // Default duration from video config or 2000ms
+  const defaultDuration = video.defaultDuration || 2000;
 
   const nextSlide = useCallback(() => {
     if (currentSlideIndex < slides.length - 1)
@@ -46,6 +49,7 @@ export default function VideoContainer({ video }) {
     setIsPlaying(true);
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
+      audioRef.current.playbackRate = playbackSpeed;
       audioRef.current.play().catch(() => setIsPlaying(false));
     }
   };
@@ -55,6 +59,7 @@ export default function VideoContainer({ video }) {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
+        audioRef.current.playbackRate = playbackSpeed;
         audioRef.current.play().catch(() => setIsPlaying(false));
       }
       setIsPlaying(!isPlaying);
@@ -91,6 +96,7 @@ export default function VideoContainer({ video }) {
       audioRef.current.pause();
       setIsPlaying(false);
       audioRef.current.currentTime = 0;
+      audioRef.current.playbackRate = playbackSpeed;
 
       if (currentSlide?.audio) {
         audioRef.current.src = currentSlide.audio;
@@ -108,19 +114,28 @@ export default function VideoContainer({ video }) {
           }
         }
       } else if (isAutoplay) {
-        // Fallback for slides without audio: wait 5 seconds then advance
+        // Fallback for slides without audio: advance after default duration / speed
+        const duration = defaultDuration / playbackSpeed;
         timeoutId = setTimeout(() => {
           if (currentSlideIndex < slides.length - 1) {
             nextSlide();
           }
-        }, 5000);
+        }, duration);
       }
     }
 
     return () => {
       if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [currentSlide, isAutoplay, nextSlide, currentSlideIndex, slides.length]);
+  }, [
+    currentSlide,
+    isAutoplay,
+    nextSlide,
+    currentSlideIndex,
+    slides.length,
+    playbackSpeed,
+    defaultDuration,
+  ]);
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -129,7 +144,7 @@ export default function VideoContainer({ video }) {
     setIsUploading(true);
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("appId", appId || "loyalboards"); // Default fallback or error
+    formData.append("appId", appId || "loyalboards");
     formData.append("videoId", videoId);
     formData.append("slideId", currentSlide.id);
 
@@ -141,13 +156,11 @@ export default function VideoContainer({ video }) {
       const data = await res.json();
       if (data.success) {
         toast.success("VO uploaded successfully!");
-        // Update local state to reflect change - normally we'd revalidate path
-        // For now, we manually set it to trick the player to update immediately
         currentSlide.audio = data.path;
 
-        // Auto-play the new uploaded file
         if (audioRef.current) {
           audioRef.current.src = data.path;
+          audioRef.current.playbackRate = playbackSpeed;
           audioRef.current.play();
           setIsPlaying(true);
         }
@@ -180,51 +193,92 @@ export default function VideoContainer({ video }) {
             key={`${currentSlide.id}-${replayKey}`}
             className="w-full h-full"
           >
-            <VideoSlide slide={currentSlide} isVertical={isVertical} />
+            <VideoSlide
+              slide={{
+                ...currentSlide,
+                bg: currentSlide.bg || "bg-neutral-900",
+                textColor: currentSlide.textColor || "text-white",
+                type: currentSlide.type || "feature",
+              }}
+              isVertical={isVertical}
+            />
           </div>
         </AnimatePresence>
       </div>
 
       {/* Control Bar */}
       <div
-        className={`w-full max-w-3xl flex items-center justify-between bg-base-100 p-4 shadow-md border border-base-300 ${styling.components.element}`}
+        className={`w-full max-w-4xl flex flex-col md:flex-row items-center justify-between bg-base-100 p-4 gap-4 shadow-md border border-base-300 ${styling.components.element}`}
       >
-        <Button onClick={() => router.push(pathname)} size="btn-sm">
-          ← Back to Gallery
-        </Button>
-
-        <div
-          className={`${styling.components.element} flex bg-base-200 p-1 gap-1`}
-        >
-          <Button
-            onClick={prevSlide}
-            disabled={currentSlideIndex <= 0}
-            variant="btn-outline"
-            size="btn-sm"
-          >
-            Prev
+        <div className="flex w-full md:w-auto items-center justify-between md:justify-start gap-4">
+          <Button onClick={() => router.push(pathname)} size="btn-sm">
+            ← Gallery
           </Button>
-          <span className="flex items-center px-2 text-xs font-mono opacity-50">
-            {currentSlideIndex + 1} / {slides.length}
-          </span>
+
           <Button
-            onClick={nextSlide}
-            disabled={currentSlideIndex >= slides.length - 1}
-            variant="btn-outline"
+            onClick={handleReplay}
+            variant="btn-white"
             size="btn-sm"
+            className="md:hidden"
           >
-            Next
+            Replay
           </Button>
         </div>
 
-        <Button onClick={handleReplay} variant="btn-white" size="btn-sm">
-          Replay Slide
+        <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full md:w-auto">
+          <div className="flex items-center gap-2 bg-base-200 px-3 py-1.5 rounded-lg w-full sm:w-auto justify-center">
+            <span className="text-[10px] font-bold uppercase opacity-50">
+              Speed
+            </span>
+            <input
+              type="range"
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={playbackSpeed}
+              onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
+              className="range range-xs range-primary w-24"
+            />
+            <span className="text-xs font-mono w-8">{playbackSpeed}x</span>
+          </div>
+
+          <div
+            className={`${styling.components.element} flex bg-base-200 p-1 gap-1 w-full sm:w-auto justify-center`}
+          >
+            <Button
+              onClick={prevSlide}
+              disabled={currentSlideIndex <= 0}
+              variant="btn-outline"
+              size="btn-sm"
+            >
+              Prev
+            </Button>
+            <span className="flex items-center px-4 text-xs font-mono opacity-50">
+              {currentSlideIndex + 1} / {slides.length}
+            </span>
+            <Button
+              onClick={nextSlide}
+              disabled={currentSlideIndex >= slides.length - 1}
+              variant="btn-outline"
+              size="btn-sm"
+            >
+              Next
+            </Button>
+          </div>
+        </div>
+
+        <Button
+          onClick={handleReplay}
+          variant="btn-white"
+          size="btn-sm"
+          className="hidden md:flex"
+        >
+          Replay
         </Button>
       </div>
 
       {/* Voiceover Section */}
       <div className="w-full max-w-xl space-y-6">
-        {/* VO Text */}
         <div>
           <p className="text-sm font-bold mb-2 ml-1">Voiceover Script</p>
           <InputCopy value={currentSlide.voiceover} tooltipCopy="Copy Script">
@@ -244,9 +298,8 @@ export default function VideoContainer({ video }) {
           </InputCopy>
         </div>
 
-        {/* Upload & Autoplay Controls */}
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex-1 max-w-[300px]">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="w-full sm:flex-1">
             <InputFile
               accept="audio/*"
               onChange={handleFileUpload}
@@ -257,10 +310,10 @@ export default function VideoContainer({ video }) {
           </div>
 
           <div
-            className={`flex items-center gap-2 bg-base-100 px-4 py-2 border border-base-200 ${styling.components.element}`}
+            className={`flex items-center justify-between sm:justify-center gap-2 bg-base-100 px-4 py-2 border border-base-200 w-full sm:w-auto ${styling.components.element}`}
           >
             <span className="text-sm font-medium opacity-70 whitespace-nowrap">
-              Autoplay Slides
+              Autoplay
             </span>
             <InputToggle
               value={isAutoplay}
