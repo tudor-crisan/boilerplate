@@ -61,6 +61,7 @@ export default function BoardDashboardNotifications() {
         hasMore={hasMore}
         isLoading={isFetching}
         className="max-h-60 overflow-y-auto space-y-2"
+        scrollThreshold={0.8}
       >
         {notifications.length > 0 ? (
           notifications.map((notification) => (

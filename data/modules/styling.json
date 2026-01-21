@@ -13,7 +13,7 @@
     "input_copy": "rounded-md shadow-md bg-base-100 flex items-center w-full",
     "header": "px-3 sm:px-5 py-3",
     "dropdown": "rounded-md shadow-md",
-    "toaster": "rounded-md shadow-2xl border-2 p-4",
+    "toaster": "rounded-md shadow-lg sm:shadow-2xl border-2 p-4",
     "toaster_icons": "rounded-md border-2 p-1",
     "image": "rounded-md"
   },
