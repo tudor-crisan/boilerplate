@@ -1,4 +1,5 @@
 "use client";
+import { defaultSetting } from "@/libs/defaults";
 import { toast } from "@/libs/toast";
 import { useState } from "react";
 
@@ -21,9 +22,10 @@ export default function useUpload() {
         return reject("Invalid file type");
       }
 
-      if (file.size > 10 * 1024 * 1024) {
-        // 10MB limit
-        toast.error("File size must be less than 10MB");
+      const { bytes, label } = defaultSetting.forms.general.config.maxUploadSize;
+
+      if (file.size > bytes) {
+        toast.error(`File size must be less than ${label}`);
         setIsLoading(false);
         return reject("File too large");
       }

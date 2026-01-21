@@ -16,6 +16,25 @@ if (appName) {
   }
 }
 
+// Load dynamic settings for the active app
+let appSettings = {};
+if (appName) {
+  try {
+    const { default: apps } = await import("./lists/applications.mjs");
+    const { default: settings } = await import("./lists/settings.node.mjs");
+    const { getMergedConfigWithModules } = await import("./libs/merge.mjs");
+
+    const appConfig = apps[appName];
+    const setting = appConfig?.setting;
+
+    if (setting) {
+      appSettings = getMergedConfigWithModules("setting", setting, settings);
+    }
+  } catch (error) {
+    console.error("Failed to load app settings:", error.message);
+  }
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   devIndicators: {
@@ -24,54 +43,28 @@ const nextConfig = {
   },
 
   async rewrites() {
-    const app = process.env.APP || process.env.NEXT_PUBLIC_APP;
-
-    if (!app) {
+    if (!appName) {
       console.warn("APP or NEXT_PUBLIC_APP not defined");
       return [];
     }
 
-    try {
-      // Dynamic imports to isolate load issues
-      const { default: apps } = await import("./lists/applications.mjs");
-      const { default: settings } = await import("./lists/settings.node.mjs");
-      const { getMergedConfigWithModules } = await import("./libs/merge.mjs");
+    const paths = appSettings?.paths || {};
+    const returnPaths = Object.values(paths).filter((path) => {
+      return path && typeof path === "object" && path.source && path.destination;
+    });
 
-      const appConfig = apps[app];
-      const setting = appConfig?.setting;
-
-      if (!setting) {
-        console.warn("No setting for app:", app);
-        return [];
-      }
-
-      const appSettings = getMergedConfigWithModules(
-        "setting",
-        setting,
-        settings,
-      );
-      const paths = appSettings?.paths || {};
-
-      const returnPaths = Object.values(paths).filter((path) => {
-        return (
-          path && typeof path === "object" && path.source && path.destination
-        );
-      });
-
-      console.log("Rewrites loaded:", returnPaths.length);
-      return returnPaths;
-    } catch (error) {
-      console.error("Rewrites error:", error.stack || error.message);
-      return [];
-    }
+    console.log("Rewrites loaded:", returnPaths.length);
+    return returnPaths;
   },
 
   serverExternalPackages: ["mongoose"],
 
-  // Increase body size limit for file uploads
+  // Use dynamic maxUploadSize from settings
   experimental: {
     serverActions: {
-      bodySizeLimit: "10mb",
+      bodySizeLimit:
+        appSettings?.forms?.general?.config?.maxUploadSize?.label?.toLowerCase() ||
+        "1mb",
     },
   },
 };
