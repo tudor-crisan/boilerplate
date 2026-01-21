@@ -216,7 +216,7 @@
         {
           "type": "image",
           "src": "/assets/help/loyalboards/board_edit_form_settings.png",
-          "alt": "Form Settings Panel",
+          "alt": "Board Settings Panel",
           "comment": "Screenshot of the 'General Form Settings' or 'Input: Title' accordion section expanded."
         },
         {
@@ -228,12 +228,24 @@
           "text": "Decide whether users can discuss posts. You can <b>Toggle Comments</b> on or off for the entire board. This is useful for announcement-only boards."
         },
         {
+          "type": "image",
+          "src": "/assets/help/loyalboards/board_edit_comments.png",
+          "alt": "Board Edit Comments",
+          "comment": "Screenshot of the 'Comments Section'"
+        },
+        {
           "type": "heading",
-          "text": "Real-time Preview"
+          "text": "Appearance"
         },
         {
           "type": "paragraph",
-          "text": "As you make changes to any setting, the <b>Live Preview</b> on the right side of the screen updates instantly, showing you exactly what your users will experience."
+          "text": "You can customize the appearance for each individual board, from the list of themes, fonts and give it a unique style with roundness or square look."
+        },
+        {
+          "type": "image",
+          "src": "/assets/help/loyalboards/board_edit_appearance.png",
+          "alt": "Board Edit Appearance",
+          "comment": "Screenshot of the 'Appearance Section'"
         }
       ]
     },
@@ -255,6 +267,12 @@
           "text": "While looking at your dashboard or a board, new upvotes, posts, and comments appear <b>instantly</b> without needing to refresh the page. You will see live counters tick up as users interact."
         },
         {
+          "type": "image",
+          "src": "/assets/help/loyalboards/board_notifications.png",
+          "alt": "Board Notifications",
+          "comment": "Screenshot of the 'Board Notifications'"
+        },
+        {
           "type": "heading",
           "text": "The Weekly Digest"
         },
@@ -266,13 +284,18 @@
           "type": "list",
           "items": [
             "Total Views for the week.",
-            "Number of new Posts and Comments.",
-            "Top trending ideas."
+            "Number of new Votes, Posts and Comments."
           ]
         },
         {
           "type": "paragraph",
           "text": "This helps you keep a pulse on your product's feedback loop even if you don't log in every day."
+        },
+        {
+          "type": "image",
+          "src": "/assets/help/loyalboards/board_weekly_digest.png",
+          "alt": "Board Weekly Digest",
+          "comment": "Screenshot of the 'Board Weekly Digest'"
         }
       ]
     },
@@ -340,7 +363,7 @@
         },
         {
           "type": "paragraph",
-          "text": "If you wish to delete your account and all associated data, please contact our support team at support@loyalboards.io. We process these requests within 48 hours."
+          "text": "If you wish to delete your account and all associated data, please contact our support team. We process these requests within 48 hours."
         }
       ]
     },

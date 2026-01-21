@@ -9,6 +9,8 @@ import { useState } from "react";
 const BoardPostItem = ({ item, itemAction, boardSettings }) => {
   const [showComments, setShowComments] = useState(false);
 
+  const showCommentsEnabled = boardSettings?.isEnabled !== false;
+
   return (
     <li className="block">
       <CardPost
@@ -17,18 +19,20 @@ const BoardPostItem = ({ item, itemAction, boardSettings }) => {
         onClick={() => {}}
         actions={
           <>
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowComments(!showComments);
-              }}
-              className="btn-ghost btn-sm opacity-70 hover:opacity-100 gap-1.5 px-2"
-            >
-              <SvgComment size="size-5" />
-              <span className="text-xs font-normal">
-                {item.commentsCount || 0}
-              </span>
-            </Button>
+            {showCommentsEnabled && (
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowComments(!showComments);
+                }}
+                className="btn-ghost btn-sm opacity-70 hover:opacity-100 gap-1.5 px-2"
+              >
+                <SvgComment size="size-5" />
+                <span className="text-xs font-normal">
+                  {item.commentsCount || 0}
+                </span>
+              </Button>
+            )}
 
             {(itemAction || item.action) && (
               <div onClick={(e) => e.stopPropagation()}>
@@ -40,7 +44,7 @@ const BoardPostItem = ({ item, itemAction, boardSettings }) => {
           </>
         }
       >
-        {showComments && (
+        {showCommentsEnabled && showComments && (
           <BoardCommentSection postId={item._id} settings={boardSettings} />
         )}
       </CardPost>

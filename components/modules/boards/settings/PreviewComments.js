@@ -10,6 +10,12 @@ export default function BoardPreviewComments({
   getVal,
   handleChange,
 }) {
+  const isEnabled = getVal("comments.isEnabled", true);
+
+  if (!isEnabled) {
+    return null;
+  }
+
   return (
     <div
       className={`${previewStyling.components.card} ${previewStyling.general.box} p-6 border border-base-200 transition-all duration-300 bg-base-100 text-base-content`}
