@@ -1,4 +1,3 @@
-
 export default function SvgMoveDown({ className = "w-6 h-6" }) {
   return (
     <svg

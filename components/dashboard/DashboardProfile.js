@@ -10,7 +10,7 @@ import { useAuth } from "@/context/ContextAuth";
 import { useStyling } from "@/context/ContextStyling";
 import useForm from "@/hooks/useForm";
 import { useStylingRandomizer } from "@/hooks/useStylingRandomizer";
-import { cn,getNameInitials } from "@/libs/utils.client";
+import { cn, getNameInitials } from "@/libs/utils.client";
 import { useState } from "react";
 
 export default function DashboardProfile() {
@@ -24,13 +24,14 @@ export default function DashboardProfile() {
 
   const { inputs, handleChange, resetInputs } = useForm({
     name: name || "",
-    image: image || ""
+    image: image || "",
   });
 
   const [originalStyling, setOriginalStyling] = useState(null);
 
   // Randomizer Hook
-  const { shuffleConfig, setShuffleConfig, handleShuffle } = useStylingRandomizer({ setStyling });
+  const { shuffleConfig, setShuffleConfig, handleShuffle } =
+    useStylingRandomizer({ setStyling });
 
   const handleEditClick = () => {
     resetInputs({ name: name || "", image: image || "" });
@@ -42,17 +43,17 @@ export default function DashboardProfile() {
     if (originalStyling) {
       setStyling(originalStyling);
     }
-    setShuffleConfig(prev => ({ ...prev, auto: false }));
+    setShuffleConfig((prev) => ({ ...prev, auto: false }));
     setIsModalOpen(false);
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
-    setShuffleConfig(prev => ({ ...prev, auto: false }));
+    setShuffleConfig((prev) => ({ ...prev, auto: false }));
     setIsLoading(true);
     const success = await updateProfile({
       ...inputs,
-      styling
+      styling,
     });
     setIsLoading(false);
     if (success) {
@@ -81,20 +82,34 @@ export default function DashboardProfile() {
 
   if (!isLoggedIn) return null;
 
-  const containerClass = cn(styling.flex.responsive, styling.components.card, "gap-4", styling.general.box, styling.flex.items_center);
+  const containerClass = cn(
+    styling.flex.responsive,
+    styling.components.card,
+    "gap-4",
+    styling.general.box,
+    styling.flex.items_center,
+  );
 
   return (
     <div className={containerClass}>
-      <div className={cn(styling.flex.col, "space-y-3 text-center sm:text-left w-full sm:w-auto")}>
+      <div
+        className={cn(
+          styling.flex.col,
+          "space-y-3 text-center sm:text-left w-full sm:w-auto",
+        )}
+      >
         <div className="space-y-1">
-          <Title>
-            Profile
-          </Title>
-          <Paragraph>
-            Welcome <span className="font-bold">{name}</span>. <br className="hidden sm:block" /> You&apos;re logged in from <span className="font-bold">{email}</span>
+          <Title>Profile</Title>
+          <Paragraph className="overflow-hidden">
+            Welcome <span className="font-bold">{name}</span>.{" "}
+            <br className="hidden sm:block" /> You&apos;re logged in from{" "}
+            <span className="font-bold">{email}</span>
           </Paragraph>
         </div>
-        <Button onClick={handleEditClick} className="w-fit self-center sm:self-start">
+        <Button
+          onClick={handleEditClick}
+          className="w-fit self-center sm:self-start"
+        >
           Edit Profile
         </Button>
       </div>

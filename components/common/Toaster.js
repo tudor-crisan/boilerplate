@@ -14,8 +14,7 @@ const ToastItem = ({ t, styling }) => {
   const isError = t.type === "error";
 
   // Base styles from configuration
-  const baseClasses =
-    styling.components.toaster || "rounded-lg shadow-lg border p-4";
+  const baseClasses = styling.components.toaster || "";
 
   // Specific variants based on user request
   // Success: primary border, base background
@@ -25,6 +24,10 @@ const ToastItem = ({ t, styling }) => {
     : isError
       ? "bg-red-50 border-red-500 text-red-900"
       : "bg-white text-gray-900 border-base-200";
+
+  const iconClasses = styling.components.toaster_icons || "";
+  const successIconClasses = `${iconClasses} border-primary text-primary`;
+  const errorIconClasses = `${iconClasses} border-red-500 text-red-500`;
 
   return (
     <motion.div
@@ -42,19 +45,23 @@ const ToastItem = ({ t, styling }) => {
       <div className="flex-1 w-0">
         <div className="flex items-center gap-4">
           {isSuccess && (
-            <div className="shrink-0">
-              <SvgCheck className="size-8 text-primary" />
+            <div className={`shrink-0 ${successIconClasses}`}>
+              <SvgCheck className="size-6" />
             </div>
           )}
           {isError && (
-            <div className="shrink-0">
-              <SvgError className="size-8 text-red-500" />
+            <div className={`shrink-0 ${errorIconClasses}`}>
+              <SvgError className="size-6" />
             </div>
           )}
           <div className="flex-1">
             {/* If it's a string, wrap in p, else render directly (for custom jsx) */}
             {typeof t.message === "string" ? (
-              <Paragraph className="text-sm font-medium">{t.message}</Paragraph>
+              <Paragraph
+                className={`text-sm font-medium overflow-hidden ${isError ? "text-error" : ""}`}
+              >
+                {t.message}
+              </Paragraph>
             ) : (
               t.message
             )}
