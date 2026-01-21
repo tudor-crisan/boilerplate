@@ -24,7 +24,7 @@
           "title": "Magic Link Login",
           "subtitle": "No passwords. Just magic.",
           "voiceover": "Secure, passwordless login. Just a magic link away.",
-          "image": "/assets/help/loyalboards/login_screen.png",
+          "image": "/assets/video/loyalboards/main_dashboard.png",
           "bg": "bg-base-100",
           "textColor": "text-primary",
           "animation": "slide-left"
@@ -47,7 +47,7 @@
           "subtitle": "From feedback to roadmap.",
           "voiceover": "A complete suite to handle your product lifecycle.",
           "images": [
-            "/assets/help/loyalboards/analytics_detail.png",
+            "/assets/video/loyalboards/analytics_dashboard.png",
             "/assets/video/loyalboards/board_performance.png"
           ],
           "bg": "bg-base-100",
@@ -60,7 +60,7 @@
           "title": "Smart Analytics",
           "subtitle": "Real-time metrics.",
           "voiceover": "Track views, posts, votes, and comments in real-time.",
-          "image": "/assets/help/loyalboards/analytics_detail.png",
+          "image": "/assets/video/loyalboards/analytics_dashboard.png",
           "bg": "bg-secondary",
           "textColor": "text-secondary-content",
           "animation": "bounce"
@@ -71,7 +71,7 @@
           "title": "Fully Customizable",
           "subtitle": "Your brand, your rules.",
           "voiceover": "Customize colors, fonts, and styles to match your brand.",
-          "image": "/assets/help/loyalboards/board_edit_appearance.png",
+          "image": "/assets/video/loyalboards/fully_customizable_boards.png",
           "bg": "bg-base-100",
           "textColor": "text-accent",
           "animation": "zoom"
@@ -82,7 +82,7 @@
           "title": "Real-time Notifications",
           "subtitle": "Never miss a beat.",
           "voiceover": "Get instant updates as users interact with your boards.",
-          "image": "/assets/help/loyalboards/board_notifications.png",
+          "image": "/assets/video/loyalboards/realtime_notifications.png",
           "bg": "bg-accent",
           "textColor": "text-accent-content",
           "animation": "slide-left"
@@ -143,7 +143,7 @@
           "title": "Smart Analytics",
           "subtitle": "Data-driven decisions.",
           "voiceover": "Real-time insights into user needs.",
-          "image": "/assets/help/loyalboards/analytics_boards.png",
+          "image": "/assets/video/loyalboards/analytics_dashboard.png",
           "bg": "bg-primary",
           "textColor": "text-primary-content",
           "animation": "bounce"
@@ -154,7 +154,7 @@
           "title": "Profile Sync",
           "subtitle": "Your identity everywhere.",
           "voiceover": "Sync your appearance across the platform.",
-          "image": "/assets/help/loyalboards/profile_appearance.png",
+          "image": "/assets/video/loyalboards/change_profile_appearance.png",
           "bg": "bg-base-100",
           "textColor": "text-secondary",
           "animation": "zoom"
