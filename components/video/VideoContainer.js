@@ -193,12 +193,16 @@ export default function VideoContainer({ video }) {
       if (currentSlide?.audio) {
         audioRef.current.src = currentSlide.audio;
         audioRef.current.load();
+        audioRef.current.playbackRate = playbackSpeed;
 
         if (isAutoplay || isPlaying) {
           const playPromise = audioRef.current.play();
           if (playPromise !== undefined) {
             playPromise
-              .then(() => setIsPlaying(true))
+              .then(() => {
+                if (audioRef.current) audioRef.current.playbackRate = playbackSpeed;
+                setIsPlaying(true);
+              })
               .catch((e) => {
                 console.log("Audio play failed or was interrupted", e);
                 // Don't forcefully set to false here to keep music playing if it was
