@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/components/button/Button";
+import HelpContactSupport from "@/components/help/HelpContactSupport";
 import Grid from "@/components/common/Grid";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
@@ -77,14 +77,7 @@ export default function HelpArticles() {
         )}
 
         {/* Contact Support Link */}
-        <div className={`${styling.flex.col_center} space-y-3 mb-10`}>
-          <Paragraph className={styling.section.paragraph}>
-            Can&apos;t find what you&apos;re looking for?
-          </Paragraph>
-          <Button href={settings.paths.support.source} variant="btn-outline">
-            Contact Support
-          </Button>
-        </div>
+        <HelpContactSupport />
       </TosContent>
     </>
   );

@@ -1,6 +1,7 @@
 "use client";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
+import HelpContactSupport from "@/components/help/HelpContactSupport";
 import TosContent from "@/components/tos/TosContent";
 import TosWrapper from "@/components/tos/TosWrapper";
 import { defaultHelp } from "@/libs/defaults";
@@ -21,7 +22,7 @@ export default function HelpArticlePage() {
   return (
     <TosWrapper>
       <TosContent>
-        <div className="space-y-1">
+        <div className="space-y-1 mt-4">
           <Title>{article.title}</Title>
           <Paragraph>{article.description}</Paragraph>
         </div>
@@ -76,6 +77,8 @@ export default function HelpArticlePage() {
             return null;
           })}
         </div>
+
+        <HelpContactSupport />
       </TosContent>
     </TosWrapper>
   );
