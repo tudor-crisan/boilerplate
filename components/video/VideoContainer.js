@@ -6,7 +6,7 @@ import VideoSettingsMusic from "@/components/video/VideoSettingsMusic";
 import VideoSettingsVoiceover from "@/components/video/VideoSettingsVoiceover";
 import { useStyling } from "@/context/ContextStyling";
 import { toast } from "@/libs/toast";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function VideoContainer({ video }) {
@@ -20,7 +20,7 @@ export default function VideoContainer({ video }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const audioRef = useRef(null);
   const musicRef = useRef(null);
-  const slides = video.slides || [];
+  const slides = useMemo(() => video.slides || [], [video.slides]);
   const currentSlide = slides[currentSlideIndex];
   const isVertical = video.format === "9:16";
   const [isUploading, setIsUploading] = useState(false);
@@ -31,6 +31,8 @@ export default function VideoContainer({ video }) {
   const [replayKey, setReplayKey] = useState(0);
   const [fileInputKey, setFileInputKey] = useState(0);
   const [musicInputKey, setMusicInputKey] = useState(0);
+  const [slideDurations, setSlideDurations] = useState([]);
+  const [currentAudioTime, setCurrentAudioTime] = useState(0);
 
   // Music state
   const [musicUrl, setMusicUrl] = useState(video.music || "");
@@ -46,8 +48,57 @@ export default function VideoContainer({ video }) {
     setMusicOffset(video.musicOffset || 0);
   }, [video]);
 
-  // Default duration from video config or 2000ms
   const defaultDuration = video.defaultDuration || 2000;
+
+  // Initialize and pre-load slide durations
+  useEffect(() => {
+    const initial = slides.map((s) => s.duration || defaultDuration);
+    setSlideDurations(initial);
+
+    // Fetch actual durations for slides with audio
+    const loadDurations = async () => {
+      const updated = [...initial];
+      const promises = slides.map((s, idx) => {
+        if (s.audio) {
+          return new Promise((resolve) => {
+            const tempAudio = new Audio();
+            tempAudio.onloadedmetadata = () => {
+              updated[idx] = tempAudio.duration * 1000;
+              resolve();
+            };
+            tempAudio.onerror = () => resolve();
+            tempAudio.src = s.audio;
+          });
+        }
+        return Promise.resolve();
+      });
+
+      await Promise.all(promises);
+      setSlideDurations(updated);
+    };
+
+    loadDurations();
+  }, [video, defaultDuration, slides]);
+
+  // Track current audio time
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleTimeUpdate = () => {
+      setCurrentAudioTime(audio.currentTime * 1000);
+    };
+
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    return () => audio.removeEventListener("timeupdate", handleTimeUpdate);
+  }, []);
+
+  // Calculate times
+  const totalTime = slideDurations.reduce((a, b) => a + b, 0);
+  const elapsedBefore = slideDurations
+    .slice(0, currentSlideIndex)
+    .reduce((a, b) => a + b, 0);
+  const currentTime = elapsedBefore + currentAudioTime;
 
   const nextSlide = useCallback(() => {
     if (currentSlideIndex < slides.length - 1)
@@ -189,6 +240,7 @@ export default function VideoContainer({ video }) {
 
       audioRef.current.currentTime = 0;
       audioRef.current.playbackRate = playbackSpeed;
+      setCurrentAudioTime(0);
 
       if (currentSlide?.audio) {
         audioRef.current.src = currentSlide.audio;
@@ -200,7 +252,8 @@ export default function VideoContainer({ video }) {
           if (playPromise !== undefined) {
             playPromise
               .then(() => {
-                if (audioRef.current) audioRef.current.playbackRate = playbackSpeed;
+                if (audioRef.current)
+                  audioRef.current.playbackRate = playbackSpeed;
                 setIsPlaying(true);
               })
               .catch((e) => {
@@ -344,6 +397,8 @@ export default function VideoContainer({ video }) {
         prevSlide={prevSlide}
         nextSlide={nextSlide}
         goToLast={goToLast}
+        currentTime={currentTime}
+        totalTime={totalTime}
         currentSlideIndex={currentSlideIndex}
         slidesLength={slides.length}
       />
