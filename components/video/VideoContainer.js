@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/button/Button";
+import Paragraph from "@/components/common/Paragraph";
 import InputCopy from "@/components/input/InputCopy";
 import InputFile from "@/components/input/InputFile";
 import InputToggle from "@/components/input/InputToggle";
@@ -44,6 +45,17 @@ export default function VideoContainer({ video }) {
     if (currentSlideIndex > 0) setCurrentSlideIndex((curr) => curr - 1);
   }, [currentSlideIndex]);
 
+  const handleRestart = useCallback(() => {
+    setCurrentSlideIndex(0);
+    setReplayKey((prev) => prev + 1);
+    setIsPlaying(true);
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.playbackRate = playbackSpeed;
+      audioRef.current.play().catch(() => setIsPlaying(false));
+    }
+  }, [playbackSpeed]);
+
   const handleReplay = () => {
     setReplayKey((prev) => prev + 1);
     setIsPlaying(true);
@@ -53,6 +65,9 @@ export default function VideoContainer({ video }) {
       audioRef.current.play().catch(() => setIsPlaying(false));
     }
   };
+
+  const goToFirst = () => setCurrentSlideIndex(0);
+  const goToLast = () => setCurrentSlideIndex(slides.length - 1);
 
   const togglePlay = () => {
     if (audioRef.current) {
@@ -76,17 +91,23 @@ export default function VideoContainer({ video }) {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === "ArrowRight" || e.key === "Space") {
+      if ((e.altKey && e.key.toLowerCase() === "s") || e.key === "Home") {
+        e.preventDefault();
+        handleRestart();
+      } else if (e.key === "ArrowRight" || e.key === "Space") {
         e.preventDefault();
         nextSlide();
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
         prevSlide();
+      } else if (e.key === "End") {
+        e.preventDefault();
+        goToLast();
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentSlideIndex, nextSlide, prevSlide]);
+  }, [currentSlideIndex, nextSlide, prevSlide, handleRestart, goToLast]);
 
   // Handle slide change & auto-play
   useEffect(() => {
@@ -185,7 +206,7 @@ export default function VideoContainer({ video }) {
       {/* Video Player */}
       <div
         className={`relative overflow-hidden bg-gray-900 shadow-xl transition-all duration-300 border border-base-300 ${styling.components.card}
-          ${isVertical ? "aspect-9/16 h-[80vh]" : "aspect-video w-full max-w-4xl"}
+          ${isVertical ? "aspect-9/16 h-[80vh]" : "aspect-video w-full max-w-6xl"}
         `}
       >
         <AnimatePresence mode="wait">
@@ -208,97 +229,126 @@ export default function VideoContainer({ video }) {
 
       {/* Control Bar */}
       <div
-        className={`w-full max-w-4xl flex flex-col md:flex-row items-center justify-between bg-base-100 p-4 gap-4 shadow-md border border-base-300 ${styling.components.element}`}
+        className={`w-full max-w-6xl flex flex-col md:flex-row items-center justify-between bg-base-100 p-4 gap-4 sm:gap-6 shadow-md border border-base-300 ${styling.components.element}`}
       >
-        <div className="flex w-full md:w-auto items-center justify-between md:justify-start gap-4">
-          <Button onClick={() => router.push(pathname)} size="btn-sm">
+        {/* Left: Action Group */}
+        <div className="flex items-center justify-center gap-2 w-full md:w-auto">
+          <Button
+            onClick={() => router.push(pathname)}
+            size="btn-sm"
+            variant="btn-ghost"
+            className="flex-1 md:flex-none"
+          >
             ← Gallery
           </Button>
 
+          <div className="flex flex-col items-center gap-0.5 min-w-24">
+            <Button
+              onClick={handleRestart}
+              variant="btn-primary"
+              size="btn-sm"
+              className="w-full"
+            >
+              Restart (ALT+S)
+            </Button>
+          </div>
+        </div>
+
+        {/* Center: Playback Group */}
+        <div className="flex items-center justify-center gap-3 bg-base-200/50 px-4 py-2 rounded-lg w-full md:w-auto">
+          <span className="text-[10px] font-bold uppercase opacity-50">
+            Speed
+          </span>
+          <input
+            type="range"
+            min="0.5"
+            max="2"
+            step="0.1"
+            value={playbackSpeed}
+            onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
+            className="range range-xs range-primary w-20 sm:w-28"
+          />
+          <span className="text-xs font-mono w-8">{playbackSpeed}x</span>
+        </div>
+
+        {/* Right: Navigation Group */}
+        <div className="flex items-center justify-center gap-1 bg-base-200/50 p-1 rounded-lg w-full md:w-auto">
           <Button
-            onClick={handleReplay}
-            variant="btn-white"
-            size="btn-sm"
-            className="md:hidden"
+            onClick={goToFirst}
+            disabled={currentSlideIndex <= 0}
+            variant="btn-ghost"
+            size="btn-xs"
+            className="px-2"
           >
-            Replay
+            &lt;&lt; First
+          </Button>
+          <div className="h-4 w-[1px] bg-base-300 mx-0.5" />
+          <Button
+            onClick={prevSlide}
+            disabled={currentSlideIndex <= 0}
+            variant="btn-outline"
+            size="btn-sm"
+          >
+            Prev
+          </Button>
+
+          <span className="flex items-center px-3 text-[10px] sm:text-xs font-mono opacity-50 whitespace-nowrap">
+            {currentSlideIndex + 1} / {slides.length}
+          </span>
+
+          <Button
+            onClick={nextSlide}
+            disabled={currentSlideIndex >= slides.length - 1}
+            variant="btn-outline"
+            size="btn-sm"
+          >
+            Next
+          </Button>
+          <div className="h-4 w-[1px] bg-base-300 mx-0.5" />
+          <Button
+            onClick={goToLast}
+            disabled={currentSlideIndex >= slides.length - 1}
+            variant="btn-ghost"
+            size="btn-xs"
+            className="px-2"
+          >
+            Last &gt;&gt;
           </Button>
         </div>
-
-        <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full md:w-auto">
-          <div className="flex items-center gap-2 bg-base-200 px-3 py-1.5 rounded-lg w-full sm:w-auto justify-center">
-            <span className="text-[10px] font-bold uppercase opacity-50">
-              Speed
-            </span>
-            <input
-              type="range"
-              min="0.5"
-              max="2"
-              step="0.1"
-              value={playbackSpeed}
-              onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
-              className="range range-xs range-primary w-24"
-            />
-            <span className="text-xs font-mono w-8">{playbackSpeed}x</span>
-          </div>
-
-          <div
-            className={`${styling.components.element} flex bg-base-200 p-1 gap-1 w-full sm:w-auto justify-center`}
-          >
-            <Button
-              onClick={prevSlide}
-              disabled={currentSlideIndex <= 0}
-              variant="btn-outline"
-              size="btn-sm"
-            >
-              Prev
-            </Button>
-            <span className="flex items-center px-4 text-xs font-mono opacity-50">
-              {currentSlideIndex + 1} / {slides.length}
-            </span>
-            <Button
-              onClick={nextSlide}
-              disabled={currentSlideIndex >= slides.length - 1}
-              variant="btn-outline"
-              size="btn-sm"
-            >
-              Next
-            </Button>
-          </div>
-        </div>
-
-        <Button
-          onClick={handleReplay}
-          variant="btn-white"
-          size="btn-sm"
-          className="hidden md:flex"
-        >
-          Replay
-        </Button>
       </div>
 
       {/* Voiceover Section */}
       <div className="w-full max-w-xl space-y-6">
         <div>
-          <p className="text-sm font-bold mb-2 ml-1">Voiceover Script</p>
+          <Paragraph className="font-bold mb-1">Voiceover Script</Paragraph>
           <InputCopy value={currentSlide.voiceover} tooltipCopy="Copy Script">
-            {currentSlide.audio && (
+            <div className="flex items-center gap-1 border-l border-base-300 pl-2 ml-2">
               <Button
-                onClick={togglePlay}
-                variant="btn-square btn-ghost btn-sm text-primary"
-                title={isPlaying ? "Pause Audio" : "Play Audio"}
+                onClick={handleReplay}
+                variant="btn-ghost btn-sm text-primary"
+                size="btn-xs"
+                title="Replay slide"
               >
-                {isPlaying ? (
-                  <SvgPause size="size-5" />
-                ) : (
-                  <SvgPlay size="size-5" />
-                )}
+                Replay
               </Button>
-            )}
+              {currentSlide.audio && (
+                <Button
+                  onClick={togglePlay}
+                  variant="btn-square btn-ghost btn-sm text-primary"
+                  title={isPlaying ? "Pause Audio" : "Play Audio"}
+                >
+                  {isPlaying ? (
+                    <SvgPause size="size-5" />
+                  ) : (
+                    <SvgPlay size="size-5" />
+                  )}
+                </Button>
+              )}
+            </div>
           </InputCopy>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row items-stretch justify-between gap-4">
           <div className="w-full sm:flex-1">
             <InputFile
               accept="audio/*"
@@ -310,7 +360,7 @@ export default function VideoContainer({ video }) {
           </div>
 
           <div
-            className={`flex items-center justify-between sm:justify-center gap-2 bg-base-100 px-4 py-2 border border-base-200 w-full sm:w-auto ${styling.components.element}`}
+            className={`flex items-center justify-between sm:justify-center gap-3 bg-base-100 px-4 py-2 border border-base-200 w-full sm:w-auto ${styling.components.element}`}
           >
             <span className="text-sm font-medium opacity-70 whitespace-nowrap">
               Autoplay
