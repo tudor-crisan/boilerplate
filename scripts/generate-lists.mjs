@@ -17,6 +17,7 @@ const CONFIG_TYPES = [
   "blog",
   "boards",
   "help",
+  "video",
 ];
 
 function getAppDirs() {
@@ -76,7 +77,7 @@ export function generateLists(options = {}) {
 
   // Write individual list files
   CONFIG_TYPES.forEach((type) => {
-    let content = "/* eslint-disable */\n";
+    let content = "";
     const entries = Object.entries(configurations[type]);
 
     // Sort alphabetically by path to satisfy potential manual inspection
@@ -108,7 +109,7 @@ export function generateLists(options = {}) {
   safeWrite(path.join(listsDir, "settings.node.mjs"), nodeContent);
 
   // Write applications.mjs
-  const appManifestContent = `/* eslint-disable */\nconst applications = ${JSON.stringify(appManifest, null, 2)};\n\nexport default applications;\n`;
+  const appManifestContent = `const applications = ${JSON.stringify(appManifest, null, 2)};\n\nexport default applications;\n`;
   safeWrite(path.join(listsDir, "applications.mjs"), appManifestContent);
 }
 

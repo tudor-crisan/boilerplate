@@ -68,6 +68,10 @@
       "source": "/preview/email",
       "destination": "/modules/preview/email"
     },
+    "previewVideo": {
+      "source": "/preview/video",
+      "destination": "/modules/preview/video"
+    },
     "billingSuccess": {
       "source": "/success",
       "destination": "/modules/billing/success"

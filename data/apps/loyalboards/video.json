@@ -1,0 +1,129 @@
+{
+  "videos": [
+    {
+      "id": "promo-main-16-9",
+      "title": "Main Promo (Landscape)",
+      "format": "16:9",
+      "width": 1920,
+      "height": 1080,
+      "slides": [
+        {
+          "id": 1,
+          "type": "title",
+          "title": "Feedback made simple.",
+          "voiceover": "Building a great product is hard. Knowing what your users want shouldn't be.",
+          "bg": "bg-neutral-900",
+          "textColor": "text-white"
+        },
+        {
+          "id": 2,
+          "type": "split",
+          "title": "Stop guessing.",
+          "subtitle": "Start listening.",
+          "voiceover": "Stop guessing features. Start building what actually matters with LoyalBoards.",
+          "image": "/assets/help/loyalboards/public_board_view.png",
+          "bg": "bg-white",
+          "textColor": "text-neutral-900"
+        },
+        {
+          "id": 3,
+          "type": "transition",
+          "title": "Launch in 5 minutes.",
+          "subtitle": "No passwords. Just magic.",
+          "voiceover": "Launch your feedback board in under five minutes. No passwords to forget—just secure Magic Links.",
+          "images": [
+            "/assets/help/loyalboards/login_screen.png",
+            "/assets/help/loyalboards/dashboard_overview.png"
+          ],
+          "bg": "bg-blue-50",
+          "textColor": "text-blue-900"
+        },
+        {
+          "id": 4,
+          "type": "feature",
+          "title": "Frictionless Feedback.",
+          "subtitle": "10x Engagement.",
+          "voiceover": "Remove the friction. Your users vote and comment instantly. No sign-ups required.",
+          "image": "/assets/help/loyalboards/analytics_detail.png",
+          "bg": "bg-indigo-900",
+          "textColor": "text-white"
+        },
+        {
+          "id": 5,
+          "type": "feature",
+          "title": "Your Brand.",
+          "subtitle": "Your Rules.",
+          "voiceover": "Customize everything. Dark mode, brand colors, custom domains. Make it your own.",
+          "image": "/assets/help/loyalboards/board_edit_appearance.png",
+          "bg": "bg-purple-100",
+          "textColor": "text-purple-900"
+        },
+        {
+          "id": 6,
+          "type": "feature",
+          "title": "Stay in the loop.",
+          "subtitle": "Weekly Digests.",
+          "voiceover": "Get weekly digests delivered to your inbox. Keep your finger on the pulse of your community.",
+          "image": "/assets/help/loyalboards/board_weekly_digest.png",
+          "bg": "bg-green-50",
+          "textColor": "text-green-900"
+        },
+        {
+          "id": 7,
+          "type": "end",
+          "title": "LoyalBoards",
+          "subtitle": "Build better. Together.",
+          "voiceover": "Turn feedback into your unfair advantage. LoyalBoards. Build better, together.",
+          "bg": "bg-neutral-900",
+          "textColor": "text-white"
+        }
+      ]
+    },
+    {
+      "id": "promo-short-9-16",
+      "title": "Short Promo (Vertical)",
+      "format": "9:16",
+      "width": 1080,
+      "height": 1920,
+      "slides": [
+        {
+          "id": 1,
+          "type": "title",
+          "title": "Feedback\nmade simple.",
+          "voiceover": "Knowing what your users want shouldn't be hard.",
+          "bg": "bg-neutral-900",
+          "textColor": "text-white"
+        },
+        {
+          "id": 2,
+          "type": "feature",
+          "title": "Stop guessing.",
+          "subtitle": "Start listening.",
+          "voiceover": "Stop guessing features. Start building with LoyalBoards.",
+          "image": "/assets/help/loyalboards/public_board_view.png",
+          "bg": "bg-white",
+          "textColor": "text-neutral-900"
+        },
+        {
+          "id": 4,
+          "type": "feature",
+          "title": "Frictionless.",
+          "subtitle": "10x Engagement.",
+          "voiceover": "Instant voting. No sign-ups required.",
+          "image": "/assets/help/loyalboards/analytics_detail.png",
+          "bg": "bg-indigo-900",
+          "textColor": "text-white"
+        },
+        {
+          "id": 7,
+          "type": "end",
+          "title": "LoyalBoards",
+          "subtitle": "Build better.",
+          "voiceover": "LoyalBoards. Build better, together.",
+          "bg": "bg-neutral-900",
+          "textColor": "text-white"
+        }
+      ]
+    }
+  ]
+}

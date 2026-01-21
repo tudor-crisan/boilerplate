@@ -23,6 +23,9 @@ const applications = {
     help: {
       override: "loyalboards_help",
     },
+    video: {
+      override: "loyalboards_video",
+    },
   },
   taskflow: {
     copywriting: {
