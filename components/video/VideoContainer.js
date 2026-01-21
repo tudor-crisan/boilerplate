@@ -7,6 +7,7 @@ import InputFile from "@/components/input/InputFile";
 import InputToggle from "@/components/input/InputToggle";
 import SvgPause from "@/components/svg/SvgPause";
 import SvgPlay from "@/components/svg/SvgPlay";
+import SvgReplay from "@/components/svg/SvgReplay";
 import VideoSlide from "@/components/video/VideoSlide";
 import { useStyling } from "@/context/ContextStyling";
 import { toast } from "@/libs/toast";
@@ -28,10 +29,11 @@ export default function VideoContainer({ video }) {
   const currentSlide = slides[currentSlideIndex];
   const isVertical = video.format === "9:16";
   const [isUploading, setIsUploading] = useState(false);
-  const [isAutoplay, setIsAutoplay] = useState(true);
+  const [isAutoplay, setIsAutoplay] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const [replayKey, setReplayKey] = useState(0);
+  const [fileInputKey, setFileInputKey] = useState(0);
 
   // Default duration from video config or 2000ms
   const defaultDuration = video.defaultDuration || 2000;
@@ -185,6 +187,7 @@ export default function VideoContainer({ video }) {
           audioRef.current.play();
           setIsPlaying(true);
         }
+        setFileInputKey((prev) => prev + 1);
       } else {
         toast.error("Failed to upload VO");
       }
@@ -334,6 +337,7 @@ export default function VideoContainer({ video }) {
           </div>
           <div className="w-full sm:flex-1">
             <InputFile
+              key={fileInputKey}
               accept="audio/*"
               onChange={handleFileUpload}
               disabled={isUploading}
@@ -348,11 +352,10 @@ export default function VideoContainer({ video }) {
             <div className="flex items-center gap-1 border-l border-base-300 pl-2 ml-2">
               <Button
                 onClick={handleReplay}
-                variant="btn-ghost btn-sm text-primary"
-                size="btn-xs"
+                variant="btn-square btn-ghost btn-sm text-primary"
                 title="Replay slide"
               >
-                Replay
+                <SvgReplay size="size-5" />
               </Button>
               {currentSlide.audio && (
                 <Button
