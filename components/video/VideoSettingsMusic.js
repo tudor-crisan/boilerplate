@@ -91,7 +91,7 @@ export default function VideoSettingsMusic({
           <InputRange
             min="0"
             max="1"
-            step="0.05"
+            step="0.01"
             value={musicVolume}
             onChange={(e) => setMusicVolume(parseFloat(e.target.value))}
             color="primary"

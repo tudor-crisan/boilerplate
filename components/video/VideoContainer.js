@@ -119,7 +119,7 @@ export default function VideoContainer({ video }) {
   useEffect(() => {
     if (musicRef.current) {
       musicRef.current.muted = isMusicMuted;
-      musicRef.current.volume = musicVolume;
+      musicRef.current.volume = musicVolume * 0.3; // Custom scale to make music quieter as requested
     }
   }, [isMusicMuted, musicVolume]);
 
