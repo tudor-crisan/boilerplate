@@ -36,11 +36,7 @@ const getPostsAggregation = async (boardId) => {
         commentsCount: { $size: "$comments" },
       },
     },
-    {
-      $project: {
-        comments: 0,
-      },
-    },
+
     {
       $sort: {
         votesCounter: -1,

@@ -25,7 +25,10 @@ const useBoardFiltering = (posts = [], externalState = null) => {
         const term = search.toLowerCase();
         return (
           post.title?.toLowerCase().includes(term) ||
-          post.description?.toLowerCase().includes(term)
+          post.description?.toLowerCase().includes(term) ||
+          post.comments?.some((comment) =>
+            comment.text?.toLowerCase().includes(term),
+          )
         );
       })
       .sort((a, b) => {

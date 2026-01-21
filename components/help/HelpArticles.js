@@ -7,27 +7,16 @@ import Input from "@/components/input/Input";
 import SvgSearch from "@/components/svg/SvgSearch";
 import TosContent from "@/components/tos/TosContent";
 import { useStyling } from "@/context/ContextStyling";
-import { isThemeDark } from "@/libs/colors";
+import useHighlight from "@/hooks/useHighlight";
 import { defaultHelp, defaultSetting as settings } from "@/libs/defaults";
 import React, { useState } from "react";
 import Link from "next/link";
 
 export default function HelpArticles() {
   const { styling } = useStyling();
+  const { HighlightedText, escapeRegExp, stripHtml } = useHighlight();
   const [searchQuery, setSearchQuery] = useState("");
-  const isDark = isThemeDark(styling.theme);
   const articles = defaultHelp.articles || [];
-
-  // Helper to escape regex special characters
-  const escapeRegExp = (string) => {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
-  };
-
-  // Helper to strip HTML tags
-  const stripHtml = (html) => {
-    if (!html) return "";
-    return html.replace(/<[^>]*>?/gm, "");
-  };
 
   const getMatches = (article, query) => {
     if (!query) return [];
@@ -89,31 +78,6 @@ export default function HelpArticles() {
       return null;
     })
     .filter(Boolean);
-
-  // Improved highlighting component
-  const HighlightedText = ({ text, highlight }) => {
-    if (!highlight || !text) return <span>{text}</span>;
-
-    const parts = text.split(new RegExp(`(${escapeRegExp(highlight)})`, "gi"));
-    return (
-      <span>
-        {parts.map((part, i) =>
-          part.toLowerCase() === highlight.toLowerCase() ? (
-            <span
-              key={i}
-              className={`${
-                isDark ? "bg-yellow-600 text-white" : "bg-yellow-200 text-black"
-              } rounded-sm px-0.5`}
-            >
-              {part}
-            </span>
-          ) : (
-            <span key={i}>{part}</span>
-          ),
-        )}
-      </span>
-    );
-  };
 
   return (
     <>

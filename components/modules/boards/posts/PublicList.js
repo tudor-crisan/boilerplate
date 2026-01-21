@@ -85,6 +85,7 @@ const BoardPublicPostsList = ({
               <BoardPostItem
                 key={item._id}
                 item={item}
+                search={search}
                 boardSettings={commentSettings}
                 itemAction={(item) => (
                   <BoardButtonVote
