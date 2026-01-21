@@ -26,26 +26,29 @@ export default function InputFile({
     }
   };
 
-  return (
-    <div className={cn("form-control w-full", className)}>
-      {label && (
-        <label className="label">
-          <span className="label-text font-medium">{label}</span>
-        </label>
-      )}
-      <input
-        type="file"
-        className={cn(
-          "file-input file-input-bordered w-full",
-          styling.components.input, // Inherit generic input styling if applicable, or specific file-input styling
-          disabled || internalLoading ? "opacity-50 cursor-not-allowed" : "",
-          "p-0"
+    const rounding = styling.components.input?.match(/rounded-[a-z0-9]+/)?.[0] || "";
+
+    return (
+      <div className={cn("form-control w-full", className)}>
+        {label && (
+          <label className="label">
+            <span className="label-text font-medium">{label}</span>
+          </label>
         )}
-        onChange={handleChange}
-        disabled={disabled || internalLoading}
-        accept={accept}
-        {...props}
-      />
-    </div>
-  );
+        <input
+          type="file"
+          className={cn(
+            "file-input file-input-bordered w-full",
+            styling.components.input, // This usually contains the rounding for the container
+            rounding ? `file:${rounding}` : "", // Apply matching rounding to the internal button
+            disabled || internalLoading ? "opacity-50 cursor-not-allowed" : "",
+            "p-0"
+          )}
+          onChange={handleChange}
+          disabled={disabled || internalLoading}
+          accept={accept}
+          {...props}
+        />
+      </div>
+    );
 }

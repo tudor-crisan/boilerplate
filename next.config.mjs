@@ -6,10 +6,10 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Pre-load environment variables based on APP 
+// Pre-load environment variables based on APP
 const appName = process.env.APP || process.env.NEXT_PUBLIC_APP;
 if (appName) {
-  const envPath = path.join(__dirname, 'env', 'env-dev', `.env.dev.${appName}`);
+  const envPath = path.join(__dirname, "env", "env-dev", `.env.dev.${appName}`);
   if (fs.existsSync(envPath)) {
     dotenv.config({ path: envPath, quiet: true });
     console.log(`Loaded environment from: ${envPath}`);
@@ -20,7 +20,7 @@ if (appName) {
 const nextConfig = {
   devIndicators: {
     appIsrStatus: false,
-    buildActivity: false
+    buildActivity: false,
   },
 
   async rewrites() {
@@ -45,11 +45,17 @@ const nextConfig = {
         return [];
       }
 
-      const appSettings = getMergedConfigWithModules("setting", setting, settings);
+      const appSettings = getMergedConfigWithModules(
+        "setting",
+        setting,
+        settings,
+      );
       const paths = appSettings?.paths || {};
 
-      const returnPaths = Object.values(paths).filter(path => {
-        return path && typeof path === 'object' && path.source && path.destination;
+      const returnPaths = Object.values(paths).filter((path) => {
+        return (
+          path && typeof path === "object" && path.source && path.destination
+        );
       });
 
       console.log("Rewrites loaded:", returnPaths.length);
@@ -58,7 +64,16 @@ const nextConfig = {
       console.error("Rewrites error:", error.stack || error.message);
       return [];
     }
-  }
+  },
+
+  serverExternalPackages: ["mongoose"],
+
+  // Increase body size limit for file uploads
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "10mb",
+    },
+  },
 };
 
 export default nextConfig;

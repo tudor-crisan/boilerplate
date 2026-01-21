@@ -51,7 +51,7 @@ const Upload = ({ onFileSelect, className }) => {
       >
         {isLoading ? "Processing..." : "Choose Image"}
       </Button>
-      <Paragraph>Max 2MB. formats: JPG, PNG, GIF</Paragraph>
+      <Paragraph>Max 10MB. formats: JPG, PNG, GIF</Paragraph>
     </div>
   );
 };

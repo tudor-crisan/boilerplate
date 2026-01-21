@@ -43,6 +43,7 @@ export default function VideoContainer({ video }) {
   // Music state
   const [musicUrl, setMusicUrl] = useState(video.music || "");
   const [musicOffset, setMusicOffset] = useState(video.musicOffset || 0);
+  const [musicVolume, setMusicVolume] = useState(0.5);
   const [isVoMuted, setIsVoMuted] = useState(false);
   const [isMusicMuted, setIsMusicMuted] = useState(false);
 
@@ -126,8 +127,9 @@ export default function VideoContainer({ video }) {
   useEffect(() => {
     if (musicRef.current) {
       musicRef.current.muted = isMusicMuted;
+      musicRef.current.volume = musicVolume;
     }
-  }, [isMusicMuted]);
+  }, [isMusicMuted, musicVolume]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -542,6 +544,29 @@ export default function VideoContainer({ video }) {
                 <TextSmall className="opacity-40 text-center">
                   Select where in the track to start (0 - 120s)
                 </TextSmall>
+              </div>
+
+              {/* Music Volume Slider */}
+              <div
+                className={`flex flex-col gap-2 bg-base-100 p-3 border border-base-200 ${styling.components.element}`}
+              >
+                <div className="flex justify-between items-center">
+                  <TextSmall className="font-bold opacity-40 uppercase">
+                    Background Volume
+                  </TextSmall>
+                  <span className="text-xs font-mono opacity-60 bg-base-200 px-2 py-0.5 rounded">
+                    {Math.round(musicVolume * 100)}%
+                  </span>
+                </div>
+                <InputRange
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value={musicVolume}
+                  onChange={(e) => setMusicVolume(parseFloat(e.target.value))}
+                  color="primary"
+                  className="w-full"
+                />
               </div>
             </div>
           </div>

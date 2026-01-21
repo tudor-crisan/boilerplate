@@ -21,9 +21,9 @@ export default function useUpload() {
         return reject("Invalid file type");
       }
 
-      if (file.size > 2 * 1024 * 1024) {
-        // 2MB limit
-        toast.error("File size must be less than 2MB");
+      if (file.size > 10 * 1024 * 1024) {
+        // 10MB limit
+        toast.error("File size must be less than 10MB");
         setIsLoading(false);
         return reject("File too large");
       }
