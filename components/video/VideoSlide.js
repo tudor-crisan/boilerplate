@@ -1,10 +1,12 @@
 "use client";
 
 import Title from "@/components/common/Title";
+import { useStyling } from "@/context/ContextStyling";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function VideoSlide({ slide, isVertical }) {
+  const { styling } = useStyling();
   const animation = slide.animation || "fade";
 
   const getTextSize = (size) => {
@@ -122,7 +124,7 @@ export default function VideoSlide({ slide, isVertical }) {
           }
           exit={variants.exit}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className={`relative rounded-3xl overflow-hidden shadow-2xl border-2 border-white/10
+          className={`relative overflow-hidden ${styling.components.image} ${styling.components.card} border-4 border-white/10
                 ${isVertical ? "w-full aspect-9/16 max-h-[55vh]" : "max-w-4xl w-full h-[55vh]"}
             `}
         >
@@ -141,12 +143,17 @@ export default function VideoSlide({ slide, isVertical }) {
       {/* Transition Slide Specifics */}
       {slide.type === "transition" && slide.images && (
         <div
-          className={`relative w-full ${isVertical ? "h-[50vh] mt-4" : "h-[45vh] max-w-4xl mt-12"} flex items-center justify-center`}
+          className={`relative w-full ${isVertical ? "h-[50vh] mt-12" : "h-[40vh] max-w-4xl mt-24"} flex items-center justify-center`}
         >
           <motion.div
-            className="absolute inset-0 z-10 origin-bottom-left shadow-2xl rounded-2xl overflow-hidden border border-white/10 w-3/4 h-3/4 top-0 left-0"
+            className={`absolute inset-0 z-10 origin-bottom-left overflow-hidden border border-white/10 w-3/4 h-3/4 top-0 left-0 ${styling.components.image} ${styling.components.card}`}
             initial={{ x: "-50%", opacity: 0, rotate: -8 }}
-            animate={{ x: isVertical ? "0%" : "-15%", y: "15%", opacity: 1, rotate: -8 }}
+            animate={{
+              x: isVertical ? "0%" : "-15%",
+              y: "25%",
+              opacity: 1,
+              rotate: -8,
+            }}
             transition={{ duration: 1, type: "spring" }}
           >
             <Image
@@ -158,9 +165,14 @@ export default function VideoSlide({ slide, isVertical }) {
           </motion.div>
 
           <motion.div
-            className="absolute inset-0 z-20 origin-bottom-right shadow-2xl rounded-2xl overflow-hidden border border-white/10 w-3/4 h-3/4 bottom-0 right-0"
+            className={`absolute inset-0 z-20 origin-bottom-right overflow-hidden border border-white/10 w-3/4 h-3/4 bottom-0 right-0 ${styling.components.image} ${styling.components.card}`}
             initial={{ x: "50%", opacity: 0, rotate: 8 }}
-            animate={{ x: isVertical ? "0%" : "15%", y: "-5%", opacity: 1, rotate: 8 }}
+            animate={{
+              x: isVertical ? "0%" : "15%",
+              y: "5%",
+              opacity: 1,
+              rotate: 8,
+            }}
             transition={{ duration: 1, delay: 0.4, type: "spring" }}
           >
             <Image
