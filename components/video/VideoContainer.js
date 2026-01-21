@@ -94,11 +94,11 @@ export default function VideoContainer({ video }) {
   }, []);
 
   // Calculate times
-  const totalTime = slideDurations.reduce((a, b) => a + b, 0);
-  const elapsedBefore = slideDurations
-    .slice(0, currentSlideIndex)
-    .reduce((a, b) => a + b, 0);
-  const currentTime = elapsedBefore + currentAudioTime;
+  const totalTime = slideDurations.reduce((a, b) => a + b, 0) / playbackSpeed;
+  const elapsedBefore =
+    slideDurations.slice(0, currentSlideIndex).reduce((a, b) => a + b, 0) /
+    playbackSpeed;
+  const currentTime = elapsedBefore + currentAudioTime / playbackSpeed;
 
   const nextSlide = useCallback(() => {
     if (currentSlideIndex < slides.length - 1)
