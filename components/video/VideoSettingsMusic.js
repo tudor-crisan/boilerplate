@@ -21,7 +21,7 @@ export default function VideoSettingsMusic({
   styling,
 }) {
   return (
-    <div className="flex flex-col gap-4 w-full sm:w-1/2">
+    <div className="flex flex-col gap-4 w-full">
       <div className="flex items-center justify-between">
         <Paragraph className="font-bold opacity-70">Background Music</Paragraph>
         <div className="flex items-center gap-2 bg-base-100 px-3 py-1 border border-base-200 rounded-lg">

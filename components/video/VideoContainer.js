@@ -4,9 +4,10 @@ import VideoControlBar from "@/components/video/VideoControlBar";
 import VideoPlayer from "@/components/video/VideoPlayer";
 import VideoSettingsMusic from "@/components/video/VideoSettingsMusic";
 import VideoSettingsVoiceover from "@/components/video/VideoSettingsVoiceover";
+import VideoSlideEditor from "@/components/video/VideoSlideEditor";
 import { useStyling } from "@/context/ContextStyling";
 import { toast } from "@/libs/toast";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function VideoContainer({ video }) {
@@ -45,7 +46,7 @@ export default function VideoContainer({ video }) {
   );
   const [isVoMuted, setIsVoMuted] = useState(false);
   const [isMusicMuted, setIsMusicMuted] = useState(false);
-  
+
   // Save Configuration Handler
   const saveVideoConfig = useCallback(
     async (updatedData) => {
@@ -121,16 +122,10 @@ export default function VideoContainer({ video }) {
     saveVideoConfig({ slides: newSlides });
     if (currentSlideIndex === fromIndex) {
       setCurrentSlideIndex(toIndex);
-    } else if (
-        currentSlideIndex > fromIndex &&
-        currentSlideIndex <= toIndex
-    ) {
-        setCurrentSlideIndex(currentSlideIndex - 1);
-    } else if (
-        currentSlideIndex < fromIndex &&
-        currentSlideIndex >= toIndex
-    ) {
-        setCurrentSlideIndex(currentSlideIndex + 1);
+    } else if (currentSlideIndex > fromIndex && currentSlideIndex <= toIndex) {
+      setCurrentSlideIndex(currentSlideIndex - 1);
+    } else if (currentSlideIndex < fromIndex && currentSlideIndex >= toIndex) {
+      setCurrentSlideIndex(currentSlideIndex + 1);
     }
   };
 
@@ -233,7 +228,10 @@ export default function VideoContainer({ video }) {
     setCurrentSlideIndex(0);
     if (musicRef.current) musicRef.current.currentTime = musicOffset;
   };
-  const goToLast = () => setCurrentSlideIndex(slides.length - 1);
+  const goToLast = useCallback(
+    () => setCurrentSlideIndex(slides.length - 1),
+    [slides.length],
+  );
 
   const togglePlay = () => {
     const nextState = !isPlaying;
@@ -502,9 +500,24 @@ export default function VideoContainer({ video }) {
         slidesLength={slides.length}
       />
 
-      {/* Voiceover & Music Selection */}
-      <div className="w-full sm:w-6xl flex flex-col gap-8">
-        <div className="flex flex-col sm:flex-row items-start gap-10 sm:gap-16">
+      {/* Settings Grid */}
+      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        {/* Left Column: Slide Editor */}
+        <div className="w-full">
+          <VideoSlideEditor
+            slide={currentSlide}
+            index={currentSlideIndex}
+            totalSlides={slides.length}
+            onUpdate={handleUpdateSlide}
+            onAdd={handleAddSlide}
+            onDelete={handleDeleteSlide}
+            onMove={handleMoveSlide}
+            onRefresh={handleReplay}
+          />
+        </div>
+
+        {/* Right Column: Global Settings */}
+        <div className="w-full flex flex-col gap-8">
           <VideoSettingsVoiceover
             isVoMuted={isVoMuted}
             setIsVoMuted={setIsVoMuted}
@@ -520,12 +533,6 @@ export default function VideoContainer({ video }) {
             togglePlay={togglePlay}
             isPlaying={isPlaying}
             styling={styling}
-            currentSlideIndex={currentSlideIndex}
-            totalSlides={slides.length}
-            handleUpdateSlide={handleUpdateSlide}
-            handleAddSlide={handleAddSlide}
-            handleDeleteSlide={handleDeleteSlide}
-            handleMoveSlide={handleMoveSlide}
           />
 
           <VideoSettingsMusic

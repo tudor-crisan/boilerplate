@@ -11,7 +11,6 @@ import InputToggle from "@/components/input/InputToggle";
 import SvgPause from "@/components/svg/SvgPause";
 import SvgPlay from "@/components/svg/SvgPlay";
 import SvgReplay from "@/components/svg/SvgReplay";
-import VideoSlideEditor from "@/components/video/VideoSlideEditor";
 
 export default function VideoSettingsVoiceover({
   isVoMuted,
@@ -28,27 +27,9 @@ export default function VideoSettingsVoiceover({
   togglePlay,
   isPlaying,
   styling,
-  // Slide Editor Props
-  currentSlideIndex,
-  totalSlides,
-  handleUpdateSlide,
-  handleAddSlide,
-  handleDeleteSlide,
-  handleMoveSlide,
 }) {
   return (
-    <div className="flex flex-col gap-4 w-full sm:w-1/2">
-      {/* Slide Editor */}
-      <VideoSlideEditor
-        slide={currentSlide}
-        index={currentSlideIndex}
-        totalSlides={totalSlides}
-        onUpdate={handleUpdateSlide}
-        onAdd={handleAddSlide}
-        onDelete={handleDeleteSlide}
-        onMove={handleMoveSlide}
-      />
-
+    <div className="flex flex-col gap-4 w-full">
       <div className="flex items-center justify-between">
         <Paragraph className="font-bold opacity-70">
           Voiceover Settings

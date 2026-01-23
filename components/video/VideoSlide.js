@@ -129,16 +129,21 @@ export default function VideoSlide({ slide, isVertical }) {
             `}
         >
           <Image
-            src={slide.image}
+            src={
+              slide.image.startsWith("http") || slide.image.startsWith("/")
+                ? slide.image
+                : `/assets/video/loyalboards/${slide.image}`
+            }
             alt={slide.title || "Slide Image"}
             fill
             className={`
-              ${slide.imageFit === "contain" ? "object-contain object-center" : "object-cover object-top"}
+              ${slide.imageFit || "object-cover"} 
+              ${slide.imagePosition || "object-center"}
             `}
             priority
           />
-          {/* Subtle overlay to make text pop if image is too bright */}
-          {slide.imageFit !== "contain" && (
+          {/* Subtle overlay */}
+          {(!slide.imageFit || slide.imageFit === "object-cover") && (
             <div className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-black/20 to-transparent pointer-events-none" />
           )}
         </motion.div>
