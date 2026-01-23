@@ -16,7 +16,8 @@
           "bg": "bg-neutral",
           "textColor": "text-neutral-content",
           "animation": "zoom",
-          "audio": "/uploads/vo/loyalboards_promo-main-16-9_1_1768986585491.mp3"
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_1_1768986585491.mp3",
+          "image": "board_performance.png"
         },
         {
           "id": 2,
@@ -294,7 +295,8 @@
           "bg": "bg-base-100",
           "textColor": "text-secondary",
           "animation": "bounce",
-          "audio": "/uploads/vo/loyalboards_promo-main-16-9_26_1768986955894.mp3"
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_26_1768986955894.mp3",
+          "image": ""
         },
         {
           "id": 27,

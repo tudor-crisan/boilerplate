@@ -508,10 +508,12 @@ export default function VideoContainer({ video }) {
             slide={currentSlide}
             index={currentSlideIndex}
             totalSlides={slides.length}
+            slides={slides} // Pass all slides for navigator
             onUpdate={handleUpdateSlide}
             onAdd={handleAddSlide}
             onDelete={handleDeleteSlide}
             onMove={handleMoveSlide}
+            onSelect={setCurrentSlideIndex} // Handler for navigator click
             onRefresh={handleReplay}
           />
         </div>

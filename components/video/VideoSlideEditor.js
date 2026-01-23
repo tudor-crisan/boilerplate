@@ -1,5 +1,7 @@
 import Button from "@/components/button/Button";
 import Label from "@/components/common/Label";
+import Loading from "@/components/common/Loading";
+import InputFile from "@/components/input/InputFile";
 import Select from "@/components/select/Select";
 import SvgChevronLeft from "@/components/svg/SvgChevronLeft";
 import SvgChevronRight from "@/components/svg/SvgChevronRight";
@@ -7,32 +9,41 @@ import SvgPlus from "@/components/svg/SvgPlus";
 import SvgTrash from "@/components/svg/SvgTrash";
 import { useStyling } from "@/context/ContextStyling";
 import { useEffect, useState } from "react";
-import Image from "next/image"; // Optimization
+import Image from "next/image";
 
 export default function VideoSlideEditor({
   slide,
   index,
   totalSlides,
+  slides,
   onUpdate,
   onAdd,
   onDelete,
   onMove,
+  onSelect,
   onRefresh,
 }) {
   const { styling } = useStyling();
   const [images, setImages] = useState([]);
   const [showGallery, setShowGallery] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadKey, setUploadKey] = useState(0);
 
-  // Fetch images for gallery
-  useEffect(() => {
+  const fetchImages = () => {
     fetch("/api/video/images")
       .then((res) => res.json())
       .then((data) => {
         if (data.images) {
+          // Sort images: newest first might be better, or alphabetical. Let's do alphabetical for now.
           setImages(data.images);
         }
       })
       .catch((err) => console.error("Failed to load images", err));
+  };
+
+  // Fetch images for gallery on mount
+  useEffect(() => {
+    fetchImages();
   }, []);
 
   if (!slide) return null;
@@ -42,7 +53,52 @@ export default function VideoSlideEditor({
 
     // Trigger refresh for visual changes
     if ((field === "type" || field === "animation") && onRefresh) {
-      setTimeout(() => onRefresh(), 100); // Small delay to allow state to propagate
+      setTimeout(() => onRefresh(), 100);
+    }
+  };
+
+  const handleUploadImage = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/api/video/images", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        fetchImages(); // Refresh list
+        handleChange("image", data.filename); // Auto select uploaded image
+      }
+    } catch (err) {
+      console.error("Upload failed", err);
+    } finally {
+      setIsUploading(false);
+      setUploadKey((prev) => prev + 1);
+    }
+  };
+
+  const handleDeleteImage = async (e, filename) => {
+    e.stopPropagation();
+    if (!confirm(`Delete ${filename}? This cannot be undone.`)) return;
+
+    try {
+      const res = await fetch("/api/video/images", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename }),
+      });
+      if (res.ok) {
+        fetchImages();
+        if (slide.image === filename) handleChange("image", "");
+      }
+    } catch (err) {
+      console.error("Delete failed", err);
     }
   };
 
@@ -50,6 +106,9 @@ export default function VideoSlideEditor({
   const typeOptions = [
     { label: "Title", value: "title" },
     { label: "Feature", value: "feature" },
+    { label: "Quote", value: "quote" },
+    { label: "Split (Img/Text)", value: "split" },
+    { label: "Image Only", value: "image-only" },
     { label: "End", value: "end" },
   ];
 
@@ -58,7 +117,10 @@ export default function VideoSlideEditor({
     { label: "Zoom", value: "zoom" },
     { label: "Slide Left", value: "slide-left" },
     { label: "Slide Right", value: "slide-right" },
+    { label: "Slide Up", value: "slide-up" },
     { label: "Bounce", value: "bounce" },
+    { label: "Rotate", value: "rotate" },
+    { label: "Flip", value: "flip" },
   ];
 
   const bgOptions = [
@@ -104,6 +166,49 @@ export default function VideoSlideEditor({
     <div
       className={`p-4 bg-base-100 rounded-lg border border-base-300 shadow-sm ${styling.components.card}`}
     >
+      {/* Slide Navigator */}
+      <div className="mb-6 overflow-x-auto pb-4 border-b border-base-200">
+        <div className="flex gap-2">
+          {slides &&
+            slides.map((s, i) => (
+              <div
+                key={s.id || i}
+                onClick={() => onSelect && onSelect(i)}
+                className={`
+                 relative shrink-0 w-24 h-16 rounded border-2 cursor-pointer overflow-hidden transition-all hover:scale-105
+                 ${i === index ? "border-primary ring-2 ring-primary/30" : "border-base-300 opacity-70 hover:opacity-100"}
+               `}
+              >
+                <div
+                  className={`w-full h-full ${s.bg || "bg-neutral"} flex items-center justify-center p-1`}
+                >
+                  {s.image ? (
+                    <Image
+                      src={
+                        s.image.startsWith("http") || s.image.startsWith("/")
+                          ? s.image
+                          : `/assets/video/loyalboards/${s.image}`
+                      }
+                      alt="thumb"
+                      fill
+                      className="object-cover opacity-50"
+                    />
+                  ) : null}
+                  <span className="relative z-10 text-[8px] font-bold truncate max-w-full px-1 bg-black/50 text-white rounded">
+                    {i + 1}. {s.type}
+                  </span>
+                </div>
+              </div>
+            ))}
+          <button
+            onClick={onAdd}
+            className="shrink-0 w-16 h-16 rounded border-2 border-dashed border-base-300 flex items-center justify-center text-base-content/50 hover:bg-base-200 hover:text-primary transition-colors"
+          >
+            <SvgPlus className="w-6 h-6" />
+          </button>
+        </div>
+      </div>
+
       <div className="flex justify-between items-center mb-4">
         <h3 className="font-bold opacity-70">Edit Slide {index + 1}</h3>
         <div className="flex gap-1">
@@ -135,14 +240,6 @@ export default function VideoSlideEditor({
           >
             <SvgTrash className="w-4 h-4" />
           </Button>
-          <Button
-            size="btn-xs"
-            variant="btn-success"
-            onClick={onAdd}
-            title="Add New Slide"
-          >
-            <SvgPlus className="w-4 h-4" />
-          </Button>
         </div>
       </div>
 
@@ -161,9 +258,7 @@ export default function VideoSlideEditor({
 
         {/* Animation */}
         <div className="form-control">
-          <Label className="opacity-60 text-xs">
-            Animation
-          </Label>
+          <Label className="opacity-60 text-xs">Animation</Label>
           <Select
             options={animationOptions}
             value={slide.animation || "fade"}
@@ -186,9 +281,7 @@ export default function VideoSlideEditor({
 
         {/* Background */}
         <div className="form-control">
-          <Label className="opacity-60 text-xs">
-            Background
-          </Label>
+          <Label className="opacity-60 text-xs">Background</Label>
           <Select
             options={bgOptions}
             value={slide.bg || "bg-base-100"}
@@ -200,9 +293,7 @@ export default function VideoSlideEditor({
 
         {/* Text Color */}
         <div className="form-control">
-          <Label className="opacity-60 text-xs">
-            Text Color
-          </Label>
+          <Label className="opacity-60 text-xs">Text Color</Label>
           <Select
             options={textOptions}
             value={slide.textColor || "text-neutral"}
@@ -215,9 +306,7 @@ export default function VideoSlideEditor({
         {/* Image Gallery and Settings */}
         <div className="form-control sm:col-span-2 bg-base-200/50 p-4 rounded-lg">
           <div className="flex justify-between items-center mb-2">
-            <Label className="opacity-60 text-xs p-0">
-              Slide Image
-            </Label>
+            <Label className="opacity-60 text-xs p-0">Slide Image</Label>
             <Button
               size="btn-xs"
               variant="btn-ghost"
@@ -232,7 +321,12 @@ export default function VideoSlideEditor({
             <div className="flex items-center gap-4 mb-2">
               <div className="relative w-16 h-16 rounded overflow-hidden border border-base-300">
                 <Image
-                  src={`/assets/video/loyalboards/${slide.image}`}
+                  src={
+                    slide.image.startsWith("http") ||
+                    slide.image.startsWith("/")
+                      ? slide.image
+                      : `/assets/video/loyalboards/${slide.image}`
+                  }
                   alt="Selected"
                   fill
                   className="object-cover"
@@ -253,34 +347,63 @@ export default function VideoSlideEditor({
 
           {/* Gallery Grid */}
           {showGallery && (
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-48 overflow-y-auto p-2 bg-base-100 rounded border border-base-300 mb-2">
-               {/* Option to remove image */}
-               <div
-                 className={`relative aspect-square cursor-pointer rounded overflow-hidden border-2 hover:border-error flex items-center justify-center bg-base-200 text-xs font-bold opacity-60 ${!slide.image ? 'border-error' : 'border-transparent'}`}
-                 onClick={() => handleChange("image", "")}
-               >
-                 None
-               </div>
-              {images.map((img) => (
-                <div
-                  key={img}
-                  className={`relative aspect-square cursor-pointer rounded overflow-hidden border-2 hover:border-primary ${slide.image === img ? "border-primary" : "border-transparent"}`}
-                  onClick={() => handleChange("image", img)}
-                >
-                  <Image
-                    src={`/assets/video/loyalboards/${img}`}
-                    alt={img}
-                    fill
-                    sizes="(max-width: 768px) 33vw, 25vw"
-                    className="object-cover"
+            <div className="flex flex-col gap-2">
+              {/* Upload Area */}
+              <div className="flex items-center gap-2 mb-2 p-2 bg-base-100 rounded border border-dashed border-base-300">
+                <span className="text-xs font-bold opacity-60">
+                  Upload New:
+                </span>
+                <div className="flex-1">
+                  <InputFile
+                    className="m-0 h-8 text-xs file:py-1 file:px-2"
+                    accept="image/*"
+                    onChange={handleUploadImage}
+                    disabled={isUploading}
+                    key={uploadKey}
                   />
                 </div>
-              ))}
-              {images.length === 0 && (
-                <div className="col-span-full text-center text-xs opacity-50 py-4">
-                  No images found
+                {isUploading && <Loading className="w-4 h-4 text-primary" />}
+              </div>
+
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-48 overflow-y-auto p-2 bg-base-100 rounded border border-base-300 mb-2">
+                {/* Option to remove image */}
+                <div
+                  className={`relative aspect-square cursor-pointer rounded overflow-hidden border-2 hover:border-error flex items-center justify-center bg-base-200 text-xs font-bold opacity-60 ${!slide.image ? "border-error" : "border-transparent"}`}
+                  onClick={() => handleChange("image", "")}
+                >
+                  None
                 </div>
-              )}
+                {images.map((img) => (
+                  <div
+                    key={img}
+                    className={`relative group aspect-square cursor-pointer rounded overflow-hidden border-2 hover:border-primary ${slide.image === img ? "border-primary" : "border-transparent"}`}
+                    onClick={() => handleChange("image", img)}
+                  >
+                    <Image
+                      src={`/assets/video/loyalboards/${img}`}
+                      alt={img}
+                      fill
+                      sizes="(max-width: 768px) 33vw, 25vw"
+                      className="object-cover"
+                    />
+                    {/* Delete overlay */}
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <button
+                        className="btn btn-xs btn-circle btn-error text-white"
+                        onClick={(e) => handleDeleteImage(e, img)}
+                        title="Delete Image"
+                      >
+                        <SvgTrash className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+                {images.length === 0 && (
+                  <div className="col-span-full text-center text-xs opacity-50 py-4">
+                    No images found
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
@@ -288,9 +411,7 @@ export default function VideoSlideEditor({
           {slide.image && (
             <div className="grid grid-cols-2 gap-2 mt-2">
               <div className="form-control">
-                <Label className="opacity-60 text-[10px] pt-0">
-                  Fit
-                </Label>
+                <Label className="opacity-60 text-[10px] pt-0">Fit</Label>
                 <Select
                   options={fitOptions}
                   value={slide.imageFit || "object-cover"} // Default to cover
@@ -299,9 +420,7 @@ export default function VideoSlideEditor({
                 />
               </div>
               <div className="form-control">
-                <Label className="opacity-60 text-[10px] pt-0">
-                  Position
-                </Label>
+                <Label className="opacity-60 text-[10px] pt-0">Position</Label>
                 <Select
                   options={positionOptions}
                   value={slide.imagePosition || "object-center"}
