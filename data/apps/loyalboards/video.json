@@ -17,7 +17,7 @@
           "textColor": "text-neutral-content",
           "animation": "zoom",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_1_1768986585491.mp3",
-          "image": "board_performance.png"
+          "image": ""
         },
         {
           "id": 2,
@@ -422,7 +422,9 @@
           "animation": "bounce"
         }
       ],
-      "music": "/uploads/music/loyalboards_promo-short-9-16_music_1768990877678.mp3"
+      "music": "/uploads/music/loyalboards_promo-short-9-16_music_1768990877678.mp3",
+      "voVolume": 1,
+      "musicVolume": 0.3
     }
   ]
 }

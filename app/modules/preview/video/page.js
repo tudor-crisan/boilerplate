@@ -3,12 +3,14 @@
 import Button from "@/components/button/Button";
 import Grid from "@/components/common/Grid";
 import Label from "@/components/common/Label";
+import Loading from "@/components/common/Loading";
 import Modal from "@/components/common/Modal";
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import Title from "@/components/common/Title";
 import Input from "@/components/input/Input";
 import Select from "@/components/select/Select";
+import SvgView from "@/components/svg/SvgView";
 import VideoContainer from "@/components/video/VideoContainer";
 import { useStyling } from "@/context/ContextStyling";
 import { toast } from "@/libs/toast";
@@ -27,6 +29,7 @@ export default function VideoModulePage() {
   const selectedVideoId = searchParams.get("videoId");
 
   const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingVideo, setEditingVideo] = useState(null); // null = create mode
   const [formData, setFormData] = useState({
@@ -53,6 +56,8 @@ export default function VideoModulePage() {
       }
     } catch (error) {
       toast.error("Network error");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -225,88 +230,108 @@ export default function VideoModulePage() {
             </div>
           )}
 
-          <div className="space-y-12">
-            {appsWithVideo.map((appId) => {
-              const appVideos = getAppVideos(appId);
-              // if (appVideos.length === 0) return null; // Update: Don't hide if empty, maybe user wants to create? But logic above relies on "appsWithVideo" keys.
+          {isLoading ? (
+            <div className={`py-20 flex justify-center ${styling.flex.center}`}>
+              <Loading text="Loading videos ..." />
+            </div>
+          ) : (
+            <div className="space-y-12">
+              {appsWithVideo.map((appId) => {
+                const appVideos = getAppVideos(appId);
+                // if (appVideos.length === 0) return null; // Update: Don't hide if empty, maybe user wants to create? But logic above relies on "appsWithVideo" keys.
 
-              return (
-                <div key={appId}>
-                  <Title
-                    tag="h2"
-                    className={`text-2xl font-bold capitalize mb-4 border-b border-base-300 pb-2 ${styling.components.header}`}
-                  >
-                    {appId}
-                  </Title>
-                  <Grid>
-                    {appVideos.map((video) => (
-                      <div
-                        key={video.id}
-                        onClick={() =>
-                          router.push(
-                            `${pathname}?appId=${appId}&videoId=${video.id}`,
-                          )
-                        }
-                        className={`${styling.components.card} cursor-pointer hover:scale-[1.02] transition-transform group relative`}
-                        role="button"
-                        tabIndex={0}
-                      >
-                        <div className="card-body">
-                          <Title
-                            tag="h3"
-                            className="card-title text-primary text-lg"
-                          >
-                            {video.title}
-                          </Title>
-                          <div className="badge badge-outline">
-                            {video.format}
-                          </div>
-                          <TextSmall className="mt-2 text-base-content/60">
-                            {video.slides?.length || 0} slides • {video.width}x
-                            {video.height}
-                          </TextSmall>
-                          <div className="card-actions justify-end mt-4">
-                            <Button size="btn-sm" variant="btn-primary">
-                              Launch Player
-                            </Button>
-                          </div>
+                return (
+                  <div key={appId}>
+                    <Title
+                      tag="h2"
+                      className={`text-2xl font-bold capitalize mb-4 border-b border-base-300 pb-2 ${styling.components.header}`}
+                    >
+                      {appId}
+                    </Title>
+                    <Grid>
+                      {appVideos.map((video) => (
+                        <div
+                          key={video.id}
+                          onClick={() =>
+                            router.push(
+                              `${pathname}?appId=${appId}&videoId=${video.id}`,
+                            )
+                          }
+                          className={`${styling.components.card} cursor-pointer hover:scale-[1.02] transition-transform group relative`}
+                          role="button"
+                          tabIndex={0}
+                        >
+                          <div className="card-body">
+                            <Title
+                              tag="h3"
+                              className="card-title text-primary text-lg"
+                            >
+                              {video.title}
+                            </Title>
+                            <div className="badge badge-outline">
+                              {video.format}
+                            </div>
+                            <TextSmall className="mt-2 text-base-content/60">
+                              {video.slides?.length || 0} slides • {video.width}
+                              x{video.height}
+                            </TextSmall>
+                            <div className="card-actions justify-end mt-4">
+                              <Button size="btn-sm" variant="btn-primary">
+                                Launch Player
+                              </Button>
+                            </div>
 
-                          {/* Edit/Delete Actions */}
-                          <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Button
-                              onClick={(e) => handleOpenEdit(e, video)}
-                              variant="btn-ghost btn-square"
-                              size="btn-xs"
-                              className="bg-base-100/80"
-                              title="Edit"
-                            >
-                              ✏️
-                            </Button>
-                            <Button
-                              onClick={(e) => handleDeleteClick(e, video.id)}
-                              variant="btn-ghost btn-square"
-                              size="btn-xs"
-                              className="bg-base-100/80 text-error"
-                              title="Delete"
-                            >
-                              🗑️
-                            </Button>
+                            {/* Edit/Delete Actions - Always Visible */}
+                            <div className="absolute top-2 right-2 flex gap-2">
+                              <Button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  router.push(
+                                    `${pathname}?appId=${appId}&videoId=${video.id}`,
+                                  );
+                                }}
+                                variant="btn-ghost btn-square"
+                                size="btn-xs"
+                                className="bg-base-100/80"
+                                title="View"
+                              >
+                                <SvgView />
+                              </Button>
+                              <Button
+                                onClick={(e) => handleOpenEdit(e, video)}
+                                variant="btn-ghost btn-square"
+                                size="btn-xs"
+                                className="bg-base-100/80"
+                                title="Edit"
+                              >
+                                ✏️
+                              </Button>
+                              <Button
+                                onClick={(e) => handleDeleteClick(e, video.id)}
+                                variant="btn-ghost btn-square"
+                                size="btn-xs"
+                                className="bg-base-100/80 text-error"
+                                title="Delete"
+                              >
+                                🗑️
+                              </Button>
+                            </div>
                           </div>
                         </div>
+                      ))}
+                    </Grid>
+                    {appVideos.length === 0 && (
+                      <div className="text-center py-8">
+                        <Paragraph>
+                          No videos found. Create one to get started.
+                        </Paragraph>
                       </div>
-                    ))}
-                  </Grid>
-                  {appVideos.length === 0 && (
-                    <div className="text-center py-8">
-                      <Paragraph>
-                        No videos found. Create one to get started.
-                      </Paragraph>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
 

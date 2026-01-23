@@ -11,13 +11,13 @@ export default function VideoSlide({ slide, isVertical }) {
 
   const getTextSize = (size) => {
     if (isVertical) {
-      if (size === "title") return "text-5xl";
-      if (size === "subtitle") return "text-2xl";
-      return "text-sm";
+      if (size === "title") return "text-3xl sm:text-4xl md:text-5xl";
+      if (size === "subtitle") return "text-lg sm:text-xl md:text-2xl";
+      return "text-xs sm:text-sm";
     }
-    if (size === "title") return "text-7xl";
-    if (size === "subtitle") return "text-4xl";
-    return "text-lg";
+    if (size === "title") return "text-3xl sm:text-5xl md:text-6xl lg:text-7xl";
+    if (size === "subtitle") return "text-xl sm:text-2xl md:text-3xl lg:text-4xl";
+    return "text-sm sm:text-base md:text-lg";
   };
 
   const getVariants = (type) => {
@@ -98,11 +98,11 @@ export default function VideoSlide({ slide, isVertical }) {
            className="max-w-4xl text-center z-10"
         >
            <span className="text-6xl sm:text-8xl opacity-20 block mb-4">“</span>
-           <Title tag="h1" className={`${isVertical ? "text-4xl" : "text-6xl"} font-serif italic mb-6 leading-tight`}>
+           <Title tag="h1" className={`${isVertical ? "text-2xl sm:text-4xl" : "text-3xl sm:text-5xl md:text-6xl"} font-serif italic mb-6 leading-tight`}>
              {slide.title}
            </Title>
            {slide.subtitle && (
-             <Title tag="h2" className="text-xl sm:text-2xl font-medium opacity-80 uppercase tracking-widest mt-8">
+             <Title tag="h2" className="text-sm sm:text-xl lg:text-2xl font-medium opacity-80 uppercase tracking-widest mt-8">
                — {slide.subtitle}
              </Title>
            )}
@@ -128,7 +128,7 @@ export default function VideoSlide({ slide, isVertical }) {
                exit={{ x: -50, opacity: 0 }}
                transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <Title tag="h1" className={`${isVertical ? "text-4xl" : "text-6xl"} font-bold mb-6`}>
+              <Title tag="h1" className={`${isVertical ? "text-2xl sm:text-4xl" : "text-3xl sm:text-5xl md:text-6xl"} font-bold mb-6`}>
                 {slide.title}
               </Title>
               {slide.subtitle && (
@@ -180,8 +180,8 @@ export default function VideoSlide({ slide, isVertical }) {
                 
                 {(slide.title || slide.subtitle) && (
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-8 pb-16 pt-24 text-white text-center">
-                      {slide.title && <h1 className="text-4xl font-bold mb-2 drop-shadow-md">{slide.title}</h1>}
-                      {slide.subtitle && <p className="text-xl opacity-90 drop-shadow-sm">{slide.subtitle}</p>}
+                      {slide.title && <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 drop-shadow-md">{slide.title}</h1>}
+                      {slide.subtitle && <p className="text-sm sm:text-lg md:text-xl opacity-90 drop-shadow-sm">{slide.subtitle}</p>}
                   </div>
                 )}
              </motion.div>

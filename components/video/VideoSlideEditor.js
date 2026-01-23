@@ -8,6 +8,7 @@ import Tooltip from "@/components/common/Tooltip";
 import Upload from "@/components/common/Upload";
 import Input from "@/components/input/Input";
 import Select from "@/components/select/Select";
+import SvgCheck from "@/components/svg/SvgCheck";
 import SvgChevronLeft from "@/components/svg/SvgChevronLeft";
 import SvgChevronRight from "@/components/svg/SvgChevronRight";
 import SvgPlus from "@/components/svg/SvgPlus";
@@ -246,9 +247,9 @@ export default function VideoSlideEditor({
               ))}
             <button
               onClick={onAdd}
-              className="shrink-0 w-16 h-16 rounded border-2 border-dashed border-base-300 flex items-center justify-center text-base-content/50 hover:bg-base-200 hover:text-primary transition-colors"
+              className="shrink-0 size-16 cursor-pointer rounded border-2 border-dashed border-base-300 flex items-center justify-center text-base-content/50 hover:bg-base-200 hover:text-primary transition-colors"
             >
-              <SvgPlus className="w-6 h-6" />
+              <SvgPlus className="size-6" />
             </button>
           </div>
         </div>
@@ -313,11 +314,10 @@ export default function VideoSlideEditor({
           </div>
 
           {/* Title */}
-          <div className="form-control sm:col-span-2">
+          <div className="form-control sm:col-span-2 space-y-1">
             <Label className="opacity-60 text-xs">Title</Label>
             <Input
               type="text"
-              className="input-sm w-full"
               value={slide.title || ""}
               onChange={(e) => handleChange("title", e.target.value)}
             />
@@ -400,10 +400,10 @@ export default function VideoSlideEditor({
                   >
                     None
                   </div>
-                  {images.map((img) => (
+                  {[...images].reverse().map((img) => (
                     <div
                       key={img}
-                      className={`relative group aspect-square cursor-pointer rounded overflow-hidden border-2 hover:border-primary ${slide.image === img ? "border-primary" : "border-transparent"}`}
+                      className={`relative group aspect-square cursor-pointer rounded border-2 hover:border-primary ${slide.image === img ? "border-primary" : "border-transparent"}`}
                       onClick={() => handleChange("image", img)}
                     >
                       <Image
@@ -411,16 +411,27 @@ export default function VideoSlideEditor({
                         alt={img}
                         fill
                         sizes="(max-width: 768px) 33vw, 25vw"
-                        className="object-cover"
+                        className="object-cover rounded"
                       />
-                      {/* Delete overlay */}
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      {/* Overlay: Select & Delete */}
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 rounded">
+                        <Tooltip text="Select Image">
+                          <button
+                            className="btn btn-xs btn-circle btn-primary text-white"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleChange("image", img);
+                            }}
+                          >
+                            <SvgCheck className="w-3 h-3 text-white" />
+                          </button>
+                        </Tooltip>
                         <Tooltip text="Delete Image">
                           <button
                             className="btn btn-xs btn-circle btn-error text-white"
                             onClick={(e) => handleDeleteRequest(e, img)}
                           >
-                            <SvgTrash className="w-3 h-3" />
+                            <SvgTrash className="w-3 h-3 text-white" />
                           </button>
                         </Tooltip>
                       </div>
