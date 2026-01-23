@@ -3,6 +3,7 @@
   "videos": [
     {
       "id": "promo-main-16-9",
+      "createdAt": "2026-01-01T00:00:00.000Z",
       "title": "Main Promo (Landscape)",
       "format": "16:9",
       "width": 1920,
@@ -345,6 +346,7 @@
     },
     {
       "id": "promo-short-9-16",
+      "createdAt": "2026-01-01T00:00:00.000Z",
       "title": "Short Promo (Vertical)",
       "format": "9:16",
       "width": 1080,

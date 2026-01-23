@@ -1,19 +1,16 @@
 
-- make launch video of full app with obs / capcut template
-
+saturday
+- finish the video creation part module (see if possible to export with ffmpeg)
+- make launch video recorded with obs and trim with capcut (if not possible)
 - make a documentation page for tudorcrisan for the boilerplate (from specs)
+- make the documentation of the whole codebase also inside tudorcrisan.dev
 - make a buy link with redirect to google drive with multiple versions
-- prepare also a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
-- have the documentation of the whole codebase also inside tudorcrisan.dev
-- share in CV (remove the testimonials from 2016) update with the loyalboards specifications inside a one page
+- make a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
 
-- show Cristina how to list with printer, and install windows 10, and how to backup
-- list all 3, adeverinta, buletin, diploma, prepare them in a file cabinet, and a mini-backpack
-- prepare for the train at 2:40am to Arad, have money for road, and find-out the location
-
+monday
 - make extension for posting on multiple directories
+
+future
 - think maybe of a way to log-in into users dashboards to debug if problems arrise
 - think of having a daily backup of the mongodb database for loyalboards
-
 - facut un feedback board pentru fiecare app, incepand cu loyalboards
-- facut mai bun video editor si video creator adaugand editare text, si upload/editare, asezare imagine si efecte

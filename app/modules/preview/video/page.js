@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/button/Button";
+import FilterBar from "@/components/common/FilterBar";
 import Grid from "@/components/common/Grid";
 import Label from "@/components/common/Label";
 import Loading from "@/components/common/Loading";
@@ -34,6 +35,12 @@ export default function VideoModulePage() {
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Filter States
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterFormat, setFilterFormat] = useState("all"); // "all", "16:9", "9:16"
+  const [sortBy, setSortBy] = useState("date_desc"); // "date_desc", "date_asc", "name_asc"
+
   const [editingVideo, setEditingVideo] = useState(null); // null = create mode
   const [formData, setFormData] = useState({
     title: "",
@@ -216,13 +223,47 @@ export default function VideoModulePage() {
     return config.video && (config.video.override || config.video.default);
   });
 
+  // Determine available videos (merging all apps)
+  const allVideos = appsWithVideo.flatMap((appId) =>
+    getAppVideos(appId).map((v) => ({ ...v, appId })),
+  );
+
+  // Filter Logic
+  const filteredVideos = allVideos
+    .filter((video) => {
+      // Search
+      if (
+        searchQuery &&
+        !video.title.toLowerCase().includes(searchQuery.toLowerCase())
+      ) {
+        return false;
+      }
+      // Filter
+      if (filterFormat !== "all" && video.format !== filterFormat) {
+        return false;
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      if (sortBy === "date_desc") {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      }
+      if (sortBy === "date_asc") {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      }
+      if (sortBy === "name_asc") {
+        return a.title.localeCompare(b.title);
+      }
+      return 0;
+    });
+
   return (
     <>
       <div
         className={`min-h-screen bg-base-200 px-4 ${styling.general.section_padding || ""}`}
       >
         <div className={styling.general.container}>
-          <div className="text-center mb-12 relative">
+          <div className="text-center mb-8 relative space-y-2">
             <Title className={styling.section.title}>Video Generator</Title>
             <Paragraph className={styling.section.paragraph}>
               Select a video script to visualize and record, or create a new
@@ -232,6 +273,38 @@ export default function VideoModulePage() {
               <Button onClick={handleOpenCreate} variant="btn-primary">
                 + Create New Video
               </Button>
+            </div>
+          </div>
+
+          <div className="mb-6 flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <FilterBar
+                search={searchQuery}
+                setSearch={setSearchQuery}
+                sort={sortBy}
+                setSort={setSortBy}
+                sortOptions={[
+                  { label: "Newest First", value: "date_desc" },
+                  { label: "Oldest First", value: "date_asc" },
+                  { label: "Name (A-Z)", value: "name_asc" },
+                ]}
+                placeholder="Search videos..."
+                className="mb-0!" // override default mb-6
+                disabled={isLoading}
+              />
+            </div>
+            <div className="w-full md:w-48 shrink-0">
+              <Select
+                options={[
+                  { label: "All Formats", value: "all" },
+                  { label: "Landscape (16:9)", value: "16:9" },
+                  { label: "Portrait (9:16)", value: "9:16" },
+                ]}
+                value={filterFormat}
+                onChange={(e) => setFilterFormat(e.target.value)}
+                className="w-full"
+                disabled={isLoading}
+              />
             </div>
           </div>
 
@@ -247,139 +320,103 @@ export default function VideoModulePage() {
             </div>
           ) : (
             <div className="space-y-12">
-              {appsWithVideo.map((appId) => {
-                const appVideos = getAppVideos(appId);
+              <div>
+                <Title
+                  tag="h2"
+                  className={`text-2xl font-bold capitalize mb-4 border-b border-base-300 pb-2 ${styling.components.header}`}
+                >
+                  All Videos ({filteredVideos.length})
+                </Title>
 
-                // Group by Format
-                const landscapeVideos = appVideos
-                  .filter((v) => v.format !== "9:16")
-                  .sort(
-                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-                  );
-                const portraitVideos = appVideos
-                  .filter((v) => v.format === "9:16")
-                  .sort(
-                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-                  );
+                <Grid>
+                  {filteredVideos.map((video) => (
+                    <div
+                      key={video.id}
+                      onClick={() =>
+                        router.push(
+                          `${pathname}?appId=${video.appId || "loyalboards"}&videoId=${video.id}`,
+                        )
+                      }
+                      className={`${styling.components.card} cursor-pointer hover:scale-[1.02] transition-transform group relative`}
+                      role="button"
+                      tabIndex={0}
+                    >
+                      <div className="card-body">
+                        <div className="flex justify-between items-start mb-2 pr-6">
+                          <Title
+                            tag="h3"
+                            className="card-title text-primary text-lg"
+                          >
+                            {video.title}
+                          </Title>
+                        </div>
 
-                const renderVideoCard = (video) => (
-                  <div
-                    key={video.id}
-                    onClick={() =>
-                      router.push(
-                        `${pathname}?appId=${appId}&videoId=${video.id}`,
-                      )
-                    }
-                    className={`${styling.components.card} cursor-pointer hover:scale-[1.02] transition-transform group relative`}
-                    role="button"
-                    tabIndex={0}
-                  >
-                    <div className="card-body">
-                      <div className="flex justify-between items-start mb-2">
-                        <Title
-                          tag="h3"
-                          className="card-title text-primary text-lg"
-                        >
-                          {video.title}
-                        </Title>
-                        <TextSmall className="text-[10px] opacity-40 font-mono">
+                        <div className="badge badge-outline">
+                          {video.format}
+                        </div>
+
+                        <TextSmall className="mt-2 text-base-content/60 flex items-center gap-1 flex-wrap">
+                          <span>{video.slides?.length || 0} slides</span>
+                          <span>•</span>
+                          <span>
+                            {video.width}x{video.height}
+                          </span>
+                        </TextSmall>
+                        <TextSmall className="text-[10px] opacity-40 font-mono mt-1 block">
                           {formattedDate(video.createdAt)}
                         </TextSmall>
-                      </div>
 
-                      <div className="badge badge-outline">{video.format}</div>
-                      <TextSmall className="mt-2 text-base-content/60">
-                        {video.slides?.length || 0} slides • {video.width}x
-                        {video.height}
-                      </TextSmall>
-                      <div className="card-actions justify-end mt-4">
-                        <Button size="btn-sm" variant="btn-primary">
-                          Launch Player
-                        </Button>
-                      </div>
+                        <div className="card-actions justify-end mt-4">
+                          <Button size="btn-sm" variant="btn-primary">
+                            Launch Player
+                          </Button>
+                        </div>
 
-                      {/* Edit/Delete Actions - Always Visible */}
-                      <div className="absolute top-2 right-2 flex gap-2">
-                        <Button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            router.push(
-                              `${pathname}?appId=${appId}&videoId=${video.id}`,
-                            );
-                          }}
-                          variant="btn-ghost btn-square"
-                          size="btn-xs"
-                          className="bg-base-100/80"
-                          title="View"
-                        >
-                          <SvgView />
-                        </Button>
-                        <Button
-                          onClick={(e) => handleOpenEdit(e, video)}
-                          variant="btn-ghost btn-square"
-                          size="btn-xs"
-                          className="bg-base-100/80"
-                          title="Edit"
-                        >
-                          <SvgEdit />
-                        </Button>
-                        <Button
-                          onClick={(e) => handleDeleteClick(e, video.id)}
-                          variant="btn-ghost btn-square"
-                          size="btn-xs"
-                          className="bg-base-100/80 text-error"
-                          title="Delete"
-                        >
-                          <SvgTrash />
-                        </Button>
+                        {/* Edit/Delete Actions - Always Visible */}
+                        <div className="absolute top-2 right-2 flex gap-2">
+                          <Button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              router.push(
+                                `${pathname}?appId=${video.appId || "loyalboards"}&videoId=${video.id}`,
+                              );
+                            }}
+                            variant="btn-ghost btn-square"
+                            size="btn-xs"
+                            className="bg-base-100/80"
+                            title="View"
+                          >
+                            <SvgView />
+                          </Button>
+                          <Button
+                            onClick={(e) => handleOpenEdit(e, video)}
+                            variant="btn-ghost btn-square"
+                            size="btn-xs"
+                            className="bg-base-100/80"
+                            title="Edit"
+                          >
+                            <SvgEdit />
+                          </Button>
+                          <Button
+                            onClick={(e) => handleDeleteClick(e, video.id)}
+                            variant="btn-ghost btn-square"
+                            size="btn-xs"
+                            className="bg-base-100/80 text-error"
+                            title="Delete"
+                          >
+                            <SvgTrash />
+                          </Button>
+                        </div>
                       </div>
                     </div>
+                  ))}
+                </Grid>
+                {filteredVideos.length === 0 && (
+                  <div className="text-center py-8">
+                    <Paragraph>No videos match your filters.</Paragraph>
                   </div>
-                );
-
-                return (
-                  <div key={appId}>
-                    <Title
-                      tag="h2"
-                      className={`text-2xl font-bold capitalize mb-4 border-b border-base-300 pb-2 ${styling.components.header}`}
-                    >
-                      {appId}
-                    </Title>
-
-                    {landscapeVideos.length > 0 && (
-                      <div className="mb-8">
-                        <Title
-                          tag="h3"
-                          className="text-lg opacity-70 mb-4 font-semibold"
-                        >
-                          Landscape (16:9)
-                        </Title>
-                        <Grid>{landscapeVideos.map(renderVideoCard)}</Grid>
-                      </div>
-                    )}
-
-                    {portraitVideos.length > 0 && (
-                      <div className="mb-8">
-                        <Title
-                          tag="h3"
-                          className="text-lg opacity-70 mb-4 font-semibold"
-                        >
-                          Portrait (9:16)
-                        </Title>
-                        <Grid>{portraitVideos.map(renderVideoCard)}</Grid>
-                      </div>
-                    )}
-
-                    {appVideos.length === 0 && (
-                      <div className="text-center py-8">
-                        <Paragraph>
-                          No videos found. Create one to get started.
-                        </Paragraph>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+                )}
+              </div>
             </div>
           )}
         </div>

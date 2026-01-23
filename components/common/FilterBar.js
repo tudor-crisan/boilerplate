@@ -12,6 +12,7 @@ export default function FilterBar({
   sortOptions = [],
   placeholder = "Search...",
   className = "",
+  disabled = false,
 }) {
   const { styling } = useStyling();
   return (
@@ -28,6 +29,7 @@ export default function FilterBar({
           onChange={(e) => setSearch && setSearch(e.target.value)}
           icon={<SvgSearch />}
           allowClear={true}
+          disabled={disabled}
         />
       </div>
 
@@ -39,6 +41,7 @@ export default function FilterBar({
             onChange={(e) => setSort(e.target.value)}
             options={sortOptions}
             className="w-full"
+            disabled={disabled}
           />
         </div>
       )}

@@ -331,6 +331,20 @@ async function main() {
       // Filter app-specific files
       cleanAppSpecificFiles(targetDir, folder);
 
+      // Remove preview module from all deployments
+      const previewDir = path.join(targetDir, "app/modules/preview");
+      if (fs.existsSync(previewDir)) {
+        console.log("   🧹 Removing preview module...");
+        fs.rmSync(previewDir, { recursive: true, force: true });
+      }
+
+      // Remove video components from all deployments
+      const videoComponentsDir = path.join(targetDir, "components/video");
+      if (fs.existsSync(videoComponentsDir)) {
+        console.log("   🧹 Removing video components...");
+        fs.rmSync(videoComponentsDir, { recursive: true, force: true });
+      }
+
       // Filter list files to remove refs to other apps
       filterListFiles(targetDir, folder);
 
