@@ -1,7 +1,12 @@
 import Button from "@/components/button/Button";
+import ImageCropper from "@/components/common/ImageCropper";
 import Label from "@/components/common/Label";
 import Loading from "@/components/common/Loading";
-import InputFile from "@/components/input/InputFile";
+import Modal from "@/components/common/Modal";
+import Paragraph from "@/components/common/Paragraph";
+import Tooltip from "@/components/common/Tooltip";
+import Upload from "@/components/common/Upload";
+import Input from "@/components/input/Input";
 import Select from "@/components/select/Select";
 import SvgChevronLeft from "@/components/svg/SvgChevronLeft";
 import SvgChevronRight from "@/components/svg/SvgChevronRight";
@@ -27,14 +32,17 @@ export default function VideoSlideEditor({
   const [images, setImages] = useState([]);
   const [showGallery, setShowGallery] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadKey, setUploadKey] = useState(0);
+  const [imageToDelete, setImageToDelete] = useState(null);
+
+  // Cropper State
+  const [showCropper, setShowCropper] = useState(false);
+  const [tempImage, setTempImage] = useState(null);
 
   const fetchImages = () => {
     fetch("/api/video/images")
       .then((res) => res.json())
       .then((data) => {
         if (data.images) {
-          // Sort images: newest first might be better, or alphabetical. Let's do alphabetical for now.
           setImages(data.images);
         }
       })
@@ -57,20 +65,50 @@ export default function VideoSlideEditor({
     }
   };
 
-  const handleUploadImage = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  // Triggered when file is selected from Upload component
+  const handleFileSelect = (dataUri) => {
+    setTempImage(dataUri);
+    setShowCropper(true);
+  };
 
+  const handleCropCancel = () => {
+    setShowCropper(false);
+    setTempImage(null);
+  };
+
+  // Triggered after cropping is confirmed
+  const handleCropComplete = async (croppedImageBlob) => {
+    setShowCropper(false);
+    setTempImage(null);
     setIsUploading(true);
-    const formData = new FormData();
-    formData.append("file", file);
 
     try {
-      const res = await fetch("/api/video/images", {
+      // croppedImageBlob is a Blob/File object (or dataURL depending on implementation,
+      // but ImageCropper usually returns a Blob or DataURL.
+      // Check ImageCropper usage: onCropComplete(croppedImage) -> getCroppedImg returns Blob/DataURL?
+      // Looking at ImageCropper: onCropComplete(croppedImage) where croppedImage comes from `getCroppedImg`.
+      // Usually getCroppedImg returns a blob URL or base64.
+      // Let's assume it returns a base64 or blob. If base64, convert to blob.
+
+      let blob = croppedImageBlob;
+      if (typeof croppedImageBlob === "string") {
+        const res = await fetch(croppedImageBlob);
+        blob = await res.blob();
+      }
+
+      const file = new File([blob], `upload_${Date.now()}.png`, {
+        type: "image/png",
+      });
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const apiRes = await fetch("/api/video/images", {
         method: "POST",
         body: formData,
       });
-      const data = await res.json();
+      const data = await apiRes.json();
+
       if (data.success) {
         fetchImages(); // Refresh list
         handleChange("image", data.filename); // Auto select uploaded image
@@ -79,26 +117,31 @@ export default function VideoSlideEditor({
       console.error("Upload failed", err);
     } finally {
       setIsUploading(false);
-      setUploadKey((prev) => prev + 1);
     }
   };
 
-  const handleDeleteImage = async (e, filename) => {
+  const handleDeleteRequest = (e, filename) => {
     e.stopPropagation();
-    if (!confirm(`Delete ${filename}? This cannot be undone.`)) return;
+    setImageToDelete(filename);
+  };
+
+  const confirmDelete = async () => {
+    if (!imageToDelete) return;
 
     try {
       const res = await fetch("/api/video/images", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ filename }),
+        body: JSON.stringify({ filename: imageToDelete }),
       });
       if (res.ok) {
         fetchImages();
-        if (slide.image === filename) handleChange("image", "");
+        if (slide.image === imageToDelete) handleChange("image", "");
       }
     } catch (err) {
       console.error("Delete failed", err);
+    } finally {
+      setImageToDelete(null);
     }
   };
 
@@ -163,277 +206,312 @@ export default function VideoSlideEditor({
   ];
 
   return (
-    <div
-      className={`p-4 bg-base-100 rounded-lg border border-base-300 shadow-sm ${styling.components.card}`}
-    >
-      {/* Slide Navigator */}
-      <div className="mb-6 overflow-x-auto pb-4 border-b border-base-200">
-        <div className="flex gap-2">
-          {slides &&
-            slides.map((s, i) => (
-              <div
-                key={s.id || i}
-                onClick={() => onSelect && onSelect(i)}
-                className={`
+    <>
+      <div
+        className={`p-4 bg-base-100 rounded-lg border border-base-300 shadow-sm ${styling.components.card}`}
+      >
+        {/* Slide Navigator */}
+        <div className="mb-6 overflow-x-auto pb-4 border-b border-base-200">
+          <div className="flex gap-2">
+            {slides &&
+              slides.map((s, i) => (
+                <div
+                  key={s.id || i}
+                  onClick={() => onSelect && onSelect(i)}
+                  className={`
                  relative shrink-0 w-24 h-16 rounded border-2 cursor-pointer overflow-hidden transition-all hover:scale-105
                  ${i === index ? "border-primary ring-2 ring-primary/30" : "border-base-300 opacity-70 hover:opacity-100"}
                `}
-              >
-                <div
-                  className={`w-full h-full ${s.bg || "bg-neutral"} flex items-center justify-center p-1`}
                 >
-                  {s.image ? (
-                    <Image
-                      src={
-                        s.image.startsWith("http") || s.image.startsWith("/")
-                          ? s.image
-                          : `/assets/video/loyalboards/${s.image}`
-                      }
-                      alt="thumb"
-                      fill
-                      className="object-cover opacity-50"
-                    />
-                  ) : null}
-                  <span className="relative z-10 text-[8px] font-bold truncate max-w-full px-1 bg-black/50 text-white rounded">
-                    {i + 1}. {s.type}
-                  </span>
+                  <div
+                    className={`w-full h-full ${s.bg || "bg-neutral"} flex items-center justify-center p-1`}
+                  >
+                    {s.image ? (
+                      <Image
+                        src={
+                          s.image.startsWith("http") || s.image.startsWith("/")
+                            ? s.image
+                            : `/assets/video/loyalboards/${s.image}`
+                        }
+                        alt="thumb"
+                        fill
+                        className="object-cover opacity-50"
+                      />
+                    ) : null}
+                    <span className="relative z-10 text-[8px] font-bold truncate max-w-full px-1 bg-black/50 text-white rounded">
+                      {i + 1}. {s.title || s.type}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
-          <button
-            onClick={onAdd}
-            className="shrink-0 w-16 h-16 rounded border-2 border-dashed border-base-300 flex items-center justify-center text-base-content/50 hover:bg-base-200 hover:text-primary transition-colors"
-          >
-            <SvgPlus className="w-6 h-6" />
-          </button>
-        </div>
-      </div>
-
-      <div className="flex justify-between items-center mb-4">
-        <h3 className="font-bold opacity-70">Edit Slide {index + 1}</h3>
-        <div className="flex gap-1">
-          <Button
-            size="btn-xs"
-            variant="btn-ghost"
-            onClick={() => onMove(index, index - 1)}
-            disabled={index <= 0}
-            title="Move Left"
-          >
-            <SvgChevronLeft className="w-4 h-4" />
-          </Button>
-          <Button
-            size="btn-xs"
-            variant="btn-ghost"
-            onClick={() => onMove(index, index + 1)}
-            disabled={index >= totalSlides - 1}
-            title="Move Right"
-          >
-            <SvgChevronRight className="w-4 h-4" />
-          </Button>
-          <div className="w-px h-4 bg-base-300 mx-1" />
-          <Button
-            size="btn-xs"
-            variant="btn-error"
-            onClick={() => onDelete(index)}
-            disabled={totalSlides <= 1}
-            title="Delete Slide"
-          >
-            <SvgTrash className="w-4 h-4" />
-          </Button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Type */}
-        <div className="form-control">
-          <Label className="opacity-60 text-xs">Type</Label>
-          <Select
-            options={typeOptions}
-            value={slide.type || "feature"}
-            onChange={(e) => handleChange("type", e.target.value)}
-            withNavigation={true}
-            className="w-full"
-          />
+              ))}
+            <button
+              onClick={onAdd}
+              className="shrink-0 w-16 h-16 rounded border-2 border-dashed border-base-300 flex items-center justify-center text-base-content/50 hover:bg-base-200 hover:text-primary transition-colors"
+            >
+              <SvgPlus className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
-        {/* Animation */}
-        <div className="form-control">
-          <Label className="opacity-60 text-xs">Animation</Label>
-          <Select
-            options={animationOptions}
-            value={slide.animation || "fade"}
-            onChange={(e) => handleChange("animation", e.target.value)}
-            withNavigation={true}
-            className="w-full"
-          />
-        </div>
-
-        {/* Title */}
-        <div className="form-control sm:col-span-2">
-          <Label className="opacity-60 text-xs">Title</Label>
-          <input
-            type="text"
-            className={`input input-sm input-bordered w-full ${styling.components.input}`}
-            value={slide.title || ""}
-            onChange={(e) => handleChange("title", e.target.value)}
-          />
-        </div>
-
-        {/* Background */}
-        <div className="form-control">
-          <Label className="opacity-60 text-xs">Background</Label>
-          <Select
-            options={bgOptions}
-            value={slide.bg || "bg-base-100"}
-            onChange={(e) => handleChange("bg", e.target.value)}
-            withNavigation={true}
-            className="w-full"
-          />
-        </div>
-
-        {/* Text Color */}
-        <div className="form-control">
-          <Label className="opacity-60 text-xs">Text Color</Label>
-          <Select
-            options={textOptions}
-            value={slide.textColor || "text-neutral"}
-            onChange={(e) => handleChange("textColor", e.target.value)}
-            withNavigation={true}
-            className="w-full"
-          />
-        </div>
-
-        {/* Image Gallery and Settings */}
-        <div className="form-control sm:col-span-2 bg-base-200/50 p-4 rounded-lg">
-          <div className="flex justify-between items-center mb-2">
-            <Label className="opacity-60 text-xs p-0">Slide Image</Label>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-bold opacity-70">Edit Slide {index + 1}</h3>
+          <div className="flex gap-1">
             <Button
               size="btn-xs"
               variant="btn-ghost"
-              onClick={() => setShowGallery(!showGallery)}
+              onClick={() => onMove(index, index - 1)}
+              disabled={index <= 0}
+              title="Move Left"
             >
-              {showGallery ? "Hide Gallery" : "Show Gallery"}
+              <SvgChevronLeft className="w-4 h-4" />
+            </Button>
+            <Button
+              size="btn-xs"
+              variant="btn-ghost"
+              onClick={() => onMove(index, index + 1)}
+              disabled={index >= totalSlides - 1}
+              title="Move Right"
+            >
+              <SvgChevronRight className="w-4 h-4" />
+            </Button>
+            <div className="w-px h-4 bg-base-300 mx-1" />
+            <Button
+              size="btn-xs"
+              variant="btn-error"
+              onClick={() => onDelete(index)}
+              disabled={totalSlides <= 1}
+              title="Delete Slide"
+            >
+              <SvgTrash className="w-4 h-4" />
             </Button>
           </div>
+        </div>
 
-          {/* Selected Image Preview (Small) & Remove */}
-          {slide.image && !showGallery && (
-            <div className="flex items-center gap-4 mb-2">
-              <div className="relative w-16 h-16 rounded overflow-hidden border border-base-300">
-                <Image
-                  src={
-                    slide.image.startsWith("http") ||
-                    slide.image.startsWith("/")
-                      ? slide.image
-                      : `/assets/video/loyalboards/${slide.image}`
-                  }
-                  alt="Selected"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex-1 text-xs opacity-60 truncate">
-                {slide.image}
-              </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Type */}
+          <div className="form-control">
+            <Label className="opacity-60 text-xs">Type</Label>
+            <Select
+              options={typeOptions}
+              value={slide.type || "feature"}
+              onChange={(e) => handleChange("type", e.target.value)}
+              withNavigation={true}
+              className="w-full"
+            />
+          </div>
+
+          {/* Animation */}
+          <div className="form-control">
+            <Label className="opacity-60 text-xs">Animation</Label>
+            <Select
+              options={animationOptions}
+              value={slide.animation || "fade"}
+              onChange={(e) => handleChange("animation", e.target.value)}
+              withNavigation={true}
+              className="w-full"
+            />
+          </div>
+
+          {/* Title */}
+          <div className="form-control sm:col-span-2">
+            <Label className="opacity-60 text-xs">Title</Label>
+            <Input
+              type="text"
+              className="input-sm w-full"
+              value={slide.title || ""}
+              onChange={(e) => handleChange("title", e.target.value)}
+            />
+          </div>
+
+          {/* Background */}
+          <div className="form-control">
+            <Label className="opacity-60 text-xs">Background</Label>
+            <Select
+              options={bgOptions}
+              value={slide.bg || "bg-base-100"}
+              onChange={(e) => handleChange("bg", e.target.value)}
+              withNavigation={true}
+              className="w-full"
+            />
+          </div>
+
+          {/* Text Color */}
+          <div className="form-control">
+            <Label className="opacity-60 text-xs">Text Color</Label>
+            <Select
+              options={textOptions}
+              value={slide.textColor || "text-neutral"}
+              onChange={(e) => handleChange("textColor", e.target.value)}
+              withNavigation={true}
+              className="w-full"
+            />
+          </div>
+
+          {/* Image Gallery and Settings */}
+          <div className="form-control sm:col-span-2 bg-base-200/50 p-4 rounded-lg">
+            <div className="flex justify-between items-center mb-2">
+              <Label className="opacity-60 text-xs p-0">Slide Image</Label>
               <Button
                 size="btn-xs"
-                variant="btn-error btn-outline"
-                onClick={() => handleChange("image", "")}
+                variant="btn-ghost"
+                onClick={() => setShowGallery(!showGallery)}
               >
-                Remove
+                {showGallery ? "Hide Gallery" : "Show Gallery"}
               </Button>
             </div>
-          )}
 
-          {/* Gallery Grid */}
-          {showGallery && (
-            <div className="flex flex-col gap-2">
-              {/* Upload Area */}
-              <div className="flex items-center gap-2 mb-2 p-2 bg-base-100 rounded border border-dashed border-base-300">
-                <span className="text-xs font-bold opacity-60">
-                  Upload New:
-                </span>
-                <div className="flex-1">
-                  <InputFile
-                    className="m-0 h-8 text-xs file:py-1 file:px-2"
-                    accept="image/*"
-                    onChange={handleUploadImage}
-                    disabled={isUploading}
-                    key={uploadKey}
+            {/* Selected Image Preview (Small) & Remove */}
+            {slide.image && !showGallery && (
+              <div className="flex items-center gap-4 mb-2">
+                <div className="relative w-16 h-16 rounded overflow-hidden border border-base-300">
+                  <Image
+                    src={
+                      slide.image.startsWith("http") ||
+                      slide.image.startsWith("/")
+                        ? slide.image
+                        : `/assets/video/loyalboards/${slide.image}`
+                    }
+                    alt="Selected"
+                    fill
+                    className="object-cover"
                   />
                 </div>
-                {isUploading && <Loading className="w-4 h-4 text-primary" />}
-              </div>
-
-              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-48 overflow-y-auto p-2 bg-base-100 rounded border border-base-300 mb-2">
-                {/* Option to remove image */}
-                <div
-                  className={`relative aspect-square cursor-pointer rounded overflow-hidden border-2 hover:border-error flex items-center justify-center bg-base-200 text-xs font-bold opacity-60 ${!slide.image ? "border-error" : "border-transparent"}`}
+                <div className="flex-1 text-xs opacity-60 truncate">
+                  {slide.image}
+                </div>
+                <Button
+                  size="btn-xs"
+                  variant="btn-error btn-outline"
                   onClick={() => handleChange("image", "")}
                 >
-                  None
-                </div>
-                {images.map((img) => (
-                  <div
-                    key={img}
-                    className={`relative group aspect-square cursor-pointer rounded overflow-hidden border-2 hover:border-primary ${slide.image === img ? "border-primary" : "border-transparent"}`}
-                    onClick={() => handleChange("image", img)}
-                  >
-                    <Image
-                      src={`/assets/video/loyalboards/${img}`}
-                      alt={img}
-                      fill
-                      sizes="(max-width: 768px) 33vw, 25vw"
-                      className="object-cover"
-                    />
-                    {/* Delete overlay */}
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <button
-                        className="btn btn-xs btn-circle btn-error text-white"
-                        onClick={(e) => handleDeleteImage(e, img)}
-                        title="Delete Image"
-                      >
-                        <SvgTrash className="w-3 h-3" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                {images.length === 0 && (
-                  <div className="col-span-full text-center text-xs opacity-50 py-4">
-                    No images found
-                  </div>
-                )}
+                  Remove
+                </Button>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Image Settings */}
-          {slide.image && (
-            <div className="grid grid-cols-2 gap-2 mt-2">
-              <div className="form-control">
-                <Label className="opacity-60 text-[10px] pt-0">Fit</Label>
-                <Select
-                  options={fitOptions}
-                  value={slide.imageFit || "object-cover"} // Default to cover
-                  onChange={(e) => handleChange("imageFit", e.target.value)}
-                  className="w-full"
-                />
+            {/* Gallery Grid */}
+            {showGallery && (
+              <div className="flex flex-col gap-2">
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-48 overflow-y-auto p-2 bg-base-100 rounded border border-base-300 mb-2">
+                  {/* Option to remove image */}
+                  <div
+                    className={`relative aspect-square cursor-pointer rounded overflow-hidden border-2 hover:border-error flex items-center justify-center bg-base-200 text-xs font-bold opacity-60 ${!slide.image ? "border-error" : "border-transparent"}`}
+                    onClick={() => handleChange("image", "")}
+                  >
+                    None
+                  </div>
+                  {images.map((img) => (
+                    <div
+                      key={img}
+                      className={`relative group aspect-square cursor-pointer rounded overflow-hidden border-2 hover:border-primary ${slide.image === img ? "border-primary" : "border-transparent"}`}
+                      onClick={() => handleChange("image", img)}
+                    >
+                      <Image
+                        src={`/assets/video/loyalboards/${img}`}
+                        alt={img}
+                        fill
+                        sizes="(max-width: 768px) 33vw, 25vw"
+                        className="object-cover"
+                      />
+                      {/* Delete overlay */}
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <Tooltip text="Delete Image">
+                          <button
+                            className="btn btn-xs btn-circle btn-error text-white"
+                            onClick={(e) => handleDeleteRequest(e, img)}
+                          >
+                            <SvgTrash className="w-3 h-3" />
+                          </button>
+                        </Tooltip>
+                      </div>
+                    </div>
+                  ))}
+                  {images.length === 0 && (
+                    <div className="col-span-full text-center text-xs opacity-50 py-4">
+                      No images found
+                    </div>
+                  )}
+                </div>
               </div>
-              <div className="form-control">
-                <Label className="opacity-60 text-[10px] pt-0">Position</Label>
-                <Select
-                  options={positionOptions}
-                  value={slide.imagePosition || "object-center"}
-                  onChange={(e) =>
-                    handleChange("imagePosition", e.target.value)
-                  }
-                  className="w-full"
-                />
+            )}
+
+            {/* Image Settings */}
+            {slide.image && (
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <div className="form-control">
+                  <Label className="opacity-60 text-[10px] pt-0">Fit</Label>
+                  <Select
+                    options={fitOptions}
+                    value={slide.imageFit || "object-cover"} // Default to cover
+                    onChange={(e) => handleChange("imageFit", e.target.value)}
+                    className="w-full"
+                  />
+                </div>
+                <div className="form-control">
+                  <Label className="opacity-60 text-[10px] pt-0">
+                    Position
+                  </Label>
+                  <Select
+                    options={positionOptions}
+                    value={slide.imagePosition || "object-center"}
+                    onChange={(e) =>
+                      handleChange("imagePosition", e.target.value)
+                    }
+                    className="w-full"
+                  />
+                </div>
               </div>
-            </div>
-          )}
+            )}
+
+            {/* Upload Button */}
+            {showGallery && (
+              <div className="flex flex-col items-center justify-center mt-4 pt-2 border-t border-base-content/5 gap-2">
+                <Upload
+                  onFileSelect={handleFileSelect}
+                  className="w-full max-w-xs"
+                />
+                {isUploading && <Loading className="w-4 h-4 text-primary" />}
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Delete Modal */}
+      <Modal
+        isModalOpen={!!imageToDelete}
+        onClose={() => setImageToDelete(null)}
+        title="Confirm Deletion"
+        contentClassName="p-0! pb-2!"
+        actions={
+          <>
+            <Button
+              className="btn-ghost"
+              onClick={() => setImageToDelete(null)}
+            >
+              Cancel
+            </Button>
+            <Button variant="btn-error btn-outline" onClick={confirmDelete}>
+              Delete
+            </Button>
+          </>
+        }
+      >
+        <Paragraph className={`${styling.general.element} text-center`}>
+          Are you sure you want to delete <b>{imageToDelete}</b>? This action
+          cannot be undone.
+        </Paragraph>
+      </Modal>
+
+      {/* Image Cropper */}
+      {showCropper && tempImage && (
+        <ImageCropper
+          imageSrc={tempImage}
+          onCropComplete={handleCropComplete}
+          onCancel={handleCropCancel}
+          aspect={16 / 9} // Default to video aspect, or make it dynamic if needed
+        />
+      )}
+    </>
   );
 }
