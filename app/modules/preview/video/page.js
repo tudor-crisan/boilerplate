@@ -10,10 +10,13 @@ import TextSmall from "@/components/common/TextSmall";
 import Title from "@/components/common/Title";
 import Input from "@/components/input/Input";
 import Select from "@/components/select/Select";
+import SvgEdit from "@/components/svg/SvgEdit";
+import SvgTrash from "@/components/svg/SvgTrash";
 import SvgView from "@/components/svg/SvgView";
 import VideoContainer from "@/components/video/VideoContainer";
 import { useStyling } from "@/context/ContextStyling";
 import { toast } from "@/libs/toast";
+import { formattedDate } from "@/libs/utils.client";
 import applications from "@/lists/applications";
 import { useEffect, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -62,15 +65,7 @@ export default function VideoModulePage() {
   };
 
   // Helper to get video data for an app (now uses local state)
-  const getAppVideos = (appId) => {
-    // We assume all videos belong to the current context for now,
-    // or filtering based on some criteria if needed.
-    // The original code filtered by 'videos[videoKey]', but since we only have one file/list
-    // we'll use the fetched 'videos' state for the 'loyalboards' app
-    // or any app that uses this module.
-    // Ideally we would filter by some 'appId' property if videos were shared,
-    // but the task implies we are editing the 'loyalboards/video.json'.
-    // So we return all videos for any app that has video enabled, as they likely share the source in this boilerplate.
+  const getAppVideos = () => {
     return videos;
   };
 
@@ -107,11 +102,26 @@ export default function VideoModulePage() {
     if (!formData.title) return toast.error("Title is required");
 
     startTransition(async () => {
+      // Default initial slide if none exist
+      const defaultSlides = [
+        {
+          type: "title",
+          title: formData.title,
+          subtitle: "New Video",
+          bg: "bg-neutral",
+          animation: "fade",
+        },
+      ];
+
       const newVideo = {
         ...(editingVideo || {}),
         id: editingVideo?.id || `video-${Date.now()}`,
+        createdAt: editingVideo?.createdAt || new Date().toISOString(),
         ...formData,
-        slides: editingVideo?.slides || [], // Keep existing slides or empty
+        slides:
+          editingVideo?.slides && editingVideo.slides.length > 0
+            ? editingVideo.slides
+            : defaultSlides,
         music: editingVideo?.music || "",
         voVolume: editingVideo?.voVolume ?? 1,
         musicVolume: editingVideo?.musicVolume ?? 0.3,
@@ -134,7 +144,8 @@ export default function VideoModulePage() {
               next[idx] = newVideo;
               return next;
             }
-            return [...prev, newVideo];
+            // Prepend new video
+            return [newVideo, ...prev];
           });
           setIsModalOpen(false);
         } else {
@@ -238,7 +249,93 @@ export default function VideoModulePage() {
             <div className="space-y-12">
               {appsWithVideo.map((appId) => {
                 const appVideos = getAppVideos(appId);
-                // if (appVideos.length === 0) return null; // Update: Don't hide if empty, maybe user wants to create? But logic above relies on "appsWithVideo" keys.
+
+                // Group by Format
+                const landscapeVideos = appVideos
+                  .filter((v) => v.format !== "9:16")
+                  .sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+                  );
+                const portraitVideos = appVideos
+                  .filter((v) => v.format === "9:16")
+                  .sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+                  );
+
+                const renderVideoCard = (video) => (
+                  <div
+                    key={video.id}
+                    onClick={() =>
+                      router.push(
+                        `${pathname}?appId=${appId}&videoId=${video.id}`,
+                      )
+                    }
+                    className={`${styling.components.card} cursor-pointer hover:scale-[1.02] transition-transform group relative`}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <div className="card-body">
+                      <div className="flex justify-between items-start mb-2">
+                        <Title
+                          tag="h3"
+                          className="card-title text-primary text-lg"
+                        >
+                          {video.title}
+                        </Title>
+                        <TextSmall className="text-[10px] opacity-40 font-mono">
+                          {formattedDate(video.createdAt)}
+                        </TextSmall>
+                      </div>
+
+                      <div className="badge badge-outline">{video.format}</div>
+                      <TextSmall className="mt-2 text-base-content/60">
+                        {video.slides?.length || 0} slides • {video.width}x
+                        {video.height}
+                      </TextSmall>
+                      <div className="card-actions justify-end mt-4">
+                        <Button size="btn-sm" variant="btn-primary">
+                          Launch Player
+                        </Button>
+                      </div>
+
+                      {/* Edit/Delete Actions - Always Visible */}
+                      <div className="absolute top-2 right-2 flex gap-2">
+                        <Button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            router.push(
+                              `${pathname}?appId=${appId}&videoId=${video.id}`,
+                            );
+                          }}
+                          variant="btn-ghost btn-square"
+                          size="btn-xs"
+                          className="bg-base-100/80"
+                          title="View"
+                        >
+                          <SvgView />
+                        </Button>
+                        <Button
+                          onClick={(e) => handleOpenEdit(e, video)}
+                          variant="btn-ghost btn-square"
+                          size="btn-xs"
+                          className="bg-base-100/80"
+                          title="Edit"
+                        >
+                          <SvgEdit />
+                        </Button>
+                        <Button
+                          onClick={(e) => handleDeleteClick(e, video.id)}
+                          variant="btn-ghost btn-square"
+                          size="btn-xs"
+                          className="bg-base-100/80 text-error"
+                          title="Delete"
+                        >
+                          <SvgTrash />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                );
 
                 return (
                   <div key={appId}>
@@ -248,78 +345,31 @@ export default function VideoModulePage() {
                     >
                       {appId}
                     </Title>
-                    <Grid>
-                      {appVideos.map((video) => (
-                        <div
-                          key={video.id}
-                          onClick={() =>
-                            router.push(
-                              `${pathname}?appId=${appId}&videoId=${video.id}`,
-                            )
-                          }
-                          className={`${styling.components.card} cursor-pointer hover:scale-[1.02] transition-transform group relative`}
-                          role="button"
-                          tabIndex={0}
-                        >
-                          <div className="card-body">
-                            <Title
-                              tag="h3"
-                              className="card-title text-primary text-lg"
-                            >
-                              {video.title}
-                            </Title>
-                            <div className="badge badge-outline">
-                              {video.format}
-                            </div>
-                            <TextSmall className="mt-2 text-base-content/60">
-                              {video.slides?.length || 0} slides • {video.width}
-                              x{video.height}
-                            </TextSmall>
-                            <div className="card-actions justify-end mt-4">
-                              <Button size="btn-sm" variant="btn-primary">
-                                Launch Player
-                              </Button>
-                            </div>
 
-                            {/* Edit/Delete Actions - Always Visible */}
-                            <div className="absolute top-2 right-2 flex gap-2">
-                              <Button
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  router.push(
-                                    `${pathname}?appId=${appId}&videoId=${video.id}`,
-                                  );
-                                }}
-                                variant="btn-ghost btn-square"
-                                size="btn-xs"
-                                className="bg-base-100/80"
-                                title="View"
-                              >
-                                <SvgView />
-                              </Button>
-                              <Button
-                                onClick={(e) => handleOpenEdit(e, video)}
-                                variant="btn-ghost btn-square"
-                                size="btn-xs"
-                                className="bg-base-100/80"
-                                title="Edit"
-                              >
-                                ✏️
-                              </Button>
-                              <Button
-                                onClick={(e) => handleDeleteClick(e, video.id)}
-                                variant="btn-ghost btn-square"
-                                size="btn-xs"
-                                className="bg-base-100/80 text-error"
-                                title="Delete"
-                              >
-                                🗑️
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </Grid>
+                    {landscapeVideos.length > 0 && (
+                      <div className="mb-8">
+                        <Title
+                          tag="h3"
+                          className="text-lg opacity-70 mb-4 font-semibold"
+                        >
+                          Landscape (16:9)
+                        </Title>
+                        <Grid>{landscapeVideos.map(renderVideoCard)}</Grid>
+                      </div>
+                    )}
+
+                    {portraitVideos.length > 0 && (
+                      <div className="mb-8">
+                        <Title
+                          tag="h3"
+                          className="text-lg opacity-70 mb-4 font-semibold"
+                        >
+                          Portrait (9:16)
+                        </Title>
+                        <Grid>{portraitVideos.map(renderVideoCard)}</Grid>
+                      </div>
+                    )}
+
                     {appVideos.length === 0 && (
                       <div className="text-center py-8">
                         <Paragraph>

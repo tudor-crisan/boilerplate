@@ -11,7 +11,7 @@ import { useStyling } from "@/context/ContextStyling";
 import useBoardFiltering from "@/hooks/modules/boards/useBoardFiltering";
 import useBoardPosts from "@/hooks/modules/boards/useBoardPosts";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { formatCommentDate } from "@/libs/utils.client";
+import { formattedDate } from "@/libs/utils.client";
 import { AnimatePresence, motion } from "framer-motion";
 
 const BoardPrivatePostsList = ({ posts, boardId }) => {
@@ -63,7 +63,7 @@ const BoardPrivatePostsList = ({ posts, boardId }) => {
                 <div className={styling.flex.between}>
                   <div className={`${styling.flex.col} space-y-2`}>
                     <TextSmall className="text-base-content/50">
-                      {formatCommentDate(item.createdAt)}
+                      {formattedDate(item.createdAt)}
                     </TextSmall>
                     <TextSmall>
                       {item.votesCounter || 0} votes • {item.commentsCount || 0}{" "}

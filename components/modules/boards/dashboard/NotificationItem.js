@@ -1,5 +1,5 @@
 import CardNotification from "@/components/card/CardNotification";
-import { formatCommentDate } from "@/libs/utils.client";
+import { formattedDate } from "@/libs/utils.client";
 
 export default function BoardNotificationItem({
   notification,
@@ -19,7 +19,7 @@ export default function BoardNotificationItem({
       isRead={notification.isRead}
       isLoading={loadingIds.includes(notification._id)}
       onMarkRead={() => markAsRead([notification._id])}
-      dateFormatted={formatCommentDate(notification.createdAt)}
+      dateFormatted={formattedDate(notification.createdAt)}
       badge={notification.type}
       title={`[${notification.boardId?.name || notification.data?.boardName || "Board"}]`}
       content={content}

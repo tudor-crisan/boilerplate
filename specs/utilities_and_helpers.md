@@ -16,7 +16,7 @@ The `/libs` directory contains the project's shared logic, providing a foundatio
 - **Styling**: `cn` (Classname utility) merges Tailwind classes using `clsx` and `twMerge` to prevent utility collisions.
 - **Formatting**:
   - `getNameInitials`: Smart extraction of initials for profile avatars.
-  - `formatCommentDate`: Standardizes date/time strings for the UI.
+  - `formattedDate`: Standardizes date/time strings for the UI.
 - **Identity**: `getClientId` generates a temporary, persistence-optional ID to track guest interactions (like votes) without requiring a full login.
 
 ## 3. SEO and Metadata (`seo.js`)

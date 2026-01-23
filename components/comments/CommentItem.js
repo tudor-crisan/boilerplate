@@ -2,7 +2,7 @@ import Button from "@/components/button/Button";
 import ProfileImage from "@/components/common/ProfileImage";
 import TextSmall from "@/components/common/TextSmall";
 import SvgTrash from "@/components/svg/SvgTrash";
-import { formatCommentDate } from "@/libs/utils.client";
+import { formattedDate } from "@/libs/utils.client";
 
 const CommentItem = ({
   comment,
@@ -45,7 +45,7 @@ const CommentItem = ({
           <div className={`${styling.flex.items_center} gap-2`}>
             {config.showDate && (
               <TextSmall className="line-clamp-2 max-w-20 text-center text-base-content/50">
-                {formatCommentDate(comment.createdAt || new Date())}
+                {formattedDate(comment.createdAt || new Date())}
               </TextSmall>
             )}
 

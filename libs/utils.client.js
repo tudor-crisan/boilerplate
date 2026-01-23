@@ -81,7 +81,7 @@ export function createSlug(name = "", trim = true) {
   return cleaned.slice(0, 30);
 }
 
-export function formatCommentDate(date) {
+export function formattedDate(date) {
   if (!date) return "";
   const d = new Date(date);
   return d.toLocaleString(undefined, {
