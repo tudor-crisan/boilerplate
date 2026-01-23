@@ -184,18 +184,6 @@ export default function VideoSlideEditor({
           />
         </div>
 
-        {/* Voiceover Text */}
-        <div className="form-control sm:col-span-2">
-          <Label className="opacity-60 text-xs">
-            Voiceover Script
-          </Label>
-          <textarea
-            className={`textarea textarea-sm textarea-bordered w-full h-20 ${styling.components.input}`}
-            value={slide.voiceover || ""}
-            onChange={(e) => handleChange("voiceover", e.target.value)}
-          />
-        </div>
-
         {/* Background */}
         <div className="form-control">
           <Label className="opacity-60 text-xs">

@@ -501,7 +501,7 @@ export default function VideoContainer({ video }) {
       />
 
       {/* Settings Grid */}
-      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div className="w-full sm:w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         {/* Left Column: Slide Editor */}
         <div className="w-full">
           <VideoSlideEditor
@@ -533,6 +533,8 @@ export default function VideoContainer({ video }) {
             togglePlay={togglePlay}
             isPlaying={isPlaying}
             styling={styling}
+            handleUpdateSlide={handleUpdateSlide}
+            currentSlideIndex={currentSlideIndex}
           />
 
           <VideoSettingsMusic

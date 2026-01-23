@@ -1,16 +1,16 @@
-"use client";
-
 import Button from "@/components/button/Button";
+import ButtonCopy from "@/components/button/ButtonCopy";
 import Loading from "@/components/common/Loading";
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
-import InputCopy from "@/components/input/InputCopy";
+import Tooltip from "@/components/common/Tooltip";
 import InputFile from "@/components/input/InputFile";
 import InputRange from "@/components/input/InputRange";
 import InputToggle from "@/components/input/InputToggle";
 import SvgPause from "@/components/svg/SvgPause";
 import SvgPlay from "@/components/svg/SvgPlay";
 import SvgReplay from "@/components/svg/SvgReplay";
+import Textarea from "@/components/textarea/Textarea";
 
 export default function VideoSettingsVoiceover({
   isVoMuted,
@@ -27,6 +27,8 @@ export default function VideoSettingsVoiceover({
   togglePlay,
   isPlaying,
   styling,
+  handleUpdateSlide,
+  currentSlideIndex,
 }) {
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -76,7 +78,7 @@ export default function VideoSettingsVoiceover({
         </div>
       </div>
 
-      {/* Voiceover Volume Slider - Moved below Script */}
+      {/* Voiceover Volume */}
       <div
         className={`flex flex-col gap-2 bg-base-100 p-3 border border-base-200 ${styling.components.element}`}
       >
@@ -99,34 +101,58 @@ export default function VideoSettingsVoiceover({
         />
       </div>
 
+      {/* Editable Script */}
       <div>
         <TextSmall className="font-bold opacity-40 uppercase mb-1">
           Current Script
         </TextSmall>
-        <InputCopy value={currentSlide.voiceover} tooltipCopy="Copy Script">
-          {currentSlide.audio && (
-            <div className="flex items-center gap-1 border-l border-base-300 pl-2 ml-2">
-              <Button
-                onClick={handleReplay}
-                variant="btn-square btn-ghost btn-sm text-primary"
-                title="Replay slide"
-              >
-                <SvgReplay size="size-5" />
-              </Button>
-              <Button
-                onClick={togglePlay}
-                variant="btn-square btn-ghost btn-sm text-primary"
-                title={isPlaying ? "Pause Audio" : "Play Audio"}
-              >
-                {isPlaying ? (
-                  <SvgPause size="size-5" />
-                ) : (
-                  <SvgPlay size="size-5" />
-                )}
-              </Button>
-            </div>
-          )}
-        </InputCopy>
+
+        <div
+          className={`${styling.components.input_copy} ${styling.general.element} w-full`}
+        >
+          <Textarea
+            className="bg-transparent border-none outline-none w-full mr-2 text-current p-0 focus:ring-0 resize-none h-12 leading-normal shadow-none min-h-0"
+            value={currentSlide.voiceover || ""}
+            onChange={(e) =>
+              handleUpdateSlide(currentSlideIndex, {
+                ...currentSlide,
+                voiceover: e.target.value,
+              })
+            }
+            placeholder="Enter voiceover script here..."
+          />
+
+          <div
+            className={`${styling.flex.items_center} gap-2 shrink-0 border-l border-base-300 pl-2`}
+          >
+            <Tooltip text="Copy Script">
+              <ButtonCopy copyText={currentSlide.voiceover || ""} />
+            </Tooltip>
+
+            {currentSlide.audio && (
+              <>
+                <Button
+                  onClick={handleReplay}
+                  variant="btn-square btn-ghost btn-sm text-primary"
+                  title="Replay slide"
+                >
+                  <SvgReplay size="size-5" />
+                </Button>
+                <Button
+                  onClick={togglePlay}
+                  variant="btn-square btn-ghost btn-sm text-primary"
+                  title={isPlaying ? "Pause Audio" : "Play Audio"}
+                >
+                  {isPlaying ? (
+                    <SvgPause size="size-5" />
+                  ) : (
+                    <SvgPlay size="size-5" />
+                  )}
+                </Button>
+              </>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
