@@ -11,6 +11,7 @@ import InputToggle from "@/components/input/InputToggle";
 import SvgPause from "@/components/svg/SvgPause";
 import SvgPlay from "@/components/svg/SvgPlay";
 import SvgReplay from "@/components/svg/SvgReplay";
+import VideoSlideEditor from "@/components/video/VideoSlideEditor";
 
 export default function VideoSettingsVoiceover({
   isVoMuted,
@@ -27,9 +28,27 @@ export default function VideoSettingsVoiceover({
   togglePlay,
   isPlaying,
   styling,
+  // Slide Editor Props
+  currentSlideIndex,
+  totalSlides,
+  handleUpdateSlide,
+  handleAddSlide,
+  handleDeleteSlide,
+  handleMoveSlide,
 }) {
   return (
     <div className="flex flex-col gap-4 w-full sm:w-1/2">
+      {/* Slide Editor */}
+      <VideoSlideEditor
+        slide={currentSlide}
+        index={currentSlideIndex}
+        totalSlides={totalSlides}
+        onUpdate={handleUpdateSlide}
+        onAdd={handleAddSlide}
+        onDelete={handleDeleteSlide}
+        onMove={handleMoveSlide}
+      />
+
       <div className="flex items-center justify-between">
         <Paragraph className="font-bold opacity-70">
           Voiceover Settings
@@ -76,6 +95,29 @@ export default function VideoSettingsVoiceover({
         </div>
       </div>
 
+      {/* Voiceover Volume Slider - Moved below Script */}
+      <div
+        className={`flex flex-col gap-2 bg-base-100 p-3 border border-base-200 ${styling.components.element}`}
+      >
+        <div className="flex justify-between items-center">
+          <TextSmall className="font-bold opacity-40 uppercase">
+            Voiceover Volume
+          </TextSmall>
+          <span className="text-xs font-mono opacity-60 bg-base-200 px-2 py-0.5 rounded">
+            {Math.round(voVolume * 100)}%
+          </span>
+        </div>
+        <InputRange
+          min="0"
+          max="1"
+          step="0.05"
+          value={voVolume}
+          onChange={(e) => setVoVolume(parseFloat(e.target.value))}
+          color="primary"
+          className="w-full"
+        />
+      </div>
+
       <div>
         <TextSmall className="font-bold opacity-40 uppercase mb-1">
           Current Script
@@ -104,29 +146,6 @@ export default function VideoSettingsVoiceover({
             </div>
           )}
         </InputCopy>
-      </div>
-
-      {/* Voiceover Volume Slider - Moved below Script */}
-      <div
-        className={`flex flex-col gap-2 bg-base-100 p-3 border border-base-200 ${styling.components.element}`}
-      >
-        <div className="flex justify-between items-center">
-          <TextSmall className="font-bold opacity-40 uppercase">
-            Voiceover Volume
-          </TextSmall>
-          <span className="text-xs font-mono opacity-60 bg-base-200 px-2 py-0.5 rounded">
-            {Math.round(voVolume * 100)}%
-          </span>
-        </div>
-        <InputRange
-          min="0"
-          max="1"
-          step="0.05"
-          value={voVolume}
-          onChange={(e) => setVoVolume(parseFloat(e.target.value))}
-          color="primary"
-          className="w-full"
-        />
       </div>
     </div>
   );

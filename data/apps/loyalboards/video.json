@@ -336,7 +336,9 @@
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_30_1768987015981.mp3"
         }
       ],
-      "music": "/uploads/music/loyalboards_promo-main-16-9_music_1768996350429.mp3"
+      "music": "/uploads/music/loyalboards_promo-main-16-9_music_1768996350429.mp3",
+      "voVolume": 1,
+      "musicVolume": 0.3
     },
     {
       "id": "promo-short-9-16",

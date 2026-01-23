@@ -20,7 +20,7 @@ export default function VideoContainer({ video }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const audioRef = useRef(null);
   const musicRef = useRef(null);
-  const slides = useMemo(() => video.slides || [], [video.slides]);
+  const [slides, setSlides] = useState(video.slides || []);
   const currentSlide = slides[currentSlideIndex];
   const isVertical = video.format === "9:16";
   const [isUploading, setIsUploading] = useState(false);
@@ -37,10 +37,102 @@ export default function VideoContainer({ video }) {
   // Music state
   const [musicUrl, setMusicUrl] = useState(video.music || "");
   const [musicOffset, setMusicOffset] = useState(video.musicOffset || 0);
-  const [musicVolume, setMusicVolume] = useState(0.3); // Lowered from 0.5 to 0.3
-  const [voVolume, setVoVolume] = useState(1.0);
+  const [musicVolume, setMusicVolume] = useState(
+    video.musicVolume !== undefined ? video.musicVolume : 0.3,
+  ); // Lowered from 0.5 to 0.3 default
+  const [voVolume, setVoVolume] = useState(
+    video.voVolume !== undefined ? video.voVolume : 1.0,
+  );
   const [isVoMuted, setIsVoMuted] = useState(false);
   const [isMusicMuted, setIsMusicMuted] = useState(false);
+  
+  // Save Configuration Handler
+  const saveVideoConfig = useCallback(
+    async (updatedData) => {
+      try {
+        await fetch("/api/video/save", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            appId: appId || "loyalboards",
+            videoId: video.id,
+            videoData: updatedData,
+          }),
+        });
+      } catch (error) {
+        console.error("Failed to save configuration", error);
+        toast.error("Failed to save changes");
+      }
+    },
+    [appId, video.id],
+  );
+
+  // Auto-save Volume changes (debounced)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      saveVideoConfig({
+        voVolume,
+        musicVolume,
+      });
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [voVolume, musicVolume, saveVideoConfig]);
+
+  // Slide Handlers
+  const handleUpdateSlide = (index, updatedSlide) => {
+    const newSlides = [...slides];
+    newSlides[index] = updatedSlide;
+    setSlides(newSlides);
+    saveVideoConfig({ slides: newSlides });
+  };
+
+  const handleAddSlide = () => {
+    const newId = Math.max(...slides.map((s) => s.id || 0), 0) + 1;
+    const newSlide = {
+      id: newId,
+      type: "feature",
+      title: "New Slide",
+      voiceover: "",
+      bg: "bg-base-100",
+      textColor: "text-neutral",
+      animation: "fade",
+    };
+    const newSlides = [...slides, newSlide];
+    setSlides(newSlides);
+    saveVideoConfig({ slides: newSlides });
+    setCurrentSlideIndex(newSlides.length - 1);
+  };
+
+  const handleDeleteSlide = (index) => {
+    const newSlides = slides.filter((_, i) => i !== index);
+    setSlides(newSlides);
+    saveVideoConfig({ slides: newSlides });
+    if (currentSlideIndex >= newSlides.length) {
+      setCurrentSlideIndex(Math.max(0, newSlides.length - 1));
+    }
+  };
+
+  const handleMoveSlide = (fromIndex, toIndex) => {
+    if (toIndex < 0 || toIndex >= slides.length) return;
+    const newSlides = [...slides];
+    const [movedSlide] = newSlides.splice(fromIndex, 1);
+    newSlides.splice(toIndex, 0, movedSlide);
+    setSlides(newSlides);
+    saveVideoConfig({ slides: newSlides });
+    if (currentSlideIndex === fromIndex) {
+      setCurrentSlideIndex(toIndex);
+    } else if (
+        currentSlideIndex > fromIndex &&
+        currentSlideIndex <= toIndex
+    ) {
+        setCurrentSlideIndex(currentSlideIndex - 1);
+    } else if (
+        currentSlideIndex < fromIndex &&
+        currentSlideIndex >= toIndex
+    ) {
+        setCurrentSlideIndex(currentSlideIndex + 1);
+    }
+  };
 
   // Sync state with video prop for gallery navigation
   useEffect(() => {
@@ -428,6 +520,12 @@ export default function VideoContainer({ video }) {
             togglePlay={togglePlay}
             isPlaying={isPlaying}
             styling={styling}
+            currentSlideIndex={currentSlideIndex}
+            totalSlides={slides.length}
+            handleUpdateSlide={handleUpdateSlide}
+            handleAddSlide={handleAddSlide}
+            handleDeleteSlide={handleDeleteSlide}
+            handleMoveSlide={handleMoveSlide}
           />
 
           <VideoSettingsMusic
