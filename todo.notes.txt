@@ -14,3 +14,6 @@
 - make extension for posting on multiple directories
 - think maybe of a way to log-in into users dashboards to debug if problems arrise
 - think of having a daily backup of the mongodb database for loyalboards
+
+- facut un feedback board pentru fiecare app, incepand cu loyalboards
+- facut mai bun video editor si video creator adaugand editare text, si upload/editare, asezare imagine si efecte
