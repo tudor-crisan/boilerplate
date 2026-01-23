@@ -153,6 +153,7 @@ export default function VideoContainer({ video }) {
         audioRef.current.play().catch(() => setIsPlaying(false));
       } else {
         audioRef.current.pause();
+        setIsAutoplay(false); // Stop autoplay when manually paused
       }
     }
   };
@@ -163,6 +164,9 @@ export default function VideoContainer({ video }) {
       nextSlide();
     } else {
       setIsPlaying(false);
+      if (currentSlideIndex === slides.length - 1) {
+        setIsAutoplay(false); // Stop autoplay at the end
+      }
     }
   };
 
@@ -268,6 +272,9 @@ export default function VideoContainer({ video }) {
         timeoutId = setTimeout(() => {
           if (currentSlideIndex < slides.length - 1) {
             nextSlide();
+          } else {
+            setIsPlaying(false);
+            setIsAutoplay(false); // Stop at end for non-audio slides too
           }
         }, duration);
       }
