@@ -17,7 +17,8 @@
     "SectionFooter": {
       "brand": true,
       "menus": true,
-      "socials": true
+      "socials": true,
+      "help": true
     }
   },
   "logo": {

@@ -2,6 +2,9 @@
   "show": {
     "SectionHero": {
       "video": true
+    },
+    "SectionFooter": {
+      "help": false
     }
   },
   "logo": {
