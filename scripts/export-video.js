@@ -142,6 +142,27 @@ async function exportVideo(videoId, outputFilename = "output.mp4") {
     });
 
     const page = await browser.newPage();
+
+    // Check for styling file and inject if exists
+    const styleConfigPath = path.resolve(
+      process.cwd(),
+      "public/exports",
+      `.style-${videoId}.json`,
+    );
+
+    if (fs.existsSync(styleConfigPath)) {
+      try {
+        const styleContent = fs.readFileSync(styleConfigPath, "utf-8");
+        // We set this BEFORE navigation so it's available on mount
+        await page.evaluateOnNewDocument((configStr) => {
+          localStorage.setItem("styling-config", configStr);
+        }, styleContent);
+        console.log("Injected custom styling config");
+      } catch (e) {
+        console.error("Failed to inject styling", e);
+      }
+    }
+
     const renderUrl = `${APP_URL}/modules/preview/video/render?videoId=${videoId}`;
 
     console.log(`Navigating to ${renderUrl}...`);
@@ -419,11 +440,21 @@ async function exportVideo(videoId, outputFilename = "output.mp4") {
     updateProgress(100, "Export complete!", "finished");
 
     // Wait a moment for the stream API to pick up the finished state
-    await new Promise(r => setTimeout(r, 1500));
+    await new Promise((r) => setTimeout(r, 1500));
 
     // Cleanup progress file
     if (fs.existsSync(progressPath)) {
       fs.unlinkSync(progressPath);
+    }
+
+    // Cleanup styling file
+    const cleanupStylePath = path.resolve(
+      process.cwd(),
+      "public/exports",
+      `.style-${videoId}.json`,
+    );
+    if (fs.existsSync(cleanupStylePath)) {
+      fs.unlinkSync(cleanupStylePath);
     }
   } catch (error) {
     console.error("Export Error:", error);

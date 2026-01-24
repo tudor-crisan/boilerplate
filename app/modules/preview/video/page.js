@@ -293,7 +293,7 @@ export default function VideoModulePage() {
     try {
       const res = await fetch("/api/video/export", {
         method: "POST",
-        body: JSON.stringify({ videoId: currentVideoId }),
+        body: JSON.stringify({ videoId: currentVideoId, styling }),
       });
       const data = await res.json();
       if (data.success) {

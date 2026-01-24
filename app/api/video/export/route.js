@@ -4,7 +4,7 @@ import path from "path";
 
 export async function POST(request) {
   try {
-    const { videoId } = await request.json();
+    const { videoId, styling } = await request.json();
 
     if (!videoId) {
       return NextResponse.json(
@@ -21,11 +21,21 @@ export async function POST(request) {
     const filename = `${videoId}_${timestamp}.mp4`;
 
     // Using node to spawn the script
-    const logPath = path.join(process.cwd(), "public/exports", "debug.log");
+    const exportsDir = path.join(process.cwd(), "public/exports");
+    const logPath = path.join(exportsDir, "debug.log");
+
     // Ensure directory exists
     try {
-      await fs.mkdir(path.dirname(logPath), { recursive: true });
+      await fs.mkdir(exportsDir, { recursive: true });
     } catch (e) {}
+
+    // Write styling config to a temp file for the script to pick up
+    if (styling) {
+      const stylePath = path.join(exportsDir, `.style-${videoId}.json`);
+      // We use native fs for sync writing or just await promises version since we are async here
+      const fsPromises = require("fs/promises");
+      await fsPromises.writeFile(stylePath, JSON.stringify(styling));
+    }
 
     // We need 'fs' from 'fs' not 'fs/promises' for openSync if we want sync,
     // but here we are in async function.

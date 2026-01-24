@@ -29,7 +29,7 @@
           "title": "Building is hard.",
           "voiceover": "Building a great product is hard.",
           "bg": "bg-base-100",
-          "textColor": "text-white",
+          "textColor": "text-accent-content",
           "animation": "fade",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_2_1768986614867.mp3"
         },
@@ -73,7 +73,7 @@
           "voiceover": "Clean, intuitive interface.",
           "image": "main_dashboard.png",
           "bg": "bg-base-100",
-          "textColor": "text-white",
+          "textColor": "text-accent-content",
           "animation": "fade",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_6_1768986701483.mp3"
         },
@@ -96,7 +96,7 @@
           "image": "board_performance.png",
           "imageFit": "object-contain",
           "bg": "bg-base-100",
-          "textColor": "text-accent",
+          "textColor": "text-primary-content",
           "animation": "slide-right",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_8_1768986726101.mp3"
         },
