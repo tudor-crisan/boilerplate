@@ -330,7 +330,7 @@ export default function VideoModulePage() {
   if (activeVideo) {
     return (
       <div className="relative min-h-screen bg-base-200">
-        <VideoContainer video={activeVideo} />
+        <VideoContainer key={activeVideo.id} video={activeVideo} />
       </div>
     );
   }

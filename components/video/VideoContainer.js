@@ -1,11 +1,13 @@
 "use client";
 
+import HistoryControl from "@/components/video/HistoryControl";
 import VideoControlBar from "@/components/video/VideoControlBar";
 import VideoPlayer from "@/components/video/VideoPlayer";
 import VideoSettingsMusic from "@/components/video/VideoSettingsMusic";
 import VideoSettingsVoiceover from "@/components/video/VideoSettingsVoiceover";
 import VideoSlideEditor from "@/components/video/VideoSlideEditor";
 import { useStyling } from "@/context/ContextStyling";
+import useUndoRedo from "@/hooks/useUndoRedo";
 import { toast } from "@/libs/toast";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -21,7 +23,33 @@ export default function VideoContainer({ video }) {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const audioRef = useRef(null);
   const musicRef = useRef(null);
-  const [slides, setSlides] = useState(video.slides || []);
+  // Undo/Redo State Manager
+  const {
+    state: videoState,
+    set: setVideoState,
+    undo,
+    redo,
+    reset,
+    canUndo,
+    canRedo,
+    history,
+    jumpTo,
+    currentIndex: historyIndex,
+  } = useUndoRedo({
+    slides: video.slides || [],
+    music: video.music || "",
+    musicOffset: video.musicOffset || 0,
+    musicVolume: video.musicVolume !== undefined ? video.musicVolume : 0.3,
+    voVolume: video.voVolume !== undefined ? video.voVolume : 1.0,
+  });
+
+  // Derived state from undo/redo manager
+  const slides = videoState.slides;
+  const musicUrl = videoState.music;
+  const musicOffset = videoState.musicOffset;
+  const musicVolume = videoState.musicVolume;
+  const voVolume = videoState.voVolume;
+
   const currentSlide = slides[currentSlideIndex];
   const isVertical = video.format === "9:16";
   const [isUploading, setIsUploading] = useState(false);
@@ -34,16 +62,6 @@ export default function VideoContainer({ video }) {
   const [musicInputKey, setMusicInputKey] = useState(0);
   const [slideDurations, setSlideDurations] = useState([]);
   const [currentAudioTime, setCurrentAudioTime] = useState(0);
-
-  // Music state
-  const [musicUrl, setMusicUrl] = useState(video.music || "");
-  const [musicOffset, setMusicOffset] = useState(video.musicOffset || 0);
-  const [musicVolume, setMusicVolume] = useState(
-    video.musicVolume !== undefined ? video.musicVolume : 0.3,
-  ); // Lowered from 0.5 to 0.3 default
-  const [voVolume, setVoVolume] = useState(
-    video.voVolume !== undefined ? video.voVolume : 1.0,
-  );
   const [isVoMuted, setIsVoMuted] = useState(false);
   const [isMusicMuted, setIsMusicMuted] = useState(false);
 
@@ -68,23 +86,23 @@ export default function VideoContainer({ video }) {
     [appId, video.id],
   );
 
-  // Auto-save Volume changes (debounced)
+  // Auto-save any content changes
   useEffect(() => {
-    const timer = setTimeout(() => {
-      saveVideoConfig({
-        voVolume,
-        musicVolume,
-      });
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [voVolume, musicVolume, saveVideoConfig]);
+    saveVideoConfig(videoState);
+  }, [videoState, saveVideoConfig]);
 
   // Slide Handlers
   const handleUpdateSlide = (index, updatedSlide) => {
     const newSlides = [...slides];
     newSlides[index] = updatedSlide;
-    setSlides(newSlides);
-    saveVideoConfig({ slides: newSlides });
+
+    // Determine description based on changed field (simple heuristic)
+    let desc = "Update Slide";
+    if (updatedSlide.title !== slides[index].title) desc = "Update Title";
+    if (updatedSlide.image !== slides[index].image) desc = "Update Image";
+    if (updatedSlide.type !== slides[index].type) desc = "Change Slide Type";
+
+    setVideoState({ ...videoState, slides: newSlides }, desc);
   };
 
   const handleAddSlide = () => {
@@ -99,15 +117,13 @@ export default function VideoContainer({ video }) {
       animation: "fade",
     };
     const newSlides = [...slides, newSlide];
-    setSlides(newSlides);
-    saveVideoConfig({ slides: newSlides });
+    setVideoState({ ...videoState, slides: newSlides }, "Add Slide");
     setCurrentSlideIndex(newSlides.length - 1);
   };
 
   const handleDeleteSlide = (index) => {
     const newSlides = slides.filter((_, i) => i !== index);
-    setSlides(newSlides);
-    saveVideoConfig({ slides: newSlides });
+    setVideoState({ ...videoState, slides: newSlides }, "Delete Slide");
     if (currentSlideIndex >= newSlides.length) {
       setCurrentSlideIndex(Math.max(0, newSlides.length - 1));
     }
@@ -118,8 +134,7 @@ export default function VideoContainer({ video }) {
     const newSlides = [...slides];
     const [movedSlide] = newSlides.splice(fromIndex, 1);
     newSlides.splice(toIndex, 0, movedSlide);
-    setSlides(newSlides);
-    saveVideoConfig({ slides: newSlides });
+    setVideoState({ ...videoState, slides: newSlides }, "Reorder Slides");
     if (currentSlideIndex === fromIndex) {
       setCurrentSlideIndex(toIndex);
     } else if (currentSlideIndex > fromIndex && currentSlideIndex <= toIndex) {
@@ -129,10 +144,10 @@ export default function VideoContainer({ video }) {
     }
   };
 
-  // Sync state with video prop for gallery navigation
+  // removed effect for syncing state with video prop since we use key on parent
   useEffect(() => {
-    setMusicUrl(video.music || "");
-    setMusicOffset(video.musicOffset || 0);
+    // Optional: We could update if we wanted to support external updates without remount,
+    // but key approach is cleaner.
   }, [video]);
 
   const defaultDuration = video.defaultDuration || 2000;
@@ -403,7 +418,9 @@ export default function VideoContainer({ video }) {
       const data = await res.json();
       if (data.success) {
         toast.success("VO uploaded successfully!");
-        currentSlide.audio = data.path;
+        const newSlides = [...slides];
+        newSlides[currentSlideIndex] = { ...currentSlide, audio: data.path };
+        setVideoState({ ...videoState, slides: newSlides }, "Upload Voiceover");
 
         if (audioRef.current) {
           audioRef.current.src = data.path;
@@ -442,7 +459,7 @@ export default function VideoContainer({ video }) {
       const data = await res.json();
       if (data.success) {
         toast.success("Music uploaded successfully!");
-        setMusicUrl(data.path);
+        setVideoState({ ...videoState, music: data.path }, "Upload Music");
         setMusicInputKey((prev) => prev + 1);
         if (musicRef.current) {
           musicRef.current.src = data.path;
@@ -498,6 +515,18 @@ export default function VideoContainer({ video }) {
         totalTime={totalTime}
         currentSlideIndex={currentSlideIndex}
         slidesLength={slides.length}
+        undoContent={
+          <HistoryControl
+            onUndo={undo}
+            onRedo={redo}
+            onReset={reset}
+            onJumpTo={jumpTo}
+            canUndo={canUndo}
+            canRedo={canRedo}
+            history={history}
+            currentIndex={historyIndex}
+          />
+        }
       />
 
       {/* Settings Grid */}
@@ -526,7 +555,9 @@ export default function VideoContainer({ video }) {
             isAutoplay={isAutoplay}
             setIsAutoplay={setIsAutoplay}
             voVolume={voVolume}
-            setVoVolume={setVoVolume}
+            setVoVolume={(val) =>
+              setVideoState({ ...videoState, voVolume: val }, "Volume Change")
+            }
             fileInputKey={fileInputKey}
             handleFileUpload={handleFileUpload}
             isUploading={isUploading}
@@ -547,9 +578,13 @@ export default function VideoContainer({ video }) {
             handleMusicUpload={handleMusicUpload}
             isMusicUploading={isMusicUploading}
             musicOffset={musicOffset}
-            setMusicOffset={setMusicOffset}
+            setMusicOffset={(val) =>
+              setVideoState({ ...videoState, musicOffset: val }, "Music Offset")
+            }
             musicVolume={musicVolume}
-            setMusicVolume={setMusicVolume}
+            setMusicVolume={(val) =>
+              setVideoState({ ...videoState, musicVolume: val }, "Music Volume")
+            }
             styling={styling}
           />
         </div>

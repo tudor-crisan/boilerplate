@@ -38,6 +38,12 @@ export default function VideoSlideEditor({
   const [imageToDelete, setImageToDelete] = useState(null);
   const [imageToView, setImageToView] = useState(null);
 
+  // Local state for Title to prevent history flood
+  const [localTitle, setLocalTitle] = useState(slide.title || "");
+  useEffect(() => {
+    setLocalTitle(slide.title || "");
+  }, [slide.title, slide.id]);
+
   // Cropper State
   const [showCropper, setShowCropper] = useState(false);
   const [tempImage, setTempImage] = useState(null);
@@ -316,13 +322,18 @@ export default function VideoSlideEditor({
             />
           </div>
 
-          {/* Title */}
+          {/* Title - Debounced to prevent history spam */}
           <div className="form-control sm:col-span-2 space-y-1">
             <Label className="opacity-60 text-xs">Title</Label>
             <Input
               type="text"
-              value={slide.title || ""}
-              onChange={(e) => handleChange("title", e.target.value)}
+              value={localTitle}
+              onChange={(e) => setLocalTitle(e.target.value)}
+              onBlur={() => {
+                if (localTitle !== (slide.title || "")) {
+                  handleChange("title", localTitle);
+                }
+              }}
             />
           </div>
 

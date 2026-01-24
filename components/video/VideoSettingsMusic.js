@@ -1,11 +1,11 @@
 "use client";
-
 import Loading from "@/components/common/Loading";
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import InputFile from "@/components/input/InputFile";
 import InputRange from "@/components/input/InputRange";
 import InputToggle from "@/components/input/InputToggle";
+import { useEffect, useState } from "react";
 
 export default function VideoSettingsMusic({
   musicUrl,
@@ -20,6 +20,21 @@ export default function VideoSettingsMusic({
   setMusicVolume,
   styling,
 }) {
+  // Local state for sliders to prevent history spam on drag
+  const [localOffset, setLocalOffset] = useState(musicOffset);
+  const [localVolume, setLocalVolume] = useState(musicVolume);
+
+  // Sync local state when parent props change (e.g. undo/redo)
+  useEffect(() => {
+    setLocalOffset(musicOffset);
+  }, [musicOffset]);
+  useEffect(() => {
+    setLocalVolume(musicVolume);
+  }, [musicVolume]);
+
+  const handleCommitOffset = () => setMusicOffset(localOffset);
+  const handleCommitVolume = () => setMusicVolume(localVolume);
+
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="flex items-center justify-between">
@@ -60,15 +75,17 @@ export default function VideoSettingsMusic({
               Music Start Point
             </TextSmall>
             <span className="text-xs font-mono opacity-60 bg-base-200 px-2 py-0.5 rounded">
-              {musicOffset}s
+              {localOffset}s
             </span>
           </div>
           <InputRange
             min="0"
             max="120"
             step="1"
-            value={musicOffset}
-            onChange={(e) => setMusicOffset(parseInt(e.target.value))}
+            value={localOffset}
+            onChange={(e) => setLocalOffset(parseInt(e.target.value))}
+            onMouseUp={handleCommitOffset}
+            onTouchEnd={handleCommitOffset}
             className="w-full"
           />
           <TextSmall className="opacity-40 text-center">
@@ -85,15 +102,17 @@ export default function VideoSettingsMusic({
               Background Volume
             </TextSmall>
             <span className="text-xs font-mono opacity-60 bg-base-200 px-2 py-0.5 rounded">
-              {Math.round(musicVolume * 100)}%
+              {Math.round(localVolume * 100)}%
             </span>
           </div>
           <InputRange
             min="0"
             max="1"
             step="0.01"
-            value={musicVolume}
-            onChange={(e) => setMusicVolume(parseFloat(e.target.value))}
+            value={localVolume}
+            onChange={(e) => setLocalVolume(parseFloat(e.target.value))}
+            onMouseUp={handleCommitVolume}
+            onTouchEnd={handleCommitVolume}
             color="primary"
             className="w-full"
           />

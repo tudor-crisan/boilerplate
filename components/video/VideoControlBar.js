@@ -18,6 +18,7 @@ export default function VideoControlBar({
   totalTime,
   currentSlideIndex,
   slidesLength,
+  undoContent, // Injecting the component or props
 }) {
   const formatTime = (ms) => {
     if (!ms || isNaN(ms)) return "0:00";
@@ -29,18 +30,20 @@ export default function VideoControlBar({
 
   return (
     <div
-      className={`w-full sm:w-6xl flex flex-col md:flex-row items-center justify-between bg-base-100 p-4 gap-4 sm:gap-6 shadow-md border border-base-300 ${styling.components.element}`}
+      className={`w-full max-w-6xl flex flex-wrap items-center justify-center lg:justify-between bg-base-100 p-4 gap-4 sm:gap-6 shadow-md border border-base-300 ${styling.components.element}`}
     >
       {/* Left: Action Group */}
-      <div className="flex items-center justify-center gap-2 w-full md:w-auto">
+      <div className="flex flex-wrap items-center justify-center gap-2 w-full lg:w-auto">
         <Button
           onClick={() => router.push(pathname)}
           size="btn-sm"
           variant="btn-ghost"
-          className="flex-1 md:flex-none"
+          className="flex-1 lg:flex-none"
         >
           ← Gallery
         </Button>
+
+        {undoContent && <div className="flex items-center">{undoContent}</div>}
 
         <div className="flex flex-col items-center gap-0.5 min-w-24">
           <Button
@@ -55,7 +58,7 @@ export default function VideoControlBar({
       </div>
 
       {/* Center: Playback Group */}
-      <div className="flex items-center justify-center gap-4 bg-base-200/50 px-4 py-2 rounded-lg w-full md:w-auto">
+      <div className="flex items-center justify-center gap-4 bg-base-200/50 px-4 py-2 rounded-lg w-full lg:w-auto overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-bold uppercase opacity-50">
             Speed
@@ -66,12 +69,12 @@ export default function VideoControlBar({
             step="0.1"
             value={playbackSpeed}
             onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
-            className="w-20 sm:w-24"
+            className="w-16 sm:w-20"
           />
           <span className="text-xs font-mono w-8">{playbackSpeed}x</span>
         </div>
 
-        <div className="h-6 w-px bg-base-300 mx-1 hidden md:block" />
+        <div className="h-6 w-px bg-base-300 mx-1 hidden sm:block" />
 
         <div className="flex items-center gap-2">
           <span className="text-[10px] font-bold uppercase opacity-50">
@@ -84,7 +87,7 @@ export default function VideoControlBar({
       </div>
 
       {/* Right: Navigation Group */}
-      <div className="flex items-center justify-center gap-1 bg-base-200/50 p-1 rounded-lg w-full md:w-auto">
+      <div className="flex items-center justify-center gap-1 bg-base-200/50 p-1 rounded-lg w-full lg:w-auto overflow-x-auto no-scrollbar">
         <Button
           onClick={goToFirst}
           disabled={currentSlideIndex <= 0}
@@ -107,8 +110,7 @@ export default function VideoControlBar({
         <span className="flex items-center px-3 text-[10px] sm:text-xs font-mono opacity-50 whitespace-nowrap">
           {currentSlideIndex + 1} / {slidesLength}
         </span>
-        {/* Note: User wanted time next to speed, so I added it in the center group. 
-            I'll keep the navigation group buttons but maybe update the status text. */}
+
         <div className="h-4 w-px bg-base-300 mx-0.5" />
 
         <Button

@@ -1,4 +1,5 @@
-"use client";
+import { useStyling } from "@/context/ContextStyling";
+import { cn } from "@/libs/utils.client";
 
 export default function ProgressBar({
   value,
@@ -6,12 +7,14 @@ export default function ProgressBar({
   className = "",
   color = "primary", // primary, secondary, accent, success, warning, error, info
 }) {
+  const { styling } = useStyling();
+
   // Determine progress color class based on prop
   const colorClass = color ? `progress-${color}` : "progress-primary";
 
   return (
     <progress
-      className={`progress ${colorClass} w-full ${className}`}
+      className={cn(styling.components.progressBar, colorClass, className)}
       value={value}
       max={max}
     ></progress>

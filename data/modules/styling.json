@@ -15,7 +15,9 @@
     "dropdown": "rounded-md shadow-md",
     "toaster": "rounded-md shadow-lg sm:shadow-2xl border-2 p-4",
     "toaster_icons": "rounded-md border-2 p-1",
-    "image": "rounded-md"
+    "image": "rounded-md",
+    "progressBar": "progress w-full rounded-md shadow-sm h-2",
+    "range": "range range-xs w-full"
   },
   "pricing": {
     "label": "absolute -top-3 right-4 bg-primary text-primary-content text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider",

@@ -11,6 +11,7 @@ import SvgPause from "@/components/svg/SvgPause";
 import SvgPlay from "@/components/svg/SvgPlay";
 import SvgReplay from "@/components/svg/SvgReplay";
 import Textarea from "@/components/textarea/Textarea";
+import { useEffect, useState } from "react";
 
 export default function VideoSettingsVoiceover({
   isVoMuted,
@@ -30,6 +31,29 @@ export default function VideoSettingsVoiceover({
   handleUpdateSlide,
   currentSlideIndex,
 }) {
+  // Local state for debouncing
+  const [localVolume, setLocalVolume] = useState(voVolume);
+  useEffect(() => {
+    setLocalVolume(voVolume);
+  }, [voVolume]);
+  const handleCommitVolume = () => setVoVolume(localVolume);
+
+  // Local state for script to prevent history flood
+  const [localScript, setLocalScript] = useState(currentSlide.voiceover || "");
+  // Sync when slide changes (switched slide or undo/redo)
+  useEffect(() => {
+    setLocalScript(currentSlide.voiceover || "");
+  }, [currentSlide.voiceover, currentSlide.id]);
+
+  const handleCommitScript = () => {
+    if (localScript !== currentSlide.voiceover) {
+      handleUpdateSlide(currentSlideIndex, {
+        ...currentSlide,
+        voiceover: localScript,
+      });
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="flex items-center justify-between">
@@ -87,15 +111,17 @@ export default function VideoSettingsVoiceover({
             Voiceover Volume
           </TextSmall>
           <span className="text-xs font-mono opacity-60 bg-base-200 px-2 py-0.5 rounded">
-            {Math.round(voVolume * 100)}%
+            {Math.round(localVolume * 100)}%
           </span>
         </div>
         <InputRange
           min="0"
           max="1"
           step="0.05"
-          value={voVolume}
-          onChange={(e) => setVoVolume(parseFloat(e.target.value))}
+          value={localVolume}
+          onChange={(e) => setLocalVolume(parseFloat(e.target.value))}
+          onMouseUp={handleCommitVolume}
+          onTouchEnd={handleCommitVolume}
           color="primary"
           className="w-full"
         />
@@ -112,13 +138,9 @@ export default function VideoSettingsVoiceover({
         >
           <Textarea
             className="bg-transparent border-none outline-none w-full mr-2 text-current p-0 focus:ring-0 resize-none h-12 leading-normal shadow-none min-h-0"
-            value={currentSlide.voiceover || ""}
-            onChange={(e) =>
-              handleUpdateSlide(currentSlideIndex, {
-                ...currentSlide,
-                voiceover: e.target.value,
-              })
-            }
+            value={localScript}
+            onChange={(e) => setLocalScript(e.target.value)}
+            onBlur={handleCommitScript}
             placeholder="Enter voiceover script here..."
           />
 
