@@ -1,8 +1,25 @@
 {
+  "show": {
+    "SectionHero": {
+      "video": true
+    }
+  },
   "logo": {
     "shape": "cuboid"
   },
   "favicon": {
     "href": "/lb_favicon.jpg"
+  },
+  "HeroVideo": {
+    "show": true,
+    "video": {
+      "width": 1280,
+      "height": 720,
+      "classname": "w-full h-auto"
+    },
+    "source": {
+      "src": "/assets/promo/loyalboards/promo1.mp4",
+      "type": "video/mp4"
+    }
   }
 }
