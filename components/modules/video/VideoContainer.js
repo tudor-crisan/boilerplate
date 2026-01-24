@@ -1,12 +1,14 @@
 "use client";
 
-import HistoryControl from "@/components/video/HistoryControl";
-import VideoControlBar from "@/components/video/VideoControlBar";
-import VideoPlayer from "@/components/video/VideoPlayer";
-import VideoSettingsMusic from "@/components/video/VideoSettingsMusic";
-import VideoSettingsVoiceover from "@/components/video/VideoSettingsVoiceover";
-import VideoSlideEditor from "@/components/video/VideoSlideEditor";
+import HistoryControl from "@/components/modules/video/HistoryControl";
+import VideoControlBar from "@/components/modules/video/VideoControlBar";
+import VideoPlayer from "@/components/modules/video/VideoPlayer";
+import VideoSettingsMusic from "@/components/modules/video/VideoSettingsMusic";
+import VideoSettingsVoiceover from "@/components/modules/video/VideoSettingsVoiceover";
+import VideoSlideEditor from "@/components/modules/video/VideoSlideEditor";
 import { useStyling } from "@/context/ContextStyling";
+import useVideoAudio from "@/hooks/modules/video/useVideoAudio";
+import useVideoPlayback from "@/hooks/modules/video/useVideoPlayback";
 import useUndoRedo from "@/hooks/useUndoRedo";
 import { toast } from "@/libs/toast";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -19,10 +21,9 @@ export default function VideoContainer({ video }) {
   const pathname = usePathname();
   const appId = searchParams.get("appId");
   const videoId = video.id;
-
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const audioRef = useRef(null);
   const musicRef = useRef(null);
+
   // Undo/Redo State Manager
   const {
     state: videoState,
@@ -50,20 +51,56 @@ export default function VideoContainer({ video }) {
   const musicVolume = videoState.musicVolume;
   const voVolume = videoState.voVolume;
 
-  const currentSlide = slides[currentSlideIndex];
   const isVertical = video.format === "9:16";
   const [isUploading, setIsUploading] = useState(false);
   const [isMusicUploading, setIsMusicUploading] = useState(false);
-  const [isAutoplay, setIsAutoplay] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [playbackSpeed, setPlaybackSpeed] = useState(1);
-  const [replayKey, setReplayKey] = useState(0);
   const [fileInputKey, setFileInputKey] = useState(0);
   const [musicInputKey, setMusicInputKey] = useState(0);
-  const [slideDurations, setSlideDurations] = useState([]);
-  const [currentAudioTime, setCurrentAudioTime] = useState(0);
-  const [isVoMuted, setIsVoMuted] = useState(false);
-  const [isMusicMuted, setIsMusicMuted] = useState(false);
+
+  const currentSlide = slides[currentSlideIndex];
+
+  // Audio & Playback Hooks
+  const {
+    currentSlideIndex,
+    setCurrentSlideIndex,
+    isPlaying,
+    setIsPlaying,
+    isAutoplay,
+    setIsAutoplay,
+    playbackSpeed,
+    setPlaybackSpeed,
+    replayKey,
+    nextSlide,
+    prevSlide,
+    goToFirst,
+    goToLast,
+    handleRestart,
+    handleReplay,
+    togglePlay,
+  } = useVideoPlayback({
+    slides,
+    audioRef,
+    musicRef,
+    musicOffset,
+  });
+
+  const {
+    isVoMuted,
+    setIsVoMuted,
+    isMusicMuted,
+    setIsMusicMuted,
+    currentAudioTime,
+    slideDurations,
+  } = useVideoAudio({
+    audioRef,
+    musicRef,
+    slides,
+    musicUrl,
+    musicVolume,
+    voVolume,
+    musicOffset,
+    isPlaying,
+  });
 
   // Save Configuration Handler
   const saveVideoConfig = useCallback(
@@ -144,57 +181,6 @@ export default function VideoContainer({ video }) {
     }
   };
 
-  // removed effect for syncing state with video prop since we use key on parent
-  useEffect(() => {
-    // Optional: We could update if we wanted to support external updates without remount,
-    // but key approach is cleaner.
-  }, [video]);
-
-  const defaultDuration = video.defaultDuration || 2000;
-
-  // Initialize and pre-load slide durations
-  useEffect(() => {
-    const initial = slides.map((s) => s.duration || defaultDuration);
-    setSlideDurations(initial);
-
-    // Fetch actual durations for slides with audio
-    const loadDurations = async () => {
-      const updated = [...initial];
-      const promises = slides.map((s, idx) => {
-        if (s.audio) {
-          return new Promise((resolve) => {
-            const tempAudio = new Audio();
-            tempAudio.onloadedmetadata = () => {
-              updated[idx] = tempAudio.duration * 1000;
-              resolve();
-            };
-            tempAudio.onerror = () => resolve();
-            tempAudio.src = s.audio;
-          });
-        }
-        return Promise.resolve();
-      });
-
-      await Promise.all(promises);
-      setSlideDurations(updated);
-    };
-
-    loadDurations();
-  }, [video, defaultDuration, slides]);
-
-  // Track current audio time
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    const handleTimeUpdate = () => {
-      setCurrentAudioTime(audio.currentTime * 1000);
-    };
-
-    audio.addEventListener("timeupdate", handleTimeUpdate);
-    return () => audio.removeEventListener("timeupdate", handleTimeUpdate);
-  }, []);
-
   // Calculate times
   const totalTime = slideDurations.reduce((a, b) => a + b, 0) / playbackSpeed;
   const elapsedBefore =
@@ -202,202 +188,16 @@ export default function VideoContainer({ video }) {
     playbackSpeed;
   const currentTime = elapsedBefore + currentAudioTime / playbackSpeed;
 
-  const nextSlide = useCallback(() => {
-    if (currentSlideIndex < slides.length - 1)
-      setCurrentSlideIndex((curr) => curr + 1);
-  }, [currentSlideIndex, slides.length]);
-
-  const prevSlide = useCallback(() => {
-    if (currentSlideIndex > 0) setCurrentSlideIndex((curr) => curr - 1);
-  }, [currentSlideIndex]);
-
-  const handleRestart = useCallback(() => {
-    setCurrentSlideIndex(0);
-    setReplayKey((prev) => prev + 1);
-    setIsPlaying(true);
-
-    // Reset VO
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.playbackRate = playbackSpeed;
-      audioRef.current.play().catch(() => {});
-    }
-
-    // Reset Music
-    if (musicRef.current) {
-      musicRef.current.currentTime = musicOffset;
-    }
-  }, [playbackSpeed, musicOffset]);
-
-  const handleReplay = () => {
-    setReplayKey((prev) => prev + 1);
-    setIsPlaying(true);
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.playbackRate = playbackSpeed;
-      audioRef.current.play().catch(() => setIsPlaying(false));
-    }
-  };
-
-  const goToFirst = () => {
-    setCurrentSlideIndex(0);
-    if (musicRef.current) musicRef.current.currentTime = musicOffset;
-  };
-  const goToLast = useCallback(
-    () => setCurrentSlideIndex(slides.length - 1),
-    [slides.length],
-  );
-
-  const togglePlay = () => {
-    const nextState = !isPlaying;
-    setIsPlaying(nextState);
-
-    if (audioRef.current) {
-      if (nextState) {
-        audioRef.current.playbackRate = playbackSpeed;
-        audioRef.current.play().catch(() => setIsPlaying(false));
-      } else {
-        audioRef.current.pause();
-        setIsAutoplay(false); // Stop autoplay when manually paused
-      }
-    }
-  };
-
   const handleAudioEnded = () => {
     if (isAutoplay && currentSlideIndex < slides.length - 1) {
-      // Keep isPlaying true and move to next
       nextSlide();
     } else {
       setIsPlaying(false);
       if (currentSlideIndex === slides.length - 1) {
-        setIsAutoplay(false); // Stop autoplay at the end
+        setIsAutoplay(false);
       }
     }
   };
-
-  // Sync music volume/mute
-  useEffect(() => {
-    if (musicRef.current) {
-      musicRef.current.muted = isMusicMuted;
-      musicRef.current.volume = musicVolume * 0.3; // Custom scale to make music quieter as requested
-    }
-  }, [isMusicMuted, musicVolume]);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.muted = isVoMuted;
-      audioRef.current.volume = voVolume;
-    }
-  }, [isVoMuted, voVolume]);
-
-  // Sync music offset when it changes manually
-  useEffect(() => {
-    if (musicRef.current && !isPlaying) {
-      musicRef.current.currentTime = musicOffset;
-    }
-  }, [musicOffset, isPlaying]);
-
-  // Centralized Music Playback Control
-  useEffect(() => {
-    if (!musicRef.current) return;
-
-    if (isPlaying) {
-      if (musicRef.current.paused) {
-        // Ensure starting at offset if it's the beginning
-        if (musicRef.current.currentTime === 0 && musicOffset > 0) {
-          musicRef.current.currentTime = musicOffset;
-        }
-        musicRef.current.play().catch(() => {});
-      }
-    } else {
-      musicRef.current.pause();
-    }
-  }, [isPlaying, musicUrl, musicOffset]);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if ((e.altKey && e.key.toLowerCase() === "s") || e.key === "Home") {
-        e.preventDefault();
-        handleRestart();
-      } else if (e.key === "ArrowRight" || e.key === "Space") {
-        e.preventDefault();
-        nextSlide();
-      } else if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        prevSlide();
-      } else if (e.key === "End") {
-        e.preventDefault();
-        goToLast();
-      } else if (e.altKey && e.key.toLowerCase() === "a") {
-        e.preventDefault();
-        setIsAutoplay((prev) => !prev);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentSlideIndex, nextSlide, prevSlide, handleRestart, goToLast]);
-
-  // Handle slide change & auto-play
-  useEffect(() => {
-    let timeoutId;
-
-    if (audioRef.current) {
-      audioRef.current.pause();
-      // Only set to false if we're not currently playing (prevents music flicker)
-      if (!isPlaying) setIsPlaying(false);
-
-      audioRef.current.currentTime = 0;
-      audioRef.current.playbackRate = playbackSpeed;
-      setCurrentAudioTime(0);
-
-      if (currentSlide?.audio) {
-        audioRef.current.src = currentSlide.audio;
-        audioRef.current.load();
-        audioRef.current.playbackRate = playbackSpeed;
-
-        if (isAutoplay || isPlaying) {
-          const playPromise = audioRef.current.play();
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                if (audioRef.current)
-                  audioRef.current.playbackRate = playbackSpeed;
-                setIsPlaying(true);
-              })
-              .catch((e) => {
-                console.log("Audio play failed or was interrupted", e);
-                // Don't forcefully set to false here to keep music playing if it was
-              });
-          }
-        }
-      } else if (isAutoplay || isPlaying) {
-        // Fallback for slides without audio: advance after default duration / speed
-        const duration = defaultDuration / playbackSpeed;
-        timeoutId = setTimeout(() => {
-          if (currentSlideIndex < slides.length - 1) {
-            nextSlide();
-          } else {
-            setIsPlaying(false);
-            setIsAutoplay(false); // Stop at end for non-audio slides too
-          }
-        }, duration);
-      }
-    }
-
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [
-    isPlaying,
-    currentSlide,
-    isAutoplay,
-    nextSlide,
-    currentSlideIndex,
-    slides.length,
-    playbackSpeed,
-    defaultDuration,
-  ]);
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];

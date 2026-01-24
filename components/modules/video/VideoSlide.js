@@ -1,10 +1,10 @@
 "use client";
 
-import SlideFeature from "@/components/video/slides/SlideFeature";
-import SlideImageOnly from "@/components/video/slides/SlideImageOnly";
-import SlideQuote from "@/components/video/slides/SlideQuote";
-import SlideSplit from "@/components/video/slides/SlideSplit";
-import SlideTransition from "@/components/video/slides/SlideTransition";
+import SlideFeature from "@/components/modules/video/slides/SlideFeature";
+import SlideImageOnly from "@/components/modules/video/slides/SlideImageOnly";
+import SlideQuote from "@/components/modules/video/slides/SlideQuote";
+import SlideSplit from "@/components/modules/video/slides/SlideSplit";
+import SlideTransition from "@/components/modules/video/slides/SlideTransition";
 import { useStyling } from "@/context/ContextStyling";
 import { getAnimationVariants } from "@/libs/videoAnimations";
 

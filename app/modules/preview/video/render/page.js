@@ -1,6 +1,6 @@
 "use client";
 
-import VideoPlayer from "@/components/video/VideoPlayer";
+import VideoPlayer from "@/components/modules/video/VideoPlayer";
 import WrapperStyling from "@/components/wrapper/WrapperStyling";
 import { useStyling } from "@/context/ContextStyling";
 import { useEffect, useState } from "react";

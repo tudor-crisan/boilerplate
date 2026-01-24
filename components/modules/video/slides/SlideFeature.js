@@ -1,5 +1,5 @@
 import Title from "@/components/common/Title";
-import { getTextSizeClasses,resolveImagePath } from "@/libs/videoUtils";
+import { getTextSizeClasses, resolveImagePath } from "@/libs/videoUtils";
 import Image from "next/image";
 import { motion } from "framer-motion";
 

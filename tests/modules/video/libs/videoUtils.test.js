@@ -1,15 +1,19 @@
 import { getAnimationVariants } from "@/libs/videoAnimations";
-import { getTextSizeClasses,resolveImagePath } from "@/libs/videoUtils";
+import { getTextSizeClasses, resolveImagePath } from "@/libs/videoUtils";
 
 describe("Video Utilities", () => {
   describe("resolveImagePath", () => {
     it("should resolve relative image paths", () => {
-      expect(resolveImagePath("test.jpg")).toBe("/assets/video/loyalboards/test.jpg");
+      expect(resolveImagePath("test.jpg")).toBe(
+        "/assets/video/loyalboards/test.jpg",
+      );
     });
 
     it("should return absolute paths as is", () => {
       expect(resolveImagePath("/custom/path.jpg")).toBe("/custom/path.jpg");
-      expect(resolveImagePath("http://example.com/img.jpg")).toBe("http://example.com/img.jpg");
+      expect(resolveImagePath("http://example.com/img.jpg")).toBe(
+        "http://example.com/img.jpg",
+      );
     });
 
     it("should return empty string for null/undefined", () => {
@@ -24,7 +28,9 @@ describe("Video Utilities", () => {
     });
 
     it("should return correct classes for horizontal orientation", () => {
-      expect(getTextSizeClasses("title", false)).toContain("text-3xl sm:text-5xl");
+      expect(getTextSizeClasses("title", false)).toContain(
+        "text-3xl sm:text-5xl",
+      );
     });
   });
 
