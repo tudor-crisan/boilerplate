@@ -416,6 +416,10 @@ async function exportVideo(videoId, outputFilename = "output.mp4") {
     }
 
     console.log(`Saved to: ${finalOutputPath}`);
+    updateProgress(100, "Export complete!", "finished");
+
+    // Wait a moment for the stream API to pick up the finished state
+    await new Promise(r => setTimeout(r, 1500));
 
     // Cleanup progress file
     if (fs.existsSync(progressPath)) {

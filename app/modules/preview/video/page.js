@@ -223,15 +223,52 @@ export default function VideoModulePage() {
   const [startingExport, setStartingExport] = useState(false);
 
   // Polling for active exports (Only if export is running)
+  // Streaming for active exports
   useEffect(() => {
-    let interval;
+    let eventSource;
+
     if (isExportsModalOpen && activeExport && currentVideoId) {
-      interval = setInterval(() => {
-        fetchExports(currentVideoId, true);
-      }, 2500);
+      console.log("Connecting to export stream...");
+      eventSource = new EventSource(
+        `/api/video/exports/stream?videoId=${currentVideoId}`,
+      );
+
+      eventSource.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          setActiveExport(data);
+
+          if (data.phase === "finished" || data.phase === "error") {
+            // Refresh list to show new file (or error state)
+            fetchExports(currentVideoId, true);
+
+            // If finished, we can stop the active state after a brief moment
+            // or just let the user see "100% finished"
+            if (data.phase === "finished") {
+              // Keep showing finished state briefly or just close stream?
+              // The stream on server keeps going, but we can close client side.
+              // Actually, if we close stream, activeExport remains as last state.
+              eventSource.close();
+              // Optionally start a timeout to clear activeExport if desired
+            }
+          }
+        } catch (e) {
+          console.error("Stream parse error", e);
+        }
+      };
+
+      eventSource.onerror = (e) => {
+        console.error("Stream error", e);
+        eventSource.close();
+      };
     }
-    return () => clearInterval(interval);
-  }, [isExportsModalOpen, activeExport, currentVideoId]);
+
+    return () => {
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
+  }, [isExportsModalOpen, activeExport?.phase, currentVideoId]); // depend on phase to re-evaluate completion logic if needed, or just activeExport existence
 
   const fetchExports = async (videoId, silent = false) => {
     if (!silent) setFetchingExports(true);
@@ -260,12 +297,13 @@ export default function VideoModulePage() {
       const data = await res.json();
       if (data.success) {
         toast.success("Export started");
-        setTimeout(() => {
-          fetchExports(currentVideoId);
-          // reset button state after a delay to prevent infinite spinner
-          // if activeExport takes over, the button unmounts anyway.
-          setStartingExport(false);
-        }, 2000);
+        // Set active export state immediately to trigger stream connection
+        setActiveExport({
+          phase: "starting",
+          percent: 0,
+          message: "Initializing...",
+        });
+        setStartingExport(false);
       } else {
         toast.error(data.error || "Failed to start export");
       }
@@ -426,7 +464,9 @@ export default function VideoModulePage() {
                           </Title>
                         </div>
 
-                        <div className="badge badge-outline">
+                        <div
+                          className={`${styling?.components?.element || ""} badge badge-outline`}
+                        >
                           {video.format}
                         </div>
 
@@ -725,14 +765,15 @@ export default function VideoModulePage() {
                     </TextSmall>
                   </div>
                   <div className="flex gap-2">
-                    <a
+                    <Button
                       href={file.path}
                       download
-                      className="btn btn-sm btn-outline btn-primary"
+                      size="btn-sm"
+                      variant="btn-outline"
                       target="_blank"
                     >
                       Download
-                    </a>
+                    </Button>
                     <Button
                       size="btn-sm"
                       variant="btn-square btn-ghost text-error"
