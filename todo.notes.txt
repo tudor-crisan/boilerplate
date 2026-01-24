@@ -9,5 +9,8 @@ tuesday
 - make a stand-alone free tool the video editor (see if possible to be hosted)
 
 wednesday
-- each user have a default pre-made feedback board so they can view it
 - have a feedback board for loyalboards, so users can view it
+- each user have a default pre-made feedback board so they can view it
+
+thursday
+- continue posting on multiple directories to build seo for loyalboards
