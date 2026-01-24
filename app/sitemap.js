@@ -16,19 +16,19 @@ export default function sitemap() {
   );
 
   // Article routes
-  const articleRoutes = defaultBlog.articles.map((article) => ({
+  const articleRoutes = (defaultBlog?.articles || []).map((article) => ({
     url: `${baseUrl}/blog/${article.slug}`,
     lastModified: article.publishedAt,
   }));
 
   // Category routes
-  const categoryRoutes = defaultBlog.categories.map((category) => ({
+  const categoryRoutes = (defaultBlog?.categories || []).map((category) => ({
     url: `${baseUrl}/blog/category/${category.slug}`,
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
   // Help routes
-  const helpRoutes = defaultHelp.articles.map((article) => ({
+  const helpRoutes = (defaultHelp?.articles || []).map((article) => ({
     url: `${baseUrl}${settings.paths.help.source}/${article.id}`,
     lastModified: new Date().toISOString().split("T")[0],
   }));
