@@ -10,6 +10,7 @@ saturday
 
 monday
 - make extension for posting on multiple directories
+- make a stand-alone free tool the video editor (see if possible to be hosted)
 
 future
 - think maybe of a way to log-in into users dashboards to debug if problems arrise

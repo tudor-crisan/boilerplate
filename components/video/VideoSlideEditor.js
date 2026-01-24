@@ -15,6 +15,7 @@ import SvgPlus from "@/components/svg/SvgPlus";
 import SvgTrash from "@/components/svg/SvgTrash";
 import SvgView from "@/components/svg/SvgView";
 import { useStyling } from "@/context/ContextStyling";
+import { toast } from "@/libs/toast";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -353,13 +354,28 @@ export default function VideoSlideEditor({
           <div className="form-control sm:col-span-2 bg-base-200/50 p-4 rounded-lg">
             <div className="flex justify-between items-center mb-2">
               <Label className="opacity-60 text-xs p-0">Slide Image</Label>
-              <Button
-                size="btn-xs"
-                variant="btn-ghost"
-                onClick={() => setShowGallery(!showGallery)}
-              >
-                {showGallery ? "Hide Gallery" : "Show Gallery"}
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  size="btn-xs"
+                  variant="btn-ghost"
+                  onClick={() => {
+                    if (images.length > 0) {
+                      setImageToView(images[images.length - 1]);
+                    }
+                  }}
+                  disabled={images.length === 0}
+                  title="View Gallery in Modal"
+                >
+                  <SvgView className="w-4 h-4" /> View Image
+                </Button>
+                <Button
+                  size="btn-xs"
+                  variant="btn-ghost"
+                  onClick={() => setShowGallery(!showGallery)}
+                >
+                  {showGallery ? "Hide Gallery" : "Show Gallery"}
+                </Button>
+              </div>
             </div>
 
             {/* Selected Image Preview (Small) & Remove */}
@@ -469,6 +485,7 @@ export default function VideoSlideEditor({
                     value={slide.imageFit || "object-cover"} // Default to cover
                     onChange={(e) => handleChange("imageFit", e.target.value)}
                     className="w-full"
+                    withNavigation={true}
                   />
                 </div>
                 <div className="form-control">
@@ -482,6 +499,7 @@ export default function VideoSlideEditor({
                       handleChange("imagePosition", e.target.value)
                     }
                     className="w-full"
+                    withNavigation={true}
                   />
                 </div>
               </div>
@@ -501,12 +519,108 @@ export default function VideoSlideEditor({
         </div>
       </div>
 
+      {/* View Image Modal */}
+      <Modal
+        isModalOpen={!!imageToView}
+        onClose={() => setImageToView(null)}
+        title="View Image"
+        contentClassName="p-0"
+        boxClassName="max-w-4xl w-full"
+      >
+        {imageToView &&
+          (() => {
+            // Create the same order as gallery
+            const galleryImages = [...images].reverse();
+            const currentIndex = galleryImages.indexOf(imageToView);
+            const prevImage =
+              currentIndex > 0 ? galleryImages[currentIndex - 1] : null;
+            const nextImage =
+              currentIndex < galleryImages.length - 1
+                ? galleryImages[currentIndex + 1]
+                : null;
+
+            return (
+              <div className="flex flex-col">
+                <div className="relative w-full h-[60vh] bg-base-300 flex items-center justify-center group">
+                  {/* Main Image */}
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={`/assets/video/loyalboards/${imageToView}`}
+                      alt={imageToView}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+
+                  {/* Navigation Arrows */}
+                  {prevImage && (
+                    <button
+                      className="absolute left-4 top-1/2 -translate-y-1/2 btn btn-circle btn-ghost bg-base-100/50 hover:bg-base-100 border-none z-10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setImageToView(prevImage);
+                      }}
+                    >
+                      <SvgChevronLeft className="w-6 h-6" />
+                    </button>
+                  )}
+                  {nextImage && (
+                    <button
+                      className="absolute right-4 top-1/2 -translate-y-1/2 btn btn-circle btn-ghost bg-base-100/50 hover:bg-base-100 border-none z-10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setImageToView(nextImage);
+                      }}
+                    >
+                      <SvgChevronRight className="w-6 h-6" />
+                    </button>
+                  )}
+                </div>
+
+                {/* Actions Toolbar */}
+                <div className="p-4 bg-base-100/40 border-t border-base-200 flex justify-between items-center">
+                  <div className="text-sm opacity-60">
+                    {currentIndex + 1} / {galleryImages.length}
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      size="btn-sm"
+                      variant="btn-primary"
+                      onClick={() => {
+                        handleChange("image", imageToView);
+                        setImageToView(null);
+                        toast.success("Image selected");
+                      }}
+                    >
+                      <SvgCheck className="w-4 h-4 mr-1" />
+                      Select
+                    </Button>
+                    <Button
+                      size="btn-sm"
+                      variant="btn-error btn-outline"
+                      onClick={(e) => {
+                        // Close view modal usually? Or keep it open until deleted?
+                        // Deleting requires confirmation modal.
+                        // Let's call the request functionality.
+                        handleDeleteRequest(e, imageToView);
+                      }}
+                    >
+                      <SvgTrash className="w-4 h-4 mr-1" />
+                      Delete
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
+      </Modal>
+
       {/* Delete Modal */}
       <Modal
         isModalOpen={!!imageToDelete}
         onClose={() => setImageToDelete(null)}
         title="Confirm Deletion"
-        contentClassName="p-0! pb-2!"
+        contentClassName="pb-2"
         actions={
           <>
             <Button
@@ -525,26 +639,6 @@ export default function VideoSlideEditor({
           Are you sure you want to delete <b>{imageToDelete}</b>? This action
           cannot be undone.
         </Paragraph>
-      </Modal>
-
-      {/* View Image Modal */}
-      <Modal
-        isModalOpen={!!imageToView}
-        onClose={() => setImageToView(null)}
-        title="View Image"
-        contentClassName="p-0"
-        boxClassName="max-w-4xl w-full"
-      >
-        {imageToView && (
-          <div className="relative w-full aspect-video bg-base-300 rounded overflow-hidden">
-            <Image
-              src={`/assets/video/loyalboards/${imageToView}`}
-              alt={imageToView}
-              fill
-              className="object-contain" // Use contain to show full image
-            />
-          </div>
-        )}
       </Modal>
 
       {/* Image Cropper */}
