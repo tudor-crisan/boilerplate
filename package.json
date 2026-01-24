@@ -17,7 +17,8 @@
     "stripe": "stripe listen --forward-to localhost:3000/api/billing/webhook",
     "deploy": "node scripts/deploy.js",
     "deploy:fix": "node scripts/deploy.js --no-bump",
-    "stick": "node scripts/copy-to-stick.js"
+    "stick": "node scripts/copy-to-stick.js",
+    "loc": "node scripts/count-loc.js"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.1",
