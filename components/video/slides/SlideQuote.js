@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
 import Title from "@/components/common/Title";
-import Image from "next/image";
 import { resolveImagePath } from "@/libs/videoUtils";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function SlideQuote({ slide, variants, isVertical }) {
   return (

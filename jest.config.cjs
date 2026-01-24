@@ -11,4 +11,8 @@ module.exports = {
   transformIgnorePatterns: [
     "/node_modules/(?!(framer-motion|clsx|tailwind-merge|@auth|next-auth)/)",
   ],
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/__tests__/testUtils.js",
+  ],
 };

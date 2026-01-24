@@ -1,5 +1,5 @@
-import { resolveImagePath, getTextSizeClasses } from "../videoUtils";
-import { getAnimationVariants } from "../videoAnimations";
+import { getAnimationVariants } from "@/libs/videoAnimations";
+import { getTextSizeClasses,resolveImagePath } from "@/libs/videoUtils";
 
 describe("Video Utilities", () => {
   describe("resolveImagePath", () => {

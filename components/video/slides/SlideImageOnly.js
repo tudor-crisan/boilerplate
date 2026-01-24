@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
-import Image from "next/image";
 import { resolveImagePath } from "@/libs/videoUtils";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function SlideImageOnly({ slide }) {
   return (

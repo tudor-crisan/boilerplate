@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
 import Title from "@/components/common/Title";
+import { getTextSizeClasses,resolveImagePath } from "@/libs/videoUtils";
 import Image from "next/image";
-import { resolveImagePath, getTextSizeClasses } from "@/libs/videoUtils";
+import { motion } from "framer-motion";
 
 export default function SlideFeature({
   slide,

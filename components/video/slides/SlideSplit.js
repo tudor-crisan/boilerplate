@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
 import Title from "@/components/common/Title";
-import Image from "next/image";
 import { resolveImagePath } from "@/libs/videoUtils";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-export default function SlideSplit({ slide, variantProps, isVertical }) {
+export default function SlideSplit({ slide, isVertical }) {
   return (
     <div
       className={`w-full h-full relative overflow-hidden font-sans transition-all duration-700 ${slide.bg} ${slide.textColor} flex ${isVertical ? "flex-col" : "flex-row"}`}
