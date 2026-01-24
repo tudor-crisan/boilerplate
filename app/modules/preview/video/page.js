@@ -13,6 +13,7 @@ import Input from "@/components/input/Input";
 import Select from "@/components/select/Select";
 import SvgEdit from "@/components/svg/SvgEdit";
 import SvgTrash from "@/components/svg/SvgTrash";
+import Textarea from "@/components/textarea/Textarea";
 import VideoContainer from "@/components/video/VideoContainer";
 import { useStyling } from "@/context/ContextStyling";
 import { toast } from "@/libs/toast";
@@ -105,6 +106,9 @@ export default function VideoModulePage() {
       format: video.format,
       width: video.width,
       height: video.height,
+      youtubeTitle: video.youtubeTitle || "",
+      youtubeDescription: video.youtubeDescription || "",
+      xLaunchTweet: video.xLaunchTweet || "",
     });
     setIsModalOpen(true);
   };
@@ -559,6 +563,42 @@ export default function VideoModulePage() {
               />
             </div>
           </div>
+          <div className="divider">Metadata</div>
+
+          <div>
+            <Label className="mb-2">YouTube Title</Label>
+            <Input
+              value={formData.youtubeTitle || ""}
+              onChange={(e) =>
+                setFormData({ ...formData, youtubeTitle: e.target.value })
+              }
+              placeholder="Video Title for YouTube"
+            />
+          </div>
+
+          <div>
+            <Label className="mb-2">YouTube Description</Label>
+            <Textarea
+              className="w-full h-24"
+              value={formData.youtubeDescription || ""}
+              onChange={(e) =>
+                setFormData({ ...formData, youtubeDescription: e.target.value })
+              }
+              placeholder="Video Description"
+            />
+          </div>
+
+          <div>
+            <Label className="mb-2">X Launch Tweet</Label>
+            <Textarea
+              className="w-full h-24"
+              value={formData.xLaunchTweet || ""}
+              onChange={(e) =>
+                setFormData({ ...formData, xLaunchTweet: e.target.value })
+              }
+              placeholder="Draft your launch tweet..."
+            />
+          </div>
         </div>
       </Modal>
 
@@ -621,7 +661,7 @@ export default function VideoModulePage() {
             <div className="flex justify-between items-center">
               <div>
                 <h4 className="font-bold">Create New Export</h4>
-                <p className="text-sm opacity-60">
+                <p className="text-sm opacity-60 pr-4">
                   Generate a new MP4 file for this video.
                 </p>
               </div>

@@ -130,41 +130,48 @@ export default function RenderPage() {
   if (isLoading) return <div>Loading...</div>;
   if (!video) return <div>Video not found</div>;
 
+  // Calculate scaling to fit 1920x1080 (Landscape) or 1080x1920 (Vertical)
+  // Native Base Width for Player is sm:w-6xl which is 72rem = 1152px
+  // In preview, it is 1152px wide.
+  // We want to fill 1920px. 1920 / 1152 ~= 1.66666
+  const scale = isVertical ? 1.0 : 1.666666;
+  const contentWidth = isVertical ? "100%" : "1152px"; // 72rem
+
   return (
-    <div
-      className={`video-render-container overflow-hidden bg-black flex items-center justify-center`}
-    >
-      {/* We use a specific container size to match the video format */}
+    <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
       <div
         id="video-frame"
-        className={`relative overflow-hidden bg-white
-                ${isVertical ? "w-[1080px] h-[1920px]" : "w-[1920px] h-[1080px]"}
+        className={`relative overflow-hidden bg-white flex items-center justify-center
+                ${isVertical ? "w-[1080px] h-[1920px]" : "w-[1920px] h-[1080px] origin-center"}
             `}
-        style={{
-          transform: "scale(1)", // Ensure no scaling affects recording
-          transformOrigin: "center center",
-        }}
       >
-        <VideoPlayer
-          currentSlide={currentSlide}
-          isVertical={isVertical}
-          styling={styling}
-          replayKey={currentSlideIndex} // Force re-render on slide change
-        />
+        <div
+          style={{
+            transform: `scale(${scale})`,
+            width: contentWidth,
+            transformOrigin: "center center",
+          }}
+        >
+          <VideoPlayer
+            currentSlide={currentSlide}
+            isVertical={isVertical}
+            styling={styling}
+            replayKey={currentSlideIndex} // Force re-render on slide change
+          />
+        </div>
       </div>
       <style jsx global>{`
-        html {
-          font-size: ${isVertical ? "18px" : "26px"};
-        }
         body {
           margin: 0;
           padding: 0;
           overflow: hidden;
+          background: black;
         }
+        /* Keep legacy support for hiding nextjs incase script fails */
         .nextjs-toast-errors-parent,
         [data-nextjs-toast],
         .nextjs-static-indicator-toast-wrapper,
-        #devtools-indicator,
+        #devtools-indicator, // Targeted ID
         #next-logo {
           display: none !important;
           opacity: 0 !important;

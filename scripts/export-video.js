@@ -158,6 +158,21 @@ async function exportVideo(videoId, outputFilename = "output.mp4") {
     });
     await page.setViewport(dimensions);
 
+    // Force hide devtools indicator via JS (robustness)
+    await page.evaluate(() => {
+      const style = document.createElement("style");
+      style.textContent = `
+        #devtools-indicator, #next-logo, [data-nextjs-toast] {
+          display: none !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+        }
+      `;
+      document.head.appendChild(style);
+      const devTools = document.querySelector("#devtools-indicator");
+      if (devTools) devTools.remove();
+    });
+
     // 3. Prepare FFmpeg
     // 3. Prepare FFmpeg
     const finalOutputPath = path.resolve(
