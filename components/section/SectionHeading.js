@@ -26,9 +26,13 @@ export default function SectionHeading({
   const getResponsiveAlignment = (value) => {
     if (alignments[value]) return alignments[value];
 
-    // Handle common responsive pattern from styling0.json
+    // Handle common responsive patterns from styling0.json
     if (value === "text-center sm:text-left") {
       return "text-center items-center mx-auto sm:text-left sm:items-start sm:mx-0 sm:mr-auto";
+    }
+
+    if (value === "text-center") {
+      return "text-center items-center mx-auto";
     }
 
     return value;

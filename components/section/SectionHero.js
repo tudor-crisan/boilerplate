@@ -21,7 +21,13 @@ export default function SectionHero() {
       id="hero"
       containerClassName={cn(styling.SectionHero.container)}
     >
-      <div className={cn(showHero.button ? "space-y-6" : "space-y-3")}>
+      <div
+        className={cn(
+          showHero.button ? "space-y-6" : "space-y-3",
+          styling.SectionHero.textalign.includes("text-center") &&
+            "flex flex-col items-center",
+        )}
+      >
         <SectionHeading
           headline={showHero.headline ? copywriting.SectionHero.headline : null}
           paragraph={

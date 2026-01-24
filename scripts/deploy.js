@@ -12,10 +12,7 @@ const DEPLOYED_ROOT = "C:/twain_32/deployed"; // Adjust if needed
 // List of folders in DEPLOYED_ROOT to deploy to.
 // If empty, it could potentially scan the directory, but for safety, please list them.
 // Example: ['my-app', 'another-app']
-const TARGET_FOLDERS = [
-  // "loyalboards",
-  "tudorcrisan.dev",
-];
+const TARGET_FOLDERS = ["loyalboards", "tudorcrisan.dev"];
 
 // Configuration for app-specific folders to KEEP.
 // Standardizes "tudorcrisan" (folder) vs "tudorcrisan.dev" (target)

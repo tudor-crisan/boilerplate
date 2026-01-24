@@ -20,7 +20,8 @@
     "SectionFooter": {
       "brand": false,
       "menus": true,
-      "socials": true
+      "socials": true,
+      "help": false
     }
   },
   "logo": {

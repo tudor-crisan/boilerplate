@@ -1,6 +1,7 @@
 import { withApiHandler } from "@/libs/apiHandler";
 import Notification from "@/models/modules/boards/Notification";
 import { NextResponse } from "next/server";
+import "@/models/modules/boards/Board";
 
 const TYPE = "Notification";
 
