@@ -1,7 +1,4 @@
 
-saturday
-- refactor the video module with testing
-
 monday
 - make a documentation page for tudorcrisan for the boilerplate (from specs)
 - make a buy link with redirect to google drive with multiple versions
