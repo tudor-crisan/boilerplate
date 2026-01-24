@@ -16,7 +16,8 @@ export default function VideoSlide({ slide, isVertical }) {
       return "text-xs sm:text-sm";
     }
     if (size === "title") return "text-3xl sm:text-5xl md:text-6xl lg:text-7xl";
-    if (size === "subtitle") return "text-xl sm:text-2xl md:text-3xl lg:text-4xl";
+    if (size === "subtitle")
+      return "text-xl sm:text-2xl md:text-3xl lg:text-4xl";
     return "text-sm sm:text-base md:text-lg";
   };
 
@@ -91,27 +92,42 @@ export default function VideoSlide({ slide, isVertical }) {
         className={`w-full h-full relative overflow-hidden font-sans transition-all duration-700 ${slide.bg} ${slide.textColor} flex flex-col items-center justify-center p-12`}
       >
         <motion.div
-           initial={variants.initial}
-           animate={variants.animate}
-           exit={variants.exit}
-           transition={{ duration: 0.8 }}
-           className="max-w-4xl text-center z-10"
+          initial={variants.initial}
+          animate={variants.animate}
+          exit={variants.exit}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl text-center z-10"
         >
-           <span className="text-6xl sm:text-8xl opacity-20 block mb-4">“</span>
-           <Title tag="h1" className={`${isVertical ? "text-2xl sm:text-4xl" : "text-3xl sm:text-5xl md:text-6xl"} font-serif italic mb-6 leading-tight`}>
-             {slide.title}
-           </Title>
-           {slide.subtitle && (
-             <Title tag="h2" className="text-sm sm:text-xl lg:text-2xl font-medium opacity-80 uppercase tracking-widest mt-8">
-               — {slide.subtitle}
-             </Title>
-           )}
+          <span className="text-6xl sm:text-8xl opacity-20 block mb-4">“</span>
+          <Title
+            tag="h1"
+            className={`${isVertical ? "text-2xl sm:text-4xl" : "text-3xl sm:text-5xl md:text-6xl"} font-serif italic mb-6 leading-tight`}
+          >
+            {slide.title}
+          </Title>
+          {slide.subtitle && (
+            <Title
+              tag="h2"
+              className="text-sm sm:text-xl lg:text-2xl font-medium opacity-80 uppercase tracking-widest mt-8"
+            >
+              — {slide.subtitle}
+            </Title>
+          )}
         </motion.div>
         {/* Background Texture/Image for Quote */}
         {slide.image && (
-           <div className="absolute inset-0 z-0 opacity-20">
-             <Image src={slide.image.startsWith("http") || slide.image.startsWith("/") ? slide.image : `/assets/video/loyalboards/${slide.image}`} alt="bg" fill className="object-cover" />
-           </div>
+          <div className="absolute inset-0 z-0 opacity-20">
+            <Image
+              src={
+                slide.image.startsWith("http") || slide.image.startsWith("/")
+                  ? slide.image
+                  : `/assets/video/loyalboards/${slide.image}`
+              }
+              alt="bg"
+              fill
+              className="object-cover"
+            />
+          </div>
         )}
       </div>
     );
@@ -120,74 +136,102 @@ export default function VideoSlide({ slide, isVertical }) {
   // Render Split Slide
   if (slide.type === "split") {
     return (
-      <div className={`w-full h-full relative overflow-hidden font-sans transition-all duration-700 ${slide.bg} ${slide.textColor} flex ${isVertical ? "flex-col" : "flex-row"}`}>
-        <div className={`flex-1 flex flex-col justify-center p-8 sm:p-16 z-10 ${isVertical ? "order-2 h-1/2" : "h-full"}`}>
-            <motion.div
-               initial={{ x: -50, opacity: 0 }}
-               animate={{ x: 0, opacity: 1 }}
-               exit={{ x: -50, opacity: 0 }}
-               transition={{ duration: 0.5, delay: 0.2 }}
+      <div
+        className={`w-full h-full relative overflow-hidden font-sans transition-all duration-700 ${slide.bg} ${slide.textColor} flex ${isVertical ? "flex-col" : "flex-row"}`}
+      >
+        <div
+          className={`flex-1 flex flex-col justify-center p-8 sm:p-16 z-10 ${isVertical ? "order-2 h-1/2" : "h-full"}`}
+        >
+          <motion.div
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -50, opacity: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Title
+              tag="h1"
+              className={`${isVertical ? "text-2xl sm:text-4xl" : "text-3xl sm:text-5xl md:text-6xl"} font-bold mb-6`}
             >
-              <Title tag="h1" className={`${isVertical ? "text-2xl sm:text-4xl" : "text-3xl sm:text-5xl md:text-6xl"} font-bold mb-6`}>
-                {slide.title}
+              {slide.title}
+            </Title>
+            {slide.subtitle && (
+              <Title
+                tag="h2"
+                className="text-lg sm:text-xl opacity-80 leading-relaxed"
+              >
+                {slide.subtitle}
               </Title>
-              {slide.subtitle && (
-                <Title tag="h2" className="text-lg sm:text-xl opacity-80 leading-relaxed">
-                  {slide.subtitle}
-                </Title>
-              )}
-            </motion.div>
+            )}
+          </motion.div>
         </div>
-        <div className={`flex-1 relative ${isVertical ? "order-1 h-1/2" : "h-full"}`}>
-           {slide.image && (
-             <motion.div 
-               className="w-full h-full relative"
-               initial={{ scale: 1.1, opacity: 0 }}
-               animate={{ scale: 1, opacity: 1 }}
-               transition={{ duration: 0.8 }}
-             >
-                <Image 
-                  src={slide.image.startsWith("http") || slide.image.startsWith("/") ? slide.image : `/assets/video/loyalboards/${slide.image}`} 
-                  alt="Split Image" 
-                  fill 
-                  className={`${slide.imageFit || "object-cover"} ${slide.imagePosition || "object-center"}`} 
-                />
-             </motion.div>
-           )}
+        <div
+          className={`flex-1 relative ${isVertical ? "order-1 h-1/2" : "h-full"}`}
+        >
+          {slide.image && (
+            <motion.div
+              className="w-full h-full relative"
+              initial={{ scale: 1.1, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Image
+                src={
+                  slide.image.startsWith("http") || slide.image.startsWith("/")
+                    ? slide.image
+                    : `/assets/video/loyalboards/${slide.image}`
+                }
+                alt="Split Image"
+                fill
+                className={`${slide.imageFit || "object-cover"} ${slide.imagePosition || "object-center"}`}
+              />
+            </motion.div>
+          )}
         </div>
       </div>
     );
   }
-  
+
   // Render Image Only Slide
   if (slide.type === "image-only") {
-      return (
-        <div className="w-full h-full relative overflow-hidden bg-black">
-          {slide.image && (
-             <motion.div 
-               className="w-full h-full relative"
-               initial={{ scale: 1.05, opacity: 0 }}
-               animate={{ scale: 1, opacity: 1 }}
-               exit={{ opacity: 0 }}
-               transition={{ duration: 0.8 }}
-             >
-                <Image 
-                  src={slide.image.startsWith("http") || slide.image.startsWith("/") ? slide.image : `/assets/video/loyalboards/${slide.image}`} 
-                  alt="Full Image" 
-                  fill 
-                  className={`${slide.imageFit || "object-cover"} ${slide.imagePosition || "object-center"}`} 
-                />
-                
-                {(slide.title || slide.subtitle) && (
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-8 pb-16 pt-24 text-white text-center">
-                      {slide.title && <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 drop-shadow-md">{slide.title}</h1>}
-                      {slide.subtitle && <p className="text-sm sm:text-lg md:text-xl opacity-90 drop-shadow-sm">{slide.subtitle}</p>}
-                  </div>
+    return (
+      <div className="w-full h-full relative overflow-hidden bg-black">
+        {slide.image && (
+          <motion.div
+            className="w-full h-full relative"
+            initial={{ scale: 1.05, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Image
+              src={
+                slide.image.startsWith("http") || slide.image.startsWith("/")
+                  ? slide.image
+                  : `/assets/video/loyalboards/${slide.image}`
+              }
+              alt="Full Image"
+              fill
+              className={`${slide.imageFit || "object-cover"} ${slide.imagePosition || "object-center"}`}
+            />
+
+            {(slide.title || slide.subtitle) && (
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-8 pb-16 pt-24 text-white text-center">
+                {slide.title && (
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 drop-shadow-md">
+                    {slide.title}
+                  </h1>
                 )}
-             </motion.div>
-           )}
-        </div>
-      );
+                {slide.subtitle && (
+                  <p className="text-sm sm:text-lg md:text-xl opacity-90 drop-shadow-sm">
+                    {slide.subtitle}
+                  </p>
+                )}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </div>
+    );
   }
 
   // Default / Feature / Title Slide
@@ -255,7 +299,7 @@ export default function VideoSlide({ slide, isVertical }) {
           exit={variants.exit}
           transition={{ delay: 0.2, duration: 0.6 }}
           className={`relative overflow-hidden ${styling.components.image} ${styling.components.card} border-4 border-white/10
-                ${isVertical ? "w-full aspect-9/16 max-h-[55vh]" : "max-w-4xl w-full h-[55vh]"}
+                ${isVertical ? "w-full aspect-9/16 max-h-[55%]" : "max-w-4xl w-full h-[55%]"}
             `}
         >
           <Image

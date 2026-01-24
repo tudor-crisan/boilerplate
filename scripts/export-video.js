@@ -147,6 +147,17 @@ async function exportVideo(videoId, outputFilename = "output.mp4") {
     console.log(`Navigating to ${renderUrl}...`);
     await page.goto(renderUrl, { waitUntil: "networkidle0" });
 
+    // Robustly hide devtools using Puppeteer API
+    await page.addStyleTag({
+      content: `
+        #devtools-indicator, #next-logo, [data-nextjs-toast], nextjs-portal {
+          display: none !important;
+          opacity: 0 !important;
+          visibility: hidden !important;
+        }
+      `,
+    });
+
     // Set Viewport ...
     const dimensions = await page.evaluate(() => {
       const frame = document.getElementById("video-frame");
@@ -169,8 +180,20 @@ async function exportVideo(videoId, outputFilename = "output.mp4") {
         }
       `;
       document.head.appendChild(style);
-      const devTools = document.querySelector("#devtools-indicator");
-      if (devTools) devTools.remove();
+
+      const removeDevTools = () => {
+        const ids = ["#devtools-indicator", "#next-logo"];
+        ids.forEach((id) => {
+          const el = document.querySelector(id);
+          if (el) el.remove();
+        });
+        const toasts = document.querySelectorAll("[data-nextjs-toast]");
+        toasts.forEach((t) => t.remove());
+      };
+
+      removeDevTools();
+      const observer = new MutationObserver(removeDevTools);
+      observer.observe(document.body, { childList: true, subtree: true });
     });
 
     // 3. Prepare FFmpeg

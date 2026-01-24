@@ -7,6 +7,7 @@ import Label from "@/components/common/Label";
 import Loading from "@/components/common/Loading";
 import Modal from "@/components/common/Modal";
 import Paragraph from "@/components/common/Paragraph";
+import ProgressBar from "@/components/common/ProgressBar";
 import TextSmall from "@/components/common/TextSmall";
 import Title from "@/components/common/Title";
 import Input from "@/components/input/Input";
@@ -642,28 +643,32 @@ export default function VideoModulePage() {
           {activeExport ? (
             <div className="w-full">
               <div className="flex justify-between mb-2">
-                <span className="font-bold text-sm">Exporting...</span>
-                <span className="text-xs opacity-70">{activeExport.phase}</span>
+                <TextSmall className="font-bold">Exporting...</TextSmall>
+                <TextSmall className="opacity-70">
+                  {activeExport.phase}
+                </TextSmall>
               </div>
-              <progress
-                className="progress progress-primary w-full"
+              <ProgressBar
                 value={activeExport.percent}
-                max="100"
-              ></progress>
+                max={100}
+                color="primary"
+              />
               <div className="flex justify-between mt-1">
-                <span className="text-xs">{activeExport.message}</span>
-                <span className="text-xs font-bold">
+                <TextSmall>{activeExport.message}</TextSmall>
+                <TextSmall className="font-bold">
                   {activeExport.percent}%
-                </span>
+                </TextSmall>
               </div>
             </div>
           ) : (
             <div className="flex justify-between items-center">
               <div>
-                <h4 className="font-bold">Create New Export</h4>
-                <p className="text-sm opacity-60 pr-4">
+                <Label className="font-bold text-base mb-1 block">
+                  Create New Export
+                </Label>
+                <TextSmall className="opacity-60 pr-4">
                   Generate a new MP4 file for this video.
-                </p>
+                </TextSmall>
               </div>
               <Button
                 variant="btn-primary"
