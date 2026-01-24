@@ -166,7 +166,7 @@
           "image": "different_theme_2.png",
           "imageFit": "object-contain",
           "bg": "bg-base-100",
-          "textColor": "text-accent",
+          "textColor": "text-accent-content",
           "animation": "slide-right",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_14_1768986798258.mp3"
         },
@@ -235,7 +235,7 @@
           "image": "analytics_dashboard.png",
           "imageFit": "object-contain",
           "bg": "bg-base-100",
-          "textColor": "text-accent",
+          "textColor": "text-accent-content",
           "animation": "zoom",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_20_1768986874948.mp3"
         },
@@ -257,7 +257,7 @@
           "voiceover": "Express your identity.",
           "image": "change_profile_appearance.png",
           "bg": "bg-base-100",
-          "textColor": "text-white",
+          "textColor": "text-accent-content",
           "animation": "fade",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_22_1768986902763.mp3"
         },
@@ -318,7 +318,7 @@
           "title": "Best Choice.",
           "voiceover": "The better way to manage feedback.",
           "bg": "bg-base-100",
-          "textColor": "text-accent",
+          "textColor": "text-secondary-content",
           "animation": "zoom",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_28_1768986983771.mp3"
         },
