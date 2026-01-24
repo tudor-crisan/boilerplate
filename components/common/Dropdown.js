@@ -2,7 +2,13 @@
 import { useStyling } from "@/context/ContextStyling";
 import Link from "next/link";
 
-export default function Dropdown({ label, items, children, className = "" }) {
+export default function Dropdown({
+  label,
+  items,
+  children,
+  className = "",
+  contentClassName = "p-2",
+}) {
   const { styling } = useStyling();
 
   return (
@@ -16,7 +22,7 @@ export default function Dropdown({ label, items, children, className = "" }) {
       </div>
       <div
         tabIndex={0}
-        className={`dropdown-content p-2 bg-base-100 shadow-xl z-[100] ${styling.components.dropdown}`}
+        className={`dropdown-content bg-base-100 shadow-xl z-100 ${contentClassName} ${styling.components.dropdown}`}
       >
         {children ? (
           children

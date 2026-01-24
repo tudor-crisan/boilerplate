@@ -27,7 +27,7 @@ export default function HistoryControl({
       className={`flex items-center gap-1 bg-white p-0.5 border border-base-200 ${styling.components.element}`}
     >
       {/* Undo */}
-      <div className="tooltip tooltip-bottom shrink-0" data-tip="Undo">
+      <div className="tooltip tooltip-top shrink-0" data-tip="Undo">
         <Button
           size="btn-sm"
           variant="btn-ghost btn-square"
@@ -40,7 +40,7 @@ export default function HistoryControl({
       </div>
 
       {/* Redo */}
-      <div className="tooltip tooltip-bottom shrink-0" data-tip="Redo">
+      <div className="tooltip tooltip-top shrink-0" data-tip="Redo">
         <Button
           size="btn-sm"
           variant="btn-ghost btn-square"
@@ -56,24 +56,27 @@ export default function HistoryControl({
       <Dropdown
         label={<SvgHistory className="size-4 opacity-70" />}
         className="dropdown-end"
+        contentClassName="p-0"
       >
         <div
-          className={`w-64 max-h-80 overflow-y-auto flex flex-col p-1 ${styling.components.dropdown}`}
+          className={`w-64 max-h-80 overflow-y-auto flex flex-col ${styling.components.dropdown}`}
         >
-          <div className="text-[10px] font-black uppercase tracking-widest opacity-30 px-3 py-2">
+          <div className="text-[10px] font-black uppercase tracking-widest opacity-30 px-4 py-3 border-b border-base-200">
             History Log
           </div>
 
-          <ul className="menu p-0 gap-1">
+          <ul className="menu p-1 w-full gap-1">
             {/* Initial State */}
-            <li>
+            <li className="w-full">
               <button
                 className={`flex flex-col items-start px-3 py-2 ${styling.components.element} h-auto leading-tight w-full ${currentIndex === -1 ? "active" : ""}`}
                 onClick={() => onReset()}
               >
                 <div className="flex items-center justify-between w-full">
-                  <span className="font-bold text-xs">Initial Version</span>
-                  <span className="text-[10px] opacity-40 font-mono">
+                  <span className="font-bold text-xs uppercase tracking-tight">
+                    Initial Version
+                  </span>
+                  <span className="text-[9px] opacity-40 font-mono">
                     ORIGIN
                   </span>
                 </div>
@@ -84,7 +87,7 @@ export default function HistoryControl({
             </li>
 
             {history.length === 0 && (
-              <div className="text-xs opacity-40 p-4 text-center italic">
+              <div className="text-xs opacity-40 p-6 text-center italic">
                 No changes recorded
               </div>
             )}
@@ -93,12 +96,12 @@ export default function HistoryControl({
               const actualIdx = history.length - 1 - id;
               const isActive = actualIdx === currentIndex;
               return (
-                <li key={item.id}>
+                <li key={item.id} className="w-full">
                   <button
                     className={`flex flex-col items-start px-3 py-2 ${styling.components.element} h-auto leading-tight w-full ${isActive ? "active font-bold" : ""} ${actualIdx > currentIndex ? "opacity-40" : ""}`}
                     onClick={() => onJumpTo(actualIdx)}
                   >
-                    <span className="text-xs text-left w-full truncate">
+                    <span className="text-xs text-left w-full truncate font-bold uppercase tracking-tight">
                       {item.description}
                     </span>
                     <span className="text-[10px] opacity-50 font-mono text-left">
@@ -119,10 +122,7 @@ export default function HistoryControl({
       <div className="w-px h-4 bg-base-200 mx-1 shrink-0"></div>
 
       {/* Reset w/ Confirmation */}
-      <div
-        className="tooltip tooltip-bottom shrink-0"
-        data-tip="Reset to Initial"
-      >
+      <div className="tooltip tooltip-top shrink-0" data-tip="Reset to Initial">
         <Button
           size="btn-sm"
           variant="btn-ghost btn-square text-error"
