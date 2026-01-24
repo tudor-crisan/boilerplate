@@ -13,6 +13,7 @@ import SvgChevronLeft from "@/components/svg/SvgChevronLeft";
 import SvgChevronRight from "@/components/svg/SvgChevronRight";
 import SvgPlus from "@/components/svg/SvgPlus";
 import SvgTrash from "@/components/svg/SvgTrash";
+import SvgView from "@/components/svg/SvgView";
 import { useStyling } from "@/context/ContextStyling";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -34,6 +35,7 @@ export default function VideoSlideEditor({
   const [showGallery, setShowGallery] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [imageToDelete, setImageToDelete] = useState(null);
+  const [imageToView, setImageToView] = useState(null);
 
   // Cropper State
   const [showCropper, setShowCropper] = useState(false);
@@ -426,6 +428,17 @@ export default function VideoSlideEditor({
                             <SvgCheck className="w-3 h-3 text-white" />
                           </button>
                         </Tooltip>
+                        <Tooltip text="View Image">
+                          <button
+                            className="btn btn-xs btn-circle btn-ghost bg-base-100 text-base-content hover:bg-base-200"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setImageToView(img);
+                            }}
+                          >
+                            <SvgView className="w-3 h-3" />
+                          </button>
+                        </Tooltip>
                         <Tooltip text="Delete Image">
                           <button
                             className="btn btn-xs btn-circle btn-error text-white"
@@ -512,6 +525,26 @@ export default function VideoSlideEditor({
           Are you sure you want to delete <b>{imageToDelete}</b>? This action
           cannot be undone.
         </Paragraph>
+      </Modal>
+
+      {/* View Image Modal */}
+      <Modal
+        isModalOpen={!!imageToView}
+        onClose={() => setImageToView(null)}
+        title="View Image"
+        contentClassName="p-0"
+        boxClassName="max-w-4xl w-full"
+      >
+        {imageToView && (
+          <div className="relative w-full aspect-video bg-base-300 rounded overflow-hidden">
+            <Image
+              src={`/assets/video/loyalboards/${imageToView}`}
+              alt={imageToView}
+              fill
+              className="object-contain" // Use contain to show full image
+            />
+          </div>
+        )}
       </Modal>
 
       {/* Image Cropper */}
