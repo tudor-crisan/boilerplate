@@ -1,18 +1,16 @@
 
 saturday
-- refactor the video module
+- refactor the video module with testing
 
-- make launch video recorded with obs and trim with capcut (if not possible)
+monday
 - make a documentation page for tudorcrisan for the boilerplate (from specs)
-- make the documentation of the whole codebase also inside tudorcrisan.dev
 - make a buy link with redirect to google drive with multiple versions
 - make a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
 
-monday
+tuesday
 - make extension for posting on multiple directories
 - make a stand-alone free tool the video editor (see if possible to be hosted)
 
-future
-- think maybe of a way to log-in into users dashboards to debug if problems arrise
-- think of having a daily backup of the mongodb database for loyalboards
-- facut un feedback board pentru fiecare app, incepand cu loyalboards
+wednesday
+- each user have a default pre-made feedback board so they can view it
+- have a feedback board for loyalboards, so users can view it
