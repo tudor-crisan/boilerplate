@@ -8,7 +8,7 @@ export async function POST(req) {
       await trackEvent(boardId, "VIEW");
     }
     return NextResponse.json({ success: true });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ success: false }, { status: 500 });
   }
 }

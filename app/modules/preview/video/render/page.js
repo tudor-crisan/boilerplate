@@ -3,7 +3,7 @@
 import VideoPlayer from "@/components/video/VideoPlayer";
 import WrapperStyling from "@/components/wrapper/WrapperStyling";
 import { useStyling } from "@/context/ContextStyling";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 export default function RenderPage() {
@@ -16,9 +16,6 @@ export default function RenderPage() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
-  // Refs
-  const audioRef = useRef(null);
 
   // Load video data
   useEffect(() => {

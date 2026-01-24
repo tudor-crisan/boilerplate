@@ -9,7 +9,7 @@ import Post from "@/models/modules/boards/Post";
 
 const TYPE = "Vote";
 
-async function postHandler(req, { user }) {
+async function postHandler(req) {
   const { serverError } = settings.forms.general.backend.responses;
 
   const { voteRecorded, postNotFound, postIdRequired } =
@@ -49,7 +49,7 @@ async function postHandler(req, { user }) {
   }
 }
 
-async function deleteHandler(req, { user }) {
+async function deleteHandler(req) {
   const { serverError } = settings.forms.general.backend.responses;
 
   const { voteRemoved, postNotFound, postIdRequired } =

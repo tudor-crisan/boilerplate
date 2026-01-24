@@ -62,8 +62,8 @@ for (const task of tasks) {
     console.log(`  Cleaning destination: ${task.dest}`);
     try {
       fs.rmSync(task.dest, { recursive: true, force: true });
-    } catch (e) {
-      console.error(`  Error cleaning ${task.dest}:`, e);
+    } catch (_e) {
+      console.error(`  Error cleaning ${task.dest}:`, _e);
       process.exit(1);
     }
   }
@@ -74,14 +74,14 @@ for (const task of tasks) {
     if (task.type === "dir") {
       fs.cpSync(task.src, task.dest, {
         recursive: true,
-        filter: (src, dest) => task.filter(src),
+        filter: (src) => task.filter(src),
       });
     } else {
       fs.copyFileSync(task.src, task.dest);
     }
     console.log(`  Success.`);
-  } catch (e) {
-    console.error(`  Error copying ${task.name}:`, e);
+  } catch (_e) {
+    console.error(`  Error copying ${task.name}:`, _e);
     process.exit(1);
   }
 }

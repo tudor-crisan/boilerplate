@@ -2,7 +2,7 @@ import { defaultStyling } from "@/libs/defaults";
 import { useCallback, useMemo } from "react";
 
 // Helper to safely get nested values
-const getNestedValue = (obj, path, defaultValue) => {
+const getNestedValue = (obj, path) => {
   return path.split(".").reduce((acc, part) => acc && acc[part], obj);
 };
 

@@ -62,7 +62,7 @@ export async function GET(request) {
         const progressContent = await fs.readFile(progressPath, "utf-8");
         activeExport = JSON.parse(progressContent);
       }
-    } catch (e) {
+    } catch {
       // No active export or error reading
     }
 

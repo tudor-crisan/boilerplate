@@ -74,7 +74,7 @@ export default function VideoModulePage() {
       } else {
         toast.error(data.error || "Failed to load videos");
       }
-    } catch (error) {
+    } catch {
       toast.error("Network error");
     } finally {
       setIsLoading(false);
@@ -171,7 +171,7 @@ export default function VideoModulePage() {
         } else {
           toast.error(data.error || "Failed to save video");
         }
-      } catch (error) {
+      } catch {
         toast.error("Network error");
       }
     });
@@ -204,7 +204,7 @@ export default function VideoModulePage() {
         } else {
           toast.error(data.error || "Failed to delete video");
         }
-      } catch (error) {
+      } catch {
         toast.error("Network error");
       }
     });
@@ -272,7 +272,7 @@ export default function VideoModulePage() {
         eventSource.close();
       }
     };
-  }, [isExportsModalOpen, activeExport?.phase, currentVideoId]); // depend on phase to re-evaluate completion logic if needed, or just activeExport existence
+  }, [isExportsModalOpen, activeExport?.phase, currentVideoId, activeExport]); // depend on phase to re-evaluate completion logic if needed, or just activeExport existence
 
   const fetchExports = async (videoId, silent = false) => {
     if (!silent) setFetchingExports(true);
@@ -283,7 +283,7 @@ export default function VideoModulePage() {
         setCurrentExports(data.exports);
         setActiveExport(data.activeExport || null);
       }
-    } catch (error) {
+    } catch {
       if (!silent) toast.error("Failed to load exports");
     } finally {
       if (!silent) setFetchingExports(false);
@@ -311,7 +311,7 @@ export default function VideoModulePage() {
       } else {
         toast.error(data.error || "Failed to start export");
       }
-    } catch (e) {
+    } catch {
       toast.error("Network error");
       setStartingExport(false);
     }
@@ -355,7 +355,7 @@ export default function VideoModulePage() {
       } else {
         toast.error(data.error || "Failed to delete");
       }
-    } catch (e) {
+    } catch {
       toast.error("Network error");
     } finally {
       setIsDeletingExport(false);
@@ -786,7 +786,7 @@ export default function VideoModulePage() {
             ) : (
               <>
                 <Paragraph>No exports found for this video.</Paragraph>
-                <TextSmall>Click "Start New Export" to create one.</TextSmall>
+                <TextSmall>Click &quot;Start New Export&quot; to create one.</TextSmall>
               </>
             )}
           </div>

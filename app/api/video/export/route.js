@@ -27,7 +27,7 @@ export async function POST(request) {
     // Ensure directory exists
     try {
       await fs.mkdir(exportsDir, { recursive: true });
-    } catch (e) {}
+    } catch {}
 
     // Write styling config to a temp file for the script to pick up
     if (styling) {

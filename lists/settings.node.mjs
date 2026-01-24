@@ -10,7 +10,7 @@ const loadJSON = (p) => {
   try {
     if (!fs.existsSync(fullPath)) return {};
     return JSON.parse(fs.readFileSync(fullPath, "utf8"));
-  } catch (e) {
+  } catch {
     return {};
   }
 };

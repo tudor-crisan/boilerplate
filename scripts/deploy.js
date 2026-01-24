@@ -234,7 +234,7 @@ function configureVercelJson(targetDir, appName) {
   if (fs.existsSync(vercelPath)) {
     try {
       vercelConfig = JSON.parse(fs.readFileSync(vercelPath, "utf-8"));
-    } catch (e) {
+    } catch {
       console.warn(
         "   ⚠️ Invalid vercel.json found, starting with empty object.",
       );

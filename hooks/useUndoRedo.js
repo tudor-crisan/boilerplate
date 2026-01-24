@@ -91,16 +91,6 @@ export default function useUndoRedo(initialState) {
       // Check if target is 'current'
       if (targetItem.state === present) return;
 
-      // We need to rebuild past and future.
-      // For this simple implementation, let's just create a linear timeline.
-      const allStates = [initialState, ...history.map((h) => h.state)];
-      // historyIndex corresponds to index+1 in allStates (0 is initial).
-      const targetStateIndex = historyIndex + 1;
-
-      const newPast = allStates.slice(0, targetStateIndex); // 0 to target-1 (exclusive of target? wait)
-      // past should contain states *before* the current one.
-      // if target is index 3, past should be 0,1,2.
-
       // Wait, `history` tracks *changes*.
       // initialState is implicit base.
       // history[0] is state after first change.

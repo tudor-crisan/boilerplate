@@ -13,7 +13,7 @@ export const getPosts = async (boardId) => {
       .lean();
 
     return cleanObject(posts);
-  } catch (e) {
+  } catch {
     return [];
   }
 };

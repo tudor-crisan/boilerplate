@@ -79,7 +79,7 @@ export async function GET(req) {
       const keepAlive = setInterval(() => {
         try {
           controller.enqueue(encoder.encode(": keep-alive\n\n"));
-        } catch (e) {
+        } catch {
           clearInterval(keepAlive);
         }
       }, 15000);
@@ -89,7 +89,7 @@ export async function GET(req) {
       const timeout = setTimeout(() => {
         try {
           controller.close();
-        } catch (e) {
+        } catch {
           // ignore if already closed
         }
         clearInterval(keepAlive);
@@ -102,7 +102,7 @@ export async function GET(req) {
         changeStream.close();
         try {
           controller.close();
-        } catch (e) {}
+        } catch {}
       });
     },
   });

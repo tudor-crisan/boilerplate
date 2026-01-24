@@ -98,7 +98,7 @@ const useBoardComments = (postId) => {
           settings.forms.Comment.formConfig.apiUrl + "?commentId=" + commentId,
         ),
       {
-        onSuccess: (message) => {
+        onSuccess: () => {
           // Optimistic update
           setComments((prev) => prev.filter((c) => c._id !== commentId));
         },

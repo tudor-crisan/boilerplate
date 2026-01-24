@@ -82,7 +82,7 @@ const getPages = () => {
 const config = {
   providers: getProviders(),
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn({ user }) {
       if (user?.email) {
         const { isValid, error } = validateEmail(user.email);
         if (!isValid) {
@@ -94,7 +94,7 @@ const config = {
       }
       return true;
     },
-    async session({ session, user, token }) {
+    async session({ session, user }) {
       if (session?.user && user?.styling) {
         session.user.styling = user.styling;
       }

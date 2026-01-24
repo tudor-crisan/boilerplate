@@ -46,6 +46,7 @@ const eslintConfig = defineConfig([
         { allowSameFolder: false, rootDir: ".", prefix: "@" },
       ],
       "unused-imports/no-unused-imports": "error",
+      "no-unused-vars": "off",
       "unused-imports/no-unused-vars": [
         "warn",
         {

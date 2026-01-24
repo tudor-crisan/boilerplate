@@ -87,7 +87,7 @@ export default function useBoardNotifications() {
       }
     };
 
-    eventSource.onerror = (error) => {
+    eventSource.onerror = () => {
       console.log("SSE connection interrupted, waiting for auto-reconnect...");
     };
 

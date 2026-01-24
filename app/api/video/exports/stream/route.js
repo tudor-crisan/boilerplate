@@ -27,7 +27,7 @@ export async function GET(req) {
       try {
         const content = await fs.readFile(progressPath, "utf-8");
         sendEvent(JSON.parse(content));
-      } catch (e) {
+      } catch {
         // File might not exist yet if just started, or finished.
         // Send a generic 'waiting' or nothing.
       }
@@ -54,7 +54,7 @@ export async function GET(req) {
               // Actually, if finished, we can probably stop.
             }
           }
-        } catch (e) {
+        } catch {
           // File might be gone (cleaned up) -> assume finished or removed
           // Ensure we don't crash loop
         }
