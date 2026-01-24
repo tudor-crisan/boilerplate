@@ -185,7 +185,6 @@ function cleanAppSpecificFiles(targetDir, appName) {
     `   🧹 Cleaning app-specific files for ${appName} (Allowing: ${allowedApps.join(", ")})...`,
   );
 
-  // 1. Clean top-level app directories
   for (const relativeDir of directoriesToClean) {
     const fullDir = path.join(targetDir, relativeDir);
 
@@ -209,30 +208,6 @@ function cleanAppSpecificFiles(targetDir, appName) {
         const entryPath = path.join(fullDir, entry.name);
         console.log(`      Running rmSync on ${relativeDir}/${entry.name}`);
         fs.rmSync(entryPath, { recursive: true, force: true });
-      }
-    }
-  }
-
-  // 2. Clean nested public/assets subdirectories (video, promo, help, etc.)
-  const assetsDir = path.join(targetDir, "public/assets");
-  if (fs.existsSync(assetsDir)) {
-    const categories = fs.readdirSync(assetsDir, { withFileTypes: true });
-    for (const category of categories) {
-      if (!category.isDirectory()) continue;
-
-      const categoryPath = path.join(assetsDir, category.name);
-      const appFolders = fs.readdirSync(categoryPath, { withFileTypes: true });
-
-      for (const appFolder of appFolders) {
-        if (!appFolder.isDirectory()) continue;
-
-        if (!allowedApps.includes(appFolder.name)) {
-          const appFolderPath = path.join(categoryPath, appFolder.name);
-          console.log(
-            `      Running rmSync on public/assets/${category.name}/${appFolder.name}`,
-          );
-          fs.rmSync(appFolderPath, { recursive: true, force: true });
-        }
       }
     }
   }
@@ -414,7 +389,11 @@ async function main() {
       }
 
       // Remove specific public directories
-      const publicDirsToRemove = ["public/uploads", "public/exports"];
+      const publicDirsToRemove = [
+        "public/uploads",
+        "public/exports",
+        "public/assets/video",
+      ];
       for (const relativePath of publicDirsToRemove) {
         const fullPath = path.join(targetDir, relativePath);
         if (fs.existsSync(fullPath)) {
