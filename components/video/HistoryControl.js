@@ -1,4 +1,5 @@
 import Button from "@/components/button/Button";
+import Dropdown from "@/components/common/Dropdown";
 import Modal from "@/components/common/Modal";
 import Paragraph from "@/components/common/Paragraph";
 import SvgHistory from "@/components/svg/SvgHistory";
@@ -6,7 +7,7 @@ import SvgRedo from "@/components/svg/SvgRedo";
 import SvgReset from "@/components/svg/SvgReset";
 import SvgUndo from "@/components/svg/SvgUndo";
 import { useStyling } from "@/context/ContextStyling";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 export default function HistoryControl({
   onUndo,
@@ -19,122 +20,115 @@ export default function HistoryControl({
   currentIndex,
 }) {
   const { styling } = useStyling();
-  const [isOpen, setIsOpen] = useState(false);
   const [isResetModalOpen, setIsResetModalOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  // Click outside to close
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
 
   return (
-    <div className="flex items-center gap-1 bg-base-100/50 p-1 rounded-lg border border-base-200">
+    <div
+      className={`flex items-center gap-1 bg-white p-0.5 border border-base-200 ${styling.components.element}`}
+    >
       {/* Undo */}
-      <div className="tooltip tooltip-bottom" data-tip="Undo">
+      <div className="tooltip tooltip-bottom shrink-0" data-tip="Undo">
         <Button
           size="btn-sm"
           variant="btn-ghost btn-square"
           onClick={onUndo}
           disabled={!canUndo}
+          className="h-8 w-8 min-h-0"
         >
           <SvgUndo />
         </Button>
       </div>
 
       {/* Redo */}
-      <div className="tooltip tooltip-bottom" data-tip="Redo">
+      <div className="tooltip tooltip-bottom shrink-0" data-tip="Redo">
         <Button
           size="btn-sm"
           variant="btn-ghost btn-square"
           onClick={onRedo}
           disabled={!canRedo}
+          className="h-8 w-8 min-h-0"
         >
           <SvgRedo />
         </Button>
       </div>
 
       {/* History Dropdown */}
-      <div className="relative" ref={dropdownRef}>
-        <div className="tooltip tooltip-bottom" data-tip="History">
-          <Button
-            size="btn-sm"
-            variant="btn-ghost btn-square"
-            onClick={() => setIsOpen(!isOpen)}
-            className={isOpen ? "bg-base-200 text-primary" : ""}
-          >
-            <SvgHistory />
-          </Button>
-        </div>
+      <Dropdown
+        label={<SvgHistory className="size-4 opacity-70" />}
+        className="dropdown-end"
+      >
+        <div
+          className={`w-64 max-h-80 overflow-y-auto flex flex-col p-1 ${styling.components.dropdown}`}
+        >
+          <div className="text-[10px] font-black uppercase tracking-widest opacity-30 px-3 py-2">
+            History Log
+          </div>
 
-        {isOpen && (
-          <div className="absolute bottom-full left-0 mb-2 w-64 max-h-80 overflow-y-auto bg-base-100 rounded-lg shadow-xl border border-base-200 z-50 flex flex-col p-2">
-            <div className="text-xs font-bold opacity-50 px-2 py-1 mb-1">
-              History
-            </div>
-
-            {/* Initial State Item */}
-            <div
-              className={`
-                                text-xs p-2 rounded cursor-pointer flex justify-between items-center
-                                ${currentIndex === -1 ? "bg-primary text-primary-content font-bold" : "hover:bg-base-200"}
-                            `}
-              onClick={() => {
-                onReset(); // or jumpTo(-1) if implemented logic supports it, but onReset is safer for "Initial"
-                setIsOpen(false);
-              }}
-            >
-              <span>Initial Version</span>
-            </div>
+          <ul className="menu p-0 gap-1">
+            {/* Initial State */}
+            <li>
+              <button
+                className={`flex flex-col items-start px-3 py-2 ${styling.components.element} h-auto leading-tight w-full ${currentIndex === -1 ? "active" : ""}`}
+                onClick={() => onReset()}
+              >
+                <div className="flex items-center justify-between w-full">
+                  <span className="font-bold text-xs">Initial Version</span>
+                  <span className="text-[10px] opacity-40 font-mono">
+                    ORIGIN
+                  </span>
+                </div>
+                <span className="text-[10px] opacity-60 font-mono text-left">
+                  Original video state
+                </span>
+              </button>
+            </li>
 
             {history.length === 0 && (
-              <div className="text-xs opacity-50 p-2 text-center">
-                No changes yet
+              <div className="text-xs opacity-40 p-4 text-center italic">
+                No changes recorded
               </div>
             )}
 
-            {history.map((item, idx) => (
-              <div
-                key={item.id}
-                className={`
-                                    text-xs p-2 rounded cursor-pointer flex flex-col gap-0.5
-                                    ${idx === currentIndex ? "bg-primary/10 border-l-2 border-primary" : "hover:bg-base-200 border-l-2 border-transparent"}
-                                    ${idx > currentIndex ? "opacity-40" : ""} 
-                                `}
-                onClick={() => {
-                  onJumpTo(idx);
-                  setIsOpen(false);
-                }}
-              >
-                <span
-                  className={`font-medium ${idx === currentIndex ? "text-primary" : ""}`}
-                >
-                  {item.description}
-                </span>
-                <span className="text-[10px] opacity-60">
-                  {item.timestamp.toLocaleTimeString()}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+            {[...history].reverse().map((item, id) => {
+              const actualIdx = history.length - 1 - id;
+              const isActive = actualIdx === currentIndex;
+              return (
+                <li key={item.id}>
+                  <button
+                    className={`flex flex-col items-start px-3 py-2 ${styling.components.element} h-auto leading-tight w-full ${isActive ? "active font-bold" : ""} ${actualIdx > currentIndex ? "opacity-40" : ""}`}
+                    onClick={() => onJumpTo(actualIdx)}
+                  >
+                    <span className="text-xs text-left w-full truncate">
+                      {item.description}
+                    </span>
+                    <span className="text-[10px] opacity-50 font-mono text-left">
+                      {item.timestamp.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                      })}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </Dropdown>
 
-      <div className="w-px h-4 bg-base-300 mx-1"></div>
+      <div className="w-px h-4 bg-base-200 mx-1 shrink-0"></div>
 
       {/* Reset w/ Confirmation */}
-      <div className="tooltip tooltip-bottom" data-tip="Reset to Initial">
+      <div
+        className="tooltip tooltip-bottom shrink-0"
+        data-tip="Reset to Initial"
+      >
         <Button
           size="btn-sm"
           variant="btn-ghost btn-square text-error"
           onClick={() => setIsResetModalOpen(true)}
           disabled={history.length === 0}
+          className="h-8 w-8 min-h-0"
         >
           <SvgReset />
         </Button>

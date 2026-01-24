@@ -18,7 +18,7 @@ export default function VideoControlBar({
   totalTime,
   currentSlideIndex,
   slidesLength,
-  undoContent, // Injecting the component or props
+  undoContent,
 }) {
   const formatTime = (ms) => {
     if (!ms || isNaN(ms)) return "0:00";
@@ -30,106 +30,138 @@ export default function VideoControlBar({
 
   return (
     <div
-      className={`w-full max-w-6xl flex flex-wrap items-center justify-center lg:justify-between bg-base-100 p-4 gap-4 sm:gap-6 shadow-md border border-base-300 ${styling.components.element}`}
+      className={`w-full max-w-6xl flex flex-col xl:flex-row items-center justify-between bg-base-100 p-4 gap-4 xl:gap-2 ${styling.components.element}`}
     >
-      {/* Left: Action Group */}
-      <div className="flex flex-wrap items-center justify-center gap-2 w-full lg:w-auto">
+      {/* Container 1: Action Controls */}
+      <div
+        className={`flex flex-wrap items-center justify-center gap-2 bg-base-200/30 p-1.5 w-full xl:w-auto ${styling.components.element}`}
+      >
         <Button
           onClick={() => router.push(pathname)}
           size="btn-sm"
           variant="btn-ghost"
-          className="flex-1 lg:flex-none"
+          className={`border border-base-200 bg-base-100/50 ${styling.components.element}`}
         >
           ← Gallery
         </Button>
 
         {undoContent && <div className="flex items-center">{undoContent}</div>}
 
-        <div className="flex flex-col items-center gap-0.5 min-w-24">
-          <Button
-            onClick={handleRestart}
-            variant="btn-primary"
-            size="btn-sm"
-            className="w-full"
-          >
-            Re(ALT+S)
-          </Button>
+        <div className="h-6 w-px bg-base-300/50 mx-1 hidden sm:block" />
+
+        <Button
+          onClick={handleRestart}
+          variant="btn-primary"
+          size="btn-sm"
+          className={`shadow-md font-bold px-4 ${styling.components.element}`}
+        >
+          RELOAD{" "}
+          <span className="text-[10px] opacity-60 ml-1.5 hidden sm:inline">
+            (ALT+S)
+          </span>
+        </Button>
+      </div>
+
+      {/* Container 2: Playback Info */}
+      <div
+        className={`flex flex-wrap items-center justify-center gap-x-6 gap-y-4 bg-base-200/50 px-4 py-2 w-full xl:w-auto border border-base-300/30 ${styling.components.element} shadow-inner`}
+      >
+        <div className="flex items-center gap-3">
+          <span className="text-[10px] font-black uppercase tracking-widest opacity-40 whitespace-nowrap">
+            Playback
+          </span>
+          <div className="flex items-center gap-2">
+            <InputRange
+              min="0.5"
+              max="2"
+              step="0.1"
+              value={playbackSpeed}
+              onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
+              className="w-20 sm:w-28"
+            />
+            <span
+              className={`text-[10px] font-black font-mono min-w-8 text-primary bg-base-100 px-1.5 py-0.5 border border-base-200 text-center shadow-sm ${styling.components.element}`}
+            >
+              {playbackSpeed}x
+            </span>
+          </div>
+        </div>
+
+        <div className="h-6 w-px bg-base-300 hidden sm:block" />
+
+        <div className="flex items-center gap-4">
+          <div className="flex flex-col items-end leading-none">
+            <span className="text-[9px] font-black uppercase tracking-widest opacity-30 mb-0.5 whitespace-nowrap">
+              Elapsed
+            </span>
+            <span className="text-sm font-black font-mono tracking-tighter text-primary">
+              {formatTime(currentTime)}
+            </span>
+          </div>
+          <div className="text-xl font-thin opacity-10">/</div>
+          <div className="flex flex-col items-start leading-none">
+            <span className="text-[9px] font-black uppercase tracking-widest opacity-30 mb-0.5 whitespace-nowrap">
+              Duration
+            </span>
+            <span className="text-sm font-black font-mono tracking-tighter text-neutral">
+              {formatTime(totalTime)}
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Center: Playback Group */}
-      <div className="flex items-center justify-center gap-4 bg-base-200/50 px-4 py-2 rounded-lg w-full lg:w-auto overflow-x-auto no-scrollbar">
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold uppercase opacity-50">
-            Speed
-          </span>
-          <InputRange
-            min="0.5"
-            max="2"
-            step="0.1"
-            value={playbackSpeed}
-            onChange={(e) => setPlaybackSpeed(parseFloat(e.target.value))}
-            className="w-16 sm:w-20"
-          />
-          <span className="text-xs font-mono w-8">{playbackSpeed}x</span>
-        </div>
-
-        <div className="h-6 w-px bg-base-300 mx-1 hidden sm:block" />
-
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] font-bold uppercase opacity-50">
-            Time
-          </span>
-          <span className="text-xs font-mono whitespace-nowrap min-w-[70px]">
-            {formatTime(currentTime)} / {formatTime(totalTime)}
-          </span>
-        </div>
-      </div>
-
-      {/* Right: Navigation Group */}
-      <div className="flex items-center justify-center gap-1 bg-base-200/50 p-1 rounded-lg w-full lg:w-auto overflow-x-auto no-scrollbar">
+      {/* Container 3: Navigation */}
+      <div
+        className={`flex items-center justify-center gap-1 bg-base-200/50 p-1.5 w-full xl:w-auto border border-base-300/30 ${styling.components.element}`}
+      >
         <Button
           onClick={goToFirst}
           disabled={currentSlideIndex <= 0}
           variant="btn-ghost"
           size="btn-xs"
-          className="px-2"
+          className="px-2 py-1 font-bold text-[10px] opacity-60 hover:opacity-100 uppercase tracking-tighter h-8 min-h-0"
         >
-          &lt;&lt; First
+          &lt;
         </Button>
-        <div className="h-4 w-[1px] bg-base-300 mx-0.5" />
         <Button
           onClick={prevSlide}
           disabled={currentSlideIndex <= 0}
           variant="btn-outline"
           size="btn-sm"
+          className={`h-9 min-h-0 px-4 font-bold border-base-300 bg-base-100/50 ${styling.components.element}`}
         >
           Prev
         </Button>
 
-        <span className="flex items-center px-3 text-[10px] sm:text-xs font-mono opacity-50 whitespace-nowrap">
-          {currentSlideIndex + 1} / {slidesLength}
-        </span>
-
-        <div className="h-4 w-px bg-base-300 mx-0.5" />
+        <div
+          className={`px-3 py-1.5 bg-base-100 mx-1 flex items-center justify-center gap-2 border border-base-300/30 shadow-inner ${styling.components.element}`}
+        >
+          <span className="text-[9px] font-black uppercase opacity-20 whitespace-nowrap">
+            Slide
+          </span>
+          <span className="text-xs font-black font-mono text-primary whitespace-nowrap">
+            {currentSlideIndex + 1} <span className="opacity-20 mx-0.5">/</span>{" "}
+            {slidesLength}
+          </span>
+        </div>
 
         <Button
           onClick={nextSlide}
           disabled={currentSlideIndex >= slidesLength - 1}
           variant="btn-outline"
           size="btn-sm"
+          className={`h-9 min-h-0 px-4 font-bold border-base-300 bg-base-100/50 ${styling.components.element}`}
         >
           Next
         </Button>
-        <div className="h-4 w-px bg-base-300 mx-0.5" />
         <Button
           onClick={goToLast}
           disabled={currentSlideIndex >= slidesLength - 1}
           variant="btn-ghost"
           size="btn-xs"
-          className="px-2"
+          className="px-2 py-1 font-bold text-[10px] opacity-60 hover:opacity-100 uppercase tracking-tighter h-8 min-h-0"
         >
-          Last &gt;&gt;
+          &gt;
         </Button>
       </div>
     </div>
