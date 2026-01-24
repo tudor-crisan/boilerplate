@@ -29,7 +29,7 @@
           "title": "Building is hard.",
           "voiceover": "Building a great product is hard.",
           "bg": "bg-base-100",
-          "textColor": "text-accent-content",
+          "textColor": "text-accent",
           "animation": "fade",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_2_1768986614867.mp3"
         },
@@ -38,10 +38,13 @@
           "type": "feature",
           "title": "Stop guessing.",
           "voiceover": "Stop guessing what users want.",
-          "bg": "bg-primary",
-          "textColor": "text-primary-content",
-          "animation": "slide-left",
-          "audio": "/uploads/vo/loyalboards_promo-main-16-9_3_1768986630173.mp3"
+          "bg": "bg-base-100",
+          "textColor": "text-primary",
+          "animation": "zoom",
+          "audio": "/uploads/vo/loyalboards_promo-main-16-9_3_1768986630173.mp3",
+          "image": "preview_board.png",
+          "imageFit": "object-cover",
+          "imagePosition": "object-left-top"
         },
         {
           "id": 4,
@@ -96,7 +99,7 @@
           "image": "board_performance.png",
           "imageFit": "object-contain",
           "bg": "bg-base-100",
-          "textColor": "text-primary-content",
+          "textColor": "text-primary",
           "animation": "slide-right",
           "audio": "/uploads/vo/loyalboards_promo-main-16-9_8_1768986726101.mp3"
         },
@@ -346,7 +349,7 @@
       "music": "/uploads/music/loyalboards_promo-main-16-9_music_1768996350429.mp3",
       "voVolume": 1,
       "musicVolume": 0.1,
-      "musicOffset": 0
+      "musicOffset": 72
     },
     {
       "id": "promo-short-9-16",

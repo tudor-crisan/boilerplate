@@ -57,8 +57,6 @@ export default function VideoContainer({ video }) {
   const [fileInputKey, setFileInputKey] = useState(0);
   const [musicInputKey, setMusicInputKey] = useState(0);
 
-  const currentSlide = slides[currentSlideIndex];
-
   // Audio & Playback Hooks
   const {
     currentSlideIndex,
@@ -83,6 +81,8 @@ export default function VideoContainer({ video }) {
     musicRef,
     musicOffset,
   });
+
+  const currentSlide = slides[currentSlideIndex];
 
   const {
     isVoMuted,
