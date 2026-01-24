@@ -257,6 +257,42 @@ function configureVercelJson(targetDir, appName) {
   }
 }
 
+// Helper to remove specific dependencies from package.json
+function cleanPackageJson(targetDir) {
+  const packageJsonPath = path.join(targetDir, "package.json");
+  if (!fs.existsSync(packageJsonPath)) return;
+
+  console.log("   🧹 Cleaning package.json dependencies...");
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
+
+  const dependenciesToRemove = [
+    "puppeteer",
+    "fluent-ffmpeg",
+    "@ffmpeg-installer/ffmpeg",
+  ];
+
+  let modified = false;
+
+  ["dependencies", "devDependencies"].forEach((depType) => {
+    if (packageJson[depType]) {
+      dependenciesToRemove.forEach((dep) => {
+        if (packageJson[depType][dep]) {
+          console.log(`      Removing ${dep} from ${depType}`);
+          delete packageJson[depType][dep];
+          modified = true;
+        }
+      });
+    }
+  });
+
+  if (modified) {
+    fs.writeFileSync(
+      packageJsonPath,
+      JSON.stringify(packageJson, null, 2) + "\n",
+    );
+  }
+}
+
 async function main() {
   try {
     // 0. Parse arguments
@@ -345,11 +381,35 @@ async function main() {
         fs.rmSync(videoComponentsDir, { recursive: true, force: true });
       }
 
+      // Remove video api from all deployments
+      const videoApiDir = path.join(targetDir, "app/api/video");
+      if (fs.existsSync(videoApiDir)) {
+        console.log("   🧹 Removing video api...");
+        fs.rmSync(videoApiDir, { recursive: true, force: true });
+      }
+
+      // Remove specific public directories
+      const publicDirsToRemove = [
+        "public/uploads",
+        "public/exports",
+        "public/assets/video",
+      ];
+      for (const relativePath of publicDirsToRemove) {
+        const fullPath = path.join(targetDir, relativePath);
+        if (fs.existsSync(fullPath)) {
+          console.log(`   🧹 Removing ${relativePath}...`);
+          fs.rmSync(fullPath, { recursive: true, force: true });
+        }
+      }
+
       // Filter list files to remove refs to other apps
       filterListFiles(targetDir, folder);
 
       // Configure vercel.json (inject cron for loyalboards)
       configureVercelJson(targetDir, folder);
+
+      // Clean package.json
+      cleanPackageJson(targetDir);
 
       // Git operations
       console.log("   💾 Committing and pushing target...");

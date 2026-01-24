@@ -13,7 +13,6 @@ import Input from "@/components/input/Input";
 import Select from "@/components/select/Select";
 import SvgEdit from "@/components/svg/SvgEdit";
 import SvgTrash from "@/components/svg/SvgTrash";
-import SvgView from "@/components/svg/SvgView";
 import VideoContainer from "@/components/video/VideoContainer";
 import { useStyling } from "@/context/ContextStyling";
 import { toast } from "@/libs/toast";
@@ -50,6 +49,11 @@ export default function VideoModulePage() {
   });
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [videoToDelete, setVideoToDelete] = useState(null);
+
+  // Exports Modal State
+  const [isExportsModalOpen, setIsExportsModalOpen] = useState(false);
+  const [currentExports, setCurrentExports] = useState([]);
+  const [fetchingExports, setFetchingExports] = useState(false);
 
   useEffect(() => {
     fetchVideos();
@@ -206,6 +210,72 @@ export default function VideoModulePage() {
       height = 1920;
     }
     setFormData((prev) => ({ ...prev, format, width, height }));
+  };
+
+  // State for exports
+  const [activeExport, setActiveExport] = useState(null);
+  const [currentVideoId, setCurrentVideoId] = useState(null);
+  const [startingExport, setStartingExport] = useState(false);
+
+  // Polling for active exports (Only if export is running)
+  useEffect(() => {
+    let interval;
+    if (isExportsModalOpen && activeExport && currentVideoId) {
+      interval = setInterval(() => {
+        fetchExports(currentVideoId, true);
+      }, 2500);
+    }
+    return () => clearInterval(interval);
+  }, [isExportsModalOpen, activeExport, currentVideoId]);
+
+  const fetchExports = async (videoId, silent = false) => {
+    if (!silent) setFetchingExports(true);
+    try {
+      const res = await fetch(`/api/video/exports?videoId=${videoId}`);
+      const data = await res.json();
+      if (data.success) {
+        setCurrentExports(data.exports);
+        setActiveExport(data.activeExport || null);
+      }
+    } catch (error) {
+      if (!silent) toast.error("Failed to load exports");
+    } finally {
+      if (!silent) setFetchingExports(false);
+    }
+  };
+
+  const handleStartExport = async () => {
+    if (!currentVideoId) return;
+    setStartingExport(true);
+    try {
+      const res = await fetch("/api/video/export", {
+        method: "POST",
+        body: JSON.stringify({ videoId: currentVideoId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success("Export started");
+        setTimeout(() => {
+          fetchExports(currentVideoId);
+          // reset button state after a delay to prevent infinite spinner
+          // if activeExport takes over, the button unmounts anyway.
+          setStartingExport(false);
+        }, 2000);
+      } else {
+        toast.error(data.error || "Failed to start export");
+      }
+    } catch (e) {
+      toast.error("Network error");
+      setStartingExport(false);
+    }
+  };
+
+  const handleViewExports = (e, videoId) => {
+    e.stopPropagation();
+    setCurrentVideoId(videoId);
+    setIsExportsModalOpen(true);
+    // Fetch immediately
+    fetchExports(videoId);
   };
 
   // If a video is selected and found, render the player
@@ -366,28 +436,18 @@ export default function VideoModulePage() {
                           {formattedDate(video.createdAt)}
                         </TextSmall>
 
-                        <div className="card-actions justify-end mt-4">
-                          <Button size="btn-sm" variant="btn-primary">
-                            Launch Player
+                        <div className="flex justify-end">
+                          <Button
+                            size="btn-sm"
+                            variant="btn-outline join-item"
+                            onClick={(e) => handleViewExports(e, video.id)}
+                          >
+                            Exports
                           </Button>
                         </div>
 
                         {/* Edit/Delete Actions - Always Visible */}
                         <div className="absolute top-2 right-2 flex gap-2">
-                          <Button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              router.push(
-                                `${pathname}?appId=${video.appId || "loyalboards"}&videoId=${video.id}`,
-                              );
-                            }}
-                            variant="btn-ghost btn-square"
-                            size="btn-xs"
-                            className="bg-base-100/80"
-                            title="View"
-                          >
-                            <SvgView />
-                          </Button>
                           <Button
                             onClick={(e) => handleOpenEdit(e, video)}
                             variant="btn-ghost btn-square"
@@ -529,6 +589,137 @@ export default function VideoModulePage() {
         <Paragraph className={`${styling.general.element} text-center`}>
           Are you sure you want to delete this video?
         </Paragraph>
+      </Modal>
+
+      {/* View Exports Modal */}
+      <Modal
+        isModalOpen={isExportsModalOpen}
+        onClose={() => setIsExportsModalOpen(false)}
+        title="Exported Videos"
+        boxClassName="max-w-4xl"
+      >
+        <div className="mb-6 p-4 bg-base-100 rounded-lg border border-base-200">
+          {activeExport ? (
+            <div className="w-full">
+              <div className="flex justify-between mb-2">
+                <span className="font-bold text-sm">Exporting...</span>
+                <span className="text-xs opacity-70">{activeExport.phase}</span>
+              </div>
+              <progress
+                className="progress progress-primary w-full"
+                value={activeExport.percent}
+                max="100"
+              ></progress>
+              <div className="flex justify-between mt-1">
+                <span className="text-xs">{activeExport.message}</span>
+                <span className="text-xs font-bold">
+                  {activeExport.percent}%
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className="flex justify-between items-center">
+              <div>
+                <h4 className="font-bold">Create New Export</h4>
+                <p className="text-sm opacity-60">
+                  Generate a new MP4 file for this video.
+                </p>
+              </div>
+              <Button
+                variant="btn-primary"
+                onClick={handleStartExport}
+                isLoading={startingExport}
+                disabled={startingExport}
+              >
+                Start New Export
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {fetchingExports ? (
+          <div className="flex justify-center py-8">
+            <Loading text="Loading exports..." />
+          </div>
+        ) : currentExports.length === 0 ? (
+          <div className="text-center py-8 text-base-content/60">
+            {activeExport ? (
+              <TextSmall>
+                Export in progress... Your new video will appear here shortly.
+              </TextSmall>
+            ) : (
+              <>
+                <Paragraph>No exports found for this video.</Paragraph>
+                <TextSmall>Click "Start New Export" to create one.</TextSmall>
+              </>
+            )}
+          </div>
+        ) : (
+          <div className="space-y-8">
+            {currentExports.map((file) => (
+              <div
+                key={file.filename}
+                className="p-4 bg-base-200 rounded-lg shadow-sm"
+              >
+                {/* Video Player Container */}
+                <div className="bg-black/5 rounded-lg overflow-hidden flex justify-center items-center bg-black mb-4">
+                  <video
+                    controls
+                    className="max-h-[60vh] w-auto mx-auto"
+                    src={file.path}
+                  />
+                </div>
+
+                {/* Footer Actions */}
+                <div className="flex justify-between items-center">
+                  <div>
+                    <TextSmall className="font-bold">{file.filename}</TextSmall>
+                    <TextSmall className="opacity-60 text-xs">
+                      {formattedDate(file.createdAt)} •{" "}
+                      {(file.size / 1024 / 1024).toFixed(2)} MB
+                    </TextSmall>
+                  </div>
+                  <div className="flex gap-2">
+                    <a
+                      href={file.path}
+                      download
+                      className="btn btn-sm btn-outline btn-primary"
+                      target="_blank"
+                    >
+                      Download
+                    </a>
+                    <Button
+                      size="btn-sm"
+                      variant="btn-square btn-ghost text-error"
+                      onClick={async () => {
+                        if (!confirm("Delete this export?")) return;
+                        try {
+                          const res = await fetch(
+                            `/api/video/exports?filename=${file.filename}`,
+                            { method: "DELETE" },
+                          );
+                          const data = await res.json();
+                          if (data.success) {
+                            setCurrentExports((prev) =>
+                              prev.filter((e) => e.filename !== file.filename),
+                            );
+                            toast.success("Export deleted");
+                          } else {
+                            toast.error(data.error || "Failed to delete");
+                          }
+                        } catch (e) {
+                          toast.error("Network error");
+                        }
+                      }}
+                    >
+                      <SvgTrash className="size-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </Modal>
     </>
   );

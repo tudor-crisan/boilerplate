@@ -1,5 +1,6 @@
 
 saturday
+- have for the video the title, description, tags for youtube also prepared (and to say it's generated with AI)
 - finish the video creation part module (see if possible to export with ffmpeg)
 - make launch video recorded with obs and trim with capcut (if not possible)
 - make a documentation page for tudorcrisan for the boilerplate (from specs)

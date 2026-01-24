@@ -8,11 +8,13 @@ export default function VideoPlayer({
   replayKey,
   isVertical,
   styling,
+  className = "",
 }) {
   return (
     <div
       className={`relative overflow-hidden bg-gray-900 shadow-md transition-all duration-300 border border-base-300 ${styling.components.card}
         ${isVertical ? "aspect-9/16 h-[80vh]" : "aspect-video w-full sm:w-6xl"}
+        ${className}
       `}
     >
       <AnimatePresence mode="wait">

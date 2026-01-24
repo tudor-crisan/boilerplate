@@ -51,6 +51,34 @@ class ToastManager {
   custom(jsx, options) {
     return this.create(jsx, "custom", options);
   }
+
+  promise(promise, msgs, options) {
+    const id = this.create(msgs.loading, "loading", {
+      ...options,
+      duration: Infinity,
+    });
+
+    promise
+      .then((data) => {
+        this.dismiss(id);
+        this.success(
+          typeof msgs.success === "function"
+            ? msgs.success(data)
+            : msgs.success,
+          options,
+        );
+        return data;
+      })
+      .catch((err) => {
+        this.dismiss(id);
+        this.error(
+          typeof msgs.error === "function" ? msgs.error(err) : msgs.error,
+          options,
+        );
+      });
+
+    return promise;
+  }
 }
 
 export const toast = new ToastManager();
