@@ -344,9 +344,9 @@
         }
       ],
       "music": "/uploads/music/loyalboards_promo-main-16-9_music_1768996350429.mp3",
-      "voVolume": 0.7,
-      "musicVolume": 0.44,
-      "musicOffset": 47
+      "voVolume": 1,
+      "musicVolume": 0.1,
+      "musicOffset": 0
     },
     {
       "id": "promo-short-9-16",

@@ -57,6 +57,9 @@ export default function VideoModulePage() {
   const [isExportsModalOpen, setIsExportsModalOpen] = useState(false);
   const [currentExports, setCurrentExports] = useState([]);
   const [fetchingExports, setFetchingExports] = useState(false);
+  const [isDeleteExportModalOpen, setIsDeleteExportModalOpen] = useState(false);
+  const [exportToDelete, setExportToDelete] = useState(null);
+  const [isDeletingExport, setIsDeletingExport] = useState(false);
 
   useEffect(() => {
     fetchVideos();
@@ -324,6 +327,39 @@ export default function VideoModulePage() {
     setIsExportsModalOpen(true);
     // Fetch immediately
     fetchExports(videoId);
+  };
+
+  const handleDeleteExportClick = (e, file) => {
+    e.stopPropagation();
+    setExportToDelete(file);
+    setIsDeleteExportModalOpen(true);
+  };
+
+  const handleConfirmDeleteExport = async () => {
+    if (!exportToDelete) return;
+
+    setIsDeletingExport(true);
+    try {
+      const res = await fetch(
+        `/api/video/exports?filename=${exportToDelete.filename}`,
+        { method: "DELETE" },
+      );
+      const data = await res.json();
+      if (data.success) {
+        setCurrentExports((prev) =>
+          prev.filter((e) => e.filename !== exportToDelete.filename),
+        );
+        toast.success("Export deleted");
+        setIsDeleteExportModalOpen(false);
+        setExportToDelete(null);
+      } else {
+        toast.error(data.error || "Failed to delete");
+      }
+    } catch (e) {
+      toast.error("Network error");
+    } finally {
+      setIsDeletingExport(false);
+    }
   };
 
   // If a video is selected and found, render the player
@@ -685,7 +721,12 @@ export default function VideoModulePage() {
       {/* View Exports Modal */}
       <Modal
         isModalOpen={isExportsModalOpen}
-        onClose={() => setIsExportsModalOpen(false)}
+        onClose={() => {
+          // Pause all videos inside the modal before closing
+          const modalVideos = document.querySelectorAll(".exports-modal-video");
+          modalVideos.forEach((v) => v.pause());
+          setIsExportsModalOpen(false);
+        }}
         title="Exported Videos"
         boxClassName="max-w-4xl"
       >
@@ -762,7 +803,7 @@ export default function VideoModulePage() {
                 >
                   <video
                     controls
-                    className="max-h-[60vh] w-auto mx-auto"
+                    className="max-h-[60vh] w-auto mx-auto exports-modal-video"
                     src={file.path}
                   />
                 </div>
@@ -789,26 +830,8 @@ export default function VideoModulePage() {
                     <Button
                       size="btn-sm"
                       variant="btn-square btn-ghost text-error"
-                      onClick={async () => {
-                        if (!confirm("Delete this export?")) return;
-                        try {
-                          const res = await fetch(
-                            `/api/video/exports?filename=${file.filename}`,
-                            { method: "DELETE" },
-                          );
-                          const data = await res.json();
-                          if (data.success) {
-                            setCurrentExports((prev) =>
-                              prev.filter((e) => e.filename !== file.filename),
-                            );
-                            toast.success("Export deleted");
-                          } else {
-                            toast.error(data.error || "Failed to delete");
-                          }
-                        } catch (e) {
-                          toast.error("Network error");
-                        }
-                      }}
+                      onClick={(e) => handleDeleteExportClick(e, file)}
+                      title="Delete"
                     >
                       <SvgTrash className="size-4" />
                     </Button>
@@ -818,6 +841,37 @@ export default function VideoModulePage() {
             ))}
           </div>
         )}
+      </Modal>
+
+      {/* Delete Export Confirmation Modal */}
+      <Modal
+        isModalOpen={isDeleteExportModalOpen}
+        onClose={() => setIsDeleteExportModalOpen(false)}
+        title="Delete Export"
+        contentClassName="p-0! pb-2!"
+        actions={
+          <>
+            <Button
+              className="btn-ghost"
+              onClick={() => setIsDeleteExportModalOpen(false)}
+              disabled={isDeletingExport}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="btn-error btn-outline"
+              onClick={handleConfirmDeleteExport}
+              isLoading={isDeletingExport}
+            >
+              Delete
+            </Button>
+          </>
+        }
+      >
+        <Paragraph className={`${styling.general.element} text-center`}>
+          Are you sure you want to delete this export? This action cannot be
+          undone.
+        </Paragraph>
       </Modal>
     </>
   );
