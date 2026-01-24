@@ -228,7 +228,8 @@ async function exportVideo(videoId, outputFilename = "output.mp4") {
     let audioInputsCount = 0;
 
     if (hasMusic) {
-      filterComplex.push(`[1:a]volume=${video.musicVolume || 0.3}[bg]`);
+      const vol = video.musicVolume !== undefined ? video.musicVolume : 0.3;
+      filterComplex.push(`[1:a]volume=${vol}[bg]`);
       audioInputsCount++;
     }
 
@@ -236,7 +237,7 @@ async function exportVideo(videoId, outputFilename = "output.mp4") {
       const inputIndex = hasMusic ? index + 2 : index + 1;
       const delayMs = Math.round(event.startMs);
       const outputLabel = `vo${index}`;
-      const vol = video.voVolume || 1.0;
+      const vol = video.voVolume !== undefined ? video.voVolume : 1.0;
       filterComplex.push(
         `[${inputIndex}:a]volume=${vol},adelay=${delayMs}|${delayMs}[${outputLabel}]`,
       );
