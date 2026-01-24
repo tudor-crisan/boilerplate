@@ -14,6 +14,7 @@ import Input from "@/components/input/Input";
 import Select from "@/components/select/Select";
 import SvgEdit from "@/components/svg/SvgEdit";
 import SvgTrash from "@/components/svg/SvgTrash";
+import SvgView from "@/components/svg/SvgView";
 import Textarea from "@/components/textarea/Textarea";
 import VideoContainer from "@/components/video/VideoContainer";
 import { useStyling } from "@/context/ContextStyling";
@@ -313,6 +314,10 @@ export default function VideoModulePage() {
     }
   };
 
+  const handleViewVideo = (video) => {
+    router.push(`${pathname}?appId=${video.appId || ""}&videoId=${video.id}`);
+  };
+
   const handleViewExports = (e, videoId) => {
     e.stopPropagation();
     setCurrentVideoId(videoId);
@@ -445,11 +450,7 @@ export default function VideoModulePage() {
                   {filteredVideos.map((video) => (
                     <div
                       key={video.id}
-                      onClick={() =>
-                        router.push(
-                          `${pathname}?appId=${video.appId || "loyalboards"}&videoId=${video.id}`,
-                        )
-                      }
+                      onClick={() => handleViewVideo(video)}
                       className={`${styling.components.card} cursor-pointer hover:scale-[1.02] transition-transform group relative`}
                       role="button"
                       tabIndex={0}
@@ -493,6 +494,15 @@ export default function VideoModulePage() {
 
                         {/* Edit/Delete Actions - Always Visible */}
                         <div className="absolute top-2 right-2 flex gap-2">
+                          <Button
+                            onClick={() => handleViewVideo(video)}
+                            variant="btn-ghost btn-square"
+                            size="btn-xs"
+                            className="bg-base-100/80"
+                            title="View"
+                          >
+                            <SvgView />
+                          </Button>
                           <Button
                             onClick={(e) => handleOpenEdit(e, video)}
                             variant="btn-ghost btn-square"
@@ -679,7 +689,7 @@ export default function VideoModulePage() {
         title="Exported Videos"
         boxClassName="max-w-4xl"
       >
-        <div className="mb-6 p-4 bg-base-100 rounded-lg border border-base-200">
+        <div className={`${styling.components.element} mb-6 p-4 bg-base-100`}>
           {activeExport ? (
             <div className="w-full">
               <div className="flex justify-between mb-2">
@@ -744,10 +754,12 @@ export default function VideoModulePage() {
             {currentExports.map((file) => (
               <div
                 key={file.filename}
-                className="p-4 bg-base-200 rounded-lg shadow-sm"
+                className={`${styling.components.card} p-4 bg-base-200`}
               >
                 {/* Video Player Container */}
-                <div className="bg-black/5 rounded-lg overflow-hidden flex justify-center items-center bg-black mb-4">
+                <div
+                  className={`${styling.components.card} bg-black overflow-hidden flex justify-center items-center mb-4`}
+                >
                   <video
                     controls
                     className="max-h-[60vh] w-auto mx-auto"

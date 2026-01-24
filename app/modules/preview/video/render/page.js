@@ -1,6 +1,7 @@
 "use client";
 
 import VideoPlayer from "@/components/video/VideoPlayer";
+import WrapperStyling from "@/components/wrapper/WrapperStyling";
 import { useStyling } from "@/context/ContextStyling";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -138,46 +139,48 @@ export default function RenderPage() {
   const contentWidth = isVertical ? "100%" : "1152px"; // 72rem
 
   return (
-    <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
-      <div
-        id="video-frame"
-        className={`relative overflow-hidden bg-white flex items-center justify-center
-                ${isVertical ? "w-[1080px] h-[1920px]" : "w-[1920px] h-[1080px] origin-center"}
-            `}
-      >
+    <WrapperStyling>
+      <div className="w-screen h-screen bg-black overflow-hidden flex items-center justify-center">
         <div
-          style={{
-            transform: `scale(${scale})`,
-            width: contentWidth,
-            transformOrigin: "center center",
-          }}
+          id="video-frame"
+          className={`relative overflow-hidden bg-white flex items-center justify-center
+                  ${isVertical ? "w-[1080px] h-[1920px]" : "w-[1920px] h-[1080px] origin-center"}
+              `}
         >
-          <VideoPlayer
-            currentSlide={currentSlide}
-            isVertical={isVertical}
-            styling={styling}
-            replayKey={currentSlideIndex} // Force re-render on slide change
-          />
+          <div
+            style={{
+              transform: `scale(${scale})`,
+              width: contentWidth,
+              transformOrigin: "center center",
+            }}
+          >
+            <VideoPlayer
+              currentSlide={currentSlide}
+              isVertical={isVertical}
+              styling={styling}
+              replayKey={currentSlideIndex} // Force re-render on slide change
+            />
+          </div>
         </div>
+        <style jsx global>{`
+          body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+          }
+          /* Keep legacy support for hiding nextjs incase script fails */
+          .nextjs-toast-errors-parent,
+          [data-nextjs-toast],
+          .nextjs-static-indicator-toast-wrapper,
+          #devtools-indicator, // Targeted ID
+          #next-logo {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+          }
+        `}</style>
       </div>
-      <style jsx global>{`
-        body {
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-          background: black;
-        }
-        /* Keep legacy support for hiding nextjs incase script fails */
-        .nextjs-toast-errors-parent,
-        [data-nextjs-toast],
-        .nextjs-static-indicator-toast-wrapper,
-        #devtools-indicator, // Targeted ID
-        #next-logo {
-          display: none !important;
-          opacity: 0 !important;
-          visibility: hidden !important;
-        }
-      `}</style>
-    </div>
+    </WrapperStyling>
   );
 }
