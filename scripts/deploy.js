@@ -88,7 +88,7 @@ function filterListFiles(targetDir, appName) {
 
     const filePath = path.join(listsDir, file);
     const content = fs.readFileSync(filePath, "utf-8");
-    const lines = content.split("\n");
+    const lines = content.split(/\r?\n/);
     const newLines = [];
     const forbiddenVars = new Set();
 
