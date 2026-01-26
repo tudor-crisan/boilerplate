@@ -9,7 +9,7 @@ describe("components/common/Upload", () => {
   beforeAll(async () => {
     // Mock child components
     jest.unstable_mockModule("@/components/button/Button", () => ({
-      default: ({ children, _isLoading, ...props }) => (
+      default: ({ children, isLoading, ...props }) => (
         <button {...props}>{children}</button>
       ),
     }));

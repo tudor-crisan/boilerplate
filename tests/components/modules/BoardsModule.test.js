@@ -1,6 +1,6 @@
 import React from "react";
 import { jest } from "@jest/globals";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 
 // Mocks
 jest.unstable_mockModule("@/context/ContextAuth", () => ({
@@ -109,10 +109,12 @@ describe("Boards Module UI", () => {
       expect(screen.getByText("10")).toBeTruthy();
     });
 
-    it("should optimistically update on click", () => {
+    it("should optimistically update on click", async () => {
       render(<BoardUpvoteButton postId="p1" initialVotesCounter={10} />);
       const btn = screen.getByRole("button");
-      fireEvent.click(btn);
+      await act(async () => {
+        fireEvent.click(btn);
+      });
       expect(screen.getByText("11")).toBeTruthy();
     });
   });
