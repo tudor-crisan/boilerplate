@@ -92,5 +92,75 @@ describe("libs/email", () => {
     expect(result.text).toContain("Sign in to TestApp");
   });
 
+  it("should generate QuickLinkEmail with isTest flag", async () => {
+    const result = await QuickLinkEmail({
+      host: "test.com",
+      url: "http://test.com/login",
+      styling: {},
+      isTest: true,
+    });
+
+    expect(result.subject).toContain("[TEST");
+  });
+
+  it("should generate WeeklyDigestEmail content", async () => {
+    const result = await WeeklyDigestEmail({
+      baseUrl: "http://test.com",
+      userName: "John",
+      boards: [],
+      styling: {},
+    });
+
+    expect(result.subject).toContain("Weekly Board Stats");
+    expect(result.html).toContain("<!DOCTYPE html><html>");
+    expect(result.text).toContain("John");
+  });
+
+  it("should generate WeeklyDigestEmail with isTest flag", async () => {
+    const result = await WeeklyDigestEmail({
+      baseUrl: "http://test.com",
+      userName: "John",
+      boards: [],
+      styling: {},
+      isTest: true,
+    });
+
+    expect(result.subject).toContain("[TEST");
+  });
+
+  it("should handle URL with trailing slash", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({}) });
+
+    await sendEmail({
+      apiUrl: "https://api.resend.com/",
+      from: "me@test.com",
+      email: "you@test.com",
+      subject: "Subject",
+      html: "<p>Body</p>",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://api.resend.com/emails",
+      expect.any(Object),
+    );
+  });
+
+  it("should handle apiPath without leading slash", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({}) });
+
+    await sendEmail({
+      apiPath: "emails",
+      from: "me@test.com",
+      email: "you@test.com",
+      subject: "Subject",
+      html: "<p>Body</p>",
+    });
+
+    expect(fetchMock).toHaveBeenCalledWith(
+      expect.stringContaining("/emails"),
+      expect.any(Object),
+    );
+  });
+
   // WeeklyDigestEmail test similar structure
 });

@@ -115,4 +115,46 @@ describe("libs/toast", () => {
     expect(toast.toasts[0].message).toBe("Failed");
     expect(toast.toasts[0].type).toBe("error");
   });
+
+  it("should create custom toast", () => {
+    const customJsx = { type: "custom", content: "Custom" };
+    const id = toast.custom(customJsx);
+    expect(toast.toasts[0]).toMatchObject({
+      id,
+      message: customJsx,
+      type: "custom",
+    });
+  });
+
+  it("should handle promise with function messages", async () => {
+    const promise = Promise.resolve("Data");
+    const msgs = {
+      loading: "Loading...",
+      success: (data) => `Loaded ${data}!`,
+      error: (err) => `Failed: ${err}`,
+    };
+
+    await toast.promise(promise, msgs);
+    await Promise.resolve();
+
+    expect(toast.toasts[0].message).toBe("Loaded Data!");
+  });
+
+  it("should handle promise with function error messages", async () => {
+    const promise = Promise.reject("Error");
+    const msgs = {
+      loading: "Loading...",
+      success: "Success",
+      error: (err) => `Failed: ${err}`,
+    };
+
+    try {
+      await toast.promise(promise, msgs);
+    } catch {}
+
+    await Promise.resolve();
+    await Promise.resolve();
+
+    expect(toast.toasts[0].message).toBe("Failed: Error");
+  });
 });
