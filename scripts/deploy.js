@@ -279,7 +279,7 @@ function configureVercelJson(targetDir, appName) {
 }
 
 // Helper to remove specific dependencies from package.json
-function cleanPackageJson(targetDir) {
+function cleanPackageJson(targetDir, appName) {
   const packageJsonPath = path.join(targetDir, "package.json");
   if (!fs.existsSync(packageJsonPath)) return;
 
@@ -287,6 +287,9 @@ function cleanPackageJson(targetDir) {
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
 
   const dependenciesToRemove = CONFIG.defaults.dependenciesToRemove || [];
+
+  // Set the package name to the app name
+  packageJson.name = appName;
 
   let modified = false;
 
@@ -443,7 +446,7 @@ async function main() {
       configureVercelJson(targetDir, folder);
 
       // Clean package.json
-      cleanPackageJson(targetDir);
+      cleanPackageJson(targetDir, folder);
 
       // Final pass: Remove empty directories
       console.log("   🧹 Removing empty directories...");
