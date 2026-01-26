@@ -42,7 +42,7 @@ export const getMergedConfig = (configType, configValue, list) => {
 
   if (typeof configValue === "string") {
     overrideKey = configValue;
-  } else if (typeof configValue === "object") {
+  } else if (configValue && typeof configValue === "object") {
     baseKey = configValue.default || baseKey;
     overrideKey = configValue.override;
   }
@@ -63,11 +63,13 @@ export const getMergedConfig = (configType, configValue, list) => {
  */
 export const getMergedConfigWithModules = (configType, configValue, list) => {
   const baseKey =
-    typeof configValue === "object"
+    configValue && typeof configValue === "object"
       ? configValue.default || `${configType}`
       : `${configType}`;
   const appSettingKey =
-    typeof configValue === "object" ? configValue.override : configValue;
+    configValue && typeof configValue === "object"
+      ? configValue.override
+      : configValue;
 
   let mergedConfig = list[baseKey] || {};
   const appConfig = list[appSettingKey] || {};
