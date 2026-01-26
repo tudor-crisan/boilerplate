@@ -17,7 +17,8 @@
       "tests",
       "specs",
       "types",
-      "coverage"
+      "coverage",
+      "extensions"
     ],
     "pathsToRemoveFromAll": [
       "app/modules/preview",

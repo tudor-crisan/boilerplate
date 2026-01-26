@@ -1,7 +1,4 @@
 {
-  "favicon": {
-    "href": "tc_favicon.jpg"
-  },
   "show": {
     "SectionHeader": {
       "top": true,

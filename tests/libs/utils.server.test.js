@@ -21,9 +21,9 @@ describe("libs/utils.server.js", () => {
 
     jest.unstable_mockModule("@/libs/merge.mjs", () => ({
       getMergedConfig: jest.fn(
-        (type, override, defaults) => defaults?.default || {},
+        (_type, _override, defaults) => defaults?.default || {},
       ),
-      getMergedConfigWithModules: jest.fn((type, override, defaults) => ({
+      getMergedConfigWithModules: jest.fn((_type, _override, _defaults) => ({
         forms: {
           testTarget: {
             mockConfig: {

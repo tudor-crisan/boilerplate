@@ -15,10 +15,10 @@ describe("hooks/useHighlight", () => {
       isThemeDark: jest.fn(() => false),
     }));
 
-    const module = await import("@/hooks/useHighlight");
-    useHighlight = module.default;
-    escapeRegExp = module.escapeRegExp;
-    stripHtml = module.stripHtml;
+    const highlightModule = await import("@/hooks/useHighlight");
+    useHighlight = highlightModule.default;
+    escapeRegExp = highlightModule.escapeRegExp;
+    stripHtml = highlightModule.stripHtml;
   });
 
   describe("escapeRegExp", () => {

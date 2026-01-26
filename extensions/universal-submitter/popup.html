@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      body {
+        width: 350px;
+        padding: 10px;
+        font-family: sans-serif;
+      }
+      .group {
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input,
+      textarea,
+      select {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 5px;
+        box-sizing: border-box;
+      }
+      button {
+        width: 100%;
+        padding: 8px;
+        background: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-bottom: 5px;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+      button.secondary {
+        background: #6c757d;
+      }
+      button.secondary:hover {
+        background: #5a6268;
+      }
+      #history-list {
+        list-style: none;
+        padding: 0;
+        max-height: 150px;
+        overflow-y: auto;
+        font-size: 0.9em;
+      }
+      #history-list li {
+        border-bottom: 1px solid #eee;
+        padding: 5px 0;
+      }
+      .success {
+        color: green;
+        font-weight: bold;
+        display: none;
+        margin-top: 5px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Universal Submitter</h2>
+
+    <div class="group">
+      <label>Current App Profile</label>
+      <select id="app-select">
+        <option value="loyalboards">Loyalboards</option>
+        <option value="tudorcrisan.dev">TudorCrisan.dev</option>
+        <option value="new">+ Add New Profile...</option>
+      </select>
+    </div>
+
+    <div class="group">
+      <label>Project Data (for Autocomplete)</label>
+      <input type="text" id="p-name" placeholder="Project Name" />
+      <input
+        type="text"
+        id="p-url"
+        placeholder="URL (e.g. https://loyalboards.co)"
+      />
+      <textarea id="p-desc" rows="3" placeholder="Short Description"></textarea>
+      <input
+        type="text"
+        id="p-keywords"
+        placeholder="Keywords (comma separated)"
+      />
+      <button id="save-data" class="secondary">Save Profile Data</button>
+    </div>
+
+    <div class="group">
+      <button id="autofill-btn">✨ Autofill Current Form</button>
+      <button id="mark-submitted-btn">✅ Mark as Submitted Here</button>
+      <div id="status-msg" class="success">Saved!</div>
+    </div>
+
+    <div class="group">
+      <label>Submission History</label>
+      <ul id="history-list"></ul>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -10,41 +10,17 @@ describe("libs/apps", () => {
     jest.unstable_mockModule("@/lists/applications.mjs", () => ({
       default: {
         "test-app": {
-          copywriting: "copy-key",
-          setting: { override: "set-key" }, // Test override object interaction
-          visual: "vis-key",
-          styling: "style-key",
+          details: {
+            appName: "Test App",
+            website: "test.com",
+            title: "Hero",
+            description: "Desc",
+            favicon: "/fav.ico",
+          },
         },
         "bad-app": {
-          copywriting: "missing-key", // Will look up undefined
-          setting: "set-key",
-          visual: "vis-key",
-          styling: "style-key",
+          // Missing details
         },
-      },
-    }));
-
-    jest.unstable_mockModule("@/lists/copywritings.js", () => ({
-      default: {
-        "copy-key": { SectionHero: { headline: "Hero", paragraph: "Desc" } },
-      },
-    }));
-
-    jest.unstable_mockModule("@/lists/settings.js", () => ({
-      default: {
-        "set-key": { appName: "Test App", website: "test.com" },
-      },
-    }));
-
-    jest.unstable_mockModule("@/lists/stylings.js", () => ({
-      default: {
-        "style-key": { theme: "light" },
-      },
-    }));
-
-    jest.unstable_mockModule("@/lists/visuals.js", () => ({
-      default: {
-        "vis-key": { favicon: { href: "/fav.ico" } },
       },
     }));
 
@@ -62,13 +38,14 @@ describe("libs/apps", () => {
     expect(details.title).toBe("Hero");
     expect(details.appName).toBe("Test App");
     expect(details.website).toBe("https://test.com");
+    expect(details.favicon).toBe("/fav.ico");
   });
 
   it("should return null for unknown app", () => {
     expect(getAppDetails("unknown")).toBeNull();
   });
 
-  it("should return null if config key missing", () => {
+  it("should return null if details missing", () => {
     expect(getAppDetails("bad-app")).toBeNull();
   });
 });

@@ -164,7 +164,7 @@ describe("hooks/modules/video/useVideoPlayback", () => {
     expect(result.current.currentSlideIndex).toBe(2);
   });
 
-  it("should handle restart", () => {
+  it("should handle restart", async () => {
     const audioRef = createMockAudioRef();
     const { result } = renderHook(() =>
       useVideoPlayback({
@@ -178,8 +178,9 @@ describe("hooks/modules/video/useVideoPlayback", () => {
       result.current.setCurrentSlideIndex(2);
     });
 
-    act(() => {
+    await act(async () => {
       result.current.handleRestart();
+      await Promise.resolve();
     });
 
     expect(result.current.currentSlideIndex).toBe(0);
@@ -187,7 +188,7 @@ describe("hooks/modules/video/useVideoPlayback", () => {
     expect(audioRef.current.play).toHaveBeenCalled();
   });
 
-  it("should handle replay", () => {
+  it("should handle replay", async () => {
     const audioRef = createMockAudioRef();
     const { result } = renderHook(() =>
       useVideoPlayback({
@@ -199,8 +200,9 @@ describe("hooks/modules/video/useVideoPlayback", () => {
 
     const initialReplayKey = result.current.replayKey;
 
-    act(() => {
+    await act(async () => {
       result.current.handleReplay();
+      await Promise.resolve();
     });
 
     expect(result.current.replayKey).toBe(initialReplayKey + 1);
@@ -208,7 +210,7 @@ describe("hooks/modules/video/useVideoPlayback", () => {
     expect(audioRef.current.play).toHaveBeenCalled();
   });
 
-  it("should toggle play/pause", () => {
+  it("should toggle play/pause", async () => {
     const audioRef = createMockAudioRef();
     const { result } = renderHook(() =>
       useVideoPlayback({
@@ -218,15 +220,17 @@ describe("hooks/modules/video/useVideoPlayback", () => {
       }),
     );
 
-    act(() => {
+    await act(async () => {
       result.current.togglePlay();
+      await Promise.resolve();
     });
 
     expect(result.current.isPlaying).toBe(true);
     expect(audioRef.current.play).toHaveBeenCalled();
 
-    act(() => {
+    await act(async () => {
       result.current.togglePlay();
+      await Promise.resolve();
     });
 
     expect(result.current.isPlaying).toBe(false);

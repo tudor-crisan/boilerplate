@@ -5,9 +5,9 @@ describe("hooks/useAnalyticsRange", () => {
   let useAnalyticsRange, ranges;
 
   beforeAll(async () => {
-    const module = await import("@/hooks/useAnalyticsRange");
-    useAnalyticsRange = module.useAnalyticsRange;
-    ranges = module.ranges;
+    const analyticsModule = await import("@/hooks/useAnalyticsRange");
+    useAnalyticsRange = analyticsModule.useAnalyticsRange;
+    ranges = analyticsModule.ranges;
   });
 
   it("should initialize with default range", () => {

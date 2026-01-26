@@ -1,8 +1,5 @@
 {
-  "SectionHero": {
-    "headline": "Streamline team workflows with visual task management",
-    "paragraph": "Create project boards instantly, assign tasks efficiently, and keep your team aligned on what matters most."
-  },
+  "SectionHero": {},
   "SectionPricing": {
     "label": "Pricing",
     "headline": "A pricing that adapts to your needs",

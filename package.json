@@ -20,7 +20,8 @@
     "stick": "node scripts/copy-to-stick.js",
     "loc": "node scripts/count-loc.js",
     "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
-    "update": "node scripts/update.js"
+    "update": "node scripts/update.js",
+    "updater:extension": "node scripts/update-extensions.js"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.1",

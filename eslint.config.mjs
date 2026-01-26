@@ -7,7 +7,13 @@ import unusedImports from "eslint-plugin-unused-imports";
 const eslintConfig = defineConfig([
   ...nextVitals,
   // Override default ignores of eslint-config-next.
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "coverage/**",
+  ]),
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
