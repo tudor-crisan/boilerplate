@@ -1,0 +1,56 @@
+{
+  "defaults": {
+    "deployedRoot": "C:/twain_32/deployed",
+    "targetFolders": ["loyalboards", "tudorcrisan.dev"],
+    "excludedFiles": [
+      ".next",
+      "node_modules",
+      ".vscode",
+      ".env",
+      "env",
+      ".git",
+      "scripts",
+      "todo.notes.txt",
+      "README.md",
+      ".env.example",
+      ".editorconfig"
+    ],
+    "pathsToRemoveFromAll": [
+      "app/modules/preview",
+      "components/video",
+      "app/api/video",
+      "public/uploads",
+      "public/exports",
+      "public/assets/video"
+    ],
+    "dependenciesToRemove": [
+      "puppeteer",
+      "fluent-ffmpeg",
+      "@ffmpeg-installer/ffmpeg"
+    ]
+  },
+  "apps": {
+    "loyalboards": {
+      "allowedApps": ["loyalboards"],
+      "removeResend": true,
+      "vercelConfig": {
+        "crons": [
+          {
+            "path": "/api/modules/boards/weekly-digest",
+            "schedule": "0 8 * * 1"
+          }
+        ]
+      }
+    },
+    "tudorcrisan.dev": {
+      "allowedApps": [
+        "tudorcrisan",
+        "tudorcrisan.dev",
+        "loyalboards",
+        "taskflow"
+      ],
+      "removeResend": false,
+      "publicAppsException": ["tudorcrisan.dev"]
+    }
+  }
+}

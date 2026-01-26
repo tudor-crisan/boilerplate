@@ -8,37 +8,29 @@ const __dirname = path.dirname(__filename);
 
 // CONFIGURATION
 const BOILERPLATE_DIR = path.resolve(__dirname, "..");
-const DEPLOYED_ROOT = "C:/twain_32/deployed"; // Adjust if needed
-// List of folders in DEPLOYED_ROOT to deploy to.
-// If empty, it could potentially scan the directory, but for safety, please list them.
-// Example: ['my-app', 'another-app']
-const TARGET_FOLDERS = ["loyalboards", "tudorcrisan.dev"];
+const CONFIG_PATH = path.resolve(
+  __dirname,
+  "..",
+  "data",
+  "modules",
+  "deploy.json",
+);
 
-// Configuration for app-specific folders to KEEP.
-// Standardizes "tudorcrisan" (folder) vs "tudorcrisan.dev" (target)
-const APP_CONFIG = {
-  loyalboards: ["loyalboards"],
-  "tudorcrisan.dev": [
-    "tudorcrisan",
-    "tudorcrisan.dev",
-    "loyalboards",
-    "taskflow",
-  ],
-};
+// Load external config
+let CONFIG;
+try {
+  CONFIG = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf-8"));
+} catch {
+  console.error(
+    "❌ Failed to load scripts/deploy.json. Please ensure it exists.",
+  );
+  process.exit(1);
+}
 
-const EXCLUDED_FILES = [
-  ".next",
-  "node_modules",
-  ".vscode",
-  ".env",
-  "env",
-  ".git", // Always exclude .git from source copy to avoid overwriting target repo
-  "scripts", // Maybe exclude scripts too? User didn't specify, but often good practice. Keeping as per request: only .next, node_modules, .vscode, .env
-  "todo.notes.txt",
-  "README.md",
-  ".env.example",
-  ".editorconfig",
-];
+const DEPLOYED_ROOT = CONFIG.defaults.deployedRoot || "C:/twain_32/deployed";
+const TARGET_FOLDERS = CONFIG.defaults.targetFolders || [];
+// Always exclude .git if not present in config, just in case
+const EXCLUDED_FILES = CONFIG.defaults.excludedFiles || [".git"];
 
 // Helper to copy directory recursively with exclusions
 function copyDir(src, dest, exclusions) {
@@ -85,7 +77,8 @@ function filterListFiles(targetDir, appName) {
   const listsDir = path.join(targetDir, "lists");
   if (!fs.existsSync(listsDir)) return;
 
-  const allowedApps = APP_CONFIG[appName] || [appName];
+  const appConfig = CONFIG.apps[appName] || {};
+  const allowedApps = appConfig.allowedApps || [appName];
   const files = fs.readdirSync(listsDir);
 
   console.log(`   🧹 Filtering list files for ${appName}...`);
@@ -176,7 +169,9 @@ function filterListFiles(targetDir, appName) {
 
 // Helper to remove unrelated app folders from specific directories
 function cleanAppSpecificFiles(targetDir, appName) {
-  const allowedApps = APP_CONFIG[appName] || [];
+  const appConfig = CONFIG.apps[appName] || {};
+  const allowedApps = appConfig.allowedApps || [];
+  const publicAppsException = appConfig.publicAppsException || [];
 
   // Directories that contain app-specific subfolders
   const directoriesToClean = ["public/apps", "data/apps", "components/apps"];
@@ -197,10 +192,13 @@ function cleanAppSpecificFiles(targetDir, appName) {
 
       // If the folder name is NOT in the allowed list for this app, delete it.
       if (!allowedApps.includes(entry.name)) {
-        // EXCEPTION: Always keep tudorcrisan in public/apps
-        if (relativeDir === "public/apps" && entry.name === "tudorcrisan.dev") {
+        // EXCEPTION: Check publicAppsException
+        if (
+          relativeDir === "public/apps" &&
+          publicAppsException.includes(entry.name)
+        ) {
           console.log(
-            `      Found public/apps/tudorcrisan.dev, preserving it (shared assets).`,
+            `      Found public/apps/${entry.name}, preserving it (shared assets).`,
           );
           continue;
         }
@@ -212,14 +210,11 @@ function cleanAppSpecificFiles(targetDir, appName) {
     }
   }
 
-  // NEW: Remove webhooks for apps that don't need them (specifically `resend` webhook for `tudorcrisan.dev` only)
-  // If we had more webhooks, we would make this more granular, but for now:
-  if (appName !== "tudorcrisan.dev") {
+  // Remove webhooks based on config
+  if (appConfig.removeResend) {
     const resendDir = path.join(targetDir, "app/api/resend");
     if (fs.existsSync(resendDir)) {
-      console.log(
-        `      Running rmSync on app/api/resend (only for tudorcrisan.dev)`,
-      );
+      console.log(`      Running rmSync on app/api/resend`);
       fs.rmSync(resendDir, { recursive: true, force: true });
     }
   }
@@ -242,17 +237,10 @@ function configureVercelJson(targetDir, appName) {
     }
   }
 
-  // Inject crons for loyalboards
-  if (appName === "loyalboards") {
-    console.log(
-      "   ⚙️ Configuring vercel.json for loyalboards (injecting cron)...",
-    );
-    vercelConfig.crons = [
-      {
-        path: "/api/modules/boards/weekly-digest",
-        schedule: "0 8 * * 1",
-      },
-    ];
+  const appConfig = CONFIG.apps[appName];
+  if (appConfig && appConfig.vercelConfig) {
+    console.log(`   ⚙️ Configuring vercel.json for ${appName}...`);
+    Object.assign(vercelConfig, appConfig.vercelConfig);
     fs.writeFileSync(vercelPath, JSON.stringify(vercelConfig, null, 2));
   }
 }
@@ -265,11 +253,7 @@ function cleanPackageJson(targetDir) {
   console.log("   🧹 Cleaning package.json dependencies...");
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
 
-  const dependenciesToRemove = [
-    "puppeteer",
-    "fluent-ffmpeg",
-    "@ffmpeg-installer/ffmpeg",
-  ];
+  const dependenciesToRemove = CONFIG.defaults.dependenciesToRemove || [];
 
   let modified = false;
 
@@ -338,9 +322,8 @@ async function main() {
 
     if (TARGET_FOLDERS.length === 0) {
       console.warn(
-        "⚠️  No target folders defined in scripts/deploy.js. Please update TARGET_FOLDERS array.",
+        "⚠️  No target folders defined in deploy.json. Please update the configuration.",
       );
-      // Optionally scan directory if user prefers, but safety first.
     }
 
     // 2. Process each target
@@ -367,34 +350,9 @@ async function main() {
       // Filter app-specific files
       cleanAppSpecificFiles(targetDir, folder);
 
-      // Remove preview module from all deployments
-      const previewDir = path.join(targetDir, "app/modules/preview");
-      if (fs.existsSync(previewDir)) {
-        console.log("   🧹 Removing preview module...");
-        fs.rmSync(previewDir, { recursive: true, force: true });
-      }
-
-      // Remove video components from all deployments
-      const videoComponentsDir = path.join(targetDir, "components/video");
-      if (fs.existsSync(videoComponentsDir)) {
-        console.log("   🧹 Removing video components...");
-        fs.rmSync(videoComponentsDir, { recursive: true, force: true });
-      }
-
-      // Remove video api from all deployments
-      const videoApiDir = path.join(targetDir, "app/api/video");
-      if (fs.existsSync(videoApiDir)) {
-        console.log("   🧹 Removing video api...");
-        fs.rmSync(videoApiDir, { recursive: true, force: true });
-      }
-
-      // Remove specific public directories
-      const publicDirsToRemove = [
-        "public/uploads",
-        "public/exports",
-        "public/assets/video",
-      ];
-      for (const relativePath of publicDirsToRemove) {
+      // Remove specific global removal paths from all deployments
+      const pathsToRemove = CONFIG.defaults.pathsToRemoveFromAll || [];
+      for (const relativePath of pathsToRemove) {
         const fullPath = path.join(targetDir, relativePath);
         if (fs.existsSync(fullPath)) {
           console.log(`   🧹 Removing ${relativePath}...`);
@@ -405,7 +363,7 @@ async function main() {
       // Filter list files to remove refs to other apps
       filterListFiles(targetDir, folder);
 
-      // Configure vercel.json (inject cron for loyalboards)
+      // Configure vercel.json (inject cron, etc)
       configureVercelJson(targetDir, folder);
 
       // Clean package.json
