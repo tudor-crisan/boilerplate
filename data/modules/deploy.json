@@ -13,7 +13,11 @@
       "todo.notes.txt",
       "README.md",
       ".env.example",
-      ".editorconfig"
+      ".editorconfig",
+      "tests",
+      "specs",
+      "types",
+      "coverage"
     ],
     "pathsToRemoveFromAll": [
       "app/modules/preview",
@@ -21,7 +25,10 @@
       "app/api/video",
       "public/uploads",
       "public/exports",
-      "public/assets/video"
+      "public/assets/video",
+      "hooks/modules/video",
+      "components/modules/video",
+      "app/preview"
     ],
     "dependenciesToRemove": [
       "puppeteer",

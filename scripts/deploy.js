@@ -257,6 +257,16 @@ function cleanPackageJson(targetDir) {
 
   let modified = false;
 
+  if (packageJson.scripts) {
+    const allowedScripts = ["build", "start"];
+    Object.keys(packageJson.scripts).forEach((script) => {
+      if (!allowedScripts.includes(script)) {
+        delete packageJson.scripts[script];
+        modified = true;
+      }
+    });
+  }
+
   ["dependencies", "devDependencies"].forEach((depType) => {
     if (packageJson[depType]) {
       dependenciesToRemove.forEach((dep) => {
