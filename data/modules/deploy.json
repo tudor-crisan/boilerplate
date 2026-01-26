@@ -21,13 +21,9 @@
     ],
     "pathsToRemoveFromAll": [
       "app/modules/preview",
-      "components/video",
-      "app/api/video",
       "public/uploads",
       "public/exports",
-      "public/assets/video",
-      "hooks/modules/video",
-      "components/modules/video",
+      "app/api/resend/test-email",
       "app/preview"
     ],
     "dependenciesToRemove": [
@@ -36,10 +32,25 @@
       "@ffmpeg-installer/ffmpeg"
     ]
   },
+  "modules": {
+    "video": [
+      "hooks/modules/video",
+      "components/modules/video",
+      "app/api/video",
+      "public/assets/video"
+    ],
+    "boards": [
+      "hooks/modules/boards",
+      "components/modules/boards",
+      "app/modules/boards",
+      "app/api/modules/boards"
+    ]
+  },
   "apps": {
     "loyalboards": {
       "allowedApps": ["loyalboards"],
       "removeResend": true,
+      "modulesToRemove": ["video"],
       "vercelConfig": {
         "crons": [
           {
@@ -57,7 +68,8 @@
         "taskflow"
       ],
       "removeResend": false,
-      "publicAppsException": ["tudorcrisan.dev"]
+      "publicAppsException": ["tudorcrisan.dev"],
+      "modulesToRemove": ["video", "boards"]
     }
   }
 }

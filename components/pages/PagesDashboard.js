@@ -12,7 +12,7 @@ import dashboards from "@/lists/dashboards";
 
 export default async function PagesDashboard() {
   const DashboardComponent = dashboards[settings.components.dashboard];
-  const { hasAccess } = await getUser();
+  const { hasAccess } = (await getUser()) || {};
 
   return (
     <DashboardWrapper>

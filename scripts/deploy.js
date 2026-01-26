@@ -218,6 +218,28 @@ function cleanAppSpecificFiles(targetDir, appName) {
       fs.rmSync(resendDir, { recursive: true, force: true });
     }
   }
+
+  // Remove specific paths defined in app config (pathsToRemove or modulesToRemove)
+  const pathsToRemove = new Set(appConfig.pathsToRemove || []);
+  
+  if (appConfig.modulesToRemove && CONFIG.modules) {
+    appConfig.modulesToRemove.forEach(moduleName => {
+      const modulePaths = CONFIG.modules[moduleName];
+      if (modulePaths) {
+        modulePaths.forEach(p => pathsToRemove.add(p));
+      } else {
+        console.warn(`      ⚠️  Module "${moduleName}" not found in CONFIG.modules.`);
+      }
+    });
+  }
+
+  for (const relativePath of pathsToRemove) {
+    const fullPath = path.join(targetDir, relativePath);
+    if (fs.existsSync(fullPath)) {
+      console.log(`      App-specific removal: ${relativePath}`);
+      fs.rmSync(fullPath, { recursive: true, force: true });
+    }
+  }
 }
 
 // Helper to configure vercel.json specific to the app
