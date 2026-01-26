@@ -34,8 +34,6 @@ export const sendEmail = async ({
       headers,
     };
 
-    console.log("resend API request body:", JSON.stringify(body, null, 2));
-
     const res = await fetch(fullUrl, {
       method,
       headers: {

@@ -5,11 +5,11 @@ import { useState } from "react";
 export default function useCopyToClipboard() {
   const [isCopied, setIsCopied] = useState(false);
 
-  const copy = (text) => {
+  const copy = async (text) => {
     if (!text) return;
 
     try {
-      navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(text);
       setIsCopied(true);
       toast.success("Copied to clipboard!");
       setTimeout(() => setIsCopied(false), 2000);
