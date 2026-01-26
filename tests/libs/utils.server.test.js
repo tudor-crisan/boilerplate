@@ -19,8 +19,45 @@ describe("libs/utils.server.js", () => {
       default: ["disposable.com"],
     }));
 
-    // Start of day requires mocking date for getAnalyticsDateRange
-    // mocking system time logic is handled inside tests or separate setup
+    jest.unstable_mockModule("@/libs/merge.mjs", () => ({
+      getMergedConfig: jest.fn(
+        (type, override, defaults) => defaults?.default || {},
+      ),
+      getMergedConfigWithModules: jest.fn((type, override, defaults) => ({
+        forms: {
+          testTarget: {
+            mockConfig: {
+              isEnabled: true,
+              isError: false,
+              responses: {
+                success: { message: "Success", data: {}, status: 200 },
+                error: { error: "Error", inputErrors: {}, status: 400 },
+              },
+            },
+          },
+        },
+      })),
+    }));
+
+    jest.unstable_mockModule("@/libs/colors", () => ({
+      oklchToHex: jest.fn(() => "#ff0000"),
+    }));
+
+    jest.unstable_mockModule("@/lists/themeColors", () => ({
+      default: {
+        light: { "--color-primary": "oklch(0.6 0.2 250)" },
+      },
+    }));
+
+    jest.unstable_mockModule("@/lists/logos", () => ({
+      default: {
+        star: {
+          path: ["M0 0h24v24H0z"],
+          circle: [[12, 12, 5]],
+          rect: [[0, 0, 24, 24, 4]],
+        },
+      },
+    }));
 
     // Import the module under test
     utils = await import("../../libs/utils.server");
@@ -136,10 +173,159 @@ describe("libs/utils.server.js", () => {
   });
 
   describe("responseSuccess", () => {
-    it("should return NextResponse", () => {
+    it("should return NextResponse success", () => {
       const res = utils.responseSuccess("ok", { id: 1 });
       expect(res.body).toEqual({ message: "ok", data: { id: 1 } });
       expect(res.init).toEqual({ status: 200 });
+    });
+  });
+
+  describe("responseError", () => {
+    it("should return NextResponse error", () => {
+      const res = utils.responseError("fail", { field: "invalid" }, 400);
+      expect(res.body).toEqual({
+        error: "fail",
+        inputErrors: { field: "invalid" },
+      });
+      expect(res.init).toEqual({ status: 400 });
+    });
+  });
+
+  describe("responseMock", () => {
+    it("should return success mock when enabled and not error", () => {
+      const res = utils.responseMock("testTarget");
+      expect(res.body.message).toBe("Success");
+      expect(res.init.status).toBe(200);
+    });
+
+    it("should return false if mock is disabled", async () => {
+      const { defaultSetting } = await import("@/libs/defaults");
+      const original = defaultSetting.forms.testTarget.mockConfig.isEnabled;
+      defaultSetting.forms.testTarget.mockConfig.isEnabled = false;
+      expect(utils.responseMock("testTarget")).toBe(false);
+      defaultSetting.forms.testTarget.mockConfig.isEnabled = original;
+    });
+  });
+
+  describe("isResponseMock", () => {
+    it("should return true if enabled", () => {
+      expect(utils.isResponseMock("testTarget")).toBe(true);
+    });
+
+    it("should return false if not enabled", async () => {
+      const { defaultSetting } = await import("@/libs/defaults");
+      const original = defaultSetting.forms.testTarget.mockConfig.isEnabled;
+      defaultSetting.forms.testTarget.mockConfig.isEnabled = false;
+      expect(utils.isResponseMock("testTarget")).toBe(false);
+      defaultSetting.forms.testTarget.mockConfig.isEnabled = original;
+    });
+  });
+
+  describe("getBaseUrl", () => {
+    const originalEnv = process.env;
+
+    beforeEach(() => {
+      process.env = { ...originalEnv };
+    });
+
+    afterAll(() => {
+      process.env = originalEnv;
+    });
+
+    it("should return localhost in development", () => {
+      process.env.NODE_ENV = "development";
+      expect(utils.getBaseUrl()).toBe("http://localhost:3000");
+    });
+
+    it("should return domain in production", () => {
+      process.env.NODE_ENV = "production";
+      process.env.NEXT_PUBLIC_DOMAIN = "example.com";
+      expect(utils.getBaseUrl()).toBe("https://example.com");
+    });
+
+    it("should return empty string if domain missing in production", () => {
+      process.env.NODE_ENV = "production";
+      delete process.env.NEXT_PUBLIC_DOMAIN;
+      const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation();
+      expect(utils.getBaseUrl()).toBe("");
+      expect(consoleErrorSpy).toHaveBeenCalled();
+      consoleErrorSpy.mockRestore();
+    });
+  });
+
+  describe("getAnalyticsDateRange", () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+      jest.setSystemTime(new Date("2023-01-15T12:00:00Z"));
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it("should return correct range for 'today'", () => {
+      const { startDate, endDate } = utils.getAnalyticsDateRange("today");
+      expect(startDate.getDate()).toBe(15);
+      expect(startDate.getHours()).toBe(0);
+      expect(endDate.getDate()).toBe(15);
+    });
+
+    it("should return correct range for 'yesterday'", () => {
+      const { startDate, endDate } = utils.getAnalyticsDateRange("yesterday");
+      expect(startDate.getDate()).toBe(14);
+      expect(endDate.getDate()).toBe(14);
+      expect(endDate.getHours()).toBe(23);
+    });
+
+    it("should return correct range for '7d'", () => {
+      const { startDate } = utils.getAnalyticsDateRange("7d");
+      expect(startDate.getDate()).toBe(8);
+    });
+
+    it("should return correct range for '30d'", () => {
+      const { startDate } = utils.getAnalyticsDateRange("30d");
+      const expectedDate = new Date("2023-01-15T00:00:00Z");
+      expectedDate.setDate(expectedDate.getDate() - 30);
+      expect(startDate.getDate()).toBe(expectedDate.getDate());
+    });
+
+    it("should return correct range for '3m'", () => {
+      const { startDate } = utils.getAnalyticsDateRange("3m");
+      expect(startDate.getMonth()).toBe(9); // October (0-indexed)
+    });
+
+    it("should return correct range for 'thisYear'", () => {
+      const { startDate } = utils.getAnalyticsDateRange("thisYear");
+      expect(startDate.getMonth()).toBe(0); // January
+      expect(startDate.getDate()).toBe(1);
+    });
+
+    it("should return correct range for 'lastYear'", () => {
+      const { startDate, endDate } = utils.getAnalyticsDateRange("lastYear");
+      expect(startDate.getFullYear()).toBe(2022);
+      expect(startDate.getMonth()).toBe(0);
+      expect(endDate.getFullYear()).toBe(2022);
+      expect(endDate.getMonth()).toBe(11);
+    });
+
+    it("should return default range for unknown value", () => {
+      const { startDate } = utils.getAnalyticsDateRange("unknown");
+      const expectedDate = new Date("2023-01-15T00:00:00Z");
+      expectedDate.setDate(expectedDate.getDate() - 30);
+      expect(startDate.getDate()).toBe(expectedDate.getDate());
+    });
+  });
+
+  describe("generateLogoBase64", () => {
+    it("should return data uri", () => {
+      const styling = { theme: "light", components: { element: "rounded-md" } };
+      const visual = { logo: { shape: "star" } };
+      const result = utils.generateLogoBase64(styling, visual);
+      expect(result).toContain("data:image/svg+xml;base64,");
+    });
+
+    it("should return empty string if missing args", () => {
+      expect(utils.generateLogoBase64(null, null)).toBe("");
     });
   });
 });
