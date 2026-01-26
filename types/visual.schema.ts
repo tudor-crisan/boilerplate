@@ -61,7 +61,7 @@ export const HeroImageSchema = z.object({
  * Zod Schema for Hero Video.
  */
 export const HeroVideoInfoSchema = z.object({
-  arialabel: z.string().describe("Aria label for the video."),
+  arialabel: z.string().describe("Aria label for the video.").optional(),
   width: z.number().describe("Video width."),
   height: z.number().describe("Video height."),
   classname: z.string().describe("CSS classes for the video."),
@@ -91,6 +91,7 @@ export const ShowSchema = z.object({
       menu: z.boolean(),
       button: z.boolean(),
     })
+    .partial()
     .describe("Toggle visibility for SectionHeader components."),
   SectionHero: z
     .object({
@@ -100,6 +101,7 @@ export const ShowSchema = z.object({
       image: z.boolean(),
       video: z.boolean(),
     })
+    .partial()
     .describe("Toggle visibility for SectionHero components."),
 });
 

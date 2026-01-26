@@ -104,7 +104,7 @@ describe("libs/toast", () => {
 
     try {
       await toast.promise(promise, msgs);
-    } catch (e) {
+    } catch {
       // ignore
     }
 

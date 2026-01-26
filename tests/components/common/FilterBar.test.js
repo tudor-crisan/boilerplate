@@ -10,7 +10,7 @@ jest.unstable_mockModule("@/context/ContextStyling", () => ({
   }),
 }));
 jest.unstable_mockModule("@/components/input/Input", () => ({
-  default: ({ value, onChange, placeholder, icon, disabled }) => (
+  default: ({ value, onChange, placeholder, _icon, disabled }) => (
     <input
       data-testid="mock-input"
       value={value}

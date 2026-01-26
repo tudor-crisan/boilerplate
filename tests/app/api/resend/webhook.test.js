@@ -29,12 +29,10 @@ describe("api/resend/webhook", () => {
     mockResend = jest.fn().mockImplementation(() => ({
       emails: {
         receiving: {
-          get: jest
-            .fn()
-            .mockResolvedValue({
-              data: { html: "<p>Body</p>", text: "Body" },
-              error: null,
-            }),
+          get: jest.fn().mockResolvedValue({
+            data: { html: "<p>Body</p>", text: "Body" },
+            error: null,
+          }),
         },
       },
     }));
@@ -65,7 +63,7 @@ describe("api/resend/webhook", () => {
   });
 
   it("should forward received email", async () => {
-    const webhookMockObject = mockWebhook();
+    mockWebhook();
     const req = {
       json: jest.fn().mockResolvedValue({}),
       headers: {

@@ -1,10 +1,13 @@
 import copywritings from "@/lists/copywritings.js";
 import { CopywritingSchema } from "@/types/copywriting.schema";
 
+let allValid = true;
+
 Object.values(copywritings).forEach((copywriting, index) => {
   try {
     CopywritingSchema.partial().parse(copywriting);
   } catch (error) {
+    allValid = false;
     console.error(error);
     console.log(`\n❌ Data is invalid! - copywriting${index}`);
   }
@@ -19,6 +22,7 @@ Object.values(stylings).forEach((styling, index) => {
   try {
     StylingSchema.partial().parse(styling);
   } catch (error) {
+    allValid = false;
     console.error(error);
     console.log(`\n❌ Data is invalid! - styling${index}`);
   }
@@ -33,6 +37,7 @@ Object.values(visuals).forEach((visual, index) => {
   try {
     VisualSchema.partial().parse(visual);
   } catch (error) {
+    allValid = false;
     console.error(error);
     console.log(`\n❌ Data is invalid! - visual${index}`);
   }
@@ -47,6 +52,7 @@ Object.values(settings).forEach((setting, index) => {
   try {
     SettingSchema.partial().parse(setting);
   } catch (error) {
+    allValid = false;
     console.error(error);
     console.log(`\n❌ Data is invalid! - setting${index}`);
   }
@@ -61,9 +67,16 @@ Object.values(videos).forEach((video, index) => {
   try {
     VideoAppConfigSchema.parse(video);
   } catch (error) {
+    allValid = false;
     console.error(error);
     console.log(`\n❌ Data is invalid! - video${index}`);
   }
 });
 
-console.log("✅ All data is valid!");
+if (allValid) {
+  console.log("✅ All data is valid!");
+  process.exit(0);
+} else {
+  console.log("\n❌ Some data is invalid!");
+  process.exit(1);
+}

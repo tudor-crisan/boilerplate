@@ -13,8 +13,13 @@ export const VideoSlideSchema = z.object({
   image: z.string().optional(),
   images: z.array(z.string()).optional(),
   audio: z.string().optional(),
-  animation: z.enum(["fade", "zoom", "slide-left", "slide-right", "bounce"]).default("fade"),
-  imageFit: z.enum(["cover", "contain"]).default("cover"),
+  animation: z
+    .enum(["fade", "zoom", "slide-left", "slide-right", "bounce"])
+    .default("fade"),
+  imageFit: z
+    .enum(["cover", "contain", "object-cover", "object-contain"])
+    .default("cover"),
+  imagePosition: z.string().optional(),
 });
 
 export const VideoSchema = z.object({
