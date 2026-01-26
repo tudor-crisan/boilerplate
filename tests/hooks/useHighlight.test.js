@@ -1,49 +1,91 @@
 import { jest } from "@jest/globals";
-import { renderHook } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
 describe("hooks/useHighlight", () => {
-  let useHighlight;
-  let useStylingMock;
+  let useHighlight, escapeRegExp, stripHtml;
 
   beforeAll(async () => {
-    // Mock useStyling
-    useStylingMock = jest.fn(() => ({
-      styling: { theme: "light" },
-    }));
-
     jest.unstable_mockModule("@/context/ContextStyling", () => ({
-      useStyling: useStylingMock,
+      useStyling: () => ({
+        styling: { theme: "light" },
+      }),
     }));
+
     jest.unstable_mockModule("@/libs/colors", () => ({
-      isThemeDark: (theme) => theme === "dracula",
+      isThemeDark: jest.fn(() => false),
     }));
 
-    const importedModule = await import("../../hooks/useHighlight");
-    useHighlight = importedModule.default;
+    const module = await import("@/hooks/useHighlight");
+    useHighlight = module.default;
+    escapeRegExp = module.escapeRegExp;
+    stripHtml = module.stripHtml;
   });
 
-  it("should strip HTML", () => {
-    const { result } = renderHook(() => useHighlight());
-    expect(result.current.stripHtml("<p>Hello</p>")).toBe("Hello");
-    expect(result.current.stripHtml("<div><span>World</span></div>")).toBe(
-      "World",
-    );
-    expect(result.current.stripHtml(null)).toBe("");
+  describe("escapeRegExp", () => {
+    it("should escape special regex characters", () => {
+      expect(escapeRegExp("test.string")).toBe("test\\.string");
+      expect(escapeRegExp("test*string")).toBe("test\\*string");
+      expect(escapeRegExp("test+string")).toBe("test\\+string");
+      expect(escapeRegExp("test?string")).toBe("test\\?string");
+      expect(escapeRegExp("test[string]")).toBe("test\\[string\\]");
+    });
   });
 
-  it("should escape regex characters", () => {
-    const { result } = renderHook(() => useHighlight());
-    expect(result.current.escapeRegExp("hello.world")).toBe("hello\\.world");
-    expect(result.current.escapeRegExp("(test)")).toBe("\\(test\\)");
+  describe("stripHtml", () => {
+    it("should strip HTML tags", () => {
+      expect(stripHtml("<p>Hello</p>")).toBe("Hello");
+      expect(stripHtml("<div><span>Test</span></div>")).toBe("Test");
+      expect(stripHtml("No tags")).toBe("No tags");
+    });
+
+    it("should return empty string for empty input", () => {
+      expect(stripHtml("")).toBe("");
+      expect(stripHtml(null)).toBe("");
+    });
   });
 
-  // Test HighlightedText component if possible, but it's returned by the hook.
-  // Testing inner components returned by hooks is valid but can be tricky with rendering.
-  // We can call the function directly if it's exposed or render it in a component.
-  // The hook returns { HighlightedText, ... }
+  describe("HighlightedText component", () => {
+    it("should render text without highlight", () => {
+      const TestComponent = () => {
+        const { HighlightedText } = useHighlight();
+        return <HighlightedText text="Hello World" highlight="" />;
+      };
 
-  // Testing HighlightedText:
-  // It's a component. We can render it.
+      render(<TestComponent />);
+      expect(screen.getByText("Hello World")).toBeTruthy();
+    });
 
-  // Note: Since we are mocking dependencies, we need to ensure the hook logic uses them correctly.
+    it("should highlight matching text", () => {
+      const TestComponent = () => {
+        const { HighlightedText } = useHighlight();
+        return <HighlightedText text="Hello World" highlight="World" />;
+      };
+
+      const { container } = render(<TestComponent />);
+      const highlighted = container.querySelector(".bg-yellow-200");
+      expect(highlighted).toBeTruthy();
+      expect(highlighted.textContent).toBe("World");
+    });
+
+    it("should handle case-insensitive highlighting", () => {
+      const TestComponent = () => {
+        const { HighlightedText } = useHighlight();
+        return <HighlightedText text="Hello World" highlight="world" />;
+      };
+
+      const { container } = render(<TestComponent />);
+      const highlighted = container.querySelector(".bg-yellow-200");
+      expect(highlighted).toBeTruthy();
+    });
+
+    it("should return plain text when no highlight provided", () => {
+      const TestComponent = () => {
+        const { HighlightedText } = useHighlight();
+        return <HighlightedText text="Hello" highlight={null} />;
+      };
+
+      render(<TestComponent />);
+      expect(screen.getByText("Hello")).toBeTruthy();
+    });
+  });
 });

@@ -62,7 +62,7 @@ describe("components/select/Select", () => {
       { value: "2", label: "Option 2" },
     ];
 
-    render(<SelectComponent options={options} value="2" />);
+    render(<SelectComponent options={options} value="2" readOnly />);
     const select = screen.getByRole("combobox");
     expect(select.value).toBe("2");
   });
