@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { spawn } from "child_process";
+import fs from "fs";
+import fsPromises from "fs/promises";
 import path from "path";
 
 export async function POST(request) {
@@ -26,25 +28,17 @@ export async function POST(request) {
 
     // Ensure directory exists
     try {
-      await fs.mkdir(exportsDir, { recursive: true });
+      await fsPromises.mkdir(exportsDir, { recursive: true });
     } catch {}
 
     // Write styling config to a temp file for the script to pick up
     if (styling) {
       const stylePath = path.join(exportsDir, `.style-${videoId}.json`);
-      // We use native fs for sync writing or just await promises version since we are async here
-      const fsPromises = require("fs/promises");
       await fsPromises.writeFile(stylePath, JSON.stringify(styling));
     }
 
-    // We need 'fs' from 'fs' not 'fs/promises' for openSync if we want sync,
-    // but here we are in async function.
-    // Actually, spawn requires numeric FDs for stdio, so we need fs.openSync from 'fs'.
-    // Let's import 'fs' dynamically or just use the promises one? No, promises return FileHandle, not fd integer directly usually (check node version).
-    // Safer to import regular fs.
-    const fsNative = require("fs");
-    const out = fsNative.openSync(logPath, "a");
-    const err = fsNative.openSync(logPath, "a");
+    const out = fs.openSync(logPath, "a");
+    const err = fs.openSync(logPath, "a");
 
     const child = spawn("node", [scriptPath, videoId, filename], {
       detached: true,
