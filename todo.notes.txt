@@ -1,9 +1,13 @@
 
 monday
-- make tests for modules, for video, for boards, and for other parts of the app
-- find a way to modularize the modules to just include/exclude them, and have in lists where they are set
-- make extension for posting on multiple directories
+- make tests coverage for the entire app
+- make style guide for the components and others
+- make documentation for the code itself, and how to use
+- make modularization for preview/boards to include/exclude them in deploy
 
+tuesday
+- make extension for posting on multiple directories
+- make from lists of directories, to submit the applications
 
 wednesday
 - have a feedback board for loyalboards, so users can view it
