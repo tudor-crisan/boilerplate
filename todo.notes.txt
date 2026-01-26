@@ -10,3 +10,6 @@ future
 - make a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
 - make a stand-alone free tool the video editor (see if possible to be hosted)
 - have a feedback board for loyalboards, so users can view it
+
+small bugs
+- on the main board page, the toast and modal is the profile styling
