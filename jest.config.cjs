@@ -6,13 +6,10 @@ module.exports = {
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
   },
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest", { configFile: "./babel.config.cjs" }],
+    "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest"],
   },
   transformIgnorePatterns: [
     "/node_modules/(?!(framer-motion|clsx|tailwind-merge|@auth|next-auth)/)",
   ],
-  testPathIgnorePatterns: [
-    "/node_modules/",
-    "/__tests__/testUtils.js",
-  ],
+  testPathIgnorePatterns: ["/node_modules/", "/__tests__/testUtils.js"],
 };

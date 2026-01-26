@@ -1,12 +1,9 @@
 
 monday
-- make a documentation page for tudorcrisan for the boilerplate (from specs)
-- make a buy link with redirect to google drive with multiple versions
-- make a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
-
-tuesday
+- make tests for modules, for video, for boards, and for other parts of the app
+- find a way to modularize the modules to just include/exclude them, and have in lists where they are set
 - make extension for posting on multiple directories
-- make a stand-alone free tool the video editor (see if possible to be hosted)
+
 
 wednesday
 - have a feedback board for loyalboards, so users can view it
@@ -14,3 +11,9 @@ wednesday
 
 thursday
 - continue posting on multiple directories to build seo for loyalboards
+
+future
+- make a documentation page for tudorcrisan for the boilerplate (from specs)
+- make a sign-in page for tudorcrisan.dev and have on the dashboard the boilerplate versions
+- make a newsletter on tudorcrisan.dev, for developers who want updates on what I'm working on
+- make a stand-alone free tool the video editor (see if possible to be hosted)

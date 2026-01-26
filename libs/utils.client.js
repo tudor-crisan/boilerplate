@@ -6,11 +6,13 @@ export function cn(...inputs) {
 }
 
 export function getEmailHandle(email = "", fallback = "") {
+  if (!email) return fallback;
   const match = email.match(/^([^@+]+)/);
   return match ? match[1] : fallback;
 }
 
 export function getNameInitials(name = "") {
+  if (!name) return "";
   name = name.toString();
   const parts = name.trim().split(" ").filter(Boolean);
 
