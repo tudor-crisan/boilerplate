@@ -6,8 +6,8 @@ import DashboardMain from "@/components/dashboard/DashboardMain";
 import DashboardProfile from "@/components/dashboard/DashboardProfile";
 import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 import HeaderTop from "@/components/header/HeaderTop";
+import { getUser } from "@/libs/db";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { getUser } from "@/libs/modules/boards/db";
 import dashboards from "@/lists/dashboards";
 
 export default async function PagesDashboard() {
