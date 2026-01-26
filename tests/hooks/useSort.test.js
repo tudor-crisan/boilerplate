@@ -18,8 +18,8 @@ describe("hooks/useSort", () => {
     }));
 
     // Import hook after mocking
-    const module = await import("../../hooks/useSort");
-    useSort = module.useSort;
+    const importedModule = await import("../../hooks/useSort");
+    useSort = importedModule.useSort;
   });
 
   const items = [

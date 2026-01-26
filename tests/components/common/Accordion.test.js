@@ -16,8 +16,8 @@ describe("Accordion", () => {
       useStyling: useStylingMock,
     }));
 
-    const module = await import("../../../components/common/Accordion");
-    Accordion = module.default;
+    const importedModule = await import("../../../components/common/Accordion");
+    Accordion = importedModule.default;
   });
 
   const mockItems = [
