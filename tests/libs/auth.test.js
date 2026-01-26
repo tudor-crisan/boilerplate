@@ -82,4 +82,52 @@ describe("libs/auth", () => {
       error: "/auth/error",
     });
   });
+
+  it("should validate email in signIn callback", async () => {
+    const config = mockNextAuth.mock.calls[0][0];
+    const { validateEmail } = await import("@/libs/utils.server");
+
+    validateEmail.mockReturnValue({ isValid: true });
+    const result = await config.callbacks.signIn({
+      user: { email: "test@example.com" },
+    });
+    expect(result).toBe(true);
+  });
+
+  it("should block invalid email in signIn callback", async () => {
+    const config = mockNextAuth.mock.calls[0][0];
+    const { validateEmail } = await import("@/libs/utils.server");
+
+    const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation();
+    validateEmail.mockReturnValue({ isValid: false, error: "Invalid domain" });
+    const result = await config.callbacks.signIn({
+      user: { email: "test@invalid.com" },
+    });
+    expect(result).toContain("/auth/error?error=EmailValidation");
+    consoleWarnSpy.mockRestore();
+  });
+
+  it("should allow signIn without email", async () => {
+    const config = mockNextAuth.mock.calls[0][0];
+    const result = await config.callbacks.signIn({ user: {} });
+    expect(result).toBe(true);
+  });
+
+  it("should add user styling to session", async () => {
+    const config = mockNextAuth.mock.calls[0][0];
+    const session = { user: {} };
+    const user = { styling: { theme: "dark" } };
+
+    const result = await config.callbacks.session({ session, user });
+    expect(result.user.styling).toEqual({ theme: "dark" });
+  });
+
+  it("should return session without styling if user has none", async () => {
+    const config = mockNextAuth.mock.calls[0][0];
+    const session = { user: {} };
+    const user = {};
+
+    const result = await config.callbacks.session({ session, user });
+    expect(result.user.styling).toBeUndefined();
+  });
 });
