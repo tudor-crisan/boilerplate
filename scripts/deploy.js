@@ -230,14 +230,16 @@ function cleanAppSpecificFiles(targetDir, appName) {
 
   // Remove specific paths defined in app config (pathsToRemove or modulesToRemove)
   const pathsToRemove = new Set(appConfig.pathsToRemove || []);
-  
+
   if (appConfig.modulesToRemove && CONFIG.modules) {
-    appConfig.modulesToRemove.forEach(moduleName => {
+    appConfig.modulesToRemove.forEach((moduleName) => {
       const modulePaths = CONFIG.modules[moduleName];
       if (modulePaths) {
-        modulePaths.forEach(p => pathsToRemove.add(p));
+        modulePaths.forEach((p) => pathsToRemove.add(p));
       } else {
-        console.warn(`      ⚠️  Module "${moduleName}" not found in CONFIG.modules.`);
+        console.warn(
+          `      ⚠️  Module "${moduleName}" not found in CONFIG.modules.`,
+        );
       }
     });
   }
@@ -323,6 +325,39 @@ async function main() {
     // 0. Parse arguments
     const args = process.argv.slice(2);
     const shouldIncrement = !args.includes("--no-bump");
+
+    // Helper to recursively remove empty directories
+    function removeEmptyDirs(dir) {
+      if (!fs.existsSync(dir)) return false;
+
+      let isEmpty = true;
+      const items = fs.readdirSync(dir);
+
+      for (const item of items) {
+        if (item === ".git") {
+          isEmpty = false;
+          continue;
+        }
+
+        const fullPath = path.join(dir, item);
+        const stats = fs.statSync(fullPath);
+
+        if (stats.isDirectory()) {
+          if (!removeEmptyDirs(fullPath)) {
+            isEmpty = false;
+          }
+        } else {
+          isEmpty = false;
+        }
+      }
+
+      if (isEmpty) {
+        // console.log(`      🗑️  Removing empty dir: ${dir}`);
+        fs.rmdirSync(dir);
+        return true;
+      }
+      return false;
+    }
 
     // 1. Bump Version in package.json
     const packageJsonPath = path.join(BOILERPLATE_DIR, "package.json");
@@ -410,6 +445,19 @@ async function main() {
       // Clean package.json
       cleanPackageJson(targetDir);
 
+      // Final pass: Remove empty directories
+      console.log("   🧹 Removing empty directories...");
+      if (fs.existsSync(targetDir)) {
+        const topLevelItems = fs.readdirSync(targetDir);
+        for (const item of topLevelItems) {
+          if (item === ".git") continue;
+          const fullPath = path.join(targetDir, item);
+          if (fs.statSync(fullPath).isDirectory()) {
+            removeEmptyDirs(fullPath);
+          }
+        }
+      }
+
       // Git operations
       console.log("   💾 Committing and pushing target...");
       try {
@@ -422,9 +470,8 @@ async function main() {
         console.error(`   ❌ Git operations failed for ${folder}:`, e.message);
       }
     }
-
     console.log("\n✨ Deployment complete!");
-  } catch (error) {
+  } catch {
     console.error("❌ Deployment failed:", error);
     process.exit(1);
   }

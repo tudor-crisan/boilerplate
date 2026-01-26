@@ -43,7 +43,9 @@
       "hooks/modules/boards",
       "components/modules/boards",
       "app/modules/boards",
-      "app/api/modules/boards"
+      "app/api/modules/boards",
+      "models/modules/boards",
+      "libs/modules/boards"
     ]
   },
   "apps": {
@@ -61,10 +63,7 @@
       }
     },
     "tudorcrisan.dev": {
-      "allowedApps": [
-        "tudorcrisan",
-        "tudorcrisan.dev"
-      ],
+      "allowedApps": ["tudorcrisan", "tudorcrisan.dev"],
       "removeResend": false,
       "publicAppsException": ["tudorcrisan.dev"],
       "modulesToRemove": ["video", "boards"]
