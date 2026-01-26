@@ -174,7 +174,16 @@ function cleanAppSpecificFiles(targetDir, appName) {
   const publicAppsException = appConfig.publicAppsException || [];
 
   // Directories that contain app-specific subfolders
-  const directoriesToClean = ["public/apps", "data/apps", "components/apps"];
+  // Directories that contain app-specific subfolders
+  const directoriesToClean = [
+    "public/apps",
+    "data/apps",
+    "components/apps",
+    "public/assets/blog",
+    "public/assets/help",
+    "public/assets/promo",
+    "public/assets/video",
+  ];
 
   console.log(
     `   🧹 Cleaning app-specific files for ${appName} (Allowing: ${allowedApps.join(", ")})...`,

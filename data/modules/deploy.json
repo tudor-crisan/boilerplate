@@ -63,9 +63,7 @@
     "tudorcrisan.dev": {
       "allowedApps": [
         "tudorcrisan",
-        "tudorcrisan.dev",
-        "loyalboards",
-        "taskflow"
+        "tudorcrisan.dev"
       ],
       "removeResend": false,
       "publicAppsException": ["tudorcrisan.dev"],
