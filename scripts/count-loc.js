@@ -11,6 +11,7 @@ const EXCLUDED_DIRS = [
   ".next",
   "specs",
   "tests",
+  "coverage",
   "public",
   "scripts", // requested to exclude its own folder usually, or at least keep it modular
 ];
