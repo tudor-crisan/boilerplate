@@ -1,35 +1,48 @@
-import useVideoPlayback from "@/hooks/modules/video/useVideoPlayback";
 import { jest } from "@jest/globals";
 import { act, renderHook } from "@testing-library/react";
 
-describe("useVideoPlayback Hook", () => {
+describe("hooks/modules/video/useVideoPlayback", () => {
+  let useVideoPlayback;
+
   const mockSlides = [
-    { id: 1, title: "Slide 1", duration: 1000 },
-    { id: 2, title: "Slide 2", duration: 1000, audio: "slide2.mp3" },
+    { id: 1, audio: "audio1.mp3", duration: 3000 },
+    { id: 2, audio: null, duration: 2000 },
+    { id: 3, audio: "audio3.mp3", duration: 4000 },
   ];
 
-  const mockAudioRef = {
+  const createMockAudioRef = () => ({
     current: {
-      play: jest.fn().mockResolvedValue(),
+      play: jest.fn().mockResolvedValue(undefined),
       pause: jest.fn(),
       load: jest.fn(),
       currentTime: 0,
       playbackRate: 1,
+      src: "",
     },
-  };
+  });
 
-  const mockMusicRef = {
-    current: {
-      currentTime: 0,
-    },
-  };
+  beforeAll(async () => {
+    jest.useFakeTimers();
+    useVideoPlayback = (await import("@/hooks/modules/video/useVideoPlayback"))
+      .default;
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
+    jest.clearAllMocks();
+  });
 
   it("should initialize with default values", () => {
     const { result } = renderHook(() =>
       useVideoPlayback({
         slides: mockSlides,
-        audioRef: mockAudioRef,
-        musicRef: mockMusicRef,
+        audioRef: createMockAudioRef(),
+        musicRef: createMockAudioRef(),
+        musicOffset: 0,
       }),
     );
 
@@ -39,12 +52,12 @@ describe("useVideoPlayback Hook", () => {
     expect(result.current.playbackSpeed).toBe(1);
   });
 
-  it("should advance to the next slide", () => {
+  it("should navigate to next slide", () => {
     const { result } = renderHook(() =>
       useVideoPlayback({
         slides: mockSlides,
-        audioRef: mockAudioRef,
-        musicRef: mockMusicRef,
+        audioRef: createMockAudioRef(),
+        musicRef: createMockAudioRef(),
       }),
     );
 
@@ -55,12 +68,32 @@ describe("useVideoPlayback Hook", () => {
     expect(result.current.currentSlideIndex).toBe(1);
   });
 
-  it("should not advance past the last slide", () => {
+  it("should not go past last slide", () => {
     const { result } = renderHook(() =>
       useVideoPlayback({
         slides: mockSlides,
-        audioRef: mockAudioRef,
-        musicRef: mockMusicRef,
+        audioRef: createMockAudioRef(),
+        musicRef: createMockAudioRef(),
+      }),
+    );
+
+    act(() => {
+      result.current.setCurrentSlideIndex(2);
+    });
+
+    act(() => {
+      result.current.nextSlide();
+    });
+
+    expect(result.current.currentSlideIndex).toBe(2);
+  });
+
+  it("should navigate to previous slide", () => {
+    const { result } = renderHook(() =>
+      useVideoPlayback({
+        slides: mockSlides,
+        audioRef: createMockAudioRef(),
+        musicRef: createMockAudioRef(),
       }),
     );
 
@@ -69,18 +102,119 @@ describe("useVideoPlayback Hook", () => {
     });
 
     act(() => {
-      result.current.nextSlide();
+      result.current.prevSlide();
     });
 
-    expect(result.current.currentSlideIndex).toBe(1);
+    expect(result.current.currentSlideIndex).toBe(0);
   });
 
-  it("should toggle play state and control audio", () => {
+  it("should not go before first slide", () => {
     const { result } = renderHook(() =>
       useVideoPlayback({
         slides: mockSlides,
-        audioRef: mockAudioRef,
-        musicRef: mockMusicRef,
+        audioRef: createMockAudioRef(),
+        musicRef: createMockAudioRef(),
+      }),
+    );
+
+    act(() => {
+      result.current.prevSlide();
+    });
+
+    expect(result.current.currentSlideIndex).toBe(0);
+  });
+
+  it("should go to first slide", () => {
+    const audioRef = createMockAudioRef();
+    const musicRef = createMockAudioRef();
+    const { result } = renderHook(() =>
+      useVideoPlayback({
+        slides: mockSlides,
+        audioRef,
+        musicRef,
+        musicOffset: 5,
+      }),
+    );
+
+    act(() => {
+      result.current.setCurrentSlideIndex(2);
+    });
+
+    act(() => {
+      result.current.goToFirst();
+    });
+
+    expect(result.current.currentSlideIndex).toBe(0);
+    expect(musicRef.current.currentTime).toBe(5);
+  });
+
+  it("should go to last slide", () => {
+    const { result } = renderHook(() =>
+      useVideoPlayback({
+        slides: mockSlides,
+        audioRef: createMockAudioRef(),
+        musicRef: createMockAudioRef(),
+      }),
+    );
+
+    act(() => {
+      result.current.goToLast();
+    });
+
+    expect(result.current.currentSlideIndex).toBe(2);
+  });
+
+  it("should handle restart", () => {
+    const audioRef = createMockAudioRef();
+    const { result } = renderHook(() =>
+      useVideoPlayback({
+        slides: mockSlides,
+        audioRef,
+        musicRef: createMockAudioRef(),
+      }),
+    );
+
+    act(() => {
+      result.current.setCurrentSlideIndex(2);
+    });
+
+    act(() => {
+      result.current.handleRestart();
+    });
+
+    expect(result.current.currentSlideIndex).toBe(0);
+    expect(result.current.isPlaying).toBe(true);
+    expect(audioRef.current.play).toHaveBeenCalled();
+  });
+
+  it("should handle replay", () => {
+    const audioRef = createMockAudioRef();
+    const { result } = renderHook(() =>
+      useVideoPlayback({
+        slides: mockSlides,
+        audioRef,
+        musicRef: createMockAudioRef(),
+      }),
+    );
+
+    const initialReplayKey = result.current.replayKey;
+
+    act(() => {
+      result.current.handleReplay();
+    });
+
+    expect(result.current.replayKey).toBe(initialReplayKey + 1);
+    expect(result.current.isPlaying).toBe(true);
+    expect(audioRef.current.play).toHaveBeenCalled();
+  });
+
+  it("should toggle play/pause", () => {
+    const audioRef = createMockAudioRef();
+    const { result } = renderHook(() =>
+      useVideoPlayback({
+        slides: mockSlides,
+        audioRef,
+        musicRef: createMockAudioRef(),
       }),
     );
 
@@ -89,34 +223,29 @@ describe("useVideoPlayback Hook", () => {
     });
 
     expect(result.current.isPlaying).toBe(true);
-    expect(mockAudioRef.current.play).toHaveBeenCalled();
+    expect(audioRef.current.play).toHaveBeenCalled();
 
     act(() => {
       result.current.togglePlay();
     });
 
     expect(result.current.isPlaying).toBe(false);
-    expect(mockAudioRef.current.pause).toHaveBeenCalled();
+    expect(audioRef.current.pause).toHaveBeenCalled();
   });
 
-  it("should restart playback", () => {
+  it("should handle playback speed changes", () => {
     const { result } = renderHook(() =>
       useVideoPlayback({
         slides: mockSlides,
-        audioRef: mockAudioRef,
-        musicRef: mockMusicRef,
-        musicOffset: 500,
+        audioRef: createMockAudioRef(),
+        musicRef: createMockAudioRef(),
       }),
     );
 
     act(() => {
-      result.current.setCurrentSlideIndex(1);
-      result.current.handleRestart();
+      result.current.setPlaybackSpeed(1.5);
     });
 
-    expect(result.current.currentSlideIndex).toBe(0);
-    expect(result.current.isPlaying).toBe(true);
-    expect(mockAudioRef.current.currentTime).toBe(0);
-    expect(mockMusicRef.current.currentTime).toBe(500);
+    expect(result.current.playbackSpeed).toBe(1.5);
   });
 });
