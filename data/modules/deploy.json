@@ -80,13 +80,7 @@
       "data/modules/blog.json",
       "lists/blogs.js"
     ],
-    "help": [
-      "app/tos/help",
-      "app/tos/support",
-      "components/help",
-      "components/pages/PagesHelp.js",
-      "components/pages/PagesSupport.js"
-    ]
+    "help": ["app/tos/help", "components/help", "components/pages/PagesHelp.js"]
   },
   "apps": {
     "loyalboards": {
@@ -117,16 +111,6 @@
           {
             "find": "{process.env.MONGO_DB ? (\n                  <WrapperAuth>{children}</WrapperAuth>\n                ) : (\n                  children\n                )}",
             "replace": "{children}"
-          }
-        ],
-        "components/section/SectionHeader.js": [
-          {
-            "find": "import HeaderButton from \"@/components/header/HeaderButton\";",
-            "replace": ""
-          },
-          {
-            "find": "<HeaderButton className={cn(hasMenu && \"hidden sm:block\")} />",
-            "replace": ""
           }
         ],
         "components/header/HeaderButton.js": [

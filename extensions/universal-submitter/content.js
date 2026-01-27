@@ -5,7 +5,7 @@ console.log("Universal Submitter: Content script active.");
 const MEDIA_HIDE_STYLE_ID = "universal-submitter-hide-media";
 const BW_MODE_STYLE_ID = "universal-submitter-bw-mode";
 
-// CSS for hiding media - SMART AGGRESSIVE OPTION
+// CSS for hiding media - PRECISE OPTION
 const HIDE_MEDIA_CSS = `
   /* Hide standard media elements */
   img, video, audio, source, track,
@@ -15,32 +15,25 @@ const HIDE_MEDIA_CSS = `
   [role="img"], [aria-label*="image"],
   
   /* Select specific generic classes but exclude buttons */
-  .image:not(button):not(.btn), 
-  .img:not(button):not(.btn), 
-  .photo:not(button):not(.btn), 
-  .pic:not(button):not(.btn), 
-  .thumbnail:not(button):not(.btn),
+  .image:not(button):not(.btn):not(a):not(input), 
+  .img:not(button):not(.btn):not(a):not(input), 
+  .photo:not(button):not(.btn):not(a):not(input), 
+  .pic:not(button):not(.btn):not(a):not(input), 
+  .thumbnail:not(button):not(.btn):not(a):not(input),
   
-  /* Hide elements with background images, but exclude common UI elements */
-  [style*="background-image"]:not(button):not(.btn):not(input):not(a),
-  [style*="url("]:not(button):not(.btn):not(input):not(a) {
+  /* Hide elements with background images, only if they contain a URL (image) */
+  [style*="background-image: url"],
+  [style*="background: url"],
+  [style*="background-image:url"],
+  [style*="background:url"] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
-    width: 0 !important;
-    height: 0 !important;
-    pointer-events: none !important;
   }
 `;
 
-// Stronger Global Nuke for background images only, but safer for UI
-const BACKGROUND_NUKE_CSS = `
-  /* Remove background images from everything except buttons/inputs */
-  *:not(button):not(.btn):not(input):not(.button):not([role="button"]) {
-    background-image: none !important;
-    --background-image: none !important;
-  }
-`;
+// Define BACKGROUND_NUKE_CSS as empty since global nuke kills buttons
+const BACKGROUND_NUKE_CSS = ``;
 
 // CSS for black and white mode
 const BW_MODE_CSS = `
@@ -61,8 +54,8 @@ function toggleStyle(styleId, css, enable) {
     if (!styleEl) {
       styleEl = document.createElement("style");
       styleEl.id = styleId;
-      styleEl.textContent = css + BACKGROUND_NUKE_CSS;
-      document.documentElement.appendChild(styleEl); // Append to HTML to be super early/top
+      styleEl.textContent = css; // Eliminated BACKGROUND_NUKE_CSS
+      document.documentElement.appendChild(styleEl);
       console.log(`Universal Submitter: Injected style ${styleId}`);
     }
   } else {
@@ -73,28 +66,58 @@ function toggleStyle(styleId, css, enable) {
   }
 }
 
-// Aggressive JS-based hiding for stubborn elements
+// Smart JS-based hiding using Computed Styles
 function aggressiveHide() {
   if (!isMediaHidden) return;
 
-  const selectors = [
-    "img",
-    "video",
-    "iframe",
-    "svg",
-    "canvas",
-    "[style*='background-image']",
-    "[style*='url(']",
-  ];
-
-  const elements = document.querySelectorAll(selectors.join(","));
-  elements.forEach((el) => {
-    // Skip buttons, links, and inputs
-    if (el.matches("button, a, input, [role='button'], .btn")) return;
-
+  // 1. Tag-based hiding
+  const selectors = ["img", "video", "iframe", "svg", "canvas"];
+  document.querySelectorAll(selectors.join(",")).forEach((el) => {
+    // Preserve icons inside buttons if needed, but for now hide specific media tags
+    if (
+      el.tagName === "SVG" &&
+      el.matches("button *, a *, [role='button'] *")
+    ) {
+      // Optional: keep SVGs in buttons? Let's hide them if user wants NO media.
+      // But preventing layout break is good.
+      // Let's hide them for consistency with "Hide Media".
+    }
     el.style.setProperty("display", "none", "important");
     el.style.setProperty("visibility", "hidden", "important");
     el.style.setProperty("opacity", "0", "important");
+  });
+
+  // 2. Computed Style Check for Background Images (The expensive but safer part)
+  // We process this in chunks or just main elements if performance is an issue.
+  // For now, let's scan div, span, section, header, footer
+  const contentElements = document.querySelectorAll(
+    "div, span, section, header, footer, a, li",
+  );
+
+  contentElements.forEach((el) => {
+    // Skip inputs and buttons explicitly
+    if (el.tagName === "BUTTON" || el.tagName === "INPUT") return;
+    if (el.matches(".btn, [role='button']")) return;
+
+    // Check inline style first (fast)
+    if (
+      el.style.backgroundImage.includes("url(") ||
+      el.style.background.includes("url(")
+    ) {
+      el.style.setProperty("background-image", "none", "important");
+      el.style.setProperty("background", "none", "important");
+      return;
+    }
+
+    // Check computed style (slower, generally relying on CSS for most)
+    // We rely on CSS standard rules for most things.
+    // If we want to be 100% sure we catch non-inline styles:
+    /*
+    const style = window.getComputedStyle(el);
+    if (style.backgroundImage.includes('url(')) {
+        el.style.setProperty("background-image", "none", "important");
+    }
+    */
   });
 }
 
