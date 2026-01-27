@@ -47,7 +47,27 @@
       "app/api/modules/boards",
       "models/modules/boards",
       "libs/modules/boards"
-    ]
+    ],
+    "auth": [
+      "app/api/auth",
+      "app/api/user/update",
+      "app/api/billing",
+      "app/auth",
+      "app/dashboard",
+      "components/dashboard",
+      "components/pages/PagesAuth.js",
+      "components/pages/PagesDashboard.js"
+    ],
+    "blog": [
+      "app/blog",
+      "app/robots.js",
+      "app/sitemap.js",
+      "components/blog",
+      "components/pages/PagesBlog.js",
+      "components/section/SectionBlog.js",
+      "data/modules/blog.json"
+    ],
+    "help": ["app/tos/help", "components/help", "components/pages/PagesHelp.js"]
   },
   "apps": {
     "loyalboards": {
@@ -67,7 +87,7 @@
       "allowedApps": ["tudorcrisan", "tudorcrisan.dev"],
       "removeResend": false,
       "publicAppsException": ["tudorcrisan.dev"],
-      "modulesToRemove": ["video", "boards"]
+      "modulesToRemove": ["video", "boards", "auth", "blog", "help"]
     }
   }
 }
