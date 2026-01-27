@@ -72,22 +72,39 @@ function cleanDir(dir) {
   }
 }
 
-// Helper to filter lists/*.js files to only include relevant app content
-function filterListFiles(targetDir, appName) {
-  const listsDir = path.join(targetDir, "lists");
-  if (!fs.existsSync(listsDir)) return;
-
+// Helper to filter files (e.g. lists/*.js or libs/defaults.js) to only include relevant app content
+function filterFiles(targetDir, appName) {
   const appConfig = CONFIG.apps[appName] || {};
   const allowedApps = appConfig.allowedApps || [appName];
   const modulesToRemove = appConfig.modulesToRemove || [];
-  const files = fs.readdirSync(listsDir);
 
-  console.log(`   🧹 Filtering list files for ${appName}...`);
+  // Files to filter: default to lists directory, but allow specific files from config
+  const filesToProcess = [];
 
-  for (const file of files) {
-    if (!file.endsWith(".js")) continue;
+  // 1. Add all .js files in lists directory
+  const listsDir = path.join(targetDir, "lists");
+  if (fs.existsSync(listsDir)) {
+    fs.readdirSync(listsDir).forEach((file) => {
+      if (file.endsWith(".js")) {
+        filesToProcess.push(path.join(listsDir, file));
+      }
+    });
+  }
 
-    const filePath = path.join(listsDir, file);
+  // 2. Add extra files to filter from config
+  const extraFiles = appConfig.filesToFilter || [];
+  extraFiles.forEach((file) => {
+    const fullPath = path.join(targetDir, file);
+    if (fs.existsSync(fullPath)) {
+      filesToProcess.push(fullPath);
+    }
+  });
+
+  console.log(
+    `   🧹 Filtering ${filesToProcess.length} files for ${appName}...`,
+  );
+
+  for (const filePath of filesToProcess) {
     const content = fs.readFileSync(filePath, "utf-8");
     const lines = content.split(/\r?\n/);
     const newLines = [];
@@ -96,11 +113,12 @@ function filterListFiles(targetDir, appName) {
     // State for apps.js object filtering
     let isSkippingBlock = false;
     let blockBraceCount = 0;
+    const fileName = path.basename(filePath);
 
     for (const line of lines) {
       // 1. Handle apps.js object keys
-      if (file === "apps.js") {
-        const keyMatch = line.match(/^\s*["']?([\w-]+)["']?:\s*\{/);
+      if (fileName === "apps.js") {
+        const keyMatch = line.match(/^\s*["']?([\w-]+)["']?\s*:\s*\{/);
         if (keyMatch) {
           const key = keyMatch[1];
           const standardProps = [
@@ -153,14 +171,25 @@ function filterListFiles(targetDir, appName) {
       for (const moduleName of modulesToRemove) {
         const modulePaths = CONFIG.modules[moduleName] || [];
         for (const modulePath of modulePaths) {
+          // Remove extension for matching (e.g. lists/blogs.js -> lists/blogs)
+          const modulePathWithoutExt = modulePath.replace(
+            /\.(js|mjs|jsx|ts|tsx)$/,
+            "",
+          );
           // Check if this line imports from a removed module path
+          // Check for exact path or path with extension or subpaths
           if (
             line.includes(`"@/${modulePath}"`) ||
-            line.includes(`'@/${modulePath}'`)
+            line.includes(`'@/${modulePath}'`) ||
+            line.includes(`"@/${modulePathWithoutExt}"`) ||
+            line.includes(`'@/${modulePathWithoutExt}'`)
           ) {
             const importVarMatch = line.match(/import\s+(\w+)\s+from/);
             if (importVarMatch) {
               forbiddenVars.add(importVarMatch[1]);
+              console.log(
+                `      Found forbidden import var: ${importVarMatch[1]} in ${fileName}`,
+              );
             }
             shouldSkipLine = true;
             break;
@@ -188,6 +217,41 @@ function filterListFiles(targetDir, appName) {
     }
 
     fs.writeFileSync(filePath, newLines.join("\n"));
+  }
+}
+
+// Helper to apply patches (string replacements) to specific files
+function applyPatches(targetDir, appName) {
+  const appConfig = CONFIG.apps[appName] || {};
+  const patches = appConfig.patches || {};
+
+  if (Object.keys(patches).length === 0) return;
+
+  console.log(`   🩹 Applying patches for ${appName}...`);
+
+  for (const [relativePath, replacements] of Object.entries(patches)) {
+    const filePath = path.join(targetDir, relativePath);
+    if (!fs.existsSync(filePath)) {
+      console.warn(`      ⚠️ Patch target not found: ${relativePath}`);
+      continue;
+    }
+
+    let content = fs.readFileSync(filePath, "utf-8");
+    let modified = false;
+
+    for (const replacement of replacements) {
+      if (content.includes(replacement.find)) {
+        content = content.split(replacement.find).join(replacement.replace);
+        modified = true;
+        console.log(`      Applied patch in ${relativePath}`);
+      } else {
+        // console.warn(`      ⚠️ Patch string not found in ${relativePath}: "${replacement.find}"`);
+      }
+    }
+
+    if (modified) {
+      fs.writeFileSync(filePath, content);
+    }
   }
 }
 
@@ -463,8 +527,11 @@ async function main() {
         }
       }
 
-      // Filter list files to remove refs to other apps
-      filterListFiles(targetDir, folder);
+      // Filter list files and other configured files to remove refs to other apps/modules
+      filterFiles(targetDir, folder);
+
+      // Apply patches (specific string replacements)
+      applyPatches(targetDir, folder);
 
       // Configure vercel.json (inject cron, etc)
       configureVercelJson(targetDir, folder);

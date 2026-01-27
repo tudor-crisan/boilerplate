@@ -65,7 +65,10 @@
       "components/pages/PagesDashboard.js",
       "context/ContextAuth.js",
       "hooks/useAuthError.js",
-      "libs/auth.js"
+      "libs/auth.js",
+      "components/button/ButtonLogin.js",
+      "components/wrapper/WrapperAuth.server.js",
+      "components/wrapper/WrapperAuth.client.js"
     ],
     "blog": [
       "app/blog",
@@ -79,6 +82,7 @@
     ],
     "help": [
       "app/tos/help",
+      "app/tos/support",
       "components/help",
       "components/pages/PagesHelp.js",
       "components/pages/PagesSupport.js"
@@ -102,7 +106,30 @@
       "allowedApps": ["tudorcrisan", "tudorcrisan.dev"],
       "removeResend": false,
       "publicAppsException": ["tudorcrisan.dev"],
-      "modulesToRemove": ["video", "boards", "auth", "blog", "help"]
+      "modulesToRemove": ["video", "boards", "auth", "blog", "help"],
+      "filesToFilter": ["libs/defaults.js"],
+      "patches": {
+        "app/layout.js": [
+          {
+            "find": "import WrapperAuth from \"@/components/wrapper/WrapperAuth.server\";\n",
+            "replace": ""
+          },
+          {
+            "find": "{process.env.MONGO_DB ? (\n                  <WrapperAuth>{children}</WrapperAuth>\n                ) : (\n                  children\n                )}",
+            "replace": "{children}"
+          }
+        ],
+        "components/section/SectionHeader.js": [
+          {
+            "find": "import HeaderButton from \"@/components/header/HeaderButton\";\n",
+            "replace": ""
+          },
+          {
+            "find": "        {showHeader.button && (\n          <HeaderButton className={cn(hasMenu && \"hidden sm:block\")} />\n        )}",
+            "replace": ""
+          }
+        ]
+      }
     }
   }
 }
