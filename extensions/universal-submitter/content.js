@@ -5,19 +5,25 @@ console.log("Universal Submitter: Content script active.");
 const MEDIA_HIDE_STYLE_ID = "universal-submitter-hide-media";
 const BW_MODE_STYLE_ID = "universal-submitter-bw-mode";
 
-// CSS for hiding media - NUCLEAR OPTION
+// CSS for hiding media - SMART AGGRESSIVE OPTION
 const HIDE_MEDIA_CSS = `
-  /* Hide all image/video tags */
+  /* Hide standard media elements */
   img, video, audio, source, track,
   iframe, embed, object, param,
   picture, canvas, map, area,
   svg, figure, figcaption,
-  [role="img"], [aria-label*="image"], 
-  .image, .img, .photo, .pic, .thumbnail, .logo, .banner, .cover, .icon,
+  [role="img"], [aria-label*="image"],
   
-  /* Hide elements with background images */
-  [style*="background-image"],
-  [style*="url("] {
+  /* Select specific generic classes but exclude buttons */
+  .image:not(button):not(.btn), 
+  .img:not(button):not(.btn), 
+  .photo:not(button):not(.btn), 
+  .pic:not(button):not(.btn), 
+  .thumbnail:not(button):not(.btn),
+  
+  /* Hide elements with background images, but exclude common UI elements */
+  [style*="background-image"]:not(button):not(.btn):not(input):not(a),
+  [style*="url("]:not(button):not(.btn):not(input):not(a) {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
@@ -25,23 +31,14 @@ const HIDE_MEDIA_CSS = `
     height: 0 !important;
     pointer-events: none !important;
   }
-
-  /* Global nuke for background images */
-  * {
-    background-image: none !important;
-    background: none !important; /* Riskier but effectively removes abbreviated backgrounds */
-  }
-
-  /* Restore background colors if needed, but 'background: none' might kill colors. 
-     Let's be safer with background-image only for the global rule, 
-     but specific elements get the nuke. */
 `;
 
-// Stronger Global Nuke for background images only
+// Stronger Global Nuke for background images only, but safer for UI
 const BACKGROUND_NUKE_CSS = `
-  * {
+  /* Remove background images from everything except buttons/inputs */
+  *:not(button):not(.btn):not(input):not(.button):not([role="button"]) {
     background-image: none !important;
-    --background-image: none !important; /* CSS variables */
+    --background-image: none !important;
   }
 `;
 
@@ -92,6 +89,9 @@ function aggressiveHide() {
 
   const elements = document.querySelectorAll(selectors.join(","));
   elements.forEach((el) => {
+    // Skip buttons, links, and inputs
+    if (el.matches("button, a, input, [role='button'], .btn")) return;
+
     el.style.setProperty("display", "none", "important");
     el.style.setProperty("visibility", "hidden", "important");
     el.style.setProperty("opacity", "0", "important");

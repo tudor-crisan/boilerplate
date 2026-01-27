@@ -121,12 +121,30 @@
         ],
         "components/section/SectionHeader.js": [
           {
-            "find": "import HeaderButton from \"@/components/header/HeaderButton\";\n",
+            "find": "import HeaderButton from \"@/components/header/HeaderButton\";",
             "replace": ""
           },
           {
-            "find": "        {showHeader.button && (\n          <HeaderButton className={cn(hasMenu && \"hidden sm:block\")} />\n        )}",
+            "find": "<HeaderButton className={cn(hasMenu && \"hidden sm:block\")} />",
             "replace": ""
+          }
+        ],
+        "components/header/HeaderButton.js": [
+          {
+            "find": "import ButtonLogin from \"@/components/button/ButtonLogin\";",
+            "replace": "const ButtonLogin = () => null;"
+          }
+        ],
+        "components/hero/HeroButton.js": [
+          {
+            "find": "import ButtonLogin from \"@/components/button/ButtonLogin\";",
+            "replace": "const ButtonLogin = () => null;"
+          }
+        ],
+        "components/pricing/PricingButton.js": [
+          {
+            "find": "import ButtonLogin from \"@/components/button/ButtonLogin\";",
+            "replace": "const ButtonLogin = () => null;"
           }
         ]
       }
