@@ -80,7 +80,13 @@
       "data/modules/blog.json",
       "lists/blogs.js"
     ],
-    "help": ["app/tos/help", "components/help", "components/pages/PagesHelp.js"]
+    "help": [
+      "app/tos/help",
+      "components/help/HelpArticle.js",
+      "components/help/HelpArticles.js",
+      "components/help/HelpContactSupport.js",
+      "components/pages/PagesHelp.js"
+    ]
   },
   "apps": {
     "loyalboards": {
@@ -129,12 +135,6 @@
           {
             "find": "import ButtonLogin from \"@/components/button/ButtonLogin\";",
             "replace": "const ButtonLogin = () => null;"
-          }
-        ],
-        "components/pages/PagesSupport.js": [
-          {
-            "find": "import HelpSupport from \"@/components/help/HelpSupport\";",
-            "replace": "const HelpSupport = () => null;"
           }
         ]
       }
