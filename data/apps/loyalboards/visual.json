@@ -20,6 +20,7 @@
     },
     "source": {
       "src": "/assets/promo/loyalboards/promo1.mp4",
+      "poster": "/assets/promo/loyalboards/promo1.png",
       "type": "video/mp4"
     }
   }

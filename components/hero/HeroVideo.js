@@ -11,6 +11,8 @@ export default function HeroVideo() {
       <div className={visual.HeroVideo.container}>
         <video
           controls
+          playsInline
+          poster={visual.HeroVideo.source.poster}
           aria-label={visual.HeroVideo.video.arialabel}
           width={visual.HeroVideo.video.width}
           height={visual.HeroVideo.video.height}
