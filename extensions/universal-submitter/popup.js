@@ -9,10 +9,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const markBtn = document.getElementById("mark-submitted-btn");
   const historyList = document.getElementById("history-list");
   const statusMsg = document.getElementById("status-msg");
+  const directorySelect = document.getElementById("directory-select");
+  const goToDirectoryBtn = document.getElementById("go-to-directory-btn");
+  const hideMediaToggle = document.getElementById("hide-media-toggle");
+  const bwModeToggle = document.getElementById("bw-mode-toggle");
+
+  // API base URL - update this to your actual API endpoint
+  const API_BASE = "http://localhost:3000/api/extensions/universal-submitter";
 
   // Load initial data
   loadApps();
   loadHistory();
+  loadDirectories();
+  loadPagePreferences();
 
   // --- Event Listeners ---
 
@@ -27,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       loadAppData(appSelect.value);
+      loadDirectories(); // Reload directories for the new app
     }
   });
 
@@ -104,17 +114,95 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     const url = new URL(tab.url).hostname;
     const date = new Date().toLocaleDateString();
+    const directoryUrl = directorySelect.value || tab.url;
+    const directoryName =
+      directorySelect.options[directorySelect.selectedIndex]?.text || url;
 
-    const record = { app, url, date, fullUrl: tab.url };
+    const record = {
+      app,
+      url,
+      date,
+      fullUrl: tab.url,
+      directoryUrl,
+      directoryName,
+    };
 
-    chrome.storage.local.get(["submissions"], (result) => {
-      const subs = result.submissions || [];
-      subs.unshift(record);
-      chrome.storage.local.set({ submissions: subs }, () => {
-        showStatus("Submission Recorded!");
-        renderHistory(subs);
+    // Save to API
+    try {
+      const response = await fetch(API_BASE, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          app,
+          directoryUrl,
+          directoryName,
+          pageUrl: tab.url,
+        }),
       });
+
+      if (response.ok) {
+        showStatus("Submission Recorded!");
+        loadHistory();
+        loadDirectories(); // Refresh to update submitted status
+      } else {
+        throw new Error("API request failed");
+      }
+    } catch (error) {
+      console.error("Failed to save via API, using local storage:", error);
+      // Fallback to local storage
+      chrome.storage.local.get(["submissions"], (result) => {
+        const subs = result.submissions || [];
+        subs.unshift(record);
+        chrome.storage.local.set({ submissions: subs }, () => {
+          showStatus("Submission Recorded (Offline)!");
+          renderHistory(subs);
+        });
+      });
+    }
+  });
+
+  goToDirectoryBtn.addEventListener("click", async () => {
+    const selectedUrl = directorySelect.value;
+    if (!selectedUrl) {
+      showStatus("Please select a directory first");
+      return;
+    }
+
+    // Open the directory URL in a new tab
+    chrome.tabs.create({ url: selectedUrl });
+    showStatus("Opening directory...");
+  });
+
+  hideMediaToggle.addEventListener("change", async () => {
+    const hideMedia = hideMediaToggle.checked;
+
+    // Save preference
+    chrome.storage.local.set({ hideMedia });
+
+    // Apply to current tab
+    const [tab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
     });
+    chrome.tabs.sendMessage(tab.id, { action: "toggleMedia", hide: hideMedia });
+
+    showStatus(hideMedia ? "Media Hidden" : "Media Visible");
+  });
+
+  bwModeToggle.addEventListener("change", async () => {
+    const bwMode = bwModeToggle.checked;
+
+    // Save preference
+    chrome.storage.local.set({ bwMode });
+
+    // Apply to current tab
+    const [tab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+    chrome.tabs.sendMessage(tab.id, { action: "toggleBW", enable: bwMode });
+
+    showStatus(bwMode ? "B&W Mode On" : "B&W Mode Off");
   });
 
   // --- Helper Functions ---
@@ -224,5 +312,41 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       statusMsg.style.display = "none";
     }, 2000);
+  }
+
+  async function loadDirectories() {
+    try {
+      const app = appSelect.value || "loyalboards";
+      const response = await fetch(`${API_BASE}/directories?app=${app}`);
+      if (!response.ok) throw new Error("Failed to fetch directories");
+
+      const data = await response.json();
+      const directories = data.directories || [];
+
+      directorySelect.innerHTML =
+        '<option value="">-- Select a Directory --</option>';
+
+      directories.forEach((dir) => {
+        const option = document.createElement("option");
+        option.value = dir.url;
+        option.textContent = `${dir.name}${dir.submitted ? " ✓" : ""}`;
+        if (dir.submitted) {
+          option.style.color = "green";
+          option.style.fontWeight = "bold";
+        }
+        directorySelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error("Failed to load directories:", error);
+      directorySelect.innerHTML =
+        '<option value="">Failed to load directories</option>';
+    }
+  }
+
+  function loadPagePreferences() {
+    chrome.storage.local.get(["hideMedia", "bwMode"], (result) => {
+      hideMediaToggle.checked = result.hideMedia || false;
+      bwModeToggle.checked = result.bwMode || false;
+    });
   }
 });

@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <style>
       body {
         width: 350px;
@@ -64,6 +64,26 @@
         margin-top: 5px;
         text-align: center;
       }
+      .toggle-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .toggle-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        font-weight: normal;
+      }
+      .toggle-label input[type="checkbox"] {
+        width: auto;
+        margin: 0;
+        cursor: pointer;
+      }
+      .toggle-label span {
+        flex: 1;
+      }
     </style>
   </head>
   <body>
@@ -93,6 +113,30 @@
         placeholder="Keywords (comma separated)"
       />
       <button id="save-data" class="secondary">Save Profile Data</button>
+    </div>
+
+    <div class="group">
+      <label>Directory Submission</label>
+      <select id="directory-select">
+        <option value="">Loading directories...</option>
+      </select>
+      <button id="go-to-directory-btn" class="secondary">
+        🔗 Go to Directory
+      </button>
+    </div>
+
+    <div class="group">
+      <label>Page Controls</label>
+      <div class="toggle-group">
+        <label class="toggle-label">
+          <input type="checkbox" id="hide-media-toggle" />
+          <span>🖼️ Hide Media (Images/Videos)</span>
+        </label>
+        <label class="toggle-label">
+          <input type="checkbox" id="bw-mode-toggle" />
+          <span>⚫ Black & White Mode</span>
+        </label>
+      </div>
     </div>
 
     <div class="group">

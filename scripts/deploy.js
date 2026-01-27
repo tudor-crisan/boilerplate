@@ -79,6 +79,7 @@ function filterListFiles(targetDir, appName) {
 
   const appConfig = CONFIG.apps[appName] || {};
   const allowedApps = appConfig.allowedApps || [appName];
+  const modulesToRemove = appConfig.modulesToRemove || [];
   const files = fs.readdirSync(listsDir);
 
   console.log(`   🧹 Filtering list files for ${appName}...`);
@@ -145,6 +146,29 @@ function filterListFiles(targetDir, appName) {
           continue;
         }
       }
+
+      // 2b. Handle imports from modules that should be removed
+      // Check if line imports from a path that belongs to a removed module
+      let shouldSkipLine = false;
+      for (const moduleName of modulesToRemove) {
+        const modulePaths = CONFIG.modules[moduleName] || [];
+        for (const modulePath of modulePaths) {
+          // Check if this line imports from a removed module path
+          if (
+            line.includes(`"@/${modulePath}"`) ||
+            line.includes(`'@/${modulePath}'`)
+          ) {
+            const importVarMatch = line.match(/import\s+(\w+)\s+from/);
+            if (importVarMatch) {
+              forbiddenVars.add(importVarMatch[1]);
+            }
+            shouldSkipLine = true;
+            break;
+          }
+        }
+        if (shouldSkipLine) break;
+      }
+      if (shouldSkipLine) continue;
 
       // 3. Handle usages of forbidden variables (e.g. in export objects)
       // Check if line contains literal match of forbidden var

@@ -14,11 +14,15 @@
       "README.md",
       ".env.example",
       ".editorconfig",
+      "eslint.config.mjs",
+      "jest.config.cjs",
+      "jest.setup.js",
       "tests",
       "specs",
       "types",
       "coverage",
-      "extensions"
+      "extensions",
+      "data/modules/deploy.json"
     ],
     "pathsToRemoveFromAll": [
       "app/modules/preview",
@@ -46,7 +50,8 @@
       "app/modules/boards",
       "app/api/modules/boards",
       "models/modules/boards",
-      "libs/modules/boards"
+      "libs/modules/boards",
+      "data/modules/boards.json"
     ],
     "auth": [
       "app/api/auth",
@@ -54,9 +59,13 @@
       "app/api/billing",
       "app/auth",
       "app/dashboard",
+      "app/modules/billing/success",
       "components/dashboard",
       "components/pages/PagesAuth.js",
-      "components/pages/PagesDashboard.js"
+      "components/pages/PagesDashboard.js",
+      "context/ContextAuth.js",
+      "hooks/useAuthError.js",
+      "libs/auth.js"
     ],
     "blog": [
       "app/blog",
@@ -65,9 +74,15 @@
       "components/blog",
       "components/pages/PagesBlog.js",
       "components/section/SectionBlog.js",
-      "data/modules/blog.json"
+      "data/modules/blog.json",
+      "lists/blogs.js"
     ],
-    "help": ["app/tos/help", "components/help", "components/pages/PagesHelp.js"]
+    "help": [
+      "app/tos/help",
+      "components/help",
+      "components/pages/PagesHelp.js",
+      "components/pages/PagesSupport.js"
+    ]
   },
   "apps": {
     "loyalboards": {
