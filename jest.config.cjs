@@ -6,7 +6,10 @@ module.exports = {
     "\\.(css|less|scss|sass|svg)$": "identity-obj-proxy",
   },
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest"],
+    "^.+\\.(js|jsx|ts|tsx)$": [
+      "babel-jest",
+      { configFile: "./babel.jest.json" },
+    ],
   },
   transformIgnorePatterns: [
     "/node_modules/(?!(framer-motion|clsx|tailwind-merge|@auth|next-auth|next)/)",
