@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/components/button/Button";
+import SvgLogout from "@/components/svg/SvgLogout";
 import { useAuth } from "@/modules/auth/context/ContextAuth";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
@@ -18,8 +19,10 @@ export default function ButtonLogout() {
           localStorage.removeItem("styling-config");
           signOut();
         }}
+        className="text-error"
       >
-        Logout
+        <span className="hidden sm:inline">Logout</span>
+        <SvgLogout className="w-5 h-5 sm:hidden" />
       </Button>
     );
   }

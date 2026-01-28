@@ -1,4 +1,5 @@
 "use client";
+
 import { useStyling } from "@/context/ContextStyling";
 
 export default function DashboardHeader({ children }) {
