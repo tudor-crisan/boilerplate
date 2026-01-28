@@ -51,30 +51,13 @@
       "description": "Help module including pages, components, and logic."
     }
   },
-  "auth": {
-    "providers": ["resend", "google"],
-    "hasThemePages": true,
-    "hasThemeEmails": true
-  },
   "rateLimits": {
-    "auth-quick-link": {
-      "limit": 5,
-      "window": 300
-    },
-    "auth-google-signin": {
-      "limit": 10,
-      "window": 60
-    },
     "billing-create-checkout": {
       "limit": 10,
       "window": 60
     },
     "billing-create-portal": {
       "limit": 10,
-      "window": 60
-    },
-    "resend-test-email": {
-      "limit": 5,
       "window": 60
     }
   },
@@ -106,33 +89,9 @@
       "source": "/support",
       "destination": "/tos/support"
     },
-    "help": {
-      "source": "/help",
-      "destination": "/help"
-    },
-    "helpArticle": {
-      "source": "/help/:articleId",
-      "destination": "/help/:articleId"
-    },
     "dashboard": {
       "source": "/dashboard",
       "destination": "/dashboard"
-    },
-    "signin": {
-      "source": "/auth/signin",
-      "destination": "/auth/signin"
-    },
-    "signout": {
-      "source": "/auth/signout",
-      "destination": "/auth/signout"
-    },
-    "error": {
-      "source": "/auth/error",
-      "destination": "/auth/error"
-    },
-    "verifyRequest": {
-      "source": "/auth/verify-request",
-      "destination": "/auth/verify-request"
     },
     "home": {
       "source": "/",
@@ -140,8 +99,7 @@
     },
     "api": {
       "billingCreateCheckout": "/api/billing/create-checkout",
-      "billingCreatePortal": "/api/billing/create-portal",
-      "resendTestEmail": "/api/resend/test-email"
+      "billingCreatePortal": "/api/billing/create-portal"
     }
   },
   "integrations": {

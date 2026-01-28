@@ -29,6 +29,29 @@ if (appName) {
 
     if (setting) {
       appSettings = getMergedConfigWithModules("setting", setting, settings);
+
+      // Load module data for server-side config
+      const loadJSON = (p) => {
+        try {
+          return JSON.parse(fs.readFileSync(path.join(__dirname, p), "utf8"));
+        } catch (e) {
+          return {};
+        }
+      };
+
+      const authData = loadJSON("modules/auth/data/auth.json");
+      const helpData = loadJSON("modules/help/data/help.json");
+      const blogData = loadJSON("modules/blog/data/modules/blog.json");
+      const boardsData = loadJSON("modules/boards/data/boards.json");
+
+      // Deep merge paths specifically for rewrites
+      appSettings.paths = {
+        ...appSettings.paths,
+        ...authData?.paths,
+        ...helpData?.paths,
+        ...blogData?.paths,
+        ...boardsData?.paths,
+      };
     }
   } catch (error) {
     console.error("Failed to load app settings:", error.message);
@@ -50,7 +73,9 @@ const nextConfig = {
 
     const paths = appSettings?.paths || {};
     const returnPaths = Object.values(paths).filter((path) => {
-      return path && typeof path === "object" && path.source && path.destination;
+      return (
+        path && typeof path === "object" && path.source && path.destination
+      );
     });
 
     console.log("Rewrites loaded:", returnPaths.length);

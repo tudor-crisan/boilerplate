@@ -1,4 +1,18 @@
 {
+  "paths": {
+    "blog": {
+      "source": "/blog",
+      "destination": "/modules/blog"
+    },
+    "article": {
+      "source": "/blog/:slug",
+      "destination": "/modules/blog/:slug"
+    },
+    "category": {
+      "source": "/blog/category/:slug",
+      "destination": "/modules/blog/category/:slug"
+    }
+  },
   "title": "",
   "description": "",
   "image": "",
@@ -26,4 +40,16 @@
       "content": "<p>Random test content</p>"
     }
   ]
+    }
+  ],
+  "metadata": {
+    "blog": {
+      "title": "Blog - {appName}",
+      "description": "Read our latest articles and updates."
+    },
+    "article": {
+      "title": "{articleTitle} - {appName}",
+      "description": "{articleDescription}"
+    }
+  }
 }

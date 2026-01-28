@@ -1,0 +1,18 @@
+{
+  "paths": {
+    "help": {
+      "source": "/help",
+      "destination": "/help"
+    },
+    "helpArticle": {
+      "source": "/help/:articleId",
+      "destination": "/help/:articleId"
+    }
+  },
+  "metadata": {
+    "help": {
+      "title": "Help Articles - {appName}",
+      "description": "Find helpful articles and guides for using our application."
+    }
+  }
+}
