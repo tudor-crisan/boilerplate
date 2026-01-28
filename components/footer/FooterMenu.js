@@ -11,7 +11,7 @@ export default function FooterMenu() {
   const { visual } = useVisual();
 
   const showHelp = visual.show.SectionFooter.help;
-  const helpPath = settings.paths.help.source;
+  const helpPath = settings.paths.help?.source;
 
   return (
     <>

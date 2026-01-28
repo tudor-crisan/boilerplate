@@ -63,6 +63,10 @@ export const defaultStyling = getMergedConfig("styling", styling, stylings);
 
 export const defaultVisual = getMergedConfig("visual", visual, visuals);
 
+// Ensure defaultVisual has at least empty objects to prevent crashes
+if (!defaultVisual.show) defaultVisual.show = {};
+if (!defaultVisual.homepage) defaultVisual.homepage = { sections: [] };
+
 // Inject details into visual
 if (details.favicon) {
   if (!defaultVisual.favicon) defaultVisual.favicon = {};

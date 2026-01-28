@@ -3,7 +3,7 @@ import SvgBack from "@/components/svg/SvgBack";
 import { defaultSetting as settings } from "@/libs/defaults";
 
 export default function ButtonBack({
-  url = settings.paths.home.source,
+  url = settings.paths.home?.source,
   className = "",
   disabled = false,
 }) {

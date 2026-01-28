@@ -11,7 +11,7 @@ export default function NotFound() {
 
   return (
     <main className="min-h-screen bg-base-100 flex flex-col">
-      <HeaderBack backUrl={settings.paths.home.source} />
+      <HeaderBack backUrl={settings.paths.home?.source} />
 
       <div
         className={`grow flex flex-col items-center justify-start pt-24 text-center p-4 space-y-6 ${styling.general.container}`}
