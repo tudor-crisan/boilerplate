@@ -82,7 +82,7 @@
       "removeResend": false,
       "publicAppsException": ["tudorcrisan.dev"],
       "modulesToRemove": ["video", "boards", "auth", "blog", "help"],
-      "filesToFilter": ["libs/defaults.js"],
+      "filesToFilter": ["libs/defaults.js", "components/pages/PagesSupport.js"],
       "patches": {
         "app/layout.js": [
           {

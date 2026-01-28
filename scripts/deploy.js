@@ -235,6 +235,8 @@ function filterFiles(targetDir, appName) {
           if (
             line.includes(`"@/${modulePath}"`) ||
             line.includes(`'@/${modulePath}'`) ||
+            line.includes(`"@/${modulePath}/`) ||
+            line.includes(`'@/${modulePath}/`) ||
             line.includes(`"@/${modulePathWithoutExt}"`) ||
             line.includes(`'@/${modulePathWithoutExt}'`)
           ) {
