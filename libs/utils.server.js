@@ -20,7 +20,9 @@ export const getBaseUrl = () => {
 export function formatWebsiteUrl(url = "") {
   if (!url) return "";
   // remove any protocol and www to force https://www.${clean}`;
-  const clean = url.replace(/(^\w+:|^)\/\//, "").replace(/^www\./, "");
+  const protocolRegex = new RegExp("^(?:\\w+:)?//");
+  const wwwRegex = new RegExp("^www\\.");
+  const clean = url.replace(protocolRegex, "").replace(wwwRegex, "");
   return `https://www.${clean}`;
 }
 
@@ -32,11 +34,13 @@ export function formatWebsiteUrl(url = "") {
  */
 export function generateSlug(text = "", maxLength = 30) {
   if (!text) return "";
+  const alphanumericRegex = new RegExp("[^a-z0-9]+", "g");
+  const trimRegex = new RegExp("^-+|-+$", "g");
   return text
     .toLowerCase()
     .trim()
-    .replace(/[^a-z0-9]+/g, "-") // Replace non-alphanumeric with hyphen
-    .replace(/^-+|-+$/g, "") // Remove leading/trailing hyphens
+    .replace(alphanumericRegex, "-") // Replace non-alphanumeric with hyphen
+    .replace(trimRegex, "") // Remove leading/trailing hyphens
     .slice(0, maxLength);
 }
 

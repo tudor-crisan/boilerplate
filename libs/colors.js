@@ -2,10 +2,12 @@ export function oklchToHex(oklchStr) {
   if (!oklchStr) return "#000000";
   if (!oklchStr.startsWith("oklch(")) return oklchStr;
 
-  const match = oklchStr.match(/oklch\(([^)]+)\)/);
+  const oklchRegex = new RegExp("oklch\\(([^)]+)\\)");
+  const match = oklchStr.match(oklchRegex);
   if (!match) return "#000000";
 
-  const parts = match[1].trim().split(/\s+/);
+  const whitespaceRegex = new RegExp("\\s+");
+  const parts = match[1].trim().split(whitespaceRegex);
   if (parts.length < 3) return "#000000";
 
   let l = parseFloat(parts[0]);

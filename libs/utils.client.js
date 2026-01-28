@@ -7,7 +7,8 @@ export function cn(...inputs) {
 
 export function getEmailHandle(email = "", fallback = "") {
   if (!email) return fallback;
-  const match = email.match(/^([^@+]+)/);
+  const emailRegex = new RegExp("^([^@+]+)");
+  const match = email.match(emailRegex);
   return match ? match[1] : fallback;
 }
 
@@ -20,8 +21,9 @@ export function getNameInitials(name = "") {
 
   if (parts.length === 1) {
     const part = parts[0];
+    const digitRegex = new RegExp("\\d");
     // If name contains numbers (e.g. c214435), return just the first letter
-    if (/\d/.test(part)) {
+    if (digitRegex.test(part)) {
       return part.slice(0, 1).toUpperCase();
     }
     // Otherwise return first two letters (e.g. Tudor -> TU)
@@ -75,11 +77,10 @@ export function getClientId() {
 }
 
 export function createSlug(name = "", trim = true) {
-  const slug = name
-    .toString()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-");
-  const cleaned = trim ? slug.replace(/^-+|-+$/g, "") : slug;
+  const alphanumericRegex = new RegExp("[^a-z0-9]+", "g");
+  const slug = name.toString().toLowerCase().replace(alphanumericRegex, "-");
+  const trimRegex = new RegExp("^-+|-+$", "g");
+  const cleaned = trim ? slug.replace(trimRegex, "") : slug;
   return cleaned.slice(0, 30);
 }
 

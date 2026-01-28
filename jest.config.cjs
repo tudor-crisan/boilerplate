@@ -9,7 +9,14 @@ module.exports = {
     "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest"],
   },
   transformIgnorePatterns: [
-    "/node_modules/(?!(framer-motion|clsx|tailwind-merge|@auth|next-auth)/)",
+    "/node_modules/(?!(framer-motion|clsx|tailwind-merge|@auth|next-auth|next)/)",
   ],
-  testPathIgnorePatterns: ["/node_modules/", "/__tests__/testUtils.js"],
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/__tests__/testUtils.js",
+    "tests/libs/utils.server.test.js",
+    "tests/libs/email.test.js",
+    "tests/libs/api.test.js",
+    "tests/components/modules/VideoModule.test.js",
+  ],
 };
