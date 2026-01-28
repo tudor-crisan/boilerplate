@@ -103,7 +103,7 @@
       "patches": {
         "app/layout.js": [
           {
-            "find": "import WrapperAuth from \"@/components/wrapper/WrapperAuth.server\";\n",
+            "find": "import WrapperAuth from \"@/modules/auth/components/wrapper/WrapperAuth.server\";\n",
             "replace": ""
           },
           {
@@ -113,19 +113,19 @@
         ],
         "components/header/HeaderButton.js": [
           {
-            "find": "import ButtonLogin from \"@/components/button/ButtonLogin\";",
+            "find": "import ButtonLogin from \"@/modules/auth/components/button/ButtonLogin\";",
             "replace": "const ButtonLogin = () => null;"
           }
         ],
         "components/hero/HeroButton.js": [
           {
-            "find": "import ButtonLogin from \"@/components/button/ButtonLogin\";",
+            "find": "import ButtonLogin from \"@/modules/auth/components/button/ButtonLogin\";",
             "replace": "const ButtonLogin = () => null;"
           }
         ],
         "components/pricing/PricingButton.js": [
           {
-            "find": "import ButtonLogin from \"@/components/button/ButtonLogin\";",
+            "find": "import ButtonLogin from \"@/modules/auth/components/button/ButtonLogin\";",
             "replace": "const ButtonLogin = () => null;"
           }
         ]
