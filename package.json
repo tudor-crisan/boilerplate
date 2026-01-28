@@ -1,6 +1,6 @@
 {
   "name": "boilerplate",
-  "version": "0.0.75",
+  "version": "0.0.76",
   "private": true,
   "type": "module",
   "scripts": {
@@ -21,7 +21,7 @@
     "loc": "node scripts/count-loc.js",
     "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
     "update": "node scripts/update.js",
-    "updater:extension": "node scripts/update-extensions.js"
+    "extensions": "node scripts/update-extensions.js"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.1",
