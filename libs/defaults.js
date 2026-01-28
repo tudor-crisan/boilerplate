@@ -10,7 +10,7 @@ import settings from "@/lists/settings.js";
 import stylings from "@/lists/stylings.js";
 import visuals from "@/lists/visuals.js";
 import authData from "@/modules/auth/data/auth.json";
-import blogData from "@/modules/blog/data/modules/blog.json";
+import blogData from "@/modules/blog/data/blog.json";
 import blogs from "@/modules/blog/lists/blogs.js";
 import helpData from "@/modules/help/data/help.json";
 import helps from "@/modules/help/lists/helps.js";
@@ -20,9 +20,10 @@ import helps from "@/modules/help/lists/helps.js";
 // OR Global -> Modules?
 // Usually Module Defaults are foundational. Global 'setting.json' is the project-wide config.
 // So let's merge Modules INTO Global Setting.
+// Note: boards import from lists/boards.js returns { boards: json }. We need the json.
 const modulesBase = deepMerge(
   authData,
-  deepMerge(helpData, deepMerge(blogData, boards)),
+  deepMerge(helpData, deepMerge(blogData, boards.boards)),
 );
 const baseSetting = deepMerge(modulesBase, settings.setting);
 

@@ -1,5 +1,5 @@
 import loyalboards_blog from "@/data/apps/loyalboards/blog.json";
-import blog from "@/modules/blog/data/modules/blog.json";
+import blog from "@/modules/blog/data/blog.json";
 
 const blogs = {
   loyalboards_blog,

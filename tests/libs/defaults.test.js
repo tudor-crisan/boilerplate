@@ -51,7 +51,7 @@ describe("libs/defaults", () => {
     jest.unstable_mockModule("@/modules/blog/lists/blogs.js", () => ({
       default: {},
     }));
-    jest.unstable_mockModule("@/lists/boards.js", () => ({ default: {} }));
+    // Removed duplicate boards mock
     jest.unstable_mockModule("@/modules/help/lists/helps.js", () => ({
       default: {},
     }));
@@ -60,6 +60,22 @@ describe("libs/defaults", () => {
     }));
     jest.unstable_mockModule("@/lists/logos.js", () => ({ default: {} }));
     jest.unstable_mockModule("@/lists/themeColors.js", () => ({ default: {} }));
+
+    // Mock JSON data modules
+    jest.unstable_mockModule("@/modules/auth/data/auth.json", () => ({
+      default: { paths: {}, rateLimits: {}, metadata: {}, auth: {} },
+    }));
+    jest.unstable_mockModule("@/modules/help/data/help.json", () => ({
+      default: { paths: {}, rateLimits: {}, metadata: {} },
+    }));
+    jest.unstable_mockModule("@/modules/blog/data/blog.json", () => ({
+      default: { paths: {}, rateLimits: {}, metadata: {} },
+    }));
+
+    // Fix boards mock to match structure expected by defaults.js (boards.boards)
+    jest.unstable_mockModule("@/lists/boards.js", () => ({
+      default: { boards: { paths: {}, rateLimits: {}, metadata: {} } },
+    }));
 
     defaults = await import("../../libs/defaults");
   });

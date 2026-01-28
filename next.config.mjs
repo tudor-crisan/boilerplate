@@ -33,14 +33,14 @@ if (appName) {
       const loadJSON = (p) => {
         try {
           return JSON.parse(fs.readFileSync(path.join(__dirname, p), "utf8"));
-        } catch (e) {
+        } catch {
           return {};
         }
       };
 
       const authData = loadJSON("modules/auth/data/auth.json");
       const helpData = loadJSON("modules/help/data/help.json");
-      const blogData = loadJSON("modules/blog/data/modules/blog.json");
+      const blogData = loadJSON("modules/blog/data/blog.json");
       const boardsData = loadJSON("modules/boards/data/boards.json");
 
       // Construct Base Setting similar to defaults.js
