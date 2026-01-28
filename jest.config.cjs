@@ -3,8 +3,7 @@ module.exports = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
-    "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-    "\\.svg$": "<rootDir>/tests/mocks/svgMock.js",
+    "\\.(css|less|scss|sass|svg)$": "identity-obj-proxy",
   },
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest"],

@@ -3,13 +3,12 @@ import { jest } from "@jest/globals";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 // Components
-const VideoCard = (await import("../../../components/modules/video/VideoCard"))
+const VideoCard = (await import("@/modules/video/components/VideoCard"))
   .default;
-const VideoGrid = (await import("../../../components/modules/video/VideoGrid"))
+const VideoGrid = (await import("@/modules/video/components/VideoGrid"))
   .default;
-const VideoFilter = (
-  await import("../../../components/modules/video/VideoFilter")
-).default;
+const VideoFilter = (await import("@/modules/video/components/VideoFilter"))
+  .default;
 
 describe("Video Module UI", () => {
   const mockStyling = {

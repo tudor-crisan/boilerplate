@@ -76,10 +76,10 @@ async function createPdf() {
     `Found ${jpgFiles.length} images. Processing and generating PDF...`,
   );
 
-  // Contrast adjustment: Dual approach
-  // 1. Gamma(2.0): Darkens midtones heavily (makes faint text dark)
-  // 2. Linear(2.0, -100): Increases contrast to push the now-dark text to black
-  //    and pushes the now-gray background back to white.
+  // Contrast adjustment: Balanced "Scan Enhancement"
+  // 1. Normalize: Stretches contrast so background is white and text is dark
+  // 2. Sharpen: Makes text edges distinct
+  // 3. Linear: Forces the dark text to black and the light background to white
   
   for (const file of jpgFiles) {
     const filePath = path.join(folderPath, file);
@@ -87,11 +87,11 @@ async function createPdf() {
     try {
       const processedBuffer = await sharp(filePath)
         .grayscale()
-        .gamma(2.0)                // Darken everything (text becomes distinct from white)
-        .linear(2.0, -100)         // Contrast stretch: Clip background to white again
-        .sharpen()
-        .resize({ width: 1500, withoutEnlargement: true })
-        .toFormat("jpeg", { quality: 60 })
+        .normalize()
+        .sharpen({ sigma: 1.2 })                  // Make text crisp
+        .linear(1.4, -30)                         // Darken text + Clean background
+        .resize({ width: 1400, withoutEnlargement: true }) // Balanced resolution
+        .toFormat("jpeg", { quality: 30 })         // Strong compression (perfect for text)
         .toBuffer();
 
       // Open image from buffer to get dimensions for PDFKit
