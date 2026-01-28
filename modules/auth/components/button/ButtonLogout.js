@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/button/Button";
-import { useAuth } from "@/context/ContextAuth";
+import { useAuth } from "@/modules/auth/context/ContextAuth";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
 

@@ -30,7 +30,7 @@ describe("components/modules/boards/ui/CommentSection", () => {
     jest.unstable_mockModule("@/hooks/modules/boards/useBoardComments", () => ({
       default: useBoardCommentsMock,
     }));
-    jest.unstable_mockModule("@/context/ContextAuth", () => ({
+    jest.unstable_mockModule("@/modules/auth/context/ContextAuth", () => ({
       useAuth: useAuthMock,
     }));
     jest.unstable_mockModule("@/context/ContextStyling", () => ({

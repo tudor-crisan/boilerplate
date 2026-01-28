@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/components/button/Button";
+import ThemeWrapper from "@/components/common/ThemeWrapper";
 import Title from "@/components/common/Title";
 import { useStyling } from "@/context/ContextStyling";
 import { cn } from "@/libs/utils.client";
@@ -36,7 +37,9 @@ const Modal = ({
   if (!mounted) return null;
 
   return createPortal(
-    <div
+    <ThemeWrapper
+      theme={styling.theme}
+      font={styling.font}
       className={cn(
         "modal modal-bottom sm:modal-middle z-50",
         isModalOpen && "modal-open",
@@ -87,7 +90,7 @@ const Modal = ({
           close
         </button>
       </div>
-    </div>,
+    </ThemeWrapper>,
     document.body,
   );
 };

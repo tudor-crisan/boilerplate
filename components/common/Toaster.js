@@ -78,15 +78,23 @@ const ToastItem = ({ t, styling }) => {
   );
 };
 
-export default function Toaster() {
+export default function Toaster({ isGlobal = false }) {
   const [toasts, setToasts] = useState([]);
   const { styling } = useStyling();
+  const pathname =
+    typeof window !== "undefined" ? window.location.pathname : "";
 
   useEffect(() => {
     return toast.subscribe((newToasts) => {
       setToasts([...newToasts]);
     });
   }, []);
+
+  // If this is the global toaster and we are on a board page (/b/), do not render
+  // because the board page has its own local toaster with custom styling.
+  if (isGlobal && pathname.startsWith("/b/")) {
+    return null;
+  }
 
   return (
     <div

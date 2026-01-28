@@ -1,7 +1,7 @@
-import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import { cleanObject } from "@/libs/utils.server";
 import User from "@/models/User";
+import { auth } from "@/modules/auth/libs/auth";
 
 export async function getUser() {
   const session = await auth();

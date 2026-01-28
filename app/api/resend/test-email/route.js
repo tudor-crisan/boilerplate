@@ -1,4 +1,4 @@
-import { auth } from "@/libs/auth";
+import { auth } from "@/modules/auth/libs/auth";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { QuickLinkEmail, sendEmail, WeeklyDigestEmail } from "@/libs/email";
 import { checkReqRateLimit } from "@/libs/rateLimit";

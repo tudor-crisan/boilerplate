@@ -1,6 +1,6 @@
-import WrapperAuthClient from "@/components/wrapper/WrapperAuth.client";
-import { auth } from "@/libs/auth";
 import { getEmailHandle, getNameInitials } from "@/libs/utils.client";
+import WrapperAuthClient from "@/modules/auth/components/wrapper/WrapperAuth.client";
+import { auth } from "@/modules/auth/libs/auth";
 
 export default async function WrapperAuth({ children }) {
   const sessionAuth = await auth();

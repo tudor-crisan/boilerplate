@@ -1,7 +1,3 @@
-import PagesDashboard from "@/components/pages/PagesDashboard";
-import { getMetadata } from "@/libs/seo";
-
-export const metadata = getMetadata("dashboard");
-export default function Dashboard() {
-  return <PagesDashboard />;
-}
+"use client";
+import Page from "@/modules/auth/app/dashboard/page";
+export default Page;

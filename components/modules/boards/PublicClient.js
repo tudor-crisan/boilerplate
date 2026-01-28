@@ -6,6 +6,7 @@ import GdprPopup from "@/components/common/GdprPopup";
 import Main from "@/components/common/Main";
 import Sidebar from "@/components/common/Sidebar";
 import Title from "@/components/common/Title";
+import Toaster from "@/components/common/Toaster";
 import FormCreate from "@/components/form/FormCreate";
 import BoardPublicPostsList from "@/components/modules/boards/posts/PublicList";
 import { ContextStyling } from "@/context/ContextStyling";
@@ -83,6 +84,7 @@ export default function BoardPublicClient({ board }) {
           </div>
         </Main>
         <GdprPopup />
+        <Toaster />
       </div>
     </ContextStyling.Provider>
   );

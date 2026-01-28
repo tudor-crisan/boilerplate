@@ -2,9 +2,9 @@
 import Button from "@/components/button/Button";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
-import { useAuth } from "@/context/ContextAuth";
 import { useStyling } from "@/context/ContextStyling";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { useAuth } from "@/modules/auth/context/ContextAuth";
 
 export default function PagesAuth({
   icon,

@@ -57,7 +57,7 @@ describe("libs/auth", () => {
       default: { findOne: jest.fn() },
     }));
 
-    await import("../../libs/auth");
+    await import("../../modules/auth/libs/auth");
   });
 
   it("should initialize NextAuth with correct providers", () => {

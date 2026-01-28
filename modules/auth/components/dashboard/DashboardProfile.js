@@ -6,11 +6,11 @@ import Paragraph from "@/components/common/Paragraph";
 import ProfileImage from "@/components/common/ProfileImage";
 import Title from "@/components/common/Title";
 import DashboardProfileEditModal from "@/components/dashboard/DashboardProfileEditModal";
-import { useAuth } from "@/context/ContextAuth";
 import { useStyling } from "@/context/ContextStyling";
 import useForm from "@/hooks/useForm";
 import { useStylingRandomizer } from "@/hooks/useStylingRandomizer";
 import { cn, getNameInitials } from "@/libs/utils.client";
+import { useAuth } from "@/modules/auth/context/ContextAuth";
 import { useState } from "react";
 
 export default function DashboardProfile() {

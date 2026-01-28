@@ -54,21 +54,13 @@
       "data/modules/boards.json"
     ],
     "auth": [
-      "app/api/auth",
-      "app/api/user/update",
-      "app/api/billing",
+      "modules/auth",
       "app/auth",
       "app/dashboard",
-      "app/modules/billing/success",
-      "components/dashboard",
-      "components/pages/PagesAuth.js",
-      "components/pages/PagesDashboard.js",
-      "context/ContextAuth.js",
-      "hooks/useAuthError.js",
-      "libs/auth.js",
-      "components/button/ButtonLogin.js",
-      "components/wrapper/WrapperAuth.server.js",
-      "components/wrapper/WrapperAuth.client.js"
+      "app/success",
+      "app/api/auth",
+      "app/api/user/update",
+      "app/api/billing"
     ],
     "blog": [
       "app/blog",

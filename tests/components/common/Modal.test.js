@@ -25,6 +25,11 @@ describe("Modal", () => {
       default: (props) => <h1>{props.children}</h1>,
     }));
 
+    jest.unstable_mockModule("@/lists/fonts", () => ({
+      fontMap: { Inter: "Inter" },
+      default: {},
+    }));
+
     // Importing libs/utils.client for cn might be needed if not auto-mocked or real one used
     // Assuming real utility is fine as it has no side effects
 

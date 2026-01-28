@@ -78,7 +78,7 @@ describe("billing portal & weekly digest", () => {
       default: jest.fn().mockImplementation(() => mockStripe),
     }));
     jest.unstable_mockModule("@/libs/email", () => mockEmail);
-    jest.unstable_mockModule("@/libs/auth", () => ({
+    jest.unstable_mockModule("@/modules/auth/libs/auth", () => ({
       auth: jest.fn().mockResolvedValue({ user: { id: "user_1" } }),
     }));
     jest.unstable_mockModule("@/libs/rateLimit", () => ({

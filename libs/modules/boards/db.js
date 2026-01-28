@@ -1,9 +1,9 @@
-import { auth } from "@/libs/auth";
 import connectMongo from "@/libs/mongoose";
 import { cleanObject } from "@/libs/utils.server";
 import Board from "@/models/modules/boards/Board";
 import Post from "@/models/modules/boards/Post";
 import User from "@/models/User";
+import { auth } from "@/modules/auth/libs/auth";
 import { cache } from "react";
 import mongoose from "mongoose";
 

@@ -3,7 +3,7 @@ import { jest } from "@jest/globals";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 
 // Mocks
-jest.unstable_mockModule("@/context/ContextAuth", () => ({
+jest.unstable_mockModule("@/modules/auth/context/ContextAuth", () => ({
   useAuth: () => ({ isLoggedIn: false, name: "Guest" }),
 }));
 jest.unstable_mockModule("@/context/ContextStyling", () => ({

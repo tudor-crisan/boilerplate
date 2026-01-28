@@ -32,11 +32,22 @@ const TARGET_FOLDERS = CONFIG.defaults.targetFolders || [];
 // Always exclude .git if not present in config, just in case
 const EXCLUDED_FILES = CONFIG.defaults.excludedFiles || [".git"];
 
+const SETTING_PATH = path.resolve(__dirname, "..", "data", "modules", "setting.json");
+let SETTING;
+try {
+  SETTING = JSON.parse(fs.readFileSync(SETTING_PATH, "utf-8"));
+} catch {
+  console.warn("⚠️ Failed to load data/modules/setting.json. Module assembly might be limited.");
+  SETTING = {};
+}
+
 // Helper to copy directory recursively with exclusions
-function copyDir(src, dest, exclusions) {
+function copyDir(src, dest, exclusions, isModuleMerge = false) {
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest, { recursive: true });
   }
+
+  if (!fs.existsSync(src)) return;
 
   const entries = fs.readdirSync(src, { withFileTypes: true });
 
@@ -45,20 +56,63 @@ function copyDir(src, dest, exclusions) {
     const destPath = path.join(dest, entry.name);
 
     // Stricter exclusion: check if the exact name is in the list
-    if (exclusions.includes(entry.name)) {
+    if (exclusions && exclusions.includes(entry.name)) {
       continue;
     }
 
     if (entry.isDirectory()) {
-      copyDir(srcPath, destPath, exclusions);
+      copyDir(srcPath, destPath, exclusions, isModuleMerge);
     } else {
+        // If merging modules, and file exists, we overwrite (or warn?)
+        // Module files should take precedence or merge?
+        // For now, overwrite is fine as modules shouldn't conflict with base if moved out.
       fs.copyFileSync(srcPath, destPath);
-      // Optional: verbose log for critical files to reassure user
-      if (entry.name === "next.config.mjs") {
-        console.log(`      ✅ Copied next.config.mjs`);
-      }
     }
   }
+}
+
+// Helper to assemble modules
+function assembleModules(targetDir, appName) {
+    const appConfig = CONFIG.apps[appName] || {};
+    // Determine enabled modules.
+    // Logic: If modulesToRemove is present, start with ALL known modules and remove those.
+    // Or if setting.json has "modules" list, use that?
+    // Let's stick to existing logic: Default includes EVERYTHING (minus exclusion).
+    // BUT we moved files OUT of boilerplate root. So we need to ADD them back.
+    
+    // Which modules to add?
+    // If explicit "modules" list in appConfig (not yet standard), use it.
+    // Else, use all defined modules MINUS modulesToRemove.
+    
+    const modulesDefinitions = SETTING.modulesDefinitions || {};
+    const allModuleNames = Object.keys(modulesDefinitions);
+    const modulesToRemove = appConfig.modulesToRemove || [];
+    
+    const modulesToAdd = allModuleNames.filter(m => !modulesToRemove.includes(m));
+    
+    if (modulesToAdd.length === 0) return;
+    
+    console.log(`   🧩 Assembling modules for ${appName}: ${modulesToAdd.join(", ")}...`);
+    
+    for (const moduleName of modulesToAdd) {
+        const moduleDef = modulesDefinitions[moduleName];
+        if (!moduleDef || !moduleDef.path) continue;
+        
+        const moduleSrc = path.join(BOILERPLATE_DIR, moduleDef.path);
+        
+        if (!fs.existsSync(moduleSrc)) {
+            console.warn(`      ⚠️ Module source not found: ${moduleSrc}`);
+            continue;
+        }
+        
+        console.log(`      Adding module: ${moduleName}`);
+        
+        // We need to merge specific subfolders like "app", "components", etc. if they exist in the module source.
+        // Assuming module source has structure: modules/auth/{app, components, lib, ...}
+        // We copy content of moduleSrc/* to targetDir/*
+        
+        copyDir(moduleSrc, targetDir, [], true);
+    }
 }
 
 // Helper to clean directory but keep .git
@@ -516,6 +570,9 @@ async function main() {
 
       // Filter app-specific files
       cleanAppSpecificFiles(targetDir, folder);
+
+      // Assemble modules (Add back moved modules)
+      assembleModules(targetDir, folder);
 
       // Remove specific global removal paths from all deployments
       const pathsToRemove = CONFIG.defaults.pathsToRemoveFromAll || [];

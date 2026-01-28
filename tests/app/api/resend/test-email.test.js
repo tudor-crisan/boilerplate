@@ -35,7 +35,7 @@ describe("api/resend/test-email", () => {
       json: jest.fn((data, opts) => ({ ...data, ...opts })),
     };
 
-    jest.unstable_mockModule("@/libs/auth", () => ({ auth: mockAuth }));
+    jest.unstable_mockModule("@/modules/auth/libs/auth", () => ({ auth: mockAuth }));
     jest.unstable_mockModule("@/libs/rateLimit", () => ({
       checkReqRateLimit: mockRateLimit,
     }));

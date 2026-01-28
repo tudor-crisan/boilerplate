@@ -3,10 +3,10 @@ import Button from "@/components/button/Button";
 import CommentUI from "@/components/comments/CommentUI";
 import Modal from "@/components/common/Modal";
 import Paragraph from "@/components/common/Paragraph";
-import { useAuth } from "@/context/ContextAuth";
 import { useStyling } from "@/context/ContextStyling";
 import useBoardComments from "@/hooks/modules/boards/useBoardComments";
 import { defaultSetting as settings } from "@/libs/defaults";
+import { useAuth } from "@/modules/auth/context/ContextAuth";
 import { useEffect, useState } from "react";
 
 const BoardCommentSection = ({ postId, settings: customSettings }) => {

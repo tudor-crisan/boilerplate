@@ -1,4 +1,3 @@
-import { auth } from "@/libs/auth";
 import { defaultSetting as settings } from "@/libs/defaults";
 import connectMongo from "@/libs/mongoose";
 import { checkReqRateLimit } from "@/libs/rateLimit";
@@ -8,6 +7,7 @@ import {
   responseMock,
 } from "@/libs/utils.server";
 import User from "@/models/User";
+import { auth } from "@/modules/auth/libs/auth";
 
 /**
  * Higher-order function to wrap API handlers with common logic.
