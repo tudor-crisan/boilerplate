@@ -23,7 +23,7 @@ describe("hooks/modules/video/useVideoPlayback", () => {
 
   beforeAll(async () => {
     jest.useFakeTimers();
-    useVideoPlayback = (await import("@/hooks/modules/video/useVideoPlayback"))
+    useVideoPlayback = (await import("@/modules/video/hooks/useVideoPlayback"))
       .default;
   });
 

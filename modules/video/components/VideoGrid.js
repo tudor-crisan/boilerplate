@@ -1,7 +1,7 @@
 import Grid from "@/components/common/Grid";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
-import VideoCard from "@/components/modules/video/VideoCard";
+import VideoCard from "@/modules/video/components/VideoCard";
 
 export default function VideoGrid({
   videos,

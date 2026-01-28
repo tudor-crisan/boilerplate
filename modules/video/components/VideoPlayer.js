@@ -1,6 +1,6 @@
 "use client";
 
-import VideoSlide from "@/components/modules/video/VideoSlide";
+import VideoSlide from "@/modules/video/components/VideoSlide";
 import { AnimatePresence } from "framer-motion";
 
 export default function VideoPlayer({

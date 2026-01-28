@@ -54,7 +54,7 @@ describe("components/modules/video/VideoCard", () => {
       formattedDate: (date) => date.toISOString().split("T")[0],
     }));
 
-    VideoCard = (await import("@/components/modules/video/VideoCard")).default;
+    VideoCard = (await import("@/modules/video/components/VideoCard")).default;
   });
 
   it("should render video card with all information", () => {

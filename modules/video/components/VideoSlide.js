@@ -1,12 +1,12 @@
 "use client";
 
-import SlideFeature from "@/components/modules/video/slides/SlideFeature";
-import SlideImageOnly from "@/components/modules/video/slides/SlideImageOnly";
-import SlideQuote from "@/components/modules/video/slides/SlideQuote";
-import SlideSplit from "@/components/modules/video/slides/SlideSplit";
-import SlideTransition from "@/components/modules/video/slides/SlideTransition";
 import { useStyling } from "@/context/ContextStyling";
 import { getAnimationVariants } from "@/libs/videoAnimations";
+import SlideFeature from "@/modules/video/components/slides/SlideFeature";
+import SlideImageOnly from "@/modules/video/components/slides/SlideImageOnly";
+import SlideQuote from "@/modules/video/components/slides/SlideQuote";
+import SlideSplit from "@/modules/video/components/slides/SlideSplit";
+import SlideTransition from "@/modules/video/components/slides/SlideTransition";
 
 export default function VideoSlide({ slide, isVertical }) {
   const { styling } = useStyling();

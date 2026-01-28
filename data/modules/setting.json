@@ -37,6 +37,10 @@
     "auth": {
       "path": "modules/auth",
       "description": "Authentication module including pages, api, components, and logic."
+    },
+    "video": {
+      "path": "modules/video",
+      "description": "Video module including components, hooks, api."
     }
   },
   "auth": {

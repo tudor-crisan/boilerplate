@@ -53,7 +53,7 @@ describe("components/modules/video/VideoFilter", () => {
       ),
     }));
 
-    VideoFilter = (await import("@/components/modules/video/VideoFilter"))
+    VideoFilter = (await import("@/modules/video/components/VideoFilter"))
       .default;
   });
 

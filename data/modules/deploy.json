@@ -38,9 +38,9 @@
   },
   "modules": {
     "video": [
-      "hooks/modules/video",
-      "components/modules/video",
+      "modules/video",
       "app/api/video",
+      "app/modules/preview/video",
       "public/assets/video"
     ],
     "boards": [

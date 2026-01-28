@@ -1,16 +1,16 @@
 "use client";
 
-import HistoryControl from "@/components/modules/video/HistoryControl";
-import VideoControlBar from "@/components/modules/video/VideoControlBar";
-import VideoPlayer from "@/components/modules/video/VideoPlayer";
-import VideoSettingsMusic from "@/components/modules/video/VideoSettingsMusic";
-import VideoSettingsVoiceover from "@/components/modules/video/VideoSettingsVoiceover";
-import VideoSlideEditor from "@/components/modules/video/VideoSlideEditor";
 import { useStyling } from "@/context/ContextStyling";
-import useVideoAudio from "@/hooks/modules/video/useVideoAudio";
-import useVideoPlayback from "@/hooks/modules/video/useVideoPlayback";
 import useUndoRedo from "@/hooks/useUndoRedo";
 import { toast } from "@/libs/toast";
+import HistoryControl from "@/modules/video/components/HistoryControl";
+import VideoControlBar from "@/modules/video/components/VideoControlBar";
+import VideoPlayer from "@/modules/video/components/VideoPlayer";
+import VideoSettingsMusic from "@/modules/video/components/VideoSettingsMusic";
+import VideoSettingsVoiceover from "@/modules/video/components/VideoSettingsVoiceover";
+import VideoSlideEditor from "@/modules/video/components/VideoSlideEditor";
+import useVideoAudio from "@/modules/video/hooks/useVideoAudio";
+import useVideoPlayback from "@/modules/video/hooks/useVideoPlayback";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
