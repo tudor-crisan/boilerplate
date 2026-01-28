@@ -1,2 +1,2 @@
-import { GET, POST } from "@/modules/auth/app/api/auth/[...nextauth]/route";
+import { GET, POST } from "@/modules/auth/src/api/auth/[...nextauth]/route";
 export { GET, POST };

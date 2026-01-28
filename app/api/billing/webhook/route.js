@@ -1,2 +1,2 @@
-import { POST } from "@/modules/auth/app/api/billing/webhook/route";
+import { POST } from "@/modules/auth/src/api/billing/webhook/route";
 export { POST };

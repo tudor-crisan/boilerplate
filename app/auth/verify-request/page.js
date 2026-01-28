@@ -1,2 +1,2 @@
-import Page from "@/modules/auth/app/auth/verify-request/page";
+import Page from "@/modules/auth/src/auth/verify-request/page";
 export default Page;

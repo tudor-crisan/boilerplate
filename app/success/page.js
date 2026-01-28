@@ -1,2 +1,2 @@
-import Page from "@/modules/auth/app/success/page";
+import Page from "@/modules/auth/src/success/page";
 export default Page;

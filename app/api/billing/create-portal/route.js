@@ -1,2 +1,2 @@
-import { POST } from "@/modules/auth/app/api/billing/create-portal/route";
+import { POST } from "@/modules/auth/src/api/billing/create-portal/route";
 export { POST };

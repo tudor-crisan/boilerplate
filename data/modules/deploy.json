@@ -129,7 +129,7 @@
         ],
         "app/api/auth/[...nextauth]/route.js": [
           {
-            "find": "import { GET, POST } from \"@/modules/auth/app/api/auth/[...nextauth]/route\";",
+            "find": "import { GET, POST } from \"@/modules/auth/src/api/auth/[...nextauth]/route\";",
             "replace": "const GET = () => new Response(\"Not Implemented\", { status: 501 }); const POST = GET;"
           },
           {

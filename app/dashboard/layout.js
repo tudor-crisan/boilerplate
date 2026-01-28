@@ -1,2 +1,2 @@
-import Layout from "@/modules/auth/app/dashboard/layout";
+import Layout from "@/modules/auth/src/dashboard/layout";
 export default Layout;
