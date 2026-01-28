@@ -126,6 +126,16 @@
             "find": "import ButtonLogin from \"@/modules/auth/components/button/ButtonLogin\";",
             "replace": "const ButtonLogin = () => null;"
           }
+        ],
+        "app/api/auth/[...nextauth]/route.js": [
+          {
+            "find": "import { GET, POST } from \"@/modules/auth/app/api/auth/[...nextauth]/route\";",
+            "replace": "const GET = () => new Response(\"Not Implemented\", { status: 501 }); const POST = GET;"
+          },
+          {
+            "find": "export { GET, POST };",
+            "replace": "export { GET, POST };"
+          }
         ]
       }
     }
