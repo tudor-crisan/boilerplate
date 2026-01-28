@@ -1,9 +1,9 @@
 // Content script for Universal Submitter
-console.log("Universal Submitter: Content script active.");
+console.log("Submitter: Content script active.");
 
 // Style IDs for injected CSS
-const MEDIA_HIDE_STYLE_ID = "universal-submitter-hide-media";
-const BW_MODE_STYLE_ID = "universal-submitter-bw-mode";
+const MEDIA_HIDE_STYLE_ID = "submitter-hide-media";
+const BW_MODE_STYLE_ID = "submitter-bw-mode";
 
 // CSS for hiding media - PRECISE OPTION
 const HIDE_MEDIA_CSS = `

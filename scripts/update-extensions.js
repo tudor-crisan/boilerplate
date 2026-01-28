@@ -6,10 +6,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const EXTENSION_DIR = path.resolve(
-  __dirname,
-  "../extensions/universal-submitter",
-);
+const EXTENSION_DIR = path.resolve(__dirname, "../extensions/submitter");
 const DATA_FILE = path.join(EXTENSION_DIR, "data.json");
 
 // Transform applications object into extension format

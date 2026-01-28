@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const bwModeToggle = document.getElementById("bw-mode-toggle");
 
   // API base URL - update this to your actual API endpoint
-  const API_BASE = "http://localhost:3000/api/extensions/universal-submitter";
+  const API_BASE = "http://localhost:3000/api/extensions/submitter";
 
   // Load initial data
   loadApps();
