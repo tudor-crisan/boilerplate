@@ -12,15 +12,37 @@
       "source": "/dashboard/b/:boardId",
       "destination": "/modules/boards/dashboard/b/:boardId"
     },
-    "api": {
-      "boardsStream": "/api/modules/boards/stream",
-      "boardsDetail": "/api/modules/boards/board",
-      "boardsPost": "/api/modules/boards/post",
-      "analyticsVisit": "/api/modules/boards/analytics/visit",
-      "analyticsBoard": "/api/modules/boards/analytics/board",
-      "analyticsGlobal": "/api/modules/boards/analytics/global",
-      "boardsNotifications": "/api/modules/boards/notifications",
-      "notificationsStream": "/api/modules/boards/notifications/stream"
+    "boardsStream": {
+      "source": "/api/boards/stream",
+      "destination": "/api/modules/boards/stream"
+    },
+    "boardsDetail": {
+      "source": "/api/boards/board",
+      "destination": "/api/modules/boards/board"
+    },
+    "boardsPost": {
+      "source": "/api/boards/post",
+      "destination": "/api/modules/boards/post"
+    },
+    "analyticsVisit": {
+      "source": "/api/boards/analytics/visit",
+      "destination": "/api/modules/boards/analytics/visit"
+    },
+    "analyticsBoard": {
+      "source": "/api/boards/analytics/board",
+      "destination": "/api/modules/boards/analytics/board"
+    },
+    "analyticsGlobal": {
+      "source": "/api/boards/analytics/global",
+      "destination": "/api/modules/boards/analytics/global"
+    },
+    "boardsNotifications": {
+      "source": "/api/boards/notifications",
+      "destination": "/api/modules/boards/notifications"
+    },
+    "notificationsStream": {
+      "source": "/api/boards/notifications/stream",
+      "destination": "/api/modules/boards/notifications/stream"
     }
   },
   "metadata": {
@@ -70,7 +92,7 @@
       "formConfig": {
         "title": "Suggest a feature",
         "button": "Add Post",
-        "apiUrl": "/api/modules/boards/post"
+        "apiUrl": "/api/boards/post"
       },
       "inputsConfig": {
         "title": {
@@ -157,7 +179,7 @@
       "formConfig": {
         "title": "Create a new feedback board",
         "button": "Create Board",
-        "apiUrl": "/api/modules/boards/board"
+        "apiUrl": "/api/boards/board"
       },
       "inputsConfig": {
         "name": {
@@ -259,7 +281,7 @@
       "formConfig": {
         "title": "Add a comment",
         "button": "Post Comment",
-        "apiUrl": "/api/modules/boards/comment"
+        "apiUrl": "/api/boards/comment"
       },
       "inputsConfig": {
         "text": {

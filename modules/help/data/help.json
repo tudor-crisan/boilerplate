@@ -2,11 +2,11 @@
   "paths": {
     "help": {
       "source": "/help",
-      "destination": "/help"
+      "destination": "/modules/help"
     },
     "helpArticle": {
       "source": "/help/:articleId",
-      "destination": "/help/:articleId"
+      "destination": "/modules/help/:articleId"
     }
   },
   "metadata": {

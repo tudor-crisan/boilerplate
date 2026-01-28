@@ -1,3 +1,5 @@
+process.env.BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA = "true";
+process.env.BROWSERSLIST_IGNORE_OLD_DATA = "true";
 import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";

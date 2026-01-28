@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev:local": "cross-env APP=local NEXT_PUBLIC_APP=local next dev",
-    "dev:tudorcrisan": "cross-env APP=tudorcrisan NEXT_PUBLIC_APP=tudorcrisan next dev",
-    "dev:loyalboards": "cross-env APP=loyalboards NEXT_PUBLIC_APP=loyalboards next dev",
-    "dev:taskflow": "cross-env APP=taskflow NEXT_PUBLIC_APP=taskflow next dev",
+    "dev:local": "cross-env APP=local NEXT_PUBLIC_APP=local BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA=true BROWSERSLIST_IGNORE_OLD_DATA=true next dev",
+    "dev:tudorcrisan": "cross-env APP=tudorcrisan NEXT_PUBLIC_APP=tudorcrisan BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA=true BROWSERSLIST_IGNORE_OLD_DATA=true next dev",
+    "dev:loyalboards": "cross-env APP=loyalboards NEXT_PUBLIC_APP=loyalboards BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA=true BROWSERSLIST_IGNORE_OLD_DATA=true next dev",
+    "dev:taskflow": "cross-env APP=taskflow NEXT_PUBLIC_APP=taskflow BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA=true BROWSERSLIST_IGNORE_OLD_DATA=true next dev",
     "lists": "node scripts/generate-lists.mjs",
     "build": "next build",
     "start": "next start",
@@ -21,7 +21,8 @@
     "loc": "node scripts/count-loc.js",
     "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest",
     "update": "node scripts/update.js",
-    "extensions": "node scripts/update-extensions.js"
+    "extensions": "node scripts/update-extensions.js",
+    "postinstall": "node scripts/patch-next.mjs"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.11.1",
@@ -60,6 +61,7 @@
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "babel-jest": "^30.2.0",
+    "baseline-browser-mapping": "^2.9.19",
     "cjs-module-lexer": "^1.2.3",
     "cross-env": "^10.1.0",
     "daisyui": "^5.5.8",

@@ -79,28 +79,35 @@
     },
     "terms": {
       "source": "/terms",
-      "destination": "/tos/terms"
+      "destination": "/modules/tos/terms"
     },
     "privacy": {
       "source": "/privacy",
-      "destination": "/tos/privacy"
+      "destination": "/modules/tos/privacy"
     },
     "support": {
       "source": "/support",
-      "destination": "/tos/support"
+      "destination": "/modules/tos/support"
     },
     "dashboard": {
       "source": "/dashboard",
-      "destination": "/dashboard"
+      "destination": "/modules/dashboard"
     },
     "home": {
       "source": "/",
       "destination": "/"
     },
-    "api": {
-      "billingCreateCheckout": "/api/billing/create-checkout",
-      "billingCreatePortal": "/api/billing/create-portal",
-      "resendTestEmail": "/api/resend/test-email"
+    "billingCreateCheckout": {
+      "source": "/api/billing/create-checkout",
+      "destination": "/api/modules/billing/create-checkout"
+    },
+    "billingCreatePortal": {
+      "source": "/api/billing/create-portal",
+      "destination": "/api/modules/billing/create-portal"
+    },
+    "resendTestEmail": {
+      "source": "/api/resend/test-email",
+      "destination": "/api/modules/resend/test-email"
     }
   },
   "integrations": {
