@@ -117,24 +117,13 @@ function assembleModules(targetDir, appName) {
 
 // Helper to clean directory but keep .git
 function cleanDir(dir) {
-  if (!fs.existsSync(dir)) {
-      console.log(`      cleanDir: Target ${dir} does not exist.`);
-      return;
-  }
+  if (!fs.existsSync(dir)) return;
   const entries = fs.readdirSync(dir);
-  console.log(`      cleanDir: Found ${entries.length} entries in ${dir}`);
-  let deletedCount = 0;
   for (const entry of entries) {
     if (entry === ".git") continue;
     const fullPath = path.join(dir, entry);
-    try {
-        fs.rmSync(fullPath, { recursive: true, force: true });
-        deletedCount++;
-    } catch (err) {
-        console.error(`      ❌ Failed to delete ${fullPath}: ${err.message}`);
-    }
+    fs.rmSync(fullPath, { recursive: true, force: true });
   }
-  console.log(`      cleanDir: Deleted ${deletedCount} items.`);
 }
 
 // Helper to filter files (e.g. lists/*.js or libs/defaults.js) to only include relevant app content
