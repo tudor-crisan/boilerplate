@@ -41,6 +41,10 @@
     "video": {
       "path": "modules/video",
       "description": "Video module including components, hooks, api."
+    },
+    "blog": {
+      "path": "modules/blog",
+      "description": "Blog module including pages, components, and logic."
     }
   },
   "auth": {

@@ -28,7 +28,7 @@ const settings = {
   loyalboards_styling: loadJSON("../data/apps/loyalboards/styling.json"),
   loyalboards_visual: loadJSON("../data/apps/loyalboards/visual.json"),
   loyalboards_setting: loadJSON("../data/apps/loyalboards/setting.json"),
-  loyalboards_blog: loadJSON("../data/apps/loyalboards/blog.json"),
+
   loyalboards_help: loadJSON("../data/apps/loyalboards/help.json"),
   loyalboards_video: loadJSON("../data/apps/loyalboards/video.json"),
   taskflow_copywriting: loadJSON("../data/apps/taskflow/copywriting.json"),

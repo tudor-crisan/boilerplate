@@ -1,12 +1,12 @@
 "use client";
 
-import BlogBadgeCategory from "@/components/blog/BlogBadgeCategory";
 import Paragraph from "@/components/common/Paragraph";
 import TextSmall from "@/components/common/TextSmall";
 import Title from "@/components/common/Title";
 import IconBusinessImage from "@/components/icon/IconBusinessImage";
 import { useStyling } from "@/context/ContextStyling";
 import { defaultSetting as config } from "@/libs/defaults";
+import BlogBadgeCategory from "@/modules/blog/components/blog/BlogBadgeCategory";
 import Link from "next/link";
 
 const BlogCardArticle = ({ article, showCategory = true }) => {

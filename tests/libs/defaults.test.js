@@ -48,7 +48,9 @@ describe("libs/defaults", () => {
 
     // Mock other required lists
     jest.unstable_mockModule("@/lists/stylings.js", () => ({ default: {} }));
-    jest.unstable_mockModule("@/lists/blogs.js", () => ({ default: {} }));
+    jest.unstable_mockModule("@/modules/blog/lists/blogs.js", () => ({
+      default: {},
+    }));
     jest.unstable_mockModule("@/lists/boards.js", () => ({ default: {} }));
     jest.unstable_mockModule("@/lists/helps.js", () => ({ default: {} }));
     jest.unstable_mockModule("@/lists/blockedDomains.js", () => ({

@@ -4,6 +4,7 @@ module.exports = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
     "\\.(css|less|scss|sass)$": "identity-obj-proxy",
+    "\\.svg$": "<rootDir>/tests/mocks/svgMock.js",
   },
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest"],

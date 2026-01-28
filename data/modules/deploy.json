@@ -60,16 +60,7 @@
       "app/api/user/update",
       "app/api/billing"
     ],
-    "blog": [
-      "app/blog",
-      "app/robots.js",
-      "app/sitemap.js",
-      "components/blog",
-      "components/pages/PagesBlog.js",
-      "components/section/SectionBlog.js",
-      "data/modules/blog.json",
-      "lists/blogs.js"
-    ],
+    "blog": ["modules/blog", "app/blog", "app/robots.js", "app/sitemap.js"],
     "help": [
       "app/tos/help",
       "components/help/HelpArticle.js",

@@ -11,7 +11,9 @@ describe("API: /api/auth/[...nextauth]", () => {
       GET: jest.fn(),
       POST: jest.fn(),
     };
-    jest.unstable_mockModule("@/modules/auth/libs/auth", () => ({ handlers: handlersMock }));
+    jest.unstable_mockModule("@/modules/auth/libs/auth", () => ({
+      handlers: handlersMock,
+    }));
 
     // Mock rate limiting
     checkReqRateLimitMock = jest.fn();
@@ -27,7 +29,7 @@ describe("API: /api/auth/[...nextauth]", () => {
     }));
 
     const importedModule =
-      await import("../../../modules/auth/app/api/auth/[...nextauth]/route");
+      await import("@/modules/auth/src/api/auth/[...nextauth]/route");
     POST = importedModule.POST;
   });
 
