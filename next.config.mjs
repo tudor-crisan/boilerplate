@@ -22,14 +22,13 @@ if (appName) {
   try {
     const { default: apps } = await import("./lists/applications.mjs");
     const { default: settings } = await import("./lists/settings.node.mjs");
-    const { getMergedConfigWithModules } = await import("./libs/merge.mjs");
+    const { getMergedConfigWithModules, deepMerge } =
+      await import("./libs/merge.mjs");
 
     const appConfig = apps[appName];
-    const setting = appConfig?.setting;
+    const settingRef = appConfig?.setting;
 
-    if (setting) {
-      appSettings = getMergedConfigWithModules("setting", setting, settings);
-
+    if (settingRef) {
       // Load module data for server-side config
       const loadJSON = (p) => {
         try {
@@ -44,14 +43,23 @@ if (appName) {
       const blogData = loadJSON("modules/blog/data/modules/blog.json");
       const boardsData = loadJSON("modules/boards/data/boards.json");
 
-      // Deep merge paths specifically for rewrites
-      appSettings.paths = {
-        ...appSettings.paths,
-        ...authData?.paths,
-        ...helpData?.paths,
-        ...blogData?.paths,
-        ...boardsData?.paths,
+      // Construct Base Setting similar to defaults.js
+      const modulesBase = deepMerge(
+        authData,
+        deepMerge(helpData, deepMerge(blogData, boardsData)),
+      );
+      const baseSetting = deepMerge(modulesBase, settings.setting);
+
+      const enrichedSettingsList = {
+        ...settings,
+        setting: baseSetting,
       };
+
+      appSettings = getMergedConfigWithModules(
+        "setting",
+        settingRef,
+        enrichedSettingsList,
+      );
     }
   } catch (error) {
     console.error("Failed to load app settings:", error.message);

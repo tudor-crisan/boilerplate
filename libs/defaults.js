@@ -1,4 +1,8 @@
-import { getMergedConfig, getMergedConfigWithModules } from "@/libs/merge.mjs";
+import {
+  deepMerge,
+  getMergedConfig,
+  getMergedConfigWithModules,
+} from "@/libs/merge.mjs";
 import apps from "@/lists/applications.mjs";
 import boards from "@/lists/boards.js";
 import copywritings from "@/lists/copywritings.js";
@@ -11,24 +15,35 @@ import blogs from "@/modules/blog/lists/blogs.js";
 import helpData from "@/modules/help/data/help.json";
 import helps from "@/modules/help/lists/helps.js";
 
+// Construct the Base Setting by merging Global Setting with Module Defaults
+// Order: Modules -> Global Setting (Global wins if conflict, usually they are orthogonal)
+// OR Global -> Modules?
+// Usually Module Defaults are foundational. Global 'setting.json' is the project-wide config.
+// So let's merge Modules INTO Global Setting.
+const modulesBase = deepMerge(
+  authData,
+  deepMerge(helpData, deepMerge(blogData, boards)),
+);
+const baseSetting = deepMerge(modulesBase, settings.setting);
+
+// Update specific key in settings list to point to our enriched base
+// This is a trick to make 'getMergedConfigWithModules' use our enriched object as the base.
+// 'settings' import is an object { setting: ..., loyalboards_setting: ... }
+const enrichedSettingsList = {
+  ...settings,
+  setting: baseSetting,
+};
+
 const appName = process.env.APP || process.env.NEXT_PUBLIC_APP;
 const {
   copywriting,
   styling,
   visual,
-  setting,
+  setting, // This is just the key/ref from lists/applications.mjs
   blog,
   help,
   details = {},
 } = apps[appName] || {};
-
-const allSettings = {
-  ...settings,
-  ...boards,
-  auth: authData,
-  help: helpData,
-  blog: blogData,
-};
 
 export const defaultCopywriting = getMergedConfig(
   "copywriting",
@@ -53,10 +68,14 @@ if (details.favicon) {
   defaultVisual.favicon.href = details.favicon;
 }
 
+// Now getMergedConfigWithModules will use 'enrichedSettingsList'
+// which contains our 'setting' key with the pre-merged module data.
+// 'setting' variable here is likely { default: 'setting', override: 'loyalboards_setting' }
+// So it picks up enrichedSettingsList['setting'] as base, and merged loyalboards_setting on top.
 export const defaultSetting = getMergedConfigWithModules(
   "setting",
   setting,
-  allSettings,
+  enrichedSettingsList,
 );
 
 // Inject details into setting
@@ -68,36 +87,3 @@ export const defaultHelp = getMergedConfig("help", help, helps);
 export const appStyling = styling?.override
   ? stylings[styling.override]
   : defaultStyling;
-
-// Deep merge paths from modules
-defaultSetting.paths = {
-  ...defaultSetting.paths,
-  ...authData?.paths,
-  ...helpData?.paths,
-  ...blogData?.paths,
-  ...boards?.paths,
-};
-
-// Deep merge rateLimits from modules
-defaultSetting.rateLimits = {
-  ...defaultSetting.rateLimits,
-  ...authData?.rateLimits,
-  ...helpData?.rateLimits,
-  ...blogData?.rateLimits,
-  ...boards?.rateLimits,
-};
-
-// Deep merge metadata from modules
-defaultSetting.metadata = {
-  ...defaultSetting.metadata,
-  ...authData?.metadata,
-  ...helpData?.metadata,
-  ...blogData?.metadata,
-  ...boards?.metadata,
-};
-
-// Merge auth settings
-defaultSetting.auth = {
-  ...defaultSetting.auth,
-  ...authData?.auth,
-};
