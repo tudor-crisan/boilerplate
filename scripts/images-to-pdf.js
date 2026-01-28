@@ -1,20 +1,23 @@
 /*
   Usage: node scripts/images-to-pdf.js <folder_path> [output_filename]
-  Example: node scripts/images-to-pdf.js ./my-images output.pdf
+  Example: node scripts/images-to-pdf.js ./my-images apocalypse.pdf
   
   Dependencies:
-  npm install pdfkit
+  - pdfkit: PDF generation
+  - sharp: Professional image processing (Darkening text, clean background)
 */
 
 import fs from "fs";
 import path from "path";
 
+// --- Dynamic Imports for Lint Compliance ---
 let PDFDocument;
 try {
   const importedModule = await import("pdfkit");
   PDFDocument = importedModule.default;
 } catch {
   console.error("\x1b[31mError: pdfkit is not installed.\x1b[0m");
+  console.error("Please run: npm install pdfkit");
   process.exit(1);
 }
 
@@ -28,10 +31,11 @@ try {
   process.exit(1);
 }
 
+// --- CLI Arguments ---
 const args = process.argv.slice(2);
 if (args.length < 1) {
   console.log(
-    "Usage: node scripts/images-to-pdf.js <folder_path> [output_filename]",
+    "\x1b[33mUsage: node scripts/images-to-pdf.js <folder_path> [output_filename]\x1b[0m",
   );
   process.exit(1);
 }
@@ -41,7 +45,7 @@ const outputFilename = args[1] || "output.pdf";
 const outputPath = path.resolve(process.cwd(), outputFilename);
 
 if (!fs.existsSync(folderPath)) {
-  console.error(`Folder not found: ${folderPath}`);
+  console.error(`\x1b[31mFolder not found: ${folderPath}\x1b[0m`);
   process.exit(1);
 }
 
@@ -54,55 +58,63 @@ async function createPdf() {
   try {
     files = fs.readdirSync(folderPath);
   } catch (err) {
-    console.error(`Error reading directory: ${err.message}`);
+    console.error(`\x1b[31mError reading directory: ${err.message}\x1b[0m`);
     process.exit(1);
   }
 
+  // Find valid JPG/JPEG images
   const jpgFiles = files.filter((file) => {
     const ext = path.extname(file).toLowerCase();
     return ext === ".jpg" || ext === ".jpeg";
   });
 
   if (jpgFiles.length === 0) {
-    console.error("No .jpg or .jpeg files found in the specified folder.");
+    console.error(
+      "\x1b[31mNo .jpg or .jpeg files found in the specified folder.\x1b[0m",
+    );
     process.exit(1);
   }
 
+  // Natural sort (1, 2, 10 instead of 1, 10, 2)
   jpgFiles.sort((a, b) =>
     a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }),
   );
 
   console.log(
-    `Found ${jpgFiles.length} images. Processing and generating PDF...`,
+    `\x1b[36mFound ${jpgFiles.length} images. Optimizing and generating PDF...\x1b[0m`,
   );
 
-  // Contrast adjustment: Balanced "Scan Enhancement"
-  // 1. Normalize: Stretches contrast so background is white and text is dark
-  // 2. Sharpen: Makes text edges distinct
-  // 3. Linear: Forces the dark text to black and the light background to white
-  
   for (const file of jpgFiles) {
     const filePath = path.join(folderPath, file);
 
     try {
+      /**
+       * Image Processing Optimization (Aggressive Levels):
+       * 1. Grayscale: Remove color noise.
+       * 2. Linear (5.0, -1100):
+       *    - Targets the very light range [220, 255] where text is hiding.
+       *    - Drastically pulls faint grays down towards black.
+       * 3. Normalize: Final stretch to ensure pure black/white.
+       * 4. Resize: Limit width to 1600px.
+       */
       const processedBuffer = await sharp(filePath)
         .grayscale()
-        .normalize()
-        .sharpen({ sigma: 1.2 })                  // Make text crisp
-        .linear(1.4, -30)                         // Darken text + Clean background
-        .resize({ width: 1400, withoutEnlargement: true }) // Balanced resolution
-        .toFormat("jpeg", { quality: 30 })         // Strong compression (perfect for text)
+        .linear(5.0, -1100) // Aggressively darken faint text
+        .normalize() // Full dynamic range stretch
+        .resize({ width: 1600, withoutEnlargement: true })
+        .toFormat("jpeg", { quality: 85 }) // Very high quality
         .toBuffer();
 
-      // Open image from buffer to get dimensions for PDFKit
       const img = doc.openImage(processedBuffer);
 
       doc.addPage({ size: [img.width, img.height] });
       doc.image(img, 0, 0);
 
-      console.log(`Added ${file} (Enhanced visibility)`);
+      console.log(`\x1b[32m✔ Added ${file}\x1b[0m`);
     } catch (err) {
-      console.error(`Error processing ${file}: ${err.message}`);
+      console.error(
+        `\x1b[31m✘ Error processing ${file}: ${err.message}\x1b[0m`,
+      );
     }
   }
 
@@ -110,14 +122,19 @@ async function createPdf() {
 
   await new Promise((resolve) => {
     stream.on("finish", () => {
-      console.log(`\nPDF successfully created at: ${outputPath}`);
+      console.log(
+        `\n\x1b[32m✔ PDF successfully created at: ${outputPath}\x1b[0m`,
+      );
       resolve();
     });
     stream.on("error", (err) => {
-      console.error("Error writing PDF:", err);
+      console.error("\x1b[31m✘ Error writing PDF:\x1b[0m", err);
       resolve();
     });
   });
 }
 
-createPdf().catch(console.error);
+createPdf().catch((err) => {
+  console.error("\x1b[31mFatal Error:\x1b[0m", err);
+  process.exit(1);
+});
