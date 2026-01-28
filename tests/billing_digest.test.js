@@ -37,15 +37,13 @@ describe("billing portal & weekly digest", () => {
     };
     mockBoard = {
       find: jest.fn().mockReturnThis(),
-      populate: jest
-        .fn()
-        .mockResolvedValue([
-          {
-            _id: "b1",
-            name: "B1",
-            userId: { _id: "u1", email: "test@test.com", name: "U1" },
-          },
-        ]),
+      populate: jest.fn().mockResolvedValue([
+        {
+          _id: "b1",
+          name: "B1",
+          userId: { _id: "u1", email: "test@test.com", name: "U1" },
+        },
+      ]),
     };
     mockBoardAnalytics = {
       aggregate: jest
@@ -68,10 +66,10 @@ describe("billing portal & weekly digest", () => {
     }));
     jest.unstable_mockModule("@/libs/mongoose", () => ({ default: jest.fn() }));
     jest.unstable_mockModule("@/models/User", () => ({ default: mockUser }));
-    jest.unstable_mockModule("@/models/modules/boards/Board", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Board", () => ({
       default: mockBoard,
     }));
-    jest.unstable_mockModule("@/models/modules/boards/BoardAnalytics", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/BoardAnalytics", () => ({
       default: mockBoardAnalytics,
     }));
     jest.unstable_mockModule("stripe", () => ({

@@ -52,7 +52,9 @@ describe("libs/defaults", () => {
       default: {},
     }));
     jest.unstable_mockModule("@/lists/boards.js", () => ({ default: {} }));
-    jest.unstable_mockModule("@/lists/helps.js", () => ({ default: {} }));
+    jest.unstable_mockModule("@/modules/help/lists/helps.js", () => ({
+      default: {},
+    }));
     jest.unstable_mockModule("@/lists/blockedDomains.js", () => ({
       default: [],
     }));

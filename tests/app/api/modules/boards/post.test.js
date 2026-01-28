@@ -47,14 +47,14 @@ describe("api/modules/boards/post", () => {
         },
       },
     }));
-    jest.unstable_mockModule("@/models/modules/boards/Post", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Post", () => ({
       default: mockPost,
     }));
-    jest.unstable_mockModule("@/models/modules/boards/Board", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Board", () => ({
       default: mockBoard,
     }));
     jest.unstable_mockModule(
-      "@/libs/modules/boards/analytics",
+      "@/modules/boards/libs/analytics",
       () => mockAnalytics,
     );
     jest.unstable_mockModule("@/libs/utils.server", () => mockUtils);

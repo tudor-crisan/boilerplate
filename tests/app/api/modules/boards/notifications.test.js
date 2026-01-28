@@ -19,10 +19,10 @@ describe("api/modules/boards/notifications", () => {
       updateMany: jest.fn().mockResolvedValue({}),
     };
 
-    jest.unstable_mockModule("@/models/modules/boards/Notification", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Notification", () => ({
       default: mockNotification,
     }));
-    jest.unstable_mockModule("@/models/modules/boards/Board", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Board", () => ({
       default: {},
     }));
     jest.unstable_mockModule("next/server", () => ({

@@ -16,7 +16,7 @@ jest.unstable_mockModule("@/context/ContextStyling", () => ({
   }),
   ContextStyling: { Provider: ({ children }) => <div>{children}</div> },
 }));
-jest.unstable_mockModule("@/hooks/modules/boards/useBoardComments", () => ({
+jest.unstable_mockModule("@/modules/boards/hooks/useBoardComments", () => ({
   default: () => ({
     comments: [{ _id: "c1", text: "Nice!", userId: { name: "User" } }],
     isLoading: false,
@@ -25,7 +25,7 @@ jest.unstable_mockModule("@/hooks/modules/boards/useBoardComments", () => ({
     deleteComment: jest.fn(),
   }),
 }));
-jest.unstable_mockModule("@/hooks/modules/boards/useBoardFiltering", () => ({
+jest.unstable_mockModule("@/modules/boards/hooks/useBoardFiltering", () => ({
   default: () => ({
     search: "",
     setSearch: jest.fn(),
@@ -64,19 +64,19 @@ jest.unstable_mockModule("@/components/form/FormCreate", () => ({
   default: () => null,
 }));
 jest.unstable_mockModule(
-  "@/components/modules/boards/posts/PublicList",
+  "@/modules/boards/components/posts/PublicList",
   () => ({ default: () => null }),
 );
 
 // Components usually need to be imported AFTER mocks in ESM
 const BoardPublicClient = (
-  await import("../../../components/modules/boards/PublicClient")
+  await import("../../../modules/boards/components/PublicClient")
 ).default;
 const BoardCommentSection = (
-  await import("../../../components/modules/boards/ui/CommentSection")
+  await import("../../../modules/boards/components/ui/CommentSection")
 ).default;
 const BoardUpvoteButton = (
-  await import("../../../components/modules/boards/ui/UpvoteButton")
+  await import("../../../modules/boards/components/ui/UpvoteButton")
 ).default;
 
 describe("Boards Module UI", () => {

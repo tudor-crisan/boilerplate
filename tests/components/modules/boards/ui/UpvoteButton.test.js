@@ -34,7 +34,7 @@ describe("components/modules/boards/ui/UpvoteButton", () => {
       clientApi: { post: jest.fn(), delete: jest.fn() },
     }));
 
-    UpvoteButton = (await import("@/components/modules/boards/ui/UpvoteButton"))
+    UpvoteButton = (await import("@/modules/boards/components/ui/UpvoteButton"))
       .default;
   });
 

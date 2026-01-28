@@ -27,7 +27,7 @@ describe("components/modules/boards/ui/CommentSection", () => {
     useAuthMock = jest.fn();
     useStylingMock = jest.fn();
 
-    jest.unstable_mockModule("@/hooks/modules/boards/useBoardComments", () => ({
+    jest.unstable_mockModule("@/modules/boards/hooks/useBoardComments", () => ({
       default: useBoardCommentsMock,
     }));
     jest.unstable_mockModule("@/modules/auth/context/ContextAuth", () => ({
@@ -96,7 +96,7 @@ describe("components/modules/boards/ui/CommentSection", () => {
     }));
 
     CommentSection = (
-      await import("@/components/modules/boards/ui/CommentSection")
+      await import("@/modules/boards/components/ui/CommentSection")
     ).default;
   });
 

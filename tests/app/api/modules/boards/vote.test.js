@@ -19,11 +19,11 @@ describe("api/modules/boards/vote", () => {
       responseError: jest.fn((msg, data, status) => ({ msg, data, status })),
     };
 
-    jest.unstable_mockModule("@/models/modules/boards/Post", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Post", () => ({
       default: mockPost,
     }));
     jest.unstable_mockModule(
-      "@/libs/modules/boards/analytics",
+      "@/modules/boards/libs/analytics",
       () => mockAnalytics,
     );
     jest.unstable_mockModule("@/libs/utils.server", () => mockUtils);

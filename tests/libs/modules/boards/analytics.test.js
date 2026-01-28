@@ -74,13 +74,13 @@ describe("boards analytics (API & Lib)", () => {
       },
     }));
     jest.unstable_mockModule("@/libs/mongoose", () => ({ default: jest.fn() }));
-    jest.unstable_mockModule("@/models/modules/boards/Board", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Board", () => ({
       default: mockBoard,
     }));
-    jest.unstable_mockModule("@/models/modules/boards/BoardAnalytics", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/BoardAnalytics", () => ({
       default: mockBoardAnalytics,
     }));
-    jest.unstable_mockModule("@/models/modules/boards/Notification", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Notification", () => ({
       default: mockNotification,
     }));
     jest.unstable_mockModule("@/libs/utils.server", () => mockUtils);
@@ -94,7 +94,7 @@ describe("boards analytics (API & Lib)", () => {
       },
     }));
 
-    const lib = await import("../../../../libs/modules/boards/analytics");
+    const lib = await import("../../../../modules/boards/libs/analytics");
     trackEvent = lib.trackEvent;
     createNotification = lib.createNotification;
 

@@ -32,10 +32,10 @@ describe("api/modules/boards/board", () => {
       responseError: jest.fn((msg, data, status) => ({ msg, data, status })),
     };
 
-    jest.unstable_mockModule("@/models/modules/boards/Board", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Board", () => ({
       default: mockBoard,
     }));
-    jest.unstable_mockModule("@/models/modules/boards/Post", () => ({
+    jest.unstable_mockModule("@/modules/boards/models/Post", () => ({
       default: mockPost,
     }));
     jest.unstable_mockModule("next/server", () => ({
@@ -128,13 +128,11 @@ describe("api/modules/boards/board", () => {
   describe("PUT", () => {
     it("should update a board", async () => {
       const req = {
-        json: jest
-          .fn()
-          .mockResolvedValue({
-            boardId: "b1",
-            slug: "new-slug",
-            name: "New Name",
-          }),
+        json: jest.fn().mockResolvedValue({
+          boardId: "b1",
+          slug: "new-slug",
+          name: "New Name",
+        }),
       };
       const mockExistingBoard = {
         _id: "b1",
