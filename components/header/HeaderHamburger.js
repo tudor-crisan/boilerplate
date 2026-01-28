@@ -8,14 +8,21 @@ import { useCopywriting } from "@/context/ContextCopywriting";
 import { useStyling } from "@/context/ContextStyling";
 import { useVisual } from "@/context/ContextVisual";
 import { defaultSetting as settings } from "@/libs/defaults";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function HeaderHamburger() {
   const { styling } = useStyling();
   const { copywriting } = useCopywriting();
   const { visual } = useVisual();
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   // If no menus defined, don't render anything
   if (
@@ -66,7 +73,6 @@ export default function HeaderHamburger() {
                 href={menu.path}
                 key={index}
                 className="btn btn-ghost text-lg w-full"
-                onClick={toggleMenu}
               >
                 {menu.label}
               </Link>
@@ -80,7 +86,6 @@ export default function HeaderHamburger() {
                   (m) => m.title === "Support",
                 )?.links || []
               }
-              onItemClick={toggleMenu}
             />
             {visual.show.SectionHeader.button && (
               <div className="mt-4">
