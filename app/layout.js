@@ -6,7 +6,6 @@ import ShuffleLogos from "@/components/shuffle/ShuffleLogos";
 import ShuffleStylings from "@/components/shuffle/ShuffleStylings";
 import ShuffleThemes from "@/components/shuffle/ShuffleThemes";
 import ShuffleVisuals from "@/components/shuffle/ShuffleVisuals";
-import WrapperAuth from "@/modules/auth/components/wrapper/WrapperAuth.server";
 import WrapperBody from "@/components/wrapper/WrapperBody";
 import WrapperCopywriting from "@/components/wrapper/WrapperCopywriting";
 import WrapperFont from "@/components/wrapper/WrapperFont";
@@ -16,6 +15,7 @@ import WrapperShuffle from "@/components/wrapper/WrapperShuffle";
 import WrapperStyling from "@/components/wrapper/WrapperStyling";
 import WrapperVisual from "@/components/wrapper/WrapperVisual";
 import { getMetadata } from "@/libs/seo";
+import WrapperAuth from "@/modules/auth/components/wrapper/WrapperAuth.server";
 import { Analytics } from "@vercel/analytics/next";
 import "@/app/globals.css";
 

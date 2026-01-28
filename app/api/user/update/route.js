@@ -1,2 +1,2 @@
-import { PUT } from "@/modules/auth/app/api/user/update/route";
-export { PUT };
+import { POST } from "@/modules/auth/app/api/user/update/route";
+export { POST };

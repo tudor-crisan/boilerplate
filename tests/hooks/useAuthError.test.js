@@ -11,7 +11,7 @@ describe("hooks/useAuthError", () => {
       useSearchParams: useSearchParamsMock,
     }));
 
-    const importedModule = await import("../../hooks/useAuthError");
+    const importedModule = await import("@/modules/auth/hooks/useAuthError");
     useAuthError = importedModule.useAuthError;
   });
 

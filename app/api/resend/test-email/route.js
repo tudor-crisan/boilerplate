@@ -1,7 +1,7 @@
-import { auth } from "@/modules/auth/libs/auth";
 import { defaultSetting as settings } from "@/libs/defaults";
 import { QuickLinkEmail, sendEmail, WeeklyDigestEmail } from "@/libs/email";
 import { checkReqRateLimit } from "@/libs/rateLimit";
+import { auth } from "@/modules/auth/libs/auth";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {

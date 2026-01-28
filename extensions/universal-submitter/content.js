@@ -33,7 +33,6 @@ const HIDE_MEDIA_CSS = `
 `;
 
 // Define BACKGROUND_NUKE_CSS as empty since global nuke kills buttons
-const BACKGROUND_NUKE_CSS = ``;
 
 // CSS for black and white mode
 const BW_MODE_CSS = `
@@ -122,7 +121,7 @@ function aggressiveHide() {
 }
 
 // Observer to handle lazy-loaded content
-const observer = new MutationObserver((mutations) => {
+const observer = new MutationObserver((_mutations) => {
   if (isMediaHidden) {
     aggressiveHide();
   }
