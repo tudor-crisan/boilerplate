@@ -1,8 +1,8 @@
-import PagesHelp from "@/components/pages/PagesHelp";
 import { getMetadata } from "@/libs/seo";
+import PagesHelp from "@/modules/help/components/pages/PagesHelp";
 
 export const metadata = getMetadata("help");
 
-export default function TosHelp() {
+export default function HelpPage() {
   return <PagesHelp />;
 }

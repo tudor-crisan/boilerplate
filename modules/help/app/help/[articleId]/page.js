@@ -1,6 +1,6 @@
-import HelpArticle from "@/components/help/HelpArticle";
 import { defaultHelp } from "@/libs/defaults";
 import { getMetadata } from "@/libs/seo";
+import HelpArticle from "@/modules/help/components/help/HelpArticle";
 
 export async function generateMetadata(props) {
   const params = await props.params;

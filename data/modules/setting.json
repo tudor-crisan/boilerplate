@@ -45,6 +45,10 @@
     "blog": {
       "path": "modules/blog",
       "description": "Blog module including pages, components, and logic."
+    },
+    "help": {
+      "path": "modules/help",
+      "description": "Help module including pages, components, and logic."
     }
   },
   "auth": {
@@ -104,11 +108,11 @@
     },
     "help": {
       "source": "/help",
-      "destination": "/tos/help"
+      "destination": "/help"
     },
     "helpArticle": {
       "source": "/help/:articleId",
-      "destination": "/tos/help/:articleId"
+      "destination": "/help/:articleId"
     },
     "dashboard": {
       "source": "/dashboard",

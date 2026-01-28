@@ -2,13 +2,13 @@
 import Grid from "@/components/common/Grid";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
-import HelpContactSupport from "@/components/help/HelpContactSupport";
 import Input from "@/components/input/Input";
 import SvgSearch from "@/components/svg/SvgSearch";
 import TosContent from "@/components/tos/TosContent";
 import { useStyling } from "@/context/ContextStyling";
 import useHighlight from "@/hooks/useHighlight";
 import { defaultHelp, defaultSetting as settings } from "@/libs/defaults";
+import HelpContactSupport from "@/modules/help/components/help/HelpContactSupport";
 import React, { useState } from "react";
 import Link from "next/link";
 

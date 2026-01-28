@@ -61,13 +61,7 @@
       "app/api/billing"
     ],
     "blog": ["modules/blog", "app/blog", "app/robots.js", "app/sitemap.js"],
-    "help": [
-      "app/tos/help",
-      "components/help/HelpArticle.js",
-      "components/help/HelpArticles.js",
-      "components/help/HelpContactSupport.js",
-      "components/pages/PagesHelp.js"
-    ]
+    "help": ["modules/help", "app/help"]
   },
   "apps": {
     "loyalboards": {

@@ -1,6 +1,6 @@
 "use client";
-import HelpArticles from "@/components/help/HelpArticles";
 import TosWrapper from "@/components/tos/TosWrapper";
+import HelpArticles from "@/modules/help/components/help/HelpArticles";
 
 export default function PagesHelp() {
   return (

@@ -1,11 +1,11 @@
 "use client";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
-import HelpContactSupport from "@/components/help/HelpContactSupport";
 import TosContent from "@/components/tos/TosContent";
 import TosWrapper from "@/components/tos/TosWrapper";
 import { useStyling } from "@/context/ContextStyling";
 import { defaultHelp } from "@/libs/defaults";
+import HelpContactSupport from "@/modules/help/components/help/HelpContactSupport";
 import React from "react";
 import Image from "next/image";
 import { notFound, useParams } from "next/navigation";

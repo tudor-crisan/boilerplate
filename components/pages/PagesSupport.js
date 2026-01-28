@@ -2,11 +2,11 @@
 import Button from "@/components/button/Button";
 import Paragraph from "@/components/common/Paragraph";
 import Title from "@/components/common/Title";
-import HelpSupport from "@/components/help/HelpSupport";
 import TosContent from "@/components/tos/TosContent";
 import TosWrapper from "@/components/tos/TosWrapper";
 import { useVisual } from "@/context/ContextVisual";
 import { defaultSetting as settings } from "@/libs/defaults";
+import HelpSupport from "@/modules/help/components/help/HelpSupport";
 
 export default function PagesSupport() {
   const { visual } = useVisual();
