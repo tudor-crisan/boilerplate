@@ -1,4 +1,4 @@
-import boards from "@/data/modules/boards.json";
+import boards from "@/modules/boards/data/boards.json";
 
 const boardss = {
   boards,

@@ -44,13 +44,9 @@
       "public/assets/video"
     ],
     "boards": [
-      "hooks/modules/boards",
-      "components/modules/boards",
+      "modules/boards",
       "app/modules/boards",
-      "app/api/modules/boards",
-      "models/modules/boards",
-      "libs/modules/boards",
-      "data/modules/boards.json"
+      "app/api/modules/boards"
     ],
     "auth": [
       "modules/auth",
