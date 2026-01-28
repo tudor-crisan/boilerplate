@@ -26,10 +26,9 @@
     ],
     "pathsToRemoveFromAll": [
       "app/modules/preview",
-      "public/uploads",
-      "public/exports",
       "app/api/resend/test-email",
-      "app/preview"
+      "public/uploads",
+      "public/exports"
     ],
     "dependenciesToRemove": [
       "puppeteer",
@@ -58,7 +57,6 @@
       "app/auth",
       "app/dashboard",
       "app/success",
-      "app/api/auth",
       "app/api/user/update",
       "app/api/billing"
     ],
