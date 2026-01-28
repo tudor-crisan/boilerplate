@@ -99,7 +99,8 @@
     },
     "api": {
       "billingCreateCheckout": "/api/billing/create-checkout",
-      "billingCreatePortal": "/api/billing/create-portal"
+      "billingCreatePortal": "/api/billing/create-portal",
+      "resendTestEmail": "/api/resend/test-email"
     }
   },
   "integrations": {
