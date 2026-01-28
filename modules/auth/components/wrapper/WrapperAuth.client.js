@@ -32,7 +32,7 @@ export default function WrapperAuthClient({ authSession, children }) {
     try {
       // The data object already contains everything we need including logo
       // because we're passing { ...inputs, styling, logo } from DashboardProfile
-      const res = await clientApi.post("/api/user/update", data);
+      const res = await clientApi.post(settings.paths.api.userUpdate, data);
 
       // If server returns updated data (e.g. with server-generated logo), update local state again
       if (res.data?.styling) {

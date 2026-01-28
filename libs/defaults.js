@@ -83,6 +83,18 @@ export const defaultSetting = getMergedConfigWithModules(
   enrichedSettingsList,
 );
 
+// Dynamically populate paths.api for frontend compatibility
+// This allows JSON files to remain flat (for Next.js rewrites)
+// while providing the nested structure the frontend code expects.
+if (defaultSetting.paths) {
+  defaultSetting.paths.api = {};
+  Object.entries(defaultSetting.paths).forEach(([key, val]) => {
+    if (val && typeof val === "object" && val.source?.startsWith("/api/")) {
+      defaultSetting.paths.api[key] = val.source;
+    }
+  });
+}
+
 // Inject details into setting
 if (details.appName) defaultSetting.appName = details.appName;
 if (details.website) defaultSetting.website = details.website;
