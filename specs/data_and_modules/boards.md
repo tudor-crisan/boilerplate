@@ -1,6 +1,6 @@
 # Boards Module Configuration
 
-The `boards.json` file in `data/modules/` is a core configuration that defines the behavior, routing, and UI for the feedback boards system.
+The `boards.json` file in `data/` is a core configuration that defines the behavior, routing, and UI for the feedback boards system.
 
 ## Key Sections
 

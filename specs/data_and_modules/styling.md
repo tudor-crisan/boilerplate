@@ -1,6 +1,6 @@
 # Styling Configuration
 
-The `styling.json` file in `data/modules/` defines the design tokens and UI consistency rules for the application.
+The `styling.json` file in `data/` defines the design tokens and UI consistency rules for the application.
 
 ## Core Tokens
 

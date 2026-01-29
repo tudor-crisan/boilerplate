@@ -6,7 +6,7 @@ The `/scripts` directory contains essential automation tools for configuration m
 
 - **`generate-lists.mjs`**:
   - **Purpose**: Regenerates the `/lists` directory.
-  - **Function**: Scans `data/modules` and `data/apps` to create JavaScript barrel files. This allows the Next.js app to import configurations using standard `import` syntax rather than relative file reads.
+  - **Function**: Scans `data` and `data` to create JavaScript barrel files. This allows the Next.js app to import configurations using standard `import` syntax rather than relative file reads.
   - **Executed by**: `npm run lists`.
 
 ## 2. Validation
@@ -16,7 +16,7 @@ The `/scripts` directory contains essential automation tools for configuration m
   - **Function**: Imports the generated lists and parses them against the Zod schemas defined in `/types`.
 - **`validate-data.ts`**:
   - **Purpose**: Type-safe validation of the raw JSON files.
-  - **Function**: Iterates through `data/modules` and `data/apps`, matching each JSON file to its corresponding Zod schema for full structural verification.
+  - **Function**: Iterates through `data` and `data`, matching each JSON file to its corresponding Zod schema for full structural verification.
   - **Executed by**: `npm run typescript`.
 
 ## 3. Deployment & Sync

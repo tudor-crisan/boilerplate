@@ -1,6 +1,6 @@
 # Modular Backend Logic
 
-The project's API logic follows the "Module" architecture, matching the structure of `/components/modules` and `data/modules`.
+The project's API logic follows the "Module" architecture, matching the structure of `/components/modules` and `data`.
 
 ## 1. Structure (`/app/api/modules`)
 

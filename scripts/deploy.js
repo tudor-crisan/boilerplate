@@ -12,7 +12,6 @@ const CONFIG_PATH = path.resolve(
   __dirname,
   "..",
   "data",
-  "modules",
   "deploy.json",
 );
 
@@ -32,12 +31,12 @@ const TARGET_FOLDERS = CONFIG.defaults.targetFolders || [];
 // Always exclude .git if not present in config, just in case
 const EXCLUDED_FILES = CONFIG.defaults.excludedFiles || [".git"];
 
-const SETTING_PATH = path.resolve(__dirname, "..", "data", "modules", "setting.json");
+const SETTING_PATH = path.resolve(__dirname, "..", "data", "setting.json");
 let SETTING;
 try {
   SETTING = JSON.parse(fs.readFileSync(SETTING_PATH, "utf-8"));
 } catch {
-  console.warn("⚠️ Failed to load data/modules/setting.json. Module assembly might be limited.");
+  console.warn("⚠️ Failed to load data/setting.json. Module assembly might be limited.");
   SETTING = {};
 }
 
@@ -202,9 +201,9 @@ function filterFiles(targetDir, appName) {
       }
 
       // 2. Handle Imports or loadJSON calls pointing to other apps
-      // Regex looks for paths like: .../data/apps/appName/... or .../components/apps/appName/...
+      // Regex looks for paths like: .../apps/appName/... or .../components/apps/appName/...
       const appPathMatch = line.match(
-        /(?:data|components|public)\/apps\/([^/]+)\//,
+        /(?:apps|components\/apps|public\/apps)\/([^/]+)\//,
       );
       if (appPathMatch) {
         const folderName = appPathMatch[1];
@@ -321,7 +320,7 @@ function cleanAppSpecificFiles(targetDir, appName) {
   // Directories that contain app-specific subfolders
   const directoriesToClean = [
     "public/apps",
-    "data/apps",
+    "apps",
     "components/apps",
     "public/assets/blog",
     "public/assets/help",

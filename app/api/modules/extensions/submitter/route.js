@@ -4,7 +4,7 @@ import path from "path";
 
 // Helper to get data file path for specific app
 function getDataFilePath(app) {
-  return path.join(process.cwd(), `data/apps/${app}/submitter.json`);
+  return path.join(process.cwd(), `apps/${app}/submitter.json`);
 }
 
 // Helper to read data

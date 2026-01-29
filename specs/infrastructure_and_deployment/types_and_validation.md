@@ -4,7 +4,7 @@ The project uses Zod to enforce strict data integrity across all configuration f
 
 ## 1. Schema Definitions (`/types`)
 
-Schemas are organized by module to match the `data/modules` structure:
+Schemas are organized by module to match the `data` structure:
 
 - **`common.schema.ts`**: Shared primitives like URL patterns, button configurations, and standardized response objects.
 - **`setting.schema.ts`**: Validates the global application settings.

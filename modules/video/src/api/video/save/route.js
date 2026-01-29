@@ -19,10 +19,10 @@ export async function POST(req) {
     // For this task, we map widely used apps or default to a structure.
     let relativePath = "";
     if (appId === "loyalboards") {
-      relativePath = "data/apps/loyalboards/video.json";
+      relativePath = "apps/loyalboards/video.json";
     } else {
       // Fallback or error? We'll assume strict structure for now.
-      relativePath = `data/apps/${appId}/video.json`;
+      relativePath = `apps/${appId}/video.json`;
     }
 
     const filePath = path.join(process.cwd(), relativePath);

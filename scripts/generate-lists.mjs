@@ -5,8 +5,8 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, "..");
-const appsDataDir = path.join(rootDir, "data", "apps");
-const modulesDataDir = path.join(rootDir, "data", "modules");
+const appsDataDir = path.join(rootDir, "apps");
+const modulesDataDir = path.join(rootDir, "data");
 const listsDir = path.join(rootDir, "lists");
 
 const CONFIG_TYPES = [
@@ -49,26 +49,50 @@ export function generateLists(options = {}) {
     configurations[type] = {};
     // Add default modules
     const moduleFile = path.join(modulesDataDir, `${type}.json`);
+    const subModuleFile = path.join(rootDir, "modules", type, "data", `${type}.json`);
     if (fs.existsSync(moduleFile)) {
-      configurations[type][type] = `@/data/modules/${type}.json`;
-      allConfigsForNode[type] = `../data/modules/${type}.json`;
+      configurations[type][type] = `@/data/${type}.json`;
+      allConfigsForNode[type] = `../data/${type}.json`;
+    } else if (fs.existsSync(subModuleFile)) {
+      configurations[type][type] = `@/modules/${type}/data/${type}.json`;
+      allConfigsForNode[type] = `../modules/${type}/data/${type}.json`;
     }
   });
 
   const appManifest = {};
 
+  const submitterDataPath = path.join(rootDir, "extensions", "submitter", "data.json");
+  const submitterData = fs.existsSync(submitterDataPath) ? JSON.parse(fs.readFileSync(submitterDataPath, "utf8")) : {};
+
   apps.forEach((app) => {
     appManifest[app] = {};
+    const appSettingFile = path.join(appsDataDir, app, `setting.json`);
+    const appSetting = fs.existsSync(appSettingFile) ? JSON.parse(fs.readFileSync(appSettingFile, "utf8")) : {};
+    const appSubmitterData = submitterData[app] || {};
+
+    // Populate details from setting.json and submitter data
+    appManifest[app].details = {
+      appName: appSubmitterData.name || appSetting.appName || "",
+      website: appSubmitterData.url || appSetting.website || "",
+      title: appSubmitterData.keywords || appSetting.seo?.tagline || "",
+      description: appSubmitterData.description || appSetting.seo?.description || "",
+      favicon: appSetting.seo?.image || "", // Use SEO image as fallback for favicon or similar
+    };
+
     CONFIG_TYPES.forEach((type) => {
       const appConfigFile = path.join(appsDataDir, app, `${type}.json`);
       if (fs.existsSync(appConfigFile)) {
         const configId = `${app}_${type}`;
-        configurations[type][configId] = `@/data/apps/${app}/${type}.json`;
-        allConfigsForNode[configId] = `../data/apps/${app}/${type}.json`;
+        configurations[type][configId] = `@/apps/${app}/${type}.json`;
+        allConfigsForNode[configId] = `../apps/${app}/${type}.json`;
 
-        const moduleFile = path.join(modulesDataDir, `${type}.json`);
+        // Check for module file in data/ or modules/
+        const rootModuleFile = path.join(modulesDataDir, `${type}.json`);
+        const subModuleFile = path.join(rootDir, "modules", type, "data", `${type}.json`);
+        const moduleExists = fs.existsSync(rootModuleFile) || fs.existsSync(subModuleFile);
+
         appManifest[app][type] = {
-          default: fs.existsSync(moduleFile) ? `${type}` : undefined,
+          default: moduleExists ? `${type}` : undefined,
           override: configId,
         };
       }

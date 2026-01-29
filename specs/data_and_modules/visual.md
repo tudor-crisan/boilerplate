@@ -1,6 +1,6 @@
 # Visual Configuration
 
-The `visual.json` file in `data/modules/` controls the visibility and basic appearance of landing page elements.
+The `visual.json` file in `data/` controls the visibility and basic appearance of landing page elements.
 
 ## Features
 

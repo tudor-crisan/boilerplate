@@ -1,6 +1,6 @@
 # Global Settings Configuration (Deep Dive)
 
-The `setting.json` file in `data/modules/` is the core configuration "brain" of the application. It defines how the app identifies itself, how it communicates with users, and how it maps routes to features.
+The `setting.json` file in `data/` is the core configuration "brain" of the application. It defines how the app identifies itself, how it communicates with users, and how it maps routes to features.
 
 ## 1. App Identity & SEO
 

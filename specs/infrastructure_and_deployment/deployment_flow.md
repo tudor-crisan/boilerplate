@@ -22,7 +22,7 @@ For each target, the script performs a surgical update:
 4. **List Rewriting (Surgical Pruning)**:
    - The `/lists` directory contains indexes of all apps in the boilerplate. During deployment, we want to isolate the target app entirely.
    - `filterListFiles` parses the `.js` files in the target's `/lists` folder.
-   - It identifies and **removes lines** that import data (`data/apps/...`) or components (`components/apps/...`) belonging to other apps.
+   - It identifies and **removes lines** that import data (`apps/...`) or components (`components/apps/...`) belonging to other apps.
    - It also performs "source-level tree shaking": if an import is removed, any reference to that imported variable (e.g., in a configuration object or export list) is also stripped out.
    - **Isolation**: This ensures that "App A" in production does not contain a single line of text or configuration from "App B".
    - **Bundle Size**: By removing these unused imports and objects before the Next.js build starts on Vercel, the final bundle is significantly smaller and cleaner.

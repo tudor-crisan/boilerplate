@@ -6,7 +6,7 @@ The UI is built using a combination of utility-first CSS and a robust component 
 
 - **Tailwind CSS (v4)**: The core styling engine. Configured directly in `app/globals.css` using `@import "tailwindcss"` and `@plugin`. This project utilizes newer Tailwind features like direct CSS variables and improved nesting.
 - **DaisyUI (v5.5.8)**: Provides a set of semantic UI components (e.g., buttons, cards, modals) that are styled with Tailwind.
-- **`styling.json`**: Located in `/data/modules/`, this file contains project-specific design tokens and utility class groups (e.g., flex patterns) to ensure visual consistency.
+- **`styling.json`**: Located in `/data/`, this file contains project-specific design tokens and utility class groups (e.g., flex patterns) to ensure visual consistency.
 
 ## Component Structure (`/components`)
 

@@ -22,7 +22,7 @@
       "types",
       "coverage",
       "extensions",
-      "data/modules/deploy.json"
+      "data/deploy.json"
     ],
     "pathsToRemoveFromAll": [
       "app/modules/preview",

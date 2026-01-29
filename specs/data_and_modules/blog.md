@@ -1,6 +1,6 @@
 # Blog Module Configuration
 
-The `blog.json` file in `data/modules/` defines the static content and structure for the application's blog.
+The `blog.json` file in `data/` defines the static content and structure for the application's blog.
 
 ## Structure
 

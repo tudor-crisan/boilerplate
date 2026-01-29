@@ -6,7 +6,7 @@ Understanding how data flows through the boilerplate is essential for mastering 
 
 State is managed in layers, starting from static files and moving into real-time React context:
 
-1. **Static Source (`/data/modules/*.json`)**: The base configuration for each app instance.
+1. **Static Source (`/data/*.json`)**: The base configuration for each app instance.
 2. **Registry (`/lists/*.js`)**: Global registry of possible themes, fonts, and application targets.
 3. **Defaults Layer (`/libs/defaults.js`)**: Merges the JSON config with hardcoded defaults to ensure the app never breaks if a config field is missing.
 4. **Context Layer (`/context`)**: The final destination for the merged configuration.

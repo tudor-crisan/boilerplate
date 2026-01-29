@@ -10,37 +10,34 @@ const loadJSON = (p) => {
   try {
     if (!fs.existsSync(fullPath)) return {};
     return JSON.parse(fs.readFileSync(fullPath, "utf8"));
-  } catch {
+  } catch (e) {
     return {};
   }
 };
 
 const settings = {
-  copywriting: loadJSON("../data/modules/copywriting.json"),
-  styling: loadJSON("../data/modules/styling.json"),
-  visual: loadJSON("../data/modules/visual.json"),
-  setting: loadJSON("../data/modules/setting.json"),
-  blog: loadJSON("../data/modules/blog.json"),
-  boards: loadJSON("../data/modules/boards.json"),
-  loyalboards_copywriting: loadJSON(
-    "../data/apps/loyalboards/copywriting.json",
-  ),
-  loyalboards_styling: loadJSON("../data/apps/loyalboards/styling.json"),
-  loyalboards_visual: loadJSON("../data/apps/loyalboards/visual.json"),
-  loyalboards_setting: loadJSON("../data/apps/loyalboards/setting.json"),
-
-  loyalboards_help: loadJSON("../data/apps/loyalboards/help.json"),
-  loyalboards_video: loadJSON("../data/apps/loyalboards/video.json"),
-  taskflow_copywriting: loadJSON("../data/apps/taskflow/copywriting.json"),
-  taskflow_styling: loadJSON("../data/apps/taskflow/styling.json"),
-  taskflow_visual: loadJSON("../data/apps/taskflow/visual.json"),
-  taskflow_setting: loadJSON("../data/apps/taskflow/setting.json"),
-  tudorcrisan_copywriting: loadJSON(
-    "../data/apps/tudorcrisan/copywriting.json",
-  ),
-  tudorcrisan_styling: loadJSON("../data/apps/tudorcrisan/styling.json"),
-  tudorcrisan_visual: loadJSON("../data/apps/tudorcrisan/visual.json"),
-  tudorcrisan_setting: loadJSON("../data/apps/tudorcrisan/setting.json"),
+  copywriting: loadJSON("../data/copywriting.json"),
+  styling: loadJSON("../data/styling.json"),
+  visual: loadJSON("../data/visual.json"),
+  setting: loadJSON("../data/setting.json"),
+  blog: loadJSON("../modules/blog/data/blog.json"),
+  boards: loadJSON("../modules/boards/data/boards.json"),
+  help: loadJSON("../modules/help/data/help.json"),
+  loyalboards_copywriting: loadJSON("../apps/loyalboards/copywriting.json"),
+  loyalboards_styling: loadJSON("../apps/loyalboards/styling.json"),
+  loyalboards_visual: loadJSON("../apps/loyalboards/visual.json"),
+  loyalboards_setting: loadJSON("../apps/loyalboards/setting.json"),
+  loyalboards_blog: loadJSON("../apps/loyalboards/blog.json"),
+  loyalboards_help: loadJSON("../apps/loyalboards/help.json"),
+  loyalboards_video: loadJSON("../apps/loyalboards/video.json"),
+  taskflow_copywriting: loadJSON("../apps/taskflow/copywriting.json"),
+  taskflow_styling: loadJSON("../apps/taskflow/styling.json"),
+  taskflow_visual: loadJSON("../apps/taskflow/visual.json"),
+  taskflow_setting: loadJSON("../apps/taskflow/setting.json"),
+  tudorcrisan_copywriting: loadJSON("../apps/tudorcrisan/copywriting.json"),
+  tudorcrisan_styling: loadJSON("../apps/tudorcrisan/styling.json"),
+  tudorcrisan_visual: loadJSON("../apps/tudorcrisan/visual.json"),
+  tudorcrisan_setting: loadJSON("../apps/tudorcrisan/setting.json"),
 };
 
 export default settings;

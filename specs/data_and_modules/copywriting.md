@@ -1,6 +1,6 @@
 # Copywriting Configuration
 
-The `copywriting.json` file in `data/modules/` centralizes the text content for major landing page sections.
+The `copywriting.json` file in `data/` centralizes the text content for major landing page sections.
 
 ## Sections
 
@@ -11,4 +11,4 @@ The `copywriting.json` file in `data/modules/` centralizes the text content for 
 
 ## Purpose
 
-By centralizing text in this file, the application can easily support white-labeling or multi-tenant deployments by overriding these values in `data/apps/[appName]/copywriting.json`.
+By centralizing text in this file, the application can easily support white-labeling or multi-tenant deployments by overriding these values in `apps/[appName]/copywriting.json`.

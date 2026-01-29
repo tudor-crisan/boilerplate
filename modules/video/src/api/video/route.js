@@ -4,7 +4,7 @@ import path from "path";
 
 const getFilePath = () => {
   const appName = process.env.NEXT_PUBLIC_APP || "loyalboards"; // Fallback just in case
-  return path.join(process.cwd(), "data/apps", appName, "video.json");
+  return path.join(process.cwd(), "apps", appName, "video.json");
 };
 
 export async function GET() {

@@ -18,15 +18,15 @@ The database connection is managed using a singleton pattern to ensure efficient
 
 The application is highly configurable via JSON files:
 
-- `/data/apps/`: Individual configuration for different white-labeled apps.
-- `/data/modules/`: Global configurations for specific features.
-- `styling.json`: Design tokens and standard Tailwind classes, located in `/data/modules/`.
+- `/apps/`: Individual configuration for different white-labeled apps.
+- `/data/`: Global configurations for specific features.
+- `styling.json`: Design tokens and standard Tailwind classes, located in `/data/`.
 
 ## List Generation (`/lists`)
 
 The `/lists` directory contains automatically generated files that serve as an index for various configurations.
 
-- **Process**: Running `npm run lists` (which executes `scripts/generate-lists.mjs`) scans `data/apps` and `data/modules` to create JavaScript imports and manifests.
+- **Process**: Running `npm run lists` (which executes `scripts/generate-lists.mjs`) scans `apps` and `data` to create JavaScript imports and manifests.
 - **Purpose**: This allows the application to dynamically load configurations and assets based on the active `APP` environment variable.
 - **Metadata**: New lists can be generated from `package.json` to include additional files or metadata required by the modules.
 

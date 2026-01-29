@@ -4,7 +4,7 @@ The `/lists` directory is a core architectural pillar. It acts as the centralize
 
 ## 1. Role in the Architecture
 
-While `data/modules` handles the _schema_ and _defaults_, the `lists/` folder provides the _options_ and _registry_:
+While `data` handles the _schema_ and _defaults_, the `lists/` folder provides the _options_ and _registry_:
 
 - **Options**: Lists of available themes, fonts, and colors.
 - **Registry**: The definitive list of all white-labeled applications and their domains.
