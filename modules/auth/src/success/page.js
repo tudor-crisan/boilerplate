@@ -1,9 +1,9 @@
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import DashboardMain from "@/components/dashboard/DashboardMain";
-import DashboardSuccess from "@/components/dashboard/DashboardSuccess";
-import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
-import HeaderTop from "@/components/header/HeaderTop";
-import { defaultSetting as settings } from "@/libs/defaults";
+import DashboardHeader from "@/modules/general/components/dashboard/DashboardHeader";
+import DashboardMain from "@/modules/general/components/dashboard/DashboardMain";
+import DashboardSuccess from "@/modules/general/components/dashboard/DashboardSuccess";
+import DashboardWrapper from "@/modules/general/components/dashboard/DashboardWrapper";
+import HeaderTop from "@/modules/general/components/header/HeaderTop";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default async function SuccessPage() {
   return (

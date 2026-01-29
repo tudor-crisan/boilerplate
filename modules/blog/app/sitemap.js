@@ -2,7 +2,7 @@ import {
   defaultBlog,
   defaultHelp,
   defaultSetting as settings,
-} from "@/libs/defaults";
+} from "@/modules/general/libs/defaults";
 
 export default function sitemap() {
   const baseUrl = `https://${settings.website}`;

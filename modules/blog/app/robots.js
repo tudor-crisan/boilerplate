@@ -1,4 +1,4 @@
-import { defaultSetting as settings } from "@/libs/defaults";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default function robots() {
   return {

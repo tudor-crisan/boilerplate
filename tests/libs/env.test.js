@@ -25,7 +25,7 @@ describe("libs/env", () => {
     jest.spyOn(process, "cwd").mockReturnValue("/mock/cwd");
     process.env.APP = "test-app";
 
-    const mod = await import("../../libs/env");
+    const mod = await import("../../modules/general/libs/env");
     loadAppEnv = mod.loadAppEnv;
   });
 

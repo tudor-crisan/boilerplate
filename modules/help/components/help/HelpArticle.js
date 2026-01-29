@@ -1,10 +1,10 @@
 "use client";
-import Paragraph from "@/components/common/Paragraph";
-import Title from "@/components/common/Title";
-import TosContent from "@/components/tos/TosContent";
-import TosWrapper from "@/components/tos/TosWrapper";
-import { useStyling } from "@/context/ContextStyling";
-import { defaultHelp } from "@/libs/defaults";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import Title from "@/modules/general/components/common/Title";
+import TosContent from "@/modules/general/components/tos/TosContent";
+import TosWrapper from "@/modules/general/components/tos/TosWrapper";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultHelp } from "@/modules/general/libs/defaults";
 import HelpContactSupport from "@/modules/help/components/help/HelpContactSupport";
 import React from "react";
 import Image from "next/image";

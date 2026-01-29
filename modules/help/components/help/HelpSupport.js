@@ -1,8 +1,8 @@
 "use client";
-import Grid from "@/components/common/Grid";
-import Title from "@/components/common/Title";
-import { useStyling } from "@/context/ContextStyling";
-import { defaultSetting as settings } from "@/libs/defaults";
+import Grid from "@/modules/general/components/common/Grid";
+import Title from "@/modules/general/components/common/Title";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import React from "react";
 import Link from "next/link";
 

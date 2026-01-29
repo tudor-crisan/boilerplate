@@ -15,7 +15,7 @@ describe("libs/model", () => {
 
     jest.unstable_mockModule("mongoose", () => ({ default: mockMongoose }));
 
-    const mod = await import("../../libs/model");
+    const mod = await import("../../modules/general/libs/model");
     userSchemaConfig = mod.userSchemaConfig;
     getUserModel = mod.getUserModel;
   });

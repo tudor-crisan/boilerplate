@@ -12,7 +12,7 @@ describe("Dropdown", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/context/ContextStyling", () => ({
+    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
       useStyling: useStylingMock,
     }));
 
@@ -20,7 +20,7 @@ describe("Dropdown", () => {
       default: ({ children, href }) => <a href={href}>{children}</a>,
     }));
 
-    const importedModule = await import("../../../components/common/Dropdown");
+    const importedModule = await import("../../../modules/general/components/common/Dropdown");
     Dropdown = importedModule.default;
   });
 

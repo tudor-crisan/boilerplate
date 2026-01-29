@@ -1,14 +1,14 @@
-import Paragraph from "@/components/common/Paragraph";
-import Title from "@/components/common/Title";
+import BlogArticleList from "@/modules/blog/components/blog/BlogArticleList";
+import BlogCategoryList from "@/modules/blog/components/blog/BlogCategoryList";
+import PagesBlog from "@/modules/blog/components/pages/PagesBlog";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import Title from "@/modules/general/components/common/Title";
 import {
   defaultBlog,
   defaultSetting as config,
   defaultStyling,
-} from "@/libs/defaults";
-import { getMetadata } from "@/libs/seo";
-import BlogArticleList from "@/modules/blog/components/blog/BlogArticleList";
-import BlogCategoryList from "@/modules/blog/components/blog/BlogCategoryList";
-import PagesBlog from "@/modules/blog/components/pages/PagesBlog";
+} from "@/modules/general/libs/defaults";
+import { getMetadata } from "@/modules/general/libs/seo";
 import { notFound } from "next/navigation";
 
 const { articles, categories } = defaultBlog;

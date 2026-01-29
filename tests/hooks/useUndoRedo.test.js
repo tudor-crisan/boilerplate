@@ -1,4 +1,4 @@
-import useUndoRedo from "@/hooks/useUndoRedo";
+import useUndoRedo from "@/modules/general/hooks/useUndoRedo";
 import { act, renderHook } from "@testing-library/react";
 
 describe("hooks/useUndoRedo", () => {

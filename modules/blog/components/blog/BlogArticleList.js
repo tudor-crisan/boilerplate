@@ -1,5 +1,5 @@
-import Grid from "@/components/common/Grid";
 import BlogCardArticle from "@/modules/blog/components/blog/BlogCardArticle";
+import Grid from "@/modules/general/components/common/Grid";
 
 const BlogArticleList = ({ articles }) => {
   if (!articles || articles.length === 0) return null;

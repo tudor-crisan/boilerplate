@@ -14,26 +14,26 @@ describe("EmptyState", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/context/ContextStyling", () => ({
+    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
       useStyling: useStylingMock,
     }));
 
     // Mock Title and Paragraph
-    jest.unstable_mockModule("@/components/common/Title", () => ({
+    jest.unstable_mockModule("@/modules/general/components/common/Title", () => ({
       default: ({ children }) => <h1>{children}</h1>,
     }));
 
-    jest.unstable_mockModule("@/components/common/Paragraph", () => ({
+    jest.unstable_mockModule("@/modules/general/components/common/Paragraph", () => ({
       default: ({ children }) => <p>{children}</p>,
     }));
 
     // Mock Vertical
-    jest.unstable_mockModule("@/components/common/Vertical", () => ({
+    jest.unstable_mockModule("@/modules/general/components/common/Vertical", () => ({
       default: ({ children }) => <div>{children}</div>,
     }));
 
     const importedModule =
-      await import("../../../components/common/EmptyState");
+      await import("../../../modules/general/components/common/EmptyState");
     EmptyState = importedModule.default;
   });
 

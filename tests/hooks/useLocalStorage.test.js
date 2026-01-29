@@ -25,7 +25,7 @@ describe("hooks/useLocalStorage", () => {
   let useLocalStorage;
 
   beforeAll(async () => {
-      const importedModule = await import("../../hooks/useLocalStorage");
+      const importedModule = await import("../../modules/general/hooks/useLocalStorage");
       useLocalStorage = importedModule.default;
   });
 

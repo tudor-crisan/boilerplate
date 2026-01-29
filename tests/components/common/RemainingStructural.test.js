@@ -1,6 +1,6 @@
-import Form from "@/components/common/Form";
-import Label from "@/components/common/Label";
-import Main from "@/components/common/Main";
+import Form from "@/modules/general/components/common/Form";
+import Label from "@/modules/general/components/common/Label";
+import Main from "@/modules/general/components/common/Main";
 import React from "react";
 import { jest } from "@jest/globals";
 import { fireEvent, render, screen } from "@testing-library/react";

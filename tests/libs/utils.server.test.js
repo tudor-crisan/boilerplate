@@ -15,11 +15,11 @@ describe("libs/utils.server.js", () => {
       NextResponse: NextResponseMock,
     }));
 
-    jest.unstable_mockModule("@/lists/blockedDomains", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/blockedDomains", () => ({
       default: ["disposable.com"],
     }));
 
-    jest.unstable_mockModule("@/libs/merge.mjs", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/merge.mjs", () => ({
       getMergedConfig: jest.fn(
         (_type, _override, defaults) => defaults?.default || {},
       ),
@@ -39,17 +39,17 @@ describe("libs/utils.server.js", () => {
       })),
     }));
 
-    jest.unstable_mockModule("@/libs/colors", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/colors", () => ({
       oklchToHex: jest.fn(() => "#ff0000"),
     }));
 
-    jest.unstable_mockModule("@/lists/themeColors", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/themeColors", () => ({
       default: {
         light: { "--color-primary": "oklch(0.6 0.2 250)" },
       },
     }));
 
-    jest.unstable_mockModule("@/lists/logos", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/logos", () => ({
       default: {
         star: {
           path: ["M0 0h24v24H0z"],
@@ -60,7 +60,7 @@ describe("libs/utils.server.js", () => {
     }));
 
     // Import the module under test
-    utils = await import("../../libs/utils.server");
+    utils = await import("../../modules/general/libs/utils.server");
   });
 
   afterAll(() => {
@@ -199,7 +199,7 @@ describe("libs/utils.server.js", () => {
     });
 
     it("should return false if mock is disabled", async () => {
-      const { defaultSetting } = await import("@/libs/defaults");
+      const { defaultSetting } = await import("@/modules/general/libs/defaults");
       const original = defaultSetting.forms.testTarget.mockConfig.isEnabled;
       defaultSetting.forms.testTarget.mockConfig.isEnabled = false;
       expect(utils.responseMock("testTarget")).toBe(false);
@@ -213,7 +213,7 @@ describe("libs/utils.server.js", () => {
     });
 
     it("should return false if not enabled", async () => {
-      const { defaultSetting } = await import("@/libs/defaults");
+      const { defaultSetting } = await import("@/modules/general/libs/defaults");
       const original = defaultSetting.forms.testTarget.mockConfig.isEnabled;
       defaultSetting.forms.testTarget.mockConfig.isEnabled = false;
       expect(utils.isResponseMock("testTarget")).toBe(false);

@@ -1,10 +1,10 @@
 "use client";
-import Paragraph from "@/components/common/Paragraph";
-import Title from "@/components/common/Title";
-import HeaderBack from "@/components/header/HeaderBack";
-import Svg404 from "@/components/svg/Svg404";
-import { useStyling } from "@/context/ContextStyling";
-import { defaultSetting as settings } from "@/libs/defaults";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import Title from "@/modules/general/components/common/Title";
+import HeaderBack from "@/modules/general/components/header/HeaderBack";
+import Svg404 from "@/modules/general/components/svg/Svg404";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default function NotFound() {
   const { styling } = useStyling();

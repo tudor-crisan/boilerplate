@@ -38,11 +38,11 @@ describe("api/video assets (music, images, voiceover)", () => {
       NextResponse: mockNextResponse,
     }));
 
-    musicPOST = (await import("../../../../app/api/video/music/route")).POST;
-    const imagesMod = await import("../../../../app/api/video/images/route");
+    musicPOST = (await import("../../../../app/api/modules/video/music/route")).POST;
+    const imagesMod = await import("../../../../app/api/modules/video/images/route");
     imagesGET = imagesMod.GET;
     imagesPOST = imagesMod.POST;
-    voiceoverPOST = (await import("../../../../app/api/video/voiceover/route"))
+    voiceoverPOST = (await import("../../../../app/api/modules/video/voiceover/route"))
       .POST;
   });
 

@@ -1,8 +1,8 @@
 "use client";
 
-import useApiRequest from "@/hooks/useApiRequest";
-import { clientApi } from "@/libs/api";
-import { defaultSetting as settings } from "@/libs/defaults";
+import useApiRequest from "@/modules/general/hooks/useApiRequest";
+import { clientApi } from "@/modules/general/libs/api";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { useCallback, useEffect, useState } from "react";
 
 const useBoardComments = (postId) => {

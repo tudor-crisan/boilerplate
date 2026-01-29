@@ -4,18 +4,18 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Mocks
-jest.unstable_mockModule("@/components/button/Button", () => ({
+jest.unstable_mockModule("@/modules/general/components/button/Button", () => ({
   default: ({ children, onClick, className }) => (
     <button onClick={onClick} className={className}>
       {children}
     </button>
   ),
 }));
-jest.unstable_mockModule("@/components/common/Paragraph", () => ({
+jest.unstable_mockModule("@/modules/general/components/common/Paragraph", () => ({
   default: ({ children }) => <p>{children}</p>,
 }));
 
-const GdprPopup = (await import("../../../components/common/GdprPopup"))
+const GdprPopup = (await import("../../../modules/general/components/common/GdprPopup"))
   .default;
 
 describe("components/common/GdprPopup", () => {

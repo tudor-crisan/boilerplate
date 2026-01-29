@@ -1,4 +1,4 @@
-import applications from "@/lists/applications.mjs";
+import applications from "@/modules/general/lists/applications.mjs";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";

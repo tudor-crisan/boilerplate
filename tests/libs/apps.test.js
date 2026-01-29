@@ -7,7 +7,7 @@ describe("libs/apps", () => {
     jest.resetModules();
 
     // Mock lists
-    jest.unstable_mockModule("@/lists/applications.mjs", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/applications.mjs", () => ({
       default: {
         "test-app": {
           details: {
@@ -24,11 +24,11 @@ describe("libs/apps", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/libs/utils.server.js", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/utils.server.js", () => ({
       formatWebsiteUrl: (url) => `https://${url}`,
     }));
 
-    const mod = await import("../../libs/apps");
+    const mod = await import("../../modules/general/libs/apps");
     getAppDetails = mod.getAppDetails;
   });
 

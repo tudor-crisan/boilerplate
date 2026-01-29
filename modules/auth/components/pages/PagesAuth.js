@@ -1,10 +1,10 @@
 "use client";
-import Button from "@/components/button/Button";
-import Paragraph from "@/components/common/Paragraph";
-import Title from "@/components/common/Title";
-import { useStyling } from "@/context/ContextStyling";
-import { defaultSetting as settings } from "@/libs/defaults";
 import { useAuth } from "@/modules/auth/context/ContextAuth";
+import Button from "@/modules/general/components/button/Button";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import Title from "@/modules/general/components/common/Title";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default function PagesAuth({
   icon,

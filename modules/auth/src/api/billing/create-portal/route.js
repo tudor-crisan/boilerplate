@@ -1,15 +1,15 @@
-import { defaultSetting as settings } from "@/libs/defaults";
-import connectMongo from "@/libs/mongoose";
-import { checkReqRateLimit } from "@/libs/rateLimit";
+import { auth } from "@/modules/auth/libs/auth";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import connectMongo from "@/modules/general/libs/mongoose";
+import { checkReqRateLimit } from "@/modules/general/libs/rateLimit";
 import {
   getBaseUrl,
   isResponseMock,
   responseError,
   responseMock,
   responseSuccess,
-} from "@/libs/utils.server";
-import User from "@/models/User";
-import { auth } from "@/modules/auth/libs/auth";
+} from "@/modules/general/libs/utils.server";
+import User from "@/modules/general/models/User";
 import Stripe from "stripe";
 
 const TYPE = "Billing";

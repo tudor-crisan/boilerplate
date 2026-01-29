@@ -14,23 +14,23 @@ describe("components/modules/boards/ui/UpvoteButton", () => {
     useApiRequestMock = jest.fn();
     useLocalStorageMock = jest.fn();
 
-    jest.unstable_mockModule("@/context/ContextStyling", () => ({
+    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
       useStyling: useStylingMock,
     }));
-    jest.unstable_mockModule("@/hooks/useApiRequest", () => ({
+    jest.unstable_mockModule("@/modules/general/hooks/useApiRequest", () => ({
       default: useApiRequestMock,
     }));
-    jest.unstable_mockModule("@/hooks/useLocalStorage", () => ({
+    jest.unstable_mockModule("@/modules/general/hooks/useLocalStorage", () => ({
       default: useLocalStorageMock,
     }));
-    jest.unstable_mockModule("@/components/button/ButtonVote", () => ({
+    jest.unstable_mockModule("@/modules/general/components/button/ButtonVote", () => ({
       default: ({ onClick, count, hasVoted, isLoading }) => (
         <button onClick={onClick} disabled={isLoading} data-voted={hasVoted}>
           Votes: {count}
         </button>
       ),
     }));
-    jest.unstable_mockModule("@/libs/api", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/api", () => ({
       clientApi: { post: jest.fn(), delete: jest.fn() },
     }));
 

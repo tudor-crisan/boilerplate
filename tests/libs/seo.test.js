@@ -26,11 +26,11 @@ describe("libs/seo.js", () => {
       },
     };
 
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: settingsMock,
     }));
 
-    const importedModule = await import("../../libs/seo");
+    const importedModule = await import("../../modules/general/libs/seo");
     getMetadata = importedModule.getMetadata;
   });
 

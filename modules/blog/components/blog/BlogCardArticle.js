@@ -1,12 +1,12 @@
 "use client";
 
-import Paragraph from "@/components/common/Paragraph";
-import TextSmall from "@/components/common/TextSmall";
-import Title from "@/components/common/Title";
-import IconBusinessImage from "@/components/icon/IconBusinessImage";
-import { useStyling } from "@/context/ContextStyling";
-import { defaultSetting as config } from "@/libs/defaults";
 import BlogBadgeCategory from "@/modules/blog/components/blog/BlogBadgeCategory";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import TextSmall from "@/modules/general/components/common/TextSmall";
+import Title from "@/modules/general/components/common/Title";
+import IconBusinessImage from "@/modules/general/components/icon/IconBusinessImage";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultSetting as config } from "@/modules/general/libs/defaults";
 import Link from "next/link";
 
 const BlogCardArticle = ({ article, showCategory = true }) => {

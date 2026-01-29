@@ -7,7 +7,7 @@ import {
   getNameInitials,
   isMobile,
   pluralize,
-} from "@/libs/utils.client";
+} from "@/modules/general/libs/utils.client";
 import { jest } from "@jest/globals";
 
 describe("libs/utils.client.js", () => {
@@ -150,7 +150,7 @@ describe("libs/utils.client.js", () => {
       // we rely on it functionality.
       // Ideally we would need to dynamically import the module to test the module-level caching cleanly.
       const { getClientId: getClientIdImport } =
-        await import("../../libs/utils.client");
+        await import("../../modules/general/libs/utils.client");
 
       const id = getClientIdImport();
       expect(typeof id).toBe("string");
@@ -159,7 +159,7 @@ describe("libs/utils.client.js", () => {
 
     it("should persist to localStorage", async () => {
       const { getClientId: getClientIdImport } =
-        await import("../../libs/utils.client");
+        await import("../../modules/general/libs/utils.client");
       const id = getClientIdImport();
       expect(window.localStorage.getItem("x-client-id")).toBe(id);
     });

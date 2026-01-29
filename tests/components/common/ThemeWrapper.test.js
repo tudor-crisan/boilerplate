@@ -4,14 +4,14 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Mock fonts
-jest.unstable_mockModule("@/lists/fonts", () => ({
+jest.unstable_mockModule("@/modules/general/lists/fonts", () => ({
   fontMap: {
     Inter: "Inter, sans-serif",
     Roboto: "Roboto, sans-serif",
   },
 }));
 
-const ThemeWrapper = (await import("../../../components/common/ThemeWrapper"))
+const ThemeWrapper = (await import("../../../modules/general/components/common/ThemeWrapper"))
   .default;
 
 describe("components/common/ThemeWrapper", () => {

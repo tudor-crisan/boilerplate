@@ -32,9 +32,9 @@ describe("hooks/useCopyToClipboard", () => {
       success: jest.fn(),
       error: jest.fn(),
     };
-    jest.unstable_mockModule("@/libs/toast", () => ({ toast: toastMock }));
+    jest.unstable_mockModule("@/modules/general/libs/toast", () => ({ toast: toastMock }));
 
-    const importedModule = await import("../../hooks/useCopyToClipboard");
+    const importedModule = await import("../../modules/general/hooks/useCopyToClipboard");
     useCopyToClipboard = importedModule.default;
   });
 

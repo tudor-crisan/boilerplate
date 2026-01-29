@@ -1,8 +1,8 @@
 "use client";
 
-import { defaultSetting as settings } from "@/libs/defaults";
-import { toast } from "@/libs/toast";
-import { getClientId } from "@/libs/utils.client";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { toast } from "@/modules/general/libs/toast";
+import { getClientId } from "@/modules/general/libs/utils.client";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**

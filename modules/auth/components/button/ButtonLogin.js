@@ -1,7 +1,7 @@
 "use client";
-import Button from "@/components/button/Button";
-import { defaultSetting as settings } from "@/libs/defaults";
 import { useAuth } from "@/modules/auth/context/ContextAuth";
+import Button from "@/modules/general/components/button/Button";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { signIn } from "next-auth/react";
 
 export default function ButtonLogin({

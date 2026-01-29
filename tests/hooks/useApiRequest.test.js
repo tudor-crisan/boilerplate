@@ -11,15 +11,15 @@ describe("hooks/useApiRequest", () => {
       success: jest.fn(),
       error: jest.fn(),
     };
-    jest.unstable_mockModule("@/libs/toast", () => ({ toast: toastMock }));
+    jest.unstable_mockModule("@/modules/general/libs/toast", () => ({ toast: toastMock }));
 
     apiMock = {
       setDataError: jest.fn(),
       setDataSuccess: jest.fn(),
     };
-    jest.unstable_mockModule("@/libs/api", () => apiMock);
+    jest.unstable_mockModule("@/modules/general/libs/api", () => apiMock);
 
-    const importedModule = await import("../../hooks/useApiRequest");
+    const importedModule = await import("../../modules/general/hooks/useApiRequest");
     useApiRequest = importedModule.default;
   });
 

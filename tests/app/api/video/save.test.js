@@ -29,7 +29,7 @@ describe("api/video/save", () => {
       NextResponse: mockNextResponse,
     }));
 
-    const mod = await import("../../../../app/api/video/save/route");
+    const mod = await import("../../../../app/api/modules/video/save/route");
     POST = mod.POST;
 
     jest.spyOn(console, "error").mockImplementation(() => {});

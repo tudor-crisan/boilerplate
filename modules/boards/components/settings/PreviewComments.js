@@ -1,8 +1,8 @@
-import Button from "@/components/button/Button";
-import CommentUI from "@/components/comments/CommentUI";
-import InputToggle from "@/components/input/InputToggle";
-import SvgComment from "@/components/svg/SvgComment";
-import SvgVote from "@/components/svg/SvgVote";
+import Button from "@/modules/general/components/button/Button";
+import CommentUI from "@/modules/general/components/comments/CommentUI";
+import InputToggle from "@/modules/general/components/input/InputToggle";
+import SvgComment from "@/modules/general/components/svg/SvgComment";
+import SvgVote from "@/modules/general/components/svg/SvgVote";
 import React from "react";
 
 export default function BoardPreviewComments({

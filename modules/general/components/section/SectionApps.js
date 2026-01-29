@@ -1,0 +1,73 @@
+"use client";
+import Button from "@/modules/general/components/button/Button";
+import Flex from "@/modules/general/components/common/Flex";
+import Grid from "@/modules/general/components/common/Grid";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import Title from "@/modules/general/components/common/Title";
+import SectionWrapper from "@/modules/general/components/section/SectionWrapper";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { getAppDetails } from "@/modules/general/libs/apps";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { cn } from "@/modules/general/libs/utils.client";
+import Image from "next/image";
+
+const SectionAppsContent = () => {
+  const { styling } = useStyling();
+
+  return settings.availableApps.map((app) => {
+    const details = getAppDetails(app);
+    if (!details) return null;
+    const { title, description, favicon, website, appName } = details;
+
+    return (
+      <div
+        key={app}
+        className={cn("card w-full max-w-sm", styling.components.card)}
+      >
+        <div className={cn("card-body space-y-6", styling.general.box)}>
+          {(favicon || appName) && (
+            <div
+              className={`${styling.flex.items_center} gap-2 font-extrabold`}
+            >
+              {favicon && (
+                <Image
+                  src={favicon}
+                  alt={`${appName} logo`}
+                  className={cn("object-contain", styling.components.element)}
+                  width={32}
+                  height={32}
+                />
+              )}
+              <Title>{appName}</Title>
+            </div>
+          )}
+
+          {(title || description) && (
+            <div className="space-y-1">
+              {title && <Title>{title}</Title>}
+              {description && <Paragraph>{description}</Paragraph>}
+            </div>
+          )}
+
+          {website && <Button href={website}>View App</Button>}
+        </div>
+      </div>
+    );
+  });
+};
+
+export default function SectionApps() {
+  return (
+    <SectionWrapper id="apps">
+      {settings.availableApps.length === 1 ? (
+        <Flex>
+          <SectionAppsContent />
+        </Flex>
+      ) : (
+        <Grid>
+          <SectionAppsContent />
+        </Grid>
+      )}
+    </SectionWrapper>
+  );
+}

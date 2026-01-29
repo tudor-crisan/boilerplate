@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/button/Button";
+import Button from "@/modules/general/components/button/Button";
 
 export default function VideoControls({ onNext, onPrev, hasNext, hasPrev }) {
   return (

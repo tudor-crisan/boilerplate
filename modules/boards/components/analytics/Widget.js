@@ -1,12 +1,12 @@
 "use client";
-import AnalyticsChart from "@/components/analytics/AnalyticsChart";
-import AnalyticsStats from "@/components/analytics/AnalyticsStats";
-import Label from "@/components/common/Label";
-import Loading from "@/components/common/Loading";
-import { useStyling } from "@/context/ContextStyling";
-import { useAnalyticsRange } from "@/hooks/useAnalyticsRange";
-import { clientApi } from "@/libs/api";
-import { defaultSetting as settings } from "@/libs/defaults";
+import AnalyticsChart from "@/modules/general/components/analytics/AnalyticsChart";
+import AnalyticsStats from "@/modules/general/components/analytics/AnalyticsStats";
+import Label from "@/modules/general/components/common/Label";
+import Loading from "@/modules/general/components/common/Loading";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { useAnalyticsRange } from "@/modules/general/hooks/useAnalyticsRange";
+import { clientApi } from "@/modules/general/libs/api";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import React, { useEffect, useState } from "react";
 
 export default function BoardAnalyticsWidget({ boardId }) {

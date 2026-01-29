@@ -5,7 +5,7 @@ describe("components/modules/video/VideoFilter", () => {
   let VideoFilter;
 
   beforeAll(async () => {
-    jest.unstable_mockModule("@/components/common/FilterBar", () => ({
+    jest.unstable_mockModule("@/modules/general/components/common/FilterBar", () => ({
       default: ({
         search,
         setSearch,
@@ -36,7 +36,7 @@ describe("components/modules/video/VideoFilter", () => {
       ),
     }));
 
-    jest.unstable_mockModule("@/components/select/Select", () => ({
+    jest.unstable_mockModule("@/modules/general/components/select/Select", () => ({
       default: ({ options, value, onChange, disabled }) => (
         <select
           value={value}

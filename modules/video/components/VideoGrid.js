@@ -1,6 +1,6 @@
-import Grid from "@/components/common/Grid";
-import Paragraph from "@/components/common/Paragraph";
-import Title from "@/components/common/Title";
+import Grid from "@/modules/general/components/common/Grid";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import Title from "@/modules/general/components/common/Title";
 import VideoCard from "@/modules/video/components/VideoCard";
 
 export default function VideoGrid({

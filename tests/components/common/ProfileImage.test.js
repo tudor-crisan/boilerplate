@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Mocks
-jest.unstable_mockModule("@/context/ContextStyling", () => ({
+jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   useStyling: () => ({
     styling: {
       components: { element: "mock-element" },
@@ -13,7 +13,7 @@ jest.unstable_mockModule("@/context/ContextStyling", () => ({
   }),
 }));
 
-const ProfileImage = (await import("../../../components/common/ProfileImage"))
+const ProfileImage = (await import("../../../modules/general/components/common/ProfileImage"))
   .default;
 
 describe("components/common/ProfileImage", () => {

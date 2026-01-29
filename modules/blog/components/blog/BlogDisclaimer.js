@@ -1,4 +1,4 @@
-import { defaultStyling } from "@/libs/defaults";
+import { defaultStyling } from "@/modules/general/libs/defaults";
 
 const BlogDisclaimer = () => {
   return (

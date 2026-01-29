@@ -1,9 +1,9 @@
-import Button from "@/components/button/Button";
-import Label from "@/components/common/Label";
-import Modal from "@/components/common/Modal";
-import Input from "@/components/input/Input";
-import Select from "@/components/select/Select";
-import Textarea from "@/components/textarea/Textarea";
+import Button from "@/modules/general/components/button/Button";
+import Label from "@/modules/general/components/common/Label";
+import Modal from "@/modules/general/components/common/Modal";
+import Input from "@/modules/general/components/input/Input";
+import Select from "@/modules/general/components/select/Select";
+import Textarea from "@/modules/general/components/textarea/Textarea";
 
 export default function VideoCreateEditModal({
   isOpen,

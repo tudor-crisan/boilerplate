@@ -1,5 +1,5 @@
-import { withApiHandler } from "@/libs/apiHandler";
 import Notification from "@/modules/boards/models/Notification";
+import { withApiHandler } from "@/modules/general/libs/apiHandler";
 import { NextResponse } from "next/server";
 import "@/modules/boards/models/Board";
 

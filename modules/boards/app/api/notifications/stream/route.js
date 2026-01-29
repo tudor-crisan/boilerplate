@@ -1,7 +1,7 @@
-import connectMongo from "@/libs/mongoose";
 import { auth } from "@/modules/auth/libs/auth";
 import Board from "@/modules/boards/models/Board";
 import Notification from "@/modules/boards/models/Notification";
+import connectMongo from "@/modules/general/libs/mongoose";
 
 export const dynamic = "force-dynamic";
 

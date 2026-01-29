@@ -1,7 +1,7 @@
 "use client";
 
-import Loading from "@/components/common/Loading";
-import { useStyling } from "@/context/ContextStyling";
+import Loading from "@/modules/general/components/common/Loading";
+import { useStyling } from "@/modules/general/context/ContextStyling";
 import VideoContainer from "@/modules/video/components/VideoContainer";
 import VideoCreateEditModal from "@/modules/video/components/VideoCreateEditModal";
 import VideoDeleteModal from "@/modules/video/components/VideoDeleteModal";

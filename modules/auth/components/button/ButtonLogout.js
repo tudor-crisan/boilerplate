@@ -1,7 +1,7 @@
 "use client";
-import Button from "@/components/button/Button";
-import SvgLogout from "@/components/svg/SvgLogout";
 import { useAuth } from "@/modules/auth/context/ContextAuth";
+import Button from "@/modules/general/components/button/Button";
+import SvgLogout from "@/modules/general/components/svg/SvgLogout";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
 

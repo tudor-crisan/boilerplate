@@ -1,5 +1,5 @@
-import PagesTerms from "@/components/pages/PagesTerms";
-import { getMetadata } from "@/libs/seo";
+import PagesTerms from "@/modules/general/components/pages/PagesTerms";
+import { getMetadata } from "@/modules/general/libs/seo";
 
 export const metadata = getMetadata("terms");
 

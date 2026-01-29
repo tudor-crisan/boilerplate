@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/components/button/Button";
-import InputRange from "@/components/input/InputRange";
+import Button from "@/modules/general/components/button/Button";
+import InputRange from "@/modules/general/components/input/InputRange";
 
 export default function VideoControlBar({
   styling,

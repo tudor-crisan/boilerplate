@@ -1,21 +1,21 @@
-import ButtonBack from "@/components/button/ButtonBack";
-import ButtonDelete from "@/components/button/ButtonDelete";
-import Columns from "@/components/common/Columns";
-import Label from "@/components/common/Label";
-import Sidebar from "@/components/common/Sidebar";
-import Title from "@/components/common/Title";
-import Vertical from "@/components/common/Vertical";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import DashboardMain from "@/components/dashboard/DashboardMain";
-import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
-import InputCopy from "@/components/input/InputCopy";
-import { defaultSetting as settings } from "@/libs/defaults";
-import { getMetadata } from "@/libs/seo";
-import { baseUrl } from "@/libs/utils.client";
 import BoardAnalyticsWidget from "@/modules/boards/components/analytics/Widget";
 import BoardPrivatePostsList from "@/modules/boards/components/posts/PrivateList";
 import BoardEditModal from "@/modules/boards/components/ui/EditModal";
 import { getBoardPrivate } from "@/modules/boards/libs/db";
+import ButtonBack from "@/modules/general/components/button/ButtonBack";
+import ButtonDelete from "@/modules/general/components/button/ButtonDelete";
+import Columns from "@/modules/general/components/common/Columns";
+import Label from "@/modules/general/components/common/Label";
+import Sidebar from "@/modules/general/components/common/Sidebar";
+import Title from "@/modules/general/components/common/Title";
+import Vertical from "@/modules/general/components/common/Vertical";
+import DashboardHeader from "@/modules/general/components/dashboard/DashboardHeader";
+import DashboardMain from "@/modules/general/components/dashboard/DashboardMain";
+import DashboardWrapper from "@/modules/general/components/dashboard/DashboardWrapper";
+import InputCopy from "@/modules/general/components/input/InputCopy";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { getMetadata } from "@/modules/general/libs/seo";
+import { baseUrl } from "@/modules/general/libs/utils.client";
 import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }) {

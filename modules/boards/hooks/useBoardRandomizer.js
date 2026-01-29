@@ -1,6 +1,6 @@
-import { defaultStyling } from "@/libs/defaults";
-import { fontMap } from "@/lists/fonts";
-import themes from "@/lists/themes";
+import { defaultStyling } from "@/modules/general/libs/defaults";
+import { fontMap } from "@/modules/general/lists/fonts";
+import themes from "@/modules/general/lists/themes";
 import { useCallback, useEffect, useRef } from "react";
 
 export function useBoardRandomizer({ handleChange, getVal }) {

@@ -1,4 +1,4 @@
-import { isThemeDark, oklchToHex } from "@/libs/colors";
+import { isThemeDark, oklchToHex } from "@/modules/general/libs/colors";
 
 describe("libs/colors", () => {
   describe("oklchToHex", () => {

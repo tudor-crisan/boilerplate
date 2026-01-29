@@ -1,5 +1,5 @@
-import FilterBar from "@/components/common/FilterBar";
-import Select from "@/components/select/Select";
+import FilterBar from "@/modules/general/components/common/FilterBar";
+import Select from "@/modules/general/components/select/Select";
 
 export default function VideoFilter({
   searchQuery,

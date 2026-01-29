@@ -8,7 +8,7 @@ const mockShow = jest.fn();
 const mockHide = jest.fn();
 let mockIsVisible = false;
 
-jest.unstable_mockModule("@/hooks/useTooltip", () => ({
+jest.unstable_mockModule("@/modules/general/hooks/useTooltip", () => ({
   __esModule: true,
   default: () => ({
     isVisible: mockIsVisible,
@@ -17,7 +17,7 @@ jest.unstable_mockModule("@/hooks/useTooltip", () => ({
   }),
 }));
 
-jest.unstable_mockModule("@/context/ContextStyling", () => ({
+jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   useStyling: () => ({
     styling: {
       flex: { col: "flex-col" },
@@ -26,7 +26,7 @@ jest.unstable_mockModule("@/context/ContextStyling", () => ({
   }),
 }));
 
-const Tooltip = (await import("../../../components/common/Tooltip")).default;
+const Tooltip = (await import("../../../modules/general/components/common/Tooltip")).default;
 
 describe("components/common/Tooltip", () => {
   beforeEach(() => {

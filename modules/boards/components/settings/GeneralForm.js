@@ -1,9 +1,9 @@
-import Label from "@/components/common/Label";
-import Input from "@/components/input/Input";
+import Label from "@/modules/general/components/common/Label";
+import Input from "@/modules/general/components/input/Input";
 import {
   SettingsContainer,
   SettingsItem,
-} from "@/components/settings/SettingsLayout";
+} from "@/modules/general/components/settings/SettingsLayout";
 
 export const BoardSettingsGeneralForm = ({
   getVal,

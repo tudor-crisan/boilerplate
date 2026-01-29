@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Mocks
-jest.unstable_mockModule("@/context/ContextStyling", () => ({
+jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   useStyling: () => ({
     styling: {
       components: { progressBar: "mock-progress" },
@@ -12,7 +12,7 @@ jest.unstable_mockModule("@/context/ContextStyling", () => ({
   }),
 }));
 
-const ProgressBar = (await import("../../../components/common/ProgressBar"))
+const ProgressBar = (await import("../../../modules/general/components/common/ProgressBar"))
   .default;
 
 describe("components/common/ProgressBar", () => {

@@ -4,7 +4,7 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Standard Stylings Mock
-jest.unstable_mockModule("@/context/ContextStyling", () => ({
+jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   useStyling: () => ({
     styling: {
       flex: { center: "flex-center" },
@@ -13,18 +13,18 @@ jest.unstable_mockModule("@/context/ContextStyling", () => ({
   }),
 }));
 
-const Divider = (await import("../../../components/common/Divider")).default;
-const Vertical = (await import("../../../components/common/Vertical")).default;
-const Flex = (await import("../../../components/common/Flex")).default;
-const Grid = (await import("../../../components/common/Grid")).default;
-const Columns = (await import("../../../components/common/Columns")).default;
-const Paragraph = (await import("../../../components/common/Paragraph"))
+const Divider = (await import("../../../modules/general/components/common/Divider")).default;
+const Vertical = (await import("../../../modules/general/components/common/Vertical")).default;
+const Flex = (await import("../../../modules/general/components/common/Flex")).default;
+const Grid = (await import("../../../modules/general/components/common/Grid")).default;
+const Columns = (await import("../../../modules/general/components/common/Columns")).default;
+const Paragraph = (await import("../../../modules/general/components/common/Paragraph"))
   .default;
-const Title = (await import("../../../components/common/Title")).default;
-const TextSmall = (await import("../../../components/common/TextSmall"))
+const Title = (await import("../../../modules/general/components/common/Title")).default;
+const TextSmall = (await import("../../../modules/general/components/common/TextSmall"))
   .default;
-const Loading = (await import("../../../components/common/Loading")).default;
-const ErrorComp = (await import("../../../components/common/Error")).default;
+const Loading = (await import("../../../modules/general/components/common/Loading")).default;
+const ErrorComp = (await import("../../../modules/general/components/common/Error")).default;
 
 describe("components/common structural components", () => {
   it("Divider should render", () => {

@@ -1,6 +1,6 @@
-import Button from "@/components/button/Button";
-import Modal from "@/components/common/Modal";
-import Paragraph from "@/components/common/Paragraph";
+import Button from "@/modules/general/components/button/Button";
+import Modal from "@/modules/general/components/common/Modal";
+import Paragraph from "@/modules/general/components/common/Paragraph";
 
 export default function VideoDeleteModal({
   isOpen,

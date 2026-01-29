@@ -24,7 +24,7 @@ describe("libs/email", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/lists/emailTemplates", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/emailTemplates", () => ({
       default: {
         QuickLinkTemplate: (props) => ({ type: "QuickLinkTemplate", props }),
         WeeklyDigestTemplate: (props) => ({
@@ -34,11 +34,11 @@ describe("libs/email", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/components/emails/email-theme", () => ({
+    jest.unstable_mockModule("@/modules/general/components/emails/email-theme", () => ({
       getEmailBranding: () => ({ appName: "TestApp" }),
     }));
 
-    const importedModule = await import("../../libs/email");
+    const importedModule = await import("../../modules/general/libs/email");
     sendEmail = importedModule.sendEmail;
     QuickLinkEmail = importedModule.QuickLinkEmail;
     WeeklyDigestEmail = importedModule.WeeklyDigestEmail;

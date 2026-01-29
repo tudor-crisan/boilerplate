@@ -4,12 +4,12 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Mocks
-jest.unstable_mockModule("@/context/ContextStyling", () => ({
+jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   useStyling: () => ({
     styling: { flex: { col: "flex-col" } },
   }),
 }));
-jest.unstable_mockModule("@/components/input/Input", () => ({
+jest.unstable_mockModule("@/modules/general/components/input/Input", () => ({
   default: ({ value, onChange, placeholder, _icon, disabled }) => (
     <input
       data-testid="mock-input"
@@ -20,7 +20,7 @@ jest.unstable_mockModule("@/components/input/Input", () => ({
     />
   ),
 }));
-jest.unstable_mockModule("@/components/select/Select", () => ({
+jest.unstable_mockModule("@/modules/general/components/select/Select", () => ({
   default: ({ value, onChange, options, disabled }) => (
     <select
       data-testid="mock-select"
@@ -36,11 +36,11 @@ jest.unstable_mockModule("@/components/select/Select", () => ({
     </select>
   ),
 }));
-jest.unstable_mockModule("@/components/svg/SvgSearch", () => ({
+jest.unstable_mockModule("@/modules/general/components/svg/SvgSearch", () => ({
   default: () => <span data-testid="search-icon" />,
 }));
 
-const FilterBar = (await import("../../../components/common/FilterBar"))
+const FilterBar = (await import("../../../modules/general/components/common/FilterBar"))
   .default;
 
 describe("components/common/FilterBar", () => {

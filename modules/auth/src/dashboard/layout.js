@@ -1,6 +1,6 @@
 "use client";
-import { defaultSetting as settings } from "@/libs/defaults";
 import { useAuth } from "@/modules/auth/context/ContextAuth";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { redirect } from "next/navigation";
 
 export default function LayoutDashboard({ children }) {

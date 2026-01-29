@@ -5,17 +5,17 @@ describe("components/input/InputRange", () => {
   let InputRange;
 
   beforeAll(async () => {
-    jest.unstable_mockModule("@/context/ContextStyling", () => ({
+    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
       useStyling: () => ({
         styling: { components: { range: "range" } },
       }),
     }));
 
-    jest.unstable_mockModule("@/libs/utils.client", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/utils.client", () => ({
       cn: (...inputs) => inputs.filter(Boolean).join(" "),
     }));
 
-    InputRange = (await import("@/components/input/InputRange")).default;
+    InputRange = (await import("@/modules/general/components/input/InputRange")).default;
   });
 
   it("should render range input", () => {

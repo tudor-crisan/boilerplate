@@ -1,17 +1,17 @@
 "use client";
-import ButtonDelete from "@/components/button/ButtonDelete";
-import EmptyState from "@/components/common/EmptyState";
-import FilterBar from "@/components/common/FilterBar";
-import Paragraph from "@/components/common/Paragraph";
-import TextSmall from "@/components/common/TextSmall";
-import Title from "@/components/common/Title";
-import SvgPost from "@/components/svg/SvgPost";
-import SvgSearch from "@/components/svg/SvgSearch";
-import { useStyling } from "@/context/ContextStyling";
-import { defaultSetting as settings } from "@/libs/defaults";
-import { formattedDate } from "@/libs/utils.client";
 import useBoardFiltering from "@/modules/boards/hooks/useBoardFiltering";
 import useBoardPosts from "@/modules/boards/hooks/useBoardPosts";
+import ButtonDelete from "@/modules/general/components/button/ButtonDelete";
+import EmptyState from "@/modules/general/components/common/EmptyState";
+import FilterBar from "@/modules/general/components/common/FilterBar";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import TextSmall from "@/modules/general/components/common/TextSmall";
+import Title from "@/modules/general/components/common/Title";
+import SvgPost from "@/modules/general/components/svg/SvgPost";
+import SvgSearch from "@/modules/general/components/svg/SvgSearch";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { formattedDate } from "@/modules/general/libs/utils.client";
 import { AnimatePresence, motion } from "framer-motion";
 
 const BoardPrivatePostsList = ({ posts, boardId }) => {

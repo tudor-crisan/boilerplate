@@ -1,8 +1,8 @@
 "use client";
-import Main from "@/components/common/Main";
-import SectionFooter from "@/components/section/SectionFooter";
-import SectionHeader from "@/components/section/SectionHeader";
-import WrapperStyling from "@/components/wrapper/WrapperStyling";
+import Main from "@/modules/general/components/common/Main";
+import SectionFooter from "@/modules/general/components/section/SectionFooter";
+import SectionHeader from "@/modules/general/components/section/SectionHeader";
+import WrapperStyling from "@/modules/general/components/wrapper/WrapperStyling";
 
 export default function PagesBlog({ children }) {
   return (

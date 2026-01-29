@@ -1,6 +1,6 @@
-import Button from "@/components/button/Button";
-import Paragraph from "@/components/common/Paragraph";
-import Title from "@/components/common/Title";
+import Button from "@/modules/general/components/button/Button";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import Title from "@/modules/general/components/common/Title";
 
 export default function VideoHeader({ styling, onOpenCreate }) {
   return (

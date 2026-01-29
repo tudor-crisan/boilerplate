@@ -1,0 +1,69 @@
+import Button from "@/modules/general/components/button/Button";
+import ProfileImage from "@/modules/general/components/common/ProfileImage";
+import TextSmall from "@/modules/general/components/common/TextSmall";
+import SvgTrash from "@/modules/general/components/svg/SvgTrash";
+import { formattedDate } from "@/modules/general/libs/utils.client";
+
+const CommentItem = ({
+  comment,
+  user,
+  config,
+  styling,
+  onDelete,
+  localCommentIds = [],
+}) => {
+  const isOwner =
+    comment.userId?._id && comment.boardId?.userId === comment.userId._id;
+  const isAuthor = user?.id && comment.userId?._id === user.id;
+  const isBoardOwner = user?.id && comment.boardId?.userId === user.id;
+  const isLocal = localCommentIds.includes(comment._id);
+
+  const canDelete =
+    config.allowDeletion && (isAuthor || isBoardOwner || isLocal);
+
+  return (
+    <div className="flex gap-3 items-start">
+      <ProfileImage
+        src={comment.userId?.image}
+        initials={(comment.userId?.name || comment.name || "?").substring(0, 2)}
+        size="sm"
+      />
+      <div className="flex-1 space-y-1">
+        <div className={`${styling?.flex?.between} gap-2`}>
+          <span className="font-semibold text-sm">
+            {comment.userId?.name || comment.name || "Anonymous"}
+            {/* Owner Badge */}
+            {isOwner && (
+              <span
+                className={`${styling?.components?.element || ""} badge badge-outline badge-xs h-5 pointer-events-none select-none ml-2`}
+              >
+                {config.ownerBadgeText || "Owner"}
+              </span>
+            )}
+          </span>
+
+          <div className={`${styling.flex.items_center} gap-2`}>
+            {config.showDate && (
+              <TextSmall className="line-clamp-2 max-w-20 text-center text-base-content/50">
+                {formattedDate(comment.createdAt || new Date())}
+              </TextSmall>
+            )}
+
+            {canDelete && (
+              <Button
+                onClick={() => onDelete && onDelete(comment._id)}
+                variant="btn-error btn-outline"
+                size="btn-xs px-2!"
+              >
+                <SvgTrash />
+              </Button>
+            )}
+          </div>
+        </div>
+        <p className="text-sm whitespace-pre-wrap">{comment.text}</p>
+      </div>
+    </div>
+  );
+};
+
+export default CommentItem;

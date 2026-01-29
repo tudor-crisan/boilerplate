@@ -1,5 +1,5 @@
-import { checkReqRateLimit } from "@/libs/rateLimit";
 import { handlers } from "@/modules/auth/libs/auth";
+import { checkReqRateLimit } from "@/modules/general/libs/rateLimit";
 import { NextResponse } from "next/server";
 
 export const GET = handlers.GET;

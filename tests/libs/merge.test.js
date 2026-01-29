@@ -2,7 +2,7 @@ import {
   deepMerge,
   getMergedConfig,
   getMergedConfigWithModules,
-} from "@/libs/merge.mjs";
+} from "@/modules/general/libs/merge.mjs";
 
 describe("libs/merge", () => {
   describe("deepMerge", () => {

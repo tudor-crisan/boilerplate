@@ -26,16 +26,16 @@ describe("libs/api", () => {
 
     // Mock utils
     mockGetClientId = jest.fn();
-    jest.unstable_mockModule("@/libs/utils.client", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/utils.client", () => ({
       getClientId: mockGetClientId,
     }));
 
     // Mock defaults via real import or simple mock if needed.
     // We can rely on the real one if it has no side effects, or mock it to be safe.
-    // The current file imports `defaultSetting` from `@/libs/defaults`.
+    // The current file imports `defaultSetting` from `@/modules/general/libs/defaults`.
 
     // Import module
-    apiModule = await import("../../libs/api");
+    apiModule = await import("../../modules/general/libs/api");
   });
 
   describe("clientApi", () => {

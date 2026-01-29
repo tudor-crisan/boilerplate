@@ -17,10 +17,10 @@ describe("libs/rateLimit.js", () => {
     };
 
     // Mock Mongoose connection
-    jest.unstable_mockModule("@/libs/mongoose", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({
       default: connectMongoMock,
     }));
-    jest.unstable_mockModule("@/models/RateLimit", () => ({
+    jest.unstable_mockModule("@/modules/general/models/RateLimit", () => ({
       default: RateLimitMock,
     }));
 
@@ -35,16 +35,16 @@ describe("libs/rateLimit.js", () => {
         },
       },
     };
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: settingsMock,
     }));
 
     // Mock utils responseError
-    jest.unstable_mockModule("@/libs/utils.server", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => ({
       responseError: (msg, err, status) => ({ error: msg, status }),
     }));
 
-    const importedModule = await import("../../libs/rateLimit");
+    const importedModule = await import("../../modules/general/libs/rateLimit");
     checkRateLimit = importedModule.checkRateLimit;
     checkReqRateLimit = importedModule.checkReqRateLimit;
   });

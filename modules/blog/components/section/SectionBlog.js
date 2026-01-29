@@ -1,12 +1,12 @@
 "use client";
-import Button from "@/components/button/Button";
-import Grid from "@/components/common/Grid";
-import SectionHeading from "@/components/section/SectionHeading";
-import SectionWrapper from "@/components/section/SectionWrapper";
-import { useCopywriting } from "@/context/ContextCopywriting";
-import { useStyling } from "@/context/ContextStyling";
-import { defaultBlog } from "@/libs/defaults";
 import BlogCardArticle from "@/modules/blog/components/blog/BlogCardArticle";
+import Button from "@/modules/general/components/button/Button";
+import Grid from "@/modules/general/components/common/Grid";
+import SectionHeading from "@/modules/general/components/section/SectionHeading";
+import SectionWrapper from "@/modules/general/components/section/SectionWrapper";
+import { useCopywriting } from "@/modules/general/context/ContextCopywriting";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultBlog } from "@/modules/general/libs/defaults";
 import { useEffect, useState } from "react";
 
 export default function SectionBlog() {

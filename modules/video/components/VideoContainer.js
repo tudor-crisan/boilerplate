@@ -1,8 +1,8 @@
 "use client";
 
-import { useStyling } from "@/context/ContextStyling";
-import useUndoRedo from "@/hooks/useUndoRedo";
-import { toast } from "@/libs/toast";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import useUndoRedo from "@/modules/general/hooks/useUndoRedo";
+import { toast } from "@/modules/general/libs/toast";
 import HistoryControl from "@/modules/video/components/HistoryControl";
 import VideoControlBar from "@/modules/video/components/VideoControlBar";
 import VideoPlayer from "@/modules/video/components/VideoPlayer";

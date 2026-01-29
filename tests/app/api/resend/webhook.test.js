@@ -43,15 +43,15 @@ describe("api/resend/webhook", () => {
 
     jest.unstable_mockModule("svix", () => ({ Webhook: mockWebhook }));
     jest.unstable_mockModule("resend", () => ({ Resend: mockResend }));
-    jest.unstable_mockModule("@/libs/email", () => mockEmail);
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/email", () => mockEmail);
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: { business: { incoming_email: "forward@test.com" } },
     }));
     jest.unstable_mockModule("next/server", () => ({
       NextResponse: { json: (data, opts) => ({ ...data, ...opts }) },
     }));
 
-    const mod = await import("../../../../app/api/resend/webhook/route");
+    const mod = await import("../../../../app/api/modules/resend/webhook/route");
     POST = mod.POST;
 
     jest.spyOn(console, "log").mockImplementation(() => {});

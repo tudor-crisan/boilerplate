@@ -1,4 +1,4 @@
-import Sidebar from "@/components/common/Sidebar";
+import Sidebar from "@/modules/general/components/common/Sidebar";
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";

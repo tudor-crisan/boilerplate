@@ -1,14 +1,14 @@
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import DashboardMain from "@/components/dashboard/DashboardMain";
-import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
-import HeaderTop from "@/components/header/HeaderTop";
-import { getUser } from "@/libs/db";
-import { defaultSetting as settings } from "@/libs/defaults";
-import dashboards from "@/lists/dashboards";
 import ButtonCheckout from "@/modules/auth/components/button/ButtonCheckout";
 import ButtonLogout from "@/modules/auth/components/button/ButtonLogout";
 import ButtonPortal from "@/modules/auth/components/button/ButtonPortal";
 import DashboardProfile from "@/modules/auth/components/dashboard/DashboardProfile";
+import DashboardHeader from "@/modules/general/components/dashboard/DashboardHeader";
+import DashboardMain from "@/modules/general/components/dashboard/DashboardMain";
+import DashboardWrapper from "@/modules/general/components/dashboard/DashboardWrapper";
+import HeaderTop from "@/modules/general/components/header/HeaderTop";
+import { getUser } from "@/modules/general/libs/db";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import dashboards from "@/modules/general/lists/dashboards";
 
 export default async function PagesDashboard() {
   const DashboardComponent = dashboards[settings.components.dashboard];

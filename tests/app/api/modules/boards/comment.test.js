@@ -40,17 +40,17 @@ describe("api/modules/boards/comment", () => {
       "@/modules/boards/libs/analytics",
       () => mockAnalytics,
     );
-    jest.unstable_mockModule("@/libs/utils.server", () => mockUtils);
+    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => mockUtils);
     jest.unstable_mockModule("bad-words", () => ({
       Filter: jest.fn().mockImplementation(() => ({ clean: (s) => s })),
     }));
-    jest.unstable_mockModule("@/libs/apiHandler", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/apiHandler", () => ({
       withApiHandler: (handler) => async (req) => {
         req.nextUrl = new URL(req.url || "http://localhost");
         return handler(req, { session: { user: { id: "user_123" } } });
       },
     }));
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: {
         forms: {
           Comment: {

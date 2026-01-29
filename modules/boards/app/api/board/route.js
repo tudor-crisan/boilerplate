@@ -1,12 +1,12 @@
-import { withApiHandler } from "@/libs/apiHandler";
-import { defaultSetting as settings } from "@/libs/defaults";
+import Board from "@/modules/boards/models/Board";
+import Post from "@/modules/boards/models/Post";
+import { withApiHandler } from "@/modules/general/libs/apiHandler";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import {
   generateSlug,
   responseError,
   responseSuccess,
-} from "@/libs/utils.server";
-import Board from "@/modules/boards/models/Board";
-import Post from "@/modules/boards/models/Post";
+} from "@/modules/general/libs/utils.server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 

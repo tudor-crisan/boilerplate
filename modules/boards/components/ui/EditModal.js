@@ -1,15 +1,15 @@
 "use client";
-import Button from "@/components/button/Button";
-import Label from "@/components/common/Label";
-import Modal from "@/components/common/Modal";
-import TextSmall from "@/components/common/TextSmall";
-import Input from "@/components/input/Input";
-import { useStyling } from "@/context/ContextStyling";
-import useApiRequest from "@/hooks/useApiRequest";
-import { clientApi } from "@/libs/api";
-import { defaultSetting as settings } from "@/libs/defaults";
-import { createSlug } from "@/libs/utils.client";
 import BoardExtraSettings from "@/modules/boards/components/ui/ExtraSettings";
+import Button from "@/modules/general/components/button/Button";
+import Label from "@/modules/general/components/common/Label";
+import Modal from "@/modules/general/components/common/Modal";
+import TextSmall from "@/modules/general/components/common/TextSmall";
+import Input from "@/modules/general/components/input/Input";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import useApiRequest from "@/modules/general/hooks/useApiRequest";
+import { clientApi } from "@/modules/general/libs/api";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { createSlug } from "@/modules/general/libs/utils.client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 

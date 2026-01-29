@@ -1,7 +1,7 @@
-import { defaultSetting as settings } from "@/libs/defaults";
-import { getMetadata } from "@/libs/seo";
 import BoardPublicClient from "@/modules/boards/components/PublicClient";
 import { getBoardPublic } from "@/modules/boards/libs/db";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { getMetadata } from "@/modules/general/libs/seo";
 import { redirect } from "next/navigation";
 
 export async function generateMetadata({ params }) {

@@ -44,8 +44,8 @@ describe("api/video export(s)", () => {
       NextResponse: mockNextResponse,
     }));
 
-    exportPOST = (await import("../../../../app/api/video/export/route")).POST;
-    exportsGET = (await import("../../../../app/api/video/exports/route")).GET;
+    exportPOST = (await import("../../../../app/api/modules/video/export/route")).POST;
+    exportsGET = (await import("../../../../app/api/modules/video/exports/route")).GET;
   });
 
   describe("export", () => {

@@ -1,11 +1,11 @@
-import { withApiHandler } from "@/libs/apiHandler";
-import { defaultSetting as setting } from "@/libs/defaults";
+import { withApiHandler } from "@/modules/general/libs/apiHandler";
+import { defaultSetting as setting } from "@/modules/general/libs/defaults";
 import {
   generateLogoBase64,
   responseError,
   responseSuccess,
-} from "@/libs/utils.server";
-import User from "@/models/User";
+} from "@/modules/general/libs/utils.server";
+import User from "@/modules/general/models/User";
 
 const TYPE = "UserUpdate";
 

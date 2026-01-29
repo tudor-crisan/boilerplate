@@ -1,4 +1,4 @@
-import { toast } from "@/libs/toast";
+import { toast } from "@/modules/general/libs/toast";
 import { useCallback, useEffect, useState, useTransition } from "react";
 
 export default function useVideoManagement() {

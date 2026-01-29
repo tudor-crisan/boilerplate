@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Mocks
-jest.unstable_mockModule("@/context/ContextStyling", () => ({
+jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   useStyling: () => ({
     styling: {
       flex: { col: "flex-col", center: "center", items_center: "items-center" },
@@ -15,7 +15,7 @@ jest.unstable_mockModule("@/context/ContextStyling", () => ({
 }));
 
 const mockGetCroppedImg = jest.fn().mockResolvedValue("blob:cropped");
-jest.unstable_mockModule("@/libs/image", () => ({
+jest.unstable_mockModule("@/modules/general/libs/image", () => ({
   getCroppedImg: mockGetCroppedImg,
 }));
 
@@ -38,7 +38,7 @@ jest.unstable_mockModule("react-easy-crop", () => ({
   },
 }));
 
-const ImageCropper = (await import("../../../components/common/ImageCropper"))
+const ImageCropper = (await import("../../../modules/general/components/common/ImageCropper"))
   .default;
 
 describe("components/common/ImageCropper", () => {

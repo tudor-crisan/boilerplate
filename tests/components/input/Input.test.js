@@ -13,11 +13,11 @@ describe("components/input/Input", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/context/ContextStyling", () => ({
+    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
       useStyling: useStylingMock,
     }));
 
-    InputComponent = (await import("@/components/input/Input")).default;
+    InputComponent = (await import("@/modules/general/components/input/Input")).default;
   });
 
   afterEach(() => {

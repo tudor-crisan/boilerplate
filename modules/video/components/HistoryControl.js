@@ -1,12 +1,12 @@
-import Button from "@/components/button/Button";
-import Dropdown from "@/components/common/Dropdown";
-import Modal from "@/components/common/Modal";
-import Paragraph from "@/components/common/Paragraph";
-import SvgHistory from "@/components/svg/SvgHistory";
-import SvgRedo from "@/components/svg/SvgRedo";
-import SvgReset from "@/components/svg/SvgReset";
-import SvgUndo from "@/components/svg/SvgUndo";
-import { useStyling } from "@/context/ContextStyling";
+import Button from "@/modules/general/components/button/Button";
+import Dropdown from "@/modules/general/components/common/Dropdown";
+import Modal from "@/modules/general/components/common/Modal";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import SvgHistory from "@/modules/general/components/svg/SvgHistory";
+import SvgRedo from "@/modules/general/components/svg/SvgRedo";
+import SvgReset from "@/modules/general/components/svg/SvgReset";
+import SvgUndo from "@/modules/general/components/svg/SvgUndo";
+import { useStyling } from "@/modules/general/context/ContextStyling";
 import { useState } from "react";
 
 export default function HistoryControl({

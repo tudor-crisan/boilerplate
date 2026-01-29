@@ -1,13 +1,13 @@
-import { loadAppEnv } from "@/libs/env";
+import { loadAppEnv } from "@/modules/general/libs/env";
 
 loadAppEnv();
 
-import { defaultSetting as settings } from "@/libs/defaults";
-import { QuickLinkEmail, sendEmail } from "@/libs/email";
-import clientPromise from "@/libs/mongo";
-import connectMongo from "@/libs/mongoose";
-import { validateEmail } from "@/libs/utils.server";
-import User from "@/models/User";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { QuickLinkEmail, sendEmail } from "@/modules/general/libs/email";
+import clientPromise from "@/modules/general/libs/mongo";
+import connectMongo from "@/modules/general/libs/mongoose";
+import { validateEmail } from "@/modules/general/libs/utils.server";
+import User from "@/modules/general/models/User";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Resend from "next-auth/providers/resend";

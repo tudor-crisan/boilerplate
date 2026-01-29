@@ -1,10 +1,10 @@
 "use client";
 
-import Button from "@/components/button/Button";
-import CardPost from "@/components/card/CardPost";
-import SvgComment from "@/components/svg/SvgComment";
-import useHighlight from "@/hooks/useHighlight";
 import BoardCommentSection from "@/modules/boards/components/ui/CommentSection";
+import Button from "@/modules/general/components/button/Button";
+import CardPost from "@/modules/general/components/card/CardPost";
+import SvgComment from "@/modules/general/components/svg/SvgComment";
+import useHighlight from "@/modules/general/hooks/useHighlight";
 import { useMemo, useState } from "react";
 
 const BoardPostItem = ({ item, itemAction, boardSettings, search }) => {

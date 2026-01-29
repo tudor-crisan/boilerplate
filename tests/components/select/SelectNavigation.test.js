@@ -18,19 +18,19 @@ describe("components/select/Select - Navigation Features", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/context/ContextStyling", () => ({
+    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
       useStyling: useStylingMock,
     }));
 
-    jest.unstable_mockModule("@/components/svg/SvgChevronLeft", () => ({
+    jest.unstable_mockModule("@/modules/general/components/svg/SvgChevronLeft", () => ({
       default: () => <span>←</span>,
     }));
 
-    jest.unstable_mockModule("@/components/svg/SvgChevronRight", () => ({
+    jest.unstable_mockModule("@/modules/general/components/svg/SvgChevronRight", () => ({
       default: () => <span>→</span>,
     }));
 
-    SelectComponent = (await import("@/components/select/Select")).default;
+    SelectComponent = (await import("@/modules/general/components/select/Select")).default;
   });
 
   afterEach(() => {

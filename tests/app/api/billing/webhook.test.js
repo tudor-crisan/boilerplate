@@ -28,12 +28,12 @@ describe("api/billing/webhook", () => {
     jest.unstable_mockModule("next/server", () => ({
       NextResponse: { json: (data, opts) => ({ ...data, ...opts }) },
     }));
-    jest.unstable_mockModule("@/libs/mongoose", () => ({ default: jest.fn() }));
-    jest.unstable_mockModule("@/models/User", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({ default: jest.fn() }));
+    jest.unstable_mockModule("@/modules/general/models/User", () => ({
       default: mockUserModel,
     }));
 
-    const mod = await import("../../../../app/api/billing/webhook/route");
+    const mod = await import("../../../../app/api/modules/billing/webhook/route");
     POST = mod.POST;
 
     jest.spyOn(console, "log").mockImplementation(() => {});

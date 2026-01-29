@@ -1,10 +1,10 @@
-import EmptyState from "@/components/common/EmptyState";
-import ThemeWrapper from "@/components/common/ThemeWrapper";
-import SvgPost from "@/components/svg/SvgPost";
-import { ContextStyling } from "@/context/ContextStyling";
-import { defaultSetting } from "@/libs/defaults";
 import BoardPreviewComments from "@/modules/boards/components/settings/PreviewComments";
 import BoardPreviewForm from "@/modules/boards/components/settings/PreviewForm";
+import EmptyState from "@/modules/general/components/common/EmptyState";
+import ThemeWrapper from "@/modules/general/components/common/ThemeWrapper";
+import SvgPost from "@/modules/general/components/svg/SvgPost";
+import { ContextStyling } from "@/modules/general/context/ContextStyling";
+import { defaultSetting } from "@/modules/general/libs/defaults";
 
 export default function BoardPreview({ previewStyling, getVal, handleChange }) {
   return (

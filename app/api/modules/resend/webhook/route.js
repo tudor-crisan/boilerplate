@@ -1,5 +1,5 @@
-import { defaultSetting as settings } from "@/libs/defaults";
-import { sendEmail } from "@/libs/email";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { sendEmail } from "@/modules/general/libs/email";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { Webhook } from "svix";

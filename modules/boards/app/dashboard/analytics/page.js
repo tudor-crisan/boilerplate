@@ -1,18 +1,18 @@
 "use client";
-import ButtonBack from "@/components/button/ButtonBack";
-import Loading from "@/components/common/Loading";
-import Paragraph from "@/components/common/Paragraph";
-import TextSmall from "@/components/common/TextSmall";
-import Title from "@/components/common/Title";
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import DashboardMain from "@/components/dashboard/DashboardMain";
-import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
-import Select from "@/components/select/Select";
-import { useStyling } from "@/context/ContextStyling";
-import { useAnalyticsRange } from "@/hooks/useAnalyticsRange";
-import { useSort } from "@/hooks/useSort";
-import { clientApi } from "@/libs/api";
-import { defaultSetting as settings } from "@/libs/defaults";
+import ButtonBack from "@/modules/general/components/button/ButtonBack";
+import Loading from "@/modules/general/components/common/Loading";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import TextSmall from "@/modules/general/components/common/TextSmall";
+import Title from "@/modules/general/components/common/Title";
+import DashboardHeader from "@/modules/general/components/dashboard/DashboardHeader";
+import DashboardMain from "@/modules/general/components/dashboard/DashboardMain";
+import DashboardWrapper from "@/modules/general/components/dashboard/DashboardWrapper";
+import Select from "@/modules/general/components/select/Select";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { useAnalyticsRange } from "@/modules/general/hooks/useAnalyticsRange";
+import { useSort } from "@/modules/general/hooks/useSort";
+import { clientApi } from "@/modules/general/libs/api";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import React, { useEffect, useState } from "react";
 
 export default function AnalyticsPage() {

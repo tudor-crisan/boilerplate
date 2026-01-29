@@ -6,7 +6,7 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 jest.unstable_mockModule("@/modules/auth/context/ContextAuth", () => ({
   useAuth: () => ({ isLoggedIn: false, name: "Guest" }),
 }));
-jest.unstable_mockModule("@/context/ContextStyling", () => ({
+jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   useStyling: () => ({
     styling: {
       components: { element: "", card: "", header: "" },
@@ -34,7 +34,7 @@ jest.unstable_mockModule("@/modules/boards/hooks/useBoardFiltering", () => ({
     sortOptions: [],
   }),
 }));
-jest.unstable_mockModule("@/libs/defaults", () => ({
+jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
   defaultStyling: { general: { box: "" }, components: { element: "" } },
   defaultSetting: {
     forms: {
@@ -45,22 +45,22 @@ jest.unstable_mockModule("@/libs/defaults", () => ({
     },
   },
 }));
-jest.unstable_mockModule("@/lists/fonts", () => ({
+jest.unstable_mockModule("@/modules/general/lists/fonts", () => ({
   fontMap: { Inter: "Inter" },
 }));
-jest.unstable_mockModule("@/libs/api", () => ({
+jest.unstable_mockModule("@/modules/general/libs/api", () => ({
   clientApi: { post: jest.fn(), delete: jest.fn() },
 }));
-jest.unstable_mockModule("@/hooks/useApiRequest", () => ({
+jest.unstable_mockModule("@/modules/general/hooks/useApiRequest", () => ({
   default: () => ({ request: jest.fn(), loading: false }),
 }));
-jest.unstable_mockModule("@/hooks/useLocalStorage", () => ({
+jest.unstable_mockModule("@/modules/general/hooks/useLocalStorage", () => ({
   default: (key, init) => [init, jest.fn()],
 }));
-jest.unstable_mockModule("@/components/common/GdprPopup", () => ({
+jest.unstable_mockModule("@/modules/general/components/common/GdprPopup", () => ({
   default: () => null,
 }));
-jest.unstable_mockModule("@/components/form/FormCreate", () => ({
+jest.unstable_mockModule("@/modules/general/components/form/FormCreate", () => ({
   default: () => null,
 }));
 jest.unstable_mockModule(

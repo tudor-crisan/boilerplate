@@ -1,5 +1,5 @@
-import PagesSupport from "@/components/pages/PagesSupport";
-import { getMetadata } from "@/libs/seo";
+import PagesSupport from "@/modules/general/components/pages/PagesSupport";
+import { getMetadata } from "@/modules/general/libs/seo";
 
 export const metadata = getMetadata("support");
 

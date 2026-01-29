@@ -1,18 +1,18 @@
 "use client";
 
-import Columns from "@/components/common/Columns";
-import FilterBar from "@/components/common/FilterBar";
-import GdprPopup from "@/components/common/GdprPopup";
-import Main from "@/components/common/Main";
-import Sidebar from "@/components/common/Sidebar";
-import Title from "@/components/common/Title";
-import Toaster from "@/components/common/Toaster";
-import FormCreate from "@/components/form/FormCreate";
-import { ContextStyling } from "@/context/ContextStyling";
-import { defaultStyling } from "@/libs/defaults";
-import { fontMap } from "@/lists/fonts";
 import BoardPublicPostsList from "@/modules/boards/components/posts/PublicList";
 import useBoardFiltering from "@/modules/boards/hooks/useBoardFiltering";
+import Columns from "@/modules/general/components/common/Columns";
+import FilterBar from "@/modules/general/components/common/FilterBar";
+import GdprPopup from "@/modules/general/components/common/GdprPopup";
+import Main from "@/modules/general/components/common/Main";
+import Sidebar from "@/modules/general/components/common/Sidebar";
+import Title from "@/modules/general/components/common/Title";
+import Toaster from "@/modules/general/components/common/Toaster";
+import FormCreate from "@/modules/general/components/form/FormCreate";
+import { ContextStyling } from "@/modules/general/context/ContextStyling";
+import { defaultStyling } from "@/modules/general/libs/defaults";
+import { fontMap } from "@/modules/general/lists/fonts";
 
 export default function BoardPublicClient({ board }) {
   // Construct custom styling from board settings

@@ -17,11 +17,11 @@ describe("API: /api/user/update", () => {
     UserMock = {
       updateOne: jest.fn(),
     };
-    jest.unstable_mockModule("@/models/User", () => ({ default: UserMock }));
+    jest.unstable_mockModule("@/modules/general/models/User", () => ({ default: UserMock }));
 
     // Mock utils
     generateLogoBase64Mock = jest.fn();
-    jest.unstable_mockModule("@/libs/utils.server", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => ({
       generateLogoBase64: generateLogoBase64Mock,
       responseSuccess: (msg, data, status) => ({
         message: msg,
@@ -52,7 +52,7 @@ describe("API: /api/user/update", () => {
         },
       },
     };
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: settingMock,
     }));
 
@@ -60,10 +60,10 @@ describe("API: /api/user/update", () => {
     apiHandlerMock = {
       withApiHandler: (handler) => handler,
     };
-    jest.unstable_mockModule("@/libs/apiHandler", () => apiHandlerMock);
+    jest.unstable_mockModule("@/modules/general/libs/apiHandler", () => apiHandlerMock);
 
     // Import the route
-    const importedModule = await import("../../../app/api/user/update/route");
+    const importedModule = await import("../../../app/api/modules/user/update/route");
     POST = importedModule.POST;
   });
 

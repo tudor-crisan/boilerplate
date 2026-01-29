@@ -1,7 +1,7 @@
 "use client";
 
-import { useStyling } from "@/context/ContextStyling";
-import { getAnimationVariants } from "@/libs/videoAnimations";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { getAnimationVariants } from "@/modules/general/libs/videoAnimations";
 import SlideFeature from "@/modules/video/components/slides/SlideFeature";
 import SlideImageOnly from "@/modules/video/components/slides/SlideImageOnly";
 import SlideQuote from "@/modules/video/components/slides/SlideQuote";

@@ -1,4 +1,4 @@
-import CharacterCount from "@/components/common/CharacterCount";
+import CharacterCount from "@/modules/general/components/common/CharacterCount";
 import { render, screen } from "@testing-library/react";
 
 describe("CharacterCount", () => {

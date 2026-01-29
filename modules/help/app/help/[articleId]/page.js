@@ -1,5 +1,5 @@
-import { defaultHelp } from "@/libs/defaults";
-import { getMetadata } from "@/libs/seo";
+import { defaultHelp } from "@/modules/general/libs/defaults";
+import { getMetadata } from "@/modules/general/libs/seo";
 import HelpArticle from "@/modules/help/components/help/HelpArticle";
 
 export async function generateMetadata(props) {

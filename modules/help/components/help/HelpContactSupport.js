@@ -1,8 +1,8 @@
 "use client";
-import Button from "@/components/button/Button";
-import Paragraph from "@/components/common/Paragraph";
-import { useStyling } from "@/context/ContextStyling";
-import { defaultSetting as settings } from "@/libs/defaults";
+import Button from "@/modules/general/components/button/Button";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default function HelpContactSupport() {
   const { styling } = useStyling();

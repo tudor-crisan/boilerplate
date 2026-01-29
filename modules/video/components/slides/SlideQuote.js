@@ -1,5 +1,5 @@
-import Title from "@/components/common/Title";
-import { resolveImagePath } from "@/libs/videoUtils";
+import Title from "@/modules/general/components/common/Title";
+import { resolveImagePath } from "@/modules/general/libs/videoUtils";
 import Image from "next/image";
 import { motion } from "framer-motion";
 

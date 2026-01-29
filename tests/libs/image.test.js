@@ -3,7 +3,7 @@ import {
   getCroppedImg,
   getRadianAngle,
   rotateSize,
-} from "@/libs/image";
+} from "@/modules/general/libs/image";
 import { jest } from "@jest/globals";
 
 describe("libs/image", () => {

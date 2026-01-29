@@ -1,4 +1,4 @@
-import { resolveImagePath } from "@/libs/videoUtils";
+import { resolveImagePath } from "@/modules/general/libs/videoUtils";
 import Image from "next/image";
 import { motion } from "framer-motion";
 

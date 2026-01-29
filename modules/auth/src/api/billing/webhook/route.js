@@ -1,5 +1,5 @@
-import connectMongo from "@/libs/mongoose";
-import User from "@/models/User";
+import connectMongo from "@/modules/general/libs/mongoose";
+import User from "@/modules/general/models/User";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import Stripe from "stripe";

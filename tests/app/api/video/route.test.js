@@ -31,7 +31,7 @@ describe("api/video/route", () => {
       NextResponse: mockNextResponse,
     }));
 
-    const mod = await import("../../../../app/api/video/route");
+    const mod = await import("../../../../app/api/modules/video/route");
     GET = mod.GET;
     POST = mod.POST;
     DELETE = mod.DELETE;

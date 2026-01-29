@@ -10,7 +10,7 @@ describe("libs/defaults", () => {
     process.env.APP = "test-app";
 
     // Mock lists
-    jest.unstable_mockModule("@/lists/applications.mjs", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/applications.mjs", () => ({
       default: {
         "test-app": {
           details: {
@@ -28,26 +28,26 @@ describe("libs/defaults", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/lists/copywritings.js", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/copywritings.js", () => ({
       default: {
         "copy-key": { SectionHero: { headline: "Old", paragraph: "Old" } },
       },
     }));
 
-    jest.unstable_mockModule("@/lists/settings.js", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/settings.js", () => ({
       default: {
         "set-key": { appName: "Old App", website: "old.com" },
       },
     }));
 
-    jest.unstable_mockModule("@/lists/visuals.js", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/visuals.js", () => ({
       default: {
         "vis-key": { favicon: { href: "/old.ico" } },
       },
     }));
 
     // Mock other required lists
-    jest.unstable_mockModule("@/lists/stylings.js", () => ({ default: {} }));
+    jest.unstable_mockModule("@/modules/general/lists/stylings.js", () => ({ default: {} }));
     jest.unstable_mockModule("@/modules/blog/lists/blogs.js", () => ({
       default: {},
     }));
@@ -55,11 +55,11 @@ describe("libs/defaults", () => {
     jest.unstable_mockModule("@/modules/help/lists/helps.js", () => ({
       default: {},
     }));
-    jest.unstable_mockModule("@/lists/blockedDomains.js", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/blockedDomains.js", () => ({
       default: [],
     }));
-    jest.unstable_mockModule("@/lists/logos.js", () => ({ default: {} }));
-    jest.unstable_mockModule("@/lists/themeColors.js", () => ({ default: {} }));
+    jest.unstable_mockModule("@/modules/general/lists/logos.js", () => ({ default: {} }));
+    jest.unstable_mockModule("@/modules/general/lists/themeColors.js", () => ({ default: {} }));
 
     // Mock JSON data modules
     jest.unstable_mockModule("@/modules/auth/data/auth.json", () => ({
@@ -73,11 +73,11 @@ describe("libs/defaults", () => {
     }));
 
     // Fix boards mock to match structure expected by defaults.js (boards.boards)
-    jest.unstable_mockModule("@/lists/boards.js", () => ({
+    jest.unstable_mockModule("@/modules/general/lists/boards.js", () => ({
       default: { boards: { paths: {}, rateLimits: {}, metadata: {} } },
     }));
 
-    defaults = await import("../../libs/defaults");
+    defaults = await import("../../modules/general/libs/defaults");
   });
 
   it("should inject title and description into defaultCopywriting", () => {

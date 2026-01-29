@@ -64,8 +64,8 @@ describe("billing portal & weekly digest", () => {
         },
       },
     }));
-    jest.unstable_mockModule("@/libs/mongoose", () => ({ default: jest.fn() }));
-    jest.unstable_mockModule("@/models/User", () => ({ default: mockUser }));
+    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({ default: jest.fn() }));
+    jest.unstable_mockModule("@/modules/general/models/User", () => ({ default: mockUser }));
     jest.unstable_mockModule("@/modules/boards/models/Board", () => ({
       default: mockBoard,
     }));
@@ -75,11 +75,11 @@ describe("billing portal & weekly digest", () => {
     jest.unstable_mockModule("stripe", () => ({
       default: jest.fn().mockImplementation(() => mockStripe),
     }));
-    jest.unstable_mockModule("@/libs/email", () => mockEmail);
+    jest.unstable_mockModule("@/modules/general/libs/email", () => mockEmail);
     jest.unstable_mockModule("@/modules/auth/libs/auth", () => ({
       auth: jest.fn().mockResolvedValue({ user: { id: "user_1" } }),
     }));
-    jest.unstable_mockModule("@/libs/rateLimit", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/rateLimit", () => ({
       checkReqRateLimit: jest.fn(),
     }));
     jest.unstable_mockModule("next/server", () => ({
@@ -91,14 +91,14 @@ describe("billing portal & weekly digest", () => {
         })),
       },
     }));
-    jest.unstable_mockModule("@/libs/utils.server", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => ({
       getBaseUrl: () => "http://localhost",
       isResponseMock: () => false,
       responseMock: (type) => ({ type, mock: true }),
       responseSuccess: (msg, data, status) => ({ msg, data, status }),
       responseError: (msg, data, status) => ({ msg, data, status }),
     }));
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: {
         forms: {
           general: {
@@ -117,7 +117,7 @@ describe("billing portal & weekly digest", () => {
       },
     }));
 
-    portalPOST = (await import("../app/api/billing/create-portal/route")).POST;
+    portalPOST = (await import("../app/api/modules/billing/create-portal/route")).POST;
     digestGET = (await import("../app/api/modules/boards/weekly-digest/route"))
       .GET;
 

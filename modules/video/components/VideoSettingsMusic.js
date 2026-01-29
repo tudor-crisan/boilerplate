@@ -1,10 +1,10 @@
 "use client";
-import Loading from "@/components/common/Loading";
-import Paragraph from "@/components/common/Paragraph";
-import TextSmall from "@/components/common/TextSmall";
-import InputFile from "@/components/input/InputFile";
-import InputRange from "@/components/input/InputRange";
-import InputToggle from "@/components/input/InputToggle";
+import Loading from "@/modules/general/components/common/Loading";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import TextSmall from "@/modules/general/components/common/TextSmall";
+import InputFile from "@/modules/general/components/input/InputFile";
+import InputRange from "@/modules/general/components/input/InputRange";
+import InputToggle from "@/modules/general/components/input/InputToggle";
 import { useEffect, useState } from "react";
 
 export default function VideoSettingsMusic({

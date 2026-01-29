@@ -36,18 +36,18 @@ describe("api/resend/test-email", () => {
     };
 
     jest.unstable_mockModule("@/modules/auth/libs/auth", () => ({ auth: mockAuth }));
-    jest.unstable_mockModule("@/libs/rateLimit", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/rateLimit", () => ({
       checkReqRateLimit: mockRateLimit,
     }));
-    jest.unstable_mockModule("@/libs/email", () => mockEmail);
+    jest.unstable_mockModule("@/modules/general/libs/email", () => mockEmail);
     jest.unstable_mockModule("next/server", () => ({
       NextResponse: mockNextResponse,
     }));
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: { business: { support_email: "support@example.com" } },
     }));
 
-    const mod = await import("../../../../app/api/resend/test-email/route");
+    const mod = await import("../../../../app/api/modules/resend/test-email/route");
     POST = mod.POST;
 
     jest.spyOn(console, "log").mockImplementation(() => {});

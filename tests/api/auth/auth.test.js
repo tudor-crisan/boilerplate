@@ -17,7 +17,7 @@ describe("API: /api/auth/[...nextauth]", () => {
 
     // Mock rate limiting
     checkReqRateLimitMock = jest.fn();
-    jest.unstable_mockModule("@/libs/rateLimit", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/rateLimit", () => ({
       checkReqRateLimit: checkReqRateLimitMock,
     }));
 

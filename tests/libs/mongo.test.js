@@ -20,7 +20,7 @@ describe("libs/mongo.js", () => {
 
     const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation();
 
-    await import("../../libs/mongo.js");
+    await import("../../modules/general/libs/mongo.js");
 
     expect(consoleWarnSpy).toHaveBeenCalledWith(
       expect.stringContaining("Invalid/Missing environment variable"),
@@ -42,7 +42,7 @@ describe("libs/mongo.js", () => {
       ServerApiVersion: { v1: "1" },
     }));
 
-    const mongo = await import("../../libs/mongo.js");
+    const mongo = await import("../../modules/general/libs/mongo.js");
     expect(mongo.default).toBeDefined();
   });
 
@@ -59,7 +59,7 @@ describe("libs/mongo.js", () => {
       ServerApiVersion: { v1: "1" },
     }));
 
-    await import("../../libs/mongo.js");
+    await import("../../modules/general/libs/mongo.js");
     // In development, it should use global._mongoClientPromise
     expect(global._mongoClientPromise).toBeDefined();
   });

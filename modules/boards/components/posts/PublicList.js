@@ -1,15 +1,15 @@
 "use client";
 
-import EmptyState from "@/components/common/EmptyState";
-import SvgPost from "@/components/svg/SvgPost";
-import SvgSearch from "@/components/svg/SvgSearch";
-import { clientApi } from "@/libs/api";
-import { defaultSetting as settings } from "@/libs/defaults";
-import { toast } from "@/libs/toast";
 import BoardPostItem from "@/modules/boards/components/posts/PostItem";
 import BoardButtonVote from "@/modules/boards/components/ui/UpvoteButton";
 import useBoardFiltering from "@/modules/boards/hooks/useBoardFiltering";
 import useBoardPosts from "@/modules/boards/hooks/useBoardPosts";
+import EmptyState from "@/modules/general/components/common/EmptyState";
+import SvgPost from "@/modules/general/components/svg/SvgPost";
+import SvgSearch from "@/modules/general/components/svg/SvgSearch";
+import { clientApi } from "@/modules/general/libs/api";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { toast } from "@/modules/general/libs/toast";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";

@@ -1,16 +1,16 @@
-import Button from "@/components/button/Button";
-import Label from "@/components/common/Label";
-import Modal from "@/components/common/Modal";
-import ProfileImage from "@/components/common/ProfileImage";
-import Title from "@/components/common/Title";
-import Tooltip from "@/components/common/Tooltip";
-import Upload from "@/components/common/Upload";
-import Input from "@/components/input/Input";
-import SettingsAppearance from "@/components/settings/SettingsAppearance";
-import SettingsRandomizer from "@/components/settings/SettingsRandomizer";
-import { appStyling, defaultStyling } from "@/libs/defaults";
-import { deepMerge } from "@/libs/merge.mjs";
-import { getNameInitials } from "@/libs/utils.client";
+import Button from "@/modules/general/components/button/Button";
+import Label from "@/modules/general/components/common/Label";
+import Modal from "@/modules/general/components/common/Modal";
+import ProfileImage from "@/modules/general/components/common/ProfileImage";
+import Title from "@/modules/general/components/common/Title";
+import Tooltip from "@/modules/general/components/common/Tooltip";
+import Upload from "@/modules/general/components/common/Upload";
+import Input from "@/modules/general/components/input/Input";
+import SettingsAppearance from "@/modules/general/components/settings/SettingsAppearance";
+import SettingsRandomizer from "@/modules/general/components/settings/SettingsRandomizer";
+import { appStyling, defaultStyling } from "@/modules/general/libs/defaults";
+import { deepMerge } from "@/modules/general/libs/merge.mjs";
+import { getNameInitials } from "@/modules/general/libs/utils.client";
 
 export default function DashboardProfileEditModal({
   isModalOpen,

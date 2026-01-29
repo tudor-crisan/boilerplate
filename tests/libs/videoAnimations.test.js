@@ -1,4 +1,4 @@
-import { getAnimationVariants } from "@/libs/videoAnimations";
+import { getAnimationVariants } from "@/modules/general/libs/videoAnimations";
 
 describe("libs/videoAnimations", () => {
   it("should return variants for known types", () => {

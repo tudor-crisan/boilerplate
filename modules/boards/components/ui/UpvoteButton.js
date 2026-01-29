@@ -1,9 +1,9 @@
 "use client";
-import ButtonVote from "@/components/button/ButtonVote";
-import { useStyling } from "@/context/ContextStyling";
-import useApiRequest from "@/hooks/useApiRequest";
-import useLocalStorage from "@/hooks/useLocalStorage";
-import { clientApi } from "@/libs/api";
+import ButtonVote from "@/modules/general/components/button/ButtonVote";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import useApiRequest from "@/modules/general/hooks/useApiRequest";
+import useLocalStorage from "@/modules/general/hooks/useLocalStorage";
+import { clientApi } from "@/modules/general/libs/api";
 import { useEffect, useState } from "react";
 
 const BoardUpvoteButton = ({ postId, initialVotesCounter, onVote }) => {

@@ -1,4 +1,4 @@
-import { useError } from "@/hooks/useError";
+import { useError } from "@/modules/general/hooks/useError";
 import { act, renderHook } from "@testing-library/react";
 
 describe("hooks/useError", () => {

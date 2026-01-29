@@ -22,10 +22,10 @@ if (appName) {
 let appSettings = {};
 if (appName) {
   try {
-    const { default: apps } = await import("./lists/applications.mjs");
-    const { default: settings } = await import("./lists/settings.node.mjs");
+    const { default: apps } = await import("./modules/general/lists/applications.mjs");
+    const { default: settings } = await import("./modules/general/lists/settings.node.mjs");
     const { getMergedConfigWithModules, deepMerge } =
-      await import("./libs/merge.mjs");
+      await import("./modules/general/libs/merge.mjs");
 
     const appConfig = apps[appName];
     const settingRef = appConfig?.setting;

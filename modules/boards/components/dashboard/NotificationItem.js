@@ -1,5 +1,5 @@
-import CardNotification from "@/components/card/CardNotification";
-import { formattedDate } from "@/libs/utils.client";
+import CardNotification from "@/modules/general/components/card/CardNotification";
+import { formattedDate } from "@/modules/general/libs/utils.client";
 
 export default function BoardNotificationItem({
   notification,

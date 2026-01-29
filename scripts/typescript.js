@@ -1,4 +1,4 @@
-import copywritings from "@/lists/copywritings.js";
+import copywritings from "@/modules/general/lists/copywritings.js";
 import { CopywritingSchema } from "@/types/copywriting.schema";
 
 let allValid = true;
@@ -15,7 +15,7 @@ Object.values(copywritings).forEach((copywriting, index) => {
 
 /***************************************************************/
 
-import stylings from "@/lists/stylings.js";
+import stylings from "@/modules/general/lists/stylings.js";
 import { StylingSchema } from "@/types/styling.schema";
 
 Object.values(stylings).forEach((styling, index) => {
@@ -30,7 +30,7 @@ Object.values(stylings).forEach((styling, index) => {
 
 /***************************************************************/
 
-import visuals from "@/lists/visuals.js";
+import visuals from "@/modules/general/lists/visuals.js";
 import { VisualSchema } from "@/types/visual.schema";
 
 Object.values(visuals).forEach((visual, index) => {
@@ -45,7 +45,7 @@ Object.values(visuals).forEach((visual, index) => {
 
 /***************************************************************/
 
-import settings from "@/lists/settings.js";
+import settings from "@/modules/general/lists/settings.js";
 import { SettingSchema } from "@/types/setting.schema";
 
 Object.values(settings).forEach((setting, index) => {
@@ -60,7 +60,7 @@ Object.values(settings).forEach((setting, index) => {
 
 /***************************************************************/
 
-import videos from "@/lists/videos.js";
+import videos from "@/modules/general/lists/videos.js";
 import { VideoAppConfigSchema } from "@/types/video.schema";
 
 Object.values(videos).forEach((video, index) => {

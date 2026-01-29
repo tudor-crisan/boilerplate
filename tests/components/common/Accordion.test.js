@@ -12,11 +12,11 @@ describe("Accordion", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/context/ContextStyling", () => ({
+    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
       useStyling: useStylingMock,
     }));
 
-    const importedModule = await import("../../../components/common/Accordion");
+    const importedModule = await import("../../../modules/general/components/common/Accordion");
     Accordion = importedModule.default;
   });
 

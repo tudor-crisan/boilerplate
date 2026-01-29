@@ -1,4 +1,4 @@
-import useTooltip from "@/hooks/useTooltip";
+import useTooltip from "@/modules/general/hooks/useTooltip";
 import { act, renderHook } from "@testing-library/react";
 
 describe("hooks/useTooltip", () => {

@@ -4,10 +4,10 @@ describe("components/svg", () => {
   let SvgChevronLeft, SvgChevronRight, SvgClose;
 
   beforeAll(async () => {
-    SvgChevronLeft = (await import("@/components/svg/SvgChevronLeft")).default;
-    SvgChevronRight = (await import("@/components/svg/SvgChevronRight"))
+    SvgChevronLeft = (await import("@/modules/general/components/svg/SvgChevronLeft")).default;
+    SvgChevronRight = (await import("@/modules/general/components/svg/SvgChevronRight"))
       .default;
-    SvgClose = (await import("@/components/svg/SvgClose")).default;
+    SvgClose = (await import("@/modules/general/components/svg/SvgClose")).default;
   });
 
   describe("SvgChevronLeft", () => {

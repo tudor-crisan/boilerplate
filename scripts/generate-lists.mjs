@@ -6,8 +6,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, "..");
 const appsDataDir = path.join(rootDir, "apps");
-const modulesDataDir = path.join(rootDir, "data");
-const listsDir = path.join(rootDir, "lists");
+const modulesDataDir = path.join(rootDir, "modules", "general", "data");
+const listsDir = path.join(rootDir, "modules", "general", "lists");
 
 const CONFIG_TYPES = [
   "copywriting",
@@ -51,7 +51,7 @@ export function generateLists(options = {}) {
     const moduleFile = path.join(modulesDataDir, `${type}.json`);
     const subModuleFile = path.join(rootDir, "modules", type, "data", `${type}.json`);
     if (fs.existsSync(moduleFile)) {
-      configurations[type][type] = `@/data/${type}.json`;
+      configurations[type][type] = `@/modules/general/data/${type}.json`;
       allConfigsForNode[type] = `../data/${type}.json`;
     } else if (fs.existsSync(subModuleFile)) {
       configurations[type][type] = `@/modules/${type}/data/${type}.json`;

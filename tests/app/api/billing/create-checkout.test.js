@@ -26,16 +26,16 @@ describe("api/billing/create-checkout", () => {
     mockResponseError = jest.fn((msg, data, status) => ({ msg, data, status }));
 
     jest.unstable_mockModule("stripe", () => ({ default: mockStripe }));
-    jest.unstable_mockModule("@/libs/apiHandler", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/apiHandler", () => ({
       withApiHandler: (handler) => async (req) =>
         handler(req, { user: mockUser }),
     }));
-    jest.unstable_mockModule("@/libs/utils.server", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => ({
       getBaseUrl: () => "http://localhost:3000",
       responseSuccess: mockResponseSuccess,
       responseError: mockResponseError,
     }));
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: {
         forms: {
           general: {
@@ -59,7 +59,7 @@ describe("api/billing/create-checkout", () => {
     }));
 
     const mod =
-      await import("../../../../app/api/billing/create-checkout/route");
+      await import("../../../../app/api/modules/billing/create-checkout/route");
     POST = mod.POST;
   });
 

@@ -1,8 +1,8 @@
-import Button from "@/components/button/Button";
-import Label from "@/components/common/Label";
-import Title from "@/components/common/Title";
-import Input from "@/components/input/Input";
-import Textarea from "@/components/textarea/Textarea";
+import Button from "@/modules/general/components/button/Button";
+import Label from "@/modules/general/components/common/Label";
+import Title from "@/modules/general/components/common/Title";
+import Input from "@/modules/general/components/input/Input";
+import Textarea from "@/modules/general/components/textarea/Textarea";
 import React from "react";
 
 export default function BoardPreviewForm({ previewStyling, getVal }) {

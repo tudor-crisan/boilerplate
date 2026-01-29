@@ -40,25 +40,25 @@ describe("libs/apiHandler.js", () => {
     isResponseMockMock = jest.fn(() => false);
 
     jest.unstable_mockModule("@/modules/auth/libs/auth", () => ({ auth: authMock }));
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: mockSettings,
     }));
-    jest.unstable_mockModule("@/libs/mongoose", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({
       default: connectMongoMock,
     }));
-    jest.unstable_mockModule("@/libs/rateLimit", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/rateLimit", () => ({
       checkReqRateLimit: checkReqRateLimitMock,
     }));
-    jest.unstable_mockModule("@/models/User", () => ({
+    jest.unstable_mockModule("@/modules/general/models/User", () => ({
       default: { findById: userFindByIdMock },
     }));
-    jest.unstable_mockModule("@/libs/utils.server", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => ({
       isResponseMock: isResponseMockMock,
       responseError: responseErrorMock,
       responseMock: responseMockFuncMock,
     }));
 
-    withApiHandler = (await import("../../libs/apiHandler")).withApiHandler;
+    withApiHandler = (await import("../../modules/general/libs/apiHandler")).withApiHandler;
   });
 
   beforeEach(() => {

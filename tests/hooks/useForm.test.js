@@ -4,7 +4,7 @@ describe("hooks/useForm", () => {
   let useForm;
 
   beforeAll(async () => {
-    const importedModule = await import("../../hooks/useForm");
+    const importedModule = await import("../../modules/general/hooks/useForm");
     useForm = importedModule.default;
   });
 

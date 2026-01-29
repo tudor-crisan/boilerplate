@@ -14,12 +14,12 @@ describe("Toaster", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/context/ContextStyling", () => ({
+    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
       useStyling: useStylingMock,
     }));
 
     // Mock Paragraph
-    jest.unstable_mockModule("@/components/common/Paragraph", () => ({
+    jest.unstable_mockModule("@/modules/general/components/common/Paragraph", () => ({
       default: ({ children, className }) => (
         <p className={className}>{children}</p>
       ),
@@ -27,13 +27,13 @@ describe("Toaster", () => {
 
     // Mock SVGs
     const MockSvg = (props) => <svg {...props} />;
-    jest.unstable_mockModule("@/components/svg/SvgCheck", () => ({
+    jest.unstable_mockModule("@/modules/general/components/svg/SvgCheck", () => ({
       default: MockSvg,
     }));
-    jest.unstable_mockModule("@/components/svg/SvgClose", () => ({
+    jest.unstable_mockModule("@/modules/general/components/svg/SvgClose", () => ({
       default: MockSvg,
     }));
-    jest.unstable_mockModule("@/components/svg/SvgError", () => ({
+    jest.unstable_mockModule("@/modules/general/components/svg/SvgError", () => ({
       default: MockSvg,
     }));
 
@@ -55,9 +55,9 @@ describe("Toaster", () => {
       }),
       dismiss: jest.fn(),
     };
-    jest.unstable_mockModule("@/libs/toast", () => ({ toast: toastMock }));
+    jest.unstable_mockModule("@/modules/general/libs/toast", () => ({ toast: toastMock }));
 
-    const importedModule = await import("../../../components/common/Toaster");
+    const importedModule = await import("../../../modules/general/components/common/Toaster");
     Toaster = importedModule.default;
   });
 

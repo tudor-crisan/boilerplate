@@ -34,7 +34,7 @@ describe("api/modules/boards/notifications", () => {
         }),
       },
     }));
-    jest.unstable_mockModule("@/libs/apiHandler", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/apiHandler", () => ({
       withApiHandler: (handler) => async (req) =>
         handler(req, { session: { user: { id: "user_123" } } }),
     }));

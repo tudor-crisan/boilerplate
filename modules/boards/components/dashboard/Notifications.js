@@ -1,12 +1,12 @@
 "use client";
-import Button from "@/components/button/Button";
-import InfiniteScroll from "@/components/common/InfiniteScroll";
-import Loading from "@/components/common/Loading";
-import TextSmall from "@/components/common/TextSmall";
-import Title from "@/components/common/Title";
-import { useStyling } from "@/context/ContextStyling";
 import BoardNotificationItem from "@/modules/boards/components/dashboard/NotificationItem";
 import useBoardNotifications from "@/modules/boards/hooks/useBoardNotifications";
+import Button from "@/modules/general/components/button/Button";
+import InfiniteScroll from "@/modules/general/components/common/InfiniteScroll";
+import Loading from "@/modules/general/components/common/Loading";
+import TextSmall from "@/modules/general/components/common/TextSmall";
+import Title from "@/modules/general/components/common/Title";
+import { useStyling } from "@/modules/general/context/ContextStyling";
 import React from "react";
 
 export default function BoardDashboardNotifications() {

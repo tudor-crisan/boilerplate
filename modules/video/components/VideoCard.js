@@ -1,10 +1,10 @@
-import Button from "@/components/button/Button";
-import TextSmall from "@/components/common/TextSmall";
-import Title from "@/components/common/Title";
-import SvgEdit from "@/components/svg/SvgEdit";
-import SvgTrash from "@/components/svg/SvgTrash";
-import SvgView from "@/components/svg/SvgView";
-import { formattedDate } from "@/libs/utils.client";
+import Button from "@/modules/general/components/button/Button";
+import TextSmall from "@/modules/general/components/common/TextSmall";
+import Title from "@/modules/general/components/common/Title";
+import SvgEdit from "@/modules/general/components/svg/SvgEdit";
+import SvgTrash from "@/modules/general/components/svg/SvgTrash";
+import SvgView from "@/modules/general/components/svg/SvgView";
+import { formattedDate } from "@/modules/general/libs/utils.client";
 
 export default function VideoCard({
   video,

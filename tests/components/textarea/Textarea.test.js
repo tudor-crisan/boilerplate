@@ -5,7 +5,7 @@ describe("components/textarea/Textarea", () => {
   let Textarea;
 
   beforeAll(async () => {
-    jest.unstable_mockModule("@/context/ContextStyling", () => ({
+    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
       useStyling: () => ({
         styling: {
           components: { textarea: "textarea" },
@@ -14,7 +14,7 @@ describe("components/textarea/Textarea", () => {
       }),
     }));
 
-    jest.unstable_mockModule("@/components/common/CharacterCount", () => ({
+    jest.unstable_mockModule("@/modules/general/components/common/CharacterCount", () => ({
       default: ({ currentLength, maxLength }) => (
         <div data-testid="character-count">
           {currentLength}/{maxLength}
@@ -22,7 +22,7 @@ describe("components/textarea/Textarea", () => {
       ),
     }));
 
-    Textarea = (await import("@/components/textarea/Textarea")).default;
+    Textarea = (await import("@/modules/general/components/textarea/Textarea")).default;
   });
 
   it("should render textarea", () => {

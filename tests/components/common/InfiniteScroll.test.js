@@ -1,4 +1,4 @@
-import InfiniteScroll from "@/components/common/InfiniteScroll";
+import InfiniteScroll from "@/modules/general/components/common/InfiniteScroll";
 import React from "react";
 import { jest } from "@jest/globals";
 import { fireEvent, render, screen } from "@testing-library/react";

@@ -1,7 +1,7 @@
 "use client";
 
-import WrapperStyling from "@/components/wrapper/WrapperStyling";
-import { useStyling } from "@/context/ContextStyling";
+import WrapperStyling from "@/modules/general/components/wrapper/WrapperStyling";
+import { useStyling } from "@/modules/general/context/ContextStyling";
 import VideoPlayer from "@/modules/video/components/VideoPlayer";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";

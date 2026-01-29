@@ -1,12 +1,12 @@
-import Button from "@/components/button/Button";
-import Label from "@/components/common/Label";
-import Loading from "@/components/common/Loading";
-import Modal from "@/components/common/Modal";
-import Paragraph from "@/components/common/Paragraph";
-import ProgressBar from "@/components/common/ProgressBar";
-import TextSmall from "@/components/common/TextSmall";
-import Title from "@/components/common/Title";
-import SvgTrash from "@/components/svg/SvgTrash";
+import Button from "@/modules/general/components/button/Button";
+import Label from "@/modules/general/components/common/Label";
+import Loading from "@/modules/general/components/common/Loading";
+import Modal from "@/modules/general/components/common/Modal";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import ProgressBar from "@/modules/general/components/common/ProgressBar";
+import TextSmall from "@/modules/general/components/common/TextSmall";
+import Title from "@/modules/general/components/common/Title";
+import SvgTrash from "@/modules/general/components/svg/SvgTrash";
 
 export default function VideoExportsModal({
   isOpen,

@@ -1,7 +1,7 @@
-import useApiRequest from "@/hooks/useApiRequest";
-import { clientApi } from "@/libs/api";
-import { setDataError, setDataSuccess } from "@/libs/api";
-import { defaultSetting as settings } from "@/libs/defaults";
+import useApiRequest from "@/modules/general/hooks/useApiRequest";
+import { clientApi } from "@/modules/general/libs/api";
+import { setDataError, setDataSuccess } from "@/modules/general/libs/api";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function useBoardNotifications() {

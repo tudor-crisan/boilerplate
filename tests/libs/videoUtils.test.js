@@ -1,4 +1,4 @@
-import { getTextSizeClasses, resolveImagePath } from "@/libs/videoUtils";
+import { getTextSizeClasses, resolveImagePath } from "@/modules/general/libs/videoUtils";
 
 describe("libs/videoUtils", () => {
   describe("resolveImagePath", () => {

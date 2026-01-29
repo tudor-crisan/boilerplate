@@ -1,10 +1,10 @@
 "use client";
-import Button from "@/components/button/Button";
-import ButtonBack from "@/components/button/ButtonBack";
-import SvgError from "@/components/svg/SvgError";
-import { useStyling } from "@/context/ContextStyling";
 import PagesAuth from "@/modules/auth/components/pages/PagesAuth";
 import { useAuthError } from "@/modules/auth/hooks/useAuthError";
+import Button from "@/modules/general/components/button/Button";
+import ButtonBack from "@/modules/general/components/button/ButtonBack";
+import SvgError from "@/modules/general/components/svg/SvgError";
+import { useStyling } from "@/modules/general/context/ContextStyling";
 import { Suspense } from "react";
 
 const SIGNIN_URL = "/auth/signin";

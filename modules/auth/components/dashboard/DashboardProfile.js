@@ -1,16 +1,16 @@
 "use client";
 
-import Button from "@/components/button/Button";
-import ImageCropper from "@/components/common/ImageCropper";
-import Paragraph from "@/components/common/Paragraph";
-import ProfileImage from "@/components/common/ProfileImage";
-import Title from "@/components/common/Title";
-import { useStyling } from "@/context/ContextStyling";
-import useForm from "@/hooks/useForm";
-import { useStylingRandomizer } from "@/hooks/useStylingRandomizer";
-import { cn, getNameInitials } from "@/libs/utils.client";
 import DashboardProfileEditModal from "@/modules/auth/components/dashboard/DashboardProfileEditModal";
 import { useAuth } from "@/modules/auth/context/ContextAuth";
+import Button from "@/modules/general/components/button/Button";
+import ImageCropper from "@/modules/general/components/common/ImageCropper";
+import Paragraph from "@/modules/general/components/common/Paragraph";
+import ProfileImage from "@/modules/general/components/common/ProfileImage";
+import Title from "@/modules/general/components/common/Title";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import useForm from "@/modules/general/hooks/useForm";
+import { useStylingRandomizer } from "@/modules/general/hooks/useStylingRandomizer";
+import { cn, getNameInitials } from "@/modules/general/libs/utils.client";
 import { useState } from "react";
 
 export default function DashboardProfile() {

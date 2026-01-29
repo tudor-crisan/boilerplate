@@ -1,6 +1,6 @@
-import Grid from "@/components/common/Grid";
-import { defaultBlog } from "@/libs/defaults";
 import BlogCardCategory from "@/modules/blog/components/blog/BlogCardCategory";
+import Grid from "@/modules/general/components/common/Grid";
+import { defaultBlog } from "@/modules/general/libs/defaults";
 
 const { categories } = defaultBlog;
 

@@ -1,5 +1,5 @@
-import GdprPopup from "@/components/common/GdprPopup";
-import PagesHome from "@/components/pages/PagesHome";
+import GdprPopup from "@/modules/general/components/common/GdprPopup";
+import PagesHome from "@/modules/general/components/pages/PagesHome";
 
 export default function PageHome() {
   return (

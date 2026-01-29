@@ -5,7 +5,7 @@ describe("libs/toast", () => {
 
   beforeAll(async () => {
     jest.useFakeTimers();
-    const importedModule = await import("../../libs/toast");
+    const importedModule = await import("../../modules/general/libs/toast");
     toast = importedModule.toast;
   });
 

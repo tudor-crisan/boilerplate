@@ -57,11 +57,11 @@ describe("api/modules/boards/post", () => {
       "@/modules/boards/libs/analytics",
       () => mockAnalytics,
     );
-    jest.unstable_mockModule("@/libs/utils.server", () => mockUtils);
+    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => mockUtils);
     jest.unstable_mockModule("bad-words", () => ({
       Filter: jest.fn().mockImplementation(() => ({ clean: (s) => s })),
     }));
-    jest.unstable_mockModule("@/libs/apiHandler", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/apiHandler", () => ({
       withApiHandler: (handler) => async (req, ctx) => {
         req.nextUrl = new URL(req.url || "http://localhost");
         return handler(req, {
@@ -71,7 +71,7 @@ describe("api/modules/boards/post", () => {
         });
       },
     }));
-    jest.unstable_mockModule("@/libs/defaults", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: {
         forms: {
           Post: {

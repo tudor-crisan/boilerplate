@@ -1,9 +1,9 @@
 "use client";
-import Button from "@/components/button/Button";
-import SvgUser from "@/components/svg/SvgUser";
-import useApiRequest from "@/hooks/useApiRequest";
-import { clientApi } from "@/libs/api";
-import { defaultSetting as settings } from "@/libs/defaults";
+import Button from "@/modules/general/components/button/Button";
+import SvgUser from "@/modules/general/components/svg/SvgUser";
+import useApiRequest from "@/modules/general/hooks/useApiRequest";
+import { clientApi } from "@/modules/general/libs/api";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 const RETURN_URL_REDIRECT = settings.paths.dashboard.source;
 

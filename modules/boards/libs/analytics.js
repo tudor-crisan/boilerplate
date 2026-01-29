@@ -1,7 +1,7 @@
-import connectMongo from "@/libs/mongoose";
 import Board from "@/modules/boards/models/Board";
 import BoardAnalytics from "@/modules/boards/models/BoardAnalytics";
 import Notification from "@/modules/boards/models/Notification";
+import connectMongo from "@/modules/general/libs/mongoose";
 
 // Helper to get start of day
 const getTodayDate = () => {

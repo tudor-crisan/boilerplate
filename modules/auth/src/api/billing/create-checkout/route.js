@@ -1,10 +1,10 @@
-import { withApiHandler } from "@/libs/apiHandler";
-import { defaultSetting as settings } from "@/libs/defaults";
+import { withApiHandler } from "@/modules/general/libs/apiHandler";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import {
   getBaseUrl,
   responseError,
   responseSuccess,
-} from "@/libs/utils.server";
+} from "@/modules/general/libs/utils.server";
 import Stripe from "stripe";
 
 const TYPE = "Billing";

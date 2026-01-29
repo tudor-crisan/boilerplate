@@ -1,6 +1,6 @@
-import Grid from "@/components/common/Grid";
-import Title from "@/components/common/Title";
 import BlogCardArticle from "@/modules/blog/components/blog/BlogCardArticle";
+import Grid from "@/modules/general/components/common/Grid";
+import Title from "@/modules/general/components/common/Title";
 
 const BlogRelatedArticles = ({ articles }) => {
   if (!articles || articles.length === 0) return null;

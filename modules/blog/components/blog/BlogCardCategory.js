@@ -1,5 +1,5 @@
 "use client";
-import Button from "@/components/button/Button";
+import Button from "@/modules/general/components/button/Button";
 
 const BlogCardCategory = ({ category }) => {
   return (

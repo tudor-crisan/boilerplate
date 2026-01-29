@@ -73,7 +73,7 @@ describe("boards analytics (API & Lib)", () => {
         },
       },
     }));
-    jest.unstable_mockModule("@/libs/mongoose", () => ({ default: jest.fn() }));
+    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({ default: jest.fn() }));
     jest.unstable_mockModule("@/modules/boards/models/Board", () => ({
       default: mockBoard,
     }));
@@ -83,11 +83,11 @@ describe("boards analytics (API & Lib)", () => {
     jest.unstable_mockModule("@/modules/boards/models/Notification", () => ({
       default: mockNotification,
     }));
-    jest.unstable_mockModule("@/libs/utils.server", () => mockUtils);
+    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => mockUtils);
     jest.unstable_mockModule("next/server", () => ({
       NextResponse: mockNextResponse,
     }));
-    jest.unstable_mockModule("@/libs/apiHandler", () => ({
+    jest.unstable_mockModule("@/modules/general/libs/apiHandler", () => ({
       withApiHandler: (handler) => async (req, ctx) => {
         req.nextUrl = new URL(req.url || "http://localhost");
         return handler(req, { session: { user: { id: "user_1" } }, ...ctx });

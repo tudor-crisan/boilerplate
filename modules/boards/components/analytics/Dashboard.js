@@ -1,11 +1,11 @@
 "use client";
-import AnalyticsStats from "@/components/analytics/AnalyticsStats";
-import Button from "@/components/button/Button";
-import Title from "@/components/common/Title";
-import { useStyling } from "@/context/ContextStyling";
-import useApiRequest from "@/hooks/useApiRequest";
-import { clientApi } from "@/libs/api";
-import { defaultSetting as settings } from "@/libs/defaults";
+import AnalyticsStats from "@/modules/general/components/analytics/AnalyticsStats";
+import Button from "@/modules/general/components/button/Button";
+import Title from "@/modules/general/components/common/Title";
+import { useStyling } from "@/modules/general/context/ContextStyling";
+import useApiRequest from "@/modules/general/hooks/useApiRequest";
+import { clientApi } from "@/modules/general/libs/api";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import React, { useEffect, useState } from "react";
 
 export default function BoardDashboardAnalytics() {

@@ -1,7 +1,7 @@
 "use client";
-import ButtonBack from "@/components/button/ButtonBack";
-import SvgEmail from "@/components/svg/SvgEmail";
 import PagesAuth from "@/modules/auth/components/pages/PagesAuth";
+import ButtonBack from "@/modules/general/components/button/ButtonBack";
+import SvgEmail from "@/modules/general/components/svg/SvgEmail";
 
 export default function VerifyRequestPage() {
   return (

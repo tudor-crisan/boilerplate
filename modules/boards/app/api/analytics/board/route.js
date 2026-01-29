@@ -1,7 +1,7 @@
-import { withApiHandler } from "@/libs/apiHandler";
-import { getAnalyticsDateRange } from "@/libs/utils.server";
 import Board from "@/modules/boards/models/Board";
 import BoardAnalytics from "@/modules/boards/models/BoardAnalytics";
+import { withApiHandler } from "@/modules/general/libs/apiHandler";
+import { getAnalyticsDateRange } from "@/modules/general/libs/utils.server";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
