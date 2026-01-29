@@ -3,7 +3,7 @@
 import { ContextAuth } from "@/modules/auth/context/ContextAuth";
 import { useStyling } from "@/modules/general/context/ContextStyling";
 import { clientApi, setDataError, setDataSuccess } from "@/modules/general/libs/api";
-import { defaultStyling } from "@/modules/general/libs/defaults";
+import { defaultSetting as settings, defaultStyling } from "@/modules/general/libs/defaults";
 import { deepMerge } from "@/modules/general/libs/merge.mjs";
 import { toast } from "@/modules/general/libs/toast";
 import { useEffect, useState } from "react";

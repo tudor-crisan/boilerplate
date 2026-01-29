@@ -7,7 +7,6 @@
     "dev:local": "cross-env APP=local NEXT_PUBLIC_APP=local BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA=true BROWSERSLIST_IGNORE_OLD_DATA=true next dev",
     "dev:tudorcrisan": "cross-env APP=tudorcrisan NEXT_PUBLIC_APP=tudorcrisan BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA=true BROWSERSLIST_IGNORE_OLD_DATA=true next dev",
     "dev:loyalboards": "cross-env APP=loyalboards NEXT_PUBLIC_APP=loyalboards BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA=true BROWSERSLIST_IGNORE_OLD_DATA=true next dev",
-    "dev:taskflow": "cross-env APP=taskflow NEXT_PUBLIC_APP=taskflow BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA=true BROWSERSLIST_IGNORE_OLD_DATA=true next dev",
     "lists": "node scripts/generate-lists.mjs",
     "build": "next build",
     "start": "next start",
