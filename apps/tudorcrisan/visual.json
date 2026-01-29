@@ -19,6 +19,9 @@
       "menus": true,
       "socials": true,
       "help": false
+    },
+    "PagesSupport": {
+      "contact": true
     }
   },
   "logo": {

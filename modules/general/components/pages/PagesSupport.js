@@ -2,6 +2,7 @@
 import Button from "@/modules/general/components/button/Button";
 import Paragraph from "@/modules/general/components/common/Paragraph";
 import Title from "@/modules/general/components/common/Title";
+import SupportContact from "@/modules/general/components/support/SupportContact";
 import TosContent from "@/modules/general/components/tos/TosContent";
 import TosWrapper from "@/modules/general/components/tos/TosWrapper";
 import { useVisual } from "@/modules/general/context/ContextVisual";
@@ -20,6 +21,7 @@ export default function PagesSupport() {
             Need help? We are here for you. Please reach out to us using the
             contact details below.
           </Paragraph>
+          {visual.show.PagesSupport?.contact && <SupportContact />}
         </div>
 
         <HelpSupport />

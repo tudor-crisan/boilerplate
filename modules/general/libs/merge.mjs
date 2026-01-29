@@ -7,6 +7,10 @@
 export function deepMerge(target, source) {
   const isObject = (obj) => obj && typeof obj === "object";
 
+  if (source === undefined || source === null) {
+    return target;
+  }
+
   if (!isObject(target) || !isObject(source)) {
     return source;
   }
