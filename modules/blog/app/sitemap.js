@@ -31,7 +31,7 @@ export default function sitemap() {
   const helpRoutes = (defaultHelp?.articles || [])
     .filter(() => settings.paths?.help?.source) // Only include if help paths exist
     .map((article) => ({
-      url: `${baseUrl}${settings.paths.help.source}/${article.id}`,
+      url: `${baseUrl}${settings.paths?.help?.source}/${article.id}`,
       lastModified: new Date().toISOString().split("T")[0],
     }));
 
