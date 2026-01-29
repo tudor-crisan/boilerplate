@@ -96,6 +96,10 @@
     "resendWebhook": {
       "source": "/api/resend/webhook",
       "destination": "/api/modules/resend/webhook"
+    },
+    "help": {
+      "source": "/help",
+      "destination": "/modules/help"
     }
   },
   "integrations": {

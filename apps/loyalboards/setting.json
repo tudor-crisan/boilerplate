@@ -9,7 +9,9 @@
     "support_email": "LoyalBoards@tudorcrisan.dev"
   },
   "auth": {
-    "providers": ["resend"]
+    "providers": ["resend"],
+    "hasThemePages": true,
+    "hasThemeEmails": true
   },
   "modules": ["boards"],
   "components": {
