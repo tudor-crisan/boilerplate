@@ -12,15 +12,15 @@ export default function HeroVideo() {
         <video
           controls
           playsInline
-          poster={visual.HeroVideo.source.poster}
+          poster={visual.HeroVideo.source?.poster}
           aria-label={visual.HeroVideo.video.arialabel}
           width={visual.HeroVideo.video.width}
           height={visual.HeroVideo.video.height}
           className={`${styling.components.card_featured} ${visual.HeroVideo.video.classname}`}
         >
           <source
-            src={visual.HeroVideo.source.src}
-            type={visual.HeroVideo.source.type}
+            src={visual.HeroVideo.source?.src}
+            type={visual.HeroVideo.source?.type}
           />
         </video>
       </div>

@@ -14,7 +14,7 @@ export default function HelpContactSupport() {
       <Paragraph className={styling.section.paragraph}>
         Can&apos;t find what you&apos;re looking for?
       </Paragraph>
-      <Button href={settings.paths.support.source} variant="btn-outline">
+      <Button href={settings.paths.support?.source} variant="btn-outline">
         Contact Support
       </Button>
     </div>

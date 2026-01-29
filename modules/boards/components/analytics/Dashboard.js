@@ -58,7 +58,7 @@ export default function BoardDashboardAnalytics() {
     >
       <div className={`${styling.flex.between}`}>
         <Title>Analytics</Title>
-        <Button href={settings.paths.dashboardAnalytics.source}>
+        <Button href={settings.paths.dashboardAnalytics?.source}>
           View All
         </Button>
       </div>

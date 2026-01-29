@@ -38,7 +38,10 @@ export default function PagesAuth({
 
           <div className={`card-actions w-full ${styling.flex.col}`}>
             {isLoggedIn ? (
-              <Button href={settings.paths.dashboard.source} className="w-full">
+              <Button
+                href={settings.paths.dashboard?.source}
+                className="w-full"
+              >
                 Go to dashboard
               </Button>
             ) : (

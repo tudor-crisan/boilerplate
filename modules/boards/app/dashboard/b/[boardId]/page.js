@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PrivateFeedbackBoard({ params }) {
-  const backUrl = settings.paths.dashboard.source;
+  const backUrl = settings.paths.dashboard?.source;
   const { boardId } = await params;
 
   const board = await getBoardPrivate(boardId, "posts");

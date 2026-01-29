@@ -7,7 +7,7 @@ export default function LayoutDashboard({ children }) {
   const { isLoggedIn } = useAuth();
 
   if (!isLoggedIn) {
-    redirect(settings.paths.home.source);
+    redirect(settings.paths.home?.source);
   }
 
   return children;

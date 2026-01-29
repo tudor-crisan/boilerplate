@@ -16,7 +16,7 @@ export default function ButtonDelete({
   withConfirm = true,
   confirmMessage = "Are you sure you want to delete?",
   withRedirect = true,
-  redirectUrl = settings.paths.dashboard.source,
+  redirectUrl = settings.paths.dashboard?.source,
   refreshOnSuccess = false,
   withToast = true,
 }) {

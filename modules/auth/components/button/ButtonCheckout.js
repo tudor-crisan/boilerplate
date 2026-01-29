@@ -11,8 +11,8 @@ import { clientApi } from "@/modules/general/libs/api";
 import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { useState } from "react";
 
-const SUCCESS_URL_REDIRECT = settings.paths.billingSuccess.source;
-const CANCEL_URL_REDIRECT = settings.paths.dashboard.source;
+const SUCCESS_URL_REDIRECT = settings.paths.billingSuccess?.source;
+const CANCEL_URL_REDIRECT = settings.paths.dashboard?.source;
 
 const ButtonCheckout = ({
   className = "",

@@ -9,7 +9,7 @@ export default async function SuccessPage() {
   return (
     <DashboardWrapper>
       <DashboardHeader>
-        <HeaderTop url={settings.paths.home.source} />
+        <HeaderTop url={settings.paths.home?.source} />
       </DashboardHeader>
       <DashboardMain className="min-h-[60vh]">
         <DashboardSuccess />

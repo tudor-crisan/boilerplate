@@ -19,7 +19,7 @@ import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-const CALLBACK_URL = settings.paths.dashboard.source;
+const CALLBACK_URL = settings.paths.dashboard?.source;
 
 function SignInContent() {
   const { styling } = useStyling();
@@ -85,7 +85,7 @@ function SignInContent() {
         <div className={`card w-full max-w-sm ${styling.components.card}`}>
           <div className={`card-body ${styling.general.box}`}>
             <div className="mx-auto mt-4 mb-8 scale-115 sm:scale-100">
-              <HeaderTop url={disabled ? "" : settings.paths.home.source} />
+              <HeaderTop url={disabled ? "" : settings.paths.home?.source} />
             </div>
 
             <Error message={errorMessage} />

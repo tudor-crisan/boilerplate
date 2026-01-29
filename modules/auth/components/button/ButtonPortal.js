@@ -5,7 +5,7 @@ import useApiRequest from "@/modules/general/hooks/useApiRequest";
 import { clientApi } from "@/modules/general/libs/api";
 import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
-const RETURN_URL_REDIRECT = settings.paths.dashboard.source;
+const RETURN_URL_REDIRECT = settings.paths.dashboard?.source;
 
 const ButtonPortal = ({
   className = "",

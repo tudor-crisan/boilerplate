@@ -11,7 +11,7 @@ export default function FooterAuth() {
       <Paragraph className="mb-2">
         By signing up, you agree to our{" "}
         <Link
-          href={settings.paths.terms.source}
+          href={settings.paths.terms?.source}
           className={`${styling.components.link}`}
         >
           Terms of Service
@@ -19,7 +19,7 @@ export default function FooterAuth() {
         .
       </Paragraph>
       <Link
-        href={settings.paths.support.source}
+        href={settings.paths.support?.source}
         className={`${styling.components.link} ${styling.flex.center}`}
       >
         Need help?

@@ -7,7 +7,10 @@ import SvgSearch from "@/modules/general/components/svg/SvgSearch";
 import TosContent from "@/modules/general/components/tos/TosContent";
 import { useStyling } from "@/modules/general/context/ContextStyling";
 import useHighlight from "@/modules/general/hooks/useHighlight";
-import { defaultHelp, defaultSetting as settings } from "@/modules/general/libs/defaults";
+import {
+  defaultHelp,
+  defaultSetting as settings,
+} from "@/modules/general/libs/defaults";
 import HelpContactSupport from "@/modules/help/components/help/HelpContactSupport";
 import React, { useState } from "react";
 import Link from "next/link";
@@ -102,7 +105,7 @@ export default function HelpArticles() {
             {filteredArticles.map((article, index) => (
               <Link
                 key={index}
-                href={`${settings.paths.help.source}/${article.id}`}
+                href={`${settings.paths.help?.source}/${article.id}`}
                 className={`${styling.components.card} bg-base-200 ${styling.general.box} hover:bg-base-300 transition-colors flex flex-col items-center text-center cursor-pointer h-full`}
               >
                 <Title tag="h3" className="mb-2 text-lg">

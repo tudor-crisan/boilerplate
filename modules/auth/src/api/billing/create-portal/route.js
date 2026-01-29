@@ -37,7 +37,7 @@ export async function POST(req) {
     const body = await req.json();
 
     if (!body.returnUrl) {
-      body.returnUrl = getBaseUrl() + settings.paths.dashboard.source;
+      body.returnUrl = getBaseUrl() + settings.paths.dashboard?.source;
     }
 
     await connectMongo();

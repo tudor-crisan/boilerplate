@@ -24,7 +24,7 @@ export default function DashboardSuccess() {
       <div className="flex justify-center pt-2">
         <Button
           variant="btn-primary"
-          href={settings.paths.dashboard.source}
+          href={settings.paths.dashboard?.source}
           className="w-full sm:w-auto min-w-50"
         >
           Go to Dashboard

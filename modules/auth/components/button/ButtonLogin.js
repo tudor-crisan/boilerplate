@@ -10,7 +10,7 @@ export default function ButtonLogin({
   loggedOutText = "Get started",
 }) {
   const { isLoggedIn } = useAuth();
-  const dashboardUrl = settings.paths.dashboard.source;
+  const dashboardUrl = settings.paths.dashboard?.source;
 
   if (isLoggedIn) {
     return (

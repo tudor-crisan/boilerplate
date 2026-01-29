@@ -18,7 +18,7 @@ export default async function PublicFeedbackBoard({ params }) {
   const board = await getBoardPublic(boardId, "posts");
 
   if (!board) {
-    redirect(settings.paths.home.source);
+    redirect(settings.paths.home?.source);
   }
 
   // Serialize board data to ensure it's safe to pass to Client Component (handles ObjectIds, Dates)

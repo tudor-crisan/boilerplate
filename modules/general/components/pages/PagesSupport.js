@@ -27,7 +27,7 @@ export default function PagesSupport() {
         {visual.show.SectionFooter.help && (
           <div className="space-y-3 my-10">
             <Paragraph>Looking for quick answers?</Paragraph>
-            <Button href={settings.paths.help.source} variant="btn-outline">
+            <Button href={settings.paths.help?.source} variant="btn-outline">
               View Help Articles
             </Button>
           </div>

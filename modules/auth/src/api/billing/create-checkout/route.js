@@ -18,11 +18,11 @@ async function handler(req, { user }) {
     const body = await req.json();
 
     if (!body.successUrl) {
-      body.successUrl = getBaseUrl() + settings.paths.billingSuccess.source;
+      body.successUrl = getBaseUrl() + settings.paths.billingSuccess?.source;
     }
 
     if (!body.cancelUrl) {
-      body.cancelUrl = getBaseUrl() + settings.paths.dashboard.source;
+      body.cancelUrl = getBaseUrl() + settings.paths.dashboard?.source;
     }
 
     if (!process.env.STRIPE_SECRET_KEY) {

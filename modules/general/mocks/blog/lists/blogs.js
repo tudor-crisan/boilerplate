@@ -1,1 +1,2 @@
-export default {};
+const blogs = {};
+export default blogs;

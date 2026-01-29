@@ -36,7 +36,7 @@ const BoardPublicPostsList = ({
       toast.error("This board has been deleted and will be inactive.");
 
       const timer = setTimeout(() => {
-        router.push(settings.paths.home.source);
+        router.push(settings.paths.home?.source);
       }, 15000);
 
       return () => clearTimeout(timer);

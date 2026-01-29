@@ -33,24 +33,6 @@ const TARGET_FOLDERS = CONFIG.defaults.targetFolders || [];
 // Always exclude .git if not present in config, just in case
 const EXCLUDED_FILES = CONFIG.defaults.excludedFiles || [".git"];
 
-const SETTING_PATH = path.resolve(
-  __dirname,
-  "..",
-  "modules",
-  "general",
-  "data",
-  "setting.json",
-);
-let SETTING;
-try {
-  SETTING = JSON.parse(fs.readFileSync(SETTING_PATH, "utf-8"));
-} catch {
-  console.warn(
-    "⚠️ Failed to load data/setting.json. Module assembly might be limited.",
-  );
-  SETTING = {};
-}
-
 // Helper to copy directory recursively with exclusions
 function copyDir(src, dest, exclusions, isModuleMerge = false) {
   if (!fs.existsSync(dest)) {

@@ -1,1 +1,2 @@
-export default {};
+const helps = {};
+export default helps;
