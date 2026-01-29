@@ -15,7 +15,7 @@ export default function PagesSupport() {
   return (
     <TosWrapper>
       <TosContent className="text-center sm:text-left">
-        <div className="space-y-1">
+        <div className="space-y-3">
           <Title>Support</Title>
           <Paragraph>
             Need help? We are here for you. Please reach out to us using the
