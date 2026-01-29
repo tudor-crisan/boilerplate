@@ -1,16 +1,17 @@
 import authData from "@/modules/auth/data/auth.json";
 import blogData from "@/modules/blog/data/blog.json";
 import blogs from "@/modules/blog/lists/blogs.js";
+import boardsData from "@/modules/boards/data/boards.json";
 import {
   deepMerge,
   getMergedConfig,
   getMergedConfigWithModules,
 } from "@/modules/general/libs/merge.mjs";
 import apps from "@/modules/general/lists/applications.mjs";
-import boards from "@/modules/general/lists/boards.js";
 import copywritings from "@/modules/general/lists/copywritings.js";
 import settings from "@/modules/general/lists/settings.js";
 import stylings from "@/modules/general/lists/stylings.js";
+import videos from "@/modules/general/lists/videos.js";
 import visuals from "@/modules/general/lists/visuals.js";
 import helpData from "@/modules/help/data/help.json";
 import helps from "@/modules/help/lists/helps.js";
@@ -23,7 +24,10 @@ import helps from "@/modules/help/lists/helps.js";
 // Note: boards import from lists/boards.js returns { boards: json }. We need the json.
 const modulesBase = deepMerge(
   authData,
-  deepMerge(helpData, deepMerge(blogData, boards.boards)),
+  deepMerge(
+    helpData,
+    deepMerge(blogData, deepMerge(boardsData, videos.videos)),
+  ),
 );
 const baseSetting = deepMerge(modulesBase, settings.setting);
 

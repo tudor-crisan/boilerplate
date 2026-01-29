@@ -6,7 +6,7 @@ const applications = {
       title: "Collect feedback without the friction",
       description:
         "Create unlimited boards in seconds. Let users vote instantly without signing up, and build the features they truly want.",
-      favicon: "/lb_og.png",
+      favicon: "/lb_favicon.jpg",
     },
     copywriting: {
       default: "copywriting",

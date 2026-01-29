@@ -22,8 +22,10 @@ if (appName) {
 let appSettings = {};
 if (appName) {
   try {
-    const { default: apps } = await import("./modules/general/lists/applications.mjs");
-    const { default: settings } = await import("./modules/general/lists/settings.node.mjs");
+    const { default: apps } =
+      await import("./modules/general/lists/applications.mjs");
+    const { default: settings } =
+      await import("./modules/general/lists/settings.node.mjs");
     const { getMergedConfigWithModules, deepMerge } =
       await import("./modules/general/libs/merge.mjs");
 
@@ -44,11 +46,15 @@ if (appName) {
       const helpData = loadJSON("modules/help/data/help.json");
       const blogData = loadJSON("modules/blog/data/blog.json");
       const boardsData = loadJSON("modules/boards/data/boards.json");
+      const videoData = loadJSON("modules/video/data/video.json");
 
       // Construct Base Setting similar to defaults.js
       const modulesBase = deepMerge(
         authData,
-        deepMerge(helpData, deepMerge(blogData, boardsData)),
+        deepMerge(
+          helpData,
+          deepMerge(blogData, deepMerge(boardsData, videoData)),
+        ),
       );
       const baseSetting = deepMerge(modulesBase, settings.setting);
 

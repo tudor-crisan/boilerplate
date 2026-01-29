@@ -43,6 +43,10 @@
     "notificationsStream": {
       "source": "/api/boards/notifications/stream",
       "destination": "/api/modules/boards/notifications/stream"
+    },
+    "boardsComment": {
+      "source": "/api/boards/comment",
+      "destination": "/api/modules/boards/comment"
     }
   },
   "metadata": {

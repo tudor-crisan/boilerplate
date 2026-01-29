@@ -193,15 +193,16 @@ export default function useVideoManagement() {
     }
   };
 
+  const shouldStream =
+    activeExport &&
+    currentVideoId &&
+    activeExport.phase !== "finished" &&
+    activeExport.phase !== "error";
+
   // Streaming logic
   useEffect(() => {
     let eventSource;
-    if (
-      activeExport &&
-      currentVideoId &&
-      activeExport.phase !== "finished" &&
-      activeExport.phase !== "error"
-    ) {
+    if (shouldStream) {
       eventSource = new EventSource(
         `/api/video/exports/stream?videoId=${currentVideoId}`,
       );
@@ -223,7 +224,7 @@ export default function useVideoManagement() {
       };
     }
     return () => eventSource?.close();
-  }, [activeExport?.phase, currentVideoId, fetchExports, activeExport]);
+  }, [shouldStream, currentVideoId, fetchExports]);
 
   // Derived filtered videos
   const filteredVideos = videos

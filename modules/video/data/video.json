@@ -1,0 +1,36 @@
+{
+  "paths": {
+    "videoMain": {
+      "source": "/api/video",
+      "destination": "/api/modules/video"
+    },
+    "videoExport": {
+      "source": "/api/video/export",
+      "destination": "/api/modules/video/export"
+    },
+    "videoExports": {
+      "source": "/api/video/exports",
+      "destination": "/api/modules/video/exports"
+    },
+    "videoExportsStream": {
+      "source": "/api/video/exports/stream",
+      "destination": "/api/modules/video/exports/stream"
+    },
+    "videoImages": {
+      "source": "/api/video/images",
+      "destination": "/api/modules/video/images"
+    },
+    "videoSave": {
+      "source": "/api/video/save",
+      "destination": "/api/modules/video/save"
+    },
+    "videoVoiceover": {
+      "source": "/api/video/voiceover",
+      "destination": "/api/modules/video/voiceover"
+    },
+    "videoMusic": {
+      "source": "/api/video/music",
+      "destination": "/api/modules/video/music"
+    }
+  }
+}

@@ -65,17 +65,9 @@
     "dashboard": ""
   },
   "paths": {
-    "previewEmail": {
-      "source": "/preview/email",
-      "destination": "/modules/preview/email"
-    },
-    "previewVideo": {
-      "source": "/preview/video",
-      "destination": "/modules/preview/video"
-    },
-    "billingSuccess": {
-      "source": "/success",
-      "destination": "/modules/billing/success"
+    "home": {
+      "source": "/",
+      "destination": "/"
     },
     "terms": {
       "source": "/terms",
@@ -89,25 +81,21 @@
       "source": "/support",
       "destination": "/modules/tos/support"
     },
-    "dashboard": {
-      "source": "/dashboard",
-      "destination": "/modules/dashboard"
+    "previewEmail": {
+      "source": "/preview/email",
+      "destination": "/modules/preview/email"
     },
-    "home": {
-      "source": "/",
-      "destination": "/"
-    },
-    "billingCreateCheckout": {
-      "source": "/api/billing/create-checkout",
-      "destination": "/api/modules/billing/create-checkout"
-    },
-    "billingCreatePortal": {
-      "source": "/api/billing/create-portal",
-      "destination": "/api/modules/billing/create-portal"
+    "previewVideo": {
+      "source": "/preview/video",
+      "destination": "/modules/preview/video"
     },
     "resendTestEmail": {
       "source": "/api/resend/test-email",
       "destination": "/api/modules/resend/test-email"
+    },
+    "resendWebhook": {
+      "source": "/api/resend/webhook",
+      "destination": "/api/modules/resend/webhook"
     }
   },
   "integrations": {
