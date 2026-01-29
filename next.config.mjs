@@ -101,12 +101,39 @@ const nextConfig = {
   serverExternalPackages: ["mongoose"],
 
   // Use dynamic maxUploadSize from settings
-  experimental: {
+    experimental: {
     serverActions: {
       bodySizeLimit:
         appSettings?.forms?.general?.config?.maxUploadSize?.label?.toLowerCase() ||
         "1mb",
     },
+  },
+
+  turbopack: {
+    resolveAlias: (() => {
+      const aliases = {};
+      const modules = ["auth", "blog", "boards", "help", "video"];
+      
+      modules.forEach((mod) => {
+        const modPath = path.join(__dirname, "modules", mod);
+        
+        try {
+          const exists = fs.existsSync(modPath);
+          
+          if (!exists) {
+            console.warn(`Module '${mod}' not found. Aliasing to mocks.`);
+            aliases[`@/modules/${mod}`] = path.resolve(
+              __dirname,
+              `modules/general/mocks/${mod}`
+            );
+          }
+        } catch (e) {
+          console.warn(`Error checking module '${mod}': ${e.message}`);
+        }
+      });
+
+      return aliases;
+    })(),
   },
 };
 
