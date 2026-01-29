@@ -27,7 +27,7 @@ async function fetchVideoData(videoId) {
   // Assuming running locally, we can perhaps just read the file if we know the app logic?
   // Accessing via API is safer to get the exact object if keys change.
   // Use dynamic import for node-fetch if needed or just use built-in fetch in Node 18+
-  const res = await fetch(`${APP_URL}/api/video`);
+  const res = await fetch(`${APP_URL}/api/modules/video`);
   const data = await res.json();
   if (!data.success) throw new Error("Failed to fetch videos");
   const video = data.videos.find((v) => v.id === videoId);

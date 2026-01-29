@@ -1,4 +1,5 @@
 import { toast } from "@/modules/general/libs/toast";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { useCallback, useEffect, useState, useTransition } from "react";
 
 export default function useVideoManagement() {
@@ -25,7 +26,8 @@ export default function useVideoManagement() {
 
   const fetchVideos = async () => {
     try {
-      const res = await fetch("/api/video");
+    try {
+      const res = await fetch(settings?.paths?.api?.videoMain);
       const data = await res.json();
       if (data.success) {
         setVideos(data.videos || []);
@@ -72,7 +74,10 @@ export default function useVideoManagement() {
         };
 
         try {
-          const res = await fetch("/api/video", {
+        try {
+          const res = await fetch(
+            settings?.paths?.api?.videoMain,
+            {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newVideo),
@@ -107,7 +112,9 @@ export default function useVideoManagement() {
     return new Promise((resolve) => {
       startTransition(async () => {
         try {
-          const res = await fetch(`/api/video?id=${videoId}`, {
+          const res = await fetch(
+            `${settings?.paths?.api?.videoMain}?id=${videoId}`,
+            {
             method: "DELETE",
           });
           const data = await res.json();
@@ -130,7 +137,9 @@ export default function useVideoManagement() {
   const fetchExports = useCallback(async (videoId, silent = false) => {
     if (!silent) setFetchingExports(true);
     try {
-      const res = await fetch(`/api/video/exports?videoId=${videoId}`);
+      const res = await fetch(
+        `${settings?.paths?.api?.videoExports}?videoId=${videoId}`,
+      );
       const data = await res.json();
       if (data.success) {
         setCurrentExports(data.exports);
@@ -146,7 +155,9 @@ export default function useVideoManagement() {
   const handleStartExport = async (videoId, styling) => {
     setStartingExport(true);
     try {
-      const res = await fetch("/api/video/export", {
+      const res = await fetch(
+        settings?.paths?.api?.videoExport,
+        {
         method: "POST",
         body: JSON.stringify({ videoId, styling }),
       });
@@ -171,9 +182,12 @@ export default function useVideoManagement() {
   const handleDeleteExport = async (filename) => {
     setIsDeletingExport(true);
     try {
-      const res = await fetch(`/api/video/exports?filename=${filename}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${settings?.paths?.api?.videoExports}?filename=${filename}`,
+        {
+          method: "DELETE",
+        },
+      );
       const data = await res.json();
       if (data.success) {
         setCurrentExports((prev) =>
@@ -204,7 +218,7 @@ export default function useVideoManagement() {
     let eventSource;
     if (shouldStream) {
       eventSource = new EventSource(
-        `/api/video/exports/stream?videoId=${currentVideoId}`,
+        `${settings?.paths?.api?.videoExportsStream}?videoId=${currentVideoId}`,
       );
       eventSource.onmessage = (event) => {
         try {

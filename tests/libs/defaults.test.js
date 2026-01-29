@@ -10,23 +10,26 @@ describe("libs/defaults", () => {
     process.env.APP = "test-app";
 
     // Mock lists
-    jest.unstable_mockModule("@/modules/general/lists/applications.mjs", () => ({
-      default: {
-        "test-app": {
-          details: {
-            appName: "Injected App",
-            website: "injected.com",
-            title: "Injected Title",
-            description: "Injected Description",
-            favicon: "/injected.ico",
+    jest.unstable_mockModule(
+      "@/modules/general/lists/applications.mjs",
+      () => ({
+        default: {
+          "test-app": {
+            details: {
+              appName: "Injected App",
+              website: "injected.com",
+              title: "Injected Title",
+              description: "Injected Description",
+              favicon: "/injected.ico",
+            },
+            copywriting: "copy-key",
+            setting: "set-key",
+            visual: "vis-key",
+            styling: "style-key",
           },
-          copywriting: "copy-key",
-          setting: "set-key",
-          visual: "vis-key",
-          styling: "style-key",
         },
-      },
-    }));
+      }),
+    );
 
     jest.unstable_mockModule("@/modules/general/lists/copywritings.js", () => ({
       default: {
@@ -47,7 +50,9 @@ describe("libs/defaults", () => {
     }));
 
     // Mock other required lists
-    jest.unstable_mockModule("@/modules/general/lists/stylings.js", () => ({ default: {} }));
+    jest.unstable_mockModule("@/modules/general/lists/stylings.js", () => ({
+      default: {},
+    }));
     jest.unstable_mockModule("@/modules/blog/lists/blogs.js", () => ({
       default: {},
     }));
@@ -55,11 +60,18 @@ describe("libs/defaults", () => {
     jest.unstable_mockModule("@/modules/help/lists/helps.js", () => ({
       default: {},
     }));
-    jest.unstable_mockModule("@/modules/general/lists/blockedDomains.js", () => ({
-      default: [],
+    jest.unstable_mockModule(
+      "@/modules/general/lists/blockedDomains.js",
+      () => ({
+        default: [],
+      }),
+    );
+    jest.unstable_mockModule("@/modules/general/lists/logos.js", () => ({
+      default: {},
     }));
-    jest.unstable_mockModule("@/modules/general/lists/logos.js", () => ({ default: {} }));
-    jest.unstable_mockModule("@/modules/general/lists/themeColors.js", () => ({ default: {} }));
+    jest.unstable_mockModule("@/modules/general/lists/themeColors.js", () => ({
+      default: {},
+    }));
 
     // Mock JSON data modules
     jest.unstable_mockModule("@/modules/auth/data/auth.json", () => ({
@@ -89,9 +101,9 @@ describe("libs/defaults", () => {
   });
 
   it("should inject appName and website into defaultSetting", () => {
-    const { defaultSetting } = defaults;
-    expect(defaultSetting.appName).toBe("Injected App");
-    expect(defaultSetting.website).toBe("injected.com");
+    const { defaultSetting: settings } = defaults;
+    expect(settings.appName).toBe("Injected App");
+    expect(settings.website).toBe("injected.com");
   });
 
   it("should inject favicon into defaultVisual", () => {

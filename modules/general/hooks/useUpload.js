@@ -1,5 +1,5 @@
 "use client";
-import { defaultSetting } from "@/modules/general/libs/defaults";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { toast } from "@/modules/general/libs/toast";
 import { useState } from "react";
 
@@ -22,7 +22,7 @@ export default function useUpload() {
         return reject("Invalid file type");
       }
 
-      const { bytes, label } = defaultSetting.forms.general.config.maxUploadSize;
+      const { bytes, label } = settings.forms.general.config.maxUploadSize;
 
       if (file.size > bytes) {
         toast.error(`File size must be less than ${label}`);

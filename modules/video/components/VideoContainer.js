@@ -13,6 +13,7 @@ import useVideoAudio from "@/modules/video/hooks/useVideoAudio";
 import useVideoPlayback from "@/modules/video/hooks/useVideoPlayback";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default function VideoContainer({ video }) {
   const { styling } = useStyling();
@@ -106,7 +107,8 @@ export default function VideoContainer({ video }) {
   const saveVideoConfig = useCallback(
     async (updatedData) => {
       try {
-        await fetch("/api/video/save", {
+      try {
+        await fetch(settings?.paths?.api?.videoSave, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -211,7 +213,9 @@ export default function VideoContainer({ video }) {
     formData.append("slideId", currentSlide.id);
 
     try {
-      const res = await fetch("/api/video/voiceover", {
+      const res = await fetch(
+        settings?.paths?.api?.videoVoiceover,
+        {
         method: "POST",
         body: formData,
       });
@@ -252,7 +256,9 @@ export default function VideoContainer({ video }) {
     formData.append("isGlobal", "true");
 
     try {
-      const res = await fetch("/api/video/music", {
+      const res = await fetch(
+        settings?.paths?.api?.videoMusic,
+        {
         method: "POST",
         body: formData,
       });

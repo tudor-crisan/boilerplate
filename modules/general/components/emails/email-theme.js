@@ -1,5 +1,9 @@
 import { isThemeDark, oklchToHex } from "@/modules/general/libs/colors";
-import { defaultSetting, defaultStyling, defaultVisual } from "@/modules/general/libs/defaults";
+import {
+  defaultSetting as settings,
+  defaultStyling,
+  defaultVisual,
+} from "@/modules/general/libs/defaults";
 import { fontMap } from "@/modules/general/lists/fonts";
 import themeColors from "@/modules/general/lists/themeColors";
 
@@ -59,7 +63,7 @@ export const getEmailBranding = (styling) => {
   const base200 = oklchToHex(colors["--color-base-200"]);
   const content = oklchToHex(colors["--color-base-content"]);
 
-  const appName = defaultSetting.appName || "App";
+  const appName = settings.appName || "App";
 
   // Use font map to get correct Google Font family
   const fontKey = activeStyling.font || "inter";
@@ -91,14 +95,10 @@ export const getEmailBranding = (styling) => {
       const logoRef =
         activeStyling.logo ||
         defaultVisual.favicon?.href ||
-        defaultSetting.business?.logo ||
+        settings.business?.logo ||
         "";
-      if (
-        logoRef &&
-        logoRef.startsWith("/") &&
-        defaultSetting.business?.website
-      ) {
-        return `${defaultSetting.business.website}${logoRef}`;
+      if (logoRef && logoRef.startsWith("/") && settings.business?.website) {
+        return `${settings.business.website}${logoRef}`;
       }
       return logoRef;
     })(),

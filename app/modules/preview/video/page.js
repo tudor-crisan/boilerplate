@@ -1,1 +1,1 @@
-export { default } from "@/modules/video/src/modules/preview/video/page";
+export { default } from "@/modules/video/src/video/page";

@@ -39,7 +39,7 @@
   "modules": {
     "video": [
       "modules/video",
-      "app/api/video",
+      "app/api/modules/video",
       "app/modules/preview/video",
       "public/assets/video"
     ],

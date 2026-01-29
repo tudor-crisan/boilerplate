@@ -199,11 +199,12 @@ describe("libs/utils.server.js", () => {
     });
 
     it("should return false if mock is disabled", async () => {
-      const { defaultSetting } = await import("@/modules/general/libs/defaults");
-      const original = defaultSetting.forms.testTarget.mockConfig.isEnabled;
-      defaultSetting.forms.testTarget.mockConfig.isEnabled = false;
+      const { defaultSetting: settings } =
+        await import("@/modules/general/libs/defaults");
+      const original = settings.forms.testTarget.mockConfig.isEnabled;
+      settings.forms.testTarget.mockConfig.isEnabled = false;
       expect(utils.responseMock("testTarget")).toBe(false);
-      defaultSetting.forms.testTarget.mockConfig.isEnabled = original;
+      settings.forms.testTarget.mockConfig.isEnabled = original;
     });
   });
 
@@ -213,11 +214,12 @@ describe("libs/utils.server.js", () => {
     });
 
     it("should return false if not enabled", async () => {
-      const { defaultSetting } = await import("@/modules/general/libs/defaults");
-      const original = defaultSetting.forms.testTarget.mockConfig.isEnabled;
-      defaultSetting.forms.testTarget.mockConfig.isEnabled = false;
+      const { defaultSetting: settings } =
+        await import("@/modules/general/libs/defaults");
+      const original = settings.forms.testTarget.mockConfig.isEnabled;
+      settings.forms.testTarget.mockConfig.isEnabled = false;
       expect(utils.isResponseMock("testTarget")).toBe(false);
-      defaultSetting.forms.testTarget.mockConfig.isEnabled = original;
+      settings.forms.testTarget.mockConfig.isEnabled = original;
     });
   });
 

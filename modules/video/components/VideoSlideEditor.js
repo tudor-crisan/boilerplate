@@ -18,6 +18,7 @@ import { useStyling } from "@/modules/general/context/ContextStyling";
 import { toast } from "@/modules/general/libs/toast";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default function VideoSlideEditor({
   slide,
@@ -49,7 +50,8 @@ export default function VideoSlideEditor({
   const [tempImage, setTempImage] = useState(null);
 
   const fetchImages = () => {
-    fetch("/api/video/images")
+  const fetchImages = () => {
+    fetch(settings?.paths?.api?.videoImages)
       .then((res) => res.json())
       .then((data) => {
         if (data.images) {
@@ -113,7 +115,9 @@ export default function VideoSlideEditor({
       const formData = new FormData();
       formData.append("file", file);
 
-      const apiRes = await fetch("/api/video/images", {
+      const apiRes = await fetch(
+        settings?.paths?.api?.videoImages,
+        {
         method: "POST",
         body: formData,
       });
@@ -139,7 +143,9 @@ export default function VideoSlideEditor({
     if (!imageToDelete) return;
 
     try {
-      const res = await fetch("/api/video/images", {
+      const res = await fetch(
+        settings?.paths?.api?.videoImages,
+        {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ filename: imageToDelete }),

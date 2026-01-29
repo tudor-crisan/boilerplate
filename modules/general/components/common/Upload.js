@@ -3,7 +3,7 @@ import Button from "@/modules/general/components/button/Button";
 import Paragraph from "@/modules/general/components/common/Paragraph";
 import { useStyling } from "@/modules/general/context/ContextStyling";
 import useUpload from "@/modules/general/hooks/useUpload";
-import { defaultSetting } from "@/modules/general/libs/defaults";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { cn } from "@/modules/general/libs/utils.client";
 import { useRef } from "react";
 
@@ -53,8 +53,8 @@ const Upload = ({ onFileSelect, className }) => {
         {isLoading ? "Processing..." : "Choose Image"}
       </Button>
       <Paragraph>
-        Max {defaultSetting.forms.general.config.maxUploadSize.label}. formats:
-        JPG, PNG, GIF
+        Max {settings.forms.general.config.maxUploadSize.label}. formats: JPG,
+        PNG, GIF
       </Paragraph>
     </div>
   );

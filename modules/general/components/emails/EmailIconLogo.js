@@ -1,10 +1,10 @@
-import { defaultSetting, defaultVisual } from "@/modules/general/libs/defaults";
+import { defaultSetting as settings, defaultVisual } from "@/modules/general/libs/defaults";
 
 export default function EmailIconLogo({ branding }) {
   // Use the favicon logic as requested, ignoring complex SVG implementation.
   const faviconHref = defaultVisual.favicon?.href || "";
   const website =
-    defaultSetting.business?.website || defaultSetting.appUrl || "";
+    settings.business?.website || settings.appUrl || "";
 
   // Construct absolute URL
   const logoUrl =
