@@ -27,11 +27,13 @@ export default function sitemap() {
     lastModified: new Date().toISOString().split("T")[0],
   }));
 
-  // Help routes
-  const helpRoutes = (defaultHelp?.articles || []).map((article) => ({
-    url: `${baseUrl}${settings.paths.help.source}/${article.id}`,
-    lastModified: new Date().toISOString().split("T")[0],
-  }));
+  // Help routes - with defensive check for paths.help
+  const helpRoutes = (defaultHelp?.articles || [])
+    .filter(() => settings.paths?.help?.source) // Only include if help paths exist
+    .map((article) => ({
+      url: `${baseUrl}${settings.paths.help.source}/${article.id}`,
+      lastModified: new Date().toISOString().split("T")[0],
+    }));
 
   return [...routes, ...articleRoutes, ...categoryRoutes, ...helpRoutes];
 }
