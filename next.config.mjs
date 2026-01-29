@@ -122,6 +122,7 @@ const nextConfig = {
           
           if (!exists) {
             console.warn(`Module '${mod}' not found. Aliasing to mocks.`);
+            // Map the entire module path to mocks
             aliases[`@/modules/${mod}`] = path.resolve(
               __dirname,
               `modules/general/mocks/${mod}`

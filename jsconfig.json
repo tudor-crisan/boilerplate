@@ -5,6 +5,26 @@
       "@/*": [
         "./modules/general/*",
         "./*"
+      ],
+      "@/modules/auth/*": [
+        "./modules/auth/*",
+        "./modules/general/mocks/auth/*"
+      ],
+      "@/modules/blog/*": [
+        "./modules/blog/*",
+        "./modules/general/mocks/blog/*"
+      ],
+      "@/modules/boards/*": [
+        "./modules/boards/*",
+        "./modules/general/mocks/boards/*"
+      ],
+      "@/modules/help/*": [
+        "./modules/help/*",
+        "./modules/general/mocks/help/*"
+      ],
+      "@/modules/video/*": [
+        "./modules/video/*",
+        "./modules/general/mocks/video/*"
       ]
     }
   }
