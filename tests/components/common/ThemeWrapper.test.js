@@ -11,8 +11,9 @@ jest.unstable_mockModule("@/modules/general/lists/fonts", () => ({
   },
 }));
 
-const ThemeWrapper = (await import("../../../modules/general/components/common/ThemeWrapper"))
-  .default;
+const ThemeWrapper = (
+  await import("../../../modules/general/components/common/ThemeWrapper")
+).default;
 
 describe("components/common/ThemeWrapper", () => {
   it("should render children", () => {

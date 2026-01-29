@@ -4,13 +4,18 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 // Mocks
-jest.unstable_mockModule("@/modules/general/components/svg/SvgChevronRight", () => ({
-  default: ({ className }) => (
-    <span data-testid="chevron" className={className} />
-  ),
-}));
+jest.unstable_mockModule(
+  "@/modules/general/components/svg/SvgChevronRight",
+  () => ({
+    default: ({ className }) => (
+      <span data-testid="chevron" className={className} />
+    ),
+  }),
+);
 
-const Popover = (await import("../../../modules/general/components/common/Popover")).default;
+const Popover = (
+  await import("../../../modules/general/components/common/Popover")
+).default;
 
 describe("components/common/Popover", () => {
   const items = [

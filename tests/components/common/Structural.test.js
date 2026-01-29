@@ -13,18 +13,33 @@ jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   }),
 }));
 
-const Divider = (await import("../../../modules/general/components/common/Divider")).default;
-const Vertical = (await import("../../../modules/general/components/common/Vertical")).default;
-const Flex = (await import("../../../modules/general/components/common/Flex")).default;
-const Grid = (await import("../../../modules/general/components/common/Grid")).default;
-const Columns = (await import("../../../modules/general/components/common/Columns")).default;
-const Paragraph = (await import("../../../modules/general/components/common/Paragraph"))
+const Divider = (
+  await import("../../../modules/general/components/common/Divider")
+).default;
+const Vertical = (
+  await import("../../../modules/general/components/common/Vertical")
+).default;
+const Flex = (await import("../../../modules/general/components/common/Flex"))
   .default;
-const Title = (await import("../../../modules/general/components/common/Title")).default;
-const TextSmall = (await import("../../../modules/general/components/common/TextSmall"))
+const Grid = (await import("../../../modules/general/components/common/Grid"))
   .default;
-const Loading = (await import("../../../modules/general/components/common/Loading")).default;
-const ErrorComp = (await import("../../../modules/general/components/common/Error")).default;
+const Columns = (
+  await import("../../../modules/general/components/common/Columns")
+).default;
+const Paragraph = (
+  await import("../../../modules/general/components/common/Paragraph")
+).default;
+const Title = (await import("../../../modules/general/components/common/Title"))
+  .default;
+const TextSmall = (
+  await import("../../../modules/general/components/common/TextSmall")
+).default;
+const Loading = (
+  await import("../../../modules/general/components/common/Loading")
+).default;
+const ErrorComp = (
+  await import("../../../modules/general/components/common/Error")
+).default;
 
 describe("components/common structural components", () => {
   it("Divider should render", () => {

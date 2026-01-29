@@ -41,7 +41,10 @@ describe("api/modules/boards/board", () => {
     jest.unstable_mockModule("next/server", () => ({
       NextResponse: mockNextResponse,
     }));
-    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => mockUtils);
+    jest.unstable_mockModule(
+      "@/modules/general/libs/utils.server",
+      () => mockUtils,
+    );
     jest.unstable_mockModule("next/cache", () => ({
       revalidatePath: jest.fn(),
     }));
@@ -73,8 +76,7 @@ describe("api/modules/boards/board", () => {
       },
     }));
 
-    const mod =
-      await import("../../../../../app/api/modules/boards/board/route");
+    const mod = await import("../../../app/api/modules/boards/board/route");
     POST = mod.POST;
     DELETE = mod.DELETE;
     PUT = mod.PUT;

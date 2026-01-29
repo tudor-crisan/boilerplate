@@ -64,8 +64,12 @@ describe("billing portal & weekly digest", () => {
         },
       },
     }));
-    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({ default: jest.fn() }));
-    jest.unstable_mockModule("@/modules/general/models/User", () => ({ default: mockUser }));
+    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({
+      default: jest.fn(),
+    }));
+    jest.unstable_mockModule("@/modules/general/models/User", () => ({
+      default: mockUser,
+    }));
     jest.unstable_mockModule("@/modules/boards/models/Board", () => ({
       default: mockBoard,
     }));
@@ -117,9 +121,12 @@ describe("billing portal & weekly digest", () => {
       },
     }));
 
-    portalPOST = (await import("../app/api/modules/billing/create-portal/route")).POST;
-    digestGET = (await import("../app/api/modules/boards/weekly-digest/route"))
-      .GET;
+    portalPOST = (
+      await import("../../../app/api/modules/billing/create-portal/route")
+    ).POST;
+    digestGET = (
+      await import("../../../app/api/modules/boards/weekly-digest/route")
+    ).GET;
 
     process.env.STRIPE_SECRET_KEY = "sk_test";
     process.env.CRON_SECRET = "cron_secret";

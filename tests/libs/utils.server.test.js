@@ -37,6 +37,7 @@ describe("libs/utils.server.js", () => {
           },
         },
       })),
+      deepMerge: jest.fn((target, source) => Object.assign(target, source)),
     }));
 
     jest.unstable_mockModule("@/modules/general/libs/colors", () => ({

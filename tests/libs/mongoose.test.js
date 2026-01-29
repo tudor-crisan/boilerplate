@@ -19,7 +19,9 @@ describe("libs/mongoose", () => {
     };
 
     jest.unstable_mockModule("mongoose", () => ({ default: mockMongoose }));
-    jest.unstable_mockModule("@/modules/general/libs/env", () => ({ loadAppEnv: jest.fn() }));
+    jest.unstable_mockModule("@/modules/general/libs/env", () => ({
+      loadAppEnv: jest.fn(),
+    }));
 
     const mod = await import("../../modules/general/libs/mongoose");
     connectMongo = mod.default;

@@ -7,15 +7,24 @@ describe("hooks/useSort", () => {
   beforeAll(async () => {
     // Mock SVGs using unstable_mockModule for ESM
     const MockIcon = () => "Icon";
-    jest.unstable_mockModule("@/modules/general/components/svg/SvgChevronsUpDown", () => ({
-      default: MockIcon,
-    }));
-    jest.unstable_mockModule("@/modules/general/components/svg/SvgMoveDown", () => ({
-      default: MockIcon,
-    }));
-    jest.unstable_mockModule("@/modules/general/components/svg/SvgMoveUp", () => ({
-      default: MockIcon,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/svg/SvgChevronsUpDown",
+      () => ({
+        default: MockIcon,
+      }),
+    );
+    jest.unstable_mockModule(
+      "@/modules/general/components/svg/SvgMoveDown",
+      () => ({
+        default: MockIcon,
+      }),
+    );
+    jest.unstable_mockModule(
+      "@/modules/general/components/svg/SvgMoveUp",
+      () => ({
+        default: MockIcon,
+      }),
+    );
 
     // Import hook after mocking
     const importedModule = await import("../../modules/general/hooks/useSort");

@@ -5,8 +5,12 @@ import { act, renderHook } from "@testing-library/react";
 const mockFonts = { Inter: "Inter", Roboto: "Roboto" };
 const mockThemes = ["light", "dark", "dracula"];
 
-jest.unstable_mockModule("@/modules/general/lists/fonts", () => ({ fontMap: mockFonts }));
-jest.unstable_mockModule("@/modules/general/lists/themes", () => ({ default: mockThemes }));
+jest.unstable_mockModule("@/modules/general/lists/fonts", () => ({
+  fontMap: mockFonts,
+}));
+jest.unstable_mockModule("@/modules/general/lists/themes", () => ({
+  default: mockThemes,
+}));
 
 // Import hook after mocking
 const { useStylingRandomizer } =

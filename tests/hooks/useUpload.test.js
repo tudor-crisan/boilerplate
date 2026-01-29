@@ -5,7 +5,9 @@ import { act, renderHook } from "@testing-library/react";
 const mockToast = {
   error: jest.fn(),
 };
-jest.unstable_mockModule("@/modules/general/libs/toast", () => ({ toast: mockToast }));
+jest.unstable_mockModule("@/modules/general/libs/toast", () => ({
+  toast: mockToast,
+}));
 
 // Mock defaults
 jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
@@ -21,7 +23,8 @@ jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
 }));
 
 // Import hook
-const useUpload = (await import("../../modules/general/hooks/useUpload")).default;
+const useUpload = (await import("../../modules/general/hooks/useUpload"))
+  .default;
 
 describe("hooks/useUpload", () => {
   beforeAll(() => {

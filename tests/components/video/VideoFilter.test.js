@@ -5,53 +5,59 @@ describe("components/modules/video/VideoFilter", () => {
   let VideoFilter;
 
   beforeAll(async () => {
-    jest.unstable_mockModule("@/modules/general/components/common/FilterBar", () => ({
-      default: ({
-        search,
-        setSearch,
-        sort,
-        setSort,
-        placeholder,
-        disabled,
-      }) => (
-        <div>
-          <input
-            placeholder={placeholder}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            disabled={disabled}
-            data-testid="search-input"
-          />
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-            disabled={disabled}
-            data-testid="sort-select"
-          >
-            <option value="date_desc">Newest First</option>
-            <option value="date_asc">Oldest First</option>
-            <option value="name_asc">Name (A-Z)</option>
-          </select>
-        </div>
-      ),
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/common/FilterBar",
+      () => ({
+        default: ({
+          search,
+          setSearch,
+          sort,
+          setSort,
+          placeholder,
+          disabled,
+        }) => (
+          <div>
+            <input
+              placeholder={placeholder}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              disabled={disabled}
+              data-testid="search-input"
+            />
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              disabled={disabled}
+              data-testid="sort-select"
+            >
+              <option value="date_desc">Newest First</option>
+              <option value="date_asc">Oldest First</option>
+              <option value="name_asc">Name (A-Z)</option>
+            </select>
+          </div>
+        ),
+      }),
+    );
 
-    jest.unstable_mockModule("@/modules/general/components/select/Select", () => ({
-      default: ({ options, value, onChange, disabled }) => (
-        <select
-          value={value}
-          onChange={onChange}
-          disabled={disabled}
-          data-testid="format-select"
-        >
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-      ),
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/select/Select",
+      () => ({
+        default: ({ options, value, onChange, disabled }) => (
+          <select
+            value={value}
+            onChange={onChange}
+            disabled={disabled}
+            data-testid="format-select"
+          >
+            {options.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        ),
+      }),
+    );
 
     VideoFilter = (await import("@/modules/video/components/VideoFilter"))
       .default;

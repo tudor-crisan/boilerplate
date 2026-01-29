@@ -33,9 +33,12 @@ describe("components/modules/boards/ui/CommentSection", () => {
     jest.unstable_mockModule("@/modules/auth/context/ContextAuth", () => ({
       useAuth: useAuthMock,
     }));
-    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
-      useStyling: useStylingMock,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/context/ContextStyling",
+      () => ({
+        useStyling: useStylingMock,
+      }),
+    );
     jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: {
         forms: {
@@ -48,52 +51,66 @@ describe("components/modules/boards/ui/CommentSection", () => {
     }));
 
     // Mock Child Components
-    jest.unstable_mockModule("@/modules/general/components/comments/CommentUI", () => ({
-      default: (props) => (
-        <div data-testid="comment-ui">
-          <button onClick={() => props.onSubmit({ preventDefault: () => {} })}>
-            Submit
-          </button>
-          <input
-            data-testid="comment-input"
-            value={props.text}
-            onChange={(e) => props.onTextChange(e.target.value)}
-          />
-          <input
-            data-testid="name-input"
-            value={props.name}
-            onChange={(e) => props.onNameChange(e.target.value)}
-          />
-          {props.comments.map((c) => (
-            <div key={c._id}>
-              {c.text}
-              <button onClick={() => props.onDelete(c._id)}>
-                Delete {c._id}
-              </button>
-            </div>
-          ))}
-          {props.isLoading && <div>Loading...</div>}
-        </div>
-      ),
-    }));
-    jest.unstable_mockModule("@/modules/general/components/common/Modal", () => ({
-      default: ({ isModalOpen, actions, children, onClose }) =>
-        isModalOpen ? (
-          <div data-testid="modal">
-            {children}
-            {actions}
-            <button onClick={onClose}>Close Modal</button>
+    jest.unstable_mockModule(
+      "@/modules/general/components/comments/CommentUI",
+      () => ({
+        default: (props) => (
+          <div data-testid="comment-ui">
+            <button
+              onClick={() => props.onSubmit({ preventDefault: () => {} })}
+            >
+              Submit
+            </button>
+            <input
+              data-testid="comment-input"
+              value={props.text}
+              onChange={(e) => props.onTextChange(e.target.value)}
+            />
+            <input
+              data-testid="name-input"
+              value={props.name}
+              onChange={(e) => props.onNameChange(e.target.value)}
+            />
+            {props.comments.map((c) => (
+              <div key={c._id}>
+                {c.text}
+                <button onClick={() => props.onDelete(c._id)}>
+                  Delete {c._id}
+                </button>
+              </div>
+            ))}
+            {props.isLoading && <div>Loading...</div>}
           </div>
-        ) : null,
-    }));
-    jest.unstable_mockModule("@/modules/general/components/button/Button", () => ({
-      default: ({ onClick, children }) => (
-        <button onClick={onClick}>{children}</button>
-      ),
-    }));
-    jest.unstable_mockModule("@/modules/general/components/common/Paragraph", () => ({
-      default: ({ children }) => <p>{children}</p>,
-    }));
+        ),
+      }),
+    );
+    jest.unstable_mockModule(
+      "@/modules/general/components/common/Modal",
+      () => ({
+        default: ({ isModalOpen, actions, children, onClose }) =>
+          isModalOpen ? (
+            <div data-testid="modal">
+              {children}
+              {actions}
+              <button onClick={onClose}>Close Modal</button>
+            </div>
+          ) : null,
+      }),
+    );
+    jest.unstable_mockModule(
+      "@/modules/general/components/button/Button",
+      () => ({
+        default: ({ onClick, children }) => (
+          <button onClick={onClick}>{children}</button>
+        ),
+      }),
+    );
+    jest.unstable_mockModule(
+      "@/modules/general/components/common/Paragraph",
+      () => ({
+        default: ({ children }) => <p>{children}</p>,
+      }),
+    );
 
     CommentSection = (
       await import("@/modules/boards/components/ui/CommentSection")

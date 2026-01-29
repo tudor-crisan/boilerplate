@@ -34,9 +34,12 @@ describe("libs/email", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/modules/general/components/emails/email-theme", () => ({
-      getEmailBranding: () => ({ appName: "TestApp" }),
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/emails/email-theme",
+      () => ({
+        getEmailBranding: () => ({ appName: "TestApp" }),
+      }),
+    );
 
     const importedModule = await import("../../modules/general/libs/email");
     sendEmail = importedModule.sendEmail;

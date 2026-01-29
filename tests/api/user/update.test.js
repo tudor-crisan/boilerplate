@@ -17,7 +17,9 @@ describe("API: /api/user/update", () => {
     UserMock = {
       updateOne: jest.fn(),
     };
-    jest.unstable_mockModule("@/modules/general/models/User", () => ({ default: UserMock }));
+    jest.unstable_mockModule("@/modules/general/models/User", () => ({
+      default: UserMock,
+    }));
 
     // Mock utils
     generateLogoBase64Mock = jest.fn();
@@ -60,10 +62,14 @@ describe("API: /api/user/update", () => {
     apiHandlerMock = {
       withApiHandler: (handler) => handler,
     };
-    jest.unstable_mockModule("@/modules/general/libs/apiHandler", () => apiHandlerMock);
+    jest.unstable_mockModule(
+      "@/modules/general/libs/apiHandler",
+      () => apiHandlerMock,
+    );
 
     // Import the route
-    const importedModule = await import("../../../app/api/modules/user/update/route");
+    const importedModule =
+      await import("../../../app/api/modules/user/update/route");
     POST = importedModule.POST;
   });
 

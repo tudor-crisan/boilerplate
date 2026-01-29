@@ -5,7 +5,8 @@ describe("hooks/useAnalyticsRange", () => {
   let useAnalyticsRange, ranges;
 
   beforeAll(async () => {
-    const analyticsModule = await import("@/modules/general/hooks/useAnalyticsRange");
+    const analyticsModule =
+      await import("@/modules/general/hooks/useAnalyticsRange");
     useAnalyticsRange = analyticsModule.useAnalyticsRange;
     ranges = analyticsModule.ranges;
   });

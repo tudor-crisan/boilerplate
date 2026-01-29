@@ -40,8 +40,9 @@ jest.unstable_mockModule("@/modules/general/components/svg/SvgSearch", () => ({
   default: () => <span data-testid="search-icon" />,
 }));
 
-const FilterBar = (await import("../../../modules/general/components/common/FilterBar"))
-  .default;
+const FilterBar = (
+  await import("../../../modules/general/components/common/FilterBar")
+).default;
 
 describe("components/common/FilterBar", () => {
   const defaultProps = {

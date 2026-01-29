@@ -35,7 +35,9 @@ describe("libs/auth", () => {
     jest.unstable_mockModule("@/modules/general/libs/mongo", () => ({
       default: Promise.resolve(),
     }));
-    jest.unstable_mockModule("@/modules/general/libs/env", () => ({ loadAppEnv: jest.fn() }));
+    jest.unstable_mockModule("@/modules/general/libs/env", () => ({
+      loadAppEnv: jest.fn(),
+    }));
     jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: {
         auth: {
@@ -49,7 +51,9 @@ describe("libs/auth", () => {
       QuickLinkEmail: jest.fn(),
       sendEmail: jest.fn(),
     }));
-    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({ default: jest.fn() }));
+    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({
+      default: jest.fn(),
+    }));
     jest.unstable_mockModule("@/modules/general/libs/utils.server", () => ({
       validateEmail: jest.fn(),
     }));
@@ -85,7 +89,8 @@ describe("libs/auth", () => {
 
   it("should validate email in signIn callback", async () => {
     const config = mockNextAuth.mock.calls[0][0];
-    const { validateEmail } = await import("@/modules/general/libs/utils.server");
+    const { validateEmail } =
+      await import("@/modules/general/libs/utils.server");
 
     validateEmail.mockReturnValue({ isValid: true });
     const result = await config.callbacks.signIn({
@@ -96,7 +101,8 @@ describe("libs/auth", () => {
 
   it("should block invalid email in signIn callback", async () => {
     const config = mockNextAuth.mock.calls[0][0];
-    const { validateEmail } = await import("@/modules/general/libs/utils.server");
+    const { validateEmail } =
+      await import("@/modules/general/libs/utils.server");
 
     const consoleWarnSpy = jest.spyOn(console, "warn").mockImplementation();
     validateEmail.mockReturnValue({ isValid: false, error: "Invalid domain" });

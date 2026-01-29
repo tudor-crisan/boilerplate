@@ -22,33 +22,53 @@ describe("components/modules/video/VideoCard", () => {
   };
 
   beforeAll(async () => {
-    jest.unstable_mockModule("@/modules/general/components/button/Button", () => ({
-      default: ({ children, onClick, ...props }) => (
-        <button onClick={onClick} {...props}>
-          {children}
-        </button>
-      ),
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/button/Button",
+      () => ({
+        default: ({ children, onClick, ...props }) => (
+          <button onClick={onClick} {...props}>
+            {children}
+          </button>
+        ),
+      }),
+    );
 
-    jest.unstable_mockModule("@/modules/general/components/common/TextSmall", () => ({
-      default: ({ children, ...props }) => <small {...props}>{children}</small>,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/common/TextSmall",
+      () => ({
+        default: ({ children, ...props }) => (
+          <small {...props}>{children}</small>
+        ),
+      }),
+    );
 
-    jest.unstable_mockModule("@/modules/general/components/common/Title", () => ({
-      default: ({ children, ...props }) => <h3 {...props}>{children}</h3>,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/common/Title",
+      () => ({
+        default: ({ children, ...props }) => <h3 {...props}>{children}</h3>,
+      }),
+    );
 
-    jest.unstable_mockModule("@/modules/general/components/svg/SvgEdit", () => ({
-      default: () => <span>Edit Icon</span>,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/svg/SvgEdit",
+      () => ({
+        default: () => <span>Edit Icon</span>,
+      }),
+    );
 
-    jest.unstable_mockModule("@/modules/general/components/svg/SvgTrash", () => ({
-      default: () => <span>Trash Icon</span>,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/svg/SvgTrash",
+      () => ({
+        default: () => <span>Trash Icon</span>,
+      }),
+    );
 
-    jest.unstable_mockModule("@/modules/general/components/svg/SvgView", () => ({
-      default: () => <span>View Icon</span>,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/svg/SvgView",
+      () => ({
+        default: () => <span>View Icon</span>,
+      }),
+    );
 
     jest.unstable_mockModule("@/modules/general/libs/utils.client", () => ({
       formattedDate: (date) => date.toISOString().split("T")[0],

@@ -33,9 +33,14 @@ export const VideoSchema = z.object({
   musicOffset: z.number().default(0),
 });
 
+export const VideoPathSchema = z.object({
+  source: z.string(),
+  destination: z.string(),
+});
+
 export const VideoAppConfigSchema = z.object({
-  defaultDuration: z.number().default(2000),
-  videos: z.array(VideoSchema),
+  defaultDuration: z.number().default(2000).optional(),
+  paths: z.record(z.string(), VideoPathSchema),
 });
 
 export type VideoSlide = z.infer<typeof VideoSlideSchema>;

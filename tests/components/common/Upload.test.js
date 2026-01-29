@@ -8,14 +8,20 @@ describe("components/common/Upload", () => {
 
   beforeAll(async () => {
     // Mock child components
-    jest.unstable_mockModule("@/modules/general/components/button/Button", () => ({
-      default: ({ children, isLoading: _isLoading, ...props }) => (
-        <button {...props}>{children}</button>
-      ),
-    }));
-    jest.unstable_mockModule("@/modules/general/components/common/Paragraph", () => ({
-      default: ({ children, ...props }) => <p {...props}>{children}</p>,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/button/Button",
+      () => ({
+        default: ({ children, isLoading: _isLoading, ...props }) => (
+          <button {...props}>{children}</button>
+        ),
+      }),
+    );
+    jest.unstable_mockModule(
+      "@/modules/general/components/common/Paragraph",
+      () => ({
+        default: ({ children, ...props }) => <p {...props}>{children}</p>,
+      }),
+    );
 
     // Mock utils and defaults
     jest.unstable_mockModule("@/modules/general/libs/utils.client", () => ({
@@ -31,9 +37,12 @@ describe("components/common/Upload", () => {
     useStylingMock = jest.fn(() => ({
       styling: { flex: { col: "flex-col" } },
     }));
-    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
-      useStyling: useStylingMock,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/context/ContextStyling",
+      () => ({
+        useStyling: useStylingMock,
+      }),
+    );
 
     // Mock useUpload
     uploadFileMock = jest.fn();
@@ -52,8 +61,9 @@ describe("components/common/Upload", () => {
 
   it("should render upload button", async () => {
     // Re-import to apply mocks
-    const UploadComponent = (await import("@/modules/general/components/common/Upload"))
-      .default;
+    const UploadComponent = (
+      await import("@/modules/general/components/common/Upload")
+    ).default;
 
     render(<UploadComponent />);
     expect(screen.getByText("Choose Image")).toBeTruthy();
@@ -61,8 +71,9 @@ describe("components/common/Upload", () => {
   });
 
   it("should upload file on selection", async () => {
-    const UploadComponent = (await import("@/modules/general/components/common/Upload"))
-      .default;
+    const UploadComponent = (
+      await import("@/modules/general/components/common/Upload")
+    ).default;
     const onFileSelect = jest.fn();
     uploadFileMock.mockResolvedValue("https://example.com/image.jpg");
 
@@ -96,8 +107,9 @@ describe("components/common/Upload", () => {
       isLoading: true,
     });
 
-    const UploadComponent = (await import("@/modules/general/components/common/Upload"))
-      .default;
+    const UploadComponent = (
+      await import("@/modules/general/components/common/Upload")
+    ).default;
     render(<UploadComponent />);
 
     expect(screen.getByText("Processing...")).toBeTruthy();

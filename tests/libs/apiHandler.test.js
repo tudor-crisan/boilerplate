@@ -39,7 +39,9 @@ describe("libs/apiHandler.js", () => {
     responseMockFuncMock = jest.fn(() => ({ mock: true }));
     isResponseMockMock = jest.fn(() => false);
 
-    jest.unstable_mockModule("@/modules/auth/libs/auth", () => ({ auth: authMock }));
+    jest.unstable_mockModule("@/modules/auth/libs/auth", () => ({
+      auth: authMock,
+    }));
     jest.unstable_mockModule("@/modules/general/libs/defaults", () => ({
       defaultSetting: mockSettings,
     }));
@@ -58,7 +60,8 @@ describe("libs/apiHandler.js", () => {
       responseMock: responseMockFuncMock,
     }));
 
-    withApiHandler = (await import("../../modules/general/libs/apiHandler")).withApiHandler;
+    withApiHandler = (await import("../../modules/general/libs/apiHandler"))
+      .withApiHandler;
   });
 
   beforeEach(() => {

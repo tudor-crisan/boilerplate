@@ -13,8 +13,9 @@ jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   }),
 }));
 
-const ProfileImage = (await import("../../../modules/general/components/common/ProfileImage"))
-  .default;
+const ProfileImage = (
+  await import("../../../modules/general/components/common/ProfileImage")
+).default;
 
 describe("components/common/ProfileImage", () => {
   it("should render image if src is provided", () => {

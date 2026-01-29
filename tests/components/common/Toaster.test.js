@@ -14,28 +14,43 @@ describe("Toaster", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
-      useStyling: useStylingMock,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/context/ContextStyling",
+      () => ({
+        useStyling: useStylingMock,
+      }),
+    );
 
     // Mock Paragraph
-    jest.unstable_mockModule("@/modules/general/components/common/Paragraph", () => ({
-      default: ({ children, className }) => (
-        <p className={className}>{children}</p>
-      ),
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/common/Paragraph",
+      () => ({
+        default: ({ children, className }) => (
+          <p className={className}>{children}</p>
+        ),
+      }),
+    );
 
     // Mock SVGs
     const MockSvg = (props) => <svg {...props} />;
-    jest.unstable_mockModule("@/modules/general/components/svg/SvgCheck", () => ({
-      default: MockSvg,
-    }));
-    jest.unstable_mockModule("@/modules/general/components/svg/SvgClose", () => ({
-      default: MockSvg,
-    }));
-    jest.unstable_mockModule("@/modules/general/components/svg/SvgError", () => ({
-      default: MockSvg,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/svg/SvgCheck",
+      () => ({
+        default: MockSvg,
+      }),
+    );
+    jest.unstable_mockModule(
+      "@/modules/general/components/svg/SvgClose",
+      () => ({
+        default: MockSvg,
+      }),
+    );
+    jest.unstable_mockModule(
+      "@/modules/general/components/svg/SvgError",
+      () => ({
+        default: MockSvg,
+      }),
+    );
 
     // Mock framer-motion
     jest.unstable_mockModule("framer-motion", () => ({
@@ -55,9 +70,12 @@ describe("Toaster", () => {
       }),
       dismiss: jest.fn(),
     };
-    jest.unstable_mockModule("@/modules/general/libs/toast", () => ({ toast: toastMock }));
+    jest.unstable_mockModule("@/modules/general/libs/toast", () => ({
+      toast: toastMock,
+    }));
 
-    const importedModule = await import("../../../modules/general/components/common/Toaster");
+    const importedModule =
+      await import("../../../modules/general/components/common/Toaster");
     Toaster = importedModule.default;
   });
 

@@ -2,10 +2,10 @@
 
 import WrapperStyling from "@/modules/general/components/wrapper/WrapperStyling";
 import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import VideoPlayer from "@/modules/video/components/VideoPlayer";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default function RenderPage() {
   const { styling } = useStyling();
@@ -22,10 +22,7 @@ export default function RenderPage() {
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-      try {
-        const res = await fetch(
-          settings?.paths?.api?.videoMain,
-        );
+        const res = await fetch(settings?.paths?.api?.videoMain);
         const data = await res.json();
         if (data.success && data.videos) {
           const foundVideo = data.videos.find((v) => v.id === videoId);

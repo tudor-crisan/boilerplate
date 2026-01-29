@@ -26,7 +26,10 @@ describe("api/modules/boards/vote", () => {
       "@/modules/boards/libs/analytics",
       () => mockAnalytics,
     );
-    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => mockUtils);
+    jest.unstable_mockModule(
+      "@/modules/general/libs/utils.server",
+      () => mockUtils,
+    );
     jest.unstable_mockModule("@/modules/general/libs/apiHandler", () => ({
       withApiHandler: (handler) => async (req) => {
         req.nextUrl = new URL(req.url || "http://localhost");
@@ -55,8 +58,7 @@ describe("api/modules/boards/vote", () => {
       },
     }));
 
-    const mod =
-      await import("../../../../../app/api/modules/boards/vote/route");
+    const mod = await import("../../../app/api/modules/boards/vote/route");
     POST = mod.POST;
     DELETE = mod.DELETE;
 

@@ -15,10 +15,10 @@ import SvgPlus from "@/modules/general/components/svg/SvgPlus";
 import SvgTrash from "@/modules/general/components/svg/SvgTrash";
 import SvgView from "@/modules/general/components/svg/SvgView";
 import { useStyling } from "@/modules/general/context/ContextStyling";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { toast } from "@/modules/general/libs/toast";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default function VideoSlideEditor({
   slide,
@@ -49,7 +49,6 @@ export default function VideoSlideEditor({
   const [showCropper, setShowCropper] = useState(false);
   const [tempImage, setTempImage] = useState(null);
 
-  const fetchImages = () => {
   const fetchImages = () => {
     fetch(settings?.paths?.api?.videoImages)
       .then((res) => res.json())
@@ -115,9 +114,7 @@ export default function VideoSlideEditor({
       const formData = new FormData();
       formData.append("file", file);
 
-      const apiRes = await fetch(
-        settings?.paths?.api?.videoImages,
-        {
+      const apiRes = await fetch(settings?.paths?.api?.videoImages, {
         method: "POST",
         body: formData,
       });
@@ -143,9 +140,7 @@ export default function VideoSlideEditor({
     if (!imageToDelete) return;
 
     try {
-      const res = await fetch(
-        settings?.paths?.api?.videoImages,
-        {
+      const res = await fetch(settings?.paths?.api?.videoImages, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ filename: imageToDelete }),

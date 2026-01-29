@@ -38,8 +38,9 @@ jest.unstable_mockModule("react-easy-crop", () => ({
   },
 }));
 
-const ImageCropper = (await import("../../../modules/general/components/common/ImageCropper"))
-  .default;
+const ImageCropper = (
+  await import("../../../modules/general/components/common/ImageCropper")
+).default;
 
 describe("components/common/ImageCropper", () => {
   const defaultProps = {

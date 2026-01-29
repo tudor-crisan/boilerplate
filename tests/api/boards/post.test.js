@@ -57,7 +57,10 @@ describe("api/modules/boards/post", () => {
       "@/modules/boards/libs/analytics",
       () => mockAnalytics,
     );
-    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => mockUtils);
+    jest.unstable_mockModule(
+      "@/modules/general/libs/utils.server",
+      () => mockUtils,
+    );
     jest.unstable_mockModule("bad-words", () => ({
       Filter: jest.fn().mockImplementation(() => ({ clean: (s) => s })),
     }));
@@ -90,8 +93,7 @@ describe("api/modules/boards/post", () => {
       },
     }));
 
-    const mod =
-      await import("../../../../../app/api/modules/boards/post/route");
+    const mod = await import("../../../app/api/modules/boards/post/route");
     POST = mod.POST;
     DELETE = mod.DELETE;
     GET = mod.GET;

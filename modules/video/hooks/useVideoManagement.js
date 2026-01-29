@@ -1,5 +1,5 @@
-import { toast } from "@/modules/general/libs/toast";
 import { defaultSetting as settings } from "@/modules/general/libs/defaults";
+import { toast } from "@/modules/general/libs/toast";
 import { useCallback, useEffect, useState, useTransition } from "react";
 
 export default function useVideoManagement() {
@@ -25,7 +25,6 @@ export default function useVideoManagement() {
   }, []);
 
   const fetchVideos = async () => {
-    try {
     try {
       const res = await fetch(settings?.paths?.api?.videoMain);
       const data = await res.json();
@@ -74,10 +73,7 @@ export default function useVideoManagement() {
         };
 
         try {
-        try {
-          const res = await fetch(
-            settings?.paths?.api?.videoMain,
-            {
+          const res = await fetch(settings?.paths?.api?.videoMain, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newVideo),
@@ -115,8 +111,9 @@ export default function useVideoManagement() {
           const res = await fetch(
             `${settings?.paths?.api?.videoMain}?id=${videoId}`,
             {
-            method: "DELETE",
-          });
+              method: "DELETE",
+            },
+          );
           const data = await res.json();
           if (data.success) {
             toast.success("Video deleted");
@@ -155,9 +152,7 @@ export default function useVideoManagement() {
   const handleStartExport = async (videoId, styling) => {
     setStartingExport(true);
     try {
-      const res = await fetch(
-        settings?.paths?.api?.videoExport,
-        {
+      const res = await fetch(settings?.paths?.api?.videoExport, {
         method: "POST",
         body: JSON.stringify({ videoId, styling }),
       });

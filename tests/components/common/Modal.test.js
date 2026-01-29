@@ -13,17 +13,26 @@ describe("Modal", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
-      useStyling: useStylingMock,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/context/ContextStyling",
+      () => ({
+        useStyling: useStylingMock,
+      }),
+    );
 
     // Mock Button and Title components often used inside
-    jest.unstable_mockModule("@/modules/general/components/button/Button", () => ({
-      default: (props) => <button {...props}>{props.children}</button>,
-    }));
-    jest.unstable_mockModule("@/modules/general/components/common/Title", () => ({
-      default: (props) => <h1>{props.children}</h1>,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/button/Button",
+      () => ({
+        default: (props) => <button {...props}>{props.children}</button>,
+      }),
+    );
+    jest.unstable_mockModule(
+      "@/modules/general/components/common/Title",
+      () => ({
+        default: (props) => <h1>{props.children}</h1>,
+      }),
+    );
 
     jest.unstable_mockModule("@/modules/general/lists/fonts", () => ({
       fontMap: { Inter: "Inter" },
@@ -33,7 +42,8 @@ describe("Modal", () => {
     // Importing libs/utils.client for cn might be needed if not auto-mocked or real one used
     // Assuming real utility is fine as it has no side effects
 
-    const importedModule = await import("../../../modules/general/components/common/Modal");
+    const importedModule =
+      await import("../../../modules/general/components/common/Modal");
     Modal = importedModule.default;
   });
 

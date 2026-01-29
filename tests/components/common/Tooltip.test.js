@@ -26,7 +26,9 @@ jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   }),
 }));
 
-const Tooltip = (await import("../../../modules/general/components/common/Tooltip")).default;
+const Tooltip = (
+  await import("../../../modules/general/components/common/Tooltip")
+).default;
 
 describe("components/common/Tooltip", () => {
   beforeEach(() => {

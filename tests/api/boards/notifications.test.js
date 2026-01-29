@@ -40,7 +40,7 @@ describe("api/modules/boards/notifications", () => {
     }));
 
     const mod =
-      await import("../../../../../app/api/modules/boards/notifications/route");
+      await import("../../../app/api/modules/boards/notifications/route");
     GET = mod.GET;
     PUT = mod.PUT;
   });

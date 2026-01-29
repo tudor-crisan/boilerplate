@@ -5,17 +5,21 @@ describe("hooks/useHighlight", () => {
   let useHighlight, escapeRegExp, stripHtml;
 
   beforeAll(async () => {
-    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
-      useStyling: () => ({
-        styling: { theme: "light" },
+    jest.unstable_mockModule(
+      "@/modules/general/context/ContextStyling",
+      () => ({
+        useStyling: () => ({
+          styling: { theme: "light" },
+        }),
       }),
-    }));
+    );
 
     jest.unstable_mockModule("@/modules/general/libs/colors", () => ({
       isThemeDark: jest.fn(() => false),
     }));
 
-    const highlightModule = await import("@/modules/general/hooks/useHighlight");
+    const highlightModule =
+      await import("@/modules/general/hooks/useHighlight");
     useHighlight = highlightModule.default;
     escapeRegExp = highlightModule.escapeRegExp;
     stripHtml = highlightModule.stripHtml;

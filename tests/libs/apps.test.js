@@ -7,22 +7,25 @@ describe("libs/apps", () => {
     jest.resetModules();
 
     // Mock lists
-    jest.unstable_mockModule("@/modules/general/lists/applications.mjs", () => ({
-      default: {
-        "test-app": {
-          details: {
-            appName: "Test App",
-            website: "test.com",
-            title: "Hero",
-            description: "Desc",
-            favicon: "/fav.ico",
+    jest.unstable_mockModule(
+      "@/modules/general/lists/applications.mjs",
+      () => ({
+        default: {
+          "test-app": {
+            details: {
+              appName: "Test App",
+              website: "test.com",
+              title: "Hero",
+              description: "Desc",
+              favicon: "/fav.ico",
+            },
+          },
+          "bad-app": {
+            // Missing details
           },
         },
-        "bad-app": {
-          // Missing details
-        },
-      },
-    }));
+      }),
+    );
 
     jest.unstable_mockModule("@/modules/general/libs/utils.server.js", () => ({
       formatWebsiteUrl: (url) => `https://${url}`,

@@ -2,6 +2,7 @@
 
 import { useStyling } from "@/modules/general/context/ContextStyling";
 import useUndoRedo from "@/modules/general/hooks/useUndoRedo";
+import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 import { toast } from "@/modules/general/libs/toast";
 import HistoryControl from "@/modules/video/components/HistoryControl";
 import VideoControlBar from "@/modules/video/components/VideoControlBar";
@@ -13,7 +14,6 @@ import useVideoAudio from "@/modules/video/hooks/useVideoAudio";
 import useVideoPlayback from "@/modules/video/hooks/useVideoPlayback";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { defaultSetting as settings } from "@/modules/general/libs/defaults";
 
 export default function VideoContainer({ video }) {
   const { styling } = useStyling();
@@ -106,7 +106,6 @@ export default function VideoContainer({ video }) {
   // Save Configuration Handler
   const saveVideoConfig = useCallback(
     async (updatedData) => {
-      try {
       try {
         await fetch(settings?.paths?.api?.videoSave, {
           method: "POST",
@@ -213,9 +212,7 @@ export default function VideoContainer({ video }) {
     formData.append("slideId", currentSlide.id);
 
     try {
-      const res = await fetch(
-        settings?.paths?.api?.videoVoiceover,
-        {
+      const res = await fetch(settings?.paths?.api?.videoVoiceover, {
         method: "POST",
         body: formData,
       });
@@ -256,9 +253,7 @@ export default function VideoContainer({ video }) {
     formData.append("isGlobal", "true");
 
     try {
-      const res = await fetch(
-        settings?.paths?.api?.videoMusic,
-        {
+      const res = await fetch(settings?.paths?.api?.videoMusic, {
         method: "POST",
         body: formData,
       });

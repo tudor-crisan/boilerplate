@@ -12,8 +12,9 @@ jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
   }),
 }));
 
-const ProgressBar = (await import("../../../modules/general/components/common/ProgressBar"))
-  .default;
+const ProgressBar = (
+  await import("../../../modules/general/components/common/ProgressBar")
+).default;
 
 describe("components/common/ProgressBar", () => {
   it("should render progress with value and max", () => {

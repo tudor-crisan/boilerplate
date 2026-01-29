@@ -14,15 +14,20 @@ describe("components/select/Select", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
-      useStyling: useStylingMock,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/context/ContextStyling",
+      () => ({
+        useStyling: useStylingMock,
+      }),
+    );
 
     jest.unstable_mockModule("@/modules/general/libs/utils.client", () => ({
       cn: (...inputs) => inputs.filter(Boolean).join(" "),
     }));
 
-    SelectComponent = (await import("@/modules/general/components/select/Select")).default;
+    SelectComponent = (
+      await import("@/modules/general/components/select/Select")
+    ).default;
   });
 
   afterEach(() => {

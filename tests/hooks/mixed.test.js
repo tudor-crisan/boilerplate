@@ -13,15 +13,23 @@ const mockApi = {
 };
 
 // We use unstable_mockModule for ESM mocking
-jest.unstable_mockModule("@/modules/general/libs/toast", () => ({ toast: mockToast }));
+jest.unstable_mockModule("@/modules/general/libs/toast", () => ({
+  toast: mockToast,
+}));
 jest.unstable_mockModule("@/modules/general/libs/api", () => mockApi);
 
-const useForm = (await import("../modules/general/hooks/useForm")).default;
-const useLocalStorage = (await import("../modules/general/hooks/useLocalStorage")).default;
-const useCopyToClipboard = (await import("../modules/general/hooks/useCopyToClipboard"))
+const useForm = (await import("../../modules/general/hooks/useForm")).default;
+const useLocalStorage = (
+  await import("../../modules/general/hooks/useLocalStorage")
+).default;
+const useCopyToClipboard = (
+  await import("../../modules/general/hooks/useCopyToClipboard")
+).default;
+const useApiRequest = (
+  await import("../../modules/general/hooks/useApiRequest")
+).default;
+const useUndoRedo = (await import("../../modules/general/hooks/useUndoRedo"))
   .default;
-const useApiRequest = (await import("../modules/general/hooks/useApiRequest")).default;
-const useUndoRedo = (await import("../modules/general/hooks/useUndoRedo")).default;
 
 describe("Shared Hooks", () => {
   describe("useForm", () => {

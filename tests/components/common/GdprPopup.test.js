@@ -11,12 +11,16 @@ jest.unstable_mockModule("@/modules/general/components/button/Button", () => ({
     </button>
   ),
 }));
-jest.unstable_mockModule("@/modules/general/components/common/Paragraph", () => ({
-  default: ({ children }) => <p>{children}</p>,
-}));
+jest.unstable_mockModule(
+  "@/modules/general/components/common/Paragraph",
+  () => ({
+    default: ({ children }) => <p>{children}</p>,
+  }),
+);
 
-const GdprPopup = (await import("../../../modules/general/components/common/GdprPopup"))
-  .default;
+const GdprPopup = (
+  await import("../../../modules/general/components/common/GdprPopup")
+).default;
 
 describe("components/common/GdprPopup", () => {
   let localStorageMock;

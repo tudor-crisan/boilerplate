@@ -73,7 +73,9 @@ describe("boards analytics (API & Lib)", () => {
         },
       },
     }));
-    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({ default: jest.fn() }));
+    jest.unstable_mockModule("@/modules/general/libs/mongoose", () => ({
+      default: jest.fn(),
+    }));
     jest.unstable_mockModule("@/modules/boards/models/Board", () => ({
       default: mockBoard,
     }));
@@ -83,7 +85,10 @@ describe("boards analytics (API & Lib)", () => {
     jest.unstable_mockModule("@/modules/boards/models/Notification", () => ({
       default: mockNotification,
     }));
-    jest.unstable_mockModule("@/modules/general/libs/utils.server", () => mockUtils);
+    jest.unstable_mockModule(
+      "@/modules/general/libs/utils.server",
+      () => mockUtils,
+    );
     jest.unstable_mockModule("next/server", () => ({
       NextResponse: mockNextResponse,
     }));
@@ -94,18 +99,18 @@ describe("boards analytics (API & Lib)", () => {
       },
     }));
 
-    const lib = await import("../../../../modules/boards/libs/analytics");
+    const lib = await import("../../modules/boards/libs/analytics");
     trackEvent = lib.trackEvent;
     createNotification = lib.createNotification;
 
     boardGET = (
-      await import("../../../../app/api/modules/boards/analytics/board/route")
+      await import("../../app/api/modules/boards/analytics/board/route")
     ).GET;
     globalGET = (
-      await import("../../../../app/api/modules/boards/analytics/global/route")
+      await import("../../app/api/modules/boards/analytics/global/route")
     ).GET;
     visitPOST = (
-      await import("../../../../app/api/modules/boards/analytics/visit/route")
+      await import("../../app/api/modules/boards/analytics/visit/route")
     ).POST;
 
     jest.spyOn(console, "error").mockImplementation(() => {});

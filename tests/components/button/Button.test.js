@@ -13,9 +13,12 @@ describe("Button", () => {
       },
     }));
 
-    jest.unstable_mockModule("@/modules/general/context/ContextStyling", () => ({
-      useStyling: useStylingMock,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/context/ContextStyling",
+      () => ({
+        useStyling: useStylingMock,
+      }),
+    );
 
     jest.unstable_mockModule("next/link", () => ({
       default: ({ children, href, onClick, ...props }) => (
@@ -25,14 +28,18 @@ describe("Button", () => {
       ),
     }));
 
-    jest.unstable_mockModule("@/modules/general/components/icon/IconLoading", () => ({
-      default: () => <span data-testid="loading-icon">Loading...</span>,
-    }));
+    jest.unstable_mockModule(
+      "@/modules/general/components/icon/IconLoading",
+      () => ({
+        default: () => <span data-testid="loading-icon">Loading...</span>,
+      }),
+    );
 
     // Importing libs/utils.client for cn is needed or we mock it.
     // If we don't mock it, we rely on real cn implementation which is fine.
 
-    const importedModule = await import("../../../modules/general/components/button/Button");
+    const importedModule =
+      await import("../../../modules/general/components/button/Button");
     Button = importedModule.default;
   });
 
