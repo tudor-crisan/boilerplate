@@ -6,7 +6,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const BOILERPLATE_DIR = path.resolve(__dirname, "..");
-// Assuming 'boilerplate' and 'deployed' are siblings in the same root
 const PROJECT_ROOT = path.resolve(BOILERPLATE_DIR, "..");
 
 const DEST_ROOT = "E:\\sources\\dlmanifests\\microsoft-windows-wmi-core\\wrm";
@@ -21,23 +20,7 @@ const tasks = [
       const base = path.basename(src);
       return ![".git", ".next", "node_modules"].includes(base);
     },
-  },
-  {
-    name: "Deployed",
-    src: path.join(PROJECT_ROOT, "deployed"),
-    dest: path.join(DEST_ROOT, "deployed"),
-    type: "dir",
-    filter: (src) => {
-      const base = path.basename(src);
-      return ![".git"].includes(base);
-    },
-  },
-  {
-    name: "Docs",
-    src: path.join(PROJECT_ROOT, "docs.rtf"),
-    dest: path.join(DEST_ROOT, "docs.rtf"),
-    type: "file",
-  },
+  }
 ];
 
 console.log("--- Copy Script Started ---");
