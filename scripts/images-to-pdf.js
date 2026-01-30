@@ -97,15 +97,15 @@ async function createPdf() {
        * 3. Normalize: Final stretch to ensure pure black/white.
        * 4. Resize: Limit width to 1600px.
        */
-      const processedBuffer = await sharp(filePath)
-        .grayscale()
-        .linear(5.0, -1100) // Aggressively darken faint text
-        .normalize() // Full dynamic range stretch
-        .resize({ width: 1600, withoutEnlargement: true })
-        .toFormat("jpeg", { quality: 85 }) // Very high quality
-        .toBuffer();
+      // const processedBuffer = await sharp(filePath);
+      // .grayscale()
+      // .linear(5.0, -1100) // Aggressively darken faint text
+      // .normalize() // Full dynamic range stretch
+      // .resize({ width: 1600, withoutEnlargement: true })
+      // .toFormat("jpeg", { quality: 85 }) // Very high quality
+      // .toBuffer();
 
-      const img = doc.openImage(processedBuffer);
+      const img = doc.openImage(filePath);
 
       doc.addPage({ size: [img.width, img.height] });
       doc.image(img, 0, 0);
