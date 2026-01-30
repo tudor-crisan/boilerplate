@@ -1,8 +1,0 @@
-
-- make deploy.json modules for auth, blog, help and others
-- on the public board page, the toast and modal is the profile styling
-
-- make extension for posting on multiple directories
-- make from lists of directories, to submit the applications
-- continue posting on multiple directories to build seo for loyalboards
-- have a feedback board for loyalboards, so users can suggest modifications
