@@ -12,15 +12,15 @@
   },
 
   "HeroVideo": {
-    "show": true,
+    "show": false,
     "video": {
       "width": 1280,
       "height": 720,
       "classname": "w-full h-auto"
     },
     "source": {
-      "src": "/assets/promo/loyalboards/promo1.mp4",
-      "poster": "/assets/promo/loyalboards/promo1.png",
+      "src": "",
+      "poster": "",
       "type": "video/mp4"
     }
   }
